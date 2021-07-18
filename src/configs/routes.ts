@@ -4,6 +4,8 @@ import { StyledComponentProps } from '@material-ui/core/styles';
 import { DashboardRounded as DashboardIcon } from '@material-ui/icons';
 import { OverridableComponent } from '@material-ui/core/OverridableComponent';
 import DashboardScreen from '../components/top-level-components/DashboardScreen';
+import WorkoutScreen from '../components/top-level-components/WorkoutScreen';
+import FitnessCenterIcon from '@material-ui/icons/FitnessCenter';
 
 export interface RouteProp {
   path: string;
@@ -29,5 +31,13 @@ export const routes: RoutesMap = {
     icon: DashboardIcon,
     testId: 'dashboard-nav',
     routerComponent: DashboardScreen,
+  },
+  WORKOUT_SCREEN: {
+    path: '/workout',
+    drawerTitle: 'Workout',
+    headerTitle: 'Workout',
+    icon: FitnessCenterIcon,
+    testId: 'workout-nav',
+    routerComponent: WorkoutScreen,
   },
 };
