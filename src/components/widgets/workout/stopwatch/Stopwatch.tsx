@@ -71,40 +71,34 @@ class Stopwatch extends React.Component<StopwatchProps> {
     const { classes } = this.props;
 
     return (
-      <Grid container>
-        <Grid item xs={12}>
-          <Grid container alignItems={'center'}>
-            <Grid item xs={4}>
-              <StopwatchDisplay
-                minutes={this.state.currentTimeMin}
-                seconds={this.state.currentTimeSec}
-              />
-            </Grid>
+      <Grid style={{ textAlign: 'right' }} container alignItems={'center'}>
+        <Grid item xs={4}>
+          <StopwatchDisplay
+            minutes={this.state.currentTimeMin}
+            seconds={this.state.currentTimeSec}
+          />
+        </Grid>
 
-            <Grid item xs={4}>
-              <Button
-                variant={'contained'}
-                color={this.state.running ? 'secondary' : 'primary'}
-                className={classes.button}
-                startIcon={
-                  this.state.running ? <PauseIcon /> : <PlayArrowIcon />
-                }
-                onClick={this.state.running ? this.stop : this.start}
-              >
-                {this.state.running ? 'Pause' : 'Start'}
-              </Button>
-            </Grid>
+        <Grid item xs={4}>
+          <Button
+            variant={'contained'}
+            color={this.state.running ? 'secondary' : 'primary'}
+            className={classes.button}
+            startIcon={this.state.running ? <PauseIcon /> : <PlayArrowIcon />}
+            onClick={this.state.running ? this.stop : this.start}
+          >
+            {this.state.running ? 'Pause' : 'Start'}
+          </Button>
+        </Grid>
 
-            <Grid item xs={4}>
-              <Button
-                className={classes.button}
-                variant={'contained'}
-                onClick={this.reset}
-              >
-                {'Reset'}
-              </Button>
-            </Grid>
-          </Grid>
+        <Grid item xs={4}>
+          <Button
+            className={classes.button}
+            variant={'contained'}
+            onClick={this.reset}
+          >
+            {'Reset'}
+          </Button>
         </Grid>
       </Grid>
     );
