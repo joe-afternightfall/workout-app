@@ -1,11 +1,37 @@
 import App from './App';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Route } from 'react-router';
+import { Provider } from 'react-redux';
+import { createHashHistory } from 'history';
+import { routes } from './configs/routes';
+import { createStore } from './configs/redux/store';
 import reportWebVitals from './configs/report-web-vitals';
+import { ConnectedRouter } from 'connected-react-router';
+
+const history = createHashHistory(),
+  store = createStore(history);
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <ConnectedRouter history={history}>
+        <App>
+          <div className={'route'}>
+            {Object.keys(routes).map((value: string, index: number) => {
+              return (
+                <Route
+                  key={index}
+                  component={routes[value].routerComponent}
+                  exact
+                  path={routes[value].path}
+                />
+              );
+            })}
+          </div>
+        </App>
+      </ConnectedRouter>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
