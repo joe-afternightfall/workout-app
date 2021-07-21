@@ -8,13 +8,12 @@ import React, { Component } from 'react';
 import { Styles } from '@material-ui/styles';
 import Stopwatch from '../widgets/workout/stopwatch/Stopwatch';
 import { Grid, Typography } from '@material-ui/core';
+import WorkoutCard from '../widgets/workout/WorkoutCard';
 
 const styles: Styles<Theme, StyledComponentProps> = () => ({});
 
 class WorkoutScreen extends Component<WorkoutScreenProps> {
   render(): JSX.Element {
-    const { classes } = this.props;
-
     return (
       <Grid container>
         <Grid item xs={6}>
@@ -23,6 +22,10 @@ class WorkoutScreen extends Component<WorkoutScreenProps> {
 
         <Grid item xs={6}>
           <Stopwatch />
+        </Grid>
+
+        <Grid item xs={12}>
+          <WorkoutCard />
         </Grid>
       </Grid>
     );
