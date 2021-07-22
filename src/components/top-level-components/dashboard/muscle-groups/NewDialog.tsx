@@ -8,13 +8,11 @@ import {
   IconButton,
   TextField,
 } from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add';
 import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
 import Button from '@material-ui/core/Button';
-import DeleteIcon from '@material-ui/icons/Delete';
-import { deleteMuscleGroup } from '../../../services/muscle-group-service';
-import { MuscleGroupVO } from '../../../configs/models/MuscleGroupVO';
-import { blue, red } from '@material-ui/core/colors';
+import { createNewMuscleGroup } from '../../../../services/muscle-group-service';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -28,18 +26,13 @@ const useStyles = makeStyles((theme: Theme) =>
       top: theme.spacing(1),
       color: theme.palette.grey[500],
     },
-    confirmButton: {
-      color: red[500],
-    },
-    cancelButton: {
-      color: blue[500],
-    },
   })
 );
 
-export default function DeleteDialog(props: DeleteDialogProps): JSX.Element {
+export default function NewDialog(): JSX.Element {
   const classes = useStyles();
   const [open, setOpen] = React.useState<boolean>(false);
+  const [value, setValue] = React.useState<string>('');
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -48,21 +41,25 @@ export default function DeleteDialog(props: DeleteDialogProps): JSX.Element {
     setOpen(false);
   };
 
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(event.target.value);
+  };
+
   return (
-    <>
+    <div>
       <IconButton onClick={handleClickOpen} aria-label="delete">
-        <DeleteIcon />
+        <AddIcon />
       </IconButton>
 
       <Dialog
         onClose={handleClose}
-        aria-labelledby={'delete-dialog'}
+        aria-labelledby="customized-dialog-title"
         open={open}
         fullWidth
         maxWidth={'xs'}
       >
         <DialogTitle disableTypography className={classes.root}>
-          <Typography variant={'h6'}>{'Delete Muscle Group'}</Typography>
+          <Typography variant={'h6'}>{'New Workout Type'}</Typography>
 
           <IconButton
             aria-label={'close'}
@@ -74,30 +71,26 @@ export default function DeleteDialog(props: DeleteDialogProps): JSX.Element {
         </DialogTitle>
 
         <DialogContent style={{ textAlign: 'center', padding: '32px 8px' }}>
-          <Typography>
-            {`Are you sure you want to delete ${props.group.name}?`}
-          </Typography>
+          <TextField
+            style={{ padding: '16px 0', width: '85%' }}
+            placeholder={'New Muscle Group'}
+            onChange={handleChange}
+          />
         </DialogContent>
 
         <DialogActions>
+          <Button onClick={handleClose}>{'Cancel'}</Button>
           <Button
+            disabled={value === ''}
             onClick={() => {
-              deleteMuscleGroup(props.group.firebaseId);
+              createNewMuscleGroup(value);
               handleClose();
             }}
-            className={classes.confirmButton}
           >
-            {'Yes Delete'}
-          </Button>
-          <Button className={classes.cancelButton} onClick={handleClose}>
-            {'Cancel'}
+            {'Save'}
           </Button>
         </DialogActions>
       </Dialog>
-    </>
+    </div>
   );
-}
-
-export interface DeleteDialogProps {
-  group: MuscleGroupVO;
 }
