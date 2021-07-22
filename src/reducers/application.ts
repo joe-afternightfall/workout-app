@@ -1,9 +1,10 @@
-import React from 'react';
 import { AnyAction } from 'redux';
-import actions from '../creators/actions';
 import { RouteProp } from '../configs/routes';
 import { LOCATION_CHANGE } from 'connected-react-router';
 import { getPageInfo } from '../utils/get-current-page-info';
+import { Exercise } from '../configs/app-types';
+import { ActionTypes } from '../creators/actions';
+import { ExerciseVO } from '../configs/models/ExerciseVO';
 
 export default {
   reducer(
@@ -17,6 +18,13 @@ export default {
         newState.currentLocation = action.payload.location.pathname;
         newState.activePage = getPageInfo(newState.currentLocation);
         break;
+      case ActionTypes.UPDATE_WARM_UPS: {
+        newState.warmUps = [...newState.warmUps, action.exercise];
+        break;
+      }
+      case ActionTypes.LOAD_EXERCISES:
+        newState.exercises = action.exercises;
+        break;
       default:
         newState = state;
     }
@@ -28,4 +36,6 @@ export default {
 export interface ApplicationState {
   currentLocation: string;
   activePage: RouteProp | undefined;
+  warmUps: Exercise[];
+  exercises: ExerciseVO[];
 }
