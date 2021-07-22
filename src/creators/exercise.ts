@@ -1,10 +1,10 @@
 import { ActionTypes } from './actions';
 import { ExerciseVO } from '../configs/models/ExerciseVO';
 
-// export interface UpdateWarmUpsAction {
-//   type: ActionTypes.UPDATE_WARM_UPS;
-//   exercise: Exercise;
-// }
+export interface UpdateWarmUpsAction {
+  type: ActionTypes.UPDATE_WARM_UPS;
+  exercise: ExerciseVO;
+}
 //
 // export const updateWarmUps = (props: Exercise): UpdateWarmUpsAction => {
 //   return {

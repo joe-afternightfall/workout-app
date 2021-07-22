@@ -1,6 +1,4 @@
 import application from './application';
-import actions from '../creators/actions';
-// import { getStore } from '../configs/test-utils/mock-redux';
 
 describe('Application Reducer', () => {
   it('should update current location', () => {
