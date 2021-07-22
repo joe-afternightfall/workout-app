@@ -22,7 +22,9 @@ export const createStore = (history: History): Store => {
     });
 
   return createStoreFunc(allReducers, {
-    applicationState: {} as unknown as ApplicationState,
+    applicationState: {
+      muscleGroups: [],
+    } as unknown as ApplicationState,
   });
 };
 
