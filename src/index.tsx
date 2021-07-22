@@ -8,9 +8,13 @@ import { routes } from './configs/routes';
 import { createStore } from './configs/redux/store';
 import reportWebVitals from './configs/report-web-vitals';
 import { ConnectedRouter } from 'connected-react-router';
+import { Initializer } from './firebase/Initializer';
 
 const history = createHashHistory(),
   store = createStore(history);
+
+const initializer = new Initializer(store);
+initializer.initializeFirebase();
 
 ReactDOM.render(
   <React.StrictMode>
