@@ -1,14 +1,14 @@
-import { AnyAction } from 'redux';
 import { RouteProp } from '../configs/routes';
 import { LOCATION_CHANGE } from 'connected-react-router';
-import { getPageInfo } from '../utils/get-current-page-info';
-import { ActionTypes } from '../creators/actions';
 import { ExerciseVO } from '../configs/models/ExerciseVO';
+import { getPageInfo } from '../utils/get-current-page-info';
+import { ActionTypes, ApplicationActions } from '../creators/actions';
+import { MuscleGroupVO } from '../configs/models/MuscleGroupVO';
 
 export default {
   reducer(
     state: ApplicationState = {} as unknown as ApplicationState,
-    action: AnyAction
+    action: ApplicationActions
   ): ApplicationState {
     let newState = Object.assign({}, state);
 
@@ -24,6 +24,9 @@ export default {
       case ActionTypes.LOAD_EXERCISES:
         newState.exercises = action.exercises;
         break;
+      case ActionTypes.LOAD_MUSCLE_GROUPS:
+        newState.muscleGroups = action.muscleGroups;
+        break;
       default:
         newState = state;
     }
@@ -36,4 +39,5 @@ export interface ApplicationState {
   currentLocation: string;
   activePage: RouteProp | undefined;
   exercises: ExerciseVO[];
+  muscleGroups: MuscleGroupVO[];
 }
