@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme: AppTheme) =>
   createStyles({
     activeIcon: {
       color: theme.palette.colors.active.highlight,
-      background: theme.palette.colors.active.hover,
+      // background: theme.palette.colors.active.hover,
     },
     listItem: {
       '&:hover': {
