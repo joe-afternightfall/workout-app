@@ -27,6 +27,28 @@ export const getAllExercises = async (): Promise<ExerciseDAO> => {
     });
 };
 
+export const updateExercise = async (
+  id: string,
+  value: string
+): Promise<void> => {
+  return await firebase
+    .database()
+    .ref('/exercises')
+    .child(id)
+    .update(
+      {
+        name: value,
+      },
+      (error: Error | null) => {
+        if (error) {
+          return Promise.reject();
+        } else {
+          return Promise.resolve();
+        }
+      }
+    );
+};
+
 export const deleteExercise = async (id: string): Promise<void> => {
   return await firebase
     .database()
