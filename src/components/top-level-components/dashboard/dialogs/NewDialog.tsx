@@ -1,6 +1,4 @@
 import React from 'react';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import Dialog from '@material-ui/core/Dialog';
 import {
   DialogActions,
   DialogContent,
@@ -9,10 +7,11 @@ import {
   TextField,
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
-import Typography from '@material-ui/core/Typography';
-import CloseIcon from '@material-ui/icons/Close';
 import Button from '@material-ui/core/Button';
-import { createNewMuscleGroup } from '../../../../services/muscle-group-service';
+import Dialog from '@material-ui/core/Dialog';
+import CloseIcon from '@material-ui/icons/Close';
+import Typography from '@material-ui/core/Typography';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -29,7 +28,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export default function NewDialog(): JSX.Element {
+export default function NewDialog(props: NewDialogProps): JSX.Element {
   const classes = useStyles();
   const [open, setOpen] = React.useState<boolean>(false);
   const [value, setValue] = React.useState<string>('');
@@ -59,7 +58,7 @@ export default function NewDialog(): JSX.Element {
         maxWidth={'xs'}
       >
         <DialogTitle disableTypography className={classes.root}>
-          <Typography variant={'h6'}>{'New Workout Type'}</Typography>
+          <Typography variant={'h6'}>{props.title}</Typography>
 
           <IconButton
             aria-label={'close'}
@@ -73,7 +72,7 @@ export default function NewDialog(): JSX.Element {
         <DialogContent style={{ textAlign: 'center', padding: '32px 8px' }}>
           <TextField
             style={{ padding: '16px 0', width: '85%' }}
-            placeholder={'New Muscle Group'}
+            placeholder={'Enter Name'}
             onChange={handleChange}
           />
         </DialogContent>
@@ -83,7 +82,7 @@ export default function NewDialog(): JSX.Element {
           <Button
             disabled={value === ''}
             onClick={() => {
-              createNewMuscleGroup(value);
+              props.createNewClickHandler(value);
               handleClose();
             }}
           >
@@ -93,4 +92,9 @@ export default function NewDialog(): JSX.Element {
       </Dialog>
     </div>
   );
+}
+
+export interface NewDialogProps {
+  title: string;
+  createNewClickHandler: (value: string) => Promise<void>;
 }
