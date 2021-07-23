@@ -1,6 +1,6 @@
 import { LoadExercisesAction, UpdateWarmUpsAction } from './exercise';
 import { LocationChangeAction } from 'connected-react-router';
-import { LoadMuscleGroupsAction } from './muscle-groups';
+import { LoadWorkoutCategoriesAction } from './workout-categories';
 
 export enum ActionTypes {
   // Application Actions
@@ -14,4 +14,4 @@ export type ApplicationActions =
   | LocationChangeAction
   | UpdateWarmUpsAction
   | LoadExercisesAction
-  | LoadMuscleGroupsAction;
+  | LoadWorkoutCategoriesAction;
