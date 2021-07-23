@@ -4,8 +4,8 @@ export class ExerciseVO extends ExerciseDAO {
   firebaseId: string;
   [key: string]: string;
 
-  constructor(firebaseId: string, name: string) {
-    super(name);
+  constructor(firebaseId: string, id: string, name: string) {
+    super(id, name);
     this.firebaseId = firebaseId;
   }
 }
