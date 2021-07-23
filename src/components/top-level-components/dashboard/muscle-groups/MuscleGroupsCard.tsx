@@ -1,28 +1,34 @@
 import React from 'react';
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import ListItemText from '@material-ui/core/ListItemText';
-import WifiIcon from '@material-ui/icons/Wifi';
-import EditIcon from '@material-ui/icons/Edit';
-import { Card, CardContent, Divider, IconButton } from '@material-ui/core';
+import {
+  Card,
+  List,
+  Divider,
+  ListItem,
+  IconButton,
+  Typography,
+  CardContent,
+  ListItemText,
+  ListItemIcon,
+  ListItemSecondaryAction,
+} from '@material-ui/core';
 import NewDialog from './NewDialog';
-import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import DeleteDialog from './DeleteDialog';
 import Avatar from '@material-ui/core/Avatar';
+import WifiIcon from '@material-ui/icons/Wifi';
+import EditIcon from '@material-ui/icons/Edit';
 import { red } from '@material-ui/core/colors';
 import CardHeader from '@material-ui/core/CardHeader';
-import { MuscleGroupVO } from '../../../../configs/models/MuscleGroupVO';
 import { State } from '../../../../configs/redux/store';
+import { MuscleGroupVO } from '../../../../configs/models/MuscleGroupVO';
+import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       width: '100%',
-      maxWidth: 360,
+      // maxWidth: 360,
+      minHeight: '20vh',
       backgroundColor: theme.palette.background.paper,
     },
     avatar: {
@@ -51,29 +57,35 @@ const MuscleGroupsCard = (props: MuscleGroupsCardProps): JSX.Element => {
           // subheader={<ListSubheader>Settings</ListSubheader>}
           className={classes.root}
         >
-          {props.muscleGroups.map((group: MuscleGroupVO) => {
-            return (
-              <>
-                <ListItem>
-                  <ListItemIcon>
-                    <WifiIcon />
-                  </ListItemIcon>
-                  <ListItemText
-                    primary={group.name}
-                    // secondary={'Exercises: 9'}
-                  />
-                  <ListItemSecondaryAction>
-                    <DeleteDialog group={group} />
+          {props.muscleGroups.length === 0 ? (
+            <Typography style={{ textAlign: 'center' }}>
+              {'groups list is empty'}
+            </Typography>
+          ) : (
+            props.muscleGroups.map((group: MuscleGroupVO) => {
+              return (
+                <>
+                  <ListItem>
+                    <ListItemIcon>
+                      <WifiIcon />
+                    </ListItemIcon>
+                    <ListItemText
+                      primary={group.name}
+                      // secondary={'Exercises: 9'}
+                    />
+                    <ListItemSecondaryAction>
+                      <DeleteDialog group={group} />
 
-                    <IconButton aria-label="delete">
-                      <EditIcon />
-                    </IconButton>
-                  </ListItemSecondaryAction>
-                </ListItem>
-                <Divider variant="inset" component="li" />
-              </>
-            );
-          })}
+                      <IconButton aria-label={'delete'}>
+                        <EditIcon />
+                      </IconButton>
+                    </ListItemSecondaryAction>
+                  </ListItem>
+                  <Divider variant={'inset'} component={'li'} />
+                </>
+              );
+            })
+          )}
         </List>
       </CardContent>
     </Card>
@@ -90,7 +102,7 @@ const mapStateToProps = (state: State): MuscleGroupsCardProps => {
   } as unknown as MuscleGroupsCardProps;
 };
 
-const mapDispatchToProps = (dispatch: Dispatch): MuscleGroupsCardProps =>
+const mapDispatchToProps = (): MuscleGroupsCardProps =>
   ({} as unknown as MuscleGroupsCardProps);
 
 export default connect(mapStateToProps, mapDispatchToProps)(MuscleGroupsCard);
