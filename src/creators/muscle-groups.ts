@@ -1,13 +1,13 @@
 import { ActionTypes } from './actions';
-import { MuscleGroupVO } from '../configs/models/MuscleGroupVO';
+import { WorkoutCategoryVO } from '../configs/models/WorkoutCategoryVO';
 
 export interface LoadMuscleGroupsAction {
   type: ActionTypes.LOAD_MUSCLE_GROUPS;
-  muscleGroups: MuscleGroupVO[];
+  muscleGroups: WorkoutCategoryVO[];
 }
 
-export const loadMuscleGroups = (
-  groups: MuscleGroupVO[]
+export const loadWorkoutCategories = (
+  groups: WorkoutCategoryVO[]
 ): LoadMuscleGroupsAction => {
   return {
     type: ActionTypes.LOAD_MUSCLE_GROUPS,
