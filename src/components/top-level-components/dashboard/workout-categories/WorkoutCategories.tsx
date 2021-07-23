@@ -18,13 +18,13 @@ import { red } from '@material-ui/core/colors';
 import {
   deleteWorkoutCategory,
   createNewWorkoutCategory,
+  updateWorkoutCategory,
 } from '../../../../services/workout-categories-service';
 import DeleteDialog from '../dialogs/DeleteDialog';
 import CardHeader from '@material-ui/core/CardHeader';
 import { State } from '../../../../configs/redux/store';
 import { WorkoutCategoryVO } from '../../../../configs/models/WorkoutCategoryVO';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import { updateExercise } from '../../../../services/exercise-service';
 import EditDialog from '../dialogs/EditDialog';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -93,7 +93,7 @@ const WorkoutCategories = (props: WorkoutCategoriesProps): JSX.Element => {
                         title={'Edit Exercise'}
                         value={group.name}
                         editId={group.firebaseId}
-                        updateClickHandler={updateExercise}
+                        updateClickHandler={updateWorkoutCategory}
                       />
                     </ListItemSecondaryAction>
                   </ListItem>

@@ -29,7 +29,10 @@ export const getAllWorkoutCategories = async (): Promise<ExerciseDAO> => {
     });
 };
 
-export const updateWorkoutCategory = async (id: string, value: string) => {
+export const updateWorkoutCategory = async (
+  id: string,
+  value: string
+): Promise<void> => {
   return await firebase
     .database()
     .ref(WORKOUT_CATEGORIES_ROUTE)
