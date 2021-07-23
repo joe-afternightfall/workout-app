@@ -3,7 +3,7 @@ import { MuscleGroupDAO } from '../configs/models/MuscleGroupDAO';
 import { v4 as uuidv4 } from 'uuid';
 import { ExerciseDAO } from '../configs/models/ExerciseDAO';
 
-export const createNewMuscleGroup = async (name: string): Promise<void> => {
+export const createNewWorkoutCategory = async (name: string): Promise<void> => {
   const ref = firebase.database().ref(`/muscle-groups`);
   const newRef = ref.push();
 
@@ -18,20 +18,39 @@ export const createNewMuscleGroup = async (name: string): Promise<void> => {
   });
 };
 
-export const getAllMuscleGroups = async (): Promise<ExerciseDAO> => {
+export const getAllWorkoutCategories = async (): Promise<ExerciseDAO> => {
   return await firebase
     .database()
-    .ref('/muscle-groups')
+    .ref('/workout-categories')
     .once('value')
     .then((snapshot) => {
       return snapshot.val();
     });
 };
 
-export const deleteMuscleGroup = async (id: string): Promise<void> => {
+export const updateWorkoutCategory = async (id: string, value: string) => {
   return await firebase
     .database()
-    .ref('/muscle-groups')
+    .ref('/workout-categories')
+    .child(id)
+    .update(
+      {
+        name: value,
+      },
+      (error: Error | null) => {
+        if (error) {
+          return Promise.reject();
+        } else {
+          return Promise.resolve();
+        }
+      }
+    );
+};
+
+export const deleteWorkoutCategory = async (id: string): Promise<void> => {
+  return await firebase
+    .database()
+    .ref('/workout-categories')
     .child(id)
     .remove((error) => {
       if (error) {
