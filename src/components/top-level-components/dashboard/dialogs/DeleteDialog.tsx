@@ -11,8 +11,6 @@ import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
 import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { deleteMuscleGroup } from '../../../../services/muscle-group-service';
-import { MuscleGroupVO } from '../../../../configs/models/MuscleGroupVO';
 import { blue, red } from '@material-ui/core/colors';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -54,14 +52,14 @@ export default function DeleteDialog(props: DeleteDialogProps): JSX.Element {
       </IconButton>
 
       <Dialog
+        fullWidth
+        open={open}
+        maxWidth={'xs'}
         onClose={handleClose}
         aria-labelledby={'delete-dialog'}
-        open={open}
-        fullWidth
-        maxWidth={'xs'}
       >
         <DialogTitle disableTypography className={classes.root}>
-          <Typography variant={'h6'}>{'Delete Muscle Group'}</Typography>
+          <Typography variant={'h6'}>{props.title}</Typography>
 
           <IconButton
             aria-label={'close'}
@@ -74,14 +72,14 @@ export default function DeleteDialog(props: DeleteDialogProps): JSX.Element {
 
         <DialogContent style={{ textAlign: 'center', padding: '32px 8px' }}>
           <Typography>
-            {`Are you sure you want to delete ${props.group.name}?`}
+            {`Are you sure you want to delete ${props.name}?`}
           </Typography>
         </DialogContent>
 
         <DialogActions>
           <Button
             onClick={() => {
-              deleteMuscleGroup(props.group.firebaseId);
+              props.deleteClickHandler(props.deleteId);
               handleClose();
             }}
             className={classes.confirmButton}
@@ -98,5 +96,8 @@ export default function DeleteDialog(props: DeleteDialogProps): JSX.Element {
 }
 
 export interface DeleteDialogProps {
-  group: MuscleGroupVO;
+  name: string;
+  title: string;
+  deleteId: string;
+  deleteClickHandler: (id: string) => Promise<void>;
 }
