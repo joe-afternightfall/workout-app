@@ -8,7 +8,7 @@ import React, { Component } from 'react';
 import { Grid } from '@material-ui/core';
 import { Styles } from '@material-ui/styles';
 import ExerciseCard from './exercises/ExerciseCard';
-import MuscleGroupsCard from './muscle-groups/MuscleGroupsCard';
+import WorkoutCategories from './workout-categories/WorkoutCategories';
 
 const styles: Styles<Theme, StyledComponentProps> = () => ({});
 
@@ -25,7 +25,7 @@ class DashboardScreen extends Component<DashboardScreenProps> {
         </Grid>
 
         <Grid item xs={6} sm={6}>
-          <MuscleGroupsCard />
+          <WorkoutCategories />
         </Grid>
       </Grid>
     );
