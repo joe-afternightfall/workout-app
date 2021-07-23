@@ -5,7 +5,6 @@ import Card from '@material-ui/core/Card';
 import Avatar from '@material-ui/core/Avatar';
 import { red } from '@material-ui/core/colors';
 import CardHeader from '@material-ui/core/CardHeader';
-import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import CardContent from '@material-ui/core/CardContent';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
@@ -18,15 +17,16 @@ import {
   ListItemText,
 } from '@material-ui/core';
 import WifiIcon from '@material-ui/icons/Wifi';
-import EditIcon from '@material-ui/icons/Edit';
 import { State } from '../../../../configs/redux/store';
 import { ExerciseVO } from '../../../../configs/models/ExerciseVO';
 import DeleteDialog from '../dialogs/DeleteDialog';
 import {
   deleteExercise,
   createNewExercise,
+  updateExercise,
 } from '../../../../services/exercise-service';
 import NewDialog from '../dialogs/NewDialog';
+import EditDialog from '../dialogs/EditDialog';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -84,9 +84,12 @@ const ExerciseCard = (props: ExerciseCardProps): JSX.Element => {
                         deleteClickHandler={deleteExercise}
                       />
 
-                      <IconButton aria-label={'delete'}>
-                        <EditIcon />
-                      </IconButton>
+                      <EditDialog
+                        title={'Edit Exercise'}
+                        value={exercise.name}
+                        editId={exercise.firebaseId}
+                        updateClickHandler={updateExercise}
+                      />
                     </ListItemSecondaryAction>
                   </ListItem>
                   <Divider variant={'inset'} component={'li'} />
