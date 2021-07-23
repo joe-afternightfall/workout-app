@@ -4,7 +4,6 @@ import {
   List,
   Divider,
   ListItem,
-  IconButton,
   Typography,
   CardContent,
   ListItemText,
@@ -15,17 +14,18 @@ import { connect } from 'react-redux';
 import NewDialog from '../dialogs/NewDialog';
 import Avatar from '@material-ui/core/Avatar';
 import WifiIcon from '@material-ui/icons/Wifi';
-import EditIcon from '@material-ui/icons/Edit';
 import { red } from '@material-ui/core/colors';
 import {
-  deleteMuscleGroup,
-  createNewMuscleGroup,
-} from '../../../../services/muscle-group-service';
+  deleteWorkoutCategory,
+  createNewWorkoutCategory,
+} from '../../../../services/workout-categories-service';
 import DeleteDialog from '../dialogs/DeleteDialog';
 import CardHeader from '@material-ui/core/CardHeader';
 import { State } from '../../../../configs/redux/store';
-import { MuscleGroupVO } from '../../../../configs/models/MuscleGroupVO';
+import { WorkoutCategoryVO } from '../../../../configs/models/WorkoutCategoryVO';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
+import { updateExercise } from '../../../../services/exercise-service';
+import EditDialog from '../dialogs/EditDialog';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -54,7 +54,7 @@ const WorkoutCategories = (props: WorkoutCategoriesProps): JSX.Element => {
         action={
           <NewDialog
             title={'New Workout Type'}
-            createNewClickHandler={createNewMuscleGroup}
+            createNewClickHandler={createNewWorkoutCategory}
           />
         }
         title={'Workout Categories'}
@@ -70,7 +70,7 @@ const WorkoutCategories = (props: WorkoutCategoriesProps): JSX.Element => {
               {'groups list is empty'}
             </Typography>
           ) : (
-            props.muscleGroups.map((group: MuscleGroupVO) => {
+            props.muscleGroups.map((group: WorkoutCategoryVO) => {
               return (
                 <>
                   <ListItem>
@@ -84,14 +84,17 @@ const WorkoutCategories = (props: WorkoutCategoriesProps): JSX.Element => {
                     <ListItemSecondaryAction>
                       <DeleteDialog
                         title={'Delete Muscle Group'}
-                        deleteClickHandler={deleteMuscleGroup}
+                        deleteClickHandler={deleteWorkoutCategory}
                         name={group.name}
                         deleteId={group.firebaseId}
                       />
 
-                      <IconButton aria-label={'delete'}>
-                        <EditIcon />
-                      </IconButton>
+                      <EditDialog
+                        title={'Edit Exercise'}
+                        value={group.name}
+                        editId={group.firebaseId}
+                        updateClickHandler={updateExercise}
+                      />
                     </ListItemSecondaryAction>
                   </ListItem>
                   <Divider variant={'inset'} component={'li'} />
@@ -106,7 +109,7 @@ const WorkoutCategories = (props: WorkoutCategoriesProps): JSX.Element => {
 };
 
 export interface WorkoutCategoriesProps {
-  muscleGroups: MuscleGroupVO[];
+  muscleGroups: WorkoutCategoryVO[];
 }
 
 const mapStateToProps = (state: State): WorkoutCategoriesProps => {
