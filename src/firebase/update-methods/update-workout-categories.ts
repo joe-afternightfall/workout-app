@@ -1,7 +1,7 @@
 import { Store } from 'redux';
 import { WorkoutCategoryVO } from '../../configs/models/WorkoutCategoryVO';
 import { getAllWorkoutCategories } from '../../services/workout-categories-service';
-import { loadWorkoutCategories } from '../../creators/muscle-groups';
+import { loadWorkoutCategories } from '../../creators/workout-categories';
 
 export const updateWorkoutCategories = async (store: Store) => {
   const groups = await getAllWorkoutCategories();
