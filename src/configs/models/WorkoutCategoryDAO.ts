@@ -1,4 +1,4 @@
-export class MuscleGroupDAO {
+export class WorkoutCategoryDAO {
   id: string;
   name: string;
 

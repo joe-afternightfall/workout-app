@@ -1,6 +1,6 @@
-import { MuscleGroupDAO } from './MuscleGroupDAO';
+import { WorkoutCategoryDAO } from './WorkoutCategoryDAO';
 
-export class MuscleGroupVO extends MuscleGroupDAO {
+export class WorkoutCategoryVO extends WorkoutCategoryDAO {
   firebaseId: string;
   [key: string]: string;
 
