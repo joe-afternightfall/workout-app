@@ -3,7 +3,7 @@ import { LOCATION_CHANGE } from 'connected-react-router';
 import { ExerciseVO } from '../configs/models/ExerciseVO';
 import { getPageInfo } from '../utils/get-current-page-info';
 import { ActionTypes, ApplicationActions } from '../creators/actions';
-import { MuscleGroupVO } from '../configs/models/MuscleGroupVO';
+import { WorkoutCategoryVO } from '../configs/models/WorkoutCategoryVO';
 
 export default {
   reducer(
@@ -24,8 +24,8 @@ export default {
       case ActionTypes.LOAD_EXERCISES:
         newState.exercises = action.exercises;
         break;
-      case ActionTypes.LOAD_MUSCLE_GROUPS:
-        newState.muscleGroups = action.muscleGroups;
+      case ActionTypes.LOAD_WORKOUT_CATEGORIES:
+        newState.workoutCategories = action.workoutCategories;
         break;
       default:
         newState = state;
@@ -39,5 +39,5 @@ export interface ApplicationState {
   currentLocation: string;
   activePage: RouteProp | undefined;
   exercises: ExerciseVO[];
-  muscleGroups: MuscleGroupVO[];
+  workoutCategories: WorkoutCategoryVO[];
 }
