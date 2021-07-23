@@ -1,11 +1,11 @@
 import { ComponentType } from 'react';
 import { SvgIconTypeMap } from '@material-ui/core';
 import { StyledComponentProps } from '@material-ui/core/styles';
+import FitnessCenterIcon from '@material-ui/icons/FitnessCenter';
 import { DashboardRounded as DashboardIcon } from '@material-ui/icons';
 import { OverridableComponent } from '@material-ui/core/OverridableComponent';
-import DashboardScreen from '../components/top-level-components/DashboardScreen';
 import WorkoutScreen from '../components/top-level-components/WorkoutScreen';
-import FitnessCenterIcon from '@material-ui/icons/FitnessCenter';
+import DashboardScreen from '../components/top-level-components/dashboard/DashboardScreen';
 
 export interface RouteProp {
   path: string;
