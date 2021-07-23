@@ -2,6 +2,10 @@ import { Store } from 'redux';
 import firebase from 'firebase';
 import { updateExercises } from './update-methods/update-exercises';
 import { updateWorkoutCategories } from './update-methods/update-workout-categories';
+import {
+  EXERCISES_ROUTE,
+  WORKOUT_CATEGORIES_ROUTE,
+} from '../configs/constants/firebase-routes';
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
@@ -26,8 +30,8 @@ export class Initializer {
     firebase.initializeApp(firebaseConfig);
     firebase.analytics();
 
-    const exercises = firebase.database().ref('/exercises');
-    const muscleGroups = firebase.database().ref('/muscle-groups');
+    const exercises = firebase.database().ref(EXERCISES_ROUTE);
+    const workoutCategories = firebase.database().ref(WORKOUT_CATEGORIES_ROUTE);
 
     exercises.on('child_added', async () => {
       await updateExercises(this.store);
@@ -41,15 +45,15 @@ export class Initializer {
       await updateExercises(this.store);
     });
 
-    muscleGroups.on('child_added', async () => {
+    workoutCategories.on('child_added', async () => {
       await updateWorkoutCategories(this.store);
     });
 
-    muscleGroups.on('child_changed', async () => {
+    workoutCategories.on('child_changed', async () => {
       await updateWorkoutCategories(this.store);
     });
 
-    muscleGroups.on('child_removed', async () => {
+    workoutCategories.on('child_removed', async () => {
       await updateWorkoutCategories(this.store);
     });
   }

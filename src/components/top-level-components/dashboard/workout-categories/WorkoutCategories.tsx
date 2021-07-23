@@ -65,12 +65,12 @@ const WorkoutCategories = (props: WorkoutCategoriesProps): JSX.Element => {
           // subheader={<ListSubheader>Settings</ListSubheader>}
           className={classes.root}
         >
-          {props.muscleGroups.length === 0 ? (
+          {props.workoutCategories.length === 0 ? (
             <Typography style={{ textAlign: 'center' }}>
               {'groups list is empty'}
             </Typography>
           ) : (
-            props.muscleGroups.map((group: WorkoutCategoryVO) => {
+            props.workoutCategories.map((group: WorkoutCategoryVO) => {
               return (
                 <>
                   <ListItem>
@@ -109,12 +109,12 @@ const WorkoutCategories = (props: WorkoutCategoriesProps): JSX.Element => {
 };
 
 export interface WorkoutCategoriesProps {
-  muscleGroups: WorkoutCategoryVO[];
+  workoutCategories: WorkoutCategoryVO[];
 }
 
 const mapStateToProps = (state: State): WorkoutCategoriesProps => {
   return {
-    muscleGroups: state.applicationState.muscleGroups,
+    workoutCategories: state.applicationState.workoutCategories,
   } as unknown as WorkoutCategoriesProps;
 };
 
