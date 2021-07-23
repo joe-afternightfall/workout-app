@@ -11,13 +11,17 @@ import {
   ListItemIcon,
   ListItemSecondaryAction,
 } from '@material-ui/core';
-import NewDialog from './NewDialog';
 import { connect } from 'react-redux';
-import DeleteDialog from './DeleteDialog';
+import NewDialog from '../dialogs/NewDialog';
 import Avatar from '@material-ui/core/Avatar';
 import WifiIcon from '@material-ui/icons/Wifi';
 import EditIcon from '@material-ui/icons/Edit';
 import { red } from '@material-ui/core/colors';
+import {
+  deleteMuscleGroup,
+  createNewMuscleGroup,
+} from '../../../../services/muscle-group-service';
+import DeleteDialog from '../dialogs/DeleteDialog';
 import CardHeader from '@material-ui/core/CardHeader';
 import { State } from '../../../../configs/redux/store';
 import { MuscleGroupVO } from '../../../../configs/models/MuscleGroupVO';
@@ -27,7 +31,6 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       width: '100%',
-      // maxWidth: 360,
       minHeight: '20vh',
       backgroundColor: theme.palette.background.paper,
     },
@@ -37,7 +40,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const MuscleGroupsCard = (props: MuscleGroupsCardProps): JSX.Element => {
+const WorkoutCategories = (props: WorkoutCategoriesProps): JSX.Element => {
   const classes = useStyles();
 
   return (
@@ -48,8 +51,13 @@ const MuscleGroupsCard = (props: MuscleGroupsCardProps): JSX.Element => {
             {'R'}
           </Avatar>
         }
-        action={<NewDialog />}
-        title={'Muscle Groups'}
+        action={
+          <NewDialog
+            title={'New Workout Type'}
+            createNewClickHandler={createNewMuscleGroup}
+          />
+        }
+        title={'Workout Categories'}
       />
 
       <CardContent>
@@ -74,7 +82,12 @@ const MuscleGroupsCard = (props: MuscleGroupsCardProps): JSX.Element => {
                       // secondary={'Exercises: 9'}
                     />
                     <ListItemSecondaryAction>
-                      <DeleteDialog group={group} />
+                      <DeleteDialog
+                        title={'Delete Muscle Group'}
+                        deleteClickHandler={deleteMuscleGroup}
+                        name={group.name}
+                        deleteId={group.firebaseId}
+                      />
 
                       <IconButton aria-label={'delete'}>
                         <EditIcon />
@@ -92,17 +105,17 @@ const MuscleGroupsCard = (props: MuscleGroupsCardProps): JSX.Element => {
   );
 };
 
-export interface MuscleGroupsCardProps {
+export interface WorkoutCategoriesProps {
   muscleGroups: MuscleGroupVO[];
 }
 
-const mapStateToProps = (state: State): MuscleGroupsCardProps => {
+const mapStateToProps = (state: State): WorkoutCategoriesProps => {
   return {
     muscleGroups: state.applicationState.muscleGroups,
-  } as unknown as MuscleGroupsCardProps;
+  } as unknown as WorkoutCategoriesProps;
 };
 
-const mapDispatchToProps = (): MuscleGroupsCardProps =>
-  ({} as unknown as MuscleGroupsCardProps);
+const mapDispatchToProps = (): WorkoutCategoriesProps =>
+  ({} as unknown as WorkoutCategoriesProps);
 
-export default connect(mapStateToProps, mapDispatchToProps)(MuscleGroupsCard);
+export default connect(mapStateToProps, mapDispatchToProps)(WorkoutCategories);
