@@ -10,11 +10,15 @@ import CardContent from '@material-ui/core/CardContent';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import {
   Divider,
+  FormControl,
+  InputLabel,
   List,
   ListItem,
   ListItemIcon,
   ListItemSecondaryAction,
   ListItemText,
+  MenuItem,
+  Select,
 } from '@material-ui/core';
 import WifiIcon from '@material-ui/icons/Wifi';
 import { State } from '../../../../configs/redux/store';
@@ -27,6 +31,7 @@ import {
 } from '../../../../services/exercise-service';
 import NewDialog from '../dialogs/NewDialog';
 import EditDialog from '../dialogs/EditDialog';
+import { WorkoutCategoryVO } from '../../../../configs/models/WorkoutCategoryVO';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -37,23 +42,55 @@ const useStyles = makeStyles((theme: Theme) =>
     avatar: {
       backgroundColor: red[500],
     },
+    formControl: {
+      width: '100%',
+    },
   })
 );
 
 const ExerciseCard = (props: ExerciseCardProps): JSX.Element => {
   const classes = useStyles();
+  const [workoutCategoryId, setWorkoutCategoryId] = React.useState<string>('');
+
+  const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+    setWorkoutCategoryId(event.target.value as string);
+  };
 
   return (
     <Card className={classes.root}>
       <CardHeader
+        title={'Exercise List'}
         avatar={<Avatar className={classes.avatar}>{'R'}</Avatar>}
         action={
           <NewDialog
             title={'New Exercise'}
+            extraId={workoutCategoryId}
             createNewClickHandler={createNewExercise}
+            extraContent={
+              <FormControl className={classes.formControl}>
+                <InputLabel id={'category-select-label'}>
+                  {'Workout Category'}
+                </InputLabel>
+                <Select
+                  labelId={'category-select-label'}
+                  id={'category-simple-menu'}
+                  value={workoutCategoryId}
+                  onChange={handleChange}
+                >
+                  {props.workoutCategories.map(
+                    (category: WorkoutCategoryVO, index: number) => {
+                      return (
+                        <MenuItem key={index} value={category.id}>
+                          {category.name}
+                        </MenuItem>
+                      );
+                    }
+                  )}
+                </Select>
+              </FormControl>
+            }
           />
         }
-        title={'Exercise List'}
       />
       <CardContent>
         <List
@@ -66,6 +103,10 @@ const ExerciseCard = (props: ExerciseCardProps): JSX.Element => {
             </Typography>
           ) : (
             props.exercises.map((exercise: ExerciseVO) => {
+              const foundCategory = props.workoutCategories.find(
+                (category: WorkoutCategoryVO) =>
+                  category.id === exercise.workoutCategoryId
+              );
               return (
                 <>
                   <ListItem>
@@ -74,7 +115,9 @@ const ExerciseCard = (props: ExerciseCardProps): JSX.Element => {
                     </ListItemIcon>
                     <ListItemText
                       primary={exercise.name}
-                      // secondary={'Exercises: 9'}
+                      secondary={
+                        foundCategory && `Category: ${foundCategory.name}`
+                      }
                     />
                     <ListItemSecondaryAction>
                       <DeleteDialog
@@ -105,11 +148,13 @@ const ExerciseCard = (props: ExerciseCardProps): JSX.Element => {
 
 export interface ExerciseCardProps {
   exercises: ExerciseVO[];
+  workoutCategories: WorkoutCategoryVO[];
 }
 
 const mapStateToProps = (state: State): ExerciseCardProps => {
   return {
     exercises: state.applicationState.exercises,
+    workoutCategories: state.applicationState.workoutCategories,
   } as unknown as ExerciseCardProps;
 };
 

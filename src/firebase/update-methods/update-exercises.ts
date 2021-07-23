@@ -7,7 +7,8 @@ export const updateExercises = async (store: Store) => {
   const exercises = await getAllExercises();
 
   if (exercises) {
-    store.dispatch(loadExercises(buildVO(exercises)));
+    const exercises1 = buildVO(exercises);
+    store.dispatch(loadExercises(exercises1));
   } else {
     store.dispatch(loadExercises([]));
   }
@@ -19,6 +20,7 @@ function buildVO(exercises: any): ExerciseVO[] {
       firebaseId: key,
       id: exercises[key].id,
       name: exercises[key].name,
+      workoutCategoryId: exercises[key].workoutCategoryId,
     };
   });
 }

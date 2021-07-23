@@ -3,6 +3,7 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
+  Grid,
   IconButton,
   TextField,
 } from '@material-ui/core';
@@ -69,12 +70,22 @@ export default function NewDialog(props: NewDialogProps): JSX.Element {
           </IconButton>
         </DialogTitle>
 
-        <DialogContent style={{ textAlign: 'center', padding: '32px 8px' }}>
-          <TextField
-            style={{ padding: '16px 0', width: '85%' }}
-            placeholder={'Enter Name'}
-            onChange={handleChange}
-          />
+        <DialogContent>
+          <Grid container spacing={3}>
+            <Grid item xs={12}>
+              <TextField
+                style={{ width: '100%' }}
+                placeholder={'Enter Name'}
+                onChange={handleChange}
+              />
+            </Grid>
+
+            {props.extraContent && (
+              <Grid item xs={12}>
+                {props.extraContent}
+              </Grid>
+            )}
+          </Grid>
         </DialogContent>
 
         <DialogActions>
@@ -82,7 +93,11 @@ export default function NewDialog(props: NewDialogProps): JSX.Element {
           <Button
             disabled={value === ''}
             onClick={() => {
-              props.createNewClickHandler(value);
+              if (props.extraId) {
+                props.createNewClickHandler(value, props.extraId);
+              } else {
+                props.createNewClickHandler(value);
+              }
               handleClose();
             }}
           >
@@ -96,5 +111,7 @@ export default function NewDialog(props: NewDialogProps): JSX.Element {
 
 export interface NewDialogProps {
   title: string;
-  createNewClickHandler: (value: string) => Promise<void>;
+  extraContent?: JSX.Element;
+  extraId?: string;
+  createNewClickHandler: (value: string, extraId?: string) => Promise<void>;
 }
