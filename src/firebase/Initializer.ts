@@ -1,7 +1,7 @@
 import { Store } from 'redux';
 import firebase from 'firebase';
 import { updateExercises } from './update-methods/update-exercises';
-import { updateMuscleGroups } from './update-methods/update-muscle-groups';
+import { updateWorkoutCategories } from './update-methods/update-workout-categories';
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
@@ -42,15 +42,15 @@ export class Initializer {
     });
 
     muscleGroups.on('child_added', async () => {
-      await updateMuscleGroups(this.store);
+      await updateWorkoutCategories(this.store);
     });
 
     muscleGroups.on('child_changed', async () => {
-      await updateMuscleGroups(this.store);
+      await updateWorkoutCategories(this.store);
     });
 
     muscleGroups.on('child_removed', async () => {
-      await updateMuscleGroups(this.store);
+      await updateWorkoutCategories(this.store);
     });
   }
 }
