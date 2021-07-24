@@ -6,24 +6,12 @@ import {
 } from '@material-ui/core/styles';
 import React, { Component } from 'react';
 import { Styles } from '@material-ui/styles';
-import {
-  Button,
-  Card,
-  Grid,
-  IconButton,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Typography,
-} from '@material-ui/core';
-import WorkoutCard from '../../widgets/workout/WorkoutCard';
+import { Button, Grid, Typography } from '@material-ui/core';
 import Stopwatch from '../../widgets/workout/stopwatch/Stopwatch';
-import { Container, Draggable } from 'react-smooth-dnd';
-import DragHandleIcon from '@material-ui/icons/DragHandle';
 import { v4 as uuidv4 } from 'uuid';
 import Circuit from './circuit-accordian/Circuit';
 
-const styles: Styles<Theme, StyledComponentProps> = (theme: Theme) => ({
+const styles: Styles<Theme, StyledComponentProps> = () => ({
   root: {
     width: '100%',
   },
