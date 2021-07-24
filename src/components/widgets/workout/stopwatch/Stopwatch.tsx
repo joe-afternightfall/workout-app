@@ -6,10 +6,9 @@ import {
   StyledComponentProps,
 } from '@material-ui/core/styles';
 import StopwatchDisplay from './StopwatchDisplay';
-import { Button, Grid, Typography } from '@material-ui/core';
+import { Button, Grid } from '@material-ui/core';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import PauseIcon from '@material-ui/icons/Pause';
-import StopIcon from '@material-ui/icons/Stop';
 import { Styles } from '@material-ui/styles';
 
 const styles: Styles<Theme, StyledComponentProps> = () => ({
