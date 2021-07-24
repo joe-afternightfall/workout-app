@@ -5,11 +5,11 @@ import {
   withStyles,
   StyledComponentProps,
 } from '@material-ui/core/styles';
-import StopwatchDisplay from './StopwatchDisplay';
-import { Button, Grid } from '@material-ui/core';
-import PlayArrowIcon from '@material-ui/icons/PlayArrow';
-import PauseIcon from '@material-ui/icons/Pause';
 import { Styles } from '@material-ui/styles';
+import PauseIcon from '@material-ui/icons/Pause';
+import { Button, Grid } from '@material-ui/core';
+import StopwatchDisplay from './StopwatchDisplay';
+import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 
 const styles: Styles<Theme, StyledComponentProps> = () => ({
   button: {

@@ -4,12 +4,12 @@ import {
   withStyles,
   StyledComponentProps,
 } from '@material-ui/core/styles';
+import { v4 as uuidv4 } from 'uuid';
 import React, { Component } from 'react';
 import { Styles } from '@material-ui/styles';
-import { Button, Grid, Typography } from '@material-ui/core';
-import Stopwatch from '../../widgets/workout/stopwatch/Stopwatch';
-import { v4 as uuidv4 } from 'uuid';
+import Stopwatch from './stopwatch/Stopwatch';
 import Circuit from './circuit-accordian/Circuit';
+import { Button, Grid, Typography } from '@material-ui/core';
 
 const styles: Styles<Theme, StyledComponentProps> = () => ({
   root: {
