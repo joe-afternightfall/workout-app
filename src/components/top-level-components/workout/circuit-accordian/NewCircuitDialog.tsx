@@ -30,11 +30,12 @@ export default function NewCircuitDialog(
       id: uuidv4(),
       type: type,
     });
+    handleClose();
   };
 
   return (
     <>
-      <Button variant={'outlined'} color={'primary'} onClick={handleClickOpen}>
+      <Button variant={'outlined'} onClick={handleClickOpen}>
         {'Click to add circuit'}
       </Button>
 

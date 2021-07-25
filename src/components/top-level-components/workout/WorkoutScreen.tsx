@@ -42,9 +42,11 @@ class WorkoutScreen extends Component<WorkoutScreenProps> {
       });
     };
 
-    const handleDelete = (id: string) => {
+    const deleteCircuit = (id: string) => {
       const circuits = this.state.circuits;
-      const foundCircuit = circuits.find((circuit: string) => circuit === id);
+      const foundCircuit = circuits.find(
+        (circuit: NewCircuitProps) => circuit.id === id
+      );
       if (foundCircuit) {
         const foundIndex = circuits.indexOf(foundCircuit);
         circuits.splice(foundIndex, 1);
@@ -69,13 +71,18 @@ class WorkoutScreen extends Component<WorkoutScreenProps> {
         </Grid>
 
         {this.state.circuits
-          ? this.state.circuits.map((circuitId: string, index: number) => {
-              return (
-                <Grid key={index} item xs={12}>
-                  <Circuit id={circuitId} deleteClickHandler={handleDelete} />
-                </Grid>
-              );
-            })
+          ? this.state.circuits.map(
+              (circuit: NewCircuitProps, index: number) => {
+                return (
+                  <Grid key={index} item xs={12}>
+                    <Circuit
+                      circuit={circuit}
+                      deleteClickHandler={deleteCircuit}
+                    />
+                  </Grid>
+                );
+              }
+            )
           : undefined}
       </Grid>
     );

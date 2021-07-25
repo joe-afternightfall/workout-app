@@ -13,6 +13,7 @@ import ExerciseSet from './ExerciseSet';
 import { Container } from 'react-smooth-dnd';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { NewCircuitProps } from '../WorkoutScreen';
 
 const steps = [0, 1, 2, 3, 4];
 
@@ -37,14 +38,14 @@ export default function Circuit(props: CircuitProps): JSX.Element {
 
   return (
     <Accordion
-      expanded={expanded === props.id}
-      onChange={handleChange(props.id)}
+      expanded={expanded === props.circuit.id}
+      onChange={handleChange(props.circuit.id)}
     >
       <AccordionSummary
-        id={`panel-${props.id}-header`}
+        id={`panel-${props.circuit.id}-header`}
         expandIcon={<ExpandMoreIcon />}
       >
-        <Typography>{`Circuit: ${props.id}`}</Typography>
+        <Typography>{`Circuit: ${props.circuit.type}`}</Typography>
       </AccordionSummary>
 
       <AccordionDetails>
@@ -66,7 +67,7 @@ export default function Circuit(props: CircuitProps): JSX.Element {
       <AccordionActions>
         <Button
           onClick={() => {
-            props.deleteClickHandler(props.id);
+            props.deleteClickHandler(props.circuit.id);
           }}
         >
           {'Delete Circuit'}
@@ -79,6 +80,6 @@ export default function Circuit(props: CircuitProps): JSX.Element {
 }
 
 export interface CircuitProps {
-  id: string;
+  circuit: NewCircuitProps;
   deleteClickHandler: (circuitId: string) => void;
 }
