@@ -1,10 +1,10 @@
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import ListItem from '@material-ui/core/ListItem';
-import { Button, Dialog, Grid, List } from '@material-ui/core';
+import { NewCircuitProps } from '../../WorkoutScreen';
+import { Button, Dialog, List } from '@material-ui/core';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import BaseDialogContent from '../../../app-shell/BaseDialogContent';
-import { NewCircuitProps } from '../WorkoutScreen';
+import BaseDialogContent from '../../../../app-shell/BaseDialogContent';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -21,6 +21,7 @@ export default function NewCircuitDialog(
   const handleClickOpen = () => {
     setOpen(true);
   };
+
   const handleClose = () => {
     setOpen(false);
   };
@@ -39,7 +40,7 @@ export default function NewCircuitDialog(
         {'Click to add circuit'}
       </Button>
 
-      <Dialog onClose={handleClose} open={open} maxWidth={'xs'}>
+      <Dialog onClose={handleClose} open={open} fullWidth maxWidth={'xs'}>
         <BaseDialogContent
           title={'New Circuit'}
           closeClickHandler={handleClose}
