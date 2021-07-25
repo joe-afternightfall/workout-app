@@ -4,18 +4,23 @@ import {
   withStyles,
   StyledComponentProps,
 } from '@material-ui/core/styles';
-import { v4 as uuidv4 } from 'uuid';
 import React, { Component } from 'react';
 import { Styles } from '@material-ui/styles';
 import Stopwatch from './stopwatch/Stopwatch';
 import Circuit from './circuit-accordian/Circuit';
-import { Button, Grid, Typography } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
+import NewCircuitDialog from './circuit-accordian/NewCircuitDialog';
 
 const styles: Styles<Theme, StyledComponentProps> = () => ({
   root: {
     width: '100%',
   },
 });
+
+export interface NewCircuitProps {
+  id: string;
+  type: string;
+}
 
 class WorkoutScreen extends Component<WorkoutScreenProps> {
   state = {
@@ -25,9 +30,15 @@ class WorkoutScreen extends Component<WorkoutScreenProps> {
   render(): JSX.Element {
     const { classes } = this.props;
 
-    const addCircuit = (id: string) => {
+    const addCircuit = (props: NewCircuitProps) => {
       this.setState({
-        circuits: [...this.state.circuits, id],
+        circuits: [
+          ...this.state.circuits,
+          {
+            id: props.id,
+            type: props.type,
+          },
+        ],
       });
     };
 
@@ -54,13 +65,7 @@ class WorkoutScreen extends Component<WorkoutScreenProps> {
         </Grid>
 
         <Grid item xs={12}>
-          <Button
-            onClick={() => {
-              addCircuit(uuidv4());
-            }}
-          >
-            {'Click to add circuit'}
-          </Button>
+          <NewCircuitDialog addCircuitHandler={addCircuit} />
         </Grid>
 
         {this.state.circuits
