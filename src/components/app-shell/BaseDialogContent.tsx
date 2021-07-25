@@ -20,7 +20,9 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export default function BaseDialog(props: BaseDialogProps): JSX.Element {
+export default function BaseDialogContent(
+  props: BaseDialogContentProps
+): JSX.Element {
   const classes = useStyles();
   const { dialogContent, title, closeClickHandler, dialogActions } = props;
 
@@ -45,7 +47,7 @@ export default function BaseDialog(props: BaseDialogProps): JSX.Element {
   );
 }
 
-export interface BaseDialogProps {
+export interface BaseDialogContentProps {
   title: string;
   dialogContent: JSX.Element;
   dialogActions: JSX.Element;
