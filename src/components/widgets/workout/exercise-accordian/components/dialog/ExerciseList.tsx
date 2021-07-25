@@ -1,14 +1,14 @@
 import React from 'react';
-import BaseDialog from './BaseDialog';
 import { Grid } from '@material-ui/core';
 import List from '@material-ui/core/List';
 import Button from '@material-ui/core/Button';
 import ListItem from '@material-ui/core/ListItem';
 import { ExerciseVO } from '../../../../../../configs/models/ExerciseVO';
+import BaseDialogContent from '../../../../../app-shell/BaseDialogContent';
 
 export default function ExerciseList(props: ExerciseListProps): JSX.Element {
   return (
-    <BaseDialog
+    <BaseDialogContent
       title={'Add Exercise'}
       dialogContent={
         <List>
