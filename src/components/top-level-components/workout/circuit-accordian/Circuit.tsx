@@ -1,23 +1,18 @@
 import React from 'react';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import {
+  Grid,
+  Button,
   Accordion,
+  Typography,
   AccordionActions,
   AccordionDetails,
   AccordionSummary,
-  Button,
-  Card,
-  Grid,
-  IconButton,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Typography,
 } from '@material-ui/core';
 import RowTitle from './RowTitle';
+import ExerciseSet from './ExerciseSet';
+import { Container } from 'react-smooth-dnd';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { Container, Draggable } from 'react-smooth-dnd';
-import DragHandleIcon from '@material-ui/icons/DragHandle';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
 const steps = [0, 1, 2, 3, 4];
 
@@ -49,7 +44,7 @@ export default function Circuit(props: CircuitProps): JSX.Element {
         id={`panel-${props.id}-header`}
         expandIcon={<ExpandMoreIcon />}
       >
-        <Typography>{'Circuit'}</Typography>
+        <Typography>{`Circuit: ${props.id}`}</Typography>
       </AccordionSummary>
 
       <AccordionDetails>
@@ -62,35 +57,7 @@ export default function Circuit(props: CircuitProps): JSX.Element {
             // onDrop={orderAndUpdateStrategies}
           >
             {steps.map((step: number) => {
-              return (
-                <Draggable key={step}>
-                  <Card className={classes.root}>
-                    <ListItem>
-                      <Grid container spacing={2}>
-                        <Grid item xs={10}>
-                          <ListItemText primary={'primaryListItem'} />
-                        </Grid>
-
-                        <Grid
-                          item
-                          xs={2}
-                          container
-                          alignItems={'center'}
-                          justify={'center'}
-                        >
-                          <Grid item xs={6}>
-                            <ListItemIcon className={'drag-handle'}>
-                              <IconButton>
-                                <DragHandleIcon />
-                              </IconButton>
-                            </ListItemIcon>
-                          </Grid>
-                        </Grid>
-                      </Grid>
-                    </ListItem>
-                  </Card>
-                </Draggable>
-              );
+              return <ExerciseSet key={step} setNumber={step} />;
             })}
           </Container>
         </Grid>
