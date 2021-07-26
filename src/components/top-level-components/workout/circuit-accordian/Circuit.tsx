@@ -4,16 +4,17 @@ import {
   Button,
   Accordion,
   Typography,
+  AccordionSummary,
   AccordionActions,
   AccordionDetails,
-  AccordionSummary,
 } from '@material-ui/core';
 import RowTitle from './RowTitle';
 import ExerciseSet from './ExerciseSet';
 import { Container } from 'react-smooth-dnd';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { NewCircuitProps } from '../WorkoutScreen';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import DeleteCircuitDialog from './dialogs/DeleteCircuitDialog';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
 const steps = [0, 1, 2, 3, 4];
 
@@ -65,13 +66,10 @@ export default function Circuit(props: CircuitProps): JSX.Element {
       </AccordionDetails>
 
       <AccordionActions>
-        <Button
-          onClick={() => {
-            props.deleteClickHandler(props.circuit.id);
-          }}
-        >
-          {'Delete Circuit'}
-        </Button>
+        <DeleteCircuitDialog
+          circuit={props.circuit}
+          deleteClickHandler={props.deleteClickHandler}
+        />
 
         <Button>{'Add Exercise'}</Button>
       </AccordionActions>
