@@ -24,6 +24,7 @@ const useStyles = makeStyles((theme: Theme) =>
     selectedRow: {
       marginBottom: theme.spacing(1),
       border: `solid 1px ${theme.palette.primary.main}`,
+      background: theme.palette.background.paper,
     },
   })
 );
@@ -54,6 +55,7 @@ export default function Circuit(props: CircuitProps): JSX.Element {
           <RowTitle />
 
           <Container
+            style={{ width: '100%' }}
             dragClass={classes.selectedRow}
             dragHandleSelector={'.drag-handle'}
             // onDrop={orderAndUpdateStrategies}
