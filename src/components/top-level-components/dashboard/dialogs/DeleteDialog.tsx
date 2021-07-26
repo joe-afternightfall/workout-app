@@ -41,6 +41,7 @@ export default function DeleteDialog(props: DeleteDialogProps): JSX.Element {
   const handleClickOpen = () => {
     setOpen(true);
   };
+
   const handleClose = () => {
     setOpen(false);
   };
