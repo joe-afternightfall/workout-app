@@ -10,6 +10,7 @@ import Stopwatch from './stopwatch/Stopwatch';
 import Circuit from './circuit-accordian/Circuit';
 import { Grid, Typography } from '@material-ui/core';
 import NewCircuitDialog from './circuit-accordian/dialogs/NewCircuitDialog';
+import { ExerciseVO } from '../../../configs/models/ExerciseVO';
 
 const styles: Styles<Theme, StyledComponentProps> = () => ({});
 
@@ -71,6 +72,7 @@ class WorkoutScreen extends Component<WorkoutScreenProps> {
                   <Grid key={index} item xs={12}>
                     <Circuit
                       circuit={circuit}
+                      exercises={this.props.exercises}
                       deleteClickHandler={deleteCircuit}
                     />
                   </Grid>
@@ -83,6 +85,8 @@ class WorkoutScreen extends Component<WorkoutScreenProps> {
   }
 }
 
-export type WorkoutScreenProps = WithStyles<typeof styles>;
+export interface WorkoutScreenProps extends WithStyles<typeof styles> {
+  exercises: ExerciseVO[];
+}
 
 export default withStyles(styles, { withTheme: true })(WorkoutScreen);

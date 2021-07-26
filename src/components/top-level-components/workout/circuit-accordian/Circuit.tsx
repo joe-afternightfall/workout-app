@@ -13,7 +13,9 @@ import ExerciseSet from './ExerciseSet';
 import { Container } from 'react-smooth-dnd';
 import { NewCircuitProps } from '../WorkoutScreen';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import AddExerciseDialog from './dialogs/AddExerciseDialog';
 import DeleteCircuitDialog from './dialogs/DeleteCircuitDialog';
+import { ExerciseVO } from '../../../../configs/models/ExerciseVO';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
 const steps = [0, 1, 2, 3, 4];
@@ -32,6 +34,7 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function Circuit(props: CircuitProps): JSX.Element {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState<string | false>(false);
+  const [sets, setSets] = React.useState('');
 
   const handleChange =
     (panel: string) => (event: React.ChangeEvent<any>, isExpanded: boolean) => {
@@ -73,7 +76,7 @@ export default function Circuit(props: CircuitProps): JSX.Element {
           deleteClickHandler={props.deleteClickHandler}
         />
 
-        <Button>{'Add Exercise'}</Button>
+        <AddExerciseDialog exercises={props.exercises} />
       </AccordionActions>
     </Accordion>
   );
@@ -81,5 +84,6 @@ export default function Circuit(props: CircuitProps): JSX.Element {
 
 export interface CircuitProps {
   circuit: NewCircuitProps;
+  exercises: ExerciseVO[];
   deleteClickHandler: (circuitId: string) => void;
 }

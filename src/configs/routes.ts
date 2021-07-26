@@ -4,8 +4,8 @@ import { StyledComponentProps } from '@material-ui/core/styles';
 import FitnessCenterIcon from '@material-ui/icons/FitnessCenter';
 import { DashboardRounded as DashboardIcon } from '@material-ui/icons';
 import { OverridableComponent } from '@material-ui/core/OverridableComponent';
-import WorkoutScreen from '../components/top-level-components/workout/WorkoutScreen';
 import DashboardScreen from '../components/top-level-components/dashboard/DashboardScreen';
+import WorkoutScreen from '../components/top-level-components/workout/WorkoutScreenConnector';
 
 export interface RouteProp {
   path: string;
