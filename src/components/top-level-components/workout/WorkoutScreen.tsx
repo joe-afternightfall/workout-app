@@ -9,13 +9,9 @@ import { Styles } from '@material-ui/styles';
 import Stopwatch from './stopwatch/Stopwatch';
 import Circuit from './circuit-accordian/Circuit';
 import { Grid, Typography } from '@material-ui/core';
-import NewCircuitDialog from './circuit-accordian/NewCircuitDialog';
+import NewCircuitDialog from './circuit-accordian/dialogs/NewCircuitDialog';
 
-const styles: Styles<Theme, StyledComponentProps> = () => ({
-  root: {
-    width: '100%',
-  },
-});
+const styles: Styles<Theme, StyledComponentProps> = () => ({});
 
 export interface NewCircuitProps {
   id: string;
@@ -28,8 +24,6 @@ class WorkoutScreen extends Component<WorkoutScreenProps> {
   };
 
   render(): JSX.Element {
-    const { classes } = this.props;
-
     const addCircuit = (props: NewCircuitProps) => {
       this.setState({
         circuits: [
