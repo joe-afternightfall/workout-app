@@ -1,5 +1,4 @@
 import React from 'react';
-import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import Card from '@material-ui/core/Card';
 import Avatar from '@material-ui/core/Avatar';
@@ -9,16 +8,16 @@ import Typography from '@material-ui/core/Typography';
 import CardContent from '@material-ui/core/CardContent';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import {
-  Divider,
-  FormControl,
-  InputLabel,
   List,
+  Select,
+  Divider,
+  MenuItem,
   ListItem,
+  InputLabel,
+  FormControl,
+  ListItemText,
   ListItemIcon,
   ListItemSecondaryAction,
-  ListItemText,
-  MenuItem,
-  Select,
 } from '@material-ui/core';
 import WifiIcon from '@material-ui/icons/Wifi';
 import { State } from '../../../../configs/redux/store';
@@ -158,7 +157,7 @@ const mapStateToProps = (state: State): ExerciseCardProps => {
   } as unknown as ExerciseCardProps;
 };
 
-const mapDispatchToProps = (dispatch: Dispatch): ExerciseCardProps =>
+const mapDispatchToProps = (): ExerciseCardProps =>
   ({} as unknown as ExerciseCardProps);
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExerciseCard);
