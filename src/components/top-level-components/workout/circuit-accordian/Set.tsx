@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { Button, Grid, TextField, Typography } from '@material-ui/core';
 import RemoveIcon from '@material-ui/icons/RemoveCircleOutlineOutlined';
@@ -26,8 +26,19 @@ const useStyles = makeStyles(() =>
   })
 );
 
+// todo: only allow numbers for weight and sets
 export default function Set(props: SetProps): JSX.Element {
   const classes = useStyles();
+  const [weight, setWeight] = React.useState<number>();
+  const [reps, setReps] = React.useState<number>();
+
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    if (event.target.name === 'weight') {
+      setWeight(Number(event.target.value));
+    } else {
+      setReps(Number(event.target.value));
+    }
+  };
 
   return (
     <Grid item xs={12} container alignItems={'center'} spacing={2}>
@@ -36,11 +47,23 @@ export default function Set(props: SetProps): JSX.Element {
       </Grid>
 
       <Grid item xs={3}>
-        <TextField style={{ width: '100%' }} variant={'outlined'} />
+        <TextField
+          value={weight}
+          name={'weight'}
+          style={{ width: '100%' }}
+          variant={'outlined'}
+          onChange={handleChange}
+        />
       </Grid>
 
       <Grid item xs={3}>
-        <TextField style={{ width: '100%' }} variant={'outlined'} />
+        <TextField
+          value={reps}
+          name={'reps'}
+          style={{ width: '100%' }}
+          variant={'outlined'}
+          onChange={handleChange}
+        />
       </Grid>
 
       <Grid item xs={4}>
