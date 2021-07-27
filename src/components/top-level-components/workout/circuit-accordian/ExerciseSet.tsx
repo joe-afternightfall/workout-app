@@ -1,19 +1,21 @@
 import React from 'react';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
 import {
   Button,
+  Divider,
   Grid,
   IconButton,
   ListItem,
   ListItemIcon,
-  ListItemText,
   TextField,
   Typography,
 } from '@material-ui/core';
-import CheckIcon from '@material-ui/icons/CheckCircleOutlined';
-import RemoveIcon from '@material-ui/icons/RemoveCircleOutlineOutlined';
-import DragHandleIcon from '@material-ui/icons/DragHandle';
+import RowTitle from './RowTitle';
 import { Draggable } from 'react-smooth-dnd';
+import DragHandleIcon from '@material-ui/icons/DragHandle';
+import CheckIcon from '@material-ui/icons/CheckCircleOutlined';
+import AddIcon from '@material-ui/icons/AddCircleOutlineOutlined';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
+import RemoveIcon from '@material-ui/icons/RemoveCircleOutlineOutlined';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -44,6 +46,12 @@ export default function ExerciseSet(props: RepRowProps): JSX.Element {
     <Draggable>
       <ListItem style={{ width: '100%' }}>
         <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <Typography>{props.exerciseName}</Typography>
+          </Grid>
+
+          <RowTitle />
+
           <Grid item xs={10} container alignItems={'center'} spacing={2}>
             <Grid item xs={2}>
               <Typography>{'1'}</Typography>
@@ -78,7 +86,6 @@ export default function ExerciseSet(props: RepRowProps): JSX.Element {
               </Grid>
             </Grid>
           </Grid>
-
           <Grid item xs={2} container alignItems={'center'} justify={'center'}>
             <Grid item xs={6}>
               <ListItemIcon className={'drag-handle'}>
@@ -88,6 +95,16 @@ export default function ExerciseSet(props: RepRowProps): JSX.Element {
               </ListItemIcon>
             </Grid>
           </Grid>
+          <Grid item xs={12} container spacing={2}>
+            <Grid item>
+              <Button variant={'contained'} startIcon={<AddIcon />}>
+                {'Add Set'}
+              </Button>
+            </Grid>
+            <Grid item xs={12}>
+              <Divider variant={'fullWidth'} />
+            </Grid>
+          </Grid>
         </Grid>
       </ListItem>
     </Draggable>
@@ -95,5 +112,5 @@ export default function ExerciseSet(props: RepRowProps): JSX.Element {
 }
 
 export interface RepRowProps {
-  setNumber: number;
+  exerciseName: string;
 }

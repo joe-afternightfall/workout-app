@@ -1,14 +1,12 @@
 import React from 'react';
 import {
   Grid,
-  Button,
   Accordion,
   Typography,
   AccordionSummary,
   AccordionActions,
   AccordionDetails,
 } from '@material-ui/core';
-import RowTitle from './RowTitle';
 import ExerciseSet from './ExerciseSet';
 import { Container } from 'react-smooth-dnd';
 import { NewCircuitProps } from '../WorkoutScreen';
@@ -17,8 +15,6 @@ import AddExerciseDialog from './dialogs/AddExerciseDialog';
 import DeleteCircuitDialog from './dialogs/DeleteCircuitDialog';
 import { ExerciseVO } from '../../../../configs/models/ExerciseVO';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-
-const steps = [0, 1, 2, 3, 4];
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -34,12 +30,16 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function Circuit(props: CircuitProps): JSX.Element {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState<string | false>(false);
-  const [sets, setSets] = React.useState('');
+  const [exercises, setExercises] = React.useState<string[]>([]);
 
   const handleChange =
     (panel: string) => (event: React.ChangeEvent<any>, isExpanded: boolean) => {
       setExpanded(isExpanded ? panel : false);
     };
+
+  const handleAddExercise = (exercise: string) => {
+    setExercises((current: string[]) => [...current, exercise]);
+  };
 
   return (
     <Accordion
@@ -55,16 +55,14 @@ export default function Circuit(props: CircuitProps): JSX.Element {
 
       <AccordionDetails>
         <Grid container spacing={2}>
-          <RowTitle />
-
           <Container
             style={{ width: '100%' }}
             dragClass={classes.selectedRow}
             dragHandleSelector={'.drag-handle'}
             // onDrop={orderAndUpdateStrategies}
           >
-            {steps.map((step: number) => {
-              return <ExerciseSet key={step} setNumber={step} />;
+            {exercises.map((exercise: string, index: number) => {
+              return <ExerciseSet key={index} exerciseName={exercise} />;
             })}
           </Container>
         </Grid>
@@ -76,7 +74,10 @@ export default function Circuit(props: CircuitProps): JSX.Element {
           deleteClickHandler={props.deleteClickHandler}
         />
 
-        <AddExerciseDialog exercises={props.exercises} />
+        <AddExerciseDialog
+          exercises={props.exercises}
+          addClickHandler={handleAddExercise}
+        />
       </AccordionActions>
     </Accordion>
   );

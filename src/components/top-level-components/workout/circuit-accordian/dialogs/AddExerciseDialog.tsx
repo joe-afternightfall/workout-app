@@ -39,7 +39,15 @@ export default function AddExerciseDialog(
               {props.exercises.map((exercise: ExerciseVO, index: number) => {
                 return (
                   <ListItem key={index}>
-                    <Button fullWidth color={'primary'} variant={'contained'}>
+                    <Button
+                      fullWidth
+                      color={'primary'}
+                      variant={'contained'}
+                      onClick={() => {
+                        props.addClickHandler(exercise.name);
+                        handleClose();
+                      }}
+                    >
                       {exercise.name}
                     </Button>
                   </ListItem>
@@ -63,4 +71,5 @@ export default function AddExerciseDialog(
 
 export interface AddExerciseDialogProps {
   exercises: ExerciseVO[];
+  addClickHandler: (name: string) => void;
 }
