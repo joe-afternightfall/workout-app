@@ -24,10 +24,6 @@ export interface NewCircuitProps {
 }
 
 class WorkoutScreen extends Component<WorkoutScreenProps> {
-  state = {
-    circuits: [],
-  };
-
   render(): JSX.Element {
     const { circuits, exercises } = this.props;
     return (
