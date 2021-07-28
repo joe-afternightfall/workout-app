@@ -5,12 +5,13 @@ import {
   StyledComponentProps,
 } from '@material-ui/core/styles';
 import React, { Component } from 'react';
+import DateInfo from './date-info/DateInfo';
 import { Styles } from '@material-ui/styles';
 import Stopwatch from './stopwatch/Stopwatch';
 import Circuit from './circuit-accordian/Circuit';
 import { Grid, Typography } from '@material-ui/core';
-import NewCircuitDialog from './circuit-accordian/dialogs/NewCircuitDialog';
 import { ExerciseVO } from '../../../configs/models/ExerciseVO';
+import NewCircuitDialog from './circuit-accordian/dialogs/NewCircuitDialog';
 
 const styles: Styles<Theme, StyledComponentProps> = () => ({});
 
@@ -55,6 +56,7 @@ class WorkoutScreen extends Component<WorkoutScreenProps> {
       <Grid container>
         <Grid item xs={6}>
           <Typography>{'Workout'}</Typography>
+          <DateInfo />
         </Grid>
 
         <Grid item xs={6}>

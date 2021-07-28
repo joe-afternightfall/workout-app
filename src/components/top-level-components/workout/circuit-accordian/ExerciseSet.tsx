@@ -52,7 +52,7 @@ class ExerciseSet extends Component<ExerciseSetProps> {
             <RowTitle />
 
             {this.state.sets.map((set) => (
-              // todo: handle renumbering when deleting
+              // todo: handle re-numbering when deleting
               <Set key={set} setNumber={set} deleteClickHandler={deleteSet} />
             ))}
             {/*<Grid item xs={2} container alignItems={'center'} justify={'center'}>*/}
@@ -64,7 +64,7 @@ class ExerciseSet extends Component<ExerciseSetProps> {
             {/*    </ListItemIcon>*/}
             {/*  </Grid>*/}
             {/*</Grid>*/}
-            <Grid item xs={12} container spacing={2}>
+            <Grid style={{ marginTop: 8 }} item xs={12} container spacing={2}>
               <Grid item>
                 <Button
                   onClick={addSets}

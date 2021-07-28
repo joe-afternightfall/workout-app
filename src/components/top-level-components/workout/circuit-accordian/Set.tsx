@@ -1,6 +1,13 @@
 import React, { ChangeEvent } from 'react';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { Button, Grid, TextField, Typography } from '@material-ui/core';
+import {
+  Button,
+  Fade,
+  Grid,
+  TextField,
+  Tooltip,
+  Typography,
+} from '@material-ui/core';
 import RemoveIcon from '@material-ui/icons/RemoveCircleOutlineOutlined';
 import CheckIcon from '@material-ui/icons/CheckCircleOutlined';
 
@@ -81,20 +88,42 @@ export default function Set(props: SetProps): JSX.Element {
       <Grid item xs={4}>
         <Grid container alignItems={'center'} justify={'center'} spacing={2}>
           <Grid item>
-            <Button
-              className={classes.deleteButton}
-              onClick={() => {
-                props.deleteClickHandler(props.setNumber);
-              }}
+            <Tooltip
+              arrow
+              interactive
+              enterDelay={500}
+              leaveDelay={200}
+              placement={'left'}
+              title={'Delete Set'}
+              TransitionComponent={Fade}
+              TransitionProps={{ timeout: 600 }}
             >
-              <RemoveIcon />
-            </Button>
+              <Button
+                className={classes.deleteButton}
+                onClick={() => {
+                  props.deleteClickHandler(props.setNumber);
+                }}
+              >
+                <RemoveIcon />
+              </Button>
+            </Tooltip>
           </Grid>
 
           <Grid item>
-            <Button className={classes.confirmButton} onClick={markAsDone}>
-              <CheckIcon />
-            </Button>
+            <Tooltip
+              arrow
+              interactive
+              enterDelay={500}
+              leaveDelay={200}
+              placement={'right'}
+              title={'Mark Done'}
+              TransitionComponent={Fade}
+              TransitionProps={{ timeout: 600 }}
+            >
+              <Button className={classes.confirmButton} onClick={markAsDone}>
+                <CheckIcon />
+              </Button>
+            </Tooltip>
           </Grid>
         </Grid>
       </Grid>
