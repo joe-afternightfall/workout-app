@@ -3,6 +3,7 @@ import { LocationChangeAction } from 'connected-react-router';
 import { LoadWorkoutCategoriesAction } from './workout-categories';
 import {
   AddCircuitAction,
+  AddExerciseToCircuitAction,
   DeleteCircuitAction,
   UpdateWorkoutDateAction,
 } from './workout';
@@ -16,6 +17,7 @@ export enum ActionTypes {
   UPDATE_WORKOUT_DATE = 'UPDATE_WORKOUT_DATE',
   ADD_CIRCUIT = 'ADD_CIRCUIT',
   DELETE_CIRCUIT = 'DELETE_CIRCUIT',
+  ADD_EXERCISE_TO_CIRCUIT = 'ADD_EXERCISE_TO_CIRCUIT',
 }
 
 export type ApplicationActions =
@@ -25,4 +27,5 @@ export type ApplicationActions =
   | LoadWorkoutCategoriesAction
   | UpdateWorkoutDateAction
   | AddCircuitAction
-  | DeleteCircuitAction;
+  | DeleteCircuitAction
+  | AddExerciseToCircuitAction;
