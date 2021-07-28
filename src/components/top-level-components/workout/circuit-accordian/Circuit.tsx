@@ -7,29 +7,15 @@ import {
   AccordionActions,
   AccordionDetails,
 } from '@material-ui/core';
-import ExerciseSet from './ExerciseSet';
-import { Container } from 'react-smooth-dnd';
+import ExerciseSet from './components/ExerciseSet';
 import { NewCircuitProps } from '../WorkoutScreen';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import AddExerciseDialog from './dialogs/AddExerciseDialog';
 import DeleteCircuitDialog from './dialogs/DeleteCircuitDialog';
 import { ExerciseVO } from '../../../../configs/models/ExerciseVO';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {},
-    selectedRow: {
-      marginBottom: theme.spacing(1),
-      border: `solid 1px ${theme.palette.primary.main}`,
-      background: theme.palette.background.paper,
-    },
-  })
-);
 
 // todo: handle delete exercise
 export default function Circuit(props: CircuitProps): JSX.Element {
-  const classes = useStyles();
   const [expanded, setExpanded] = React.useState<string | false>(false);
   const [exercises, setExercises] = React.useState<string[]>([]);
 
@@ -67,16 +53,9 @@ export default function Circuit(props: CircuitProps): JSX.Element {
 
       <AccordionDetails>
         <Grid container spacing={2}>
-          <Container
-            style={{ width: '100%' }}
-            dragClass={classes.selectedRow}
-            dragHandleSelector={'.drag-handle'}
-            // onDrop={orderAndUpdateStrategies}
-          >
-            {exercises.map((exercise: string, index: number) => {
-              return <ExerciseSet key={index} exerciseName={exercise} />;
-            })}
-          </Container>
+          {exercises.map((exercise: string, index: number) => {
+            return <ExerciseSet key={index} exerciseName={exercise} />;
+          })}
         </Grid>
       </AccordionDetails>
 
