@@ -1,7 +1,11 @@
 import { LoadExercisesAction, UpdateWarmUpsAction } from './exercise';
 import { LocationChangeAction } from 'connected-react-router';
 import { LoadWorkoutCategoriesAction } from './workout-categories';
-import { UpdateWorkoutDateAction } from './workout';
+import {
+  AddCircuitAction,
+  DeleteCircuitAction,
+  UpdateWorkoutDateAction,
+} from './workout';
 
 export enum ActionTypes {
   // Application Actions
@@ -10,6 +14,8 @@ export enum ActionTypes {
   LOAD_EXERCISES = 'LOAD_EXERCISES',
   LOAD_WORKOUT_CATEGORIES = 'LOAD_WORKOUT_CATEGORIES',
   UPDATE_WORKOUT_DATE = 'UPDATE_WORKOUT_DATE',
+  ADD_CIRCUIT = 'ADD_CIRCUIT',
+  DELETE_CIRCUIT = 'DELETE_CIRCUIT',
 }
 
 export type ApplicationActions =
@@ -17,4 +23,6 @@ export type ApplicationActions =
   | UpdateWarmUpsAction
   | LoadExercisesAction
   | LoadWorkoutCategoriesAction
-  | UpdateWorkoutDateAction;
+  | UpdateWorkoutDateAction
+  | AddCircuitAction
+  | DeleteCircuitAction;

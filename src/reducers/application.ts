@@ -4,6 +4,7 @@ import { ExerciseVO } from '../configs/models/ExerciseVO';
 import { getPageInfo } from '../utils/get-current-page-info';
 import { ActionTypes, ApplicationActions } from '../creators/actions';
 import { WorkoutCategoryVO } from '../configs/models/WorkoutCategoryVO';
+import { NewCircuitProps } from '../components/top-level-components/workout/WorkoutScreen';
 
 export default {
   reducer(
@@ -30,6 +31,22 @@ export default {
       case ActionTypes.UPDATE_WORKOUT_DATE:
         newState.workoutDate = action.date;
         break;
+      case ActionTypes.ADD_CIRCUIT:
+        newState.circuits = [...newState.circuits, action.circuit];
+        break;
+      case ActionTypes.DELETE_CIRCUIT:
+        {
+          const circuits = newState.circuits;
+          const foundCircuit = circuits.find(
+            (circuit: NewCircuitProps) => circuit.id === action.id
+          );
+          if (foundCircuit) {
+            const foundIndex = circuits.indexOf(foundCircuit);
+            circuits.splice(foundIndex, 1);
+            newState.circuits = circuits;
+          }
+        }
+        break;
       default:
         newState = state;
     }
@@ -44,4 +61,5 @@ export interface ApplicationState {
   exercises: ExerciseVO[];
   workoutCategories: WorkoutCategoryVO[];
   workoutDate: Date;
+  circuits: NewCircuitProps[];
 }
