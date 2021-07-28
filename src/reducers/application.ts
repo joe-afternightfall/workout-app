@@ -47,6 +47,22 @@ export default {
           }
         }
         break;
+      case ActionTypes.ADD_EXERCISE_TO_CIRCUIT:
+        {
+          const circuits = newState.circuits;
+          const foundCircuit = circuits.find(
+            (circuit) => circuit.id === action.circuitId
+          );
+
+          if (foundCircuit) {
+            const foundIndex = circuits.indexOf(foundCircuit);
+            newState.circuits[foundIndex].exerciseIds = [
+              ...foundCircuit.exerciseIds,
+              action.exerciseId,
+            ];
+          }
+        }
+        break;
       default:
         newState = state;
     }
