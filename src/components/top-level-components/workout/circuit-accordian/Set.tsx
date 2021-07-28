@@ -31,6 +31,7 @@ export default function Set(props: SetProps): JSX.Element {
   const classes = useStyles();
   const [weight, setWeight] = React.useState<number>();
   const [reps, setReps] = React.useState<number>();
+  const [done, markDone] = React.useState<boolean>(false);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.name === 'weight') {
@@ -40,8 +41,19 @@ export default function Set(props: SetProps): JSX.Element {
     }
   };
 
+  const markAsDone = () => {
+    markDone(!done);
+  };
+
   return (
-    <Grid item xs={12} container alignItems={'center'} spacing={2}>
+    <Grid
+      item
+      xs={12}
+      container
+      alignItems={'center'}
+      spacing={2}
+      className={done ? classes.completedRow : ''}
+    >
       <Grid item xs={2}>
         <Typography>{props.setNumber + 1}</Typography>
       </Grid>
@@ -80,7 +92,7 @@ export default function Set(props: SetProps): JSX.Element {
           </Grid>
 
           <Grid item>
-            <Button className={classes.confirmButton}>
+            <Button className={classes.confirmButton} onClick={markAsDone}>
               <CheckIcon />
             </Button>
           </Grid>
