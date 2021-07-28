@@ -27,6 +27,9 @@ export default {
       case ActionTypes.LOAD_WORKOUT_CATEGORIES:
         newState.workoutCategories = action.workoutCategories;
         break;
+      case ActionTypes.UPDATE_WORKOUT_DATE:
+        newState.workoutDate = action.date;
+        break;
       default:
         newState = state;
     }
@@ -40,4 +43,5 @@ export interface ApplicationState {
   activePage: RouteProp | undefined;
   exercises: ExerciseVO[];
   workoutCategories: WorkoutCategoryVO[];
+  workoutDate: Date;
 }
