@@ -5,18 +5,10 @@ import { Dialog, Grid } from '@material-ui/core';
 import ListItem from '@material-ui/core/ListItem';
 import { ExerciseVO } from '../../../../../configs/models/ExerciseVO';
 import BaseDialogContent from '../../../../app-shell/BaseDialogContent';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {},
-  })
-);
 
 export default function AddExerciseDialog(
   props: AddExerciseDialogProps
 ): JSX.Element {
-  const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
   const handleOpen = () => {
@@ -44,7 +36,7 @@ export default function AddExerciseDialog(
                       color={'primary'}
                       variant={'contained'}
                       onClick={() => {
-                        props.addClickHandler(exercise.name);
+                        props.addClickHandler(props.circuitId, exercise.id);
                         handleClose();
                       }}
                     >
@@ -70,6 +62,7 @@ export default function AddExerciseDialog(
 }
 
 export interface AddExerciseDialogProps {
+  circuitId: string;
   exercises: ExerciseVO[];
-  addClickHandler: (name: string) => void;
+  addClickHandler: (circuitId: string, exerciseId: string) => void;
 }

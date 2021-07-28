@@ -7,7 +7,7 @@ import {
   AccordionActions,
   AccordionDetails,
 } from '@material-ui/core';
-import ExerciseSet from './components/ExerciseSet';
+import ExerciseCircuit from './components/ExerciseCircuit';
 import { NewCircuitProps } from '../WorkoutScreen';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import AddExerciseDialog from './dialogs/AddExerciseDialog';
@@ -17,27 +17,25 @@ import { ExerciseVO } from '../../../../configs/models/ExerciseVO';
 // todo: handle delete exercise
 export default function Circuit(props: CircuitProps): JSX.Element {
   const [expanded, setExpanded] = React.useState<string | false>(false);
-  const [exercises, setExercises] = React.useState<string[]>([]);
 
   const handleChange =
     (panel: string) => (event: React.ChangeEvent<any>, isExpanded: boolean) => {
       setExpanded(isExpanded ? panel : false);
     };
 
-  const handleAddExercise = (exercise: string) => {
-    setExercises((current: string[]) => [...current, exercise]);
-  };
+  // todo: add delete exercise action
+  // const deleteExercise = (exerciseName: string) => {
+  //   const allExercises = exercises;
+  //   const found = allExercises.find((exercise) => exercise === exerciseName);
+  //
+  //   if (found) {
+  //     const foundIndex = allExercises.indexOf(found);
+  //     allExercises.splice(foundIndex, 1);
+  //     setExercises(allExercises);
+  //   }
+  // };
 
-  const deleteExercise = (exerciseName: string) => {
-    const allExercises = exercises;
-    const found = allExercises.find((exercise) => exercise === exerciseName);
-
-    if (found) {
-      const foundIndex = allExercises.indexOf(found);
-      allExercises.splice(foundIndex, 1);
-      setExercises(allExercises);
-    }
-  };
+  console.log('&&&&&&& circuit: ' + JSON.stringify(props.circuit));
 
   return (
     <Accordion
@@ -53,8 +51,13 @@ export default function Circuit(props: CircuitProps): JSX.Element {
 
       <AccordionDetails>
         <Grid container spacing={2}>
-          {exercises.map((exercise: string, index: number) => {
-            return <ExerciseSet key={index} exerciseName={exercise} />;
+          {props.circuit.exerciseIds.map((id: string, index: number) => {
+            const foundExercise = props.exercises.find(
+              (exercise: ExerciseVO) => exercise.id === id
+            );
+            if (foundExercise) {
+              return <ExerciseCircuit key={index} exercise={foundExercise} />;
+            }
           })}
         </Grid>
       </AccordionDetails>
@@ -66,8 +69,9 @@ export default function Circuit(props: CircuitProps): JSX.Element {
         />
 
         <AddExerciseDialog
+          circuitId={props.circuit.id}
           exercises={props.exercises}
-          addClickHandler={handleAddExercise}
+          addClickHandler={props.addExerciseHandler}
         />
       </AccordionActions>
     </Accordion>
@@ -78,4 +82,5 @@ export interface CircuitProps {
   circuit: NewCircuitProps;
   exercises: ExerciseVO[];
   deleteClickHandler: (circuitId: string) => void;
+  addExerciseHandler: (circuitId: string, exerciseId: string) => void;
 }

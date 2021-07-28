@@ -23,6 +23,7 @@ const NewCircuitDialog = (props: NewCircuitDialogProps): JSX.Element => {
     props.addCircuitHandler({
       id: uuidv4(),
       type: type,
+      exerciseIds: [],
     });
     handleClose();
   };
