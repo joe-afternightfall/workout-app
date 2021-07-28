@@ -69,7 +69,12 @@ export default function Set(props: SetProps): JSX.Element {
       <Grid item xs={4}>
         <Grid container alignItems={'center'} justify={'center'} spacing={2}>
           <Grid item>
-            <Button className={classes.deleteButton}>
+            <Button
+              className={classes.deleteButton}
+              onClick={() => {
+                props.deleteClickHandler(props.setNumber);
+              }}
+            >
               <RemoveIcon />
             </Button>
           </Grid>
@@ -87,4 +92,5 @@ export default function Set(props: SetProps): JSX.Element {
 
 export interface SetProps {
   setNumber: number;
+  deleteClickHandler: (set: number) => void;
 }

@@ -27,6 +27,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
+// todo: handle delete exercise
 export default function Circuit(props: CircuitProps): JSX.Element {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState<string | false>(false);
@@ -39,6 +40,17 @@ export default function Circuit(props: CircuitProps): JSX.Element {
 
   const handleAddExercise = (exercise: string) => {
     setExercises((current: string[]) => [...current, exercise]);
+  };
+
+  const deleteExercise = (exerciseName: string) => {
+    const allExercises = exercises;
+    const found = allExercises.find((exercise) => exercise === exerciseName);
+
+    if (found) {
+      const foundIndex = allExercises.indexOf(found);
+      allExercises.splice(foundIndex, 1);
+      setExercises(allExercises);
+    }
   };
 
   return (
