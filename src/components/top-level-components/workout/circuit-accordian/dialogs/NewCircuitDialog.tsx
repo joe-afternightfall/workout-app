@@ -1,21 +1,14 @@
 import React from 'react';
+import { Dispatch } from 'redux';
 import { v4 as uuidv4 } from 'uuid';
+import { connect } from 'react-redux';
 import ListItem from '@material-ui/core/ListItem';
 import { NewCircuitProps } from '../../WorkoutScreen';
 import { Button, Dialog, List } from '@material-ui/core';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
 import BaseDialogContent from '../../../../app-shell/BaseDialogContent';
+import { addCircuit } from '../../../../../creators/workout';
 
-const useStyles = makeStyles(() =>
-  createStyles({
-    root: {},
-  })
-);
-
-export default function NewCircuitDialog(
-  props: NewCircuitDialogProps
-): JSX.Element {
-  const classes = useStyles();
+const NewCircuitDialog = (props: NewCircuitDialogProps): JSX.Element => {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -89,8 +82,17 @@ export default function NewCircuitDialog(
       </Dialog>
     </>
   );
-}
+};
 
 export interface NewCircuitDialogProps {
   addCircuitHandler: (props: NewCircuitProps) => void;
 }
+
+const mapDispatchToProps = (dispatch: Dispatch): NewCircuitDialogProps =>
+  ({
+    addCircuitHandler: (props: NewCircuitProps) => {
+      dispatch(addCircuit(props));
+    },
+  } as unknown as NewCircuitDialogProps);
+
+export default connect(null, mapDispatchToProps)(NewCircuitDialog);
