@@ -1,5 +1,3 @@
-import React, { ChangeEvent } from 'react';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
 import {
   Button,
   Fade,
@@ -8,8 +6,10 @@ import {
   Tooltip,
   Typography,
 } from '@material-ui/core';
-import RemoveIcon from '@material-ui/icons/RemoveCircleOutlineOutlined';
+import React, { ChangeEvent } from 'react';
 import CheckIcon from '@material-ui/icons/CheckCircleOutlined';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
+import RemoveIcon from '@material-ui/icons/RemoveCircleOutlineOutlined';
 
 const useStyles = makeStyles(() =>
   createStyles({

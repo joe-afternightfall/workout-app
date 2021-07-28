@@ -55,15 +55,7 @@ class ExerciseSet extends Component<ExerciseSetProps> {
               // todo: handle re-numbering when deleting
               <Set key={set} setNumber={set} deleteClickHandler={deleteSet} />
             ))}
-            {/*<Grid item xs={2} container alignItems={'center'} justify={'center'}>*/}
-            {/*  <Grid item xs={6}>*/}
-            {/*    <ListItemIcon className={'drag-handle'}>*/}
-            {/*      <IconButton>*/}
-            {/*        <DragHandleIcon />*/}
-            {/*      </IconButton>*/}
-            {/*    </ListItemIcon>*/}
-            {/*  </Grid>*/}
-            {/*</Grid>*/}
+
             <Grid style={{ marginTop: 8 }} item xs={12} container spacing={2}>
               <Grid item>
                 <Button
