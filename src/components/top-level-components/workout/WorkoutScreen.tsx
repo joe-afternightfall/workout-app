@@ -26,32 +26,7 @@ class WorkoutScreen extends Component<WorkoutScreenProps> {
   };
 
   render(): JSX.Element {
-    const addCircuit = (props: NewCircuitProps) => {
-      this.setState({
-        circuits: [
-          ...this.state.circuits,
-          {
-            id: props.id,
-            type: props.type,
-          },
-        ],
-      });
-    };
-
-    const deleteCircuit = (id: string) => {
-      const circuits = this.state.circuits;
-      const foundCircuit = circuits.find(
-        (circuit: NewCircuitProps) => circuit.id === id
-      );
-      if (foundCircuit) {
-        const foundIndex = circuits.indexOf(foundCircuit);
-        circuits.splice(foundIndex, 1);
-        this.setState({
-          circuits: circuits,
-        });
-      }
-    };
-
+    const { circuits, exercises } = this.props;
     return (
       <Grid container>
         <Grid item xs={6}>
@@ -64,24 +39,20 @@ class WorkoutScreen extends Component<WorkoutScreenProps> {
         </Grid>
 
         <Grid item xs={12}>
-          <NewCircuitDialog addCircuitHandler={addCircuit} />
+          <NewCircuitDialog />
         </Grid>
 
-        {this.state.circuits
-          ? this.state.circuits.map(
-              (circuit: NewCircuitProps, index: number) => {
-                return (
-                  <Grid key={index} item xs={12}>
-                    <Circuit
-                      circuit={circuit}
-                      exercises={this.props.exercises}
-                      deleteClickHandler={deleteCircuit}
-                    />
-                  </Grid>
-                );
-              }
-            )
-          : undefined}
+        {circuits.map((circuit: NewCircuitProps, index: number) => {
+          return (
+            <Grid key={index} item xs={12}>
+              <Circuit
+                circuit={circuit}
+                exercises={exercises}
+                deleteClickHandler={this.props.deleteCircuitHandler}
+              />
+            </Grid>
+          );
+        })}
       </Grid>
     );
   }
@@ -89,6 +60,8 @@ class WorkoutScreen extends Component<WorkoutScreenProps> {
 
 export interface WorkoutScreenProps extends WithStyles<typeof styles> {
   exercises: ExerciseVO[];
+  circuits: NewCircuitProps[];
+  deleteCircuitHandler: (id: string) => void;
 }
 
 export default withStyles(styles, { withTheme: true })(WorkoutScreen);
