@@ -15,9 +15,12 @@ import NewCircuitDialog from './circuit-accordian/dialogs/NewCircuitDialog';
 
 const styles: Styles<Theme, StyledComponentProps> = () => ({});
 
+// todo: rename prop to WorkoutCircuitProps
 export interface NewCircuitProps {
+  [key: string]: string | string[];
   id: string;
   type: string;
+  exerciseIds: string[];
 }
 
 class WorkoutScreen extends Component<WorkoutScreenProps> {
@@ -49,6 +52,7 @@ class WorkoutScreen extends Component<WorkoutScreenProps> {
                 circuit={circuit}
                 exercises={exercises}
                 deleteClickHandler={this.props.deleteCircuitHandler}
+                addExerciseHandler={this.props.addExerciseHandler}
               />
             </Grid>
           );
@@ -62,6 +66,7 @@ export interface WorkoutScreenProps extends WithStyles<typeof styles> {
   exercises: ExerciseVO[];
   circuits: NewCircuitProps[];
   deleteCircuitHandler: (id: string) => void;
+  addExerciseHandler: (circuitId: string, exerciseId: string) => void;
 }
 
 export default withStyles(styles, { withTheme: true })(WorkoutScreen);
