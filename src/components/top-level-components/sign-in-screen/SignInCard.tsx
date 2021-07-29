@@ -66,6 +66,7 @@ export default function SignInCard(props: SignInFormProps): JSX.Element {
               variant={'contained'}
               color={'primary'}
               onClick={props.clickHandler}
+              disabled={props.password === '' || props.email === ''}
             >
               {'Sign In'}
             </Button>

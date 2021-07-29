@@ -1,72 +1,79 @@
 import firebase from 'firebase';
-import {
-  Theme,
-  WithStyles,
-  withStyles,
-  StyledComponentProps,
-} from '@material-ui/core/styles';
-import React, { Component } from 'react';
-import { Styles } from '@material-ui/styles';
 import { Button, Card, Grid, TextField } from '@material-ui/core';
 import SignInCard from './SignInCard';
+import React from 'react';
+import { Dispatch } from 'redux';
+import { connect } from 'react-redux';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { updateLoggedInUser } from '../../../creators/user-info';
 
-const styles: Styles<Theme, StyledComponentProps> = (theme: Theme) => ({
-  root: {
-    height: '100vh',
-    backgroundColor: '#1A2474',
-  },
-});
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      height: '100vh',
+      backgroundColor: '#1A2474',
+    },
+  })
+);
 
-class SignInScreen extends Component<SignInProps> {
-  state = {
-    email: '',
-    password: '',
+const SignInScreen = (props: SignInScreenProps): JSX.Element => {
+  const classes = useStyles();
+  const [email, setEmail] = React.useState<string>('');
+  const [password, setPassword] = React.useState<string>('');
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    if (event.target.name === 'email') {
+      setEmail(event.target.value);
+    } else {
+      setPassword(event.target.value);
+    }
   };
 
-  render(): JSX.Element {
-    const { classes } = this.props;
+  const signInHandler = () => {
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
 
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-      this.setState({
-        [event.target.name]: event.target.value,
+        if (user && user.email) {
+          props.logInHandler(user.email);
+        }
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
       });
-    };
+  };
 
-    const signInHandler = () => {
-      firebase
-        .auth()
-        .signInWithEmailAndPassword(this.state.email, this.state.password)
-        .then((userCredential) => {
-          // Signed in
-          const user = userCredential.user;
-          // ...
-        })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-        });
-    };
-
-    return (
-      <Grid
-        container
-        alignItems={'center'}
-        justifyContent={'center'}
-        className={classes.root}
-      >
-        <Grid item xs={4}>
-          <SignInCard
-            email={this.state.email}
-            clickHandler={signInHandler}
-            changeHandler={handleChange}
-            password={this.state.password}
-          />
-        </Grid>
+  return (
+    <Grid
+      container
+      alignItems={'center'}
+      justifyContent={'center'}
+      className={classes.root}
+    >
+      <Grid item xs={4}>
+        <SignInCard
+          email={email}
+          clickHandler={signInHandler}
+          changeHandler={handleChange}
+          password={password}
+        />
       </Grid>
-    );
-  }
+    </Grid>
+  );
+};
+
+export interface SignInScreenProps {
+  logInHandler: (username: string) => void;
 }
 
-export type SignInProps = WithStyles<typeof styles>;
+const mapDispatchToProps = (dispatch: Dispatch): SignInScreenProps =>
+  ({
+    logInHandler: (username: string) => {
+      dispatch(updateLoggedInUser(username));
+    },
+  } as unknown as SignInScreenProps);
 
-export default withStyles(styles, { withTheme: true })(SignInScreen);
+export default connect(null, mapDispatchToProps)(SignInScreen);
