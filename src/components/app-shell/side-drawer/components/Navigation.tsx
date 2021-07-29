@@ -1,7 +1,8 @@
 import React from 'react';
+import firebase from 'firebase';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import { List } from '@material-ui/core';
+import { Button, Grid, List } from '@material-ui/core';
 import { NavListItem } from './NavListItem';
 import { routerActions } from 'connected-react-router';
 import { State } from '../../../../configs/redux/store';
@@ -20,6 +21,18 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const Navigation = (props: NavigationProps): JSX.Element => {
   const classes = useStyles();
+
+  const logout = () => {
+    firebase
+      .auth()
+      .signOut()
+      .then(() => {
+        // Sign-out successful.
+      })
+      .catch((error) => {
+        // An error happened.
+      });
+  };
 
   return (
     <List
@@ -40,6 +53,12 @@ const Navigation = (props: NavigationProps): JSX.Element => {
           />
         );
       })}
+
+      <Grid container justifyContent={'center'}>
+        <Grid item>
+          <Button onClick={logout}>{'Sign Out'}</Button>
+        </Grid>
+      </Grid>
     </List>
   );
 };
