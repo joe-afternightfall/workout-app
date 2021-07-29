@@ -55,7 +55,7 @@ const Navigation = (props: NavigationProps): JSX.Element => {
       })}
 
       <Grid container justifyContent={'center'}>
-        <Grid item>
+        <Grid item style={{ marginTop: 40 }}>
           <Button onClick={logout}>{'Sign Out'}</Button>
         </Grid>
       </Grid>

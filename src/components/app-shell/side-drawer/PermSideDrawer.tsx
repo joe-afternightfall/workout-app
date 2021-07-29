@@ -1,9 +1,9 @@
 import React from 'react';
 import Drawer from '@material-ui/core/Drawer';
-import Divider from '@material-ui/core/Divider';
 import Navigation from './components/Navigation';
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
 import { FULL_DRAWER_WIDTH } from '../../../configs/constants/app';
+import SideDrawerAppBar from './components/SideDrawerAppBar';
 
 const drawerWidth = FULL_DRAWER_WIDTH;
 
@@ -33,8 +33,7 @@ export default function PermSideDrawer(): JSX.Element {
       }}
       anchor={'left'}
     >
-      <div className={classes.toolbar} />
-      <Divider />
+      <SideDrawerAppBar />
 
       <Navigation />
     </Drawer>
