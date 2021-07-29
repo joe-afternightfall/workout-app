@@ -35,8 +35,6 @@ export default function Circuit(props: CircuitProps): JSX.Element {
   //   }
   // };
 
-  console.log('&&&&&&& circuit: ' + JSON.stringify(props.circuit));
-
   return (
     <Accordion
       expanded={expanded === props.circuit.id}
