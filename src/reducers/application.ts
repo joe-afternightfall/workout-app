@@ -18,10 +18,9 @@ export default {
         newState.currentLocation = action.payload.location.pathname;
         newState.activePage = getPageInfo(newState.currentLocation);
         break;
-      // case ActionTypes.UPDATE_WARM_UPS: {
-      //   newState.warmUps = [...newState.warmUps, action.exercise];
-      //   break;
-      // }
+      case ActionTypes.LOGGED_IN_USER:
+        newState.username = action.username;
+        break;
       case ActionTypes.LOAD_EXERCISES:
         newState.exercises = action.exercises;
         break;
@@ -72,6 +71,7 @@ export default {
 };
 
 export interface ApplicationState {
+  username: string;
   currentLocation: string;
   activePage: RouteProp | undefined;
   exercises: ExerciseVO[];

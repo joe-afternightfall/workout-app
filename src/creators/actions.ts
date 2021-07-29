@@ -7,6 +7,7 @@ import {
   DeleteCircuitAction,
   UpdateWorkoutDateAction,
 } from './workout';
+import { UpdateLoggedInUserAction } from './user-info';
 
 export enum ActionTypes {
   // Application Actions
@@ -18,6 +19,7 @@ export enum ActionTypes {
   ADD_CIRCUIT = 'ADD_CIRCUIT',
   DELETE_CIRCUIT = 'DELETE_CIRCUIT',
   ADD_EXERCISE_TO_CIRCUIT = 'ADD_EXERCISE_TO_CIRCUIT',
+  LOGGED_IN_USER = 'LOGGED_IN_USER',
 }
 
 export type ApplicationActions =
@@ -28,4 +30,5 @@ export type ApplicationActions =
   | UpdateWorkoutDateAction
   | AddCircuitAction
   | DeleteCircuitAction
-  | AddExerciseToCircuitAction;
+  | AddExerciseToCircuitAction
+  | UpdateLoggedInUserAction;
