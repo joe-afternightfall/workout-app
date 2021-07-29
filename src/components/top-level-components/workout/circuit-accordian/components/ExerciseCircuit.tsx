@@ -12,7 +12,13 @@ import AddIcon from '@material-ui/icons/AddCircleOutlineOutlined';
 import { Button, Divider, Grid, ListItem, Typography } from '@material-ui/core';
 import { ExerciseVO } from '../../../../../configs/models/ExerciseVO';
 
-const styles: Styles<Theme, StyledComponentProps> = () => ({});
+const styles: Styles<Theme, StyledComponentProps> = (theme: Theme) => ({
+  title: {
+    color: theme.palette.primary.main,
+    fontWeight: 600,
+    // fontSize: theme.typography.pxToRem(15),
+  },
+});
 
 class ExerciseCircuit extends Component<ExerciseCircuitProps> {
   state = {
@@ -20,6 +26,8 @@ class ExerciseCircuit extends Component<ExerciseCircuitProps> {
   };
 
   render(): JSX.Element {
+    const { classes } = this.props;
+
     const addSets = () => {
       let number = this.state.sets.length;
       this.setState({
@@ -43,7 +51,9 @@ class ExerciseCircuit extends Component<ExerciseCircuitProps> {
       <ListItem style={{ width: '100%' }}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
-            <Typography>{this.props.exercise.name}</Typography>
+            <Typography className={classes.title} variant={'h6'}>
+              {this.props.exercise.name}
+            </Typography>
           </Grid>
 
           <RowTitle />
