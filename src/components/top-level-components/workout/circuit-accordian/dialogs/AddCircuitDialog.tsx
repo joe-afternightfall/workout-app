@@ -8,7 +8,7 @@ import { Button, Dialog, List } from '@material-ui/core';
 import BaseDialogContent from '../../../../app-shell/BaseDialogContent';
 import { addCircuit } from '../../../../../creators/workout';
 
-const NewCircuitDialog = (props: NewCircuitDialogProps): JSX.Element => {
+const AddCircuitDialog = (props: AddCircuitDialogProps): JSX.Element => {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -85,15 +85,15 @@ const NewCircuitDialog = (props: NewCircuitDialogProps): JSX.Element => {
   );
 };
 
-export interface NewCircuitDialogProps {
+export interface AddCircuitDialogProps {
   addCircuitHandler: (props: NewCircuitProps) => void;
 }
 
-const mapDispatchToProps = (dispatch: Dispatch): NewCircuitDialogProps =>
+const mapDispatchToProps = (dispatch: Dispatch): AddCircuitDialogProps =>
   ({
     addCircuitHandler: (props: NewCircuitProps) => {
       dispatch(addCircuit(props));
     },
-  } as unknown as NewCircuitDialogProps);
+  } as unknown as AddCircuitDialogProps);
 
-export default connect(null, mapDispatchToProps)(NewCircuitDialog);
+export default connect(null, mapDispatchToProps)(AddCircuitDialog);

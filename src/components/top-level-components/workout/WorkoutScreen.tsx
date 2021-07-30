@@ -11,7 +11,7 @@ import Stopwatch from './stopwatch/Stopwatch';
 import Circuit from './circuit-accordian/Circuit';
 import { Grid, Typography } from '@material-ui/core';
 import { ExerciseVO } from '../../../configs/models/ExerciseVO';
-import NewCircuitDialog from './circuit-accordian/dialogs/NewCircuitDialog';
+import AddCircuitDialog from './circuit-accordian/dialogs/AddCircuitDialog';
 
 const styles: Styles<Theme, StyledComponentProps> = () => ({});
 
@@ -37,7 +37,7 @@ class WorkoutScreen extends Component<WorkoutScreenProps> {
             <Stopwatch />
           </Grid>
           <Grid container item xs={12} justify={'flex-end'}>
-            <NewCircuitDialog />
+            <AddCircuitDialog />
           </Grid>
         </Grid>
 

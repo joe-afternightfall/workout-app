@@ -49,14 +49,22 @@ export default function Circuit(props: CircuitProps): JSX.Element {
 
       <AccordionDetails>
         <Grid container spacing={2}>
-          {props.circuit.exerciseIds.map((id: string, index: number) => {
-            const foundExercise = props.exercises.find(
-              (exercise: ExerciseVO) => exercise.id === id
-            );
-            if (foundExercise) {
-              return <ExerciseCircuit key={index} exercise={foundExercise} />;
-            }
-          })}
+          {props.circuit.exerciseIds.length === 0 ? (
+            <Grid item container justifyContent={'center'}>
+              <Grid item>
+                <Typography>{'add exercises to get started'}</Typography>
+              </Grid>
+            </Grid>
+          ) : (
+            props.circuit.exerciseIds.map((id: string, index: number) => {
+              const foundExercise = props.exercises.find(
+                (exercise: ExerciseVO) => exercise.id === id
+              );
+              if (foundExercise) {
+                return <ExerciseCircuit key={index} exercise={foundExercise} />;
+              }
+            })
+          )}
         </Grid>
       </AccordionDetails>
 
