@@ -31,7 +31,7 @@ const NewCircuitDialog = (props: NewCircuitDialogProps): JSX.Element => {
   return (
     <>
       <Button variant={'outlined'} onClick={handleClickOpen}>
-        {'Click to add circuit'}
+        {'Add Circuit'}
       </Button>
 
       <Dialog onClose={handleClose} open={open} fullWidth maxWidth={'xs'}>

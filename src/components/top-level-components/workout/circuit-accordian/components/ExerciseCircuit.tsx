@@ -9,7 +9,15 @@ import RowTitle from './RowTitle';
 import React, { Component } from 'react';
 import { Styles } from '@material-ui/styles';
 import AddIcon from '@material-ui/icons/AddCircleOutlineOutlined';
-import { Button, Divider, Grid, ListItem, Typography } from '@material-ui/core';
+import {
+  Button,
+  Divider,
+  Grid,
+  IconButton,
+  ListItem,
+  Typography,
+} from '@material-ui/core';
+import DeleteIcon from '@material-ui/icons/HighlightOff';
 import { ExerciseVO } from '../../../../../configs/models/ExerciseVO';
 
 const styles: Styles<Theme, StyledComponentProps> = (theme: Theme) => ({
@@ -50,10 +58,18 @@ class ExerciseCircuit extends Component<ExerciseCircuitProps> {
     return (
       <ListItem style={{ width: '100%' }}>
         <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <Typography className={classes.title} variant={'h6'}>
-              {this.props.exercise.name}
-            </Typography>
+          <Grid container item xs={12} alignItems={'center'} spacing={2}>
+            <Grid item>
+              <Typography className={classes.title} variant={'h6'}>
+                {this.props.exercise.name}
+              </Typography>
+            </Grid>
+
+            <Grid item>
+              <IconButton>
+                <DeleteIcon />
+              </IconButton>
+            </Grid>
           </Grid>
 
           <RowTitle />
