@@ -1,15 +1,12 @@
-import App from './App';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Route } from 'react-router';
+import AppRouter from './AppRouter';
 import { Provider } from 'react-redux';
 import { createHashHistory } from 'history';
-import { routes } from './configs/routes';
 import { createStore } from './configs/redux/store';
-import reportWebVitals from './configs/report-web-vitals';
-import { ConnectedRouter } from 'connected-react-router';
 import { Initializer } from './firebase/Initializer';
-import AppRouter from './AppRouter';
+import { ConnectedRouter } from 'connected-react-router';
+import reportWebVitals from './configs/report-web-vitals';
 
 const history = createHashHistory(),
   store = createStore(history);
@@ -38,3 +35,5 @@ reportWebVitals();
 // todo: get test suites working
 // todo: add to exercises "type: weights, time, distance"
 // todo: rename all "justify" props on <Grid /> to "justifyContent"
+// todo: create github repo for app
+// todo: create firebase job and hosting service
