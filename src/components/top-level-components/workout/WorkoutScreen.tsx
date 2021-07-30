@@ -29,30 +29,43 @@ class WorkoutScreen extends Component<WorkoutScreenProps> {
     return (
       <Grid container>
         <Grid item xs={6}>
-          <Typography>{'Workout'}</Typography>
           <DateInfo />
         </Grid>
 
-        <Grid item xs={6}>
-          <Stopwatch />
+        <Grid container item xs={6}>
+          <Grid item xs={12}>
+            <Stopwatch />
+          </Grid>
+          <Grid container item xs={12} justify={'flex-end'}>
+            <NewCircuitDialog />
+          </Grid>
         </Grid>
 
-        <Grid item xs={12}>
-          <NewCircuitDialog />
-        </Grid>
-
-        {circuits.map((circuit: NewCircuitProps, index: number) => {
-          return (
-            <Grid key={index} item xs={12}>
-              <Circuit
-                circuit={circuit}
-                exercises={exercises}
-                deleteClickHandler={this.props.deleteCircuitHandler}
-                addExerciseHandler={this.props.addExerciseHandler}
-              />
-            </Grid>
-          );
-        })}
+        {circuits.length === 0 ? (
+          <Grid
+            container
+            alignItems={'center'}
+            justifyContent={'center'}
+            style={{ height: '60vh' }}
+          >
+            <Typography>{'add a circuit to get started'}</Typography>
+          </Grid>
+        ) : (
+          <Grid container spacing={3}>
+            {circuits.map((circuit: NewCircuitProps, index: number) => {
+              return (
+                <Grid key={index} item xs={12}>
+                  <Circuit
+                    circuit={circuit}
+                    exercises={exercises}
+                    deleteClickHandler={this.props.deleteCircuitHandler}
+                    addExerciseHandler={this.props.addExerciseHandler}
+                  />
+                </Grid>
+              );
+            })}
+          </Grid>
+        )}
       </Grid>
     );
   }
