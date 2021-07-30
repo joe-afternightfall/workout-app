@@ -7,10 +7,6 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {
-      margin: 0,
-      padding: theme.spacing(2),
-    },
     closeButton: {
       position: 'absolute',
       right: theme.spacing(1),
