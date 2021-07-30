@@ -60,6 +60,7 @@ class WorkoutScreen extends Component<WorkoutScreenProps> {
                     exercises={exercises}
                     deleteClickHandler={this.props.deleteCircuitHandler}
                     addExerciseHandler={this.props.addExerciseHandler}
+                    deleteExerciseHandler={this.props.deleteExerciseHandler}
                   />
                 </Grid>
               );
@@ -76,6 +77,7 @@ export interface WorkoutScreenProps extends WithStyles<typeof styles> {
   circuits: NewCircuitProps[];
   deleteCircuitHandler: (id: string) => void;
   addExerciseHandler: (circuitId: string, exerciseId: string) => void;
+  deleteExerciseHandler: (circuitId: string, exerciseId: string) => void;
 }
 
 export default withStyles(styles, { withTheme: true })(WorkoutScreen);

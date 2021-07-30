@@ -42,7 +42,6 @@ export default {
           if (foundCircuit) {
             const foundIndex = circuits.indexOf(foundCircuit);
             circuits.splice(foundIndex, 1);
-            newState.circuits = circuits;
             return {
               ...newState,
               circuits: [...newState.circuits],
@@ -63,6 +62,32 @@ export default {
               ...foundCircuit.exerciseIds,
               action.exerciseId,
             ];
+            return {
+              ...newState,
+              circuits: [...newState.circuits],
+            };
+          }
+        }
+        break;
+      case ActionTypes.DELETE_EXERCISE_FROM_CIRCUIT:
+        {
+          const circuits = newState.circuits;
+          const foundCircuit = circuits.find(
+            (circuit: NewCircuitProps) => circuit.id === action.circuitId
+          );
+          if (foundCircuit) {
+            const circuitIndex = circuits.indexOf(foundCircuit);
+            const exerciseIds = newState.circuits[circuitIndex].exerciseIds;
+
+            const foundExercise = exerciseIds.find(
+              (exerciseId: string) => exerciseId === action.exerciseId
+            );
+
+            if (foundExercise) {
+              const exerciseIndex = exerciseIds.indexOf(foundExercise);
+              exerciseIds.splice(exerciseIndex, 1);
+            }
+
             return {
               ...newState,
               circuits: [...newState.circuits],

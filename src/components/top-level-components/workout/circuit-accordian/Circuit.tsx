@@ -7,14 +7,13 @@ import {
   AccordionActions,
   AccordionDetails,
 } from '@material-ui/core';
-import ExerciseCircuit from './components/ExerciseCircuit';
 import { NewCircuitProps } from '../WorkoutScreen';
+import ExerciseCircuit from './components/ExerciseCircuit';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import AddExerciseDialog from './dialogs/AddExerciseDialog';
 import DeleteCircuitDialog from './dialogs/DeleteCircuitDialog';
 import { ExerciseVO } from '../../../../configs/models/ExerciseVO';
 
-// todo: handle delete exercise
 export default function Circuit(props: CircuitProps): JSX.Element {
   const [expanded, setExpanded] = React.useState<string | false>(false);
 
@@ -22,18 +21,6 @@ export default function Circuit(props: CircuitProps): JSX.Element {
     (panel: string) => (event: React.ChangeEvent<any>, isExpanded: boolean) => {
       setExpanded(isExpanded ? panel : false);
     };
-
-  // todo: add delete exercise action
-  // const deleteExercise = (exerciseName: string) => {
-  //   const allExercises = exercises;
-  //   const found = allExercises.find((exercise) => exercise === exerciseName);
-  //
-  //   if (found) {
-  //     const foundIndex = allExercises.indexOf(found);
-  //     allExercises.splice(foundIndex, 1);
-  //     setExercises(allExercises);
-  //   }
-  // };
 
   return (
     <Accordion
@@ -61,7 +48,14 @@ export default function Circuit(props: CircuitProps): JSX.Element {
                 (exercise: ExerciseVO) => exercise.id === id
               );
               if (foundExercise) {
-                return <ExerciseCircuit key={index} exercise={foundExercise} />;
+                return (
+                  <ExerciseCircuit
+                    key={index}
+                    circuitId={props.circuit.id}
+                    exercise={foundExercise}
+                    deleteExerciseHandler={props.deleteExerciseHandler}
+                  />
+                );
               }
             })
           )}
@@ -89,4 +83,5 @@ export interface CircuitProps {
   exercises: ExerciseVO[];
   deleteClickHandler: (circuitId: string) => void;
   addExerciseHandler: (circuitId: string, exerciseId: string) => void;
+  deleteExerciseHandler: (circuitId: string, exerciseId: string) => void;
 }

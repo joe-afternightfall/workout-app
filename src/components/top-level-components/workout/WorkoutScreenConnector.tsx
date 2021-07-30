@@ -2,7 +2,11 @@ import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import WorkoutScreen, { WorkoutScreenProps } from './WorkoutScreen';
 import { State } from '../../../configs/redux/store';
-import { addExerciseToCircuit, deleteCircuit } from '../../../creators/workout';
+import {
+  addExerciseToCircuit,
+  deleteCircuit,
+  deleteExerciseFromCircuit,
+} from '../../../creators/workout';
 
 const mapStateToProps = (state: State): WorkoutScreenProps => {
   return {
@@ -18,6 +22,9 @@ const mapDispatchToProps = (dispatch: Dispatch): WorkoutScreenProps =>
     },
     addExerciseHandler: (circuitId: string, exerciseId: string) => {
       dispatch(addExerciseToCircuit(circuitId, exerciseId));
+    },
+    deleteExerciseHandler: (circuitId: string, exerciseId: string) => {
+      dispatch(deleteExerciseFromCircuit(circuitId, exerciseId));
     },
   } as unknown as WorkoutScreenProps);
 

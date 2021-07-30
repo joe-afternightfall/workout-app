@@ -53,3 +53,20 @@ export const addExerciseToCircuit = (
     exerciseId: exerciseId,
   };
 };
+
+export interface DeleteExerciseFromCircuitAction {
+  type: ActionTypes.DELETE_EXERCISE_FROM_CIRCUIT;
+  circuitId: string;
+  exerciseId: string;
+}
+
+export const deleteExerciseFromCircuit = (
+  circuitId: string,
+  exerciseId: string
+): DeleteExerciseFromCircuitAction => {
+  return {
+    type: ActionTypes.DELETE_EXERCISE_FROM_CIRCUIT,
+    circuitId: circuitId,
+    exerciseId: exerciseId,
+  };
+};

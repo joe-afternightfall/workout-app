@@ -13,12 +13,11 @@ import {
   Button,
   Divider,
   Grid,
-  IconButton,
   ListItem,
   Typography,
 } from '@material-ui/core';
-import DeleteIcon from '@material-ui/icons/HighlightOff';
 import { ExerciseVO } from '../../../../../configs/models/ExerciseVO';
+import DeleteExerciseDialog from '../dialogs/DeleteExerciseDialog';
 
 const styles: Styles<Theme, StyledComponentProps> = (theme: Theme) => ({
   title: {
@@ -66,9 +65,11 @@ class ExerciseCircuit extends Component<ExerciseCircuitProps> {
             </Grid>
 
             <Grid item>
-              <IconButton>
-                <DeleteIcon />
-              </IconButton>
+              <DeleteExerciseDialog
+                exercise={this.props.exercise}
+                circuitId={this.props.circuitId}
+                deleteExerciseHandler={this.props.deleteExerciseHandler}
+              />
             </Grid>
           </Grid>
 
@@ -101,6 +102,8 @@ class ExerciseCircuit extends Component<ExerciseCircuitProps> {
 
 export interface ExerciseCircuitProps extends WithStyles<typeof styles> {
   exercise: ExerciseVO;
+  circuitId: string;
+  deleteExerciseHandler: (circuitId: string, exerciseId: string) => void;
 }
 
 export default withStyles(styles, { withTheme: true })(ExerciseCircuit);
