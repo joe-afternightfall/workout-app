@@ -23,7 +23,7 @@ const DateInfo = (props: DateInfoProps): JSX.Element => {
         variant={'inline'}
         format={'MM/dd/yyyy'}
         margin={'normal'}
-        label={'Date'}
+        label={'Workout Date'}
         value={props.workoutDate}
         onChange={handleDateChange}
       />

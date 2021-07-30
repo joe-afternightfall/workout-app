@@ -43,6 +43,10 @@ export default {
             const foundIndex = circuits.indexOf(foundCircuit);
             circuits.splice(foundIndex, 1);
             newState.circuits = circuits;
+            return {
+              ...newState,
+              circuits: [...newState.circuits],
+            };
           }
         }
         break;
@@ -59,6 +63,10 @@ export default {
               ...foundCircuit.exerciseIds,
               action.exerciseId,
             ];
+            return {
+              ...newState,
+              circuits: [...newState.circuits],
+            };
           }
         }
         break;
