@@ -9,13 +9,7 @@ import RowTitle from './RowTitle';
 import React, { Component } from 'react';
 import { Styles } from '@material-ui/styles';
 import AddIcon from '@material-ui/icons/AddCircleOutlineOutlined';
-import {
-  Button,
-  Divider,
-  Grid,
-  ListItem,
-  Typography,
-} from '@material-ui/core';
+import { Button, Divider, Grid, ListItem, Typography } from '@material-ui/core';
 import { ExerciseVO } from '../../../../../configs/models/ExerciseVO';
 import DeleteExerciseDialog from '../dialogs/DeleteExerciseDialog';
 
