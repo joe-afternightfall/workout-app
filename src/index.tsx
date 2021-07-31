@@ -37,3 +37,4 @@ reportWebVitals();
 // todo: rename all "justify" props on <Grid /> to "justifyContent"
 // todo: create github repo for app
 // todo: create firebase job and hosting service
+// todo: only allow one "Circuit" to be opened at a time. rip out action to redux

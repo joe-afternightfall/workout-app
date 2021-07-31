@@ -1,4 +1,4 @@
-import { Dispatch } from 'redux';
+import { AnyAction, Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import WorkoutScreen, { WorkoutScreenProps } from './WorkoutScreen';
 import { State } from '../../../configs/redux/store';
@@ -7,6 +7,8 @@ import {
   deleteCircuit,
   deleteExerciseFromCircuit,
 } from '../../../creators/workout';
+import { ThunkDispatch } from 'redux-thunk';
+import { saveWorkout } from '../../../services/workout-service';
 
 const mapStateToProps = (state: State): WorkoutScreenProps => {
   return {
@@ -25,6 +27,9 @@ const mapDispatchToProps = (dispatch: Dispatch): WorkoutScreenProps =>
     },
     deleteExerciseHandler: (circuitId: string, exerciseId: string) => {
       dispatch(deleteExerciseFromCircuit(circuitId, exerciseId));
+    },
+    saveWorkoutHandler: () => {
+      (dispatch as ThunkDispatch<State, void, AnyAction>)(saveWorkout());
     },
   } as unknown as WorkoutScreenProps);
 

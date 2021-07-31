@@ -9,7 +9,7 @@ import DateInfo from './date-info/DateInfo';
 import { Styles } from '@material-ui/styles';
 import Stopwatch from './stopwatch/Stopwatch';
 import Circuit from './circuit-accordian/Circuit';
-import { Grid, Typography } from '@material-ui/core';
+import { Button, Grid, Typography } from '@material-ui/core';
 import { ExerciseVO } from '../../../configs/models/ExerciseVO';
 import AddCircuitDialog from './circuit-accordian/dialogs/AddCircuitDialog';
 
@@ -37,7 +37,13 @@ class WorkoutScreen extends Component<WorkoutScreenProps> {
             <Stopwatch />
           </Grid>
           <Grid container item xs={12} justify={'flex-end'}>
-            <AddCircuitDialog />
+            <Grid item xs={6}>
+              <Button onClick={this.props.saveWorkoutHandler}>{'Save'}</Button>
+            </Grid>
+
+            <Grid item xs={6}>
+              <AddCircuitDialog />
+            </Grid>
           </Grid>
         </Grid>
 
@@ -76,6 +82,7 @@ export interface WorkoutScreenProps extends WithStyles<typeof styles> {
   exercises: ExerciseVO[];
   circuits: NewCircuitProps[];
   deleteCircuitHandler: (id: string) => void;
+  saveWorkoutHandler: () => void;
   addExerciseHandler: (circuitId: string, exerciseId: string) => void;
   deleteExerciseHandler: (circuitId: string, exerciseId: string) => void;
 }
