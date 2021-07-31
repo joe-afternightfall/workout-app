@@ -33,18 +33,19 @@ const useStyles = makeStyles(() =>
   })
 );
 
-// todo: only allow numbers for weight and sets
 export default function Set(props: SetProps): JSX.Element {
   const classes = useStyles();
-  const [weight, setWeight] = React.useState<number>();
-  const [reps, setReps] = React.useState<number>();
+  const [weight, setWeight] = React.useState<number>(0);
+  const [reps, setReps] = React.useState<number>(0);
   const [done, markDone] = React.useState<boolean>(false);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    if (event.target.name === 'weight') {
-      setWeight(Number(event.target.value));
-    } else {
-      setReps(Number(event.target.value));
+    const regExp = new RegExp('^[0-9]*$');
+
+    if (regExp.test(event.target.value)) {
+      event.target.name === 'weight'
+        ? setWeight(Number(event.target.value))
+        : setReps(Number(event.target.value));
     }
   };
 
