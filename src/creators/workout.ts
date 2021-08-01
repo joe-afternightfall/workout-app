@@ -70,3 +70,40 @@ export const deleteExerciseFromCircuit = (
     exerciseId: exerciseId,
   };
 };
+
+export interface AddExerciseSetToCircuitAction {
+  type: ActionTypes.ADD_EXERCISE_SET_TO_CIRCUIT;
+  circuitId: string;
+  exerciseId: string;
+}
+
+export const addExerciseSetToCircuit = (
+  circuitId: string,
+  exerciseId: string
+): AddExerciseSetToCircuitAction => {
+  return {
+    type: ActionTypes.ADD_EXERCISE_SET_TO_CIRCUIT,
+    circuitId: circuitId,
+    exerciseId: exerciseId,
+  };
+};
+
+export interface DeleteExerciseSetFromCircuitAction {
+  type: ActionTypes.DELETE_EXERCISE_SET_FROM_CIRCUIT;
+  setId: string;
+  circuitId: string;
+  exerciseId: string;
+}
+
+export const deleteExerciseSetFromCircuit = (
+  setId: string,
+  circuitId: string,
+  exerciseId: string
+): DeleteExerciseSetFromCircuitAction => {
+  return {
+    type: ActionTypes.DELETE_EXERCISE_SET_FROM_CIRCUIT,
+    setId: setId,
+    circuitId: circuitId,
+    exerciseId: exerciseId,
+  };
+};

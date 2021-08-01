@@ -15,12 +15,26 @@ import AddCircuitDialog from './circuit-accordian/dialogs/AddCircuitDialog';
 
 const styles: Styles<Theme, StyledComponentProps> = () => ({});
 
+export interface CircuitExerciseSet {
+  id: string;
+  setNumber: number;
+  weight: number;
+  reps: number;
+  markedDone: boolean;
+}
+
+export interface CircuitExercise {
+  id: string;
+  exerciseId: string;
+  sets: CircuitExerciseSet[];
+}
+
 // todo: rename prop to WorkoutCircuitProps
 export interface NewCircuitProps {
-  [key: string]: string | string[];
+  // [key: string]: string | string[] | CircuitExercise[];
   id: string;
-  type: string;
-  exerciseIds: string[];
+  name: string;
+  exercises: CircuitExercise[];
 }
 
 class WorkoutScreen extends Component<WorkoutScreenProps> {
@@ -67,6 +81,10 @@ class WorkoutScreen extends Component<WorkoutScreenProps> {
                     deleteClickHandler={this.props.deleteCircuitHandler}
                     addExerciseHandler={this.props.addExerciseHandler}
                     deleteExerciseHandler={this.props.deleteExerciseHandler}
+                    addSetToExerciseHandler={this.props.addSetToExerciseHandler}
+                    deleteSetFromExerciseHandler={
+                      this.props.deleteSetFromExerciseHandler
+                    }
                   />
                 </Grid>
               );
@@ -85,6 +103,12 @@ export interface WorkoutScreenProps extends WithStyles<typeof styles> {
   saveWorkoutHandler: () => void;
   addExerciseHandler: (circuitId: string, exerciseId: string) => void;
   deleteExerciseHandler: (circuitId: string, exerciseId: string) => void;
+  addSetToExerciseHandler: (circuitId: string, exerciseId: string) => void;
+  deleteSetFromExerciseHandler: (
+    setId: string,
+    circuitId: string,
+    exerciseId: string
+  ) => void;
 }
 
 export default withStyles(styles, { withTheme: true })(WorkoutScreen);

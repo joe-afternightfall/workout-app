@@ -3,9 +3,11 @@ import { connect } from 'react-redux';
 import WorkoutScreen, { WorkoutScreenProps } from './WorkoutScreen';
 import { State } from '../../../configs/redux/store';
 import {
+  addExerciseSetToCircuit,
   addExerciseToCircuit,
   deleteCircuit,
   deleteExerciseFromCircuit,
+  deleteExerciseSetFromCircuit,
 } from '../../../creators/workout';
 import { ThunkDispatch } from 'redux-thunk';
 import { saveWorkout } from '../../../services/workout-service';
@@ -30,6 +32,16 @@ const mapDispatchToProps = (dispatch: Dispatch): WorkoutScreenProps =>
     },
     saveWorkoutHandler: () => {
       (dispatch as ThunkDispatch<State, void, AnyAction>)(saveWorkout());
+    },
+    addSetToExerciseHandler: (circuitId: string, exerciseId: string) => {
+      dispatch(addExerciseSetToCircuit(circuitId, exerciseId));
+    },
+    deleteSetFromExerciseHandler: (
+      setId: string,
+      circuitId: string,
+      exerciseId: string
+    ) => {
+      dispatch(deleteExerciseSetFromCircuit(setId, circuitId, exerciseId));
     },
   } as unknown as WorkoutScreenProps);
 
