@@ -19,11 +19,11 @@ const AddCircuitDialog = (props: AddCircuitDialogProps): JSX.Element => {
     setOpen(false);
   };
 
-  const handleClick = (type: string) => {
+  const handleClick = (name: string) => {
     props.addCircuitHandler({
       id: uuidv4(),
-      type: type,
-      exerciseIds: [],
+      name: name,
+      exercises: [],
     });
     handleClose();
   };

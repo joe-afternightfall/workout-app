@@ -12,6 +12,7 @@ import AddIcon from '@material-ui/icons/AddCircleOutlineOutlined';
 import { Button, Divider, Grid, ListItem, Typography } from '@material-ui/core';
 import { ExerciseVO } from '../../../../../configs/models/ExerciseVO';
 import DeleteExerciseDialog from '../dialogs/DeleteExerciseDialog';
+import { CircuitExerciseSet } from '../../WorkoutScreen';
 
 const styles: Styles<Theme, StyledComponentProps> = (theme: Theme) => ({
   title: {
@@ -22,30 +23,15 @@ const styles: Styles<Theme, StyledComponentProps> = (theme: Theme) => ({
 });
 
 class ExerciseCircuit extends Component<ExerciseCircuitProps> {
-  state = {
-    sets: [0],
-  };
-
   render(): JSX.Element {
-    const { classes } = this.props;
+    const { classes, circuitId, exercise } = this.props;
 
     const addSets = () => {
-      let number = this.state.sets.length;
-      this.setState({
-        sets: [...this.state.sets, number++],
-      });
+      this.props.addSetToExerciseHandler(circuitId, exercise.id);
     };
 
-    const deleteSet = (setToDelete: number) => {
-      const allSets = this.state.sets;
-      const foundSet = allSets.find((set) => set === setToDelete);
-      if (foundSet !== undefined) {
-        const foundIndex = allSets.indexOf(foundSet);
-        allSets.splice(foundIndex, 1);
-        this.setState({
-          sets: allSets,
-        });
-      }
+    const deleteSet = (setId: string) => {
+      this.props.deleteSetFromExerciseHandler(setId, circuitId, exercise.id);
     };
 
     return (
@@ -54,14 +40,14 @@ class ExerciseCircuit extends Component<ExerciseCircuitProps> {
           <Grid container item xs={12} alignItems={'center'} spacing={2}>
             <Grid item>
               <Typography className={classes.title} variant={'h6'}>
-                {this.props.exercise.name}
+                {exercise.name}
               </Typography>
             </Grid>
 
             <Grid item>
               <DeleteExerciseDialog
-                exercise={this.props.exercise}
-                circuitId={this.props.circuitId}
+                exercise={exercise}
+                circuitId={circuitId}
                 deleteExerciseHandler={this.props.deleteExerciseHandler}
               />
             </Grid>
@@ -69,9 +55,15 @@ class ExerciseCircuit extends Component<ExerciseCircuitProps> {
 
           <RowTitle />
 
-          {this.state.sets.map((set) => (
+          {this.props.sets.map((set: CircuitExerciseSet, index: number) => (
             // todo: handle re-numbering when deleting
-            <Set key={set} setNumber={set} deleteClickHandler={deleteSet} />
+            <Set
+              key={index}
+              setNumber={set.setNumber}
+              deleteClickHandler={() => {
+                deleteSet(set.id);
+              }}
+            />
           ))}
 
           <Grid style={{ marginTop: 8 }} item xs={12} container spacing={2}>
@@ -97,7 +89,14 @@ class ExerciseCircuit extends Component<ExerciseCircuitProps> {
 export interface ExerciseCircuitProps extends WithStyles<typeof styles> {
   exercise: ExerciseVO;
   circuitId: string;
+  sets: CircuitExerciseSet[];
   deleteExerciseHandler: (circuitId: string, exerciseId: string) => void;
+  addSetToExerciseHandler: (circuitId: string, exerciseId: string) => void;
+  deleteSetFromExerciseHandler: (
+    setId: string,
+    circuitId: string,
+    exerciseId: string
+  ) => void;
 }
 
 export default withStyles(styles, { withTheme: true })(ExerciseCircuit);

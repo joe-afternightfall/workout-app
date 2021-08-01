@@ -46,7 +46,7 @@ export default function DeleteCircuitDialog(
           closeClickHandler={handleClose}
           dialogContent={
             <Typography style={{ padding: '32px 0' }}>
-              {`Are you sure you want to delete ${props.circuit.type} Circuit?`}
+              {`Are you sure you want to delete ${props.circuit.name} Circuit?`}
             </Typography>
           }
           dialogActions={

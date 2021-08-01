@@ -7,7 +7,7 @@ import {
   AccordionActions,
   AccordionDetails,
 } from '@material-ui/core';
-import { NewCircuitProps } from '../WorkoutScreen';
+import { CircuitExercise, NewCircuitProps } from '../WorkoutScreen';
 import ExerciseCircuit from './components/ExerciseCircuit';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import AddExerciseDialog from './dialogs/AddExerciseDialog';
@@ -31,33 +31,41 @@ export default function Circuit(props: CircuitProps): JSX.Element {
         id={`panel-${props.circuit.id}-header`}
         expandIcon={<ExpandMoreIcon />}
       >
-        <Typography>{`Circuit: ${props.circuit.type}`}</Typography>
+        <Typography>{`Circuit: ${props.circuit.name}`}</Typography>
       </AccordionSummary>
 
       <AccordionDetails>
         <Grid container spacing={2}>
-          {props.circuit.exerciseIds.length === 0 ? (
+          {props.circuit.exercises.length === 0 ? (
             <Grid item container justifyContent={'center'}>
               <Grid item>
                 <Typography>{'add exercises to get started'}</Typography>
               </Grid>
             </Grid>
           ) : (
-            props.circuit.exerciseIds.map((id: string, index: number) => {
-              const foundExercise = props.exercises.find(
-                (exercise: ExerciseVO) => exercise.id === id
-              );
-              if (foundExercise) {
-                return (
-                  <ExerciseCircuit
-                    key={index}
-                    circuitId={props.circuit.id}
-                    exercise={foundExercise}
-                    deleteExerciseHandler={props.deleteExerciseHandler}
-                  />
+            props.circuit.exercises.map(
+              (circuitExercise: CircuitExercise, index: number) => {
+                const foundExercise = props.exercises.find(
+                  (exercise: ExerciseVO) =>
+                    exercise.id === circuitExercise.exerciseId
                 );
+                if (foundExercise) {
+                  return (
+                    <ExerciseCircuit
+                      key={index}
+                      circuitId={props.circuit.id}
+                      exercise={foundExercise}
+                      sets={circuitExercise.sets}
+                      deleteExerciseHandler={props.deleteExerciseHandler}
+                      addSetToExerciseHandler={props.addSetToExerciseHandler}
+                      deleteSetFromExerciseHandler={
+                        props.deleteSetFromExerciseHandler
+                      }
+                    />
+                  );
+                }
               }
-            })
+            )
           )}
         </Grid>
       </AccordionDetails>
@@ -84,4 +92,10 @@ export interface CircuitProps {
   deleteClickHandler: (circuitId: string) => void;
   addExerciseHandler: (circuitId: string, exerciseId: string) => void;
   deleteExerciseHandler: (circuitId: string, exerciseId: string) => void;
+  addSetToExerciseHandler: (circuitId: string, exerciseId: string) => void;
+  deleteSetFromExerciseHandler: (
+    setId: string,
+    circuitId: string,
+    exerciseId: string
+  ) => void;
 }

@@ -1,10 +1,23 @@
+import { v4 as uuidv4 } from 'uuid';
 import { RouteProp } from '../configs/routes';
 import { LOCATION_CHANGE } from 'connected-react-router';
 import { ExerciseVO } from '../configs/models/ExerciseVO';
 import { getPageInfo } from '../utils/get-current-page-info';
 import { ActionTypes, ApplicationActions } from '../creators/actions';
 import { WorkoutCategoryVO } from '../configs/models/WorkoutCategoryVO';
-import { NewCircuitProps } from '../components/top-level-components/workout/WorkoutScreen';
+import {
+  CircuitExercise,
+  CircuitExerciseSet,
+  NewCircuitProps,
+} from '../components/top-level-components/workout/WorkoutScreen';
+
+function findCircuit(
+  state: ApplicationState,
+  circuitId: string
+): NewCircuitProps | undefined {
+  const circuits = state.circuits;
+  return circuits.find((circuit: NewCircuitProps) => circuit.id === circuitId);
+}
 
 export default {
   reducer(
@@ -51,16 +64,24 @@ export default {
         break;
       case ActionTypes.ADD_EXERCISE_TO_CIRCUIT:
         {
-          const circuits = newState.circuits;
-          const foundCircuit = circuits.find(
-            (circuit) => circuit.id === action.circuitId
-          );
-
+          const foundCircuit = findCircuit(newState, action.circuitId);
           if (foundCircuit) {
-            const foundIndex = circuits.indexOf(foundCircuit);
-            newState.circuits[foundIndex].exerciseIds = [
-              ...foundCircuit.exerciseIds,
-              action.exerciseId,
+            const foundIndex = newState.circuits.indexOf(foundCircuit);
+            newState.circuits[foundIndex].exercises = [
+              ...foundCircuit.exercises,
+              {
+                id: uuidv4(),
+                exerciseId: action.exerciseId,
+                sets: [
+                  {
+                    id: uuidv4(),
+                    setNumber: 0,
+                    weight: 0,
+                    reps: 0,
+                    markedDone: false,
+                  },
+                ],
+              },
             ];
             return {
               ...newState,
@@ -71,23 +92,76 @@ export default {
         break;
       case ActionTypes.DELETE_EXERCISE_FROM_CIRCUIT:
         {
-          const circuits = newState.circuits;
-          const foundCircuit = circuits.find(
-            (circuit: NewCircuitProps) => circuit.id === action.circuitId
-          );
+          const foundCircuit = findCircuit(newState, action.circuitId);
           if (foundCircuit) {
-            const circuitIndex = circuits.indexOf(foundCircuit);
-            const exerciseIds = newState.circuits[circuitIndex].exerciseIds;
+            const circuitIndex = newState.circuits.indexOf(foundCircuit);
+            const exercises = newState.circuits[circuitIndex].exercises;
 
-            const foundExercise = exerciseIds.find(
-              (exerciseId: string) => exerciseId === action.exerciseId
+            const foundExercise = exercises.find(
+              (exercise: CircuitExercise) =>
+                exercise.exerciseId === action.exerciseId
             );
 
             if (foundExercise) {
-              const exerciseIndex = exerciseIds.indexOf(foundExercise);
-              exerciseIds.splice(exerciseIndex, 1);
+              const exerciseIndex = exercises.indexOf(foundExercise);
+              exercises.splice(exerciseIndex, 1);
             }
 
+            return {
+              ...newState,
+              circuits: [...newState.circuits],
+            };
+          }
+        }
+        break;
+      case ActionTypes.ADD_EXERCISE_SET_TO_CIRCUIT:
+        {
+          const foundCircuit = findCircuit(newState, action.circuitId);
+          if (foundCircuit) {
+            const foundIndex = newState.circuits.indexOf(foundCircuit);
+            const foundExercise = newState.circuits[foundIndex].exercises.find(
+              (exercise: CircuitExercise) =>
+                exercise.exerciseId === action.exerciseId
+            );
+            if (foundExercise) {
+              let numberOfSets = foundExercise.sets.length;
+              foundExercise.sets = [
+                ...foundExercise.sets,
+                {
+                  id: uuidv4(),
+                  setNumber: numberOfSets++,
+                  weight: 0,
+                  reps: 0,
+                  markedDone: false,
+                },
+              ];
+            }
+            return {
+              ...newState,
+              circuits: [...newState.circuits],
+            };
+          }
+        }
+        break;
+      case ActionTypes.DELETE_EXERCISE_SET_FROM_CIRCUIT:
+        {
+          const foundCircuit = findCircuit(newState, action.circuitId);
+          if (foundCircuit) {
+            const foundIndex = newState.circuits.indexOf(foundCircuit);
+            const foundExercise = newState.circuits[foundIndex].exercises.find(
+              (exercise: CircuitExercise) =>
+                exercise.exerciseId === action.exerciseId
+            );
+            if (foundExercise) {
+              const foundSet = foundExercise.sets.find(
+                (set: CircuitExerciseSet) => set.id === action.setId
+              );
+
+              if (foundSet) {
+                const foundIndex = foundExercise.sets.indexOf(foundSet);
+                foundExercise.sets.splice(foundIndex, 1);
+              }
+            }
             return {
               ...newState,
               circuits: [...newState.circuits],

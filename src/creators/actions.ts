@@ -3,9 +3,11 @@ import { LocationChangeAction } from 'connected-react-router';
 import { LoadWorkoutCategoriesAction } from './workout-categories';
 import {
   AddCircuitAction,
+  AddExerciseSetToCircuitAction,
   AddExerciseToCircuitAction,
   DeleteCircuitAction,
   DeleteExerciseFromCircuitAction,
+  DeleteExerciseSetFromCircuitAction,
   UpdateWorkoutDateAction,
 } from './workout';
 import { UpdateLoggedInUserAction } from './user-info';
@@ -21,6 +23,8 @@ export enum ActionTypes {
   ADD_EXERCISE_TO_CIRCUIT = 'ADD_EXERCISE_TO_CIRCUIT',
   DELETE_EXERCISE_FROM_CIRCUIT = 'DELETE_EXERCISE_FROM_CIRCUIT',
   LOGGED_IN_USER = 'LOGGED_IN_USER',
+  ADD_EXERCISE_SET_TO_CIRCUIT = 'ADD_EXERCISE_SET_TO_CIRCUIT',
+  DELETE_EXERCISE_SET_FROM_CIRCUIT = 'DELETE_EXERCISE_SET_FROM_CIRCUIT',
 }
 
 export type ApplicationActions =
@@ -32,4 +36,6 @@ export type ApplicationActions =
   | DeleteCircuitAction
   | AddExerciseToCircuitAction
   | DeleteExerciseFromCircuitAction
-  | UpdateLoggedInUserAction;
+  | UpdateLoggedInUserAction
+  | AddExerciseSetToCircuitAction
+  | DeleteExerciseSetFromCircuitAction;
