@@ -61,6 +61,7 @@ export default function Circuit(props: CircuitProps): JSX.Element {
                       deleteSetFromExerciseHandler={
                         props.deleteSetFromExerciseHandler
                       }
+                      toggleExerciseSetHandler={props.toggleExerciseSetHandler}
                     />
                   );
                 }
@@ -98,4 +99,5 @@ export interface CircuitProps {
     circuitId: string,
     exerciseId: string
   ) => void;
+  toggleExerciseSetHandler: (setId: string) => void;
 }

@@ -169,6 +169,24 @@ export default {
           }
         }
         break;
+      case ActionTypes.TOGGLE_EXERCISE_SET_DONE:
+        newState.circuits.map((circuit: NewCircuitProps) => {
+          circuit.exercises.map((exercise: CircuitExercise) => {
+            const foundSet = exercise.sets.find(
+              (set: CircuitExerciseSet) => set.id === action.setId
+            );
+
+            if (foundSet) {
+              foundSet.markedDone = !foundSet.markedDone;
+            }
+
+            return {
+              ...newState,
+              circuits: [...newState.circuits],
+            };
+          });
+        });
+        break;
       default:
         newState = state;
     }

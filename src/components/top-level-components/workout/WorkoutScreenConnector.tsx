@@ -8,6 +8,7 @@ import {
   deleteCircuit,
   deleteExerciseFromCircuit,
   deleteExerciseSetFromCircuit,
+  toggleExerciseSetAsDone,
 } from '../../../creators/workout';
 import { ThunkDispatch } from 'redux-thunk';
 import { saveWorkout } from '../../../services/workout-service';
@@ -42,6 +43,9 @@ const mapDispatchToProps = (dispatch: Dispatch): WorkoutScreenProps =>
       exerciseId: string
     ) => {
       dispatch(deleteExerciseSetFromCircuit(setId, circuitId, exerciseId));
+    },
+    toggleExerciseSetHandler: (setId: string) => {
+      dispatch(toggleExerciseSetAsDone(setId));
     },
   } as unknown as WorkoutScreenProps);
 

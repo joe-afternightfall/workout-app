@@ -85,6 +85,9 @@ class WorkoutScreen extends Component<WorkoutScreenProps> {
                     deleteSetFromExerciseHandler={
                       this.props.deleteSetFromExerciseHandler
                     }
+                    toggleExerciseSetHandler={
+                      this.props.toggleExerciseSetHandler
+                    }
                   />
                 </Grid>
               );
@@ -109,6 +112,7 @@ export interface WorkoutScreenProps extends WithStyles<typeof styles> {
     circuitId: string,
     exerciseId: string
   ) => void;
+  toggleExerciseSetHandler: (setId: string) => void;
 }
 
 export default withStyles(styles, { withTheme: true })(WorkoutScreen);

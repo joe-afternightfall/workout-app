@@ -8,6 +8,7 @@ import {
   DeleteCircuitAction,
   DeleteExerciseFromCircuitAction,
   DeleteExerciseSetFromCircuitAction,
+  ToggleExerciseSetAsDoneAction,
   UpdateWorkoutDateAction,
 } from './workout';
 import { UpdateLoggedInUserAction } from './user-info';
@@ -25,6 +26,7 @@ export enum ActionTypes {
   LOGGED_IN_USER = 'LOGGED_IN_USER',
   ADD_EXERCISE_SET_TO_CIRCUIT = 'ADD_EXERCISE_SET_TO_CIRCUIT',
   DELETE_EXERCISE_SET_FROM_CIRCUIT = 'DELETE_EXERCISE_SET_FROM_CIRCUIT',
+  TOGGLE_EXERCISE_SET_DONE = 'TOGGLE_EXERCISE_SET_DONE',
 }
 
 export type ApplicationActions =
@@ -38,4 +40,5 @@ export type ApplicationActions =
   | DeleteExerciseFromCircuitAction
   | UpdateLoggedInUserAction
   | AddExerciseSetToCircuitAction
-  | DeleteExerciseSetFromCircuitAction;
+  | DeleteExerciseSetFromCircuitAction
+  | ToggleExerciseSetAsDoneAction;

@@ -10,6 +10,7 @@ import React, { ChangeEvent } from 'react';
 import CheckIcon from '@material-ui/icons/CheckCircleOutlined';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import RemoveIcon from '@material-ui/icons/RemoveCircleOutlineOutlined';
+import { CircuitExerciseSet } from '../../WorkoutScreen';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -37,7 +38,6 @@ export default function Set(props: SetProps): JSX.Element {
   const classes = useStyles();
   const [weight, setWeight] = React.useState<number>(0);
   const [reps, setReps] = React.useState<number>(0);
-  const [done, markDone] = React.useState<boolean>(false);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const regExp = new RegExp('^[0-9]*$');
@@ -50,7 +50,7 @@ export default function Set(props: SetProps): JSX.Element {
   };
 
   const markAsDone = () => {
-    markDone(!done);
+    props.toggleExerciseSetHandler(props.set.id);
   };
 
   return (
@@ -60,10 +60,10 @@ export default function Set(props: SetProps): JSX.Element {
       container
       alignItems={'center'}
       spacing={2}
-      className={done ? classes.completedRow : ''}
+      className={props.set.markedDone ? classes.completedRow : ''}
     >
       <Grid item xs={2}>
-        <Typography>{props.setNumber + 1}</Typography>
+        <Typography>{props.set.setNumber + 1}</Typography>
       </Grid>
 
       <Grid item xs={3}>
@@ -102,7 +102,7 @@ export default function Set(props: SetProps): JSX.Element {
               <Button
                 className={classes.deleteButton}
                 onClick={() => {
-                  props.deleteClickHandler(props.setNumber);
+                  props.deleteClickHandler();
                 }}
               >
                 <RemoveIcon />
@@ -133,6 +133,7 @@ export default function Set(props: SetProps): JSX.Element {
 }
 
 export interface SetProps {
-  setNumber: number;
-  deleteClickHandler: (set: number) => void;
+  set: CircuitExerciseSet;
+  deleteClickHandler: () => void;
+  toggleExerciseSetHandler: (setId: string) => void;
 }

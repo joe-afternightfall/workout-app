@@ -107,3 +107,17 @@ export const deleteExerciseSetFromCircuit = (
     exerciseId: exerciseId,
   };
 };
+
+export interface ToggleExerciseSetAsDoneAction {
+  type: ActionTypes.TOGGLE_EXERCISE_SET_DONE;
+  setId: string;
+}
+
+export const toggleExerciseSetAsDone = (
+  setId: string
+): ToggleExerciseSetAsDoneAction => {
+  return {
+    type: ActionTypes.TOGGLE_EXERCISE_SET_DONE,
+    setId: setId,
+  };
+};
