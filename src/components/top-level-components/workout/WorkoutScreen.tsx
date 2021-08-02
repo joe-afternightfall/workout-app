@@ -8,9 +8,8 @@ import React, { Component } from 'react';
 import DateInfo from './date-info/DateInfo';
 import { Styles } from '@material-ui/styles';
 import Stopwatch from './stopwatch/Stopwatch';
-import Circuit from './circuit-accordian/Circuit';
+import Circuits from './circuit-accordian/Circuits';
 import { Button, Grid, Typography } from '@material-ui/core';
-import { ExerciseVO } from '../../../configs/models/ExerciseVO';
 import AddCircuitDialog from './circuit-accordian/dialogs/AddCircuitDialog';
 
 const styles: Styles<Theme, StyledComponentProps> = () => ({});
@@ -31,7 +30,6 @@ export interface CircuitExercise {
 
 // todo: rename prop to WorkoutCircuitProps
 export interface NewCircuitProps {
-  // [key: string]: string | string[] | CircuitExercise[];
   id: string;
   name: string;
   exercises: CircuitExercise[];
@@ -39,7 +37,7 @@ export interface NewCircuitProps {
 
 class WorkoutScreen extends Component<WorkoutScreenProps> {
   render(): JSX.Element {
-    const { circuits, exercises } = this.props;
+    const { circuits } = this.props;
     return (
       <Grid container>
         <Grid item xs={6}>
@@ -71,28 +69,7 @@ class WorkoutScreen extends Component<WorkoutScreenProps> {
             <Typography>{'add a circuit to get started'}</Typography>
           </Grid>
         ) : (
-          <Grid container spacing={3}>
-            {circuits.map((circuit: NewCircuitProps, index: number) => {
-              return (
-                <Grid key={index} item xs={12}>
-                  <Circuit
-                    circuit={circuit}
-                    exercises={exercises}
-                    deleteClickHandler={this.props.deleteCircuitHandler}
-                    addExerciseHandler={this.props.addExerciseHandler}
-                    deleteExerciseHandler={this.props.deleteExerciseHandler}
-                    addSetToExerciseHandler={this.props.addSetToExerciseHandler}
-                    deleteSetFromExerciseHandler={
-                      this.props.deleteSetFromExerciseHandler
-                    }
-                    toggleExerciseSetHandler={
-                      this.props.toggleExerciseSetHandler
-                    }
-                  />
-                </Grid>
-              );
-            })}
-          </Grid>
+          <Circuits />
         )}
       </Grid>
     );
@@ -100,23 +77,8 @@ class WorkoutScreen extends Component<WorkoutScreenProps> {
 }
 
 export interface WorkoutScreenProps extends WithStyles<typeof styles> {
-  exercises: ExerciseVO[];
   circuits: NewCircuitProps[];
-  deleteCircuitHandler: (id: string) => void;
   saveWorkoutHandler: () => void;
-  addExerciseHandler: (circuitId: string, exerciseId: string) => void;
-  deleteExerciseHandler: (circuitId: string, exerciseId: string) => void;
-  addSetToExerciseHandler: (circuitId: string, exerciseId: string) => void;
-  deleteSetFromExerciseHandler: (
-    setId: string,
-    circuitId: string,
-    exerciseId: string
-  ) => void;
-  toggleExerciseSetHandler: (
-    setId: string,
-    circuitId: string,
-    exerciseId: string
-  ) => void;
 }
 
 export default withStyles(styles, { withTheme: true })(WorkoutScreen);
