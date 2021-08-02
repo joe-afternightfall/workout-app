@@ -127,3 +127,29 @@ export const toggleExerciseSetAsDone = (
     exerciseId: exerciseId,
   };
 };
+
+export interface UpdateWorkoutSetFieldAction {
+  type: ActionTypes.UPDATE_WORKOUT_SET_FIELD;
+  circuitId: string;
+  exerciseId: string;
+  setId: string;
+  name: 'weight' | 'reps';
+  value: string;
+}
+
+export const updateWorkoutSetField = (
+  circuitId: string,
+  exerciseId: string,
+  setId: string,
+  name: 'weight' | 'reps',
+  value: string
+): UpdateWorkoutSetFieldAction => {
+  return {
+    type: ActionTypes.UPDATE_WORKOUT_SET_FIELD,
+    circuitId: circuitId,
+    exerciseId: exerciseId,
+    setId: setId,
+    name: name,
+    value: value,
+  };
+};

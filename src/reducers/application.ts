@@ -194,6 +194,35 @@ export default {
           }
         }
         break;
+      case ActionTypes.UPDATE_WORKOUT_SET_FIELD:
+        {
+          const foundCircuit = findCircuit(newState, action.circuitId);
+          if (foundCircuit) {
+            const foundIndex = newState.circuits.indexOf(foundCircuit);
+            const foundExercise = newState.circuits[foundIndex].exercises.find(
+              (exercise: CircuitExercise) =>
+                exercise.exerciseId === action.exerciseId
+            );
+            if (foundExercise) {
+              const foundSet = foundExercise.sets.find(
+                (set: CircuitExerciseSet) => set.id === action.setId
+              );
+
+              if (foundSet) {
+                if (action.name === 'weight') {
+                  foundSet.weight = Number(action.value);
+                } else {
+                  foundSet.reps = Number(action.value);
+                }
+              }
+            }
+            return {
+              ...newState,
+              circuits: [...newState.circuits],
+            };
+          }
+        }
+        break;
       default:
         newState = state;
     }

@@ -36,16 +36,21 @@ const useStyles = makeStyles(() =>
 
 export default function Set(props: SetProps): JSX.Element {
   const classes = useStyles();
-  const [weight, setWeight] = React.useState<number>(0);
-  const [reps, setReps] = React.useState<number>(0);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const regExp = new RegExp('^[0-9]*$');
 
     if (regExp.test(event.target.value)) {
-      event.target.name === 'weight'
-        ? setWeight(Number(event.target.value))
-        : setReps(Number(event.target.value));
+      const targetName = event.target.name;
+      if (targetName === 'weight' || targetName === 'reps') {
+        props.updateWorkoutSetFieldHandler(
+          props.circuitId,
+          props.exerciseId,
+          props.set.id,
+          targetName,
+          event.target.value
+        );
+      }
     }
   };
 
@@ -68,7 +73,7 @@ export default function Set(props: SetProps): JSX.Element {
 
       <Grid item xs={3}>
         <TextField
-          value={weight}
+          value={props.set.weight}
           name={'weight'}
           style={{ width: '100%' }}
           variant={'outlined'}
@@ -78,7 +83,7 @@ export default function Set(props: SetProps): JSX.Element {
 
       <Grid item xs={3}>
         <TextField
-          value={reps}
+          value={props.set.reps}
           name={'reps'}
           style={{ width: '100%' }}
           variant={'outlined'}
@@ -133,7 +138,16 @@ export default function Set(props: SetProps): JSX.Element {
 }
 
 export interface SetProps {
+  circuitId: string;
+  exerciseId: string;
   set: CircuitExerciseSet;
   deleteClickHandler: () => void;
   toggleExerciseSetHandler: () => void;
+  updateWorkoutSetFieldHandler: (
+    circuitId: string,
+    exerciseId: string,
+    setId: string,
+    name: 'weight' | 'reps',
+    value: string
+  ) => void;
 }

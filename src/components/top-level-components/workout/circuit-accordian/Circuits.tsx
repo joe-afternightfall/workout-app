@@ -24,6 +24,7 @@ import {
   deleteExerciseFromCircuit,
   deleteExerciseSetFromCircuit,
   toggleExerciseSetAsDone,
+  updateWorkoutSetField,
 } from '../../../../creators/workout';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -93,6 +94,9 @@ const Circuits = (props: CircuitProps): JSX.Element => {
                               toggleExerciseSetHandler={
                                 props.toggleExerciseSetHandler
                               }
+                              updateWorkoutSetFieldHandler={
+                                props.updateWorkoutSetFieldHandler
+                              }
                             />
                           );
                         }
@@ -129,7 +133,6 @@ export interface CircuitProps {
   addExerciseHandler: (circuitId: string, exerciseId: string) => void;
   deleteExerciseHandler: (circuitId: string, exerciseId: string) => void;
   addSetToExerciseHandler: (circuitId: string, exerciseId: string) => void;
-
   deleteSetFromExerciseHandler: (
     setId: string,
     circuitId: string,
@@ -139,6 +142,13 @@ export interface CircuitProps {
     setId: string,
     circuitId: string,
     exerciseId: string
+  ) => void;
+  updateWorkoutSetFieldHandler: (
+    circuitId: string,
+    exerciseId: string,
+    setId: string,
+    name: 'weight' | 'reps',
+    value: string
   ) => void;
 }
 
@@ -176,6 +186,17 @@ const mapDispatchToProps = (dispatch: Dispatch): CircuitProps =>
       exerciseId: string
     ) => {
       dispatch(toggleExerciseSetAsDone(setId, circuitId, exerciseId));
+    },
+    updateWorkoutSetFieldHandler: (
+      circuitId: string,
+      exerciseId: string,
+      setId: string,
+      name: 'weight' | 'reps',
+      value: string
+    ) => {
+      dispatch(
+        updateWorkoutSetField(circuitId, exerciseId, setId, name, value)
+      );
     },
   } as unknown as CircuitProps);
 
