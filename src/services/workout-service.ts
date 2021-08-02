@@ -22,7 +22,7 @@ export const saveWorkout =
       uuidv4(),
       username,
       circuits,
-      workoutDate.toTimeString()
+      workoutDate.toLocaleDateString()
     );
 
     return await newRef.set(workoutDAO, (error: Error | null) => {
