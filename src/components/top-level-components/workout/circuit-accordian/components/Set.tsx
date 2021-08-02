@@ -50,7 +50,7 @@ export default function Set(props: SetProps): JSX.Element {
   };
 
   const markAsDone = () => {
-    props.toggleExerciseSetHandler(props.set.id);
+    props.toggleExerciseSetHandler();
   };
 
   return (
@@ -135,5 +135,5 @@ export default function Set(props: SetProps): JSX.Element {
 export interface SetProps {
   set: CircuitExerciseSet;
   deleteClickHandler: () => void;
-  toggleExerciseSetHandler: (setId: string) => void;
+  toggleExerciseSetHandler: () => void;
 }

@@ -170,22 +170,29 @@ export default {
         }
         break;
       case ActionTypes.TOGGLE_EXERCISE_SET_DONE:
-        newState.circuits.map((circuit: NewCircuitProps) => {
-          circuit.exercises.map((exercise: CircuitExercise) => {
-            const foundSet = exercise.sets.find(
-              (set: CircuitExerciseSet) => set.id === action.setId
+        {
+          const foundCircuit = findCircuit(newState, action.circuitId);
+          if (foundCircuit) {
+            const foundIndex = newState.circuits.indexOf(foundCircuit);
+            const foundExercise = newState.circuits[foundIndex].exercises.find(
+              (exercise: CircuitExercise) =>
+                exercise.exerciseId === action.exerciseId
             );
+            if (foundExercise) {
+              const foundSet = foundExercise.sets.find(
+                (set: CircuitExerciseSet) => set.id === action.setId
+              );
 
-            if (foundSet) {
-              foundSet.markedDone = !foundSet.markedDone;
+              if (foundSet) {
+                foundSet.markedDone = !foundSet.markedDone;
+              }
             }
-
             return {
               ...newState,
               circuits: [...newState.circuits],
             };
-          });
-        });
+          }
+        }
         break;
       default:
         newState = state;

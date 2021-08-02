@@ -44,8 +44,12 @@ const mapDispatchToProps = (dispatch: Dispatch): WorkoutScreenProps =>
     ) => {
       dispatch(deleteExerciseSetFromCircuit(setId, circuitId, exerciseId));
     },
-    toggleExerciseSetHandler: (setId: string) => {
-      dispatch(toggleExerciseSetAsDone(setId));
+    toggleExerciseSetHandler: (
+      setId: string,
+      circuitId: string,
+      exerciseId: string
+    ) => {
+      dispatch(toggleExerciseSetAsDone(setId, circuitId, exerciseId));
     },
   } as unknown as WorkoutScreenProps);
 

@@ -63,7 +63,13 @@ class ExerciseCircuit extends Component<ExerciseCircuitProps> {
               deleteClickHandler={() => {
                 deleteSet(set.id);
               }}
-              toggleExerciseSetHandler={this.props.toggleExerciseSetHandler}
+              toggleExerciseSetHandler={() => {
+                this.props.toggleExerciseSetHandler(
+                  set.id,
+                  circuitId,
+                  exercise.id
+                );
+              }}
             />
           ))}
 
@@ -98,7 +104,11 @@ export interface ExerciseCircuitProps extends WithStyles<typeof styles> {
     circuitId: string,
     exerciseId: string
   ) => void;
-  toggleExerciseSetHandler: (setId: string) => void;
+  toggleExerciseSetHandler: (
+    setId: string,
+    circuitId: string,
+    exerciseId: string
+  ) => void;
 }
 
 export default withStyles(styles, { withTheme: true })(ExerciseCircuit);

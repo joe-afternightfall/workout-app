@@ -99,5 +99,9 @@ export interface CircuitProps {
     circuitId: string,
     exerciseId: string
   ) => void;
-  toggleExerciseSetHandler: (setId: string) => void;
+  toggleExerciseSetHandler: (
+    setId: string,
+    circuitId: string,
+    exerciseId: string
+  ) => void;
 }

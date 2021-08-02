@@ -112,7 +112,11 @@ export interface WorkoutScreenProps extends WithStyles<typeof styles> {
     circuitId: string,
     exerciseId: string
   ) => void;
-  toggleExerciseSetHandler: (setId: string) => void;
+  toggleExerciseSetHandler: (
+    setId: string,
+    circuitId: string,
+    exerciseId: string
+  ) => void;
 }
 
 export default withStyles(styles, { withTheme: true })(WorkoutScreen);
