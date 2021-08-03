@@ -9,8 +9,9 @@ import DateInfo from './date-info/DateInfo';
 import { Styles } from '@material-ui/styles';
 import Stopwatch from './stopwatch/Stopwatch';
 import Circuits from './circuit-accordian/Circuits';
-import { Button, Grid, Typography } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
 import AddCircuitDialog from './circuit-accordian/dialogs/AddCircuitDialog';
+import WorkoutDoneDialog from './circuit-accordian/dialogs/WorkoutDoneDialog';
 
 const styles: Styles<Theme, StyledComponentProps> = () => ({});
 
@@ -39,23 +40,24 @@ class WorkoutScreen extends Component<WorkoutScreenProps> {
     const { circuits } = this.props;
     return (
       <Grid container>
-        <Grid container item xs={6} alignItems={'center'}>
+        <Grid container item xs={6} alignItems={'center'} spacing={2}>
           <Grid item xs={6}>
             <DateInfo />
           </Grid>
           <Grid item>
             <AddCircuitDialog />
           </Grid>
+          <Grid item>
+            <WorkoutDoneDialog
+              disabled={circuits.length === 0}
+              saveWorkoutHandler={this.props.saveWorkoutHandler}
+            />
+          </Grid>
         </Grid>
 
         <Grid container item xs={6}>
           <Grid item xs={12}>
             <Stopwatch />
-          </Grid>
-          <Grid container item xs={12} justify={'flex-end'}>
-            <Grid item xs={6}>
-              <Button onClick={this.props.saveWorkoutHandler}>{'Save'}</Button>
-            </Grid>
           </Grid>
         </Grid>
 

@@ -5,6 +5,8 @@ import firebase from 'firebase';
 import { WORKOUTS_ROUTE } from '../configs/constants/firebase-routes';
 import { WorkoutDAO } from '../configs/models/WorkoutDAO';
 import { v4 as uuidv4 } from 'uuid';
+import { clearWorkoutScreen } from '../creators/workout';
+import { routerActions } from 'react-router-redux';
 
 export const saveWorkout =
   (): ThunkAction<void, State, void, AnyAction> =>
@@ -29,6 +31,8 @@ export const saveWorkout =
       if (error) {
         return Promise.reject();
       } else {
+        dispatch(routerActions.push('/'));
+        dispatch(clearWorkoutScreen());
         return Promise.resolve();
       }
     });

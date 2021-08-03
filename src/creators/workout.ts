@@ -165,3 +165,13 @@ export const toggleAccordion = (panel: string): ToggleAccordionAction => {
     panel: panel,
   };
 };
+
+export interface ClearWorkoutScreenAction {
+  type: ActionTypes.CLEAR_WORKOUT_SCREEN;
+}
+
+export const clearWorkoutScreen = (): ClearWorkoutScreenAction => {
+  return {
+    type: ActionTypes.CLEAR_WORKOUT_SCREEN,
+  };
+};

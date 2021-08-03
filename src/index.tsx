@@ -41,3 +41,8 @@ reportWebVitals();
 // todo: add workout timer to redux store.  on stop/pause/stop
 // todo: close side bar on small break point
 // todo: dont allow multiple of the same circuit
+// todo: create <AppDialog /> component
+// todo: allow for workout to be editted
+// todo: place weekly calendar/daily check on dashboard
+// todo: add a daily counter for days in a row working out
+// todo: add dots on calendar for days worked out
