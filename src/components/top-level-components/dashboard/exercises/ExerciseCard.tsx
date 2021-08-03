@@ -6,7 +6,7 @@ import { red } from '@material-ui/core/colors';
 import CardHeader from '@material-ui/core/CardHeader';
 import Typography from '@material-ui/core/Typography';
 import CardContent from '@material-ui/core/CardContent';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
 import {
   List,
   Select,
@@ -32,7 +32,7 @@ import NewDialog from '../dialogs/NewDialog';
 import EditDialog from '../dialogs/EditDialog';
 import { WorkoutCategoryVO } from '../../../../configs/models/WorkoutCategoryVO';
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     root: {
       width: '100%',

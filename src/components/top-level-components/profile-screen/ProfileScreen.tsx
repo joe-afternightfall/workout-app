@@ -13,8 +13,6 @@ const styles: Styles<Theme, StyledComponentProps> = () => ({});
 
 class ProfileScreen extends Component<ProfileScreenProps> {
   render(): JSX.Element {
-    const { classes } = this.props;
-
     return (
       <Grid container>
         <Grid item xs={12}>

@@ -8,6 +8,7 @@ import {
   DeleteCircuitAction,
   DeleteExerciseFromCircuitAction,
   DeleteExerciseSetFromCircuitAction,
+  ToggleAccordionAction,
   ToggleExerciseSetAsDoneAction,
   UpdateWorkoutDateAction,
   UpdateWorkoutSetFieldAction,
@@ -29,6 +30,7 @@ export enum ActionTypes {
   DELETE_EXERCISE_SET_FROM_CIRCUIT = 'DELETE_EXERCISE_SET_FROM_CIRCUIT',
   TOGGLE_EXERCISE_SET_DONE = 'TOGGLE_EXERCISE_SET_DONE',
   UPDATE_WORKOUT_SET_FIELD = 'UPDATE_WORKOUT_SET_FIELD',
+  TOGGLE_ACCORDION = 'TOGGLE_ACCORDION',
 }
 
 export type ApplicationActions =
@@ -44,4 +46,5 @@ export type ApplicationActions =
   | AddExerciseSetToCircuitAction
   | DeleteExerciseSetFromCircuitAction
   | ToggleExerciseSetAsDoneAction
-  | UpdateWorkoutSetFieldAction;
+  | UpdateWorkoutSetFieldAction
+  | ToggleAccordionAction;

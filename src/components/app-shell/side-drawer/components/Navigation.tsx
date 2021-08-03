@@ -30,7 +30,11 @@ const Navigation = (props: NavigationProps): JSX.Element => {
         // Sign-out successful.
       })
       .catch((error) => {
-        // An error happened.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.error(
+          'CAUGHT_FIREBASE_ERROR: ' + errorCode + ' message: ' + errorMessage
+        );
       });
   };
 

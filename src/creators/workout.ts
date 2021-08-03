@@ -153,3 +153,15 @@ export const updateWorkoutSetField = (
     value: value,
   };
 };
+
+export interface ToggleAccordionAction {
+  type: ActionTypes.TOGGLE_ACCORDION;
+  panel: string;
+}
+
+export const toggleAccordion = (panel: string): ToggleAccordionAction => {
+  return {
+    type: ActionTypes.TOGGLE_ACCORDION,
+    panel: panel,
+  };
+};

@@ -4,7 +4,7 @@ import { MaterialUiPickersDate } from '@material-ui/pickers/typings/date';
 import DateFnsUtils from '@date-io/date-fns';
 import { Card } from '@material-ui/core';
 
-const StaticDatePicker = () => {
+const StaticDatePicker = (): JSX.Element => {
   const [date, setDate] = useState(new Date());
 
   const handleChange = (date: MaterialUiPickersDate) => {

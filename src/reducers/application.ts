@@ -16,7 +16,9 @@ function findCircuit(
   circuitId: string
 ): WorkoutCircuitProps | undefined {
   const circuits = state.circuits;
-  return circuits.find((circuit: WorkoutCircuitProps) => circuit.id === circuitId);
+  return circuits.find(
+    (circuit: WorkoutCircuitProps) => circuit.id === circuitId
+  );
 }
 
 export default {
@@ -45,6 +47,9 @@ export default {
         break;
       case ActionTypes.ADD_CIRCUIT:
         newState.circuits = [...newState.circuits, action.circuit];
+        break;
+      case ActionTypes.TOGGLE_ACCORDION:
+        newState.expandedAccordion = action.panel;
         break;
       case ActionTypes.DELETE_CIRCUIT:
         {
@@ -239,4 +244,5 @@ export interface ApplicationState {
   workoutCategories: WorkoutCategoryVO[];
   workoutDate: Date;
   circuits: WorkoutCircuitProps[];
+  expandedAccordion: string;
 }

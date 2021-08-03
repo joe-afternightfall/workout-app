@@ -34,8 +34,6 @@ class AppRouter extends Component<AppRouterProps> {
   }
 
   render(): JSX.Element {
-    const { classes } = this.props;
-
     return this.state.user ? (
       <App>
         <div className={'route'}>

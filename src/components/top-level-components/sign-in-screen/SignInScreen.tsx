@@ -1,13 +1,13 @@
-import firebase from 'firebase';
-import { Button, Card, Grid, TextField } from '@material-ui/core';
-import SignInCard from './SignInCard';
 import React from 'react';
+import firebase from 'firebase';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import SignInCard from './SignInCard';
+import { Grid } from '@material-ui/core';
 import { updateLoggedInUser } from '../../../creators/user-info';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     root: {
       height: '100vh',
@@ -43,6 +43,9 @@ const SignInScreen = (props: SignInScreenProps): JSX.Element => {
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
+        console.error(
+          'CAUGHT_FIREBASE_ERROR: ' + errorCode + ' message: ' + errorMessage
+        );
       });
   };
 

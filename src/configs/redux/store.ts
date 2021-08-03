@@ -26,6 +26,7 @@ export const createStore = (history: History): Store => {
       workoutCategories: [],
       exercises: [],
       circuits: [],
+      expandedAccordion: '',
     } as unknown as ApplicationState,
   });
 };

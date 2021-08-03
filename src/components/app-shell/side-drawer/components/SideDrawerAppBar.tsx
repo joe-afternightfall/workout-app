@@ -1,5 +1,4 @@
 import React from 'react';
-import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { AppBar, Grid, Toolbar, Typography } from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
@@ -40,7 +39,7 @@ const mapStateToProps = (state: State): SideDrawerAppBarProps => {
   } as unknown as SideDrawerAppBarProps;
 };
 
-const mapDispatchToProps = (dispatch: Dispatch): SideDrawerAppBarProps =>
+const mapDispatchToProps = (): SideDrawerAppBarProps =>
   ({} as unknown as SideDrawerAppBarProps);
 
 export default connect(mapStateToProps, mapDispatchToProps)(SideDrawerAppBar);

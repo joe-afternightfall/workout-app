@@ -8,16 +8,15 @@ import {
   IconButton,
   CardContent,
 } from '@material-ui/core';
-import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { red } from '@material-ui/core/colors';
 import { State } from '../../../configs/redux/store';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     root: {},
     avatar: {
@@ -102,7 +101,7 @@ const mapStateToProps = (state: State): ProfileCardProps => {
   } as unknown as ProfileCardProps;
 };
 
-const mapDispatchToProps = (dispatch: Dispatch): ProfileCardProps =>
+const mapDispatchToProps = (): ProfileCardProps =>
   ({} as unknown as ProfileCardProps);
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfileCard);

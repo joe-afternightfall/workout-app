@@ -3,7 +3,7 @@ import { WorkoutCategoryVO } from '../../configs/models/WorkoutCategoryVO';
 import { getAllWorkoutCategories } from '../../services/workout-categories-service';
 import { loadWorkoutCategories } from '../../creators/workout-categories';
 
-export const updateWorkoutCategories = async (store: Store) => {
+export const updateWorkoutCategories = async (store: Store): Promise<void> => {
   const groups = await getAllWorkoutCategories();
 
   if (groups) {
