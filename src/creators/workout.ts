@@ -1,5 +1,5 @@
 import { ActionTypes } from './actions';
-import { NewCircuitProps } from '../components/top-level-components/workout/WorkoutScreen';
+import { WorkoutCircuitProps } from '../components/top-level-components/workout/WorkoutScreen';
 
 export interface UpdateWorkoutDateAction {
   type: ActionTypes.UPDATE_WORKOUT_DATE;
@@ -15,10 +15,10 @@ export const updateWorkoutDate = (date: Date): UpdateWorkoutDateAction => {
 
 export interface AddCircuitAction {
   type: ActionTypes.ADD_CIRCUIT;
-  circuit: NewCircuitProps;
+  circuit: WorkoutCircuitProps;
 }
 
-export const addCircuit = (circuit: NewCircuitProps): AddCircuitAction => {
+export const addCircuit = (circuit: WorkoutCircuitProps): AddCircuitAction => {
   return {
     type: ActionTypes.ADD_CIRCUIT,
     circuit: circuit,

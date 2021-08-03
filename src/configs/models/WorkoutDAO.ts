@@ -1,15 +1,15 @@
-import { NewCircuitProps } from '../../components/top-level-components/workout/WorkoutScreen';
+import { WorkoutCircuitProps } from '../../components/top-level-components/workout/WorkoutScreen';
 
 export class WorkoutDAO {
   id: string;
   username: string;
-  circuits: NewCircuitProps[];
+  circuits: WorkoutCircuitProps[];
   workoutDate: string;
 
   constructor(
     id: string,
     username: string,
-    circuits: NewCircuitProps[],
+    circuits: WorkoutCircuitProps[],
     workoutDate: string
   ) {
     this.id = id;

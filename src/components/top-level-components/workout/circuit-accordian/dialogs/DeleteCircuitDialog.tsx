@@ -1,6 +1,6 @@
 import React from 'react';
 import { blue, red } from '@material-ui/core/colors';
-import { NewCircuitProps } from '../../WorkoutScreen';
+import { WorkoutCircuitProps } from '../../WorkoutScreen';
 import { Typography, Button, Dialog, Grid } from '@material-ui/core';
 import BaseDialogContent from '../../../../app-shell/BaseDialogContent';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
@@ -77,6 +77,6 @@ export default function DeleteCircuitDialog(
 }
 
 export interface DeleteCircuitDialogProps {
-  circuit: NewCircuitProps;
+  circuit: WorkoutCircuitProps;
   deleteClickHandler: (id: string) => void;
 }

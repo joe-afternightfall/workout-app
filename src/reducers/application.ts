@@ -8,15 +8,15 @@ import { WorkoutCategoryVO } from '../configs/models/WorkoutCategoryVO';
 import {
   CircuitExercise,
   CircuitExerciseSet,
-  NewCircuitProps,
+  WorkoutCircuitProps,
 } from '../components/top-level-components/workout/WorkoutScreen';
 
 function findCircuit(
   state: ApplicationState,
   circuitId: string
-): NewCircuitProps | undefined {
+): WorkoutCircuitProps | undefined {
   const circuits = state.circuits;
-  return circuits.find((circuit: NewCircuitProps) => circuit.id === circuitId);
+  return circuits.find((circuit: WorkoutCircuitProps) => circuit.id === circuitId);
 }
 
 export default {
@@ -50,7 +50,7 @@ export default {
         {
           const circuits = newState.circuits;
           const foundCircuit = circuits.find(
-            (circuit: NewCircuitProps) => circuit.id === action.id
+            (circuit: WorkoutCircuitProps) => circuit.id === action.id
           );
           if (foundCircuit) {
             const foundIndex = circuits.indexOf(foundCircuit);
@@ -238,5 +238,5 @@ export interface ApplicationState {
   exercises: ExerciseVO[];
   workoutCategories: WorkoutCategoryVO[];
   workoutDate: Date;
-  circuits: NewCircuitProps[];
+  circuits: WorkoutCircuitProps[];
 }

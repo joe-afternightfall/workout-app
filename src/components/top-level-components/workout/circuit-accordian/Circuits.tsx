@@ -14,7 +14,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import AddExerciseDialog from './dialogs/AddExerciseDialog';
 import DeleteCircuitDialog from './dialogs/DeleteCircuitDialog';
 import { ExerciseVO } from '../../../../configs/models/ExerciseVO';
-import { CircuitExercise, NewCircuitProps } from '../WorkoutScreen';
+import { CircuitExercise, WorkoutCircuitProps } from '../WorkoutScreen';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { State } from '../../../../configs/redux/store';
 import {
@@ -44,7 +44,7 @@ const Circuits = (props: CircuitProps): JSX.Element => {
 
   return (
     <Grid container spacing={3}>
-      {props.circuits.map((circuit: NewCircuitProps, index: number) => {
+      {props.circuits.map((circuit: WorkoutCircuitProps, index: number) => {
         return (
           <Grid key={index} item xs={12}>
             <Accordion
@@ -127,7 +127,7 @@ const Circuits = (props: CircuitProps): JSX.Element => {
 };
 
 export interface CircuitProps {
-  circuits: NewCircuitProps[];
+  circuits: WorkoutCircuitProps[];
   exercises: ExerciseVO[];
   deleteClickHandler: (circuitId: string) => void;
   addExerciseHandler: (circuitId: string, exerciseId: string) => void;

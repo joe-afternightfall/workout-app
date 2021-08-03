@@ -28,8 +28,7 @@ export interface CircuitExercise {
   sets: CircuitExerciseSet[];
 }
 
-// todo: rename prop to WorkoutCircuitProps
-export interface NewCircuitProps {
+export interface WorkoutCircuitProps {
   id: string;
   name: string;
   exercises: CircuitExercise[];
@@ -77,7 +76,7 @@ class WorkoutScreen extends Component<WorkoutScreenProps> {
 }
 
 export interface WorkoutScreenProps extends WithStyles<typeof styles> {
-  circuits: NewCircuitProps[];
+  circuits: WorkoutCircuitProps[];
   saveWorkoutHandler: () => void;
 }
 

@@ -3,7 +3,7 @@ import { Dispatch } from 'redux';
 import { v4 as uuidv4 } from 'uuid';
 import { connect } from 'react-redux';
 import ListItem from '@material-ui/core/ListItem';
-import { NewCircuitProps } from '../../WorkoutScreen';
+import { WorkoutCircuitProps } from '../../WorkoutScreen';
 import { Button, Dialog, List } from '@material-ui/core';
 import BaseDialogContent from '../../../../app-shell/BaseDialogContent';
 import { addCircuit } from '../../../../../creators/workout';
@@ -86,12 +86,12 @@ const AddCircuitDialog = (props: AddCircuitDialogProps): JSX.Element => {
 };
 
 export interface AddCircuitDialogProps {
-  addCircuitHandler: (props: NewCircuitProps) => void;
+  addCircuitHandler: (props: WorkoutCircuitProps) => void;
 }
 
 const mapDispatchToProps = (dispatch: Dispatch): AddCircuitDialogProps =>
   ({
-    addCircuitHandler: (props: NewCircuitProps) => {
+    addCircuitHandler: (props: WorkoutCircuitProps) => {
       dispatch(addCircuit(props));
     },
   } as unknown as AddCircuitDialogProps);
