@@ -15,8 +15,6 @@ export const createNewExercise = async (
     exerciseDAO = new ExerciseDAO(uuidv4(), name, workoutCategoryId);
   }
 
-  console.log('exerciseDAO: ' + JSON.stringify(exerciseDAO));
-
   return await newRef.set(exerciseDAO, (error: Error | null) => {
     if (error) {
       return Promise.reject();
