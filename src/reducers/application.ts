@@ -47,6 +47,7 @@ export default {
         break;
       case ActionTypes.ADD_CIRCUIT:
         newState.circuits = [...newState.circuits, action.circuit];
+        newState.expandedAccordion = action.circuit.id;
         break;
       case ActionTypes.TOGGLE_ACCORDION:
         newState.expandedAccordion = action.panel;
