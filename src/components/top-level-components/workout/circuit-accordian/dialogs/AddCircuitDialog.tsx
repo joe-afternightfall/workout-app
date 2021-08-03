@@ -2,13 +2,30 @@ import React from 'react';
 import { Dispatch } from 'redux';
 import { v4 as uuidv4 } from 'uuid';
 import { connect } from 'react-redux';
+import AddIcon from '@material-ui/icons/Add';
 import ListItem from '@material-ui/core/ListItem';
 import { WorkoutCircuitProps } from '../../WorkoutScreen';
-import { Button, Dialog, List } from '@material-ui/core';
-import BaseDialogContent from '../../../../app-shell/BaseDialogContent';
+import AppTooltip from '../../../../app-shell/AppTooltip';
 import { addCircuit } from '../../../../../creators/workout';
+import { Button, Dialog, IconButton, List } from '@material-ui/core';
+import BaseDialogContent from '../../../../app-shell/BaseDialogContent';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    addButton: {
+      color: '#fff',
+      borderRadius: 6,
+      background: theme.palette.primary.main,
+      '&:hover': {
+        background: theme.palette.primary.light,
+      },
+    },
+  })
+);
 
 const AddCircuitDialog = (props: AddCircuitDialogProps): JSX.Element => {
+  const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -30,9 +47,19 @@ const AddCircuitDialog = (props: AddCircuitDialogProps): JSX.Element => {
 
   return (
     <>
-      <Button variant={'outlined'} onClick={handleClickOpen}>
-        {'Add Circuit'}
-      </Button>
+      <AppTooltip
+        element={
+          <IconButton
+            color={'primary'}
+            className={classes.addButton}
+            onClick={handleClickOpen}
+          >
+            <AddIcon />
+          </IconButton>
+        }
+        title={'Add Circuit'}
+        placement={'bottom'}
+      />
 
       <Dialog onClose={handleClose} open={open} fullWidth maxWidth={'xs'}>
         <BaseDialogContent

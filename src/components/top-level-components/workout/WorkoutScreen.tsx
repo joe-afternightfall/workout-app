@@ -39,8 +39,13 @@ class WorkoutScreen extends Component<WorkoutScreenProps> {
     const { circuits } = this.props;
     return (
       <Grid container>
-        <Grid item xs={6}>
-          <DateInfo />
+        <Grid container item xs={6} alignItems={'center'}>
+          <Grid item xs={6}>
+            <DateInfo />
+          </Grid>
+          <Grid item>
+            <AddCircuitDialog />
+          </Grid>
         </Grid>
 
         <Grid container item xs={6}>
@@ -50,10 +55,6 @@ class WorkoutScreen extends Component<WorkoutScreenProps> {
           <Grid container item xs={12} justify={'flex-end'}>
             <Grid item xs={6}>
               <Button onClick={this.props.saveWorkoutHandler}>{'Save'}</Button>
-            </Grid>
-
-            <Grid item xs={6}>
-              <AddCircuitDialog />
             </Grid>
           </Grid>
         </Grid>

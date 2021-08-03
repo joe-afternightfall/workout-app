@@ -1,16 +1,10 @@
-import {
-  Button,
-  Fade,
-  Grid,
-  TextField,
-  Tooltip,
-  Typography,
-} from '@material-ui/core';
 import React, { ChangeEvent } from 'react';
+import { CircuitExerciseSet } from '../../WorkoutScreen';
+import AppTooltip from '../../../../app-shell/AppTooltip';
 import CheckIcon from '@material-ui/icons/CheckCircleOutlined';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import RemoveIcon from '@material-ui/icons/RemoveCircleOutlineOutlined';
-import { CircuitExerciseSet } from '../../WorkoutScreen';
+import { Button, Grid, TextField, Typography } from '@material-ui/core';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -94,42 +88,32 @@ export default function Set(props: SetProps): JSX.Element {
       <Grid item xs={4}>
         <Grid container alignItems={'center'} justify={'center'} spacing={2}>
           <Grid item>
-            <Tooltip
-              arrow
-              interactive
-              enterDelay={500}
-              leaveDelay={200}
-              placement={'left'}
+            <AppTooltip
+              element={
+                <Button
+                  className={classes.deleteButton}
+                  onClick={() => {
+                    props.deleteClickHandler();
+                  }}
+                >
+                  <RemoveIcon />
+                </Button>
+              }
               title={'Delete Set'}
-              TransitionComponent={Fade}
-              TransitionProps={{ timeout: 600 }}
-            >
-              <Button
-                className={classes.deleteButton}
-                onClick={() => {
-                  props.deleteClickHandler();
-                }}
-              >
-                <RemoveIcon />
-              </Button>
-            </Tooltip>
+              placement={'left'}
+            />
           </Grid>
 
           <Grid item>
-            <Tooltip
-              arrow
-              interactive
-              enterDelay={500}
-              leaveDelay={200}
-              placement={'right'}
+            <AppTooltip
+              element={
+                <Button className={classes.confirmButton} onClick={markAsDone}>
+                  <CheckIcon />
+                </Button>
+              }
               title={'Mark Done'}
-              TransitionComponent={Fade}
-              TransitionProps={{ timeout: 600 }}
-            >
-              <Button className={classes.confirmButton} onClick={markAsDone}>
-                <CheckIcon />
-              </Button>
-            </Tooltip>
+              placement={'right'}
+            />
           </Grid>
         </Grid>
       </Grid>
