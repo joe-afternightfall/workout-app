@@ -16,7 +16,7 @@ export default function RowTitle(): JSX.Element {
         <Typography>{'Reps'}</Typography>
       </Grid>
 
-      <Grid item xs={4} container justify={'center'} spacing={2}>
+      <Grid item xs={4} container justifyContent={'center'} spacing={2}>
         <Grid item>
           <Typography>{'Action'}</Typography>
         </Grid>

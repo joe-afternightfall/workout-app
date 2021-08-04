@@ -79,7 +79,7 @@ export default function WorkoutDoneDialog(
             </div>
           }
           dialogActions={
-            <Grid container justify={'flex-end'}>
+            <Grid container justifyContent={'flex-end'}>
               <Grid item>
                 <Button className={classes.cancelButton} onClick={handleClose}>
                   {'Cancel'}

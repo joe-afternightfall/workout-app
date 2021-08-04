@@ -49,7 +49,7 @@ export default function AddExerciseDialog(
           }
           closeClickHandler={handleClose}
           dialogActions={
-            <Grid container justify={'flex-end'}>
+            <Grid container justifyContent={'flex-end'}>
               <Grid item>
                 <Button onClick={handleClose}>{'Cancel'}</Button>
               </Grid>

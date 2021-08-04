@@ -86,7 +86,12 @@ export default function Set(props: SetProps): JSX.Element {
       </Grid>
 
       <Grid item xs={4}>
-        <Grid container alignItems={'center'} justify={'center'} spacing={2}>
+        <Grid
+          container
+          alignItems={'center'}
+          justifyContent={'center'}
+          spacing={2}
+        >
           <Grid item>
             <AppTooltip
               element={
