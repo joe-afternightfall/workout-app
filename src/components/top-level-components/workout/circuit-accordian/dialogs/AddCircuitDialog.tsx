@@ -10,6 +10,8 @@ import { addCircuit } from '../../../../../creators/workout';
 import { Button, Dialog, IconButton, List } from '@material-ui/core';
 import BaseDialogContent from '../../../../app-shell/BaseDialogContent';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { State } from '../../../../../configs/redux/store';
+import { CircuitProps } from '../Circuits';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -45,6 +47,14 @@ const AddCircuitDialog = (props: AddCircuitDialogProps): JSX.Element => {
     handleClose();
   };
 
+  const searchForName = (name: string): boolean => {
+    const found = props.circuits.find(
+      (circuit: WorkoutCircuitProps) => circuit.name === name
+    );
+
+    return found !== undefined;
+  };
+
   return (
     <>
       <AppTooltip
@@ -75,6 +85,7 @@ const AddCircuitDialog = (props: AddCircuitDialogProps): JSX.Element => {
                   onClick={() => {
                     handleClick('Warm Ups');
                   }}
+                  disabled={searchForName('Warm Ups')}
                 >
                   {'Warm Ups'}
                 </Button>
@@ -87,6 +98,7 @@ const AddCircuitDialog = (props: AddCircuitDialogProps): JSX.Element => {
                   onClick={() => {
                     handleClick('Main Workout');
                   }}
+                  disabled={searchForName('Main Workout')}
                 >
                   {'Main Workout'}
                 </Button>
@@ -99,6 +111,7 @@ const AddCircuitDialog = (props: AddCircuitDialogProps): JSX.Element => {
                   onClick={() => {
                     handleClick('Cool Down');
                   }}
+                  disabled={searchForName('Cool Down')}
                 >
                   {'Cool Down'}
                 </Button>
@@ -114,7 +127,14 @@ const AddCircuitDialog = (props: AddCircuitDialogProps): JSX.Element => {
 
 export interface AddCircuitDialogProps {
   addCircuitHandler: (props: WorkoutCircuitProps) => void;
+  circuits: WorkoutCircuitProps[];
 }
+
+const mapStateToProps = (state: State): CircuitProps => {
+  return {
+    circuits: state.applicationState.circuits,
+  } as unknown as CircuitProps;
+};
 
 const mapDispatchToProps = (dispatch: Dispatch): AddCircuitDialogProps =>
   ({
@@ -123,4 +143,4 @@ const mapDispatchToProps = (dispatch: Dispatch): AddCircuitDialogProps =>
     },
   } as unknown as AddCircuitDialogProps);
 
-export default connect(null, mapDispatchToProps)(AddCircuitDialog);
+export default connect(mapStateToProps, mapDispatchToProps)(AddCircuitDialog);
