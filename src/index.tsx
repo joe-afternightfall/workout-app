@@ -32,6 +32,7 @@ reportWebVitals();
 
 // todo: redirect user to login when firebase user object is null
 // todo: redirect user to dashboard after login
+// todo: redirect to "/" after logout
 // todo: add to exercises "type: weights, time, distance"
 // todo: rename all "justify" props on <Grid /> to "justifyContent"
 // todo: create github repo for app
@@ -49,3 +50,5 @@ reportWebVitals();
 // todo: use react-calendar for custom calendar to view when we have worked out
 // todo: dots for dojo workouts
 // todo: dots for solo/other workouts
+// todo: allow for building "workout plan"
+// todo: add application snackbar and use when updating/modifying table info
