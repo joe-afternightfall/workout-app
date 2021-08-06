@@ -52,3 +52,4 @@ reportWebVitals();
 // todo: dots for solo/other workouts
 // todo: allow for building "workout plan"
 // todo: add application snackbar and use when updating/modifying table info
+// todo: create nested navigation for configure/exercises/workouts/circuit types
