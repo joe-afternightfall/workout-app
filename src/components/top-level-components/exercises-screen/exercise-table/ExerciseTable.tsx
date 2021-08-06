@@ -1,14 +1,18 @@
-import React, { ChangeEvent } from 'react';
 import { Dispatch } from 'redux';
+import PageTitle from '../PageTitle';
 import { connect } from 'react-redux';
 import MaterialTable from 'material-table';
-import PageTitle from '../PageTitle';
+import React, { ChangeEvent } from 'react';
+import { TextField } from '@material-ui/core';
+import {
+  deleteExercise,
+  updateExercise,
+} from '../../../../services/exercise-service';
+import NewExerciseDialog from './NewExerciseDialog';
 import { State } from '../../../../configs/redux/store';
 import { ExerciseVO } from '../../../../configs/models/ExerciseVO';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { WorkoutCategoryVO } from '../../../../configs/models/WorkoutCategoryVO';
-import { TextField } from '@material-ui/core';
-import NewExerciseDialog from './NewExerciseDialog';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -33,7 +37,6 @@ const editField = (props: any) => {
 const ExerciseTable = (props: ExerciseTableProps): JSX.Element => {
   const classes = useStyles();
   const [open, setOpen] = React.useState<boolean>(false);
-  // const [workoutCategoryId, setWorkoutCategoryId] = React.useState<string>('');
 
   const openDialog = () => {
     setOpen(true);
@@ -54,6 +57,7 @@ const ExerciseTable = (props: ExerciseTableProps): JSX.Element => {
     return {
       number: index,
       exercise: exercise.name,
+      firebaseId: exercise.firebaseId,
       categoryId: foundCategory && foundCategory.id,
     };
   });
@@ -85,19 +89,27 @@ const ExerciseTable = (props: ExerciseTableProps): JSX.Element => {
           actionsColumnIndex: -1,
         }}
         editable={{
-          onRowUpdate: (newData): Promise<void> =>
+          onRowUpdate: (rowData): Promise<void> =>
             new Promise((resolve) => {
-              // props.updateClickHandler(newData.bookmark);
-              setTimeout(() => {
-                resolve();
-              }, 1000);
+              if (rowData.categoryId) {
+                updateExercise(
+                  rowData.firebaseId,
+                  rowData.exercise,
+                  rowData.categoryId
+                ).then(() => {
+                  setTimeout(() => {
+                    resolve();
+                  }, 1500);
+                });
+              }
             }),
-          onRowDelete: (newData): Promise<void> =>
+          onRowDelete: (rowData): Promise<void> =>
             new Promise((resolve) => {
-              // props.deleteClickHandler(newData.bookmark.firebaseId);
-              setTimeout(() => {
-                resolve();
-              }, 1500);
+              deleteExercise(rowData.firebaseId).then(() => {
+                setTimeout(() => {
+                  resolve();
+                }, 1500);
+              });
             }),
         }}
         columns={[

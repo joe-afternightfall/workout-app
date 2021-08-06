@@ -36,7 +36,8 @@ export const getAllExercises = async (): Promise<ExerciseDAO> => {
 
 export const updateExercise = async (
   id: string,
-  value: string
+  exerciseName: string,
+  workoutCategoryId: string
 ): Promise<void> => {
   return await firebase
     .database()
@@ -44,7 +45,8 @@ export const updateExercise = async (
     .child(id)
     .update(
       {
-        name: value,
+        name: exerciseName,
+        workoutCategoryId: workoutCategoryId,
       },
       (error: Error | null) => {
         if (error) {
