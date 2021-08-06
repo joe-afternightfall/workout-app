@@ -9,7 +9,10 @@ import { State } from '../../../../configs/redux/store';
 import { ExerciseVO } from '../../../../configs/models/ExerciseVO';
 import NewCategoryDialog from './NewCategoryDialog';
 import { TextField } from '@material-ui/core';
-import { updateWorkoutCategory } from '../../../../services/workout-categories-service';
+import {
+  deleteWorkoutCategory,
+  updateWorkoutCategory,
+} from '../../../../services/workout-categories-service';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -87,11 +90,11 @@ const CategoryTable = (props: CategoryTableProps): JSX.Element => {
             }),
           onRowDelete: (rowData): Promise<void> =>
             new Promise((resolve) => {
-              // deleteExercise(rowData.firebaseId).then(() => {
-              //   setTimeout(() => {
-              //     resolve();
-              //   }, 1500);
-              // });
+              deleteWorkoutCategory(rowData.category.firebaseId).then(() => {
+                setTimeout(() => {
+                  resolve();
+                }, 1500);
+              });
             }),
         }}
         columns={[
