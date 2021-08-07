@@ -7,13 +7,13 @@ export const updateExercises = async (store: Store): Promise<void> => {
   const exercises = await getAllExercises();
 
   if (exercises) {
-    const exercises1 = buildVO(exercises);
-    store.dispatch(loadExercises(exercises1));
+    store.dispatch(loadExercises(buildVO(exercises)));
   } else {
     store.dispatch(loadExercises([]));
   }
 };
 
+// todo: make strict typing for any
 function buildVO(exercises: any): ExerciseVO[] {
   return Object.keys(exercises).map((key: string): ExerciseVO => {
     return {
