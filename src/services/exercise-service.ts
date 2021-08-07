@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { ExerciseDAO } from '../configs/models/ExerciseDAO';
 import { EXERCISES_ROUTE } from '../configs/constants/firebase-routes';
 
+// todo: remove the optional from line 9 after deleting exercise card screen
 export const createNewExercise = async (
   name: string,
   workoutCategoryId?: string
