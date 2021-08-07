@@ -1,11 +1,12 @@
 import { Store } from 'redux';
 import firebase from 'firebase';
-import { updateExercises } from './update-methods/update-exercises';
-import { updateWorkoutCategories } from './update-methods/update-workout-categories';
 import {
-  EXERCISES_ROUTE,
-  WORKOUT_CATEGORIES_ROUTE,
+  CATEGORY_TYPES_ROUTE,
+  EXERCISE_TYPES_ROUTE,
+  CIRCUIT_TYPES_ROUTE,
 } from '../configs/constants/firebase-routes';
+import { updateExerciseTypes } from './update-methods/exercise-types';
+import { updateCategoryTypes } from './update-methods/category-types';
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
@@ -30,31 +31,44 @@ export class Initializer {
     firebase.initializeApp(firebaseConfig);
     firebase.analytics();
 
-    const exercises = firebase.database().ref(EXERCISES_ROUTE);
-    const workoutCategories = firebase.database().ref(WORKOUT_CATEGORIES_ROUTE);
+    const exerciseTypes = firebase.database().ref(EXERCISE_TYPES_ROUTE);
+    const categoryTypes = firebase.database().ref(CATEGORY_TYPES_ROUTE);
+    const circuitTypes = firebase.database().ref(CIRCUIT_TYPES_ROUTE);
 
-    exercises.on('child_added', async () => {
-      await updateExercises(this.store);
+    exerciseTypes.on('child_added', async () => {
+      await updateExerciseTypes(this.store);
     });
 
-    exercises.on('child_changed', async () => {
-      await updateExercises(this.store);
+    exerciseTypes.on('child_changed', async () => {
+      await updateExerciseTypes(this.store);
     });
 
-    exercises.on('child_removed', async () => {
-      await updateExercises(this.store);
+    exerciseTypes.on('child_removed', async () => {
+      await updateExerciseTypes(this.store);
     });
 
-    workoutCategories.on('child_added', async () => {
-      await updateWorkoutCategories(this.store);
+    categoryTypes.on('child_added', async () => {
+      await updateCategoryTypes(this.store);
     });
 
-    workoutCategories.on('child_changed', async () => {
-      await updateWorkoutCategories(this.store);
+    categoryTypes.on('child_changed', async () => {
+      await updateCategoryTypes(this.store);
     });
 
-    workoutCategories.on('child_removed', async () => {
-      await updateWorkoutCategories(this.store);
+    categoryTypes.on('child_removed', async () => {
+      await updateCategoryTypes(this.store);
+    });
+
+    circuitTypes.on('child_added', async () => {
+      await updateExerciseTypes(this.store);
+    });
+
+    circuitTypes.on('child_changed', async () => {
+      await updateExerciseTypes(this.store);
+    });
+
+    circuitTypes.on('child_removed', async () => {
+      await updateExerciseTypes(this.store);
     });
   }
 }

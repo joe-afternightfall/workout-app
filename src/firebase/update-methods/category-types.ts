@@ -1,13 +1,13 @@
 import { Store } from 'redux';
 import { loadCategoryTypes } from '../../creators/workout-configurations';
-import { getAllWorkoutCategories } from '../../services/category-types-service';
 import { CategoryTypeVO } from '../../configs/models/workout-configurations/category-type/CategoryTypeVO';
+import { getAllCategoryTypes } from '../../services/workout-configurations/category-types-service';
 
 export const updateCategoryTypes = async (store: Store): Promise<void> => {
-  const groups = await getAllWorkoutCategories();
+  const categoryTypes = await getAllCategoryTypes();
 
-  if (groups) {
-    store.dispatch(loadCategoryTypes(buildVO(groups)));
+  if (categoryTypes) {
+    store.dispatch(loadCategoryTypes(buildVO(categoryTypes)));
   } else {
     store.dispatch(loadCategoryTypes([]));
   }
