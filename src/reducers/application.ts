@@ -1,15 +1,16 @@
 import { v4 as uuidv4 } from 'uuid';
 import { RouteProp } from '../configs/routes';
 import { LOCATION_CHANGE } from 'connected-react-router';
-import { ExerciseVO } from '../configs/models/ExerciseVO';
 import { getPageInfo } from '../utils/get-current-page-info';
 import { ActionTypes, ApplicationActions } from '../creators/actions';
-import { WorkoutCategoryVO } from '../configs/models/WorkoutCategoryVO';
 import {
   CircuitExercise,
   CircuitExerciseSet,
   WorkoutCircuitProps,
 } from '../components/top-level-components/workout/WorkoutScreen';
+import { ExerciseTypeVO } from '../configs/models/workout-configurations/exercise-type/ExerciseTypeVO';
+import { CategoryTypeVO } from '../configs/models/workout-configurations/category-type/CategoryTypeVO';
+import { CircuitTypeVO } from '../configs/models/workout-configurations/circuit-type/CircuitTypeVO';
 
 function findCircuit(
   state: ApplicationState,
@@ -36,11 +37,14 @@ export default {
       case ActionTypes.LOGGED_IN_USER:
         newState.username = action.username;
         break;
-      case ActionTypes.LOAD_EXERCISES:
-        newState.exercises = action.exercises;
+      case ActionTypes.LOAD_EXERCISE_TYPES:
+        newState.exerciseTypes = action.exerciseTypes;
         break;
-      case ActionTypes.LOAD_WORKOUT_CATEGORIES:
-        newState.workoutCategories = action.workoutCategories;
+      case ActionTypes.LOAD_CATEGORY_TYPES:
+        newState.categoryTypes = action.categoryTypes;
+        break;
+      case ActionTypes.LOAD_CIRCUIT_TYPES:
+        newState.circuitTypes = action.circuitTypes;
         break;
       case ActionTypes.UPDATE_WORKOUT_DATE:
         newState.workoutDate = action.date;
@@ -244,8 +248,9 @@ export interface ApplicationState {
   username: string;
   currentLocation: string;
   activePage: RouteProp | undefined;
-  exercises: ExerciseVO[];
-  workoutCategories: WorkoutCategoryVO[];
+  exerciseTypes: ExerciseTypeVO[];
+  categoryTypes: CategoryTypeVO[];
+  circuitTypes: CircuitTypeVO[];
   workoutDate: Date;
   circuits: WorkoutCircuitProps[];
   expandedAccordion: string;
