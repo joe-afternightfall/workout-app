@@ -1,14 +1,14 @@
 import firebase from 'firebase';
-import { WorkoutCategoryDAO } from '../configs/models/WorkoutCategoryDAO';
 import { v4 as uuidv4 } from 'uuid';
-import { ExerciseDAO } from '../configs/models/ExerciseDAO';
-import { WORKOUT_CATEGORIES_ROUTE } from '../configs/constants/firebase-routes';
+import { CATEGORY_TYPES_ROUTE } from '../../configs/constants/firebase-routes';
+import { ExerciseTypeDAO } from '../../configs/models/workout-configurations/exercise-type/ExerciseTypeDAO';
+import { CategoryTypeDAO } from '../../configs/models/workout-configurations/category-type/CategoryTypeDAO';
 
-export const createNewWorkoutCategory = async (name: string): Promise<void> => {
-  const ref = firebase.database().ref(WORKOUT_CATEGORIES_ROUTE);
+export const createNewCategoryType = async (name: string): Promise<void> => {
+  const ref = firebase.database().ref(CATEGORY_TYPES_ROUTE);
   const newRef = ref.push();
 
-  const muscleGroupDAO = new WorkoutCategoryDAO(uuidv4(), name);
+  const muscleGroupDAO = new CategoryTypeDAO(uuidv4(), name);
 
   return await newRef.set(muscleGroupDAO, (error: Error | null) => {
     if (error) {
@@ -19,24 +19,24 @@ export const createNewWorkoutCategory = async (name: string): Promise<void> => {
   });
 };
 
-export const getAllWorkoutCategories = async (): Promise<ExerciseDAO> => {
+export const getAllCategoryTypes = async (): Promise<ExerciseTypeDAO> => {
   return await firebase
     .database()
-    .ref(WORKOUT_CATEGORIES_ROUTE)
+    .ref(CATEGORY_TYPES_ROUTE)
     .once('value')
     .then((snapshot) => {
       return snapshot.val();
     });
 };
 
-export const updateWorkoutCategory = async (
-  id: string,
+export const updateCategoryType = async (
+  firebaseId: string,
   value: string
 ): Promise<void> => {
   return await firebase
     .database()
-    .ref(WORKOUT_CATEGORIES_ROUTE)
-    .child(id)
+    .ref(CATEGORY_TYPES_ROUTE)
+    .child(firebaseId)
     .update(
       {
         name: value,
@@ -51,11 +51,11 @@ export const updateWorkoutCategory = async (
     );
 };
 
-export const deleteWorkoutCategory = async (id: string): Promise<void> => {
+export const deleteCategoryType = async (firebaseId: string): Promise<void> => {
   return await firebase
     .database()
-    .ref(WORKOUT_CATEGORIES_ROUTE)
-    .child(id)
+    .ref(CATEGORY_TYPES_ROUTE)
+    .child(firebaseId)
     .remove((error) => {
       if (error) {
         return Promise.reject();
