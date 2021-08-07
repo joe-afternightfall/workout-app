@@ -1,26 +1,33 @@
-import { LoadExercisesAction } from './exercise';
 import { LocationChangeAction } from 'connected-react-router';
-import { LoadWorkoutCategoriesAction } from './workout-categories';
 import {
   AddCircuitAction,
-  AddExerciseSetToCircuitAction,
-  AddExerciseToCircuitAction,
-  ClearWorkoutScreenAction,
   DeleteCircuitAction,
+  ToggleAccordionAction,
+  UpdateWorkoutDateAction,
+  ClearWorkoutScreenAction,
+  AddExerciseToCircuitAction,
+  UpdateWorkoutSetFieldAction,
+  ToggleExerciseSetAsDoneAction,
+  AddExerciseSetToCircuitAction,
   DeleteExerciseFromCircuitAction,
   DeleteExerciseSetFromCircuitAction,
-  ToggleAccordionAction,
-  ToggleExerciseSetAsDoneAction,
-  UpdateWorkoutDateAction,
-  UpdateWorkoutSetFieldAction,
 } from './workout';
 import { UpdateLoggedInUserAction } from './user-info';
+import {
+  LoadCircuitTypesAction,
+  LoadCategoryTypesAction,
+  LoadExerciseTypesAction,
+} from './workout-configurations';
 
 export enum ActionTypes {
   // Application Actions
   INITIALIZE = 'INITIALIZE',
-  LOAD_EXERCISES = 'LOAD_EXERCISES',
-  LOAD_WORKOUT_CATEGORIES = 'LOAD_WORKOUT_CATEGORIES',
+
+  // Workout configurations
+  LOAD_EXERCISE_TYPES = 'LOAD_EXERCISE_TYPES',
+  LOAD_CATEGORY_TYPES = 'LOAD_CATEGORY_TYPES',
+  LOAD_CIRCUIT_TYPES = 'LOAD_CIRCUIT_TYPES',
+
   UPDATE_WORKOUT_DATE = 'UPDATE_WORKOUT_DATE',
   ADD_CIRCUIT = 'ADD_CIRCUIT',
   DELETE_CIRCUIT = 'DELETE_CIRCUIT',
@@ -37,8 +44,9 @@ export enum ActionTypes {
 
 export type ApplicationActions =
   | LocationChangeAction
-  | LoadExercisesAction
-  | LoadWorkoutCategoriesAction
+  | LoadExerciseTypesAction
+  | LoadCategoryTypesAction
+  | LoadCircuitTypesAction
   | UpdateWorkoutDateAction
   | AddCircuitAction
   | DeleteCircuitAction
