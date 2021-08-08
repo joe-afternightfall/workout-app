@@ -28,6 +28,9 @@ export const createStore = (history: History): Store => {
         categoryTypes: [],
         circuitTypes: [],
       },
+      workout: {
+        date: new Date(),
+      },
       circuits: [],
       expandedAccordion: '',
     } as unknown as ApplicationState,

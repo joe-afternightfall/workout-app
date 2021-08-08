@@ -13,7 +13,7 @@ export const saveWorkout =
   async (dispatch: Dispatch, getState: () => State): Promise<void> => {
     const username = getState().applicationState.username;
     const circuits = getState().applicationState.circuits;
-    const workoutDate = getState().applicationState.workoutDate;
+    const workoutDate = getState().applicationState.workout.date;
     // todo: add workoutTime to redux and rip out of component
     // const workoutTime = getState().applicationState.workoutTime;
 

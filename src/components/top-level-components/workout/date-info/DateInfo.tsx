@@ -38,7 +38,7 @@ export interface DateInfoProps {
 
 const mapStateToProps = (state: State): DateInfoProps => {
   return {
-    workoutDate: state.applicationState.workoutDate,
+    workoutDate: state.applicationState.workout.date,
   } as unknown as DateInfoProps;
 };
 
