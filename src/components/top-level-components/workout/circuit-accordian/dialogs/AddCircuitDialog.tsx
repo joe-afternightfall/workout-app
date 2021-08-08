@@ -1,17 +1,17 @@
 import React from 'react';
 import { Dispatch } from 'redux';
-import { v4 as uuidv4 } from 'uuid';
 import { connect } from 'react-redux';
+import { CircuitProps } from '../Circuits';
 import AddIcon from '@material-ui/icons/Add';
 import ListItem from '@material-ui/core/ListItem';
 import { WorkoutCircuitProps } from '../../WorkoutScreen';
 import AppTooltip from '../../../../app-shell/AppTooltip';
+import { State } from '../../../../../configs/redux/store';
 import { addCircuit } from '../../../../../creators/workout';
 import { Button, Dialog, IconButton, List } from '@material-ui/core';
 import BaseDialogContent from '../../../../app-shell/BaseDialogContent';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import { State } from '../../../../../configs/redux/store';
-import { CircuitProps } from '../Circuits';
+import { CircuitTypeVO } from '../../../../../configs/models/workout-configurations/circuit-type/CircuitTypeVO';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -38,18 +38,18 @@ const AddCircuitDialog = (props: AddCircuitDialogProps): JSX.Element => {
     setOpen(false);
   };
 
-  const handleClick = (name: string) => {
+  const handleClick = (circuit: CircuitTypeVO) => {
     props.addCircuitHandler({
-      id: uuidv4(),
-      name: name,
+      id: circuit.id,
+      name: circuit.name,
       exercises: [],
     });
     handleClose();
   };
 
-  const searchForName = (name: string): boolean => {
+  const searchForCircuit = (id: string): boolean => {
     const found = props.circuits.find(
-      (circuit: WorkoutCircuitProps) => circuit.name === name
+      (circuit: WorkoutCircuitProps) => circuit.id === id
     );
 
     return found !== undefined;
@@ -77,45 +77,25 @@ const AddCircuitDialog = (props: AddCircuitDialogProps): JSX.Element => {
           closeClickHandler={handleClose}
           dialogContent={
             <List>
-              <ListItem>
-                <Button
-                  fullWidth
-                  color={'primary'}
-                  variant={'contained'}
-                  onClick={() => {
-                    handleClick('Warm Ups');
-                  }}
-                  disabled={searchForName('Warm Ups')}
-                >
-                  {'Warm Ups'}
-                </Button>
-              </ListItem>
-              <ListItem>
-                <Button
-                  fullWidth
-                  color={'primary'}
-                  variant={'contained'}
-                  onClick={() => {
-                    handleClick('Main Workout');
-                  }}
-                  disabled={searchForName('Main Workout')}
-                >
-                  {'Main Workout'}
-                </Button>
-              </ListItem>
-              <ListItem>
-                <Button
-                  fullWidth
-                  color={'primary'}
-                  variant={'contained'}
-                  onClick={() => {
-                    handleClick('Cool Down');
-                  }}
-                  disabled={searchForName('Cool Down')}
-                >
-                  {'Cool Down'}
-                </Button>
-              </ListItem>
+              {props.circuitTypes.map(
+                (circuit: CircuitTypeVO, index: number) => {
+                  return (
+                    <ListItem key={index}>
+                      <Button
+                        fullWidth
+                        color={'primary'}
+                        variant={'contained'}
+                        onClick={() => {
+                          handleClick(circuit);
+                        }}
+                        disabled={searchForCircuit(circuit.id)}
+                      >
+                        {circuit.name}
+                      </Button>
+                    </ListItem>
+                  );
+                }
+              )}
             </List>
           }
           dialogActions={<Button onClick={handleClose}>{'Cancel'}</Button>}
@@ -128,11 +108,13 @@ const AddCircuitDialog = (props: AddCircuitDialogProps): JSX.Element => {
 export interface AddCircuitDialogProps {
   addCircuitHandler: (props: WorkoutCircuitProps) => void;
   circuits: WorkoutCircuitProps[];
+  circuitTypes: CircuitTypeVO[];
 }
 
 const mapStateToProps = (state: State): CircuitProps => {
   return {
     circuits: state.applicationState.circuits,
+    circuitTypes: state.applicationState.circuitTypes,
   } as unknown as CircuitProps;
 };
 
