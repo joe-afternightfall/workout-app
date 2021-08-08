@@ -1,23 +1,23 @@
 import React from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import {
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  FormControl,
   Grid,
+  Select,
+  MenuItem,
+  TextField,
   IconButton,
   InputLabel,
-  MenuItem,
-  Select,
-  TextField,
+  DialogTitle,
+  FormControl,
+  DialogContent,
+  DialogActions,
 } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
-import { WorkoutCategoryVO } from '../../../../configs/models/WorkoutCategoryVO';
-import { createNewExercise } from '../../../../services/exercise-service';
+import { CategoryTypeVO } from '../../../../configs/models/workout-configurations/category-type/CategoryTypeVO';
+import { createNewExerciseType } from '../../../../services/workout-configurations/exercise-types-service';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -94,8 +94,8 @@ export default function NewExerciseDialog(
                 value={workoutCategoryId}
                 onChange={handleChange}
               >
-                {props.workoutCategories.map(
-                  (category: WorkoutCategoryVO, index: number) => {
+                {props.categoryTypes.map(
+                  (category: CategoryTypeVO, index: number) => {
                     return (
                       <MenuItem key={index} value={category.id}>
                         {category.name}
@@ -114,8 +114,9 @@ export default function NewExerciseDialog(
         <Button
           disabled={textField === ''}
           onClick={() => {
-            createNewExercise(textField, workoutCategoryId);
-            props.closeClickHandler();
+            createNewExerciseType(textField, workoutCategoryId).then(() => {
+              props.closeClickHandler();
+            });
           }}
         >
           {'Save'}
@@ -128,5 +129,5 @@ export default function NewExerciseDialog(
 export interface NewExerciseDialogProps {
   open: boolean;
   closeClickHandler: () => void;
-  workoutCategories: WorkoutCategoryVO[];
+  categoryTypes: CategoryTypeVO[];
 }
