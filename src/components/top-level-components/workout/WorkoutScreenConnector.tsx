@@ -15,7 +15,7 @@ import { saveWorkout } from '../../../services/workout-service';
 
 const mapStateToProps = (state: State): WorkoutScreenProps => {
   return {
-    circuits: state.applicationState.circuits,
+    circuits: state.applicationState.workout.circuits,
   } as unknown as WorkoutScreenProps;
 };
 

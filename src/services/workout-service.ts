@@ -12,7 +12,7 @@ export const saveWorkout =
   (): ThunkAction<void, State, void, AnyAction> =>
   async (dispatch: Dispatch, getState: () => State): Promise<void> => {
     const username = getState().applicationState.username;
-    const circuits = getState().applicationState.circuits;
+    const circuits = getState().applicationState.workout.circuits;
     const workoutDate = getState().applicationState.workout.date;
     // todo: add workoutTime to redux and rip out of component
     // const workoutTime = getState().applicationState.workoutTime;

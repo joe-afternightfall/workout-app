@@ -30,8 +30,9 @@ export const createStore = (history: History): Store => {
       },
       workout: {
         date: new Date(),
+        circuits: [],
+        time: '',
       },
-      circuits: [],
       expandedAccordion: '',
     } as unknown as ApplicationState,
   });

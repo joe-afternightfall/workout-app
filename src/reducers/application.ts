@@ -16,7 +16,7 @@ function findCircuit(
   state: ApplicationState,
   circuitId: string
 ): WorkoutCircuitProps | undefined {
-  const circuits = state.circuits;
+  const circuits = state.workout.circuits;
   return circuits.find(
     (circuit: WorkoutCircuitProps) => circuit.id === circuitId
   );
@@ -47,21 +47,24 @@ export default {
         newState.workoutConfigurations.circuitTypes = action.circuitTypes;
         break;
       case ActionTypes.UPDATE_WORKOUT_DATE:
-        newState.workoutDate = action.date;
+        newState.workout.date = action.date;
         break;
       case ActionTypes.ADD_CIRCUIT:
-        newState.circuits = [...newState.circuits, action.circuit];
+        newState.workout.circuits = [
+          ...newState.workout.circuits,
+          action.circuit,
+        ];
         newState.expandedAccordion = action.circuit.id;
         break;
       case ActionTypes.CLEAR_WORKOUT_SCREEN:
-        newState.circuits = [];
+        newState.workout.circuits = [];
         break;
       case ActionTypes.TOGGLE_ACCORDION:
         newState.expandedAccordion = action.panel;
         break;
       case ActionTypes.DELETE_CIRCUIT:
         {
-          const circuits = newState.circuits;
+          const circuits = newState.workout.circuits;
           const foundCircuit = circuits.find(
             (circuit: WorkoutCircuitProps) => circuit.id === action.id
           );
@@ -70,7 +73,10 @@ export default {
             circuits.splice(foundIndex, 1);
             return {
               ...newState,
-              circuits: [...newState.circuits],
+              workout: {
+                ...newState.workout,
+                circuits: [...newState.workout.circuits],
+              },
             };
           }
         }
@@ -79,8 +85,8 @@ export default {
         {
           const foundCircuit = findCircuit(newState, action.circuitId);
           if (foundCircuit) {
-            const foundIndex = newState.circuits.indexOf(foundCircuit);
-            newState.circuits[foundIndex].exercises = [
+            const foundIndex = newState.workout.circuits.indexOf(foundCircuit);
+            newState.workout.circuits[foundIndex].exercises = [
               ...foundCircuit.exercises,
               {
                 id: uuidv4(),
@@ -98,7 +104,10 @@ export default {
             ];
             return {
               ...newState,
-              circuits: [...newState.circuits],
+              workout: {
+                ...newState.workout,
+                circuits: [...newState.workout.circuits],
+              },
             };
           }
         }
@@ -107,8 +116,9 @@ export default {
         {
           const foundCircuit = findCircuit(newState, action.circuitId);
           if (foundCircuit) {
-            const circuitIndex = newState.circuits.indexOf(foundCircuit);
-            const exercises = newState.circuits[circuitIndex].exercises;
+            const circuitIndex =
+              newState.workout.circuits.indexOf(foundCircuit);
+            const exercises = newState.workout.circuits[circuitIndex].exercises;
 
             const foundExercise = exercises.find(
               (exercise: CircuitExercise) =>
@@ -122,7 +132,10 @@ export default {
 
             return {
               ...newState,
-              circuits: [...newState.circuits],
+              workout: {
+                ...newState.workout,
+                circuits: [...newState.workout.circuits],
+              },
             };
           }
         }
@@ -131,8 +144,10 @@ export default {
         {
           const foundCircuit = findCircuit(newState, action.circuitId);
           if (foundCircuit) {
-            const foundIndex = newState.circuits.indexOf(foundCircuit);
-            const foundExercise = newState.circuits[foundIndex].exercises.find(
+            const foundIndex = newState.workout.circuits.indexOf(foundCircuit);
+            const foundExercise = newState.workout.circuits[
+              foundIndex
+            ].exercises.find(
               (exercise: CircuitExercise) =>
                 exercise.exerciseId === action.exerciseId
             );
@@ -151,7 +166,10 @@ export default {
             }
             return {
               ...newState,
-              circuits: [...newState.circuits],
+              workout: {
+                ...newState.workout,
+                circuits: [...newState.workout.circuits],
+              },
             };
           }
         }
@@ -160,8 +178,10 @@ export default {
         {
           const foundCircuit = findCircuit(newState, action.circuitId);
           if (foundCircuit) {
-            const foundIndex = newState.circuits.indexOf(foundCircuit);
-            const foundExercise = newState.circuits[foundIndex].exercises.find(
+            const foundIndex = newState.workout.circuits.indexOf(foundCircuit);
+            const foundExercise = newState.workout.circuits[
+              foundIndex
+            ].exercises.find(
               (exercise: CircuitExercise) =>
                 exercise.exerciseId === action.exerciseId
             );
@@ -177,7 +197,10 @@ export default {
             }
             return {
               ...newState,
-              circuits: [...newState.circuits],
+              workout: {
+                ...newState.workout,
+                circuits: [...newState.workout.circuits],
+              },
             };
           }
         }
@@ -186,8 +209,10 @@ export default {
         {
           const foundCircuit = findCircuit(newState, action.circuitId);
           if (foundCircuit) {
-            const foundIndex = newState.circuits.indexOf(foundCircuit);
-            const foundExercise = newState.circuits[foundIndex].exercises.find(
+            const foundIndex = newState.workout.circuits.indexOf(foundCircuit);
+            const foundExercise = newState.workout.circuits[
+              foundIndex
+            ].exercises.find(
               (exercise: CircuitExercise) =>
                 exercise.exerciseId === action.exerciseId
             );
@@ -202,7 +227,10 @@ export default {
             }
             return {
               ...newState,
-              circuits: [...newState.circuits],
+              workout: {
+                ...newState.workout,
+                circuits: [...newState.workout.circuits],
+              },
             };
           }
         }
@@ -211,8 +239,10 @@ export default {
         {
           const foundCircuit = findCircuit(newState, action.circuitId);
           if (foundCircuit) {
-            const foundIndex = newState.circuits.indexOf(foundCircuit);
-            const foundExercise = newState.circuits[foundIndex].exercises.find(
+            const foundIndex = newState.workout.circuits.indexOf(foundCircuit);
+            const foundExercise = newState.workout.circuits[
+              foundIndex
+            ].exercises.find(
               (exercise: CircuitExercise) =>
                 exercise.exerciseId === action.exerciseId
             );
@@ -231,7 +261,10 @@ export default {
             }
             return {
               ...newState,
-              circuits: [...newState.circuits],
+              workout: {
+                ...newState.workout,
+                circuits: [...newState.workout.circuits],
+              },
             };
           }
         }
@@ -248,8 +281,6 @@ export interface ApplicationState {
   username: string;
   currentLocation: string;
   activePage: RouteProp | undefined;
-  workoutDate: Date;
-  circuits: WorkoutCircuitProps[];
   expandedAccordion: string;
   workoutConfigurations: {
     exerciseTypes: ExerciseTypeVO[];

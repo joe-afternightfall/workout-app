@@ -151,7 +151,7 @@ export interface CircuitProps {
 const mapStateToProps = (state: State): CircuitProps => {
   return {
     exerciseTypes: state.applicationState.workoutConfigurations.exerciseTypes,
-    circuits: state.applicationState.circuits,
+    circuits: state.applicationState.workout.circuits,
     expanded: state.applicationState.expandedAccordion,
   } as unknown as CircuitProps;
 };
