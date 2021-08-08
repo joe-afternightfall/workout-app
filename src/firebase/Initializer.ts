@@ -7,6 +7,7 @@ import {
 } from '../configs/constants/firebase-routes';
 import { updateExerciseTypes } from './update-methods/exercise-types';
 import { updateCategoryTypes } from './update-methods/category-types';
+import { updateCircuitTypes } from './update-methods/circuit-types';
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
@@ -60,15 +61,15 @@ export class Initializer {
     });
 
     circuitTypes.on('child_added', async () => {
-      await updateExerciseTypes(this.store);
+      await updateCircuitTypes(this.store);
     });
 
     circuitTypes.on('child_changed', async () => {
-      await updateExerciseTypes(this.store);
+      await updateCircuitTypes(this.store);
     });
 
     circuitTypes.on('child_removed', async () => {
-      await updateExerciseTypes(this.store);
+      await updateCircuitTypes(this.store);
     });
   }
 }
