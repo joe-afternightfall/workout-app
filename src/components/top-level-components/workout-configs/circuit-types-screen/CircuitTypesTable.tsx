@@ -8,6 +8,10 @@ import { State } from '../../../../configs/redux/store';
 import { CircuitTypeVO } from '../../../../configs/models/workout-configurations/circuit-type/CircuitTypeVO';
 import { TextField } from '@material-ui/core';
 import NewCircuitDialog from './NewCircuitDialog';
+import {
+  deleteCircuitType,
+  updateCircuitType,
+} from '../../../../services/workout-configurations/circuit-types-service';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -48,6 +52,7 @@ const CircuitTypesTable = (props: CircuitTypesTableProps): JSX.Element => {
 
       return {
         number: index,
+        circuit: circuit,
       };
     }
   );
@@ -66,27 +71,43 @@ const CircuitTypesTable = (props: CircuitTypesTableProps): JSX.Element => {
           pageSizeOptions: [6, 12, 18],
           actionsColumnIndex: -1,
         }}
+        editable={{
+          onRowUpdate: (rowData): Promise<void> =>
+            new Promise((resolve) => {
+              updateCircuitType(
+                rowData.circuit.firebaseId,
+                rowData.circuit.name
+              ).then(() => {
+                setTimeout(() => {
+                  resolve();
+                }, 1500);
+              });
+            }),
+          onRowDelete: (rowData): Promise<void> =>
+            new Promise((resolve) => {
+              deleteCircuitType(rowData.circuit.firebaseId).then(() => {
+                setTimeout(() => {
+                  resolve();
+                }, 1500);
+              });
+            }),
+        }}
         columns={[
           {
             title: '#',
             field: 'number',
             editable: 'never',
-            // cellStyle: {
-            //   width: '10%',
-            // },
           },
           {
             title: 'Circuit Name',
-            field: 'name',
-            // cellStyle: {
-            //   width: '10%',
-            // },
+            field: 'circuit.name',
+            editComponent: editField,
           },
         ]}
         actions={[
           {
             icon: 'add',
-            tooltip: 'Add New Exercise',
+            tooltip: 'Add New Circuit',
             isFreeAction: true,
             onClick: () => {
               openDialog();

@@ -10,9 +10,9 @@ import React, { Component } from 'react';
 import { Styles } from '@material-ui/styles';
 import AddIcon from '@material-ui/icons/AddCircleOutlineOutlined';
 import { Button, Divider, Grid, ListItem, Typography } from '@material-ui/core';
-import { ExerciseVO } from '../../../../../configs/models/ExerciseVO';
 import DeleteExerciseDialog from '../dialogs/DeleteExerciseDialog';
 import { CircuitExerciseSet } from '../../WorkoutScreen';
+import { ExerciseTypeVO } from '../../../../../configs/models/workout-configurations/exercise-type/ExerciseTypeVO';
 
 const styles: Styles<Theme, StyledComponentProps> = (theme: Theme) => ({
   title: {
@@ -99,7 +99,7 @@ class ExerciseCircuit extends Component<ExerciseCircuitProps> {
 }
 
 export interface ExerciseCircuitProps extends WithStyles<typeof styles> {
-  exercise: ExerciseVO;
+  exercise: ExerciseTypeVO;
   circuitId: string;
   sets: CircuitExerciseSet[];
   deleteExerciseHandler: (circuitId: string, exerciseId: string) => void;

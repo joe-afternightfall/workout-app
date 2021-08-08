@@ -14,7 +14,6 @@ import ExerciseCircuit from './components/ExerciseCircuit';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import AddExerciseDialog from './dialogs/AddExerciseDialog';
 import DeleteCircuitDialog from './dialogs/DeleteCircuitDialog';
-import { ExerciseVO } from '../../../../configs/models/ExerciseVO';
 import { CircuitExercise, WorkoutCircuitProps } from '../WorkoutScreen';
 import {
   addExerciseSetToCircuit,
@@ -26,6 +25,9 @@ import {
   toggleExerciseSetAsDone,
   updateWorkoutSetField,
 } from '../../../../creators/workout';
+import { ExerciseTypeVO } from '../../../../configs/models/workout-configurations/exercise-type/ExerciseTypeVO';
+
+// todo: rename to WorkoutCircuit
 
 const Circuits = (props: CircuitProps): JSX.Element => {
   const handleChange =
@@ -63,8 +65,8 @@ const Circuits = (props: CircuitProps): JSX.Element => {
                   ) : (
                     circuit.exercises.map(
                       (circuitExercise: CircuitExercise, index: number) => {
-                        const foundExercise = props.exercises.find(
-                          (exercise: ExerciseVO) =>
+                        const foundExercise = props.exerciseTypes.find(
+                          (exercise: ExerciseTypeVO) =>
                             exercise.id === circuitExercise.exerciseId
                         );
                         if (foundExercise) {
@@ -106,7 +108,7 @@ const Circuits = (props: CircuitProps): JSX.Element => {
 
                 <AddExerciseDialog
                   circuitId={circuit.id}
-                  exercises={props.exercises}
+                  exerciseTypes={props.exerciseTypes}
                   addClickHandler={props.addExerciseHandler}
                 />
               </AccordionActions>
@@ -121,7 +123,7 @@ const Circuits = (props: CircuitProps): JSX.Element => {
 export interface CircuitProps {
   expanded: string;
   circuits: WorkoutCircuitProps[];
-  exercises: ExerciseVO[];
+  exerciseTypes: ExerciseTypeVO[];
   deleteClickHandler: (circuitId: string) => void;
   addExerciseHandler: (circuitId: string, exerciseId: string) => void;
   deleteExerciseHandler: (circuitId: string, exerciseId: string) => void;
@@ -148,7 +150,7 @@ export interface CircuitProps {
 
 const mapStateToProps = (state: State): CircuitProps => {
   return {
-    exercises: state.applicationState.exercises,
+    exerciseTypes: state.applicationState.exerciseTypes,
     circuits: state.applicationState.circuits,
     expanded: state.applicationState.expandedAccordion,
   } as unknown as CircuitProps;

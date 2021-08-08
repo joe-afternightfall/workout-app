@@ -18,7 +18,6 @@ function buildVO(circuits: any): CircuitTypeVO[] {
       firebaseId: key,
       id: circuits[key].id,
       name: circuits[key].name,
-      exercises: circuits[key].exercises,
     };
   });
 }
