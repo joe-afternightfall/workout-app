@@ -4,15 +4,15 @@ import { connect } from 'react-redux';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import MaterialTable from 'material-table';
 import PageTitle from '../PageTitle';
-import { WorkoutCategoryVO } from '../../../../configs/models/WorkoutCategoryVO';
 import { State } from '../../../../configs/redux/store';
-import { ExerciseVO } from '../../../../configs/models/ExerciseVO';
 import NewCategoryDialog from './NewCategoryDialog';
 import { TextField } from '@material-ui/core';
+import { CategoryTypeVO } from '../../../../configs/models/workout-configurations/category-type/CategoryTypeVO';
+import { ExerciseTypeVO } from '../../../../configs/models/workout-configurations/exercise-type/ExerciseTypeVO';
 import {
-  deleteWorkoutCategory,
-  updateWorkoutCategory,
-} from '../../../../services/workout-categories-service';
+  deleteCategoryType,
+  updateCategoryType,
+} from '../../../../services/workout-configurations/category-types-service';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -47,11 +47,11 @@ const CategoryTable = (props: CategoryTableProps): JSX.Element => {
     setOpen(false);
   };
 
-  const data = props.workoutCategories.map(
-    (category: WorkoutCategoryVO, index: number) => {
+  const data = props.categoryTypes.map(
+    (category: CategoryTypeVO, index: number) => {
       index += 1;
-      const exercises = props.exercises.filter(
-        (exercise: ExerciseVO) => exercise.workoutCategoryId === category.id
+      const exercises = props.exerciseTypes.filter(
+        (exercise: ExerciseTypeVO) => exercise.workoutCategoryId === category.id
       );
 
       return {
@@ -79,7 +79,7 @@ const CategoryTable = (props: CategoryTableProps): JSX.Element => {
         editable={{
           onRowUpdate: (rowData): Promise<void> =>
             new Promise((resolve) => {
-              updateWorkoutCategory(
+              updateCategoryType(
                 rowData.category.firebaseId,
                 rowData.category.name
               ).then(() => {
@@ -90,7 +90,7 @@ const CategoryTable = (props: CategoryTableProps): JSX.Element => {
             }),
           onRowDelete: (rowData): Promise<void> =>
             new Promise((resolve) => {
-              deleteWorkoutCategory(rowData.category.firebaseId).then(() => {
+              deleteCategoryType(rowData.category.firebaseId).then(() => {
                 setTimeout(() => {
                   resolve();
                 }, 1500);
@@ -139,14 +139,14 @@ const CategoryTable = (props: CategoryTableProps): JSX.Element => {
 };
 
 export interface CategoryTableProps {
-  exercises: ExerciseVO[];
-  workoutCategories: WorkoutCategoryVO[];
+  exerciseTypes: ExerciseTypeVO[];
+  categoryTypes: CategoryTypeVO[];
 }
 
 const mapStateToProps = (state: State): CategoryTableProps => {
   return {
-    exercises: state.applicationState.exercises,
-    workoutCategories: state.applicationState.workoutCategories,
+    exerciseTypes: state.applicationState.exerciseTypes,
+    categoryTypes: state.applicationState.categoryTypes,
   } as unknown as CategoryTableProps;
 };
 
