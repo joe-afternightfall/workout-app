@@ -27,7 +27,7 @@ const editField = (props: {
   return (
     <TextField
       value={props.value}
-      data-testid={'edit-url-text-field'}
+      data-testid={'edit-category-type-text-field'}
       onChange={(e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>
         props.onChange(e.target.value)
       }
