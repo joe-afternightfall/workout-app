@@ -114,7 +114,7 @@ export interface AddCircuitDialogProps {
 const mapStateToProps = (state: State): CircuitProps => {
   return {
     circuits: state.applicationState.circuits,
-    circuitTypes: state.applicationState.circuitTypes,
+    circuitTypes: state.applicationState.workoutConfigurations.circuitTypes,
   } as unknown as CircuitProps;
 };
 

@@ -38,13 +38,13 @@ export default {
         newState.username = action.username;
         break;
       case ActionTypes.LOAD_EXERCISE_TYPES:
-        newState.exerciseTypes = action.exerciseTypes;
+        newState.workoutConfigurations.exerciseTypes = action.exerciseTypes;
         break;
       case ActionTypes.LOAD_CATEGORY_TYPES:
-        newState.categoryTypes = action.categoryTypes;
+        newState.workoutConfigurations.categoryTypes = action.categoryTypes;
         break;
       case ActionTypes.LOAD_CIRCUIT_TYPES:
-        newState.circuitTypes = action.circuitTypes;
+        newState.workoutConfigurations.circuitTypes = action.circuitTypes;
         break;
       case ActionTypes.UPDATE_WORKOUT_DATE:
         newState.workoutDate = action.date;
@@ -248,10 +248,17 @@ export interface ApplicationState {
   username: string;
   currentLocation: string;
   activePage: RouteProp | undefined;
-  exerciseTypes: ExerciseTypeVO[];
-  categoryTypes: CategoryTypeVO[];
-  circuitTypes: CircuitTypeVO[];
   workoutDate: Date;
   circuits: WorkoutCircuitProps[];
   expandedAccordion: string;
+  workoutConfigurations: {
+    exerciseTypes: ExerciseTypeVO[];
+    categoryTypes: CategoryTypeVO[];
+    circuitTypes: CircuitTypeVO[];
+  };
+  workout: {
+    date: Date;
+    time: string;
+    circuits: WorkoutCircuitProps[];
+  };
 }

@@ -23,9 +23,11 @@ export const createStore = (history: History): Store => {
 
   return createStoreFunc(allReducers, {
     applicationState: {
-      exerciseTypes: [],
-      categoryTypes: [],
-      circuitTypes: [],
+      workoutConfigurations: {
+        exerciseTypes: [],
+        categoryTypes: [],
+        circuitTypes: [],
+      },
       circuits: [],
       expandedAccordion: '',
     } as unknown as ApplicationState,

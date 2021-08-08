@@ -125,7 +125,7 @@ export interface CircuitTypesTableProps {
 
 const mapStateToProps = (state: State): CircuitTypesTableProps => {
   return {
-    circuitTypes: state.applicationState.circuitTypes,
+    circuitTypes: state.applicationState.workoutConfigurations.circuitTypes,
   } as unknown as CircuitTypesTableProps;
 };
 

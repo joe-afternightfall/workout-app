@@ -145,8 +145,8 @@ export interface CategoryTypesTableProps {
 
 const mapStateToProps = (state: State): CategoryTypesTableProps => {
   return {
-    exerciseTypes: state.applicationState.exerciseTypes,
-    categoryTypes: state.applicationState.categoryTypes,
+    exerciseTypes: state.applicationState.workoutConfigurations.exerciseTypes,
+    categoryTypes: state.applicationState.workoutConfigurations.categoryTypes,
   } as unknown as CategoryTypesTableProps;
 };
 
