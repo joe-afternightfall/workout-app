@@ -2,17 +2,17 @@ import React from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import {
   Grid,
+  Button,
+  Dialog,
   TextField,
   IconButton,
+  Typography,
   DialogTitle,
   DialogActions,
   DialogContent,
-  Typography,
-  Button,
-  Dialog,
 } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
-import { createNewWorkoutCategory } from '../../../../services/workout-categories-service';
+import { createNewCategoryType } from '../../../../services/workout-configurations/category-types-service';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -80,7 +80,7 @@ export default function NewCategoryDialog(
         <Button
           disabled={textField === ''}
           onClick={() => {
-            createNewWorkoutCategory(textField).then(() => {
+            createNewCategoryType(textField).then(() => {
               props.closeClickHandler();
             });
           }}

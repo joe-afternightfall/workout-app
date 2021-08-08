@@ -3,7 +3,6 @@ import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import MaterialTable from 'material-table';
-import PageTitle from '../PageTitle';
 import { State } from '../../../../configs/redux/store';
 import NewCategoryDialog from './NewCategoryDialog';
 import { TextField } from '@material-ui/core';
@@ -13,6 +12,7 @@ import {
   deleteCategoryType,
   updateCategoryType,
 } from '../../../../services/workout-configurations/category-types-service';
+import PageTitle from '../../../shared/PageTitle';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -35,7 +35,7 @@ const editField = (props: {
   );
 };
 
-const CategoryTable = (props: CategoryTableProps): JSX.Element => {
+const CategoryTypesTable = (props: CategoryTypesTableProps): JSX.Element => {
   const classes = useStyles();
   const [open, setOpen] = React.useState<boolean>(false);
 
@@ -138,19 +138,19 @@ const CategoryTable = (props: CategoryTableProps): JSX.Element => {
   );
 };
 
-export interface CategoryTableProps {
+export interface CategoryTypesTableProps {
   exerciseTypes: ExerciseTypeVO[];
   categoryTypes: CategoryTypeVO[];
 }
 
-const mapStateToProps = (state: State): CategoryTableProps => {
+const mapStateToProps = (state: State): CategoryTypesTableProps => {
   return {
     exerciseTypes: state.applicationState.exerciseTypes,
     categoryTypes: state.applicationState.categoryTypes,
-  } as unknown as CategoryTableProps;
+  } as unknown as CategoryTypesTableProps;
 };
 
-const mapDispatchToProps = (dispatch: Dispatch): CategoryTableProps =>
-  ({} as unknown as CategoryTableProps);
+const mapDispatchToProps = (dispatch: Dispatch): CategoryTypesTableProps =>
+  ({} as unknown as CategoryTypesTableProps);
 
-export default connect(mapStateToProps, mapDispatchToProps)(CategoryTable);
+export default connect(mapStateToProps, mapDispatchToProps)(CategoryTypesTable);
