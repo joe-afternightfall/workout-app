@@ -1,18 +1,18 @@
 import { Dispatch } from 'redux';
-import PageTitle from '../PageTitle';
 import { connect } from 'react-redux';
 import MaterialTable from 'material-table';
 import React, { ChangeEvent } from 'react';
 import { TextField } from '@material-ui/core';
-import {
-  deleteExercise,
-  updateExercise,
-} from '../../../../services/exercise-service';
 import NewExerciseDialog from './NewExerciseDialog';
 import { State } from '../../../../configs/redux/store';
-import { ExerciseVO } from '../../../../configs/models/ExerciseVO';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import { WorkoutCategoryVO } from '../../../../configs/models/WorkoutCategoryVO';
+import { CategoryTypeVO } from '../../../../configs/models/workout-configurations/category-type/CategoryTypeVO';
+import { ExerciseTypeVO } from '../../../../configs/models/workout-configurations/exercise-type/ExerciseTypeVO';
+import PageTitle from '../../../shared/PageTitle';
+import {
+  deleteExerciseType,
+  updateExerciseType,
+} from '../../../../services/workout-configurations/exercise-types-service';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -34,7 +34,7 @@ const editField = (props: any) => {
   );
 };
 
-const ExerciseTable = (props: ExerciseTableProps): JSX.Element => {
+const ExerciseTypesTable = (props: ExerciseTableProps): JSX.Element => {
   const classes = useStyles();
   const [open, setOpen] = React.useState<boolean>(false);
 
@@ -46,24 +46,25 @@ const ExerciseTable = (props: ExerciseTableProps): JSX.Element => {
     setOpen(false);
   };
 
-  const data = props.exercises.map((exercise: ExerciseVO, index: number) => {
-    index += 1;
+  const data = props.exerciseTypes.map(
+    (exercise: ExerciseTypeVO, index: number) => {
+      index += 1;
 
-    const foundCategory = props.workoutCategories.find(
-      (category: WorkoutCategoryVO) =>
-        category.id === exercise.workoutCategoryId
-    );
+      const foundCategory = props.categoryTypes.find(
+        (category: CategoryTypeVO) => category.id === exercise.workoutCategoryId
+      );
 
-    return {
-      number: index,
-      exercise: exercise.name,
-      firebaseId: exercise.firebaseId,
-      categoryId: foundCategory && foundCategory.id,
-    };
-  });
+      return {
+        number: index,
+        exercise: exercise.name,
+        firebaseId: exercise.firebaseId,
+        categoryId: foundCategory && foundCategory.id,
+      };
+    }
+  );
 
-  const exercises = props.workoutCategories.reduce(
-    (obj: any, category: WorkoutCategoryVO) => {
+  const exercises = props.categoryTypes.reduce(
+    (obj: any, category: CategoryTypeVO) => {
       obj[category.id] = category.name;
       return obj;
     },
@@ -75,7 +76,7 @@ const ExerciseTable = (props: ExerciseTableProps): JSX.Element => {
       <NewExerciseDialog
         open={open}
         closeClickHandler={closeDialog}
-        workoutCategories={props.workoutCategories}
+        categoryTypes={props.categoryTypes}
       />
 
       <MaterialTable
@@ -92,7 +93,7 @@ const ExerciseTable = (props: ExerciseTableProps): JSX.Element => {
           onRowUpdate: (rowData): Promise<void> =>
             new Promise((resolve) => {
               if (rowData.categoryId) {
-                updateExercise(
+                updateExerciseType(
                   rowData.firebaseId,
                   rowData.exercise,
                   rowData.categoryId
@@ -105,7 +106,7 @@ const ExerciseTable = (props: ExerciseTableProps): JSX.Element => {
             }),
           onRowDelete: (rowData): Promise<void> =>
             new Promise((resolve) => {
-              deleteExercise(rowData.firebaseId).then(() => {
+              deleteExerciseType(rowData.firebaseId).then(() => {
                 setTimeout(() => {
                   resolve();
                 }, 1500);
@@ -154,18 +155,18 @@ const ExerciseTable = (props: ExerciseTableProps): JSX.Element => {
 };
 
 export interface ExerciseTableProps {
-  exercises: ExerciseVO[];
-  workoutCategories: WorkoutCategoryVO[];
+  exerciseTypes: ExerciseTypeVO[];
+  categoryTypes: CategoryTypeVO[];
 }
 
 const mapStateToProps = (state: State): ExerciseTableProps => {
   return {
-    exercises: state.applicationState.exercises,
-    workoutCategories: state.applicationState.workoutCategories,
+    exerciseTypes: state.applicationState.exerciseTypes,
+    categoryTypes: state.applicationState.categoryTypes,
   } as unknown as ExerciseTableProps;
 };
 
 const mapDispatchToProps = (dispatch: Dispatch): ExerciseTableProps =>
   ({} as unknown as ExerciseTableProps);
 
-export default connect(mapStateToProps, mapDispatchToProps)(ExerciseTable);
+export default connect(mapStateToProps, mapDispatchToProps)(ExerciseTypesTable);
