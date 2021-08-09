@@ -1,4 +1,4 @@
-import { ExerciseTypeDAO } from './ExerciseTypeDAO';
+import { ExerciseTypeDAO, SetType } from './ExerciseTypeDAO';
 
 export class ExerciseTypeVO extends ExerciseTypeDAO {
   firebaseId: string;
@@ -8,9 +8,10 @@ export class ExerciseTypeVO extends ExerciseTypeDAO {
     firebaseId: string,
     id: string,
     name: string,
-    workoutCategoryId: string
+    workoutCategoryId: string,
+    setType: SetType
   ) {
-    super(id, name, workoutCategoryId);
+    super(id, name, workoutCategoryId, setType);
     this.firebaseId = firebaseId;
   }
 }
