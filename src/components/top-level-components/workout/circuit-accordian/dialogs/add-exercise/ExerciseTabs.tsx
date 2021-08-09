@@ -11,7 +11,18 @@ import { connect } from 'react-redux';
 import SwipeableViews from 'react-swipeable-views';
 import { State } from '../../../../../../configs/redux/store';
 import { addExerciseToCircuit } from '../../../../../../creators/workout';
-import { Tab, Tabs, AppBar, List, ListItem, Button } from '@material-ui/core';
+import {
+  Tab,
+  Tabs,
+  AppBar,
+  List,
+  ListItem,
+  Button,
+  DialogTitle,
+  DialogContent,
+  Typography,
+  Grid,
+} from '@material-ui/core';
 import { ExerciseTypeVO } from '../../../../../../configs/models/workout-configurations/exercise-type/ExerciseTypeVO';
 import { CategoryTypeVO } from '../../../../../../configs/models/workout-configurations/category-type/CategoryTypeVO';
 
@@ -19,6 +30,12 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       backgroundColor: theme.palette.background.paper,
+    },
+    content: {
+      height: '50vh',
+    },
+    title: {
+      padding: 0,
     },
   })
 );
@@ -41,67 +58,93 @@ const ExerciseTabs = (
 
   return (
     <div className={classes.root}>
-      <AppBar position={'static'} color={'default'}>
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          indicatorColor={'primary'}
-          textColor={'primary'}
-          variant={'fullWidth'}
-          aria-label={'full width tabs example'}
+      <DialogTitle disableTypography className={classes.title}>
+        <AppBar position={'static'} color={'default'}>
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            indicatorColor={'primary'}
+            textColor={'primary'}
+            variant={'fullWidth'}
+            aria-label={'full width tabs example'}
+          >
+            {props.categoryTypes.map(
+              (category: CategoryTypeVO, index: number) => {
+                return (
+                  <Tab
+                    key={index}
+                    label={category.name}
+                    id={index.toString()}
+                  />
+                );
+              }
+            )}
+          </Tabs>
+        </AppBar>
+      </DialogTitle>
+
+      <DialogContent className={classes.content}>
+        <SwipeableViews
+          axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+          index={value}
+          onChangeIndex={handleChangeIndex}
         >
           {props.categoryTypes.map(
             (category: CategoryTypeVO, index: number) => {
+              const categoryTypeId = props.categoryTypes[index].id;
+
+              const foundExercises = props.exerciseTypes.filter(
+                (exercise: ExerciseTypeVO) =>
+                  exercise.workoutCategoryId === categoryTypeId
+              );
+
               return (
-                <Tab key={index} label={category.name} id={index.toString()} />
+                <TabPanel
+                  key={index}
+                  value={value}
+                  index={index}
+                  dir={theme.direction}
+                >
+                  {foundExercises.length === 0 ? (
+                    <Grid container justifyContent={'center'}>
+                      <Grid item>
+                        <Typography>
+                          {'no exercises setup for this category'}
+                        </Typography>
+                      </Grid>
+                    </Grid>
+                  ) : (
+                    <List>
+                      {foundExercises.map(
+                        (exercise: ExerciseTypeVO, exerciseIndex: number) => {
+                          return (
+                            <ListItem key={exerciseIndex}>
+                              <Button
+                                fullWidth
+                                color={'primary'}
+                                variant={'contained'}
+                                onClick={() => {
+                                  props.addExerciseHandler(
+                                    props.workoutCircuitId,
+                                    exercise.id
+                                  );
+                                  props.closeClickHandler();
+                                }}
+                              >
+                                {exercise.name}
+                              </Button>
+                            </ListItem>
+                          );
+                        }
+                      )}
+                    </List>
+                  )}
+                </TabPanel>
               );
             }
           )}
-        </Tabs>
-      </AppBar>
-      <SwipeableViews
-        axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-        index={value}
-        onChangeIndex={handleChangeIndex}
-      >
-        {props.categoryTypes.map((category: CategoryTypeVO, index: number) => {
-          const categoryTypeId = props.categoryTypes[index].id;
-
-          const foundExercise = props.exerciseTypes.find(
-            (exercise: ExerciseTypeVO) =>
-              exercise.workoutCategoryId === categoryTypeId
-          );
-          return (
-            <TabPanel
-              key={index}
-              value={value}
-              index={index}
-              dir={theme.direction}
-            >
-              <List>
-                {foundExercise ? (
-                  <ListItem key={index}>
-                    <Button
-                      fullWidth
-                      color={'primary'}
-                      variant={'contained'}
-                      onClick={() => {
-                        props.addExerciseHandler(
-                          props.workoutCircuitId,
-                          foundExercise.id
-                        );
-                        props.closeClickHandler();
-                      }}
-                    >
-                      {foundExercise.name}
-                    </Button>
-                  </ListItem>
-                ) : undefined}
-              </List>
-            </TabPanel>
-          );
-        })}
-      </SwipeableViews>
+        </SwipeableViews>
+      </DialogContent>
     </div>
   );
 };
