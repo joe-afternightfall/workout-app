@@ -2,12 +2,21 @@ import React from 'react';
 import firebase from 'firebase';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import { Button, Grid, List } from '@material-ui/core';
+import {
+  Button,
+  Collapse,
+  Grid,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+} from '@material-ui/core';
 import { NavListItem } from './NavListItem';
 import { routerActions } from 'connected-react-router';
 import { State } from '../../../../configs/redux/store';
-import { RouteProp, routes } from '../../../../configs/routes';
+import { PageProps, RouteProp, routes } from '../../../../configs/routes';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { ExpandLess, ExpandMore, StarBorder } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -16,11 +25,15 @@ const useStyles = makeStyles((theme: Theme) =>
       // maxWidth: 360,
       backgroundColor: theme.palette.background.paper,
     },
+    nested: {
+      paddingLeft: theme.spacing(4),
+    },
   })
 );
 
 const Navigation = (props: NavigationProps): JSX.Element => {
   const classes = useStyles();
+  const [open, setOpen] = React.useState<boolean>(false);
 
   const logout = () => {
     firebase
@@ -45,17 +58,61 @@ const Navigation = (props: NavigationProps): JSX.Element => {
       aria-labelledby={'nested-list-subheader'}
     >
       {Object.keys(routes).map((value: string, index: number) => {
-        return (
-          <NavListItem
-            key={index}
-            displayText={true}
-            activePath={props.activePage.path}
-            pageInfo={routes[value]}
-            clickHandler={() => {
-              props.clickHandler(routes[value].path);
-            }}
-          />
-        );
+        if (routes[value].nested) {
+          return (
+            <>
+              <ListItem
+                button
+                onClick={() => {
+                  open ? setOpen(false) : setOpen(true);
+                }}
+              >
+                <ListItemIcon>
+                  {React.createElement(routes[value].mainIcon)}
+                </ListItemIcon>
+                <ListItemText primary={routes[value].mainTitle} />
+                {open ? <ExpandLess /> : <ExpandMore />}
+              </ListItem>
+              <Collapse in={open} timeout={'auto'} unmountOnExit>
+                <List
+                  component={'div'}
+                  disablePadding
+                  className={classes.nested}
+                >
+                  {routes[value].pageProps.map(
+                    (page: PageProps, secondIndex: number) => {
+                      return (
+                        <NavListItem
+                          key={secondIndex}
+                          displayText={true}
+                          currentLocation={props.currentLocation}
+                          pageInfo={routes[value].pageProps[secondIndex]}
+                          clickHandler={() => {
+                            props.clickHandler(
+                              routes[value].pageProps[secondIndex].path
+                            );
+                          }}
+                        />
+                      );
+                    }
+                  )}
+                </List>
+              </Collapse>
+            </>
+          );
+        } else {
+          return (
+            <NavListItem
+              key={index}
+              displayText={true}
+              currentLocation={props.currentLocation}
+              pageInfo={routes[value].pageProps[0]}
+              clickHandler={() => {
+                props.clickHandler(routes[value].pageProps[0].path);
+              }}
+            />
+          );
+        }
       })}
 
       <Grid container justifyContent={'center'}>
@@ -69,12 +126,14 @@ const Navigation = (props: NavigationProps): JSX.Element => {
 
 export interface NavigationProps {
   activePage: RouteProp;
+  currentLocation: string;
   clickHandler: (path: string) => void;
 }
 
 const mapStateToProps = (state: State): NavigationProps => {
   return {
     activePage: state.applicationState.activePage,
+    currentLocation: state.applicationState.currentLocation,
   } as unknown as NavigationProps;
 };
 

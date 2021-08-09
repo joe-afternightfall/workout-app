@@ -8,7 +8,7 @@ import {
 } from '@material-ui/core/styles';
 import { Route } from 'react-router';
 import React, { Component } from 'react';
-import { routes } from './configs/routes';
+import { PageProps, routes } from './configs/routes';
 import { Styles } from '@material-ui/styles';
 import SignInScreen from './components/top-level-components/sign-in-screen/SignInScreen';
 
@@ -37,14 +37,18 @@ class AppRouter extends Component<AppRouterProps> {
     return this.state.user ? (
       <App>
         <div className={'route'}>
-          {Object.keys(routes).map((value: string, index: number) => {
-            return (
-              <Route
-                key={index}
-                component={routes[value].routerComponent}
-                exact
-                path={routes[value].path}
-              />
+          {Object.keys(routes).map((value: string) => {
+            return routes[value].pageProps.map(
+              (page: PageProps, index: number) => {
+                return (
+                  <Route
+                    key={index}
+                    exact
+                    path={page.path}
+                    component={page.routerComponent}
+                  />
+                );
+              }
             );
           })}
         </div>

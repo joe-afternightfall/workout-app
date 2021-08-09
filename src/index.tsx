@@ -45,11 +45,9 @@ reportWebVitals();
 // todo: place weekly calendar/daily check on dashboard
 // todo: add a daily counter for days in a row working out
 // todo: add dots on calendar for days worked out
-// todo: add material table for exercises and category tables
 // todo: add loader cards
 // todo: use react-calendar for custom calendar to view when we have worked out
 // todo: dots for dojo workouts
 // todo: dots for solo/other workouts
 // todo: allow for building "workout plan"
 // todo: add application snackbar and use when updating/modifying table info
-// todo: create nested navigation for configure/exercises/workouts/circuit types

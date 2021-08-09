@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import React from 'react';
-import { RouteProp } from '../../../../configs/routes';
+import { PageProps } from '../../../../configs/routes';
 import { AppTheme } from '../../../../configs/theme/light-theme';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme: AppTheme) =>
 export function NavListItem(props: NavListItemProps): JSX.Element {
   const classes = useStyles();
 
-  const isActive = props.activePath === props.pageInfo.path;
+  const isActive = props.currentLocation === props.pageInfo.path;
 
   return (
     <ListItem
@@ -52,8 +52,8 @@ export function NavListItem(props: NavListItemProps): JSX.Element {
 }
 
 export interface NavListItemProps {
-  pageInfo: RouteProp;
-  activePath: string;
+  pageInfo: PageProps;
   clickHandler: () => void;
   displayText: boolean;
+  currentLocation: string;
 }
