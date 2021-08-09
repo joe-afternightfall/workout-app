@@ -76,7 +76,7 @@
     "eject": "react-scripts eject",
     "fixlint": "eslint './src/**/*.{ts,tsx}' --fix",
     "lint": "eslint './src/**/*.{ts,tsx}'",
-    "prCheck": "npm ci && npm run lint && npm run test && npm run build",
+    "prCheck": "npm ci && npm run lint && npm run build",
     "deploy": "npm ci && npm run build"
   },
   "eslintConfig": {
