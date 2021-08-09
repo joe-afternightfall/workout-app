@@ -1,7 +1,6 @@
 import firebase from 'firebase';
 import { v4 as uuidv4 } from 'uuid';
 import { CATEGORY_TYPES_ROUTE } from '../../configs/constants/firebase-routes';
-import { ExerciseTypeDAO } from '../../configs/models/workout-configurations/exercise-type/ExerciseTypeDAO';
 import { CategoryTypeDAO } from '../../configs/models/workout-configurations/category-type/CategoryTypeDAO';
 
 export const createNewCategoryType = async (name: string): Promise<void> => {
@@ -19,7 +18,7 @@ export const createNewCategoryType = async (name: string): Promise<void> => {
   });
 };
 
-export const getAllCategoryTypes = async (): Promise<ExerciseTypeDAO> => {
+export const getAllCategoryTypes = async (): Promise<CategoryTypeDAO> => {
   return await firebase
     .database()
     .ref(CATEGORY_TYPES_ROUTE)
