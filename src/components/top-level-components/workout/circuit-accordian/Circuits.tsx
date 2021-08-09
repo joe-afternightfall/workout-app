@@ -3,27 +3,26 @@ import {
   Grid,
   Accordion,
   Typography,
-  AccordionSummary,
-  AccordionActions,
   AccordionDetails,
+  AccordionActions,
+  AccordionSummary,
 } from '@material-ui/core';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { State } from '../../../../configs/redux/store';
 import ExerciseCircuit from './components/ExerciseCircuit';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import AddExerciseDialog from './dialogs/AddExerciseDialog';
 import DeleteCircuitDialog from './dialogs/DeleteCircuitDialog';
 import { CircuitExercise, WorkoutCircuitProps } from '../WorkoutScreen';
+import AddExerciseDialog from './dialogs/add-exercise/AddExerciseDialog';
 import {
-  addExerciseSetToCircuit,
-  addExerciseToCircuit,
   deleteCircuit,
+  toggleAccordion,
+  updateWorkoutSetField,
+  toggleExerciseSetAsDone,
+  addExerciseSetToCircuit,
   deleteExerciseFromCircuit,
   deleteExerciseSetFromCircuit,
-  toggleAccordion,
-  toggleExerciseSetAsDone,
-  updateWorkoutSetField,
 } from '../../../../creators/workout';
 import { ExerciseTypeVO } from '../../../../configs/models/workout-configurations/exercise-type/ExerciseTypeVO';
 
@@ -33,7 +32,6 @@ const Circuits = (props: CircuitProps): JSX.Element => {
   const handleChange =
     (panel: string) => (event: React.ChangeEvent<any>, isExpanded: boolean) => {
       props.toggleAccordionHandler(isExpanded ? panel : '');
-      // setExpanded(isExpanded ? panel : false);
     };
 
   return (
@@ -106,11 +104,7 @@ const Circuits = (props: CircuitProps): JSX.Element => {
                   deleteClickHandler={props.deleteClickHandler}
                 />
 
-                <AddExerciseDialog
-                  circuitId={circuit.id}
-                  exerciseTypes={props.exerciseTypes}
-                  addClickHandler={props.addExerciseHandler}
-                />
+                <AddExerciseDialog circuitId={circuit.id} />
               </AccordionActions>
             </Accordion>
           </Grid>
@@ -125,7 +119,6 @@ export interface CircuitProps {
   circuits: WorkoutCircuitProps[];
   exerciseTypes: ExerciseTypeVO[];
   deleteClickHandler: (circuitId: string) => void;
-  addExerciseHandler: (circuitId: string, exerciseId: string) => void;
   deleteExerciseHandler: (circuitId: string, exerciseId: string) => void;
   addSetToExerciseHandler: (circuitId: string, exerciseId: string) => void;
   deleteSetFromExerciseHandler: (
@@ -160,9 +153,6 @@ const mapDispatchToProps = (dispatch: Dispatch): CircuitProps =>
   ({
     deleteClickHandler: (id: string) => {
       dispatch(deleteCircuit(id));
-    },
-    addExerciseHandler: (circuitId: string, exerciseId: string) => {
-      dispatch(addExerciseToCircuit(circuitId, exerciseId));
     },
     deleteExerciseHandler: (circuitId: string, exerciseId: string) => {
       dispatch(deleteExerciseFromCircuit(circuitId, exerciseId));
