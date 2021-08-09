@@ -34,8 +34,6 @@ reportWebVitals();
 // todo: redirect user to dashboard after login
 // todo: redirect to "/" after logout
 // todo: add to exercises "type: weights, time, distance"
-// todo: create github repo for app
-// todo: create firebase job and hosting service
 // todo: add workout timer to redux store.  on stop/pause/stop
 // todo: close side bar on small break point
 // todo: create <AppDialog /> component
