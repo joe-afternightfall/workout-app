@@ -1,6 +1,7 @@
 import React, { ChangeEvent } from 'react';
+import { Grid } from '@material-ui/core';
 import TimeField from './text-fields/TimeField';
-import { Grid, TextField } from '@material-ui/core';
+import RepsField from './text-fields/RepsField';
 import { CircuitExerciseSet } from '../../../../WorkoutScreen';
 
 export default function TimeAndRepsSet(
@@ -13,13 +14,7 @@ export default function TimeAndRepsSet(
       </Grid>
 
       <Grid item xs={3}>
-        <TextField
-          fullWidth
-          name={'reps'}
-          variant={'outlined'}
-          value={props.set.reps}
-          onChange={props.changeHandler}
-        />
+        <RepsField set={props.set} changeHandler={props.changeHandler} />
       </Grid>
     </>
   );
