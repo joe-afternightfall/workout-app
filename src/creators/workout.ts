@@ -133,7 +133,7 @@ export interface UpdateWorkoutSetFieldAction {
   circuitId: string;
   exerciseId: string;
   setId: string;
-  name: 'weight' | 'reps';
+  name: 'weight' | 'reps' | 'time' | 'distance';
   value: string;
 }
 
@@ -141,7 +141,7 @@ export const updateWorkoutSetField = (
   circuitId: string,
   exerciseId: string,
   setId: string,
-  name: 'weight' | 'reps',
+  name: 'weight' | 'reps' | 'time' | 'distance',
   value: string
 ): UpdateWorkoutSetFieldAction => {
   return {
