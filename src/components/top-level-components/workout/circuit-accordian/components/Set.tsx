@@ -1,29 +1,20 @@
 import React, { ChangeEvent } from 'react';
+import RepsSet from './sets/types/RepsSet';
+import TimedSet from './sets/types/TimedSet';
+import { Grid, Typography } from '@material-ui/core';
+import { WeightsSet } from './sets/types/WeightsSet';
+import SetActionButtons from './sets/SetActionButtons';
 import { CircuitExerciseSet } from '../../WorkoutScreen';
-import AppTooltip from '../../../../app-shell/AppTooltip';
-import CheckIcon from '@material-ui/icons/CheckCircleOutlined';
+import TimeAndRepsSet from './sets/types/TimeAndRepsSet';
+import TimeAndDistanceSet from './sets/types/TimeAndDistanceSet';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import RemoveIcon from '@material-ui/icons/RemoveCircleOutlineOutlined';
-import { Button, Grid, TextField, Typography } from '@material-ui/core';
+import { SetType } from '../../../../../configs/models/workout-configurations/exercise-type/ExerciseTypeDAO';
+import { ExerciseTypeVO } from '../../../../../configs/models/workout-configurations/exercise-type/ExerciseTypeVO';
 
 const useStyles = makeStyles(() =>
   createStyles({
-    confirmButton: {
-      background: '#C9F0DE',
-      color: '#008E62',
-      '&:hover': {
-        background: '#A2EAC9',
-      },
-    },
     completedRow: {
       background: '#E4F3EC',
-    },
-    deleteButton: {
-      background: '#F5DADB',
-      color: '#D41417',
-      '&:hover': {
-        background: '#F4C3C3',
-      },
     },
   })
 );
@@ -36,7 +27,12 @@ export default function Set(props: SetProps): JSX.Element {
 
     if (regExp.test(event.target.value)) {
       const targetName = event.target.name;
-      if (targetName === 'weight' || targetName === 'reps') {
+      if (
+        targetName === 'weight' ||
+        targetName === 'reps' ||
+        targetName === 'time' ||
+        targetName === 'distance'
+      ) {
         props.updateWorkoutSetFieldHandler(
           props.circuitId,
           props.exerciseId,
@@ -48,9 +44,33 @@ export default function Set(props: SetProps): JSX.Element {
     }
   };
 
-  const markAsDone = () => {
-    props.toggleExerciseSetHandler();
-  };
+  let setComponent: JSX.Element = <div />;
+
+  switch (props.exercise.setType) {
+    case SetType.TIME_AND_REPS:
+      setComponent = (
+        <TimeAndRepsSet set={props.set} changeHandler={handleChange} />
+      );
+      break;
+    case SetType.TIME:
+      setComponent = <TimedSet set={props.set} changeHandler={handleChange} />;
+      break;
+    case SetType.TIME_AND_DISTANCE:
+      setComponent = (
+        <TimeAndDistanceSet set={props.set} changeHandler={handleChange} />
+      );
+      break;
+    case SetType.WEIGHTS:
+      setComponent = (
+        <WeightsSet set={props.set} changeHandler={handleChange} />
+      );
+      break;
+    case SetType.REPS:
+      setComponent = <RepsSet set={props.set} changeHandler={handleChange} />;
+      break;
+    default:
+      break;
+  }
 
   return (
     <Grid
@@ -65,62 +85,13 @@ export default function Set(props: SetProps): JSX.Element {
         <Typography>{props.set.setNumber + 1}</Typography>
       </Grid>
 
-      <Grid item xs={3}>
-        <TextField
-          value={props.set.weight}
-          name={'weight'}
-          style={{ width: '100%' }}
-          variant={'outlined'}
-          onChange={handleChange}
-        />
-      </Grid>
-
-      <Grid item xs={3}>
-        <TextField
-          value={props.set.reps}
-          name={'reps'}
-          style={{ width: '100%' }}
-          variant={'outlined'}
-          onChange={handleChange}
-        />
-      </Grid>
+      {setComponent}
 
       <Grid item xs={4}>
-        <Grid
-          container
-          alignItems={'center'}
-          justifyContent={'center'}
-          spacing={2}
-        >
-          <Grid item>
-            <AppTooltip
-              element={
-                <Button
-                  className={classes.deleteButton}
-                  onClick={() => {
-                    props.deleteClickHandler();
-                  }}
-                >
-                  <RemoveIcon />
-                </Button>
-              }
-              title={'Delete Set'}
-              placement={'left'}
-            />
-          </Grid>
-
-          <Grid item>
-            <AppTooltip
-              element={
-                <Button className={classes.confirmButton} onClick={markAsDone}>
-                  <CheckIcon />
-                </Button>
-              }
-              title={'Mark Done'}
-              placement={'right'}
-            />
-          </Grid>
-        </Grid>
+        <SetActionButtons
+          deleteSetClickHandler={props.deleteClickHandler}
+          toggleExerciseSetHandler={props.toggleExerciseSetHandler}
+        />
       </Grid>
     </Grid>
   );
@@ -129,6 +100,7 @@ export default function Set(props: SetProps): JSX.Element {
 export interface SetProps {
   circuitId: string;
   exerciseId: string;
+  exercise: ExerciseTypeVO;
   set: CircuitExerciseSet;
   deleteClickHandler: () => void;
   toggleExerciseSetHandler: () => void;
@@ -136,7 +108,7 @@ export interface SetProps {
     circuitId: string,
     exerciseId: string,
     setId: string,
-    name: 'weight' | 'reps',
+    name: 'weight' | 'reps' | 'time' | 'distance',
     value: string
   ) => void;
 }
