@@ -1,22 +1,11 @@
 import React, { ChangeEvent } from 'react';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { CircuitExerciseSet } from '../../../../WorkoutScreen';
-import { Grid, TextField } from '@material-ui/core';
 import TimeField from './text-fields/TimeField';
-
-const useStyles = makeStyles(() =>
-  createStyles({
-    textfield: {
-      width: '100%',
-    },
-  })
-);
+import { Grid, TextField } from '@material-ui/core';
+import { CircuitExerciseSet } from '../../../../WorkoutScreen';
 
 export default function TimeAndDistanceSet(
   props: TimeAndDistanceSetProps
 ): JSX.Element {
-  const classes = useStyles();
-
   return (
     <>
       <Grid item xs={3}>
@@ -25,9 +14,9 @@ export default function TimeAndDistanceSet(
 
       <Grid item xs={3}>
         <TextField
+          fullWidth
           name={'distance'}
           variant={'outlined'}
-          className={classes.textfield}
           value={props.set.distance}
           onChange={props.changeHandler}
         />

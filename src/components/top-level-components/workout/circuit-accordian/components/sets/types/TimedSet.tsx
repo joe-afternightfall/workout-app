@@ -1,20 +1,9 @@
+import { Grid } from '@material-ui/core';
 import React, { ChangeEvent } from 'react';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { Grid, TextField } from '@material-ui/core';
-import { CircuitExerciseSet } from '../../../../WorkoutScreen';
 import TimeField from './text-fields/TimeField';
-
-const useStyles = makeStyles(() =>
-  createStyles({
-    textfield: {
-      width: '50%',
-    },
-  })
-);
+import { CircuitExerciseSet } from '../../../../WorkoutScreen';
 
 export default function TimedSet(props: TimedSetProps): JSX.Element {
-  const classes = useStyles();
-
   return (
     <>
       <Grid item xs={3}>
