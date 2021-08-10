@@ -2,15 +2,15 @@ import { v4 as uuidv4 } from 'uuid';
 import { RouteProp } from '../configs/routes';
 import { LOCATION_CHANGE } from 'connected-react-router';
 import { getPageInfo } from '../utils/get-current-page-info';
-import { ActionTypes, ApplicationActions } from '../creators/actions';
 import {
   CircuitExercise,
   CircuitExerciseSet,
   WorkoutCircuitProps,
 } from '../components/top-level-components/workout/WorkoutScreen';
+import { ActionTypes, ApplicationActions } from '../creators/actions';
+import { CircuitTypeVO } from '../configs/models/workout-configurations/circuit-type/CircuitTypeVO';
 import { ExerciseTypeVO } from '../configs/models/workout-configurations/exercise-type/ExerciseTypeVO';
 import { CategoryTypeVO } from '../configs/models/workout-configurations/category-type/CategoryTypeVO';
-import { CircuitTypeVO } from '../configs/models/workout-configurations/circuit-type/CircuitTypeVO';
 
 function findCircuit(
   state: ApplicationState,
@@ -97,6 +97,8 @@ export default {
                     setNumber: 0,
                     weight: 0,
                     reps: 0,
+                    time: '',
+                    distance: '',
                     markedDone: false,
                   },
                 ],
@@ -160,6 +162,8 @@ export default {
                   setNumber: numberOfSets++,
                   weight: 0,
                   reps: 0,
+                  time: '',
+                  distance: '',
                   markedDone: false,
                 },
               ];
