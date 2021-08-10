@@ -5,7 +5,7 @@ import {
   withStyles,
   StyledComponentProps,
 } from '@material-ui/core/styles';
-import RowTitle from './RowTitle';
+import SetTitle from './SetTitle';
 import React, { Component } from 'react';
 import { Styles } from '@material-ui/styles';
 import AddIcon from '@material-ui/icons/AddCircleOutlineOutlined';
@@ -53,7 +53,7 @@ class ExerciseCircuit extends Component<ExerciseCircuitProps> {
             </Grid>
           </Grid>
 
-          <RowTitle />
+          <SetTitle setType={exercise.setType} />
 
           {this.props.sets.map((set: CircuitExerciseSet, index: number) => (
             // todo: handle re-numbering when deleting
@@ -64,6 +64,7 @@ class ExerciseCircuit extends Component<ExerciseCircuitProps> {
                 deleteSet(set.id);
               }}
               circuitId={circuitId}
+              exercise={exercise}
               exerciseId={exercise.id}
               toggleExerciseSetHandler={() => {
                 this.props.toggleExerciseSetHandler(
@@ -118,7 +119,7 @@ export interface ExerciseCircuitProps extends WithStyles<typeof styles> {
     circuitId: string,
     exerciseId: string,
     setId: string,
-    name: 'weight' | 'reps',
+    name: 'weight' | 'reps' | 'time' | 'distance',
     value: string
   ) => void;
 }
