@@ -1,15 +1,15 @@
-import React, { ChangeEvent } from 'react';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import {
-  FormControl,
   Grid,
-  InputLabel,
-  MenuItem,
   Select,
+  MenuItem,
   TextField,
   Typography,
+  InputLabel,
+  FormControl,
 } from '@material-ui/core';
+import React, { ChangeEvent } from 'react';
 import { CircuitExerciseSet } from '../../../../../WorkoutScreen';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
