@@ -135,7 +135,7 @@ export interface CircuitProps {
     circuitId: string,
     exerciseId: string,
     setId: string,
-    name: 'weight' | 'reps',
+    name: 'weight' | 'reps' | 'time' | 'distance',
     value: string
   ) => void;
   toggleAccordionHandler: (panel: string) => void;
@@ -178,7 +178,7 @@ const mapDispatchToProps = (dispatch: Dispatch): CircuitProps =>
       circuitId: string,
       exerciseId: string,
       setId: string,
-      name: 'weight' | 'reps',
+      name: 'weight' | 'reps' | 'time' | 'distance',
       value: string
     ) => {
       dispatch(
