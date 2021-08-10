@@ -3,26 +3,20 @@ import { connect } from 'react-redux';
 import MaterialTable from 'material-table';
 import React, { ChangeEvent } from 'react';
 import { TextField } from '@material-ui/core';
+import PageTitle from '../../../shared/PageTitle';
 import NewExerciseDialog from './NewExerciseDialog';
 import { State } from '../../../../configs/redux/store';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import { CategoryTypeVO } from '../../../../configs/models/workout-configurations/category-type/CategoryTypeVO';
-import { ExerciseTypeVO } from '../../../../configs/models/workout-configurations/exercise-type/ExerciseTypeVO';
-import PageTitle from '../../../shared/PageTitle';
 import {
   deleteExerciseType,
   updateExerciseType,
 } from '../../../../services/workout-configurations/exercise-types-service';
+import { CategoryTypeVO } from '../../../../configs/models/workout-configurations/category-type/CategoryTypeVO';
+import { ExerciseTypeVO } from '../../../../configs/models/workout-configurations/exercise-type/ExerciseTypeVO';
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    // formControl: {
-    //   width: '100%',
-    // },
-  })
-);
-
-const editField = (props: any) => {
+const editField = (props: {
+  value: string;
+  onChange: (value: string) => void;
+}) => {
   return (
     <TextField
       value={props.value}
@@ -35,7 +29,6 @@ const editField = (props: any) => {
 };
 
 const ExerciseTypesTable = (props: ExerciseTableProps): JSX.Element => {
-  const classes = useStyles();
   const [open, setOpen] = React.useState<boolean>(false);
 
   const openDialog = () => {
@@ -59,11 +52,12 @@ const ExerciseTypesTable = (props: ExerciseTableProps): JSX.Element => {
         exercise: exercise.name,
         firebaseId: exercise.firebaseId,
         categoryId: foundCategory && foundCategory.id,
+        setType: exercise.setType && exercise.setType,
       };
     }
   );
 
-  const exercises = props.categoryTypes.reduce(
+  const categoryTypes = props.categoryTypes.reduce(
     (obj: any, category: CategoryTypeVO) => {
       obj[category.id] = category.name;
       return obj;
@@ -96,7 +90,8 @@ const ExerciseTypesTable = (props: ExerciseTableProps): JSX.Element => {
                 updateExerciseType(
                   rowData.firebaseId,
                   rowData.exercise,
-                  rowData.categoryId
+                  rowData.categoryId,
+                  rowData.setType
                 ).then(() => {
                   setTimeout(() => {
                     resolve();
@@ -126,7 +121,7 @@ const ExerciseTypesTable = (props: ExerciseTableProps): JSX.Element => {
             title: 'Exercise',
             field: 'exercise',
             cellStyle: {
-              width: '40%',
+              width: '30%',
             },
             editComponent: editField,
           },
@@ -136,7 +131,22 @@ const ExerciseTypesTable = (props: ExerciseTableProps): JSX.Element => {
             cellStyle: {
               width: '30%',
             },
-            lookup: exercises,
+            lookup: categoryTypes,
+          },
+          {
+            title: 'Set Type',
+            field: 'setType',
+            cellStyle: {
+              width: '30%',
+            },
+            // todo: make this object dynamic using SetType
+            lookup: {
+              time: 'time',
+              weights: 'weights',
+              ['time-and-distance']: 'time-and-distance',
+              ['time-and-reps']: 'time-and-reps',
+              reps: 'reps',
+            },
           },
         ]}
         actions={[
