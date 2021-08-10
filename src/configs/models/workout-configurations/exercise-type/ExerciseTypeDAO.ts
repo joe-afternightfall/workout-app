@@ -2,8 +2,8 @@ export enum SetType {
   WEIGHTS = 'weights',
   TIME = 'time',
   TIME_AND_DISTANCE = 'time-and-distance',
-  TIME_AND_AMOUNT = 'time-and-amount',
-  AMOUNT = 'amount',
+  TIME_AND_REPS = 'time-and-reps',
+  REPS = 'reps',
 }
 
 export class ExerciseTypeDAO {
