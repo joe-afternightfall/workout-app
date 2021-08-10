@@ -107,29 +107,8 @@ export default function SetTitle(props: SetTitleProps): JSX.Element {
         </Grid>
       );
     default:
-      break;
+      return <div />;
   }
-  return (
-    <Grid item xs={12} container>
-      <Grid item xs={2}>
-        <Typography>{'Set'}</Typography>
-      </Grid>
-
-      <Grid item xs={3}>
-        <Typography>{'lbs'}</Typography>
-      </Grid>
-
-      <Grid item xs={3}>
-        <Typography>{'Reps'}</Typography>
-      </Grid>
-
-      <Grid item xs={4} container justifyContent={'center'} spacing={2}>
-        <Grid item>
-          <Typography>{'Action'}</Typography>
-        </Grid>
-      </Grid>
-    </Grid>
-  );
 }
 
 export interface SetTitleProps {
