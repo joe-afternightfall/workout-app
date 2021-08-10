@@ -57,3 +57,4 @@ reportWebVitals();
 // todo: generate user id and start to save workouts under that ID
 // todo: use Brute icon for log in page
 // todo: cool down dialog in between workouts
+// todo: create "circuit builder" page

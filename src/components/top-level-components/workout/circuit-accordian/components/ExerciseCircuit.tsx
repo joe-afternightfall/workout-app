@@ -14,6 +14,7 @@ import DeleteExerciseDialog from '../dialogs/DeleteExerciseDialog';
 import { CircuitExerciseSet } from '../../WorkoutScreen';
 import { ExerciseTypeVO } from '../../../../../configs/models/workout-configurations/exercise-type/ExerciseTypeVO';
 import {
+  UpdateDistanceSetFieldProps,
   UpdateTimeSetFieldProps,
   UpdateWorkoutSetFieldProps,
 } from '../../../../../creators/workout';
@@ -81,6 +82,9 @@ class ExerciseCircuit extends Component<ExerciseCircuitProps> {
                 this.props.updateWorkoutSetFieldHandler
               }
               updateTimeSetFieldHandler={this.props.updateTimeSetFieldHandler}
+              updateDistanceSetFieldHandler={
+                this.props.updateDistanceSetFieldHandler
+              }
             />
           ))}
 
@@ -122,6 +126,7 @@ export interface ExerciseCircuitProps extends WithStyles<typeof styles> {
   ) => void;
   updateWorkoutSetFieldHandler: (props: UpdateWorkoutSetFieldProps) => void;
   updateTimeSetFieldHandler: (props: UpdateTimeSetFieldProps) => void;
+  updateDistanceSetFieldHandler: (props: UpdateDistanceSetFieldProps) => void;
 }
 
 export default withStyles(styles, { withTheme: true })(ExerciseCircuit);

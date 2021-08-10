@@ -26,6 +26,8 @@ import {
   UpdateWorkoutSetFieldProps,
   updateTimeSetField,
   UpdateTimeSetFieldProps,
+  updateDistanceSetField,
+  UpdateDistanceSetFieldProps,
 } from '../../../../creators/workout';
 import { ExerciseTypeVO } from '../../../../configs/models/workout-configurations/exercise-type/ExerciseTypeVO';
 
@@ -95,6 +97,9 @@ const Circuits = (props: CircuitProps): JSX.Element => {
                               updateTimeSetFieldHandler={
                                 props.updateTimeSetFieldHandler
                               }
+                              updateDistanceSetFieldHandler={
+                                props.updateDistanceSetFieldHandler
+                              }
                             />
                           );
                         }
@@ -140,6 +145,7 @@ export interface CircuitProps {
   updateWorkoutSetFieldHandler: (props: UpdateWorkoutSetFieldProps) => void;
   toggleAccordionHandler: (panel: string) => void;
   updateTimeSetFieldHandler: (props: UpdateTimeSetFieldProps) => void;
+  updateDistanceSetFieldHandler: (props: UpdateDistanceSetFieldProps) => void;
 }
 
 const mapStateToProps = (state: State): CircuitProps => {
@@ -180,6 +186,9 @@ const mapDispatchToProps = (dispatch: Dispatch): CircuitProps =>
     },
     updateTimeSetFieldHandler: (props: UpdateTimeSetFieldProps) => {
       dispatch(updateTimeSetField(props));
+    },
+    updateDistanceSetFieldHandler: (props: UpdateDistanceSetFieldProps) => {
+      dispatch(updateDistanceSetField(props));
     },
     toggleAccordionHandler: (panel: string) => {
       dispatch(toggleAccordion(panel));
