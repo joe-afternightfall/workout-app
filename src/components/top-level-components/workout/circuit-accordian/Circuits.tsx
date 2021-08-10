@@ -24,6 +24,8 @@ import {
   deleteExerciseFromCircuit,
   deleteExerciseSetFromCircuit,
   UpdateWorkoutSetFieldProps,
+  updateTimeSetField,
+  UpdateTimeSetFieldProps,
 } from '../../../../creators/workout';
 import { ExerciseTypeVO } from '../../../../configs/models/workout-configurations/exercise-type/ExerciseTypeVO';
 
@@ -90,6 +92,9 @@ const Circuits = (props: CircuitProps): JSX.Element => {
                               updateWorkoutSetFieldHandler={
                                 props.updateWorkoutSetFieldHandler
                               }
+                              updateTimeSetFieldHandler={
+                                props.updateTimeSetFieldHandler
+                              }
                             />
                           );
                         }
@@ -134,6 +139,7 @@ export interface CircuitProps {
   ) => void;
   updateWorkoutSetFieldHandler: (props: UpdateWorkoutSetFieldProps) => void;
   toggleAccordionHandler: (panel: string) => void;
+  updateTimeSetFieldHandler: (props: UpdateTimeSetFieldProps) => void;
 }
 
 const mapStateToProps = (state: State): CircuitProps => {
@@ -171,6 +177,9 @@ const mapDispatchToProps = (dispatch: Dispatch): CircuitProps =>
     },
     updateWorkoutSetFieldHandler: (props: UpdateWorkoutSetFieldProps) => {
       dispatch(updateWorkoutSetField(props));
+    },
+    updateTimeSetFieldHandler: (props: UpdateTimeSetFieldProps) => {
+      dispatch(updateTimeSetField(props));
     },
     toggleAccordionHandler: (panel: string) => {
       dispatch(toggleAccordion(panel));

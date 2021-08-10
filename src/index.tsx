@@ -56,3 +56,4 @@ reportWebVitals();
 // todo: use profile page to determine if user has logged in before
 // todo: generate user id and start to save workouts under that ID
 // todo: use Brute icon for log in page
+// todo: cool down dialog in between workouts

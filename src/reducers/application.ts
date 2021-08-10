@@ -97,7 +97,11 @@ export default {
                     setNumber: 0,
                     weight: '',
                     reps: '',
-                    time: '',
+                    time: {
+                      hours: '',
+                      minutes: '',
+                      seconds: '',
+                    },
                     distance: '',
                     markedDone: false,
                   },
@@ -162,7 +166,11 @@ export default {
                   setNumber: numberOfSets++,
                   weight: '',
                   reps: '',
-                  time: '',
+                  time: {
+                    hours: '',
+                    minutes: '',
+                    seconds: '',
+                  },
                   distance: '',
                   markedDone: false,
                 },
@@ -257,6 +265,39 @@ export default {
 
               if (foundSet) {
                 foundSet[action.name] = action.value;
+              }
+            }
+            return {
+              ...newState,
+              workout: {
+                ...newState.workout,
+                circuits: [...newState.workout.circuits],
+              },
+            };
+          }
+        }
+        break;
+      case ActionTypes.UPDATE_TIME_SET_FIELD:
+        {
+          const foundCircuit = findCircuit(newState, action.circuitId);
+          if (foundCircuit) {
+            const foundIndex = newState.workout.circuits.indexOf(foundCircuit);
+            const foundExercise = newState.workout.circuits[
+              foundIndex
+            ].exercises.find(
+              (exercise: CircuitExercise) =>
+                exercise.exerciseId === action.exerciseId
+            );
+            if (foundExercise) {
+              const foundSet = foundExercise.sets.find(
+                (set: CircuitExerciseSet) => set.id === action.setId
+              );
+
+              if (foundSet) {
+                foundSet.time = {
+                  ...foundSet.time,
+                  [action.name]: action.value,
+                };
               }
             }
             return {
