@@ -1,18 +1,17 @@
 import React, { ChangeEvent } from 'react';
-import { Grid, TextField } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import { CircuitExerciseSet } from '../../../../WorkoutScreen';
+import RepsField from './text-fields/RepsField';
 
 export default function RepsSet(props: RepsSetProps): JSX.Element {
   return (
-    <Grid item xs={6}>
-      <TextField
-        fullWidth
-        name={'reps'}
-        variant={'outlined'}
-        value={props.set.reps}
-        onChange={props.changeHandler}
-      />
-    </Grid>
+    <>
+      <Grid item xs={3}>
+        <RepsField set={props.set} changeHandler={props.changeHandler} />
+      </Grid>
+
+      <Grid item xs={3} />
+    </>
   );
 }
 
