@@ -95,8 +95,8 @@ export default {
                   {
                     id: uuidv4(),
                     setNumber: 0,
-                    weight: 0,
-                    reps: 0,
+                    weight: '',
+                    reps: '',
                     time: '',
                     distance: '',
                     markedDone: false,
@@ -160,8 +160,8 @@ export default {
                 {
                   id: uuidv4(),
                   setNumber: numberOfSets++,
-                  weight: 0,
-                  reps: 0,
+                  weight: '',
+                  reps: '',
                   time: '',
                   distance: '',
                   markedDone: false,
@@ -256,11 +256,7 @@ export default {
               );
 
               if (foundSet) {
-                if (action.name === 'weight') {
-                  foundSet.weight = Number(action.value);
-                } else {
-                  foundSet.reps = Number(action.value);
-                }
+                foundSet[action.name] = action.value;
               }
             }
             return {
