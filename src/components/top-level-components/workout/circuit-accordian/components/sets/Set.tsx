@@ -1,15 +1,15 @@
 import React, { ChangeEvent } from 'react';
-import RepsSet from './sets/types/RepsSet';
-import TimedSet from './sets/types/TimedSet';
+import RepsSet from './types/RepsSet';
+import TimedSet from './types/TimedSet';
 import { Grid, Typography } from '@material-ui/core';
-import { WeightsSet } from './sets/types/WeightsSet';
-import SetActionButtons from './sets/SetActionButtons';
-import { CircuitExerciseSet } from '../../WorkoutScreen';
-import TimeAndRepsSet from './sets/types/TimeAndRepsSet';
-import TimeAndDistanceSet from './sets/types/TimeAndDistanceSet';
+import { WeightsSet } from './types/WeightsSet';
+import SetActionButtons from './SetActionButtons';
+import { CircuitExerciseSet } from '../../../WorkoutScreen';
+import TimeAndRepsSet from './types/TimeAndRepsSet';
+import TimeAndDistanceSet from './types/TimeAndDistanceSet';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { SetType } from '../../../../../configs/models/workout-configurations/exercise-type/ExerciseTypeDAO';
-import { ExerciseTypeVO } from '../../../../../configs/models/workout-configurations/exercise-type/ExerciseTypeVO';
+import { SetType } from '../../../../../../configs/models/workout-configurations/exercise-type/ExerciseTypeDAO';
+import { ExerciseTypeVO } from '../../../../../../configs/models/workout-configurations/exercise-type/ExerciseTypeVO';
 
 const useStyles = makeStyles(() =>
   createStyles({

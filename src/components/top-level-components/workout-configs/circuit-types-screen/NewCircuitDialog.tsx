@@ -12,7 +12,6 @@ import {
   DialogContent,
 } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
-import { createNewCategoryType } from '../../../../services/workout-configurations/category-types-service';
 import { createNewCircuitType } from '../../../../services/workout-configurations/circuit-types-service';
 
 const useStyles = makeStyles((theme: Theme) =>

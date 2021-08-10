@@ -1,4 +1,3 @@
-import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import React, { ChangeEvent } from 'react';
 import MaterialTable from 'material-table';
@@ -142,7 +141,7 @@ const mapStateToProps = (state: State): CategoryTypesTableProps => {
   } as unknown as CategoryTypesTableProps;
 };
 
-const mapDispatchToProps = (dispatch: Dispatch): CategoryTypesTableProps =>
+const mapDispatchToProps = (): CategoryTypesTableProps =>
   ({} as unknown as CategoryTypesTableProps);
 
 export default connect(mapStateToProps, mapDispatchToProps)(CategoryTypesTable);

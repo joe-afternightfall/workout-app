@@ -1,11 +1,11 @@
-import Set from './Set';
+import Set from './sets/Set';
 import {
   Theme,
   WithStyles,
   withStyles,
   StyledComponentProps,
 } from '@material-ui/core/styles';
-import SetTitle from './SetTitle';
+import SetTitle from './sets/SetTitle';
 import React, { Component } from 'react';
 import { Styles } from '@material-ui/styles';
 import AddIcon from '@material-ui/icons/AddCircleOutlineOutlined';

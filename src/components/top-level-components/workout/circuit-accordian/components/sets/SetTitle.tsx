@@ -1,6 +1,6 @@
 import React from 'react';
 import { Grid, Typography } from '@material-ui/core';
-import { SetType } from '../../../../../configs/models/workout-configurations/exercise-type/ExerciseTypeDAO';
+import { SetType } from '../../../../../../configs/models/workout-configurations/exercise-type/ExerciseTypeDAO';
 
 export default function SetTitle(props: SetTitleProps): JSX.Element {
   switch (props.setType) {

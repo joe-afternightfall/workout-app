@@ -1,4 +1,3 @@
-import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import MaterialTable from 'material-table';
 import React, { ChangeEvent } from 'react';
@@ -176,7 +175,7 @@ const mapStateToProps = (state: State): ExerciseTableProps => {
   } as unknown as ExerciseTableProps;
 };
 
-const mapDispatchToProps = (dispatch: Dispatch): ExerciseTableProps =>
+const mapDispatchToProps = (): ExerciseTableProps =>
   ({} as unknown as ExerciseTableProps);
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExerciseTypesTable);
