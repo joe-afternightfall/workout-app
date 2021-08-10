@@ -50,3 +50,5 @@ reportWebVitals();
 // todo: add application snackbar and use when updating/modifying table info
 // todo: add full screen button
 // todo: allow setup for "SetType"
+// todo: modify time for object with hour/minute
+// todo: modify distance to include "miles" after field
