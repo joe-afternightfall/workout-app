@@ -48,3 +48,5 @@ reportWebVitals();
 // todo: dots for solo/other workouts
 // todo: allow for building "workout plan"
 // todo: add application snackbar and use when updating/modifying table info
+// todo: add full screen button
+// todo: allow setup for "SetType"
