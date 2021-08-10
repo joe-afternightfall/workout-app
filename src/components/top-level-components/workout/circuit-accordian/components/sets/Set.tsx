@@ -10,6 +10,7 @@ import TimeAndDistanceSet from './types/TimeAndDistanceSet';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { SetType } from '../../../../../../configs/models/workout-configurations/exercise-type/ExerciseTypeDAO';
 import { ExerciseTypeVO } from '../../../../../../configs/models/workout-configurations/exercise-type/ExerciseTypeVO';
+import { UpdateWorkoutSetFieldProps } from '../../../../../../creators/workout';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -33,13 +34,13 @@ export default function Set(props: SetProps): JSX.Element {
         targetName === 'time' ||
         targetName === 'distance'
       ) {
-        props.updateWorkoutSetFieldHandler(
-          props.circuitId,
-          props.exerciseId,
-          props.set.id,
-          targetName,
-          event.target.value
-        );
+        props.updateWorkoutSetFieldHandler({
+          circuitId: props.circuitId,
+          exerciseId: props.exerciseId,
+          setId: props.set.id,
+          name: targetName,
+          value: event.target.value,
+        });
       }
     }
   };
@@ -104,11 +105,5 @@ export interface SetProps {
   set: CircuitExerciseSet;
   deleteClickHandler: () => void;
   toggleExerciseSetHandler: () => void;
-  updateWorkoutSetFieldHandler: (
-    circuitId: string,
-    exerciseId: string,
-    setId: string,
-    name: 'weight' | 'reps' | 'time' | 'distance',
-    value: string
-  ) => void;
+  updateWorkoutSetFieldHandler: (props: UpdateWorkoutSetFieldProps) => void;
 }

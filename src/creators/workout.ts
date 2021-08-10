@@ -137,20 +137,24 @@ export interface UpdateWorkoutSetFieldAction {
   value: string;
 }
 
+export interface UpdateWorkoutSetFieldProps {
+  circuitId: string;
+  exerciseId: string;
+  setId: string;
+  name: 'weight' | 'reps' | 'time' | 'distance';
+  value: string;
+}
+
 export const updateWorkoutSetField = (
-  circuitId: string,
-  exerciseId: string,
-  setId: string,
-  name: 'weight' | 'reps' | 'time' | 'distance',
-  value: string
+  props: UpdateWorkoutSetFieldProps
 ): UpdateWorkoutSetFieldAction => {
   return {
     type: ActionTypes.UPDATE_WORKOUT_SET_FIELD,
-    circuitId: circuitId,
-    exerciseId: exerciseId,
-    setId: setId,
-    name: name,
-    value: value,
+    circuitId: props.circuitId,
+    exerciseId: props.exerciseId,
+    setId: props.setId,
+    name: props.name,
+    value: props.value,
   };
 };
 

@@ -13,6 +13,7 @@ import { Button, Divider, Grid, ListItem, Typography } from '@material-ui/core';
 import DeleteExerciseDialog from '../dialogs/DeleteExerciseDialog';
 import { CircuitExerciseSet } from '../../WorkoutScreen';
 import { ExerciseTypeVO } from '../../../../../configs/models/workout-configurations/exercise-type/ExerciseTypeVO';
+import { UpdateWorkoutSetFieldProps } from '../../../../../creators/workout';
 
 const styles: Styles<Theme, StyledComponentProps> = (theme: Theme) => ({
   title: {
@@ -115,13 +116,7 @@ export interface ExerciseCircuitProps extends WithStyles<typeof styles> {
     circuitId: string,
     exerciseId: string
   ) => void;
-  updateWorkoutSetFieldHandler: (
-    circuitId: string,
-    exerciseId: string,
-    setId: string,
-    name: 'weight' | 'reps' | 'time' | 'distance',
-    value: string
-  ) => void;
+  updateWorkoutSetFieldHandler: (props: UpdateWorkoutSetFieldProps) => void;
 }
 
 export default withStyles(styles, { withTheme: true })(ExerciseCircuit);

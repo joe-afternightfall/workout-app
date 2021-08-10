@@ -23,6 +23,7 @@ import {
   addExerciseSetToCircuit,
   deleteExerciseFromCircuit,
   deleteExerciseSetFromCircuit,
+  UpdateWorkoutSetFieldProps,
 } from '../../../../creators/workout';
 import { ExerciseTypeVO } from '../../../../configs/models/workout-configurations/exercise-type/ExerciseTypeVO';
 
@@ -131,13 +132,7 @@ export interface CircuitProps {
     circuitId: string,
     exerciseId: string
   ) => void;
-  updateWorkoutSetFieldHandler: (
-    circuitId: string,
-    exerciseId: string,
-    setId: string,
-    name: 'weight' | 'reps' | 'time' | 'distance',
-    value: string
-  ) => void;
+  updateWorkoutSetFieldHandler: (props: UpdateWorkoutSetFieldProps) => void;
   toggleAccordionHandler: (panel: string) => void;
 }
 
@@ -174,16 +169,8 @@ const mapDispatchToProps = (dispatch: Dispatch): CircuitProps =>
     ) => {
       dispatch(toggleExerciseSetAsDone(setId, circuitId, exerciseId));
     },
-    updateWorkoutSetFieldHandler: (
-      circuitId: string,
-      exerciseId: string,
-      setId: string,
-      name: 'weight' | 'reps' | 'time' | 'distance',
-      value: string
-    ) => {
-      dispatch(
-        updateWorkoutSetField(circuitId, exerciseId, setId, name, value)
-      );
+    updateWorkoutSetFieldHandler: (props: UpdateWorkoutSetFieldProps) => {
+      dispatch(updateWorkoutSetField(props));
     },
     toggleAccordionHandler: (panel: string) => {
       dispatch(toggleAccordion(panel));

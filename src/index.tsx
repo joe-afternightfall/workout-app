@@ -52,3 +52,7 @@ reportWebVitals();
 // todo: allow setup for "SetType"
 // todo: modify time for object with hour/minute
 // todo: modify distance to include "miles" after field
+// todo: create profile page to select icon and fill out info
+// todo: use profile page to determine if user has logged in before
+// todo: generate user id and start to save workouts under that ID
+// todo: use Brute icon for log in page
