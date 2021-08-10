@@ -20,7 +20,11 @@ export interface CircuitExerciseSet {
   setNumber: number;
   weight: string;
   reps: string;
-  time: string;
+  time: {
+    hours: string;
+    minutes: string;
+    seconds: string;
+  };
   distance: string;
   markedDone: boolean;
 }

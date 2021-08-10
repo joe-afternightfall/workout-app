@@ -1,16 +1,19 @@
-import React, { ChangeEvent } from 'react';
 import RepsSet from './types/RepsSet';
 import TimedSet from './types/TimedSet';
-import { Grid, Typography } from '@material-ui/core';
+import React, { ChangeEvent } from 'react';
+import {
+  UpdateTimeSetFieldProps,
+  UpdateWorkoutSetFieldProps,
+} from '../../../../../../creators/workout';
 import { WeightsSet } from './types/WeightsSet';
 import SetActionButtons from './SetActionButtons';
-import { CircuitExerciseSet } from '../../../WorkoutScreen';
 import TimeAndRepsSet from './types/TimeAndRepsSet';
+import { Grid, Typography } from '@material-ui/core';
 import TimeAndDistanceSet from './types/TimeAndDistanceSet';
+import { CircuitExerciseSet } from '../../../WorkoutScreen';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { SetType } from '../../../../../../configs/models/workout-configurations/exercise-type/ExerciseTypeDAO';
 import { ExerciseTypeVO } from '../../../../../../configs/models/workout-configurations/exercise-type/ExerciseTypeVO';
-import { UpdateWorkoutSetFieldProps } from '../../../../../../creators/workout';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -31,10 +34,31 @@ export default function Set(props: SetProps): JSX.Element {
       if (
         targetName === 'weight' ||
         targetName === 'reps' ||
-        targetName === 'time' ||
         targetName === 'distance'
       ) {
         props.updateWorkoutSetFieldHandler({
+          circuitId: props.circuitId,
+          exerciseId: props.exerciseId,
+          setId: props.set.id,
+          name: targetName,
+          value: event.target.value,
+        });
+      }
+    }
+  };
+
+  const handleTimeChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const regExp = new RegExp('^[0-9]*$');
+
+    if (regExp.test(event.target.value)) {
+      const targetName = event.target.name;
+
+      if (
+        targetName === 'hours' ||
+        targetName === 'minutes' ||
+        targetName === 'seconds'
+      ) {
+        props.updateTimeSetFieldHandler({
           circuitId: props.circuitId,
           exerciseId: props.exerciseId,
           setId: props.set.id,
@@ -50,15 +74,29 @@ export default function Set(props: SetProps): JSX.Element {
   switch (props.exercise.setType) {
     case SetType.TIME_AND_REPS:
       setComponent = (
-        <TimeAndRepsSet set={props.set} changeHandler={handleChange} />
+        <TimeAndRepsSet
+          set={props.set}
+          changeHandler={handleChange}
+          timeChangeHandler={handleTimeChange}
+        />
       );
       break;
     case SetType.TIME:
-      setComponent = <TimedSet set={props.set} changeHandler={handleChange} />;
+      setComponent = (
+        <TimedSet
+          set={props.set}
+          changeHandler={handleTimeChange}
+          timeChangeHandler={handleTimeChange}
+        />
+      );
       break;
     case SetType.TIME_AND_DISTANCE:
       setComponent = (
-        <TimeAndDistanceSet set={props.set} changeHandler={handleChange} />
+        <TimeAndDistanceSet
+          set={props.set}
+          changeHandler={handleChange}
+          timeChangeHandler={handleTimeChange}
+        />
       );
       break;
     case SetType.WEIGHTS:
@@ -106,4 +144,5 @@ export interface SetProps {
   deleteClickHandler: () => void;
   toggleExerciseSetHandler: () => void;
   updateWorkoutSetFieldHandler: (props: UpdateWorkoutSetFieldProps) => void;
+  updateTimeSetFieldHandler: (props: UpdateTimeSetFieldProps) => void;
 }
