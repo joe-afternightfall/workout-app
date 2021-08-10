@@ -18,8 +18,8 @@ const styles: Styles<Theme, StyledComponentProps> = () => ({});
 export interface CircuitExerciseSet {
   id: string;
   setNumber: number;
-  weight: number;
-  reps: number;
+  weight: string;
+  reps: string;
   time: string;
   distance: string;
   markedDone: boolean;
