@@ -1,7 +1,8 @@
 import React, { ChangeEvent } from 'react';
 import TimeField from './text-fields/TimeField';
-import { Grid, TextField } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import { CircuitExerciseSet } from '../../../../WorkoutScreen';
+import DistanceField from './text-fields/DistanceField';
 
 export default function TimeAndDistanceSet(
   props: TimeAndDistanceSetProps
@@ -13,12 +14,9 @@ export default function TimeAndDistanceSet(
       </Grid>
 
       <Grid item xs={3}>
-        <TextField
-          fullWidth
-          name={'distance'}
-          variant={'outlined'}
-          value={props.set.distance}
-          onChange={props.changeHandler}
+        <DistanceField
+          set={props.set}
+          changeHandler={props.distanceChangeHandler}
         />
       </Grid>
     </>
@@ -29,4 +27,5 @@ export interface TimeAndDistanceSetProps {
   set: CircuitExerciseSet;
   changeHandler: (e: ChangeEvent<HTMLInputElement>) => void;
   timeChangeHandler: (e: ChangeEvent<HTMLInputElement>) => void;
+  distanceChangeHandler: (name: string, value: string) => void;
 }

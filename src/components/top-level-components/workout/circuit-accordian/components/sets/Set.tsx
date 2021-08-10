@@ -2,6 +2,7 @@ import RepsSet from './types/RepsSet';
 import TimedSet from './types/TimedSet';
 import React, { ChangeEvent } from 'react';
 import {
+  UpdateDistanceSetFieldProps,
   UpdateTimeSetFieldProps,
   UpdateWorkoutSetFieldProps,
 } from '../../../../../../creators/workout';
@@ -23,19 +24,15 @@ const useStyles = makeStyles(() =>
   })
 );
 
+const REG_EXP = new RegExp('^[0-9]*$');
+
 export default function Set(props: SetProps): JSX.Element {
   const classes = useStyles();
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const regExp = new RegExp('^[0-9]*$');
-
-    if (regExp.test(event.target.value)) {
+    if (REG_EXP.test(event.target.value)) {
       const targetName = event.target.name;
-      if (
-        targetName === 'weight' ||
-        targetName === 'reps' ||
-        targetName === 'distance'
-      ) {
+      if (targetName === 'weight' || targetName === 'reps') {
         props.updateWorkoutSetFieldHandler({
           circuitId: props.circuitId,
           exerciseId: props.exerciseId,
@@ -48,9 +45,7 @@ export default function Set(props: SetProps): JSX.Element {
   };
 
   const handleTimeChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const regExp = new RegExp('^[0-9]*$');
-
-    if (regExp.test(event.target.value)) {
+    if (REG_EXP.test(event.target.value)) {
       const targetName = event.target.name;
 
       if (
@@ -64,6 +59,20 @@ export default function Set(props: SetProps): JSX.Element {
           setId: props.set.id,
           name: targetName,
           value: event.target.value,
+        });
+      }
+    }
+  };
+
+  const handleDistanceChange = (name: string, value: string) => {
+    if (REG_EXP.test(value) || name === 'unit') {
+      if (name === 'value' || name === 'unit') {
+        props.updateDistanceSetFieldHandler({
+          circuitId: props.circuitId,
+          exerciseId: props.exerciseId,
+          setId: props.set.id,
+          name: name,
+          value: value,
         });
       }
     }
@@ -96,6 +105,7 @@ export default function Set(props: SetProps): JSX.Element {
           set={props.set}
           changeHandler={handleChange}
           timeChangeHandler={handleTimeChange}
+          distanceChangeHandler={handleDistanceChange}
         />
       );
       break;
@@ -145,4 +155,5 @@ export interface SetProps {
   toggleExerciseSetHandler: () => void;
   updateWorkoutSetFieldHandler: (props: UpdateWorkoutSetFieldProps) => void;
   updateTimeSetFieldHandler: (props: UpdateTimeSetFieldProps) => void;
+  updateDistanceSetFieldHandler: (props: UpdateDistanceSetFieldProps) => void;
 }

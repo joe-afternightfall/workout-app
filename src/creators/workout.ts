@@ -133,7 +133,7 @@ export interface UpdateWorkoutSetFieldAction {
   circuitId: string;
   exerciseId: string;
   setId: string;
-  name: 'weight' | 'reps' | 'distance';
+  name: 'weight' | 'reps';
   value: string;
 }
 
@@ -141,7 +141,7 @@ export interface UpdateWorkoutSetFieldProps {
   circuitId: string;
   exerciseId: string;
   setId: string;
-  name: 'weight' | 'reps' | 'distance';
+  name: 'weight' | 'reps';
   value: string;
 }
 
@@ -180,6 +180,36 @@ export const updateTimeSetField = (
 ): UpdateTimeSetFieldAction => {
   return {
     type: ActionTypes.UPDATE_TIME_SET_FIELD,
+    circuitId: props.circuitId,
+    exerciseId: props.exerciseId,
+    setId: props.setId,
+    name: props.name,
+    value: props.value,
+  };
+};
+
+export interface UpdateDistanceSetFieldProps {
+  circuitId: string;
+  exerciseId: string;
+  setId: string;
+  name: 'value' | 'unit';
+  value: string;
+}
+
+export interface UpdateDistanceSetFieldAction {
+  type: ActionTypes.UPDATE_DISTANCE_SET_FIELD;
+  circuitId: string;
+  exerciseId: string;
+  setId: string;
+  name: 'value' | 'unit';
+  value: string;
+}
+
+export const updateDistanceSetField = (
+  props: UpdateDistanceSetFieldProps
+): UpdateDistanceSetFieldAction => {
+  return {
+    type: ActionTypes.UPDATE_DISTANCE_SET_FIELD,
     circuitId: props.circuitId,
     exerciseId: props.exerciseId,
     setId: props.setId,

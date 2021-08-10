@@ -25,7 +25,10 @@ export interface CircuitExerciseSet {
     minutes: string;
     seconds: string;
   };
-  distance: string;
+  distance: {
+    unit: string;
+    value: string;
+  };
   markedDone: boolean;
 }
 
