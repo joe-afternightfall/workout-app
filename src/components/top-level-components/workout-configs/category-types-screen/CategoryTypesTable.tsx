@@ -1,24 +1,17 @@
-import React, { ChangeEvent } from 'react';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import React, { ChangeEvent } from 'react';
 import MaterialTable from 'material-table';
-import { State } from '../../../../configs/redux/store';
-import NewCategoryDialog from './NewCategoryDialog';
 import { TextField } from '@material-ui/core';
-import { CategoryTypeVO } from '../../../../configs/models/workout-configurations/category-type/CategoryTypeVO';
-import { ExerciseTypeVO } from '../../../../configs/models/workout-configurations/exercise-type/ExerciseTypeVO';
+import PageTitle from '../../../shared/PageTitle';
+import NewCategoryDialog from './NewCategoryDialog';
+import { State } from '../../../../configs/redux/store';
 import {
   deleteCategoryType,
   updateCategoryType,
 } from '../../../../services/workout-configurations/category-types-service';
-import PageTitle from '../../../shared/PageTitle';
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {},
-  })
-);
+import { CategoryTypeVO } from '../../../../configs/models/workout-configurations/category-type/CategoryTypeVO';
+import { ExerciseTypeVO } from '../../../../configs/models/workout-configurations/exercise-type/ExerciseTypeVO';
 
 const editField = (props: {
   value: string;
@@ -36,7 +29,6 @@ const editField = (props: {
 };
 
 const CategoryTypesTable = (props: CategoryTypesTableProps): JSX.Element => {
-  const classes = useStyles();
   const [open, setOpen] = React.useState<boolean>(false);
 
   const openDialog = () => {
@@ -115,7 +107,7 @@ const CategoryTypesTable = (props: CategoryTypesTableProps): JSX.Element => {
             editComponent: editField,
           },
           {
-            title: 'Workouts',
+            title: 'Exercises',
             field: 'exercises',
             editable: 'never',
             cellStyle: {
