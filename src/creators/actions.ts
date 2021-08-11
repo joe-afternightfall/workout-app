@@ -20,6 +20,13 @@ import {
   LoadCategoryTypesAction,
   LoadExerciseTypesAction,
 } from './workout-configurations';
+import {
+  CloseSideDrawerAction,
+  OpenSideDrawerAction,
+  SetDrawerSizeAction,
+  UserClickedCloseDrawerAction,
+  UserClickedOpenDrawerAction,
+} from './side-drawer';
 
 export enum ActionTypes {
   // Application Actions
@@ -45,6 +52,13 @@ export enum ActionTypes {
   UPDATE_DISTANCE_SET_FIELD = 'UPDATE_DISTANCE_SET_FIELD',
   TOGGLE_ACCORDION = 'TOGGLE_ACCORDION',
   CLEAR_WORKOUT_SCREEN = 'CLEAR_WORKOUT_SCREEN',
+
+  // Side drawer actions
+  CLOSE_SIDE_DRAWER = 'CLOSE_SIDE_DRAWER',
+  OPEN_SIDE_DRAWER = 'OPEN_SIDE_DRAWER',
+  SET_DRAWER_SIZE = 'SET_DRAWER_SIZE',
+  USER_CLICKED_CLOSE_DRAWER = 'USER_CLICKED_CLOSE_DRAWER',
+  USER_CLICKED_OPEN_DRAWER = 'USER_CLICKED_OPEN_DRAWER',
 }
 
 export type ApplicationActions =
@@ -66,4 +80,10 @@ export type ApplicationActions =
   | ClearWorkoutScreenAction
   | UpdateTimeSetFieldAction
   | UpdateDistanceSetFieldAction
-  | ClearUserInfoAction;
+  | ClearUserInfoAction
+  | UpdateWorkoutSetFieldAction
+  | CloseSideDrawerAction
+  | OpenSideDrawerAction
+  | SetDrawerSizeAction
+  | UserClickedCloseDrawerAction
+  | UserClickedOpenDrawerAction;

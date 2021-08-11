@@ -1,3 +1,4 @@
+export const MIN_DRAWER_WIDTH = '56px';
 export const FULL_DRAWER_WIDTH = '240PX';
 export const SIGN_IN_SCREEN_PATH = '/';
 export const DASHBOARD_SCREEN_PATH = '/dashboard';
