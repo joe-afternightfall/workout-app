@@ -3,9 +3,7 @@ import firebase from 'firebase';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import {
-  Button,
   Collapse,
-  Grid,
   List,
   ListItem,
   ListItemIcon,
@@ -15,14 +13,19 @@ import { NavListItem } from './NavListItem';
 import { routerActions } from 'connected-react-router';
 import { State } from '../../../../configs/redux/store';
 import {
+  routes,
   PageProps,
   RouteProp,
-  routes,
 } from '../../../../configs/constants/routes';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { ExpandLess, ExpandMore } from '@material-ui/icons';
 import { clearUserInfo } from '../../../../creators/user-info';
-import { SIGN_IN_SCREEN_PATH } from '../../../../configs/constants/app';
+import {
+  MIN_DRAWER_WIDTH,
+  SIGN_IN_SCREEN_PATH,
+} from '../../../../configs/constants/app';
+import { closeSideDrawer } from '../../../../creators/side-drawer';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -40,6 +43,19 @@ const useStyles = makeStyles((theme: Theme) =>
 const Navigation = (props: NavigationProps): JSX.Element => {
   const classes = useStyles();
   const [open, setOpen] = React.useState<boolean>(false);
+
+  const closeAndRoute = (route: string) => {
+    props.routeClickHandler(route);
+
+    if (props.isDrawerOpen) {
+      setTimeout(() => {
+        props.closeSideDrawerHandler();
+      }, 300);
+    }
+  };
+
+  const shouldDisplayText =
+    props.drawerSize !== MIN_DRAWER_WIDTH || props.tempDrawer;
 
   return (
     <List
@@ -74,11 +90,11 @@ const Navigation = (props: NavigationProps): JSX.Element => {
                       return (
                         <NavListItem
                           key={secondIndex}
-                          displayText={true}
+                          displayText={shouldDisplayText}
                           currentLocation={props.currentLocation}
                           pageInfo={routes[value].pageProps[secondIndex]}
                           clickHandler={() => {
-                            props.clickHandler(
+                            closeAndRoute(
                               routes[value].pageProps[secondIndex].path
                             );
                           }}
@@ -94,28 +110,31 @@ const Navigation = (props: NavigationProps): JSX.Element => {
           return (
             <NavListItem
               key={index}
-              displayText={true}
+              displayText={shouldDisplayText}
               currentLocation={props.currentLocation}
               pageInfo={routes[value].pageProps[0]}
               clickHandler={() => {
-                props.clickHandler(routes[value].pageProps[0].path);
+                closeAndRoute(routes[value].pageProps[0].path);
               }}
             />
           );
         }
       })}
 
-      <Grid container justify={'center'}>
-        <Grid item style={{ marginTop: 40 }}>
-          <Button
-            onClick={() => {
-              props.signOutClickHandler();
-            }}
-          >
-            {'Sign Out'}
-          </Button>
-        </Grid>
-      </Grid>
+      <ListItem
+        button
+        onClick={() => {
+          props.signOutClickHandler();
+        }}
+        data-testid={'list-item-log-out-button'}
+      >
+        <ListItemIcon>
+          <ExitToAppIcon />
+        </ListItemIcon>
+        {shouldDisplayText ? (
+          <ListItemText data-testid={`list-item-log-out`} primary={'Log Out'} />
+        ) : undefined}
+      </ListItem>
     </List>
   );
 };
@@ -123,21 +142,30 @@ const Navigation = (props: NavigationProps): JSX.Element => {
 export interface NavigationProps {
   activePage: RouteProp;
   currentLocation: string;
-  clickHandler: (path: string) => void;
+  isDrawerOpen: boolean;
+  routeClickHandler: (path: string) => void;
   signOutClickHandler: () => void;
+  closeSideDrawerHandler: () => void;
+  drawerSize: string;
+  tempDrawer: boolean;
 }
 
 const mapStateToProps = (state: State): NavigationProps => {
   return {
     activePage: state.applicationState.activePage,
     currentLocation: state.applicationState.currentLocation,
+    isDrawerOpen: state.applicationState.sideDrawerIsOpen,
+    drawerSize: state.applicationState.drawerSize,
   } as unknown as NavigationProps;
 };
 
 const mapDispatchToProps = (dispatch: Dispatch): NavigationProps =>
   ({
-    clickHandler: (path: string) => {
+    routeClickHandler: (path: string) => {
       dispatch(routerActions.push(path));
+    },
+    closeSideDrawerHandler: (): void => {
+      dispatch(closeSideDrawer());
     },
     signOutClickHandler: () => {
       firebase
