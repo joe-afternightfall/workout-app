@@ -8,13 +8,13 @@ import {
   Typography,
   CardContent,
 } from '@material-ui/core';
-import icon from '../../../configs/icons/kick-flip-stego.svg';
+import icon from '../../../configs/icons/blue-monster-brute.svg';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(() =>
   createStyles({
     icon: {
-      height: 32,
+      height: 48,
     },
     iconWrapper: {
       textAlign: 'center',
