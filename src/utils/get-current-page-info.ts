@@ -1,4 +1,4 @@
-import { PageProps, RouteProp, routes } from '../configs/routes';
+import { PageProps, RouteProp, routes } from '../configs/constants/routes';
 
 export const getPageInfo = (location: string): RouteProp | undefined => {
   const found = Object.keys(routes).find((route) => {
