@@ -34,6 +34,21 @@ export default {
         newState.currentLocation = action.payload.location.pathname;
         newState.activePage = getPageInfo(newState.currentLocation);
         break;
+      case ActionTypes.CLOSE_SIDE_DRAWER:
+        newState.sideDrawerIsOpen = false;
+        break;
+      case ActionTypes.OPEN_SIDE_DRAWER:
+        newState.sideDrawerIsOpen = true;
+        break;
+      case ActionTypes.SET_DRAWER_SIZE:
+        newState.drawerSize = action.size;
+        break;
+      case ActionTypes.USER_CLICKED_CLOSE_DRAWER:
+        newState.userClickedCloseDrawer = true;
+        break;
+      case ActionTypes.USER_CLICKED_OPEN_DRAWER:
+        newState.userClickedCloseDrawer = false;
+        break;
       case ActionTypes.LOGGED_IN_USER:
         newState.username = action.username;
         break;
@@ -361,6 +376,10 @@ export default {
 };
 
 export interface ApplicationState {
+  drawerSize: string;
+  userClickedCloseDrawer: boolean;
+  sideDrawerIsOpen: boolean;
+  sideDrawerIsClosed: boolean;
   username: string;
   currentLocation: string;
   activePage: RouteProp | undefined;

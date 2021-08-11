@@ -9,7 +9,7 @@ import React, { Component } from 'react';
 import { Styles } from '@material-ui/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { getLightTheme } from './configs/theme/light-theme';
-import PermSideDrawer from './components/app-shell/side-drawer/PermSideDrawer';
+import ResponsiveSideDrawer from './components/app-shell/side-drawer/ResponsiveSideDrawer';
 
 const styles: Styles<Theme, StyledComponentProps> = (theme: Theme) => ({
   root: {
@@ -31,7 +31,7 @@ class App extends Component<AppProps> {
       <MuiThemeProvider theme={getLightTheme()}>
         <div className={classes.root}>
           <CssBaseline />
-          <PermSideDrawer />
+          <ResponsiveSideDrawer />
 
           <main className={classes.content}>
             <div>{this.props.children}</div>
