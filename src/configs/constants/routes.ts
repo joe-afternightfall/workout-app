@@ -1,4 +1,12 @@
 import {
+  WORKOUT_SCREEN_PATH,
+  DASHBOARD_SCREEN_PATH,
+  USER_PROFILE_SCREEN_PATH,
+  CIRCUIT_TYPES_SCREEN_PATH,
+  CATEGORY_TYPES_SCREEN_PATH,
+  EXERCISE_TYPES_SCREEN_PATH,
+} from './app';
+import {
   Settings,
   AccountCircle as AccountIcon,
   DashboardRounded as DashboardIcon,
@@ -8,12 +16,12 @@ import { ComponentType } from 'react';
 import { SvgIconTypeMap } from '@material-ui/core';
 import { StyledComponentProps } from '@material-ui/core/styles';
 import { OverridableComponent } from '@material-ui/core/OverridableComponent';
-import DashboardScreen from '../components/top-level-components/dashboard/DashboardScreen';
-import ProfileScreen from '../components/top-level-components/profile-screen/ProfileScreen';
-import WorkoutScreen from '../components/top-level-components/workout/WorkoutScreenConnector';
-import CircuitTypesTable from '../components/top-level-components/workout-configs/circuit-types-screen/CircuitTypesTable';
-import CategoryTypesTable from '../components/top-level-components/workout-configs/category-types-screen/CategoryTypesTable';
-import ExerciseTypesTable from '../components/top-level-components/workout-configs/exercise-types-screen/ExerciseTypesTable';
+import DashboardScreen from '../../components/top-level-components/dashboard/DashboardScreen';
+import ProfileScreen from '../../components/top-level-components/profile-screen/ProfileScreen';
+import WorkoutScreen from '../../components/top-level-components/workout/WorkoutScreenConnector';
+import CircuitTypesTable from '../../components/top-level-components/workout-configs/circuit-types-screen/CircuitTypesTable';
+import CategoryTypesTable from '../../components/top-level-components/workout-configs/category-types-screen/CategoryTypesTable';
+import ExerciseTypesTable from '../../components/top-level-components/workout-configs/exercise-types-screen/ExerciseTypesTable';
 
 export interface PageProps {
   path: string;
@@ -45,7 +53,7 @@ export const routes: RoutesMap = {
     mainIcon: DashboardIcon,
     pageProps: [
       {
-        path: '/',
+        path: DASHBOARD_SCREEN_PATH,
         drawerTitle: 'Dashboard',
         headerTitle: 'Dashboard',
         icon: DashboardIcon,
@@ -60,7 +68,7 @@ export const routes: RoutesMap = {
     mainIcon: FitnessCenterIcon,
     pageProps: [
       {
-        path: '/workout',
+        path: WORKOUT_SCREEN_PATH,
         drawerTitle: 'Workout',
         headerTitle: 'Workout',
         icon: FitnessCenterIcon,
@@ -75,7 +83,7 @@ export const routes: RoutesMap = {
     mainIcon: AccountIcon,
     pageProps: [
       {
-        path: '/user-profile',
+        path: USER_PROFILE_SCREEN_PATH,
         drawerTitle: 'User Profile',
         headerTitle: 'User Profile',
         icon: AccountIcon,
@@ -90,7 +98,7 @@ export const routes: RoutesMap = {
     mainIcon: Settings,
     pageProps: [
       {
-        path: '/exercise-types',
+        path: EXERCISE_TYPES_SCREEN_PATH,
         drawerTitle: 'Exercise Types',
         headerTitle: 'Exercise Types',
         icon: Settings,
@@ -98,7 +106,7 @@ export const routes: RoutesMap = {
         routerComponent: ExerciseTypesTable,
       },
       {
-        path: '/category-types',
+        path: CATEGORY_TYPES_SCREEN_PATH,
         drawerTitle: 'Category Types',
         headerTitle: 'Category Types',
         icon: Settings,
@@ -106,7 +114,7 @@ export const routes: RoutesMap = {
         routerComponent: CategoryTypesTable,
       },
       {
-        path: '/circuit-types',
+        path: CIRCUIT_TYPES_SCREEN_PATH,
         drawerTitle: 'Circuit Types',
         headerTitle: 'Circuit Types',
         icon: Settings,
