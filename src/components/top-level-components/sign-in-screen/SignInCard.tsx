@@ -29,7 +29,7 @@ export default function SignInCard(props: SignInFormProps): JSX.Element {
     <Card>
       <CardHeader
         title={
-          <Grid container justifyContent={'center'}>
+          <Grid container justify={'center'}>
             <Grid item xs={12} className={classes.iconWrapper}>
               <img src={icon} alt={'app-logo'} className={classes.icon} />
             </Grid>

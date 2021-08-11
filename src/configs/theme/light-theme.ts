@@ -1,5 +1,8 @@
 import { Palette } from '@material-ui/core/styles/createPalette';
-import { createTheme, Theme, ThemeOptions } from '@material-ui/core/styles';
+import createMuiTheme, {
+  Theme,
+  ThemeOptions,
+} from '@material-ui/core/styles/createMuiTheme';
 
 interface CustomPalette extends Palette {
   colors: {
@@ -28,7 +31,7 @@ interface AppThemeOptions extends ThemeOptions {
 }
 
 export function getLightTheme(): Theme {
-  return createTheme({
+  return createMuiTheme({
     palette: {
       colors: {
         // background: '#f3f4f2',

@@ -30,7 +30,7 @@ export default function SetActionButtons(
   const classes = useStyles();
 
   return (
-    <Grid container alignItems={'center'} justifyContent={'center'} spacing={2}>
+    <Grid container alignItems={'center'} justify={'center'} spacing={2}>
       <Grid item>
         <AppTooltip
           element={

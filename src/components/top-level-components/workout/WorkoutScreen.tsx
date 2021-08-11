@@ -74,7 +74,7 @@ class WorkoutScreen extends Component<WorkoutScreenProps> {
           <Grid
             container
             alignItems={'center'}
-            justifyContent={'center'}
+            justify={'center'}
             style={{ height: '60vh' }}
           >
             <Typography>{'add a circuit to get started'}</Typography>

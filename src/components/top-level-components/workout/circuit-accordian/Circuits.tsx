@@ -58,7 +58,7 @@ const Circuits = (props: CircuitProps): JSX.Element => {
               <AccordionDetails>
                 <Grid container spacing={2}>
                   {circuit.exercises.length === 0 ? (
-                    <Grid item container justifyContent={'center'}>
+                    <Grid item container justify={'center'}>
                       <Grid item>
                         <Typography>
                           {'add exercises to get started'}

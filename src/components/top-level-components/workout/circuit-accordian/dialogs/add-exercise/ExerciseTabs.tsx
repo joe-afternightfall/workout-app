@@ -106,7 +106,7 @@ const ExerciseTabs = (
                   dir={theme.direction}
                 >
                   {foundExercises.length === 0 ? (
-                    <Grid container justifyContent={'center'}>
+                    <Grid container justify={'center'}>
                       <Grid item>
                         <Typography>
                           {'no exercises setup for this category'}

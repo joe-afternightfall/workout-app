@@ -15,7 +15,7 @@ export default function SetTitle(props: SetTitleProps): JSX.Element {
             <Typography>{'Time'}</Typography>
           </Grid>
 
-          <Grid item xs={4} container justifyContent={'center'} spacing={2}>
+          <Grid item xs={4} container justify={'center'} spacing={2}>
             <Grid item>
               <Typography>{'Action'}</Typography>
             </Grid>
@@ -37,7 +37,7 @@ export default function SetTitle(props: SetTitleProps): JSX.Element {
             <Typography>{'Reps'}</Typography>
           </Grid>
 
-          <Grid item xs={4} container justifyContent={'center'} spacing={2}>
+          <Grid item xs={4} container justify={'center'} spacing={2}>
             <Grid item>
               <Typography>{'Action'}</Typography>
             </Grid>
@@ -55,7 +55,7 @@ export default function SetTitle(props: SetTitleProps): JSX.Element {
             <Typography>{'Reps'}</Typography>
           </Grid>
 
-          <Grid item xs={4} container justifyContent={'center'} spacing={2}>
+          <Grid item xs={4} container justify={'center'} spacing={2}>
             <Grid item>
               <Typography>{'Action'}</Typography>
             </Grid>
@@ -77,7 +77,7 @@ export default function SetTitle(props: SetTitleProps): JSX.Element {
             <Typography>{'Distance'}</Typography>
           </Grid>
 
-          <Grid item xs={4} container justifyContent={'center'} spacing={2}>
+          <Grid item xs={4} container justify={'center'} spacing={2}>
             <Grid item>
               <Typography>{'Action'}</Typography>
             </Grid>
@@ -99,7 +99,7 @@ export default function SetTitle(props: SetTitleProps): JSX.Element {
             <Typography>{'Reps'}</Typography>
           </Grid>
 
-          <Grid item xs={4} container justifyContent={'center'} spacing={2}>
+          <Grid item xs={4} container justify={'center'} spacing={2}>
             <Grid item>
               <Typography>{'Action'}</Typography>
             </Grid>

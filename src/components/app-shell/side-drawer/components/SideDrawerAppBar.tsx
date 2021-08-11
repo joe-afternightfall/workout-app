@@ -19,7 +19,7 @@ const SideDrawerAppBar = (props: SideDrawerAppBarProps): JSX.Element => {
   return (
     <AppBar position={'relative'}>
       <Toolbar className={classes.toolbar}>
-        <Grid container alignItems={'center'} justifyContent={'center'}>
+        <Grid container alignItems={'center'} justify={'center'}>
           <Grid item>
             <Typography>{'Username: ' + props.username}</Typography>
           </Grid>
