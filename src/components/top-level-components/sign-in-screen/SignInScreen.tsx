@@ -53,7 +53,7 @@ const SignInScreen = (props: SignInScreenProps): JSX.Element => {
     <Grid
       container
       alignItems={'center'}
-      justifyContent={'center'}
+      justify={'center'}
       className={classes.root}
     >
       <Grid item xs={4}>

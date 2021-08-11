@@ -21,6 +21,7 @@ function buildVO(exercises: any): ExerciseTypeVO[] {
       id: exercises[key].id,
       name: exercises[key].name,
       workoutCategoryId: exercises[key].workoutCategoryId,
+      setType: exercises[key].setType,
     };
   });
 }

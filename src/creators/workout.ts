@@ -137,20 +137,84 @@ export interface UpdateWorkoutSetFieldAction {
   value: string;
 }
 
+export interface UpdateWorkoutSetFieldProps {
+  circuitId: string;
+  exerciseId: string;
+  setId: string;
+  name: 'weight' | 'reps';
+  value: string;
+}
+
 export const updateWorkoutSetField = (
-  circuitId: string,
-  exerciseId: string,
-  setId: string,
-  name: 'weight' | 'reps',
-  value: string
+  props: UpdateWorkoutSetFieldProps
 ): UpdateWorkoutSetFieldAction => {
   return {
     type: ActionTypes.UPDATE_WORKOUT_SET_FIELD,
-    circuitId: circuitId,
-    exerciseId: exerciseId,
-    setId: setId,
-    name: name,
-    value: value,
+    circuitId: props.circuitId,
+    exerciseId: props.exerciseId,
+    setId: props.setId,
+    name: props.name,
+    value: props.value,
+  };
+};
+
+export interface UpdateTimeSetFieldProps {
+  circuitId: string;
+  exerciseId: string;
+  setId: string;
+  name: 'hours' | 'minutes' | 'seconds';
+  value: string;
+}
+
+export interface UpdateTimeSetFieldAction {
+  type: ActionTypes.UPDATE_TIME_SET_FIELD;
+  circuitId: string;
+  exerciseId: string;
+  setId: string;
+  name: 'hours' | 'minutes' | 'seconds';
+  value: string;
+}
+
+export const updateTimeSetField = (
+  props: UpdateTimeSetFieldProps
+): UpdateTimeSetFieldAction => {
+  return {
+    type: ActionTypes.UPDATE_TIME_SET_FIELD,
+    circuitId: props.circuitId,
+    exerciseId: props.exerciseId,
+    setId: props.setId,
+    name: props.name,
+    value: props.value,
+  };
+};
+
+export interface UpdateDistanceSetFieldProps {
+  circuitId: string;
+  exerciseId: string;
+  setId: string;
+  name: 'value' | 'unit';
+  value: string;
+}
+
+export interface UpdateDistanceSetFieldAction {
+  type: ActionTypes.UPDATE_DISTANCE_SET_FIELD;
+  circuitId: string;
+  exerciseId: string;
+  setId: string;
+  name: 'value' | 'unit';
+  value: string;
+}
+
+export const updateDistanceSetField = (
+  props: UpdateDistanceSetFieldProps
+): UpdateDistanceSetFieldAction => {
+  return {
+    type: ActionTypes.UPDATE_DISTANCE_SET_FIELD,
+    circuitId: props.circuitId,
+    exerciseId: props.exerciseId,
+    setId: props.setId,
+    name: props.name,
+    value: props.value,
   };
 };
 

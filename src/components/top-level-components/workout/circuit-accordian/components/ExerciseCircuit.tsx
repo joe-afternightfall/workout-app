@@ -1,11 +1,11 @@
-import Set from './Set';
+import Set from './sets/Set';
 import {
   Theme,
   WithStyles,
   withStyles,
   StyledComponentProps,
 } from '@material-ui/core/styles';
-import RowTitle from './RowTitle';
+import SetTitle from './sets/SetTitle';
 import React, { Component } from 'react';
 import { Styles } from '@material-ui/styles';
 import AddIcon from '@material-ui/icons/AddCircleOutlineOutlined';
@@ -13,6 +13,11 @@ import { Button, Divider, Grid, ListItem, Typography } from '@material-ui/core';
 import DeleteExerciseDialog from '../dialogs/DeleteExerciseDialog';
 import { CircuitExerciseSet } from '../../WorkoutScreen';
 import { ExerciseTypeVO } from '../../../../../configs/models/workout-configurations/exercise-type/ExerciseTypeVO';
+import {
+  UpdateDistanceSetFieldProps,
+  UpdateTimeSetFieldProps,
+  UpdateWorkoutSetFieldProps,
+} from '../../../../../creators/workout';
 
 const styles: Styles<Theme, StyledComponentProps> = (theme: Theme) => ({
   title: {
@@ -53,7 +58,7 @@ class ExerciseCircuit extends Component<ExerciseCircuitProps> {
             </Grid>
           </Grid>
 
-          <RowTitle />
+          <SetTitle setType={exercise.setType} />
 
           {this.props.sets.map((set: CircuitExerciseSet, index: number) => (
             // todo: handle re-numbering when deleting
@@ -64,6 +69,7 @@ class ExerciseCircuit extends Component<ExerciseCircuitProps> {
                 deleteSet(set.id);
               }}
               circuitId={circuitId}
+              exercise={exercise}
               exerciseId={exercise.id}
               toggleExerciseSetHandler={() => {
                 this.props.toggleExerciseSetHandler(
@@ -74,6 +80,10 @@ class ExerciseCircuit extends Component<ExerciseCircuitProps> {
               }}
               updateWorkoutSetFieldHandler={
                 this.props.updateWorkoutSetFieldHandler
+              }
+              updateTimeSetFieldHandler={this.props.updateTimeSetFieldHandler}
+              updateDistanceSetFieldHandler={
+                this.props.updateDistanceSetFieldHandler
               }
             />
           ))}
@@ -114,13 +124,9 @@ export interface ExerciseCircuitProps extends WithStyles<typeof styles> {
     circuitId: string,
     exerciseId: string
   ) => void;
-  updateWorkoutSetFieldHandler: (
-    circuitId: string,
-    exerciseId: string,
-    setId: string,
-    name: 'weight' | 'reps',
-    value: string
-  ) => void;
+  updateWorkoutSetFieldHandler: (props: UpdateWorkoutSetFieldProps) => void;
+  updateTimeSetFieldHandler: (props: UpdateTimeSetFieldProps) => void;
+  updateDistanceSetFieldHandler: (props: UpdateDistanceSetFieldProps) => void;
 }
 
 export default withStyles(styles, { withTheme: true })(ExerciseCircuit);

@@ -23,6 +23,11 @@ import {
   addExerciseSetToCircuit,
   deleteExerciseFromCircuit,
   deleteExerciseSetFromCircuit,
+  UpdateWorkoutSetFieldProps,
+  updateTimeSetField,
+  UpdateTimeSetFieldProps,
+  updateDistanceSetField,
+  UpdateDistanceSetFieldProps,
 } from '../../../../creators/workout';
 import { ExerciseTypeVO } from '../../../../configs/models/workout-configurations/exercise-type/ExerciseTypeVO';
 
@@ -53,7 +58,7 @@ const Circuits = (props: CircuitProps): JSX.Element => {
               <AccordionDetails>
                 <Grid container spacing={2}>
                   {circuit.exercises.length === 0 ? (
-                    <Grid item container justifyContent={'center'}>
+                    <Grid item container justify={'center'}>
                       <Grid item>
                         <Typography>
                           {'add exercises to get started'}
@@ -88,6 +93,12 @@ const Circuits = (props: CircuitProps): JSX.Element => {
                               }
                               updateWorkoutSetFieldHandler={
                                 props.updateWorkoutSetFieldHandler
+                              }
+                              updateTimeSetFieldHandler={
+                                props.updateTimeSetFieldHandler
+                              }
+                              updateDistanceSetFieldHandler={
+                                props.updateDistanceSetFieldHandler
                               }
                             />
                           );
@@ -131,14 +142,10 @@ export interface CircuitProps {
     circuitId: string,
     exerciseId: string
   ) => void;
-  updateWorkoutSetFieldHandler: (
-    circuitId: string,
-    exerciseId: string,
-    setId: string,
-    name: 'weight' | 'reps',
-    value: string
-  ) => void;
+  updateWorkoutSetFieldHandler: (props: UpdateWorkoutSetFieldProps) => void;
   toggleAccordionHandler: (panel: string) => void;
+  updateTimeSetFieldHandler: (props: UpdateTimeSetFieldProps) => void;
+  updateDistanceSetFieldHandler: (props: UpdateDistanceSetFieldProps) => void;
 }
 
 const mapStateToProps = (state: State): CircuitProps => {
@@ -174,16 +181,14 @@ const mapDispatchToProps = (dispatch: Dispatch): CircuitProps =>
     ) => {
       dispatch(toggleExerciseSetAsDone(setId, circuitId, exerciseId));
     },
-    updateWorkoutSetFieldHandler: (
-      circuitId: string,
-      exerciseId: string,
-      setId: string,
-      name: 'weight' | 'reps',
-      value: string
-    ) => {
-      dispatch(
-        updateWorkoutSetField(circuitId, exerciseId, setId, name, value)
-      );
+    updateWorkoutSetFieldHandler: (props: UpdateWorkoutSetFieldProps) => {
+      dispatch(updateWorkoutSetField(props));
+    },
+    updateTimeSetFieldHandler: (props: UpdateTimeSetFieldProps) => {
+      dispatch(updateTimeSetField(props));
+    },
+    updateDistanceSetFieldHandler: (props: UpdateDistanceSetFieldProps) => {
+      dispatch(updateDistanceSetField(props));
     },
     toggleAccordionHandler: (panel: string) => {
       dispatch(toggleAccordion(panel));

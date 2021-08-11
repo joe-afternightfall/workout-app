@@ -18,8 +18,17 @@ const styles: Styles<Theme, StyledComponentProps> = () => ({});
 export interface CircuitExerciseSet {
   id: string;
   setNumber: number;
-  weight: number;
-  reps: number;
+  weight: string;
+  reps: string;
+  time: {
+    hours: string;
+    minutes: string;
+    seconds: string;
+  };
+  distance: {
+    unit: string;
+    value: string;
+  };
   markedDone: boolean;
 }
 
@@ -65,7 +74,7 @@ class WorkoutScreen extends Component<WorkoutScreenProps> {
           <Grid
             container
             alignItems={'center'}
-            justifyContent={'center'}
+            justify={'center'}
             style={{ height: '60vh' }}
           >
             <Typography>{'add a circuit to get started'}</Typography>

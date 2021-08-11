@@ -50,7 +50,7 @@ export default function DeleteCircuitDialog(
             </Typography>
           }
           dialogActions={
-            <Grid container justifyContent={'flex-end'}>
+            <Grid container justify={'flex-end'}>
               <Grid item>
                 <Button
                   onClick={() => {

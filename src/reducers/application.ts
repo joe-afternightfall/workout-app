@@ -2,15 +2,15 @@ import { v4 as uuidv4 } from 'uuid';
 import { RouteProp } from '../configs/routes';
 import { LOCATION_CHANGE } from 'connected-react-router';
 import { getPageInfo } from '../utils/get-current-page-info';
-import { ActionTypes, ApplicationActions } from '../creators/actions';
 import {
   CircuitExercise,
   CircuitExerciseSet,
   WorkoutCircuitProps,
 } from '../components/top-level-components/workout/WorkoutScreen';
+import { ActionTypes, ApplicationActions } from '../creators/actions';
+import { CircuitTypeVO } from '../configs/models/workout-configurations/circuit-type/CircuitTypeVO';
 import { ExerciseTypeVO } from '../configs/models/workout-configurations/exercise-type/ExerciseTypeVO';
 import { CategoryTypeVO } from '../configs/models/workout-configurations/category-type/CategoryTypeVO';
-import { CircuitTypeVO } from '../configs/models/workout-configurations/circuit-type/CircuitTypeVO';
 
 function findCircuit(
   state: ApplicationState,
@@ -95,8 +95,17 @@ export default {
                   {
                     id: uuidv4(),
                     setNumber: 0,
-                    weight: 0,
-                    reps: 0,
+                    weight: '',
+                    reps: '',
+                    time: {
+                      hours: '',
+                      minutes: '',
+                      seconds: '',
+                    },
+                    distance: {
+                      value: '',
+                      unit: '',
+                    },
                     markedDone: false,
                   },
                 ],
@@ -158,8 +167,17 @@ export default {
                 {
                   id: uuidv4(),
                   setNumber: numberOfSets++,
-                  weight: 0,
-                  reps: 0,
+                  weight: '',
+                  reps: '',
+                  time: {
+                    hours: '',
+                    minutes: '',
+                    seconds: '',
+                  },
+                  distance: {
+                    value: '',
+                    unit: '',
+                  },
                   markedDone: false,
                 },
               ];
@@ -252,11 +270,73 @@ export default {
               );
 
               if (foundSet) {
-                if (action.name === 'weight') {
-                  foundSet.weight = Number(action.value);
-                } else {
-                  foundSet.reps = Number(action.value);
-                }
+                foundSet[action.name] = action.value;
+              }
+            }
+            return {
+              ...newState,
+              workout: {
+                ...newState.workout,
+                circuits: [...newState.workout.circuits],
+              },
+            };
+          }
+        }
+        break;
+      case ActionTypes.UPDATE_TIME_SET_FIELD:
+        {
+          const foundCircuit = findCircuit(newState, action.circuitId);
+          if (foundCircuit) {
+            const foundIndex = newState.workout.circuits.indexOf(foundCircuit);
+            const foundExercise = newState.workout.circuits[
+              foundIndex
+            ].exercises.find(
+              (exercise: CircuitExercise) =>
+                exercise.exerciseId === action.exerciseId
+            );
+            if (foundExercise) {
+              const foundSet = foundExercise.sets.find(
+                (set: CircuitExerciseSet) => set.id === action.setId
+              );
+
+              if (foundSet) {
+                foundSet.time = {
+                  ...foundSet.time,
+                  [action.name]: action.value,
+                };
+              }
+            }
+            return {
+              ...newState,
+              workout: {
+                ...newState.workout,
+                circuits: [...newState.workout.circuits],
+              },
+            };
+          }
+        }
+        break;
+      case ActionTypes.UPDATE_DISTANCE_SET_FIELD:
+        {
+          const foundCircuit = findCircuit(newState, action.circuitId);
+          if (foundCircuit) {
+            const foundIndex = newState.workout.circuits.indexOf(foundCircuit);
+            const foundExercise = newState.workout.circuits[
+              foundIndex
+            ].exercises.find(
+              (exercise: CircuitExercise) =>
+                exercise.exerciseId === action.exerciseId
+            );
+            if (foundExercise) {
+              const foundSet = foundExercise.sets.find(
+                (set: CircuitExerciseSet) => set.id === action.setId
+              );
+
+              if (foundSet) {
+                foundSet.distance = {
+                  ...foundSet.distance,
+                  [action.name]: action.value,
+                };
               }
             }
             return {

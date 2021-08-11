@@ -16,7 +16,7 @@ import { routerActions } from 'connected-react-router';
 import { State } from '../../../../configs/redux/store';
 import { PageProps, RouteProp, routes } from '../../../../configs/routes';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import { ExpandLess, ExpandMore, StarBorder } from '@material-ui/icons';
+import { ExpandLess, ExpandMore } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -115,7 +115,7 @@ const Navigation = (props: NavigationProps): JSX.Element => {
         }
       })}
 
-      <Grid container justifyContent={'center'}>
+      <Grid container justify={'center'}>
         <Grid item style={{ marginTop: 40 }}>
           <Button onClick={logout}>{'Sign Out'}</Button>
         </Grid>

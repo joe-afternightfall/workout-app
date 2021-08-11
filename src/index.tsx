@@ -33,18 +33,27 @@ reportWebVitals();
 // todo: redirect user to login when firebase user object is null
 // todo: redirect user to dashboard after login
 // todo: redirect to "/" after logout
-// todo: add to exercises "type: weights, time, distance"
 // todo: add workout timer to redux store.  on stop/pause/stop
-// todo: close side bar on small break point
+// todo: ******* close side bar on small break point
 // todo: create <AppDialog /> component
-// todo: create <AppSnackbar /> component
-// todo: allow for workout to be edited
+// todo: ******* create <AppSnackbar /> component
+// todo: ******* allow for workout to be edited
 // todo: place weekly calendar/daily check on dashboard
-// todo: add a daily counter for days in a row working out
-// todo: add dots on calendar for days worked out
+// todo: ******* add a daily counter for days in a row working out
+// todo: ******* add dots on calendar for days worked out
 // todo: add loader cards
 // todo: use react-calendar for custom calendar to view when we have worked out
 // todo: dots for dojo workouts
 // todo: dots for solo/other workouts
 // todo: allow for building "workout plan"
 // todo: add application snackbar and use when updating/modifying table info
+// todo: add full screen button
+// todo: allow setup for "SetType"
+// todo: create profile page to select icon and fill out info
+// todo: use profile page to determine if user has logged in before
+// todo: generate user id and start to save workouts under that ID
+// todo: use Brute icon for log in page
+// todo: cool down dialog in between workouts
+// todo: create "circuit builder" page
+// todo: create "workout" reducer
+// todo: make reducer better/extract out util methods

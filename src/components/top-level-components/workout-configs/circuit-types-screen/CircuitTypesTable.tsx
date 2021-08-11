@@ -1,7 +1,5 @@
 import React, { ChangeEvent } from 'react';
-import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import MaterialTable from 'material-table';
 import PageTitle from '../../../shared/PageTitle';
 import { State } from '../../../../configs/redux/store';
@@ -12,12 +10,6 @@ import {
   deleteCircuitType,
   updateCircuitType,
 } from '../../../../services/workout-configurations/circuit-types-service';
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {},
-  })
-);
 
 const editField = (props: {
   value: string;
@@ -35,7 +27,6 @@ const editField = (props: {
 };
 
 const CircuitTypesTable = (props: CircuitTypesTableProps): JSX.Element => {
-  const classes = useStyles();
   const [open, setOpen] = React.useState<boolean>(false);
 
   const openDialog = () => {
@@ -129,7 +120,7 @@ const mapStateToProps = (state: State): CircuitTypesTableProps => {
   } as unknown as CircuitTypesTableProps;
 };
 
-const mapDispatchToProps = (dispatch: Dispatch): CircuitTypesTableProps =>
+const mapDispatchToProps = (): CircuitTypesTableProps =>
   ({} as unknown as CircuitTypesTableProps);
 
 export default connect(mapStateToProps, mapDispatchToProps)(CircuitTypesTable);

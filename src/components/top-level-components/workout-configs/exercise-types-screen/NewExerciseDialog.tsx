@@ -1,23 +1,22 @@
 import React from 'react';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import {
   Grid,
-  Select,
-  MenuItem,
   TextField,
   IconButton,
-  InputLabel,
   DialogTitle,
-  FormControl,
   DialogContent,
   DialogActions,
 } from '@material-ui/core';
-import Typography from '@material-ui/core/Typography';
-import CloseIcon from '@material-ui/icons/Close';
+import SetTypes from './dialog/SetTypes';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
-import { CategoryTypeVO } from '../../../../configs/models/workout-configurations/category-type/CategoryTypeVO';
+import CloseIcon from '@material-ui/icons/Close';
+import Typography from '@material-ui/core/Typography';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { createNewExerciseType } from '../../../../services/workout-configurations/exercise-types-service';
+import { CategoryTypeVO } from '../../../../configs/models/workout-configurations/category-type/CategoryTypeVO';
+import CategorySelectMenu from './dialog/CategorySelectMenu';
+import { SetType } from '../../../../configs/models/workout-configurations/exercise-type/ExerciseTypeDAO';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -31,9 +30,6 @@ const useStyles = makeStyles((theme: Theme) =>
       top: theme.spacing(1),
       color: theme.palette.grey[500],
     },
-    formControl: {
-      width: '100%',
-    },
   })
 );
 
@@ -41,16 +37,20 @@ export default function NewExerciseDialog(
   props: NewExerciseDialogProps
 ): JSX.Element {
   const classes = useStyles();
-  const [workoutCategoryId, setWorkoutCategoryId] = React.useState<string>('');
+  const [selectedCategoryId, setSelectedCategoryId] =
+    React.useState<string>('');
   const [textField, setTextField] = React.useState<string>('');
+  const [checked, setChecked] = React.useState<string>('');
 
-  const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-    setWorkoutCategoryId(event.target.value as string);
+  const checkboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    event.target.checked ? setChecked(event.target.name) : setChecked('');
   };
 
-  const handleTextFieldChange = (
-    event: React.ChangeEvent<HTMLTextAreaElement>
-  ) => {
+  const selectMenuChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+    setSelectedCategoryId(event.target.value as string);
+  };
+
+  const textFieldChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setTextField(event.target.value);
   };
 
@@ -79,32 +79,20 @@ export default function NewExerciseDialog(
             <TextField
               style={{ width: '100%' }}
               placeholder={'Enter Name'}
-              onChange={handleTextFieldChange}
+              onChange={textFieldChange}
             />
           </Grid>
 
           <Grid item xs={12}>
-            <FormControl className={classes.formControl}>
-              <InputLabel id={'category-select-label'}>
-                {'Workout Category'}
-              </InputLabel>
-              <Select
-                labelId={'category-select-label'}
-                id={'category-simple-menu'}
-                value={workoutCategoryId}
-                onChange={handleChange}
-              >
-                {props.categoryTypes.map(
-                  (category: CategoryTypeVO, index: number) => {
-                    return (
-                      <MenuItem key={index} value={category.id}>
-                        {category.name}
-                      </MenuItem>
-                    );
-                  }
-                )}
-              </Select>
-            </FormControl>
+            <CategorySelectMenu
+              selectedCategoryId={selectedCategoryId}
+              categoryTypes={props.categoryTypes}
+              onChangeHandler={selectMenuChange}
+            />
+          </Grid>
+
+          <Grid item xs={12}>
+            <SetTypes checked={checked} clickHandler={checkboxChange} />
           </Grid>
         </Grid>
       </DialogContent>
@@ -112,11 +100,25 @@ export default function NewExerciseDialog(
       <DialogActions>
         <Button onClick={props.closeClickHandler}>{'Cancel'}</Button>
         <Button
-          disabled={textField === ''}
+          disabled={
+            textField === '' || checked === '' || selectedCategoryId === ''
+          }
           onClick={() => {
-            createNewExerciseType(textField, workoutCategoryId).then(() => {
-              props.closeClickHandler();
-            });
+            if (
+              checked === SetType.WEIGHTS ||
+              checked === SetType.TIME ||
+              checked === SetType.TIME_AND_DISTANCE ||
+              checked === SetType.REPS ||
+              checked === SetType.TIME_AND_REPS
+            ) {
+              createNewExerciseType(
+                textField,
+                selectedCategoryId,
+                checked
+              ).then(() => {
+                props.closeClickHandler();
+              });
+            }
           }}
         >
           {'Save'}
