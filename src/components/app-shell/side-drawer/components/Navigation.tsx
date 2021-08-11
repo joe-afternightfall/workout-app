@@ -40,7 +40,9 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const Navigation = (props: NavigationProps): JSX.Element => {
+const Navigation = (
+  props: NavigationProps & PassedInNavigationProps
+): JSX.Element => {
   const classes = useStyles();
   const [open, setOpen] = React.useState<boolean>(false);
 
@@ -147,6 +149,9 @@ export interface NavigationProps {
   signOutClickHandler: () => void;
   closeSideDrawerHandler: () => void;
   drawerSize: string;
+}
+
+export interface PassedInNavigationProps {
   tempDrawer: boolean;
 }
 

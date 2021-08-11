@@ -36,7 +36,7 @@ const TempSideDrawer = (props: TempSideDrawerProps): JSX.Element => {
     >
       <SideDrawerAppBar />
 
-      <Navigation />
+      <Navigation tempDrawer={true} />
     </Drawer>
   );
 };

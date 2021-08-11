@@ -71,7 +71,7 @@ const PermSideDrawer = (props: PermSideDrawerProps): JSX.Element => {
         logoClickHandler={props.logoClickHandler}
       />
 
-      <Navigation />
+      <Navigation tempDrawer={false} />
     </Drawer>
   );
 };
