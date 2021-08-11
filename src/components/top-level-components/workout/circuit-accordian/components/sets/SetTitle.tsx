@@ -3,32 +3,19 @@ import { Grid, Typography } from '@material-ui/core';
 import { SetType } from '../../../../../../configs/models/workout-configurations/exercise-type/ExerciseTypeDAO';
 
 export default function SetTitle(props: SetTitleProps): JSX.Element {
+  let displayComponent: JSX.Element;
+
   switch (props.setType) {
     case SetType.TIME:
-      return (
-        <Grid item xs={12} container>
-          <Grid item xs={2}>
-            <Typography>{'Set'}</Typography>
-          </Grid>
-
-          <Grid item xs={6}>
-            <Typography>{'Time'}</Typography>
-          </Grid>
-
-          <Grid item xs={4} container justify={'center'} spacing={2}>
-            <Grid item>
-              <Typography>{'Action'}</Typography>
-            </Grid>
-          </Grid>
+      displayComponent = (
+        <Grid item xs={6}>
+          <Typography>{'Time'}</Typography>
         </Grid>
       );
+      break;
     case SetType.WEIGHTS:
-      return (
-        <Grid item xs={12} container>
-          <Grid item xs={2}>
-            <Typography>{'Set'}</Typography>
-          </Grid>
-
+      displayComponent = (
+        <>
           <Grid item xs={3}>
             <Typography>{'lbs'}</Typography>
           </Grid>
@@ -36,39 +23,19 @@ export default function SetTitle(props: SetTitleProps): JSX.Element {
           <Grid item xs={3}>
             <Typography>{'Reps'}</Typography>
           </Grid>
-
-          <Grid item xs={4} container justify={'center'} spacing={2}>
-            <Grid item>
-              <Typography>{'Action'}</Typography>
-            </Grid>
-          </Grid>
-        </Grid>
+        </>
       );
+      break;
     case SetType.REPS:
-      return (
-        <Grid item xs={12} container>
-          <Grid item xs={2}>
-            <Typography>{'Set'}</Typography>
-          </Grid>
-
-          <Grid item xs={6}>
-            <Typography>{'Reps'}</Typography>
-          </Grid>
-
-          <Grid item xs={4} container justify={'center'} spacing={2}>
-            <Grid item>
-              <Typography>{'Action'}</Typography>
-            </Grid>
-          </Grid>
+      displayComponent = (
+        <Grid item xs={6}>
+          <Typography>{'Reps'}</Typography>
         </Grid>
       );
+      break;
     case SetType.TIME_AND_DISTANCE:
-      return (
-        <Grid item xs={12} container>
-          <Grid item xs={2}>
-            <Typography>{'Set'}</Typography>
-          </Grid>
-
+      displayComponent = (
+        <>
           <Grid item xs={3}>
             <Typography>{'Time'}</Typography>
           </Grid>
@@ -76,21 +43,12 @@ export default function SetTitle(props: SetTitleProps): JSX.Element {
           <Grid item xs={3}>
             <Typography>{'Distance'}</Typography>
           </Grid>
-
-          <Grid item xs={4} container justify={'center'} spacing={2}>
-            <Grid item>
-              <Typography>{'Action'}</Typography>
-            </Grid>
-          </Grid>
-        </Grid>
+        </>
       );
+      break;
     case SetType.TIME_AND_REPS:
-      return (
-        <Grid item xs={12} container>
-          <Grid item xs={2}>
-            <Typography>{'Set'}</Typography>
-          </Grid>
-
+      displayComponent = (
+        <>
           <Grid item xs={3}>
             <Typography>{'Time'}</Typography>
           </Grid>
@@ -98,17 +56,28 @@ export default function SetTitle(props: SetTitleProps): JSX.Element {
           <Grid item xs={3}>
             <Typography>{'Reps'}</Typography>
           </Grid>
-
-          <Grid item xs={4} container justify={'center'} spacing={2}>
-            <Grid item>
-              <Typography>{'Action'}</Typography>
-            </Grid>
-          </Grid>
-        </Grid>
+        </>
       );
+      break;
     default:
       return <div />;
   }
+
+  return (
+    <Grid item xs={12} container>
+      <Grid item xs={2}>
+        <Typography>{'Set'}</Typography>
+      </Grid>
+
+      {displayComponent}
+
+      <Grid item xs={4} container justify={'center'} spacing={2}>
+        <Grid item>
+          <Typography>{'Action'}</Typography>
+        </Grid>
+      </Grid>
+    </Grid>
+  );
 }
 
 export interface SetTitleProps {
