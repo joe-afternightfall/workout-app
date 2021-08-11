@@ -7,6 +7,7 @@ import { WorkoutDAO } from '../configs/models/WorkoutDAO';
 import { v4 as uuidv4 } from 'uuid';
 import { clearWorkoutScreen } from '../creators/workout';
 import { routerActions } from 'react-router-redux';
+import { DASHBOARD_SCREEN_PATH } from '../configs/constants/app';
 
 export const saveWorkout =
   (): ThunkAction<void, State, void, AnyAction> =>
@@ -31,7 +32,7 @@ export const saveWorkout =
       if (error) {
         return Promise.reject();
       } else {
-        dispatch(routerActions.push('/'));
+        dispatch(routerActions.push(DASHBOARD_SCREEN_PATH));
         dispatch(clearWorkoutScreen());
         return Promise.resolve();
       }

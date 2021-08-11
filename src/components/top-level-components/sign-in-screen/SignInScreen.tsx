@@ -4,8 +4,10 @@ import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import SignInCard from './SignInCard';
 import { Grid } from '@material-ui/core';
+import { routerActions } from 'react-router-redux';
 import { updateLoggedInUser } from '../../../creators/user-info';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
+import { DASHBOARD_SCREEN_PATH } from '../../../configs/constants/app';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -76,6 +78,7 @@ const mapDispatchToProps = (dispatch: Dispatch): SignInScreenProps =>
   ({
     logInHandler: (username: string) => {
       dispatch(updateLoggedInUser(username));
+      dispatch(routerActions.push(DASHBOARD_SCREEN_PATH));
     },
   } as unknown as SignInScreenProps);
 

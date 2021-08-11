@@ -13,3 +13,13 @@ export const updateLoggedInUser = (
     username: username,
   };
 };
+
+export interface ClearUserInfoAction {
+  type: ActionTypes.CLEAR_USER_INFO;
+}
+
+export const clearUserInfo = (): ClearUserInfoAction => {
+  return {
+    type: ActionTypes.CLEAR_USER_INFO,
+  };
+};

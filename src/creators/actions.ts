@@ -14,7 +14,7 @@ import {
   DeleteExerciseSetFromCircuitAction,
   UpdateDistanceSetFieldAction,
 } from './workout';
-import { UpdateLoggedInUserAction } from './user-info';
+import { ClearUserInfoAction, UpdateLoggedInUserAction } from './user-info';
 import {
   LoadCircuitTypesAction,
   LoadCategoryTypesAction,
@@ -24,6 +24,7 @@ import {
 export enum ActionTypes {
   // Application Actions
   INITIALIZE = 'INITIALIZE',
+  CLEAR_USER_INFO = 'CLEAR_USER_INFO',
 
   // Workout configurations
   LOAD_EXERCISE_TYPES = 'LOAD_EXERCISE_TYPES',
@@ -64,4 +65,5 @@ export type ApplicationActions =
   | ToggleAccordionAction
   | ClearWorkoutScreenAction
   | UpdateTimeSetFieldAction
-  | UpdateDistanceSetFieldAction;
+  | UpdateDistanceSetFieldAction
+  | ClearUserInfoAction;

@@ -1,64 +1,44 @@
 import App from './App';
-import firebase from 'firebase';
-import {
-  Theme,
-  WithStyles,
-  withStyles,
-  StyledComponentProps,
-} from '@material-ui/core/styles';
+import React from 'react';
 import { Route } from 'react-router';
-import React, { Component } from 'react';
-import { PageProps, routes } from './configs/routes';
-import { Styles } from '@material-ui/styles';
+import { connect } from 'react-redux';
+import { State } from './configs/redux/store';
+import { PageProps, routes } from './configs/constants/routes';
 import SignInScreen from './components/top-level-components/sign-in-screen/SignInScreen';
 
-const styles: Styles<Theme, StyledComponentProps> = () => ({});
+const AppRouter = (props: AppRouterProps): JSX.Element => {
+  return props.username ? (
+    <App>
+      <div className={'route'}>
+        {Object.keys(routes).map((value: string) => {
+          return routes[value].pageProps.map(
+            (page: PageProps, index: number) => {
+              return (
+                <Route
+                  key={index}
+                  exact
+                  path={page.path}
+                  component={page.routerComponent}
+                />
+              );
+            }
+          );
+        })}
+      </div>
+    </App>
+  ) : (
+    <SignInScreen />
+  );
+};
 
-class AppRouter extends Component<AppRouterProps> {
-  state = {
-    user: null,
-  };
-
-  componentDidMount() {
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        this.setState({
-          user: user,
-        });
-      } else {
-        this.setState({
-          user: null,
-        });
-      }
-    });
-  }
-
-  render(): JSX.Element {
-    return this.state.user ? (
-      <App>
-        <div className={'route'}>
-          {Object.keys(routes).map((value: string) => {
-            return routes[value].pageProps.map(
-              (page: PageProps, index: number) => {
-                return (
-                  <Route
-                    key={index}
-                    exact
-                    path={page.path}
-                    component={page.routerComponent}
-                  />
-                );
-              }
-            );
-          })}
-        </div>
-      </App>
-    ) : (
-      <SignInScreen />
-    );
-  }
+export interface AppRouterProps {
+  username: string;
 }
 
-export type AppRouterProps = WithStyles<typeof styles>;
+const mapStateToProps = (state: State): AppRouterProps => {
+  return {
+    username: state.applicationState.username,
+  } as unknown as AppRouterProps;
+};
 
-export default withStyles(styles, { withTheme: true })(AppRouter);
+export default connect(mapStateToProps)(AppRouter);

@@ -30,9 +30,7 @@ ReactDOM.render(
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
 
-// todo: redirect user to login when firebase user object is null
-// todo: redirect user to dashboard after login
-// todo: redirect to "/" after logout
+// todo: dispatch action if user enters in bad credentials and show error text
 // todo: add workout timer to redux store.  on stop/pause/stop
 // todo: ******* close side bar on small break point
 // todo: create <AppDialog /> component
@@ -57,3 +55,6 @@ reportWebVitals();
 // todo: create "circuit builder" page
 // todo: create "workout" reducer
 // todo: make reducer better/extract out util methods
+// todo: allow user to add new category while adding exercise
+// todo: create user profile object
+// todo: start saving workouts under user profile

@@ -14,9 +14,15 @@ import {
 import { NavListItem } from './NavListItem';
 import { routerActions } from 'connected-react-router';
 import { State } from '../../../../configs/redux/store';
-import { PageProps, RouteProp, routes } from '../../../../configs/routes';
+import {
+  PageProps,
+  RouteProp,
+  routes,
+} from '../../../../configs/constants/routes';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { ExpandLess, ExpandMore } from '@material-ui/icons';
+import { clearUserInfo } from '../../../../creators/user-info';
+import { SIGN_IN_SCREEN_PATH } from '../../../../configs/constants/app';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -34,22 +40,6 @@ const useStyles = makeStyles((theme: Theme) =>
 const Navigation = (props: NavigationProps): JSX.Element => {
   const classes = useStyles();
   const [open, setOpen] = React.useState<boolean>(false);
-
-  const logout = () => {
-    firebase
-      .auth()
-      .signOut()
-      .then(() => {
-        // Sign-out successful.
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.error(
-          'CAUGHT_FIREBASE_ERROR: ' + errorCode + ' message: ' + errorMessage
-        );
-      });
-  };
 
   return (
     <List
@@ -117,7 +107,13 @@ const Navigation = (props: NavigationProps): JSX.Element => {
 
       <Grid container justify={'center'}>
         <Grid item style={{ marginTop: 40 }}>
-          <Button onClick={logout}>{'Sign Out'}</Button>
+          <Button
+            onClick={() => {
+              props.signOutClickHandler();
+            }}
+          >
+            {'Sign Out'}
+          </Button>
         </Grid>
       </Grid>
     </List>
@@ -128,6 +124,7 @@ export interface NavigationProps {
   activePage: RouteProp;
   currentLocation: string;
   clickHandler: (path: string) => void;
+  signOutClickHandler: () => void;
 }
 
 const mapStateToProps = (state: State): NavigationProps => {
@@ -141,6 +138,23 @@ const mapDispatchToProps = (dispatch: Dispatch): NavigationProps =>
   ({
     clickHandler: (path: string) => {
       dispatch(routerActions.push(path));
+    },
+    signOutClickHandler: () => {
+      firebase
+        .auth()
+        .signOut()
+        .then(() => {
+          // Sign-out successful.
+          dispatch(routerActions.push(SIGN_IN_SCREEN_PATH));
+          dispatch(clearUserInfo());
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.error(
+            'CAUGHT_FIREBASE_ERROR: ' + errorCode + ' message: ' + errorMessage
+          );
+        });
     },
   } as unknown as NavigationProps);
 
