@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-import { RouteProp } from '../configs/routes';
+import { RouteProp } from '../configs/constants/routes';
 import { LOCATION_CHANGE } from 'connected-react-router';
 import { getPageInfo } from '../utils/get-current-page-info';
 import {
@@ -36,6 +36,9 @@ export default {
         break;
       case ActionTypes.LOGGED_IN_USER:
         newState.username = action.username;
+        break;
+      case ActionTypes.CLEAR_USER_INFO:
+        newState.username = '';
         break;
       case ActionTypes.LOAD_EXERCISE_TYPES:
         newState.workoutConfigurations.exerciseTypes = action.exerciseTypes;

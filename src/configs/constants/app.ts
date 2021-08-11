@@ -1,4 +1,5 @@
 export const FULL_DRAWER_WIDTH = '240PX';
+export const SIGN_IN_SCREEN_PATH = '/';
 export const DASHBOARD_SCREEN_PATH = '/dashboard';
 export const WORKOUT_SCREEN_PATH = '/workout';
 export const USER_PROFILE_SCREEN_PATH = '/user-profile';
