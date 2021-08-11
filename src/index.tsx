@@ -55,3 +55,5 @@ reportWebVitals();
 // todo: use Brute icon for log in page
 // todo: cool down dialog in between workouts
 // todo: create "circuit builder" page
+// todo: create "workout" reducer
+// todo: make reducer better/extract out util methods
