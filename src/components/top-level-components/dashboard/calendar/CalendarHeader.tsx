@@ -42,7 +42,7 @@ export default function CalendarHeader(
 
   for (let i = 0; i < 7; i++) {
     days.push(
-      <Grid className={classes.title} item>
+      <Grid className={classes.title} item key={i}>
         <Typography variant={'caption'}>
           {format(addDays(startDate, i), dateFormat)}
         </Typography>
