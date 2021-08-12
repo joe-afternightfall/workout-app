@@ -11,6 +11,7 @@ import {
 } from 'date-fns';
 import clsx from 'clsx';
 import React from 'react';
+import Dot from './cells/Dot';
 import { Grid } from '@material-ui/core';
 import CornerNumber from './cells/CornerNumber';
 import BackgroundNumber from './cells/BackgroundNumber';
@@ -103,6 +104,7 @@ export default function CalendarCells(props: CalendarCellsProps): JSX.Element {
             date={formattedDate}
             isSameDay={isSameDay(day, props.selectedDate)}
           />
+          <Dot />
         </div>
       );
       day = addDays(day, 1);
