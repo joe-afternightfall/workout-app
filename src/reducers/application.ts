@@ -11,6 +11,7 @@ import { ActionTypes, ApplicationActions } from '../creators/actions';
 import { CircuitTypeVO } from '../configs/models/workout-configurations/circuit-type/CircuitTypeVO';
 import { ExerciseTypeVO } from '../configs/models/workout-configurations/exercise-type/ExerciseTypeVO';
 import { CategoryTypeVO } from '../configs/models/workout-configurations/category-type/CategoryTypeVO';
+import { UserProfileVO } from '../configs/models/UserProfileVO';
 
 function findCircuit(
   state: ApplicationState,
@@ -34,6 +35,17 @@ export default {
         newState.currentLocation = action.payload.location.pathname;
         newState.activePage = getPageInfo(newState.currentLocation);
         break;
+      case ActionTypes.VALIDATED_USER:
+        newState.userIsValidated = true;
+        newState.userEmail = action.email;
+        break;
+      case ActionTypes.SETUP_NEW_USER:
+        newState.setupNewUser = true;
+        newState.userEmail = action.email;
+        break;
+      case ActionTypes.LOAD_USER_INFO:
+        newState.userProfile = action.userProfile;
+        break;
       case ActionTypes.CLOSE_SIDE_DRAWER:
         newState.sideDrawerIsOpen = false;
         break;
@@ -49,11 +61,11 @@ export default {
       case ActionTypes.USER_CLICKED_OPEN_DRAWER:
         newState.userClickedCloseDrawer = false;
         break;
-      case ActionTypes.LOGGED_IN_USER:
-        newState.username = action.username;
+      case ActionTypes.TOGGLE_USER_PROFILE_DIALOG:
+        newState.openUserProfileDialog = action.shouldOpen;
         break;
       case ActionTypes.CLEAR_USER_INFO:
-        newState.username = '';
+        newState.userProfile = null;
         break;
       case ActionTypes.LOAD_EXERCISE_TYPES:
         newState.workoutConfigurations.exerciseTypes = action.exerciseTypes;
@@ -376,11 +388,15 @@ export default {
 };
 
 export interface ApplicationState {
+  userIsValidated: boolean;
+  userEmail: string;
+  setupNewUser: boolean;
   drawerSize: string;
   userClickedCloseDrawer: boolean;
   sideDrawerIsOpen: boolean;
   sideDrawerIsClosed: boolean;
-  username: string;
+  userProfile: UserProfileVO | null;
+  openUserProfileDialog: boolean;
   currentLocation: string;
   activePage: RouteProp | undefined;
   expandedAccordion: string;

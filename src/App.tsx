@@ -12,6 +12,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { getLightTheme } from './configs/theme/light-theme';
 import { DocumentFullScreen } from '@chiragrupani/fullscreen-react';
 import ResponsiveSideDrawer from './components/app-shell/side-drawer/ResponsiveSideDrawer';
+import ProfileDialog from './components/top-level-components/profile-screen/ProfileDialog';
 
 const styles: Styles<Theme, StyledComponentProps> = (theme: Theme) => ({
   root: {
@@ -54,6 +55,7 @@ class App extends Component<AppProps> {
               fullScreenClickHandler={handleFullScreenClick}
             />
             <ResponsiveSideDrawer />
+            <ProfileDialog />
 
             <main className={classes.content}>
               <div className={classes.toolbar} />
