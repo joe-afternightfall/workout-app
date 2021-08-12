@@ -21,10 +21,12 @@ const styles: Styles<Theme, StyledComponentProps> = () => ({
   },
 });
 
+const today = new Date();
+
 class Calendar extends Component<CalendarProps> {
   state = {
-    currentMonth: new Date(),
-    selectedDate: new Date(),
+    currentMonth: today,
+    selectedDate: today,
   };
 
   onDateClick = (day: Date): void => {
