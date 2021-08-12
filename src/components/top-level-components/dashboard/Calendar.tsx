@@ -13,6 +13,9 @@ import {
   endOfMonth,
   parseISO,
 } from 'date-fns';
+import CalendarControls from './calendar/CalendarControls';
+import CalendarHeader from './calendar/CalendarHeader';
+import CalendarCells from './calendar/CalendarCells';
 
 class Calendar extends React.Component {
   state = {
@@ -122,11 +125,21 @@ class Calendar extends React.Component {
   };
 
   render(): JSX.Element {
+    const dateFormat = 'MMMM yyyy';
+
     return (
       <div className="calendar">
-        {this.renderHeader()}
-        {this.renderDays()}
-        {this.renderCells()}
+        <CalendarControls
+          currentMonth={format(this.state.currentMonth, dateFormat)}
+          prevMonthClickHandler={this.prevMonth}
+          nextMonthClickHandler={this.nextMonth}
+        />
+        <CalendarHeader currentMonth={this.state.currentMonth} />
+        <CalendarCells
+          selectedDate={this.state.selectedDate}
+          dateClickHandler={this.onDateClick}
+          currentMonth={this.state.currentMonth}
+        />
       </div>
     );
   }
