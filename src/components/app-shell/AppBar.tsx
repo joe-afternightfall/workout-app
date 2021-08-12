@@ -1,10 +1,13 @@
 import React from 'react';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
+import AppTooltip from './AppTooltip';
 import MenuIcon from '@material-ui/icons/Menu';
 import { State } from '../../configs/redux/store';
 import icon from '../../configs/icons/rainbow-shades.svg';
+import FullscreenIcon from '@material-ui/icons/Fullscreen';
 import { openSideDrawer } from '../../creators/side-drawer';
+import FullscreenExitIcon from '@material-ui/icons/FullscreenExit';
 import { AppBar, Grid, IconButton, Toolbar } from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
@@ -36,7 +39,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const TopAppBar = (props: AppBarProps): JSX.Element => {
+const TopAppBar = (props: AppBarProps & PassedInAppBarProps): JSX.Element => {
   const width = `calc(100% - ${props.drawerSize})`;
   const classes = useStyles({
     size: width,
@@ -59,7 +62,34 @@ const TopAppBar = (props: AppBarProps): JSX.Element => {
           </Grid>
 
           <Grid item>
-            <img alt={'cool-shades-icon'} className={classes.icon} src={icon} />
+            <Grid container spacing={2} alignItems={'center'}>
+              <Grid item>
+                <AppTooltip
+                  element={
+                    <IconButton
+                      onClick={() => {
+                        props.fullScreenClickHandler(!props.isFullScreen);
+                      }}
+                    >
+                      {props.isFullScreen ? (
+                        <FullscreenExitIcon />
+                      ) : (
+                        <FullscreenIcon />
+                      )}
+                    </IconButton>
+                  }
+                  title={props.isFullScreen ? 'Exit Fullscreen' : 'Fullscreen'}
+                  placement={'bottom'}
+                />
+              </Grid>
+              <Grid item>
+                <img
+                  alt={'cool-shades-icon'}
+                  className={classes.icon}
+                  src={icon}
+                />
+              </Grid>
+            </Grid>
           </Grid>
         </Grid>
       </Toolbar>
@@ -67,9 +97,14 @@ const TopAppBar = (props: AppBarProps): JSX.Element => {
   );
 };
 
-export interface AppBarProps {
+interface AppBarProps {
   drawerSize: string;
   openSideDrawerHandler: () => void;
+}
+
+interface PassedInAppBarProps {
+  isFullScreen: boolean;
+  fullScreenClickHandler: (open: boolean) => void;
 }
 
 const mapStateToProps = (state: State): AppBarProps => {
