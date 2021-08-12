@@ -4,10 +4,9 @@ import {
   withStyles,
   StyledComponentProps,
 } from '@material-ui/core/styles';
-import Calendar from 'react-calendar';
+import Calendar from './Calendar';
 import React, { Component } from 'react';
 import { Grid } from '@material-ui/core';
-import 'react-calendar/dist/Calendar.css';
 import { Styles } from '@material-ui/styles';
 
 const styles: Styles<Theme, StyledComponentProps> = () => ({});
@@ -19,7 +18,9 @@ class DashboardScreen extends Component<DashboardScreenProps> {
         <Grid item xs={12}>
           <span>{'Dashboard'}</span>
         </Grid>
-        <Calendar />
+        <Grid item xs={8}>
+          <Calendar />
+        </Grid>
       </Grid>
     );
   }
