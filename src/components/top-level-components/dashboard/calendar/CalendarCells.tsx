@@ -12,9 +12,9 @@ import {
 import clsx from 'clsx';
 import React from 'react';
 import { Grid } from '@material-ui/core';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
 import CornerNumber from './cells/CornerNumber';
 import BackgroundNumber from './cells/BackgroundNumber';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -70,8 +70,6 @@ const useStyles = makeStyles(() =>
 export default function CalendarCells(props: CalendarCellsProps): JSX.Element {
   const classes = useStyles();
 
-  console.log('props.selectedDate: ' + JSON.stringify(props.selectedDate));
-
   const monthStart = startOfMonth(props.currentMonth);
   const monthEnd = endOfMonth(monthStart);
   const startDate = startOfWeek(monthStart);
@@ -83,6 +81,7 @@ export default function CalendarCells(props: CalendarCellsProps): JSX.Element {
   let days = [];
   let day = startDate;
   let formattedDate = '';
+  let rowKey = 0;
 
   while (day <= endDate) {
     for (let i = 0; i < 7; i++) {
@@ -90,12 +89,14 @@ export default function CalendarCells(props: CalendarCellsProps): JSX.Element {
       const cloneDay = day;
       days.push(
         <div
+          key={i}
           className={clsx(classes.col, classes.cell, {
             [classes.disabled]: !isSameMonth(day, monthStart),
             [classes.selected]: isSameDay(day, props.selectedDate),
           })}
-          key={i}
-          onClick={() => props.dateClickHandler(parseISO(cloneDay.toString()))}
+          onClick={() => {
+            props.dateClickHandler(parseISO(cloneDay.toISOString()));
+          }}
         >
           <CornerNumber date={formattedDate} />
           <BackgroundNumber
@@ -105,9 +106,10 @@ export default function CalendarCells(props: CalendarCellsProps): JSX.Element {
         </div>
       );
       day = addDays(day, 1);
+      rowKey++;
     }
     rows.push(
-      <div className={classes.row} key={1}>
+      <div key={rowKey} className={classes.row}>
         {days}
       </div>
     );
