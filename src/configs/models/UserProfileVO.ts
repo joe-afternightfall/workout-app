@@ -10,9 +10,21 @@ export class UserProfileVO extends UserProfileDAO {
     email: string,
     profileIcon: string,
     displayName: string,
-    weight: UserWeight[]
+    height: string,
+    weight: UserWeight[],
+    dateOfBirth: string,
+    lastUpdatedOn: string
   ) {
-    super(id, email, profileIcon, displayName, weight);
+    super(
+      id,
+      email,
+      profileIcon,
+      displayName,
+      height,
+      weight,
+      dateOfBirth,
+      lastUpdatedOn
+    );
     this.firebaseId = firebaseId;
   }
 }

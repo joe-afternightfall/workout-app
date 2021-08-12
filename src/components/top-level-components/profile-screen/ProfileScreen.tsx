@@ -19,7 +19,9 @@ class ProfileScreen extends Component<ProfileScreenProps> {
           <Typography>{'Profile'}</Typography>
         </Grid>
 
-        <ProfileCard />
+        <Grid item xs={12}>
+          <ProfileCard />
+        </Grid>
       </Grid>
     );
   }

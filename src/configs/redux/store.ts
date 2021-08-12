@@ -34,6 +34,9 @@ export const createStore = (history: History): Store => {
         time: '',
       },
       expandedAccordion: '',
+      openUserProfileDialog: false,
+      userProfile: null,
+      setupNewUser: false,
     } as unknown as ApplicationState,
   });
 };

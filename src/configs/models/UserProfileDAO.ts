@@ -9,19 +9,28 @@ export class UserProfileDAO {
   email: string;
   displayName: string;
   profileIcon: string;
+  height: string;
   weight: UserWeight[];
+  dateOfBirth: string;
+  lastUpdatedOn: string;
 
   constructor(
     id: string,
     email: string,
     profileIcon: string,
     displayName: string,
-    weight: UserWeight[]
+    height: string,
+    weight: UserWeight[],
+    dateOfBirth: string,
+    lastUpdatedOn: string
   ) {
     this.id = id;
     this.email = email;
     this.profileIcon = profileIcon;
     this.displayName = displayName;
     this.weight = weight;
+    this.height = height;
+    this.dateOfBirth = dateOfBirth;
+    this.lastUpdatedOn = lastUpdatedOn;
   }
 }
