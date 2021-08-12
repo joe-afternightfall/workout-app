@@ -1,110 +1,31 @@
-import React from 'react';
-import './App.css';
 import {
-  addMonths,
-  subMonths,
-  addDays,
-  startOfWeek,
-  endOfWeek,
-  format,
-  isSameMonth,
-  isSameDay,
-  startOfMonth,
-  endOfMonth,
-  parseISO,
-} from 'date-fns';
-import CalendarControls from './calendar/CalendarControls';
-import CalendarHeader from './calendar/CalendarHeader';
+  Theme,
+  WithStyles,
+  withStyles,
+  StyledComponentProps,
+} from '@material-ui/core/styles';
+import React, { Component } from 'react';
+import { Styles } from '@material-ui/styles';
 import CalendarCells from './calendar/CalendarCells';
+import CalendarHeader from './calendar/CalendarHeader';
+import { addMonths, subMonths, format } from 'date-fns';
+import CalendarControls from './calendar/CalendarControls';
 
-class Calendar extends React.Component {
+const styles: Styles<Theme, StyledComponentProps> = () => ({
+  calendar: {
+    display: 'block',
+    position: 'relative',
+    width: '100%',
+    background: '#FFF',
+    border: '1px solid #EEE',
+  },
+});
+
+class Calendar extends Component<CalendarProps> {
   state = {
     currentMonth: new Date(),
     selectedDate: new Date(),
   };
-
-  renderHeader(): JSX.Element {
-    const dateFormat = 'MMMM yyyy';
-
-    return (
-      <div className="header row flex-middle">
-        <div className="col col-start">
-          <div className="icon" onClick={this.prevMonth}>
-            chevron_left
-          </div>
-        </div>
-        <div className="col col-center">
-          <span>{format(this.state.currentMonth, dateFormat)}</span>
-        </div>
-        <div className="col col-end" onClick={this.nextMonth}>
-          <div className="icon">chevron_right</div>
-        </div>
-      </div>
-    );
-  }
-
-  renderDays(): JSX.Element {
-    const dateFormat = 'dddd';
-    const days = [];
-
-    const startDate = startOfWeek(this.state.currentMonth);
-
-    for (let i = 0; i < 7; i++) {
-      days.push(
-        <div className="col col-center" key={i}>
-          {format(addDays(startDate, i), dateFormat)}
-        </div>
-      );
-    }
-
-    return <div className="days row">{days}</div>;
-  }
-
-  renderCells(): JSX.Element {
-    const { currentMonth, selectedDate } = this.state;
-    const monthStart = startOfMonth(currentMonth);
-    const monthEnd = endOfMonth(monthStart);
-    const startDate = startOfWeek(monthStart);
-    const endDate = endOfWeek(monthEnd);
-
-    const dateFormat = 'd';
-    const rows = [];
-
-    let days = [];
-    let day = startDate;
-    let formattedDate = '';
-
-    while (day <= endDate) {
-      for (let i = 0; i < 7; i++) {
-        formattedDate = format(day, dateFormat);
-        const cloneDay = day;
-        days.push(
-          <div
-            className={`col cell ${
-              !isSameMonth(day, monthStart)
-                ? 'disabled'
-                : isSameDay(day, selectedDate)
-                ? 'selected'
-                : ''
-            }`}
-            key={i}
-            onClick={() => this.onDateClick(parseISO(cloneDay.toString()))}
-          >
-            <span className="number">{formattedDate}</span>
-            <span className="bg">{formattedDate}</span>
-          </div>
-        );
-        day = addDays(day, 1);
-      }
-      rows.push(
-        <div className="row" key={1}>
-          {days}
-        </div>
-      );
-      days = [];
-    }
-    return <div className="body">{rows}</div>;
-  }
 
   onDateClick = (day: Date): void => {
     this.setState({
@@ -125,10 +46,11 @@ class Calendar extends React.Component {
   };
 
   render(): JSX.Element {
+    const { classes } = this.props;
     const dateFormat = 'MMMM yyyy';
 
     return (
-      <div className="calendar">
+      <div className={classes.calendar}>
         <CalendarControls
           currentMonth={format(this.state.currentMonth, dateFormat)}
           prevMonthClickHandler={this.prevMonth}
@@ -145,4 +67,6 @@ class Calendar extends React.Component {
   }
 }
 
-export default Calendar;
+export type CalendarProps = WithStyles<typeof styles>;
+
+export default withStyles(styles, { withTheme: true })(Calendar);
