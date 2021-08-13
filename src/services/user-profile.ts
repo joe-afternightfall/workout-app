@@ -46,7 +46,7 @@ function buildVO(userProfile: any): UserProfileVO[] {
       profileIcon: userProfile[key].profileIcon,
       displayName: userProfile[key].displayName,
       height: userProfile[key].height,
-      weight: userProfile[key].weight,
+      weights: userProfile[key].weights,
       dateOfBirth: userProfile[key].dateOfBirth,
       lastUpdatedOn: userProfile[key].lastUpdatedOn,
     };

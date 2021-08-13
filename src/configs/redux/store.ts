@@ -35,7 +35,20 @@ export const createStore = (history: History): Store => {
       },
       expandedAccordion: '',
       openUserProfileDialog: false,
-      userProfile: null,
+      userProfile: {
+        firebaseId: '',
+        id: '',
+        email: '',
+        profileIcon: '',
+        displayName: '',
+        height: {
+          feet: '',
+          inches: '',
+        },
+        weights: [],
+        dateOfBirth: '',
+        lastUpdatedOn: '',
+      },
       setupNewUser: false,
     } as unknown as ApplicationState,
   });
