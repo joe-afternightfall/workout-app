@@ -3,11 +3,26 @@ import { UserProfileVO } from '../configs/models/UserProfileVO';
 
 export interface ClearUserInfoAction {
   type: ActionTypes.CLEAR_USER_INFO;
+  userProfile: UserProfileVO;
 }
 
 export const clearUserInfo = (): ClearUserInfoAction => {
   return {
     type: ActionTypes.CLEAR_USER_INFO,
+    userProfile: {
+      firebaseId: '',
+      id: '',
+      email: '',
+      profileIcon: '',
+      displayName: '',
+      height: {
+        feet: '',
+        inches: '',
+      },
+      weights: [],
+      dateOfBirth: '',
+      lastUpdatedOn: '',
+    },
   };
 };
 
