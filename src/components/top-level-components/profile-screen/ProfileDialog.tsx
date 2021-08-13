@@ -1,21 +1,27 @@
-import React from 'react';
+import {
+  Grid,
+  Button,
+  Dialog,
+  TextField,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+} from '@material-ui/core';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import {
-  Grid,
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  TextField,
-  DialogActions,
-  Button,
-} from '@material-ui/core';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
+  didNotDeleteSlash,
+  formatBirthday,
+  isValidDate,
+} from '../../../utils/date-formatter';
+import React, { ChangeEvent } from 'react';
 import { State } from '../../../configs/redux/store';
-import MaterialUIPickers from './text-fields/TossPickers';
-import { UserProfileVO } from '../../../configs/models/UserProfileVO';
+import Typography from '@material-ui/core/Typography';
+import NumbersTextField from '../../shared/NumbersTextField';
 import { findLatestWeight } from '../../../utils/find-latest';
+import { NUMBERS_ONLY_REGEX } from '../../../configs/constants/app';
+import { UserProfileVO } from '../../../configs/models/UserProfileVO';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -37,6 +43,7 @@ interface ProfileState {
 
 const ProfileDialog = (props: ProfileDialogProps): JSX.Element => {
   const classes = useStyles();
+  const [hasBlurred, setHasBlurred] = React.useState<boolean>(false);
   const { isNewUser, userProfile } = props;
   let latestWeight;
 
@@ -61,7 +68,42 @@ const ProfileDialog = (props: ProfileDialogProps): JSX.Element => {
     },
   });
 
-  // const handleWeightChange = () => {};
+  const handleDateChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const input = e.target.value;
+    if (
+      NUMBERS_ONLY_REGEX.test(input.replace(/\//g, '')) &&
+      didNotDeleteSlash(localProfile.dateOfBirth, input)
+    ) {
+      const formattedDate = formatBirthday(input);
+      setLocalProfile((prevState: ProfileState) => {
+        return {
+          ...prevState,
+          dateOfBirth: formattedDate,
+        };
+      });
+    }
+  };
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setLocalProfile((prevState: ProfileState) => {
+      if (e.target.name === 'feet' || e.target.name === 'inches') {
+        return {
+          ...prevState,
+          height: {
+            ...prevState.height,
+            [e.target.name]: e.target.value,
+          },
+        };
+      } else {
+        return {
+          ...prevState,
+          [e.target.name]: e.target.value,
+        };
+      }
+    });
+  };
+
+  const invalidDate = !isValidDate(localProfile.dateOfBirth);
 
   return (
     <Dialog
@@ -87,7 +129,21 @@ const ProfileDialog = (props: ProfileDialogProps): JSX.Element => {
           </Grid>
 
           <Grid item xs={12} sm={8}>
-            <MaterialUIPickers />
+            <TextField
+              fullWidth
+              label={'Birthday'}
+              value={localProfile.dateOfBirth}
+              onChange={handleDateChange}
+              helperText={hasBlurred && invalidDate && 'invalid birthdate'}
+              error={invalidDate && hasBlurred}
+              onBlur={() => {
+                setHasBlurred(localProfile.dateOfBirth.length > 0);
+              }}
+              onFocus={() => {
+                setHasBlurred(false);
+              }}
+              placeholder={'MM/DD/YYYY'}
+            />
           </Grid>
 
           <Grid item xs={12} sm={8} container>
@@ -103,16 +159,31 @@ const ProfileDialog = (props: ProfileDialogProps): JSX.Element => {
             <Grid item xs={12} container>
               <Grid item xs={6} container>
                 <Grid item sm={8} xs={12}>
-                  <TextField variant={'outlined'} fullWidth label={'lbs'} />
+                  <NumbersTextField
+                    name={'weight'}
+                    value={localProfile.weight}
+                    label={'lbs'}
+                    changeHandler={handleChange}
+                  />
                 </Grid>
               </Grid>
 
               <Grid item xs={6} container spacing={2}>
                 <Grid item xs={6}>
-                  <TextField variant={'outlined'} fullWidth label={'ft'} />
+                  <NumbersTextField
+                    name={'feet'}
+                    value={localProfile.height.feet}
+                    label={'ft'}
+                    changeHandler={handleChange}
+                  />
                 </Grid>
                 <Grid item xs={6}>
-                  <TextField variant={'outlined'} fullWidth label={'in'} />
+                  <NumbersTextField
+                    name={'inches'}
+                    value={localProfile.height.inches}
+                    label={'in'}
+                    changeHandler={handleChange}
+                  />
                 </Grid>
               </Grid>
             </Grid>
