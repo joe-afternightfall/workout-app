@@ -13,6 +13,9 @@ import {
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { State } from '../../../configs/redux/store';
+import MaterialUIPickers from './text-fields/TossPickers';
+import { UserProfileVO } from '../../../configs/models/UserProfileVO';
+import { findLatestWeight } from '../../../utils/find-latest';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -22,15 +25,49 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
+interface ProfileState {
+  displayName: string;
+  dateOfBirth: string;
+  weight: string;
+  height: {
+    feet: string;
+    inches: string;
+  };
+}
+
 const ProfileDialog = (props: ProfileDialogProps): JSX.Element => {
   const classes = useStyles();
+  const { isNewUser, userProfile } = props;
+  let latestWeight;
 
-  console.log('props.setupNewUser: ' + JSON.stringify(props.setupNewUser));
+  if (isNewUser) {
+    latestWeight = '';
+  } else {
+    const foundLatest = findLatestWeight(userProfile.weights);
+    if (foundLatest) {
+      latestWeight = foundLatest.weight;
+    } else {
+      latestWeight = '';
+    }
+  }
+
+  const [localProfile, setLocalProfile] = React.useState<ProfileState>({
+    displayName: isNewUser ? '' : userProfile.displayName,
+    dateOfBirth: isNewUser ? '' : userProfile.dateOfBirth,
+    weight: latestWeight,
+    height: {
+      feet: isNewUser ? '' : userProfile.height.feet,
+      inches: isNewUser ? '' : userProfile.height.inches,
+    },
+  });
+
+  // const handleWeightChange = () => {};
+
   return (
     <Dialog
       BackdropProps={{
         style: {
-          backgroundColor: props.setupNewUser ? 'black' : '',
+          backgroundColor: isNewUser ? 'black' : '',
         },
       }}
       onClose={props.closeHandler}
@@ -38,33 +75,61 @@ const ProfileDialog = (props: ProfileDialogProps): JSX.Element => {
       fullWidth
     >
       <DialogTitle disableTypography className={classes.dialogTitle}>
-        <Typography variant={'h6'}>{'User Profile'}</Typography>
+        <Typography variant={'h6'}>
+          {isNewUser ? 'Lets Setup Your User Profile' : 'User Profile'}
+        </Typography>
       </DialogTitle>
 
       <DialogContent>
         <Grid container alignItems={'center'} justify={'center'} spacing={2}>
-          <Grid item xs={8}>
+          <Grid item xs={12} sm={8}>
             <TextField fullWidth label={'Display Name'} />
           </Grid>
 
-          <Grid item xs={8}>
-            <TextField fullWidth label={'Date of Birth'} />
+          <Grid item xs={12} sm={8}>
+            <MaterialUIPickers />
           </Grid>
 
-          <Grid item xs={8}>
-            <TextField fullWidth label={'Weight'} />
-          </Grid>
+          <Grid item xs={12} sm={8} container>
+            <Grid item xs={12} container style={{ marginBottom: 16 }}>
+              <Grid item xs={6}>
+                <Typography variant={'caption'}>{'Weight'}</Typography>
+              </Grid>
+              <Grid item xs={6}>
+                <Typography variant={'caption'}>{'Height'}</Typography>
+              </Grid>
+            </Grid>
 
-          <Grid item xs={8}>
-            <TextField fullWidth label={'Height'} />
+            <Grid item xs={12} container>
+              <Grid item xs={6} container>
+                <Grid item sm={8} xs={12}>
+                  <TextField variant={'outlined'} fullWidth label={'lbs'} />
+                </Grid>
+              </Grid>
+
+              <Grid item xs={6} container spacing={2}>
+                <Grid item xs={6}>
+                  <TextField variant={'outlined'} fullWidth label={'ft'} />
+                </Grid>
+                <Grid item xs={6}>
+                  <TextField variant={'outlined'} fullWidth label={'in'} />
+                </Grid>
+              </Grid>
+            </Grid>
           </Grid>
         </Grid>
       </DialogContent>
 
-      <DialogActions>
-        <Button>{'Cancel'}</Button>
-        <Button>{'Save'}</Button>
-      </DialogActions>
+      {isNewUser ? (
+        <DialogActions>
+          <Button>{'Save'}</Button>
+        </DialogActions>
+      ) : (
+        <DialogActions>
+          <Button>{'Cancel'}</Button>
+          <Button>{'Update'}</Button>
+        </DialogActions>
+      )}
     </Dialog>
   );
 };
@@ -72,13 +137,15 @@ const ProfileDialog = (props: ProfileDialogProps): JSX.Element => {
 export interface ProfileDialogProps {
   open: boolean;
   closeHandler: () => void;
-  setupNewUser: boolean;
+  isNewUser: boolean;
+  userProfile: UserProfileVO;
 }
 
 const mapStateToProps = (state: State): ProfileDialogProps => {
   return {
     open: state.applicationState.openUserProfileDialog,
-    setupNewUser: state.applicationState.setupNewUser,
+    userProfile: state.applicationState.userProfile,
+    isNewUser: state.applicationState.setupNewUser,
   } as unknown as ProfileDialogProps;
 };
 
