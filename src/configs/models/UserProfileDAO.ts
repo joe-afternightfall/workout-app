@@ -15,7 +15,7 @@ export class UserProfileDAO {
   displayName: string;
   profileIcon: string;
   height: UserHeight;
-  weight: UserWeight[];
+  weights: UserWeight[];
   dateOfBirth: string;
   lastUpdatedOn: string;
 
@@ -25,7 +25,7 @@ export class UserProfileDAO {
     profileIcon: string,
     displayName: string,
     height: UserHeight,
-    weight: UserWeight[],
+    weights: UserWeight[],
     dateOfBirth: string,
     lastUpdatedOn: string
   ) {
@@ -33,7 +33,7 @@ export class UserProfileDAO {
     this.email = email;
     this.profileIcon = profileIcon;
     this.displayName = displayName;
-    this.weight = weight;
+    this.weights = weights;
     this.height = height;
     this.dateOfBirth = dateOfBirth;
     this.lastUpdatedOn = lastUpdatedOn;

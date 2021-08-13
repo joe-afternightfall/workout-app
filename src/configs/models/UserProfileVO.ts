@@ -2,7 +2,7 @@ import { UserHeight, UserProfileDAO, UserWeight } from './UserProfileDAO';
 
 export class UserProfileVO extends UserProfileDAO {
   firebaseId: string;
-  [key: string]: string | UserWeight[] | UserHeight;
+  // [key: string]: string | UserWeight[] | UserHeight;
 
   constructor(
     firebaseId: string,
@@ -11,7 +11,7 @@ export class UserProfileVO extends UserProfileDAO {
     profileIcon: string,
     displayName: string,
     height: UserHeight,
-    weight: UserWeight[],
+    weights: UserWeight[],
     dateOfBirth: string,
     lastUpdatedOn: string
   ) {
@@ -21,7 +21,7 @@ export class UserProfileVO extends UserProfileDAO {
       profileIcon,
       displayName,
       height,
-      weight,
+      weights,
       dateOfBirth,
       lastUpdatedOn
     );
