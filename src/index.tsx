@@ -58,3 +58,4 @@ reportWebVitals();
 // todo: allow user to add new category while adding exercise
 // todo: create user profile object
 // todo: start saving workouts under user profile
+// todo: display loader while waiting for user profile to not show dashboard
