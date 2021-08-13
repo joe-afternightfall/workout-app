@@ -7,7 +7,7 @@ import {
   DialogContent,
   DialogActions,
 } from '@material-ui/core';
-import { Dispatch } from 'redux';
+import { AnyAction, Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import {
   didNotDeleteSlash,
@@ -19,9 +19,17 @@ import { State } from '../../../configs/redux/store';
 import Typography from '@material-ui/core/Typography';
 import NumbersTextField from '../../shared/NumbersTextField';
 import { findLatestWeight } from '../../../utils/find-latest';
-import { NUMBERS_ONLY_REGEX } from '../../../configs/constants/app';
+import {
+  NUMBERS_ONLY_REGEX,
+  DISPLAY_NAME_REGEX,
+} from '../../../configs/constants/app';
 import { UserProfileVO } from '../../../configs/models/UserProfileVO';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import {
+  createNewUserProfile,
+  getUserProfile,
+} from '../../../services/user-profile';
+import { ThunkDispatch } from 'redux-thunk';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -31,7 +39,9 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-interface ProfileState {
+export interface ProfileDialogState {
+  email: string;
+  icon: string;
   displayName: string;
   dateOfBirth: string;
   weight: string;
@@ -58,7 +68,9 @@ const ProfileDialog = (props: ProfileDialogProps): JSX.Element => {
     }
   }
 
-  const [localProfile, setLocalProfile] = React.useState<ProfileState>({
+  const [localProfile, setLocalProfile] = React.useState<ProfileDialogState>({
+    email: props.userEmail,
+    icon: '',
     displayName: isNewUser ? '' : userProfile.displayName,
     dateOfBirth: isNewUser ? '' : userProfile.dateOfBirth,
     weight: latestWeight,
@@ -75,7 +87,7 @@ const ProfileDialog = (props: ProfileDialogProps): JSX.Element => {
       didNotDeleteSlash(localProfile.dateOfBirth, input)
     ) {
       const formattedDate = formatBirthday(input);
-      setLocalProfile((prevState: ProfileState) => {
+      setLocalProfile((prevState: ProfileDialogState) => {
         return {
           ...prevState,
           dateOfBirth: formattedDate,
@@ -84,8 +96,19 @@ const ProfileDialog = (props: ProfileDialogProps): JSX.Element => {
     }
   };
 
+  const handleDisplayNameChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (DISPLAY_NAME_REGEX.test(e.target.value)) {
+      setLocalProfile((prevState: ProfileDialogState) => {
+        return {
+          ...prevState,
+          displayName: e.target.value,
+        };
+      });
+    }
+  };
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setLocalProfile((prevState: ProfileState) => {
+    setLocalProfile((prevState: ProfileDialogState) => {
       if (e.target.name === 'feet' || e.target.name === 'inches') {
         return {
           ...prevState,
@@ -125,7 +148,13 @@ const ProfileDialog = (props: ProfileDialogProps): JSX.Element => {
       <DialogContent>
         <Grid container alignItems={'center'} justify={'center'} spacing={2}>
           <Grid item xs={12} sm={8}>
-            <TextField fullWidth label={'Display Name'} />
+            <TextField
+              fullWidth
+              name={'displayName'}
+              value={localProfile.displayName}
+              label={'Display Name'}
+              onChange={handleDisplayNameChange}
+            />
           </Grid>
 
           <Grid item xs={12} sm={8}>
@@ -193,7 +222,13 @@ const ProfileDialog = (props: ProfileDialogProps): JSX.Element => {
 
       {isNewUser ? (
         <DialogActions>
-          <Button>{'Save'}</Button>
+          <Button
+            onClick={() => {
+              props.saveNewUserClickHandler(localProfile);
+            }}
+          >
+            {'Save'}
+          </Button>
         </DialogActions>
       ) : (
         <DialogActions>
@@ -206,14 +241,17 @@ const ProfileDialog = (props: ProfileDialogProps): JSX.Element => {
 };
 
 export interface ProfileDialogProps {
+  userEmail: string;
   open: boolean;
   closeHandler: () => void;
   isNewUser: boolean;
   userProfile: UserProfileVO;
+  saveNewUserClickHandler: (profile: ProfileDialogState) => void;
 }
 
 const mapStateToProps = (state: State): ProfileDialogProps => {
   return {
+    userEmail: state.applicationState.userEmail,
     open: state.applicationState.openUserProfileDialog,
     userProfile: state.applicationState.userProfile,
     isNewUser: state.applicationState.setupNewUser,
@@ -221,6 +259,13 @@ const mapStateToProps = (state: State): ProfileDialogProps => {
 };
 
 const mapDispatchToProps = (dispatch: Dispatch): ProfileDialogProps =>
-  ({} as unknown as ProfileDialogProps);
+  ({
+    saveNewUserClickHandler: async (profile: ProfileDialogState) => {
+      await createNewUserProfile(profile);
+      (dispatch as ThunkDispatch<State, void, AnyAction>)(
+        getUserProfile(profile.email)
+      );
+    },
+  } as unknown as ProfileDialogProps);
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfileDialog);

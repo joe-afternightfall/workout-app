@@ -45,6 +45,9 @@ export default {
         break;
       case ActionTypes.LOAD_USER_INFO:
         newState.userProfile = action.userProfile;
+        if (newState.openUserProfileDialog) {
+          newState.openUserProfileDialog = false;
+        }
         break;
       case ActionTypes.CLOSE_SIDE_DRAWER:
         newState.sideDrawerIsOpen = false;
@@ -65,7 +68,8 @@ export default {
         newState.openUserProfileDialog = action.shouldOpen;
         break;
       case ActionTypes.CLEAR_USER_INFO:
-        newState.userProfile = null;
+        newState.userProfile = action.userProfile;
+        newState.userIsValidated = false;
         break;
       case ActionTypes.LOAD_EXERCISE_TYPES:
         newState.workoutConfigurations.exerciseTypes = action.exerciseTypes;
