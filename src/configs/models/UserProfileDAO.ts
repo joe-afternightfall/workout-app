@@ -1,7 +1,12 @@
 export interface UserWeight {
   id: string;
-  date: Date;
   weight: string;
+  lastUpdatedOn: string;
+}
+
+export interface UserHeight {
+  feet: string;
+  inches: string;
 }
 
 export class UserProfileDAO {
@@ -9,7 +14,7 @@ export class UserProfileDAO {
   email: string;
   displayName: string;
   profileIcon: string;
-  height: string;
+  height: UserHeight;
   weight: UserWeight[];
   dateOfBirth: string;
   lastUpdatedOn: string;
@@ -19,7 +24,7 @@ export class UserProfileDAO {
     email: string,
     profileIcon: string,
     displayName: string,
-    height: string,
+    height: UserHeight,
     weight: UserWeight[],
     dateOfBirth: string,
     lastUpdatedOn: string
