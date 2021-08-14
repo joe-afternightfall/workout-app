@@ -11,6 +11,7 @@ import { ThunkDispatch } from 'redux-thunk';
 import { State } from '../../../configs/redux/store';
 import { getUserProfile } from '../../../services/user-profile';
 import { validatedUser } from '../../../creators/user-info';
+import { getWorkoutsForUser } from '../../../services/workout-service';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -84,6 +85,9 @@ const mapDispatchToProps = (dispatch: Dispatch): SignInScreenProps =>
       dispatch(validatedUser(email));
       (dispatch as ThunkDispatch<State, void, AnyAction>)(
         getUserProfile(email)
+      );
+      (dispatch as ThunkDispatch<State, void, AnyAction>)(
+        getWorkoutsForUser(email)
       );
     },
   } as unknown as SignInScreenProps);
