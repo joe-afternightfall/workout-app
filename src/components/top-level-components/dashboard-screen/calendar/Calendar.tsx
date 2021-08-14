@@ -6,10 +6,10 @@ import {
 } from '@material-ui/core/styles';
 import React, { Component } from 'react';
 import { Styles } from '@material-ui/styles';
-import CalendarCells from './calendar/CalendarCells';
-import CalendarHeader from './calendar/CalendarHeader';
+import CalendarCells from './components/CalendarCells';
+import CalendarHeader from './components/CalendarHeader';
 import { addMonths, subMonths, format } from 'date-fns';
-import CalendarControls from './calendar/CalendarControls';
+import CalendarControls from './components/CalendarControls';
 
 const styles: Styles<Theme, StyledComponentProps> = () => ({
   calendar: {

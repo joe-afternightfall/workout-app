@@ -4,7 +4,7 @@ import {
   withStyles,
   StyledComponentProps,
 } from '@material-ui/core/styles';
-import Calendar from './Calendar';
+import Calendar from './calendar/Calendar';
 import React, { Component } from 'react';
 import { Grid } from '@material-ui/core';
 import { Styles } from '@material-ui/styles';

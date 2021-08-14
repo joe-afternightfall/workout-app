@@ -6,7 +6,7 @@ import {
   CircuitExercise,
   CircuitExerciseSet,
   WorkoutCircuitProps,
-} from '../components/top-level-components/workout/WorkoutScreen';
+} from '../components/top-level-components/workout-screen/WorkoutScreen';
 import { ActionTypes, ApplicationActions } from '../creators/actions';
 import { CircuitTypeVO } from '../configs/models/workout-configurations/circuit-type/CircuitTypeVO';
 import { ExerciseTypeVO } from '../configs/models/workout-configurations/exercise-type/ExerciseTypeVO';
