@@ -1,5 +1,5 @@
 import { ActionTypes } from './actions';
-import { WorkoutCircuitProps } from '../components/top-level-components/workout/WorkoutScreen';
+import { WorkoutCircuitProps } from '../components/top-level-components/workout-screen/WorkoutScreen';
 
 export interface UpdateWorkoutDateAction {
   type: ActionTypes.UPDATE_WORKOUT_DATE;

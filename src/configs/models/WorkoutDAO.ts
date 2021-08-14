@@ -1,4 +1,4 @@
-import { WorkoutCircuitProps } from '../../components/top-level-components/workout/WorkoutScreen';
+import { WorkoutCircuitProps } from '../../components/top-level-components/workout-screen/WorkoutScreen';
 
 export class WorkoutDAO {
   id: string;
