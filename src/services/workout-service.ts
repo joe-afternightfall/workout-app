@@ -8,6 +8,8 @@ import { v4 as uuidv4 } from 'uuid';
 import { clearWorkoutScreen } from '../creators/workout';
 import { routerActions } from 'react-router-redux';
 import { DASHBOARD_SCREEN_PATH } from '../configs/constants/app';
+import { WorkoutVO } from '../configs/models/WorkoutVO';
+import { loadUsersWorkouts } from '../creators/user-info';
 
 export const saveWorkout =
   (): ThunkAction<void, State, void, AnyAction> =>
@@ -38,3 +40,38 @@ export const saveWorkout =
       }
     });
   };
+
+export const getWorkoutsForUser =
+  (email: string): ThunkAction<void, State, void, AnyAction> =>
+  async (dispatch: Dispatch): Promise<void> => {
+  // todo: change "username" to "email"
+    return await firebase
+      .database()
+      .ref(WORKOUTS_ROUTE)
+      .orderByChild('username')
+      .equalTo(email)
+      .once('value')
+      .then((snapshot) => {
+        if (snapshot.val()) {
+          dispatch(loadUsersWorkouts(buildVO(snapshot.val())));
+        } else {
+          dispatch(loadUsersWorkouts([]));
+        }
+      });
+  };
+
+export interface WorkoutsSnapshot {
+  [key: string]: WorkoutDAO;
+}
+
+function buildVO(workouts: WorkoutsSnapshot): WorkoutVO[] {
+  return Object.keys(workouts).map((key: string) => {
+    return {
+      firebaseId: key,
+      id: workouts[key].id,
+      username: workouts[key].username,
+      circuits: workouts[key].circuits,
+      workoutDate: workouts[key].workoutDate,
+    };
+  });
+}
