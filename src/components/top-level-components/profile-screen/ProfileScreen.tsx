@@ -16,10 +16,10 @@ class ProfileScreen extends Component<ProfileScreenProps> {
     return (
       <Grid container>
         <Grid item xs={12}>
-          <Typography>{'Profile'}</Typography>
+          <Typography>{'User Profile'}</Typography>
         </Grid>
 
-        <Grid item xs={12}>
+        <Grid item xs={12} md={6}>
           <ProfileCard />
         </Grid>
       </Grid>

@@ -61,7 +61,7 @@ const SignInScreen = (props: SignInScreenProps): JSX.Element => {
       justify={'center'}
       className={classes.root}
     >
-      <Grid item xs={8} sm={4}>
+      <Grid item xs={8} md={4}>
         <SignInCard
           email={email}
           clickHandler={signInHandler}
