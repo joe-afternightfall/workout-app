@@ -225,7 +225,7 @@ const ProfileDialog = (props: ProfileDialogProps): JSX.Element => {
 
             <Grid item xs={12} container>
               <Grid item xs={6} container>
-                <Grid item sm={8} xs={12}>
+                <Grid item xs={8}>
                   <NumbersTextField
                     name={'weight'}
                     value={localProfile.weight}
