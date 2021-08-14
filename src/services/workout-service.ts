@@ -12,7 +12,7 @@ import { DASHBOARD_SCREEN_PATH } from '../configs/constants/app';
 export const saveWorkout =
   (): ThunkAction<void, State, void, AnyAction> =>
   async (dispatch: Dispatch, getState: () => State): Promise<void> => {
-    const username = getState().applicationState.username;
+    const username = getState().applicationState.userEmail;
     const circuits = getState().applicationState.workout.circuits;
     const workoutDate = getState().applicationState.workout.date;
     // todo: add workoutTime to redux and rip out of component

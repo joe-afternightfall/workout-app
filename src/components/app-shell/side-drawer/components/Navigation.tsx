@@ -46,9 +46,12 @@ const Navigation = (
   const classes = useStyles();
   const [open, setOpen] = React.useState<boolean>(false);
 
-  const closeAndRoute = (route: string) => {
+  const routeAndClose = (route: string) => {
     props.routeClickHandler(route);
+    close();
+  };
 
+  const close = () => {
     if (props.isDrawerOpen) {
       setTimeout(() => {
         props.closeSideDrawerHandler();
@@ -96,7 +99,7 @@ const Navigation = (
                           currentLocation={props.currentLocation}
                           pageInfo={routes[value].pageProps[secondIndex]}
                           clickHandler={() => {
-                            closeAndRoute(
+                            routeAndClose(
                               routes[value].pageProps[secondIndex].path
                             );
                           }}
@@ -116,7 +119,7 @@ const Navigation = (
               currentLocation={props.currentLocation}
               pageInfo={routes[value].pageProps[0]}
               clickHandler={() => {
-                closeAndRoute(routes[value].pageProps[0].path);
+                routeAndClose(routes[value].pageProps[0].path);
               }}
             />
           );
@@ -127,6 +130,7 @@ const Navigation = (
         button
         onClick={() => {
           props.signOutClickHandler();
+          close();
         }}
         data-testid={'list-item-log-out-button'}
       >

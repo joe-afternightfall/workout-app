@@ -14,7 +14,13 @@ import {
   DeleteExerciseSetFromCircuitAction,
   UpdateDistanceSetFieldAction,
 } from './workout';
-import { ClearUserInfoAction, UpdateLoggedInUserAction } from './user-info';
+import {
+  ClearUserInfoAction,
+  LoadUserInfoAction,
+  SetupNewUserAction,
+  ToggleUserProfileDialogAction,
+  ValidatedUserAction,
+} from './user-info';
 import {
   LoadCircuitTypesAction,
   LoadCategoryTypesAction,
@@ -43,7 +49,6 @@ export enum ActionTypes {
   DELETE_CIRCUIT = 'DELETE_CIRCUIT',
   ADD_EXERCISE_TO_CIRCUIT = 'ADD_EXERCISE_TO_CIRCUIT',
   DELETE_EXERCISE_FROM_CIRCUIT = 'DELETE_EXERCISE_FROM_CIRCUIT',
-  LOGGED_IN_USER = 'LOGGED_IN_USER',
   ADD_EXERCISE_SET_TO_CIRCUIT = 'ADD_EXERCISE_SET_TO_CIRCUIT',
   DELETE_EXERCISE_SET_FROM_CIRCUIT = 'DELETE_EXERCISE_SET_FROM_CIRCUIT',
   TOGGLE_EXERCISE_SET_DONE = 'TOGGLE_EXERCISE_SET_DONE',
@@ -52,6 +57,10 @@ export enum ActionTypes {
   UPDATE_DISTANCE_SET_FIELD = 'UPDATE_DISTANCE_SET_FIELD',
   TOGGLE_ACCORDION = 'TOGGLE_ACCORDION',
   CLEAR_WORKOUT_SCREEN = 'CLEAR_WORKOUT_SCREEN',
+  TOGGLE_USER_PROFILE_DIALOG = 'TOGGLE_USER_PROFILE_DIALOG',
+  LOAD_USER_INFO = 'LOAD_USER_INFO',
+  VALIDATED_USER = 'VALIDATED_USER',
+  SETUP_NEW_USER = 'SETUP_NEW_USER',
 
   // Side drawer actions
   CLOSE_SIDE_DRAWER = 'CLOSE_SIDE_DRAWER',
@@ -71,11 +80,9 @@ export type ApplicationActions =
   | DeleteCircuitAction
   | AddExerciseToCircuitAction
   | DeleteExerciseFromCircuitAction
-  | UpdateLoggedInUserAction
   | AddExerciseSetToCircuitAction
   | DeleteExerciseSetFromCircuitAction
   | ToggleExerciseSetAsDoneAction
-  | UpdateWorkoutSetFieldAction
   | ToggleAccordionAction
   | ClearWorkoutScreenAction
   | UpdateTimeSetFieldAction
@@ -86,4 +93,8 @@ export type ApplicationActions =
   | OpenSideDrawerAction
   | SetDrawerSizeAction
   | UserClickedCloseDrawerAction
-  | UserClickedOpenDrawerAction;
+  | UserClickedOpenDrawerAction
+  | ToggleUserProfileDialogAction
+  | LoadUserInfoAction
+  | ValidatedUserAction
+  | SetupNewUserAction;

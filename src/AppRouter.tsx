@@ -7,7 +7,7 @@ import { PageProps, routes } from './configs/constants/routes';
 import SignInScreen from './components/top-level-components/sign-in-screen/SignInScreen';
 
 const AppRouter = (props: AppRouterProps): JSX.Element => {
-  return props.username ? (
+  return props.isValidated ? (
     <App>
       <div className={'route'}>
         {Object.keys(routes).map((value: string) => {
@@ -32,12 +32,12 @@ const AppRouter = (props: AppRouterProps): JSX.Element => {
 };
 
 export interface AppRouterProps {
-  username: string;
+  isValidated: boolean;
 }
 
 const mapStateToProps = (state: State): AppRouterProps => {
   return {
-    username: state.applicationState.username,
+    isValidated: state.applicationState.userIsValidated,
   } as unknown as AppRouterProps;
 };
 

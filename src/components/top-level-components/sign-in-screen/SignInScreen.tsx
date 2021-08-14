@@ -1,13 +1,16 @@
 import React from 'react';
 import firebase from 'firebase';
-import { Dispatch } from 'redux';
+import { AnyAction, Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import SignInCard from './SignInCard';
 import { Grid } from '@material-ui/core';
 import { routerActions } from 'react-router-redux';
-import { updateLoggedInUser } from '../../../creators/user-info';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { DASHBOARD_SCREEN_PATH } from '../../../configs/constants/app';
+import { ThunkDispatch } from 'redux-thunk';
+import { State } from '../../../configs/redux/store';
+import { getUserProfile } from '../../../services/user-profile';
+import { validatedUser } from '../../../creators/user-info';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -58,7 +61,7 @@ const SignInScreen = (props: SignInScreenProps): JSX.Element => {
       justify={'center'}
       className={classes.root}
     >
-      <Grid item xs={4}>
+      <Grid item xs={8} md={4}>
         <SignInCard
           email={email}
           clickHandler={signInHandler}
@@ -76,9 +79,12 @@ export interface SignInScreenProps {
 
 const mapDispatchToProps = (dispatch: Dispatch): SignInScreenProps =>
   ({
-    logInHandler: (username: string) => {
-      dispatch(updateLoggedInUser(username));
+    logInHandler: (email: string) => {
       dispatch(routerActions.push(DASHBOARD_SCREEN_PATH));
+      dispatch(validatedUser(email));
+      (dispatch as ThunkDispatch<State, void, AnyAction>)(
+        getUserProfile(email)
+      );
     },
   } as unknown as SignInScreenProps);
 

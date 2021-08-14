@@ -1,7 +1,12 @@
 export interface UserWeight {
   id: string;
-  date: Date;
   weight: string;
+  lastUpdatedOn: string;
+}
+
+export interface UserHeight {
+  feet: string;
+  inches: string;
 }
 
 export class UserProfileDAO {
@@ -9,19 +14,28 @@ export class UserProfileDAO {
   email: string;
   displayName: string;
   profileIcon: string;
-  weight: UserWeight[];
+  height: UserHeight;
+  weights: UserWeight[];
+  dateOfBirth: string;
+  lastUpdatedOn: string;
 
   constructor(
     id: string,
     email: string,
     profileIcon: string,
     displayName: string,
-    weight: UserWeight[]
+    height: UserHeight,
+    weights: UserWeight[],
+    dateOfBirth: string,
+    lastUpdatedOn: string
   ) {
     this.id = id;
     this.email = email;
     this.profileIcon = profileIcon;
     this.displayName = displayName;
-    this.weight = weight;
+    this.weights = weights;
+    this.height = height;
+    this.dateOfBirth = dateOfBirth;
+    this.lastUpdatedOn = lastUpdatedOn;
   }
 }

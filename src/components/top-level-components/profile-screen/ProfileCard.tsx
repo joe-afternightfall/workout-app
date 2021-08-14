@@ -2,28 +2,50 @@ import React from 'react';
 import {
   Card,
   Grid,
+  Menu,
   Avatar,
-  TextField,
-  CardHeader,
+  MenuItem,
   IconButton,
+  Typography,
+  CardHeader,
   CardContent,
 } from '@material-ui/core';
+import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { red } from '@material-ui/core/colors';
 import { State } from '../../../configs/redux/store';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
+import { toggleUserProfileDialog } from '../../../creators/user-info';
+import { UserProfileVO } from '../../../configs/models/UserProfileVO';
+import icon from '../../../configs/icons/blue-monster-brute.svg';
+import { findLatestWeight } from '../../../utils/find-latest';
 
 const useStyles = makeStyles(() =>
   createStyles({
-    root: {},
     avatar: {
       backgroundColor: red[500],
     },
   })
 );
+
+function buildTitle(title: string, value: string) {
+  return (
+    <Grid container spacing={2} item xs={12}>
+      <Grid item xs={6} container justify={'flex-end'}>
+        <Grid item>
+          <Typography>{title}</Typography>
+        </Grid>
+      </Grid>
+
+      <Grid item xs={6} container>
+        <Grid item>
+          <Typography>{value}</Typography>
+        </Grid>
+      </Grid>
+    </Grid>
+  );
+}
 
 const ProfileCard = (props: ProfileCardProps): JSX.Element => {
   const classes = useStyles();
@@ -37,12 +59,20 @@ const ProfileCard = (props: ProfileCardProps): JSX.Element => {
     setAnchorEl(null);
   };
 
+  const handleEdit = () => {
+    handleClose();
+    props.openDialogHandler(props.userProfile);
+  };
+
+  const latestWeight = findLatestWeight(props.userProfile.weights);
+  const userHeight = `${props.userProfile.height.feet} ft ${props.userProfile.height.inches} in`;
+
   return (
     <Card>
       <CardHeader
         avatar={
           <Avatar aria-label="recipe" className={classes.avatar}>
-            {'R'}
+            <img src={icon} alt={'app-logo'} />
           </Avatar>
         }
         action={
@@ -56,35 +86,39 @@ const ProfileCard = (props: ProfileCardProps): JSX.Element => {
               <MoreVertIcon />
             </IconButton>
             <Menu
-              id="simple-menu"
-              anchorEl={anchorEl}
               keepMounted
-              open={Boolean(anchorEl)}
+              id={'simple-menu'}
+              anchorEl={anchorEl}
               onClose={handleClose}
+              open={Boolean(anchorEl)}
             >
-              <MenuItem onClick={handleClose}>Profile</MenuItem>
-              <MenuItem onClick={handleClose}>My account</MenuItem>
-              <MenuItem onClick={handleClose}>Logout</MenuItem>
+              <MenuItem onClick={handleEdit}>{'Edit Profile'}</MenuItem>
             </Menu>
           </>
         }
         title={'Profile Info'}
-        subheader={'Last Updated on: '}
+        subheader={`Last Updated: ${new Date(
+          props.userProfile.lastUpdatedOn
+        ).toLocaleDateString()}`}
       />
 
       <CardContent>
-        <Grid container>
-          <form className={classes.root} noValidate autoComplete={'off'}>
-            <Grid item xs={12} sm={6}>
-              <TextField id={'email'} label={'Email'} value={props.email} />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField id={'display-name'} label={'Display Name'} />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField id={'weight'} label={'Weight'} />
-            </Grid>
-          </form>
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            {buildTitle('Email: ', props.email)}
+          </Grid>
+
+          <Grid item xs={12}>
+            {buildTitle('Display Name: ', props.userProfile.displayName)}
+          </Grid>
+
+          <Grid item xs={12}>
+            {latestWeight && buildTitle('Weight: ', latestWeight.weight)}
+          </Grid>
+
+          <Grid item xs={12}>
+            {buildTitle('Height: ', userHeight)}
+          </Grid>
         </Grid>
       </CardContent>
     </Card>
@@ -93,15 +127,22 @@ const ProfileCard = (props: ProfileCardProps): JSX.Element => {
 
 export interface ProfileCardProps {
   email: string;
+  userProfile: UserProfileVO;
+  openDialogHandler: (userProfile: UserProfileVO) => void;
 }
 
 const mapStateToProps = (state: State): ProfileCardProps => {
   return {
-    email: state.applicationState.username,
+    email: state.applicationState.userEmail,
+    userProfile: state.applicationState.userProfile,
   } as unknown as ProfileCardProps;
 };
 
-const mapDispatchToProps = (): ProfileCardProps =>
-  ({} as unknown as ProfileCardProps);
+const mapDispatchToProps = (dispatch: Dispatch): ProfileCardProps =>
+  ({
+    openDialogHandler: () => {
+      dispatch(toggleUserProfileDialog(true));
+    },
+  } as unknown as ProfileCardProps);
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfileCard);
