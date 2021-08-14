@@ -17,6 +17,7 @@ import {
 import {
   ClearUserInfoAction,
   LoadUserInfoAction,
+  LoadUsersWorkoutsAction,
   SetupNewUserAction,
   ToggleUserProfileDialogAction,
   ValidatedUserAction,
@@ -61,6 +62,7 @@ export enum ActionTypes {
   LOAD_USER_INFO = 'LOAD_USER_INFO',
   VALIDATED_USER = 'VALIDATED_USER',
   SETUP_NEW_USER = 'SETUP_NEW_USER',
+  LOAD_USER_WORKOUTS = 'LOAD_USER_WORKOUTS',
 
   // Side drawer actions
   CLOSE_SIDE_DRAWER = 'CLOSE_SIDE_DRAWER',
@@ -97,4 +99,5 @@ export type ApplicationActions =
   | ToggleUserProfileDialogAction
   | LoadUserInfoAction
   | ValidatedUserAction
-  | SetupNewUserAction;
+  | SetupNewUserAction
+  | LoadUsersWorkoutsAction;

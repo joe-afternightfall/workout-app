@@ -12,6 +12,7 @@ import { CircuitTypeVO } from '../configs/models/workout-configurations/circuit-
 import { ExerciseTypeVO } from '../configs/models/workout-configurations/exercise-type/ExerciseTypeVO';
 import { CategoryTypeVO } from '../configs/models/workout-configurations/category-type/CategoryTypeVO';
 import { UserProfileVO } from '../configs/models/UserProfileVO';
+import { WorkoutVO } from '../configs/models/WorkoutVO';
 
 function findCircuit(
   state: ApplicationState,
@@ -42,6 +43,9 @@ export default {
       case ActionTypes.SETUP_NEW_USER:
         newState.setupNewUser = true;
         newState.userEmail = action.email;
+        break;
+      case ActionTypes.LOAD_USER_WORKOUTS:
+        newState.userWorkouts = action.workouts;
         break;
       case ActionTypes.LOAD_USER_INFO:
         newState.userProfile = action.userProfile;
@@ -393,6 +397,7 @@ export default {
 export interface ApplicationState {
   userIsValidated: boolean;
   userEmail: string;
+  userWorkouts: WorkoutVO[];
   setupNewUser: boolean;
   drawerSize: string;
   userClickedCloseDrawer: boolean;
