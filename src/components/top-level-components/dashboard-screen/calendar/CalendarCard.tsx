@@ -1,23 +1,14 @@
 import React from 'react';
-import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { Card } from '@material-ui/core';
 import CalendarCells from './components/CalendarCells';
 import { addMonths, format, subMonths } from 'date-fns';
 import CalendarHeader from './components/CalendarHeader';
 import CalendarControls from './components/CalendarControls';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { State } from '../../../../configs/redux/store';
 import { WorkoutVO } from '../../../../configs/models/WorkoutVO';
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {},
-  })
-);
-
-const CalendarCard = (props: CalendarCardProps): JSX.Element => {
-  const classes = useStyles();
+const CalendarCard = (): JSX.Element => {
   const dateFormat = 'MMMM yyyy';
   const today = new Date();
   const [currentMonth, setCurrentMonth] = React.useState(today);
@@ -62,7 +53,7 @@ const mapStateToProps = (state: State): CalendarCardProps => {
   } as unknown as CalendarCardProps;
 };
 
-const mapDispatchToProps = (dispatch: Dispatch): CalendarCardProps =>
+const mapDispatchToProps = (): CalendarCardProps =>
   ({} as unknown as CalendarCardProps);
 
 export default connect(mapStateToProps, mapDispatchToProps)(CalendarCard);

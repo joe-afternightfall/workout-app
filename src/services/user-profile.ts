@@ -12,6 +12,7 @@ import { UserProfileVO } from '../configs/models/UserProfileVO';
 import { USER_PROFILES_ROUTE } from '../configs/constants/firebase-routes';
 import { UserProfileDAO } from '../configs/models/UserProfileDAO';
 import { ProfileDialogState } from '../components/top-level-components/profile-screen/ProfileDialog';
+import { userProfileSnapToVO } from '../utils/vo-builder';
 
 export const createNewUserProfile = async (
   profile: ProfileDialogState
@@ -105,7 +106,7 @@ export const getUserProfile =
       .once('value')
       .then((snapshot) => {
         if (snapshot.val()) {
-          const userProfile = buildVO(snapshot.val());
+          const userProfile = userProfileSnapToVO(snapshot.val());
           dispatch(loadUserInfo(userProfile[0]));
           return;
         } else {
@@ -115,19 +116,3 @@ export const getUserProfile =
         }
       });
   };
-
-function buildVO(userProfile: any): UserProfileVO[] {
-  return Object.keys(userProfile).map((key: string) => {
-    return {
-      firebaseId: key,
-      id: userProfile[key].id,
-      email: userProfile[key].email,
-      profileIcon: userProfile[key].profileIcon,
-      displayName: userProfile[key].displayName,
-      height: userProfile[key].height,
-      weights: userProfile[key].weights,
-      dateOfBirth: userProfile[key].dateOfBirth,
-      lastUpdatedOn: userProfile[key].lastUpdatedOn,
-    };
-  });
-}

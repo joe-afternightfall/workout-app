@@ -1,7 +1,9 @@
 import firebase from 'firebase';
 import { v4 as uuidv4 } from 'uuid';
+import { circuitTypeSnapToVO } from '../../utils/vo-builder';
 import { CIRCUIT_TYPES_ROUTE } from '../../configs/constants/firebase-routes';
 import { CircuitTypeDAO } from '../../configs/models/workout-configurations/circuit-type/CircuitTypeDAO';
+import { CircuitTypeVO } from '../../configs/models/workout-configurations/circuit-type/CircuitTypeVO';
 
 export const createNewCircuitType = async (name: string): Promise<void> => {
   const ref = firebase.database().ref(CIRCUIT_TYPES_ROUTE);
@@ -18,13 +20,17 @@ export const createNewCircuitType = async (name: string): Promise<void> => {
   });
 };
 
-export const getAllCircuitTypes = async (): Promise<CircuitTypeDAO> => {
+export const getAllCircuitTypes = async (): Promise<CircuitTypeVO[]> => {
   return await firebase
     .database()
     .ref(CIRCUIT_TYPES_ROUTE)
     .once('value')
     .then((snapshot) => {
-      return snapshot.val();
+      if (snapshot.val()) {
+        return circuitTypeSnapToVO(snapshot.val());
+      } else {
+        return [];
+      }
     });
 };
 

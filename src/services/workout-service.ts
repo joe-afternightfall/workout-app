@@ -1,15 +1,15 @@
-import { State } from '../configs/redux/store';
-import { AnyAction, Dispatch } from 'redux';
-import { ThunkAction } from 'redux-thunk';
 import firebase from 'firebase';
-import { WORKOUTS_ROUTE } from '../configs/constants/firebase-routes';
-import { WorkoutDAO } from '../configs/models/WorkoutDAO';
 import { v4 as uuidv4 } from 'uuid';
-import { clearWorkoutScreen } from '../creators/workout';
+import { ThunkAction } from 'redux-thunk';
+import { AnyAction, Dispatch } from 'redux';
+import { State } from '../configs/redux/store';
 import { routerActions } from 'react-router-redux';
-import { DASHBOARD_SCREEN_PATH } from '../configs/constants/app';
-import { WorkoutVO } from '../configs/models/WorkoutVO';
+import { workoutsSnapToVO } from '../utils/vo-builder';
+import { clearWorkoutScreen } from '../creators/workout';
+import { WorkoutDAO } from '../configs/models/WorkoutDAO';
 import { loadUsersWorkouts } from '../creators/user-info';
+import { DASHBOARD_SCREEN_PATH } from '../configs/constants/app';
+import { WORKOUTS_ROUTE } from '../configs/constants/firebase-routes';
 
 export const saveWorkout =
   (): ThunkAction<void, State, void, AnyAction> =>
@@ -44,7 +44,7 @@ export const saveWorkout =
 export const getWorkoutsForUser =
   (email: string): ThunkAction<void, State, void, AnyAction> =>
   async (dispatch: Dispatch): Promise<void> => {
-  // todo: change "username" to "email"
+    // todo: change "username" to "email"
     return await firebase
       .database()
       .ref(WORKOUTS_ROUTE)
@@ -53,25 +53,9 @@ export const getWorkoutsForUser =
       .once('value')
       .then((snapshot) => {
         if (snapshot.val()) {
-          dispatch(loadUsersWorkouts(buildVO(snapshot.val())));
+          dispatch(loadUsersWorkouts(workoutsSnapToVO(snapshot.val())));
         } else {
           dispatch(loadUsersWorkouts([]));
         }
       });
   };
-
-export interface WorkoutsSnapshot {
-  [key: string]: WorkoutDAO;
-}
-
-function buildVO(workouts: WorkoutsSnapshot): WorkoutVO[] {
-  return Object.keys(workouts).map((key: string) => {
-    return {
-      firebaseId: key,
-      id: workouts[key].id,
-      username: workouts[key].username,
-      circuits: workouts[key].circuits,
-      workoutDate: workouts[key].workoutDate,
-    };
-  });
-}

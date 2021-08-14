@@ -18,7 +18,7 @@ const useStyles = makeStyles(() =>
   })
 );
 
-export default function Dot(props: DotProps): JSX.Element {
+export default function Dot(): JSX.Element {
   const classes = useStyles();
 
   return (

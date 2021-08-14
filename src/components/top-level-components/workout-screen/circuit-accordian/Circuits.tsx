@@ -35,7 +35,8 @@ import { ExerciseTypeVO } from '../../../../configs/models/workout-configuration
 
 const Circuits = (props: CircuitProps): JSX.Element => {
   const handleChange =
-    (panel: string) => (event: React.ChangeEvent<any>, isExpanded: boolean) => {
+    (panel: string) =>
+    (e: React.ChangeEvent<Record<string, never>>, isExpanded: boolean) => {
       props.toggleAccordionHandler(isExpanded ? panel : '');
     };
 

@@ -4,20 +4,7 @@ import { loadCircuitTypes } from '../../creators/workout-configurations';
 import { CircuitTypeVO } from '../../configs/models/workout-configurations/circuit-type/CircuitTypeVO';
 
 export const updateCircuitTypes = async (store: Store): Promise<void> => {
-  const circuits = await getAllCircuitTypes();
+  const circuits: CircuitTypeVO[] = await getAllCircuitTypes();
 
-  if (circuits) {
-    store.dispatch(loadCircuitTypes(buildVO(circuits)));
-  }
+  store.dispatch(loadCircuitTypes(circuits));
 };
-
-// todo: make strict typing for any
-function buildVO(circuits: any): CircuitTypeVO[] {
-  return Object.keys(circuits).map((key: string) => {
-    return {
-      firebaseId: key,
-      id: circuits[key].id,
-      name: circuits[key].name,
-    };
-  });
-}
