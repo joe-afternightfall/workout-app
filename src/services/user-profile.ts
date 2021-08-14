@@ -44,9 +44,59 @@ export const createNewUserProfile = async (
   });
 };
 
+export interface UpdateUserProfileProps {
+  weightChange: boolean;
+  updatedUserProfile: ProfileDialogState;
+  originalUserProfile: UserProfileVO;
+}
+
+export const updateUserProfile = async (
+  props: UpdateUserProfileProps
+): Promise<void> => {
+  const originalUserProfile = props.originalUserProfile;
+  const updatedUserProfile = props.updatedUserProfile;
+  let weights = originalUserProfile.weights;
+
+  if (props.weightChange) {
+    weights = [
+      ...weights,
+      {
+        id: uuidv4(),
+        weight: updatedUserProfile.weight,
+        lastUpdatedOn: new Date().toISOString(),
+      },
+    ];
+  }
+
+  return await firebase
+    .database()
+    .ref(USER_PROFILES_ROUTE)
+    .child(originalUserProfile.firebaseId)
+    .update(
+      {
+        profileIcon: updatedUserProfile.icon,
+        displayName: updatedUserProfile.displayName,
+        height: {
+          feet: updatedUserProfile.height.feet,
+          inches: updatedUserProfile.height.inches,
+        },
+        dateOfBirth: updatedUserProfile.dateOfBirth,
+        lastUpdatedOn: new Date().toISOString(),
+        weights: weights,
+      },
+      (error: Error | null) => {
+        if (error) {
+          return Promise.reject();
+        } else {
+          return Promise.resolve();
+        }
+      }
+    );
+};
+
 export const getUserProfile =
   (email: string): ThunkAction<void, State, void, AnyAction> =>
-  async (dispatch: Dispatch, getState: () => State): Promise<void> => {
+  async (dispatch: Dispatch): Promise<void> => {
     return await firebase
       .database()
       .ref(USER_PROFILES_ROUTE)
@@ -54,21 +104,16 @@ export const getUserProfile =
       .equalTo(email)
       .once('value')
       .then((snapshot) => {
-        console.log('snapshot-value: ' + JSON.stringify(snapshot));
         if (snapshot.val()) {
           const userProfile = buildVO(snapshot.val());
           dispatch(loadUserInfo(userProfile[0]));
           return;
         } else {
-          console.log('INSIDE_NULL');
           dispatch(toggleUserProfileDialog(true));
           dispatch(setupNewUser(email));
           return;
         }
       });
-    // .catch((error: Error) => {
-    //   console.log('error: ' + JSON.stringify(error));
-    // });
   };
 
 function buildVO(userProfile: any): UserProfileVO[] {
