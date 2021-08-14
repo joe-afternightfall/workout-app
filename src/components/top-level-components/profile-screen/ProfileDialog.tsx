@@ -3,33 +3,36 @@ import {
   Button,
   Dialog,
   TextField,
+  Typography,
   DialogTitle,
   DialogContent,
   DialogActions,
 } from '@material-ui/core';
-import { AnyAction, Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import {
-  didNotDeleteSlash,
-  formatBirthday,
   isValidDate,
+  formatBirthday,
+  didNotDeleteSlash,
 } from '../../../utils/date-formatter';
-import React, { ChangeEvent } from 'react';
-import { State } from '../../../configs/redux/store';
-import Typography from '@material-ui/core/Typography';
-import NumbersTextField from '../../shared/NumbersTextField';
-import { findLatestWeight } from '../../../utils/find-latest';
 import {
   NUMBERS_ONLY_REGEX,
   DISPLAY_NAME_REGEX,
 } from '../../../configs/constants/app';
-import { UserProfileVO } from '../../../configs/models/UserProfileVO';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import {
-  createNewUserProfile,
   getUserProfile,
+  updateUserProfile,
+  createNewUserProfile,
+  UpdateUserProfileProps,
 } from '../../../services/user-profile';
+import React, { ChangeEvent } from 'react';
 import { ThunkDispatch } from 'redux-thunk';
+import { AnyAction, Dispatch } from 'redux';
+import { State } from '../../../configs/redux/store';
+import NumbersTextField from '../../shared/NumbersTextField';
+import { findLatestWeight } from '../../../utils/find-latest';
+import { UserProfileVO } from '../../../configs/models/UserProfileVO';
+import { toggleUserProfileDialog } from '../../../creators/user-info';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -55,7 +58,7 @@ const ProfileDialog = (props: ProfileDialogProps): JSX.Element => {
   const classes = useStyles();
   const [hasBlurred, setHasBlurred] = React.useState<boolean>(false);
   const { isNewUser, userProfile } = props;
-  let latestWeight;
+  let latestWeight: string;
 
   if (isNewUser) {
     latestWeight = '';
@@ -69,16 +72,34 @@ const ProfileDialog = (props: ProfileDialogProps): JSX.Element => {
   }
 
   const [localProfile, setLocalProfile] = React.useState<ProfileDialogState>({
-    email: props.userEmail,
+    email: '',
     icon: '',
-    displayName: isNewUser ? '' : userProfile.displayName,
-    dateOfBirth: isNewUser ? '' : userProfile.dateOfBirth,
-    weight: latestWeight,
+    displayName: '',
+    dateOfBirth: '',
+    weight: '',
     height: {
-      feet: isNewUser ? '' : userProfile.height.feet,
-      inches: isNewUser ? '' : userProfile.height.inches,
+      feet: '',
+      inches: '',
     },
   });
+
+  const loadProfileDialogState = () => {
+    setLocalProfile({
+      email: props.userEmail,
+      icon: '',
+      displayName: isNewUser ? '' : userProfile.displayName,
+      dateOfBirth: isNewUser ? '' : userProfile.dateOfBirth,
+      weight: latestWeight,
+      height: {
+        feet: isNewUser ? '' : userProfile.height.feet,
+        inches: isNewUser ? '' : userProfile.height.inches,
+      },
+    });
+  };
+
+  React.useEffect(() => loadProfileDialogState(), [userProfile]);
+
+  const cancelChanges = () => loadProfileDialogState();
 
   const handleDateChange = (e: ChangeEvent<HTMLInputElement>) => {
     const input = e.target.value;
@@ -127,6 +148,23 @@ const ProfileDialog = (props: ProfileDialogProps): JSX.Element => {
   };
 
   const invalidDate = !isValidDate(localProfile.dateOfBirth);
+  const weightChanged = localProfile.weight !== latestWeight;
+
+  const difference =
+    localProfile.dateOfBirth !== userProfile.dateOfBirth ||
+    localProfile.weight !== latestWeight ||
+    localProfile.displayName !== userProfile.displayName ||
+    localProfile.height.feet !== userProfile.height.feet ||
+    localProfile.height.inches !== userProfile.height.inches;
+
+  const isEmpty =
+    localProfile.dateOfBirth === '' ||
+    localProfile.weight === '' ||
+    localProfile.displayName === '' ||
+    localProfile.height.feet === '' ||
+    localProfile.height.inches === '';
+
+  const disableUpdate = !(difference && !isEmpty);
 
   return (
     <Dialog
@@ -232,8 +270,28 @@ const ProfileDialog = (props: ProfileDialogProps): JSX.Element => {
         </DialogActions>
       ) : (
         <DialogActions>
-          <Button>{'Cancel'}</Button>
-          <Button>{'Update'}</Button>
+          <Button
+            onClick={() => {
+              props.closeDialogHandler();
+              setTimeout(() => {
+                cancelChanges();
+              }, 500);
+            }}
+          >
+            {'Cancel'}
+          </Button>
+          <Button
+            disabled={disableUpdate}
+            onClick={() => {
+              props.updateClickHandler({
+                weightChange: weightChanged,
+                updatedUserProfile: localProfile,
+                originalUserProfile: userProfile,
+              });
+            }}
+          >
+            {'Update'}
+          </Button>
         </DialogActions>
       )}
     </Dialog>
@@ -247,6 +305,8 @@ export interface ProfileDialogProps {
   isNewUser: boolean;
   userProfile: UserProfileVO;
   saveNewUserClickHandler: (profile: ProfileDialogState) => void;
+  closeDialogHandler: () => void;
+  updateClickHandler: (props: UpdateUserProfileProps) => void;
 }
 
 const mapStateToProps = (state: State): ProfileDialogProps => {
@@ -265,6 +325,13 @@ const mapDispatchToProps = (dispatch: Dispatch): ProfileDialogProps =>
       (dispatch as ThunkDispatch<State, void, AnyAction>)(
         getUserProfile(profile.email)
       );
+    },
+    closeDialogHandler: () => {
+      dispatch(toggleUserProfileDialog(false));
+    },
+    updateClickHandler: async (props: UpdateUserProfileProps) => {
+      await updateUserProfile(props);
+      dispatch(toggleUserProfileDialog(false));
     },
   } as unknown as ProfileDialogProps);
 
