@@ -45,9 +45,8 @@ export default {
         break;
       case ActionTypes.LOAD_USER_INFO:
         newState.userProfile = action.userProfile;
-        if (newState.openUserProfileDialog) {
-          newState.openUserProfileDialog = false;
-        }
+        newState.setupNewUser = false;
+        newState.openUserProfileDialog = false;
         break;
       case ActionTypes.CLOSE_SIDE_DRAWER:
         newState.sideDrawerIsOpen = false;
