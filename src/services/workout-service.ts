@@ -5,9 +5,9 @@ import { AnyAction, Dispatch } from 'redux';
 import { State } from '../configs/redux/store';
 import { routerActions } from 'react-router-redux';
 import { workoutsSnapToVO } from '../utils/vo-builder';
+import { WorkoutVO } from '../configs/models/WorkoutVO';
 import { clearWorkoutScreen } from '../creators/workout';
 import { WorkoutDAO } from '../configs/models/WorkoutDAO';
-import { loadUsersWorkouts } from '../creators/user-info';
 import { DASHBOARD_SCREEN_PATH } from '../configs/constants/app';
 import { WORKOUTS_ROUTE } from '../configs/constants/firebase-routes';
 
@@ -41,20 +41,20 @@ export const saveWorkout =
     });
   };
 
-export const getWorkoutsForUser =
-  (email: string): ThunkAction<void, State, void, AnyAction> =>
-  async (dispatch: Dispatch): Promise<void> => {
-    return await firebase
-      .database()
-      .ref(WORKOUTS_ROUTE)
-      .orderByChild('email')
-      .equalTo(email)
-      .once('value')
-      .then((snapshot) => {
-        if (snapshot.val()) {
-          dispatch(loadUsersWorkouts(workoutsSnapToVO(snapshot.val())));
-        } else {
-          dispatch(loadUsersWorkouts([]));
-        }
-      });
-  };
+export const getWorkoutsForUser = async (
+  email: string
+): Promise<WorkoutVO[]> => {
+  return await firebase
+    .database()
+    .ref(WORKOUTS_ROUTE)
+    .orderByChild('email')
+    .equalTo(email)
+    .once('value')
+    .then((snapshot) => {
+      if (snapshot.val()) {
+        return workoutsSnapToVO(snapshot.val());
+      } else {
+        return [];
+      }
+    });
+};

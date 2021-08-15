@@ -98,6 +98,12 @@ export default function CalendarCells(props: CalendarCellsProps): JSX.Element {
           })}
           onClick={() => {
             props.dateClickHandler(parseISO(cloneDay.toISOString()));
+            props.userWorkouts &&
+              props.userWorkouts.map((workout: WorkoutVO) => {
+                if (isSameDay(cloneDay, new Date(workout.workoutDate))) {
+                  alert(JSON.stringify(workout));
+                }
+              });
           }}
         >
           <CornerNumber date={formattedDate} />
@@ -107,7 +113,7 @@ export default function CalendarCells(props: CalendarCellsProps): JSX.Element {
           />
           {props.userWorkouts &&
             props.userWorkouts.map((workout: WorkoutVO) => {
-              if (isSameDay(day, new Date(workout.workoutDate))) {
+              if (isSameDay(cloneDay, new Date(workout.workoutDate))) {
                 return <Dot />;
               }
             })}

@@ -28,8 +28,9 @@ export const updateExerciseTypes = async (store: Store): Promise<void> => {
 };
 
 export const updateUserWorkouts = async (store: Store): Promise<void> => {
-  const workouts = await getWorkoutsForUser(
-    store.getState().applicationState.userEmail
-  );
-  store.dispatch(loadUsersWorkouts(workouts));
+  const email = store.getState().applicationState.userEmail;
+  if (email) {
+    const workouts = await getWorkoutsForUser(email);
+    store.dispatch(loadUsersWorkouts(workouts));
+  }
 };

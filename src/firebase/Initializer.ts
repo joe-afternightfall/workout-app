@@ -4,10 +4,14 @@ import {
   CATEGORY_TYPES_ROUTE,
   EXERCISE_TYPES_ROUTE,
   CIRCUIT_TYPES_ROUTE,
+  WORKOUTS_ROUTE,
 } from '../configs/constants/firebase-routes';
-import { updateExerciseTypes } from './update-methods/exercise-types';
-import { updateCategoryTypes } from './update-methods/category-types';
-import { updateCircuitTypes } from './update-methods/circuit-types';
+import {
+  updateExerciseTypes,
+  updateCategoryTypes,
+  updateCircuitTypes,
+  updateUserWorkouts,
+} from './update-methods';
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
@@ -35,6 +39,7 @@ export class Initializer {
     const exerciseTypes = firebase.database().ref(EXERCISE_TYPES_ROUTE);
     const categoryTypes = firebase.database().ref(CATEGORY_TYPES_ROUTE);
     const circuitTypes = firebase.database().ref(CIRCUIT_TYPES_ROUTE);
+    const workouts = firebase.database().ref(WORKOUTS_ROUTE);
 
     exerciseTypes.on('child_added', async () => {
       await updateExerciseTypes(this.store);
@@ -70,6 +75,18 @@ export class Initializer {
 
     circuitTypes.on('child_removed', async () => {
       await updateCircuitTypes(this.store);
+    });
+
+    workouts.on('child_added', async () => {
+      await updateUserWorkouts(this.store);
+    });
+
+    workouts.on('child_changed', async () => {
+      await updateUserWorkouts(this.store);
+    });
+
+    workouts.on('child_removed', async () => {
+      await updateUserWorkouts(this.store);
     });
   }
 }
