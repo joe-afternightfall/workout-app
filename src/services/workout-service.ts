@@ -44,11 +44,10 @@ export const saveWorkout =
 export const getWorkoutsForUser =
   (email: string): ThunkAction<void, State, void, AnyAction> =>
   async (dispatch: Dispatch): Promise<void> => {
-    // todo: change "username" to "email"
     return await firebase
       .database()
       .ref(WORKOUTS_ROUTE)
-      .orderByChild('username')
+      .orderByChild('email')
       .equalTo(email)
       .once('value')
       .then((snapshot) => {

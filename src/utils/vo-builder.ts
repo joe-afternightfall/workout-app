@@ -67,7 +67,7 @@ export const workoutsSnapToVO = (snap: WorkoutsSnapshot): WorkoutVO[] => {
     return {
       firebaseId: key,
       id: snap[key].id,
-      username: snap[key].username,
+      email: snap[key].email,
       circuits: snap[key].circuits,
       workoutDate: snap[key].workoutDate,
     };

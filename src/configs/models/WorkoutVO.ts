@@ -7,11 +7,11 @@ export class WorkoutVO extends WorkoutDAO {
   constructor(
     firebaseId: string,
     id: string,
-    username: string,
+    email: string,
     circuits: WorkoutCircuitProps[],
     workoutDate: string
   ) {
-    super(id, username, circuits, workoutDate);
+    super(id, email, circuits, workoutDate);
     this.firebaseId = firebaseId;
   }
 }
