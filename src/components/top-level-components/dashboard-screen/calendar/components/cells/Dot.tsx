@@ -31,8 +31,6 @@ export default function Dot(): JSX.Element {
       className={classes.dots}
     >
       <Grid item className={classes.dot} />
-      <Grid item className={classes.dot} />
-      <Grid item className={classes.dot} />
     </Grid>
   );
 }

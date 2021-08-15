@@ -8,7 +8,7 @@ import CalendarControls from './components/CalendarControls';
 import { State } from '../../../../configs/redux/store';
 import { WorkoutVO } from '../../../../configs/models/WorkoutVO';
 
-const CalendarCard = (): JSX.Element => {
+const CalendarCard = (props: CalendarCardProps): JSX.Element => {
   const dateFormat = 'MMMM yyyy';
   const today = new Date();
   const [currentMonth, setCurrentMonth] = React.useState(today);
@@ -38,6 +38,7 @@ const CalendarCard = (): JSX.Element => {
         selectedDate={selectedDate}
         dateClickHandler={onDateClick}
         currentMonth={currentMonth}
+        userWorkouts={props.userWorkouts}
       />
     </Card>
   );

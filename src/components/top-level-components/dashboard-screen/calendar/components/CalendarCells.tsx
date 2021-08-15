@@ -16,6 +16,7 @@ import { Grid } from '@material-ui/core';
 import CornerNumber from './cells/CornerNumber';
 import BackgroundNumber from './cells/BackgroundNumber';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
+import { WorkoutVO } from '../../../../../configs/models/WorkoutVO';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -36,11 +37,11 @@ const useStyles = makeStyles(() =>
       flexBasis: 'calc(100% / 7)',
       width: 'calc(100% / 7)',
       '&:last-child': {
-        borderRight: 'none',
+        // borderRight: 'none',
       },
       '&:hover': {
         background: '#F9F9F9',
-        transition: '0.5s ease-out',
+        // transition: '0.5s ease-out',
       },
     },
     cell: {
@@ -50,10 +51,10 @@ const useStyles = makeStyles(() =>
       overflow: 'hidden',
       cursor: 'pointer',
       background: '#fff',
-      transition: '0.25s ease-out',
+      // transition: '0.25s ease-out',
       '&:hover': {
         background: '#F9F9F9',
-        transition: '0.5s ease-out',
+        // transition: '0.5s ease-out',
       },
     },
     disabled: {
@@ -61,9 +62,9 @@ const useStyles = makeStyles(() =>
       pointerEvents: 'none',
     },
     selected: {
-      borderLeft: '10px solid transparent',
-      borderImage: 'linear-gradient(45deg, #1a8fff 0%, #53cbf1 40%)',
-      borderImageSlice: 1,
+      border: '1px solid',
+      // borderImage: 'linear-gradient(45deg, #1a8fff 0%, #53cbf1 40%)',
+      // borderImageSlice: 1,
     },
   })
 );
@@ -104,7 +105,12 @@ export default function CalendarCells(props: CalendarCellsProps): JSX.Element {
             date={formattedDate}
             isSameDay={isSameDay(day, props.selectedDate)}
           />
-          <Dot />
+          {props.userWorkouts &&
+            props.userWorkouts.map((workout: WorkoutVO) => {
+              if (isSameDay(day, new Date(workout.workoutDate))) {
+                return <Dot />;
+              }
+            })}
         </div>
       );
       day = addDays(day, 1);
@@ -124,5 +130,6 @@ export default function CalendarCells(props: CalendarCellsProps): JSX.Element {
 export interface CalendarCellsProps {
   currentMonth: Date;
   selectedDate: Date;
+  userWorkouts: WorkoutVO[];
   dateClickHandler: (day: Date) => void;
 }
