@@ -50,6 +50,13 @@ export const createStore = (history: History): Store => {
         lastUpdatedOn: '',
       },
       setupNewUser: false,
+      stopwatch: {
+        running: false,
+        currentTimeMs: 0,
+        currentTimeSec: 0,
+        currentTimeMin: 0,
+        watch: 0,
+      },
     } as unknown as ApplicationState,
   });
 };

@@ -1,4 +1,4 @@
-import { WorkoutDAO } from './WorkoutDAO';
+import { Timer, WorkoutDAO } from './WorkoutDAO';
 import { WorkoutCircuitProps } from '../../components/top-level-components/workout-screen/WorkoutScreen';
 
 export class WorkoutVO extends WorkoutDAO {
@@ -9,9 +9,10 @@ export class WorkoutVO extends WorkoutDAO {
     id: string,
     email: string,
     circuits: WorkoutCircuitProps[],
-    workoutDate: string
+    date: string,
+    time: Timer
   ) {
-    super(id, email, circuits, workoutDate);
+    super(id, email, circuits, date, time);
     this.firebaseId = firebaseId;
   }
 }

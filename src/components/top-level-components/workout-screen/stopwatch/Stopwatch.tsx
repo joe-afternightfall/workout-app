@@ -18,75 +18,62 @@ const styles: Styles<Theme, StyledComponentProps> = () => ({
 });
 
 class Stopwatch extends React.Component<StopwatchProps> {
-  state = {
-    running: false,
-    currentTimeMs: 0,
-    currentTimeSec: 0,
-    currentTimeMin: 0,
-    watch: 0,
-  };
-
   start = (): void => {
-    if (!this.state.running) {
-      this.setState({
-        running: true,
-        watch: setInterval(() => this.pace(), 10),
-      });
+    if (!this.props.stopwatchState.running) {
+      this.props.startHandler(setInterval(() => this.pace(), 10));
     }
   };
 
   stop = (): void => {
-    this.setState({ running: false });
-    if (this.state.watch !== null) {
-      clearInterval(this.state.watch);
-    }
+    this.props.stopHandler();
   };
 
   pace = (): void => {
-    this.setState({ currentTimeMs: this.state.currentTimeMs + 10 });
-    if (this.state.currentTimeMs >= 1000) {
-      this.setState({
-        currentTimeSec: this.state.currentTimeSec + 1,
+    this.props.updateHandler({
+      ...this.props.stopwatchState,
+      currentTimeMs: this.props.stopwatchState.currentTimeMs + 10,
+    });
+    if (this.props.stopwatchState.currentTimeMs >= 1000) {
+      this.props.updateHandler({
+        ...this.props.stopwatchState,
+        currentTimeSec: this.props.stopwatchState.currentTimeSec + 1,
         currentTimeMs: 0,
       });
     }
-    if (this.state.currentTimeSec >= 60) {
-      this.setState({
-        currentTimeMin: this.state.currentTimeMin + 1,
+    if (this.props.stopwatchState.currentTimeSec >= 60) {
+      this.props.updateHandler({
+        ...this.props.stopwatchState,
+        currentTimeMin: this.props.stopwatchState.currentTimeMin + 1,
         currentTimeSec: 0,
       });
     }
   };
 
-  reset = (): void => {
-    this.setState({
-      currentTimeMs: 0,
-      currentTimeSec: 0,
-      currentTimeMin: 0,
-    });
-  };
-
   render(): JSX.Element {
-    const { classes } = this.props;
+    const { classes, stopwatchState } = this.props;
 
     return (
       <Grid style={{ textAlign: 'right' }} container alignItems={'center'}>
         <Grid item xs={4}>
           <StopwatchDisplay
-            minutes={this.state.currentTimeMin}
-            seconds={this.state.currentTimeSec}
+            variant={'h6'}
+            displayText={false}
+            minutes={stopwatchState.currentTimeMin}
+            seconds={stopwatchState.currentTimeSec}
           />
         </Grid>
 
         <Grid item xs={4}>
           <Button
             variant={'contained'}
-            color={this.state.running ? 'secondary' : 'primary'}
+            color={stopwatchState.running ? 'secondary' : 'primary'}
             className={classes.button}
-            startIcon={this.state.running ? <PauseIcon /> : <PlayArrowIcon />}
-            onClick={this.state.running ? this.stop : this.start}
+            startIcon={
+              stopwatchState.running ? <PauseIcon /> : <PlayArrowIcon />
+            }
+            onClick={stopwatchState.running ? this.stop : this.start}
           >
-            {this.state.running ? 'Pause' : 'Start'}
+            {stopwatchState.running ? 'Pause' : 'Start'}
           </Button>
         </Grid>
 
@@ -94,7 +81,7 @@ class Stopwatch extends React.Component<StopwatchProps> {
           <Button
             className={classes.button}
             variant={'contained'}
-            onClick={this.reset}
+            onClick={this.props.resetHandler}
           >
             {'Reset'}
           </Button>
@@ -104,6 +91,20 @@ class Stopwatch extends React.Component<StopwatchProps> {
   }
 }
 
-export type StopwatchProps = WithStyles<typeof styles>;
+export interface StopwatchState {
+  running: boolean;
+  currentTimeMs: number;
+  currentTimeSec: number;
+  currentTimeMin: number;
+  watch: ReturnType<typeof setTimeout> | void;
+}
+
+export interface StopwatchProps extends WithStyles<typeof styles> {
+  stopwatchState: StopwatchState;
+  startHandler: (watch: ReturnType<typeof setTimeout>) => void;
+  stopHandler: () => void;
+  resetHandler: () => void;
+  updateHandler: (state: StopwatchState) => void;
+}
 
 export default withStyles(styles, { withTheme: true })(Stopwatch);

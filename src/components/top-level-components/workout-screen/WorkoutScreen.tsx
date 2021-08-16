@@ -7,9 +7,9 @@ import {
 import React, { Component } from 'react';
 import DateInfo from './date-info/DateInfo';
 import { Styles } from '@material-ui/styles';
-import Stopwatch from './stopwatch/Stopwatch';
 import Circuits from './circuit-accordian/Circuits';
 import { Grid, Typography } from '@material-ui/core';
+import Stopwatch from './stopwatch/StopwatchConnector';
 import AddCircuitDialog from './circuit-accordian/dialogs/AddCircuitDialog';
 import WorkoutDoneDialog from './circuit-accordian/dialogs/WorkoutDoneDialog';
 

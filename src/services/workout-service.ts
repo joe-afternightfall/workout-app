@@ -10,15 +10,22 @@ import { clearWorkoutScreen } from '../creators/workout';
 import { WorkoutDAO } from '../configs/models/WorkoutDAO';
 import { DASHBOARD_SCREEN_PATH } from '../configs/constants/app';
 import { WORKOUTS_ROUTE } from '../configs/constants/firebase-routes';
+import { stopStopwatch } from '../creators/stopwatch';
 
 export const saveWorkout =
   (): ThunkAction<void, State, void, AnyAction> =>
   async (dispatch: Dispatch, getState: () => State): Promise<void> => {
+    if (getState().applicationState.stopwatch.running) {
+      dispatch(stopStopwatch());
+    }
     const username = getState().applicationState.userEmail;
     const circuits = getState().applicationState.workout.circuits;
     const workoutDate = getState().applicationState.workout.date;
-    // todo: add workoutTime to redux and rip out of component
-    // const workoutTime = getState().applicationState.workoutTime;
+    const workoutTime = {
+      currentTimeMs: getState().applicationState.stopwatch.currentTimeMs,
+      currentTimeSec: getState().applicationState.stopwatch.currentTimeSec,
+      currentTimeMin: getState().applicationState.stopwatch.currentTimeMin,
+    };
 
     const ref = firebase.database().ref(WORKOUTS_ROUTE);
     const newRef = ref.push();
@@ -27,7 +34,8 @@ export const saveWorkout =
       uuidv4(),
       username,
       circuits,
-      workoutDate.toLocaleDateString()
+      workoutDate.toLocaleDateString(),
+      workoutTime
     );
 
     return await newRef.set(workoutDAO, (error: Error | null) => {

@@ -51,8 +51,8 @@ reportWebVitals();
 // todo: display loader while waiting for user profile to not show dashboard
 // todo: don't allow work out date after today to be selected
 // todo: debug why new exercise dialog is broken for iPad
-// todo: add workoutTime to redux and rip out of component
 // todo: allow user to make there own "daily checklist"
 // todo: add application to log rocket
 // todo: look into how to wrap this up into an app
 // todo: work with mike on mocks for all breakpoints:  mobile/tablets/monitor
+// todo: create "on-hover" tooltips for side drawer when showing icons

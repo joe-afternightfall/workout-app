@@ -87,7 +87,7 @@ export default function CalendarCells(props: CalendarCellsProps): JSX.Element {
             props.dateClickHandler(parseISO(cloneDay.toISOString()));
             props.userWorkouts &&
               props.userWorkouts.map((workout: WorkoutVO) => {
-                if (isSameDay(cloneDay, new Date(workout.workoutDate))) {
+                if (isSameDay(cloneDay, new Date(workout.date))) {
                   props.openDialogHandler(workout);
                 }
               });
@@ -100,7 +100,7 @@ export default function CalendarCells(props: CalendarCellsProps): JSX.Element {
           />
           {props.userWorkouts &&
             props.userWorkouts.map((workout: WorkoutVO) => {
-              if (isSameDay(cloneDay, new Date(workout.workoutDate))) {
+              if (isSameDay(cloneDay, new Date(workout.date))) {
                 return <Tag workout={workout} />;
               }
             })}

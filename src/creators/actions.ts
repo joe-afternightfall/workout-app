@@ -34,6 +34,12 @@ import {
   UserClickedCloseDrawerAction,
   UserClickedOpenDrawerAction,
 } from './side-drawer';
+import {
+  ResetStopwatchAction,
+  StartStopwatchAction,
+  StopStopwatchAction,
+  UpdateStopwatchAction,
+} from './stopwatch';
 
 export enum ActionTypes {
   // Application Actions
@@ -63,6 +69,12 @@ export enum ActionTypes {
   VALIDATED_USER = 'VALIDATED_USER',
   SETUP_NEW_USER = 'SETUP_NEW_USER',
   LOAD_USER_WORKOUTS = 'LOAD_USER_WORKOUTS',
+
+  // Stopwatch
+  RESET_STOPWATCH = 'RESET_STOPWATCH',
+  START_STOPWATCH = 'START_STOPWATCH',
+  STOP_STOPWATCH = 'STOP_STOPWATCH',
+  UPDATE_STOPWATCH = 'UPDATE_STOPWATCH',
 
   // Side drawer actions
   CLOSE_SIDE_DRAWER = 'CLOSE_SIDE_DRAWER',
@@ -100,4 +112,8 @@ export type ApplicationActions =
   | LoadUserInfoAction
   | ValidatedUserAction
   | SetupNewUserAction
-  | LoadUsersWorkoutsAction;
+  | LoadUsersWorkoutsAction
+  | StopStopwatchAction
+  | StartStopwatchAction
+  | ResetStopwatchAction
+  | UpdateStopwatchAction;
