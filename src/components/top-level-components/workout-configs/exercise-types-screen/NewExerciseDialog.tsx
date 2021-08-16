@@ -39,11 +39,11 @@ export default function NewExerciseDialog(
   const [selectedCategoryId, setSelectedCategoryId] =
     React.useState<string>('');
   const [textField, setTextField] = React.useState<string>('');
-  const [checked, setChecked] = React.useState<string>('');
+  // const [checked, setChecked] = React.useState<string>('');
 
-  const checkboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    event.target.checked ? setChecked(event.target.name) : setChecked('');
-  };
+  // const checkboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   event.target.checked ? setChecked(event.target.name) : setChecked('');
+  // };
 
   const selectMenuChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     setSelectedCategoryId(event.target.value as string);
