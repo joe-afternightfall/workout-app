@@ -69,7 +69,8 @@ export const workoutsSnapToVO = (snap: WorkoutsSnapshot): WorkoutVO[] => {
       id: snap[key].id,
       email: snap[key].email,
       circuits: snap[key].circuits,
-      workoutDate: snap[key].workoutDate,
+      date: snap[key].date,
+      time: snap[key].time,
     };
   });
 };
