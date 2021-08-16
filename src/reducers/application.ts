@@ -13,6 +13,7 @@ import { ExerciseTypeVO } from '../configs/models/workout-configurations/exercis
 import { CategoryTypeVO } from '../configs/models/workout-configurations/category-type/CategoryTypeVO';
 import { UserProfileVO } from '../configs/models/UserProfileVO';
 import { WorkoutVO } from '../configs/models/WorkoutVO';
+import { StopwatchState } from '../components/top-level-components/workout-screen/stopwatch/Stopwatch';
 
 function findCircuit(
   state: ApplicationState,
@@ -386,6 +387,27 @@ export default {
           }
         }
         break;
+      case ActionTypes.STOP_STOPWATCH:
+        newState.stopwatch.running = false;
+        if (newState.stopwatch.watch) {
+          newState.stopwatch.watch = clearInterval(newState.stopwatch.watch);
+        }
+        break;
+      case ActionTypes.START_STOPWATCH:
+        newState.stopwatch.running = true;
+        newState.stopwatch.watch = action.watch;
+        break;
+      case ActionTypes.RESET_STOPWATCH:
+        newState.stopwatch = {
+          ...newState.stopwatch,
+          currentTimeMs: 0,
+          currentTimeSec: 0,
+          currentTimeMin: 0,
+        };
+        break;
+      case ActionTypes.UPDATE_STOPWATCH:
+        newState.stopwatch = action.stopwatchState;
+        break;
       default:
         newState = state;
     }
@@ -418,4 +440,5 @@ export interface ApplicationState {
     time: string;
     circuits: WorkoutCircuitProps[];
   };
+  stopwatch: StopwatchState;
 }
