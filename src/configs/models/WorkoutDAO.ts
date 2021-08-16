@@ -1,21 +1,29 @@
 import { WorkoutCircuitProps } from '../../components/top-level-components/workout-screen/WorkoutScreen';
 
+export interface Timer {
+  currentTimeMs: number;
+  currentTimeSec: number;
+  currentTimeMin: number;
+}
+
 export class WorkoutDAO {
   id: string;
   email: string;
   circuits: WorkoutCircuitProps[];
-  // todo: rename "workoutDate" to "date"
-  workoutDate: string;
+  date: string;
+  time: Timer;
 
   constructor(
     id: string,
     email: string,
     circuits: WorkoutCircuitProps[],
-    workoutDate: string
+    date: string,
+    time: Timer
   ) {
     this.id = id;
     this.email = email;
     this.circuits = circuits;
-    this.workoutDate = workoutDate;
+    this.date = date;
+    this.time = time;
   }
 }
