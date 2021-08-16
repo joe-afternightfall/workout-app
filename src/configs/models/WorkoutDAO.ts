@@ -4,6 +4,7 @@ export class WorkoutDAO {
   id: string;
   email: string;
   circuits: WorkoutCircuitProps[];
+  // todo: rename "workoutDate" to "date"
   workoutDate: string;
 
   constructor(

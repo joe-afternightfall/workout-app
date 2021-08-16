@@ -32,7 +32,8 @@ reportWebVitals();
 
 // todo: dispatch action if user enters in bad credentials and show error text
 // todo: add workout timer to redux store.  on stop/pause/stop
-// todo: create <AppDialog /> component
+// todo: create <AppDialog /> components
+// todo: app dialog components:  <AppDialogTitle /> <AppDialogActions />
 // todo: ******* create <AppSnackbar /> component
 // todo: ******* allow for workout to be edited
 // todo: ******* add a daily counter for days in a row working out
@@ -50,3 +51,8 @@ reportWebVitals();
 // todo: display loader while waiting for user profile to not show dashboard
 // todo: don't allow work out date after today to be selected
 // todo: debug why new exercise dialog is broken for iPad
+// todo: add workoutTime to redux and rip out of component
+// todo: allow user to make there own "daily checklist"
+// todo: add application to log rocket
+// todo: look into how to wrap this up into an app
+// todo: work with mike on mocks for all breakpoints:  mobile/tablets/monitor

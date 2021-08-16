@@ -32,29 +32,18 @@ const useStyles = makeStyles(() =>
         borderBottom: 'none',
       },
     },
-    col: {
+    cell: {
       flexGrow: 0,
       flexBasis: 'calc(100% / 7)',
       width: 'calc(100% / 7)',
-      '&:last-child': {
-        // borderRight: 'none',
-      },
-      '&:hover': {
-        background: '#F9F9F9',
-        // transition: '0.5s ease-out',
-      },
-    },
-    cell: {
       position: 'relative',
       height: '5em',
       borderRight: '1px solid #eee',
       overflow: 'hidden',
       cursor: 'pointer',
       background: '#fff',
-      // transition: '0.25s ease-out',
       '&:hover': {
         background: '#F9F9F9',
-        // transition: '0.5s ease-out',
       },
     },
     disabled: {
@@ -63,8 +52,6 @@ const useStyles = makeStyles(() =>
     },
     selected: {
       border: '1px solid',
-      // borderImage: 'linear-gradient(45deg, #1a8fff 0%, #53cbf1 40%)',
-      // borderImageSlice: 1,
     },
   })
 );
@@ -92,7 +79,7 @@ export default function CalendarCells(props: CalendarCellsProps): JSX.Element {
       days.push(
         <div
           key={i}
-          className={clsx(classes.col, classes.cell, {
+          className={clsx(classes.cell, {
             [classes.disabled]: !isSameMonth(day, monthStart),
             [classes.selected]: isSameDay(day, props.selectedDate),
           })}
@@ -101,7 +88,7 @@ export default function CalendarCells(props: CalendarCellsProps): JSX.Element {
             props.userWorkouts &&
               props.userWorkouts.map((workout: WorkoutVO) => {
                 if (isSameDay(cloneDay, new Date(workout.workoutDate))) {
-                  alert(JSON.stringify(workout));
+                  props.openDialogHandler(workout);
                 }
               });
           }}
@@ -138,4 +125,5 @@ export interface CalendarCellsProps {
   selectedDate: Date;
   userWorkouts: WorkoutVO[];
   dateClickHandler: (day: Date) => void;
+  openDialogHandler: (workout: WorkoutVO) => void;
 }

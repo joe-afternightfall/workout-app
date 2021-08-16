@@ -3,9 +3,10 @@ import { connect } from 'react-redux';
 import { Card } from '@material-ui/core';
 import CalendarCells from './components/CalendarCells';
 import { addMonths, format, subMonths } from 'date-fns';
+import { State } from '../../../../configs/redux/store';
 import CalendarHeader from './components/CalendarHeader';
 import CalendarControls from './components/CalendarControls';
-import { State } from '../../../../configs/redux/store';
+import PastWorkoutDialog from './components/PastWorkoutDialog';
 import { WorkoutVO } from '../../../../configs/models/WorkoutVO';
 
 const CalendarCard = (props: CalendarCardProps): JSX.Element => {
@@ -13,6 +14,17 @@ const CalendarCard = (props: CalendarCardProps): JSX.Element => {
   const today = new Date();
   const [currentMonth, setCurrentMonth] = React.useState(today);
   const [selectedDate, setSelectedDate] = React.useState(today);
+  const [open, setOpenDialog] = React.useState(false);
+  const [workout, setWorkout] = React.useState<WorkoutVO>();
+
+  const openDialog = (workout: WorkoutVO): void => {
+    setWorkout(workout);
+    setOpenDialog(true);
+  };
+
+  const closeDialog = (): void => {
+    setOpenDialog(false);
+  };
 
   const onDateClick = (day: Date): void => {
     setSelectedDate(day);
@@ -28,6 +40,11 @@ const CalendarCard = (props: CalendarCardProps): JSX.Element => {
 
   return (
     <Card>
+      <PastWorkoutDialog
+        closeClickHandler={closeDialog}
+        open={open}
+        workout={workout}
+      />
       <CalendarControls
         currentMonth={format(currentMonth, dateFormat)}
         prevMonthClickHandler={prevMonth}
@@ -39,6 +56,7 @@ const CalendarCard = (props: CalendarCardProps): JSX.Element => {
         dateClickHandler={onDateClick}
         currentMonth={currentMonth}
         userWorkouts={props.userWorkouts}
+        openDialogHandler={openDialog}
       />
     </Card>
   );
