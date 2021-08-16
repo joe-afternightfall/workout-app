@@ -19,7 +19,3 @@ export default function Dot(): JSX.Element {
 
   return <Grid item className={classes.dot} />;
 }
-
-export interface DotProps {
-  DELETE_ME?: undefined;
-}
