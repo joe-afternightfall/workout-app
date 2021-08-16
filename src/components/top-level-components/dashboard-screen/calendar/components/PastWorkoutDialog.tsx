@@ -59,7 +59,7 @@ export default function PastWorkoutDialog(
           <Grid item>
             <Typography variant={'h6'}>
               {props.workout &&
-                format(new Date(props.workout.workoutDate), 'eee MMM do')}
+                format(new Date(props.workout.date), 'eee MMM do')}
             </Typography>
           </Grid>
         </Grid>
