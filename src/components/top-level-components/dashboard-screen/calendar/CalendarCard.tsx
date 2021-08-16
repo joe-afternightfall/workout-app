@@ -8,6 +8,7 @@ import CalendarHeader from './components/CalendarHeader';
 import CalendarControls from './components/CalendarControls';
 import PastWorkoutDialog from './components/PastWorkoutDialog';
 import { WorkoutVO } from '../../../../configs/models/WorkoutVO';
+import { ExerciseTypeVO } from '../../../../configs/models/workout-configurations/exercise-type/ExerciseTypeVO';
 
 const CalendarCard = (props: CalendarCardProps): JSX.Element => {
   const dateFormat = 'MMMM yyyy';
@@ -44,6 +45,7 @@ const CalendarCard = (props: CalendarCardProps): JSX.Element => {
         closeClickHandler={closeDialog}
         open={open}
         workout={workout}
+        exerciseTypes={props.exerciseTypes}
       />
       <CalendarControls
         currentMonth={format(currentMonth, dateFormat)}
@@ -64,11 +66,13 @@ const CalendarCard = (props: CalendarCardProps): JSX.Element => {
 
 export interface CalendarCardProps {
   userWorkouts: WorkoutVO[];
+  exerciseTypes: ExerciseTypeVO[];
 }
 
 const mapStateToProps = (state: State): CalendarCardProps => {
   return {
     userWorkouts: state.applicationState.userWorkouts,
+    exerciseTypes: state.applicationState.workoutConfigurations.exerciseTypes,
   } as unknown as CalendarCardProps;
 };
 
