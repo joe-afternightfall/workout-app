@@ -91,9 +91,9 @@ export default function NewExerciseDialog(
             />
           </Grid>
 
-          <Grid item xs={12}>
-            <SetTypes checked={checked} clickHandler={checkboxChange} />
-          </Grid>
+          {/*<Grid item xs={12}>*/}
+          {/*  <SetTypes checked={checked} clickHandler={checkboxChange} />*/}
+          {/*</Grid>*/}
         </Grid>
       </DialogContent>
 
