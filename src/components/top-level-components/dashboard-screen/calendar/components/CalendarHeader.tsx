@@ -17,8 +17,9 @@ const useStyles = makeStyles(() =>
       fontWeight: 700,
       fontSize: '115%',
       padding: '4px 0',
-      borderTop: '1px solid #EEE',
       borderBottom: '1px solid #EEE',
+      background: '#21a168',
+      color: '#FFF',
     },
     icon: {
       cursor: 'pointer',
