@@ -27,6 +27,10 @@ const editField = (props: {
   );
 };
 
+interface CategoryTypesObject {
+  [key: string]: string;
+}
+
 const ExerciseTypesTable = (props: ExerciseTableProps): JSX.Element => {
   const [open, setOpen] = React.useState<boolean>(false);
 
@@ -57,7 +61,7 @@ const ExerciseTypesTable = (props: ExerciseTableProps): JSX.Element => {
   );
 
   const categoryTypes = props.categoryTypes.reduce(
-    (obj: any, category: CategoryTypeVO) => {
+    (obj: CategoryTypesObject, category: CategoryTypeVO) => {
       obj[category.id] = category.name;
       return obj;
     },

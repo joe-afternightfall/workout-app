@@ -1,5 +1,6 @@
 import { ActionTypes } from './actions';
 import { UserProfileVO } from '../configs/models/UserProfileVO';
+import { WorkoutVO } from '../configs/models/WorkoutVO';
 
 export interface ClearUserInfoAction {
   type: ActionTypes.CLEAR_USER_INFO;
@@ -75,5 +76,19 @@ export const setupNewUser = (email: string): SetupNewUserAction => {
   return {
     type: ActionTypes.SETUP_NEW_USER,
     email: email,
+  };
+};
+
+export interface LoadUsersWorkoutsAction {
+  type: ActionTypes.LOAD_USER_WORKOUTS;
+  workouts: WorkoutVO[];
+}
+
+export const loadUsersWorkouts = (
+  workouts: WorkoutVO[]
+): LoadUsersWorkoutsAction => {
+  return {
+    type: ActionTypes.LOAD_USER_WORKOUTS,
+    workouts: workouts,
   };
 };

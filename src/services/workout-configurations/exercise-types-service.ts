@@ -6,6 +6,7 @@ import {
   SetType,
 } from '../../configs/models/workout-configurations/exercise-type/ExerciseTypeDAO';
 import { ExerciseTypeVO } from '../../configs/models/workout-configurations/exercise-type/ExerciseTypeVO';
+import { exerciseTypeSnapToVO } from '../../utils/vo-builder';
 
 export const createNewExerciseType = async (
   name: string,
@@ -30,14 +31,17 @@ export const createNewExerciseType = async (
   });
 };
 
-// todo: how to create firebase return type and use in firebase init
-export const getAllExerciseTypes = async (): Promise<ExerciseTypeVO> => {
+export const getAllExerciseTypes = async (): Promise<ExerciseTypeVO[]> => {
   return await firebase
     .database()
     .ref(EXERCISE_TYPES_ROUTE)
     .once('value')
     .then((snapshot) => {
-      return snapshot.val();
+      if (snapshot.val()) {
+        return exerciseTypeSnapToVO(snapshot.val());
+      } else {
+        return [];
+      }
     });
 };
 

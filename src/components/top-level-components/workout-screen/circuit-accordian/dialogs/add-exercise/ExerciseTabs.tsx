@@ -48,7 +48,10 @@ const ExerciseTabs = (
 
   const [value, setValue] = React.useState(0);
 
-  const handleChange = (event: React.ChangeEvent<any>, newValue: number) => {
+  const handleChange = (
+    e: React.ChangeEvent<Record<string, never>>,
+    newValue: number
+  ) => {
     setValue(newValue);
   };
 

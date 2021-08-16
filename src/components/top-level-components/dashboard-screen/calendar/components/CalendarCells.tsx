@@ -11,11 +11,12 @@ import {
 } from 'date-fns';
 import clsx from 'clsx';
 import React from 'react';
-import Dot from './cells/Dot';
+import Tag from './cells/Tag';
 import { Grid } from '@material-ui/core';
 import CornerNumber from './cells/CornerNumber';
 import BackgroundNumber from './cells/BackgroundNumber';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
+import { WorkoutVO } from '../../../../../configs/models/WorkoutVO';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -31,29 +32,18 @@ const useStyles = makeStyles(() =>
         borderBottom: 'none',
       },
     },
-    col: {
+    cell: {
       flexGrow: 0,
       flexBasis: 'calc(100% / 7)',
       width: 'calc(100% / 7)',
-      '&:last-child': {
-        borderRight: 'none',
-      },
-      '&:hover': {
-        background: '#F9F9F9',
-        transition: '0.5s ease-out',
-      },
-    },
-    cell: {
       position: 'relative',
       height: '5em',
       borderRight: '1px solid #eee',
       overflow: 'hidden',
       cursor: 'pointer',
       background: '#fff',
-      transition: '0.25s ease-out',
       '&:hover': {
         background: '#F9F9F9',
-        transition: '0.5s ease-out',
       },
     },
     disabled: {
@@ -61,9 +51,7 @@ const useStyles = makeStyles(() =>
       pointerEvents: 'none',
     },
     selected: {
-      borderLeft: '10px solid transparent',
-      borderImage: 'linear-gradient(45deg, #1a8fff 0%, #53cbf1 40%)',
-      borderImageSlice: 1,
+      border: '1px solid',
     },
   })
 );
@@ -91,12 +79,18 @@ export default function CalendarCells(props: CalendarCellsProps): JSX.Element {
       days.push(
         <div
           key={i}
-          className={clsx(classes.col, classes.cell, {
+          className={clsx(classes.cell, {
             [classes.disabled]: !isSameMonth(day, monthStart),
             [classes.selected]: isSameDay(day, props.selectedDate),
           })}
           onClick={() => {
             props.dateClickHandler(parseISO(cloneDay.toISOString()));
+            props.userWorkouts &&
+              props.userWorkouts.map((workout: WorkoutVO) => {
+                if (isSameDay(cloneDay, new Date(workout.workoutDate))) {
+                  props.openDialogHandler(workout);
+                }
+              });
           }}
         >
           <CornerNumber date={formattedDate} />
@@ -104,7 +98,12 @@ export default function CalendarCells(props: CalendarCellsProps): JSX.Element {
             date={formattedDate}
             isSameDay={isSameDay(day, props.selectedDate)}
           />
-          <Dot />
+          {props.userWorkouts &&
+            props.userWorkouts.map((workout: WorkoutVO) => {
+              if (isSameDay(cloneDay, new Date(workout.workoutDate))) {
+                return <Tag workout={workout} />;
+              }
+            })}
         </div>
       );
       day = addDays(day, 1);
@@ -124,5 +123,7 @@ export default function CalendarCells(props: CalendarCellsProps): JSX.Element {
 export interface CalendarCellsProps {
   currentMonth: Date;
   selectedDate: Date;
+  userWorkouts: WorkoutVO[];
   dateClickHandler: (day: Date) => void;
+  openDialogHandler: (workout: WorkoutVO) => void;
 }

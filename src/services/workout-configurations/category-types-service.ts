@@ -1,7 +1,9 @@
 import firebase from 'firebase';
 import { v4 as uuidv4 } from 'uuid';
+import { categoryTypeSnapToVO } from '../../utils/vo-builder';
 import { CATEGORY_TYPES_ROUTE } from '../../configs/constants/firebase-routes';
 import { CategoryTypeDAO } from '../../configs/models/workout-configurations/category-type/CategoryTypeDAO';
+import { CategoryTypeVO } from '../../configs/models/workout-configurations/category-type/CategoryTypeVO';
 
 export const createNewCategoryType = async (name: string): Promise<void> => {
   const ref = firebase.database().ref(CATEGORY_TYPES_ROUTE);
@@ -18,13 +20,17 @@ export const createNewCategoryType = async (name: string): Promise<void> => {
   });
 };
 
-export const getAllCategoryTypes = async (): Promise<CategoryTypeDAO> => {
+export const getAllCategoryTypes = async (): Promise<CategoryTypeVO[]> => {
   return await firebase
     .database()
     .ref(CATEGORY_TYPES_ROUTE)
     .once('value')
     .then((snapshot) => {
-      return snapshot.val();
+      if (snapshot.val()) {
+        return categoryTypeSnapToVO(snapshot.val());
+      } else {
+        return [];
+      }
     });
 };
 

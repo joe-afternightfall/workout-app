@@ -6,8 +6,9 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 
 const useStyles = makeStyles(() =>
   createStyles({
-    centerAlign: {
-      textAlign: 'center',
+    root: {
+      color: '#FFF',
+      background: '#26b976',
     },
   })
 );
@@ -18,9 +19,10 @@ export default function CalendarControls(
   const classes = useStyles();
 
   return (
-    <Grid container alignItems={'center'}>
-      <Grid item xs={2} className={classes.centerAlign}>
+    <Grid className={classes.root} container alignItems={'center'}>
+      <Grid item xs={2} container justify={'center'}>
         <IconButton
+          style={{ color: '#FFF' }}
           onClick={() => {
             props.prevMonthClickHandler();
           }}
@@ -29,12 +31,13 @@ export default function CalendarControls(
         </IconButton>
       </Grid>
 
-      <Grid item xs={8} className={classes.centerAlign}>
+      <Grid item xs={8} container justify={'center'}>
         <Typography>{props.currentMonth}</Typography>
       </Grid>
 
-      <Grid item xs={2} className={classes.centerAlign}>
+      <Grid item xs={2} container justify={'center'}>
         <IconButton
+          style={{ color: '#FFF' }}
           onClick={() => {
             props.nextMonthClickHandler();
           }}

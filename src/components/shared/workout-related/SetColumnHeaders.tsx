@@ -1,8 +1,8 @@
 import React from 'react';
 import { Grid, Typography } from '@material-ui/core';
-import { SetType } from '../../../../../../configs/models/workout-configurations/exercise-type/ExerciseTypeDAO';
+import { SetType } from '../../../configs/models/workout-configurations/exercise-type/ExerciseTypeDAO';
 
-export default function SetTitle(props: SetTitleProps): JSX.Element {
+export default function SetColumnHeaders(props: SetTitleProps): JSX.Element {
   let displayComponent: JSX.Element;
 
   switch (props.setType) {
@@ -71,15 +71,20 @@ export default function SetTitle(props: SetTitleProps): JSX.Element {
 
       {displayComponent}
 
-      <Grid item xs={4} container justify={'center'} spacing={2}>
-        <Grid item>
-          <Typography>{'Action'}</Typography>
+      {props.displayAction ? (
+        <Grid item xs={4} container justify={'center'} spacing={2}>
+          <Grid item>
+            <Typography>{'Action'}</Typography>
+          </Grid>
         </Grid>
-      </Grid>
+      ) : (
+        <React.Fragment />
+      )}
     </Grid>
   );
 }
 
 export interface SetTitleProps {
   setType: SetType;
+  displayAction: boolean;
 }

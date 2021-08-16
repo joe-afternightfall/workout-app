@@ -10,7 +10,8 @@ import { DASHBOARD_SCREEN_PATH } from '../../../configs/constants/app';
 import { ThunkDispatch } from 'redux-thunk';
 import { State } from '../../../configs/redux/store';
 import { getUserProfile } from '../../../services/user-profile';
-import { validatedUser } from '../../../creators/user-info';
+import { loadUsersWorkouts, validatedUser } from '../../../creators/user-info';
+import { getWorkoutsForUser } from '../../../services/workout-service';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -79,12 +80,14 @@ export interface SignInScreenProps {
 
 const mapDispatchToProps = (dispatch: Dispatch): SignInScreenProps =>
   ({
-    logInHandler: (email: string) => {
+    logInHandler: async (email: string) => {
       dispatch(routerActions.push(DASHBOARD_SCREEN_PATH));
       dispatch(validatedUser(email));
       (dispatch as ThunkDispatch<State, void, AnyAction>)(
         getUserProfile(email)
       );
+      const workouts = await getWorkoutsForUser(email);
+      dispatch(loadUsersWorkouts(workouts));
     },
   } as unknown as SignInScreenProps);
 

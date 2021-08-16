@@ -1,13 +1,15 @@
-import { State } from '../configs/redux/store';
-import { AnyAction, Dispatch } from 'redux';
-import { ThunkAction } from 'redux-thunk';
 import firebase from 'firebase';
-import { WORKOUTS_ROUTE } from '../configs/constants/firebase-routes';
-import { WorkoutDAO } from '../configs/models/WorkoutDAO';
 import { v4 as uuidv4 } from 'uuid';
-import { clearWorkoutScreen } from '../creators/workout';
+import { ThunkAction } from 'redux-thunk';
+import { AnyAction, Dispatch } from 'redux';
+import { State } from '../configs/redux/store';
 import { routerActions } from 'react-router-redux';
+import { workoutsSnapToVO } from '../utils/vo-builder';
+import { WorkoutVO } from '../configs/models/WorkoutVO';
+import { clearWorkoutScreen } from '../creators/workout';
+import { WorkoutDAO } from '../configs/models/WorkoutDAO';
 import { DASHBOARD_SCREEN_PATH } from '../configs/constants/app';
+import { WORKOUTS_ROUTE } from '../configs/constants/firebase-routes';
 
 export const saveWorkout =
   (): ThunkAction<void, State, void, AnyAction> =>
@@ -38,3 +40,21 @@ export const saveWorkout =
       }
     });
   };
+
+export const getWorkoutsForUser = async (
+  email: string
+): Promise<WorkoutVO[]> => {
+  return await firebase
+    .database()
+    .ref(WORKOUTS_ROUTE)
+    .orderByChild('email')
+    .equalTo(email)
+    .once('value')
+    .then((snapshot) => {
+      if (snapshot.val()) {
+        return workoutsSnapToVO(snapshot.val());
+      } else {
+        return [];
+      }
+    });
+};
