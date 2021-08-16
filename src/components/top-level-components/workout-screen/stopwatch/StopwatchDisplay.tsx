@@ -18,22 +18,18 @@ export default function StopwatchDisplay(
     return value;
   };
 
-  return (
-    <div>
-      {props.displayText ? (
-        <Grid container>
-          <Grid item xs={12}>
-            <Typography variant={props.variant}>
-              {`Time: ${formatTime(minutes)} minutes`}
-            </Typography>
-          </Grid>
-        </Grid>
-      ) : (
+  return props.displayText ? (
+    <Grid container>
+      <Grid item xs={12}>
         <Typography variant={props.variant}>
-          {`${formatTime(minutes)}:${formatTime(seconds)}`}
+          {`Time: ${formatTime(minutes)} minutes`}
         </Typography>
-      )}
-    </div>
+      </Grid>
+    </Grid>
+  ) : (
+    <Typography variant={props.variant}>
+      {`${formatTime(minutes)}:${formatTime(seconds)}`}
+    </Typography>
   );
 }
 
