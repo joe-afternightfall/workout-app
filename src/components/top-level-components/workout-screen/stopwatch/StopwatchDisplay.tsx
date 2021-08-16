@@ -1,29 +1,37 @@
 import React from 'react';
-import { Typography } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
 
-class StopwatchDisplay extends React.Component<StopwatchDisplayProps> {
-  render(): JSX.Element {
-    const { minutes, seconds } = this.props;
+const useStyles = makeStyles(() =>
+  createStyles({
+    root: {},
+  })
+);
 
-    const formatTime = (val: number, option?: string): string => {
-      let value = val.toString();
-      if (value.length < 2) {
-        value = '0' + value;
-      }
-      if (option === 'ms' && value.length < 3) {
-        value = '0' + value;
-      }
-      return value;
-    };
+export default function StopwatchDisplay(
+  props: StopwatchDisplayProps
+): JSX.Element {
+  const classes = useStyles();
+  const { minutes, seconds } = props;
 
-    return (
-      <div>
-        <Typography variant={'h3'}>
-          {`${formatTime(minutes)}:${formatTime(seconds)}`}
-        </Typography>
-      </div>
-    );
-  }
+  const formatTime = (val: number, option?: string): string => {
+    let value = val.toString();
+    if (value.length < 2) {
+      value = '0' + value;
+    }
+    if (option === 'ms' && value.length < 3) {
+      value = '0' + value;
+    }
+    return value;
+  };
+
+  return (
+    <div>
+      <Typography variant={'h3'}>
+        {`${formatTime(minutes)}:${formatTime(seconds)}`}
+      </Typography>
+    </div>
+  );
 }
 
 export interface StopwatchDisplayProps {
@@ -31,6 +39,5 @@ export interface StopwatchDisplayProps {
   minutes: number;
   seconds: number;
   // currentTimeMs: number;
+  displayText: boolean;
 }
-
-export default StopwatchDisplay;
