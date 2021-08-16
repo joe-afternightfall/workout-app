@@ -1,6 +1,7 @@
 import React from 'react';
 import { Grid, Typography } from '@material-ui/core';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
+import { Variant as ThemeVariant } from '@material-ui/core/styles/createTypography';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -27,9 +28,19 @@ export default function StopwatchDisplay(
 
   return (
     <div>
-      <Typography variant={'h3'}>
-        {`${formatTime(minutes)}:${formatTime(seconds)}`}
-      </Typography>
+      {props.displayText ? (
+        <Grid container>
+          <Grid item xs={12}>
+            <Typography variant={props.variant}>
+              {`Time: ${formatTime(minutes)} minutes`}
+            </Typography>
+          </Grid>
+        </Grid>
+      ) : (
+        <Typography variant={props.variant}>
+          {`${formatTime(minutes)}:${formatTime(seconds)}`}
+        </Typography>
+      )}
     </div>
   );
 }
@@ -39,5 +50,6 @@ export interface StopwatchDisplayProps {
   minutes: number;
   seconds: number;
   // currentTimeMs: number;
+  variant: ThemeVariant;
   displayText: boolean;
 }

@@ -55,20 +55,26 @@ export default function PastWorkoutDialog(
       <DialogTitle disableTypography className={classes.dialogTitle}>
         {props.workout && (
           <Grid item xs={10} container alignItems={'center'} spacing={2}>
-            <Grid item>
+            <Grid item xs={1}>
               <EventIcon />
             </Grid>
-            <Grid item>
-              <Typography variant={'h6'}>
-                {format(new Date(props.workout.date), 'eee MMM do')}
-              </Typography>
-            </Grid>
-            <Grid item>
-              <StopwatchDisplay
-                displayText={true}
-                minutes={props.workout.time.currentTimeMin}
-                seconds={props.workout.time.currentTimeSec}
-              />
+            <Grid item xs={10} container>
+              <Grid item xs={12}>
+                <Typography variant={'h6'}>
+                  {`Date: ${format(
+                    new Date(props.workout.date),
+                    'eee MMM do'
+                  )}`}
+                </Typography>
+              </Grid>
+              <Grid item xs={12}>
+                <StopwatchDisplay
+                  displayText={true}
+                  variant={'h6'}
+                  minutes={props.workout.time.currentTimeMin}
+                  seconds={props.workout.time.currentTimeSec}
+                />
+              </Grid>
             </Grid>
           </Grid>
         )}

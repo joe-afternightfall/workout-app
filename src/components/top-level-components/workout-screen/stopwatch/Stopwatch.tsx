@@ -56,6 +56,7 @@ class Stopwatch extends React.Component<StopwatchProps> {
       <Grid style={{ textAlign: 'right' }} container alignItems={'center'}>
         <Grid item xs={4}>
           <StopwatchDisplay
+            variant={'h6'}
             displayText={false}
             minutes={stopwatchState.currentTimeMin}
             seconds={stopwatchState.currentTimeSec}
