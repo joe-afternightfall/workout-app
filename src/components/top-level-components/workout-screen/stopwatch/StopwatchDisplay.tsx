@@ -1,18 +1,10 @@
 import React from 'react';
 import { Grid, Typography } from '@material-ui/core';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { Variant as ThemeVariant } from '@material-ui/core/styles/createTypography';
-
-const useStyles = makeStyles(() =>
-  createStyles({
-    root: {},
-  })
-);
 
 export default function StopwatchDisplay(
   props: StopwatchDisplayProps
 ): JSX.Element {
-  const classes = useStyles();
   const { minutes, seconds } = props;
 
   const formatTime = (val: number, option?: string): string => {
