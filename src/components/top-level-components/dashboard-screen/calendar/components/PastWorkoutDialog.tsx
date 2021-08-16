@@ -21,6 +21,7 @@ import ExerciseTitle from '../../../../shared/workout-related/ExerciseTitle';
 import { SetType } from '../../../../../configs/models/workout-configurations/exercise-type/ExerciseTypeDAO';
 import { ExerciseTypeVO } from '../../../../../configs/models/workout-configurations/exercise-type/ExerciseTypeVO';
 import SetColumnHeaders from '../../../../shared/workout-related/SetColumnHeaders';
+import StopwatchDisplay from '../../../workout-screen/stopwatch/StopwatchDisplay';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -52,17 +53,25 @@ export default function PastWorkoutDialog(
       onClose={props.closeClickHandler}
     >
       <DialogTitle disableTypography className={classes.dialogTitle}>
-        <Grid item xs={6} container alignItems={'center'} spacing={2}>
-          <Grid item>
-            <EventIcon />
+        {props.workout && (
+          <Grid item xs={10} container alignItems={'center'} spacing={2}>
+            <Grid item>
+              <EventIcon />
+            </Grid>
+            <Grid item>
+              <Typography variant={'h6'}>
+                {format(new Date(props.workout.date), 'eee MMM do')}
+              </Typography>
+            </Grid>
+            <Grid item>
+              <StopwatchDisplay
+                displayText={true}
+                minutes={props.workout.time.currentTimeMin}
+                seconds={props.workout.time.currentTimeSec}
+              />
+            </Grid>
           </Grid>
-          <Grid item>
-            <Typography variant={'h6'}>
-              {props.workout &&
-                format(new Date(props.workout.date), 'eee MMM do')}
-            </Typography>
-          </Grid>
-        </Grid>
+        )}
         <IconButton
           aria-label={'close'}
           onClick={props.closeClickHandler}
