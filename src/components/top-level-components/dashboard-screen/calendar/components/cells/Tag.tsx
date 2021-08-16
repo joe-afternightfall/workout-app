@@ -34,8 +34,6 @@ const useStyles = makeStyles(() =>
 export default function Tag(props: TagProps): JSX.Element {
   const classes = useStyles();
 
-  const circuitsNumber = props.workout.circuits.length;
-  const workoutDate = props.workout.workoutDate;
   return (
     <Grid
       item

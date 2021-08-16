@@ -11,7 +11,7 @@ import {
 } from 'date-fns';
 import clsx from 'clsx';
 import React from 'react';
-import Dot from './cells/Dot';
+import Tag from './cells/Tag';
 import { Grid } from '@material-ui/core';
 import CornerNumber from './cells/CornerNumber';
 import BackgroundNumber from './cells/BackgroundNumber';
@@ -114,7 +114,7 @@ export default function CalendarCells(props: CalendarCellsProps): JSX.Element {
           {props.userWorkouts &&
             props.userWorkouts.map((workout: WorkoutVO) => {
               if (isSameDay(cloneDay, new Date(workout.workoutDate))) {
-                return <Dot />;
+                return <Tag workout={workout} />;
               }
             })}
         </div>

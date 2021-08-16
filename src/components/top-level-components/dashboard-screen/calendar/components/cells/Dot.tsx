@@ -4,16 +4,12 @@ import { createStyles, makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(() =>
   createStyles({
-    dots: {
-      position: 'absolute',
-      bottom: 8,
-    },
     dot: {
       height: 4,
       width: 4,
       margin: '0 2px',
       borderRadius: '50%',
-      backgroundColor: 'red',
+      backgroundColor: '#FFF',
     },
   })
 );
@@ -21,18 +17,7 @@ const useStyles = makeStyles(() =>
 export default function Dot(): JSX.Element {
   const classes = useStyles();
 
-  return (
-    <Grid
-      item
-      xs={12}
-      container
-      justify={'center'}
-      alignItems={'center'}
-      className={classes.dots}
-    >
-      <Grid item className={classes.dot} />
-    </Grid>
-  );
+  return <Grid item className={classes.dot} />;
 }
 
 export interface DotProps {
