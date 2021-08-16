@@ -5,31 +5,26 @@ import {
   withStyles,
   StyledComponentProps,
 } from '@material-ui/core/styles';
-import SetTitle from './sets/SetTitle';
-import React, { Component } from 'react';
-import { Styles } from '@material-ui/styles';
-import AddIcon from '@material-ui/icons/AddCircleOutlineOutlined';
-import { Button, Divider, Grid, ListItem, Typography } from '@material-ui/core';
-import DeleteExerciseDialog from '../dialogs/DeleteExerciseDialog';
-import { CircuitExerciseSet } from '../../WorkoutScreen';
-import { ExerciseTypeVO } from '../../../../../configs/models/workout-configurations/exercise-type/ExerciseTypeVO';
 import {
-  UpdateDistanceSetFieldProps,
   UpdateTimeSetFieldProps,
   UpdateWorkoutSetFieldProps,
+  UpdateDistanceSetFieldProps,
 } from '../../../../../creators/workout';
+import React, { Component } from 'react';
+import { Styles } from '@material-ui/styles';
+import { CircuitExerciseSet } from '../../WorkoutScreen';
+import AddIcon from '@material-ui/icons/AddCircleOutlineOutlined';
+import DeleteExerciseDialog from '../dialogs/DeleteExerciseDialog';
+import { Button, Divider, Grid, ListItem } from '@material-ui/core';
+import ExerciseTitle from '../../../../shared/workout-related/ExerciseTitle';
+import SetColumnHeaders from '../../../../shared/workout-related/SetColumnHeaders';
+import { ExerciseTypeVO } from '../../../../../configs/models/workout-configurations/exercise-type/ExerciseTypeVO';
 
-const styles: Styles<Theme, StyledComponentProps> = (theme: Theme) => ({
-  title: {
-    color: theme.palette.primary.main,
-    fontWeight: 600,
-    // fontSize: theme.typography.pxToRem(15),
-  },
-});
+const styles: Styles<Theme, StyledComponentProps> = () => ({});
 
 class ExerciseCircuit extends Component<ExerciseCircuitProps> {
   render(): JSX.Element {
-    const { classes, circuitId, exercise } = this.props;
+    const { circuitId, exercise } = this.props;
 
     const addSets = () => {
       this.props.addSetToExerciseHandler(circuitId, exercise.id);
@@ -44,9 +39,7 @@ class ExerciseCircuit extends Component<ExerciseCircuitProps> {
         <Grid container spacing={2}>
           <Grid container item xs={12} alignItems={'center'} spacing={2}>
             <Grid item>
-              <Typography className={classes.title} variant={'h6'}>
-                {exercise.name}
-              </Typography>
+              <ExerciseTitle title={exercise.name} />
             </Grid>
 
             <Grid item>
@@ -58,7 +51,7 @@ class ExerciseCircuit extends Component<ExerciseCircuitProps> {
             </Grid>
           </Grid>
 
-          <SetTitle setType={exercise.setType} />
+          <SetColumnHeaders setType={exercise.setType} displayAction={true} />
 
           {this.props.sets.map((set: CircuitExerciseSet, index: number) => (
             // todo: handle re-numbering when deleting
