@@ -1,13 +1,12 @@
 import React from 'react';
 import {
-  Grid,
-  TextField,
-  IconButton,
-  DialogTitle,
-  DialogContent,
   DialogActions,
+  DialogContent,
+  DialogTitle,
+  Grid,
+  IconButton,
+  TextField,
 } from '@material-ui/core';
-import SetTypes from './dialog/SetTypes';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import CloseIcon from '@material-ui/icons/Close';
@@ -100,26 +99,36 @@ export default function NewExerciseDialog(
       <DialogActions>
         <Button onClick={props.closeClickHandler}>{'Cancel'}</Button>
         <Button
-          disabled={
-            textField === '' || checked === '' || selectedCategoryId === ''
-          }
+          disabled={textField === '' || selectedCategoryId === ''}
+          // disabled={
+          //   textField === '' || checked === '' || selectedCategoryId === ''
+          // }
           onClick={() => {
-            if (
-              checked === SetType.WEIGHTS ||
-              checked === SetType.TIME ||
-              checked === SetType.TIME_AND_DISTANCE ||
-              checked === SetType.REPS ||
-              checked === SetType.TIME_AND_REPS
-            ) {
-              createNewExerciseType(
-                textField,
-                selectedCategoryId,
-                checked
-              ).then(() => {
-                props.closeClickHandler();
-              });
-            }
+            createNewExerciseType(
+              textField,
+              selectedCategoryId,
+              SetType.WEIGHTS
+            ).then(() => {
+              props.closeClickHandler();
+            });
           }}
+          // onClick={() => {
+          //   if (
+          //     checked === SetType.WEIGHTS ||
+          //     checked === SetType.TIME ||
+          //     checked === SetType.TIME_AND_DISTANCE ||
+          //     checked === SetType.REPS ||
+          //     checked === SetType.TIME_AND_REPS
+          //   ) {
+          //     createNewExerciseType(
+          //       textField,
+          //       selectedCategoryId,
+          //       checked
+          //     ).then(() => {
+          //       props.closeClickHandler();
+          //     });
+          //   }
+          // }}
         >
           {'Save'}
         </Button>
