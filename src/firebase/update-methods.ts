@@ -14,16 +14,19 @@ import { ExerciseTypeVO } from '../configs/models/workout-configurations/exercis
 
 export const updateCategoryTypes = async (store: Store): Promise<void> => {
   const categoryTypes = await getAllCategoryTypes();
+  categoryTypes.sort((a, b) => a.name.localeCompare(b.name));
   store.dispatch(loadCategoryTypes(categoryTypes));
 };
 
 export const updateCircuitTypes = async (store: Store): Promise<void> => {
   const circuits: CircuitTypeVO[] = await getAllCircuitTypes();
+  circuits.sort((a, b) => a.name.localeCompare(b.name));
   store.dispatch(loadCircuitTypes(circuits));
 };
 
 export const updateExerciseTypes = async (store: Store): Promise<void> => {
   const exercises: ExerciseTypeVO[] = await getAllExerciseTypes();
+  exercises.sort((a, b) => a.name.localeCompare(b.name));
   store.dispatch(loadExerciseTypes(exercises));
 };
 
