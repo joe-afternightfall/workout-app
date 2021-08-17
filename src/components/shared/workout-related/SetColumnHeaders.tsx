@@ -8,7 +8,7 @@ export default function SetColumnHeaders(props: SetTitleProps): JSX.Element {
   switch (props.setType) {
     case SetType.TIME:
       displayComponent = (
-        <Grid item xs={6}>
+        <Grid item xs={props.displayAction ? 6 : 5}>
           <Typography>{'Time'}</Typography>
         </Grid>
       );
@@ -16,11 +16,11 @@ export default function SetColumnHeaders(props: SetTitleProps): JSX.Element {
     case SetType.WEIGHTS:
       displayComponent = (
         <>
-          <Grid item xs={3}>
+          <Grid item xs={props.displayAction ? 3 : 5}>
             <Typography>{'lbs'}</Typography>
           </Grid>
 
-          <Grid item xs={3}>
+          <Grid item xs={props.displayAction ? 3 : 5}>
             <Typography>{'Reps'}</Typography>
           </Grid>
         </>
@@ -28,7 +28,7 @@ export default function SetColumnHeaders(props: SetTitleProps): JSX.Element {
       break;
     case SetType.REPS:
       displayComponent = (
-        <Grid item xs={6}>
+        <Grid item xs={props.displayAction ? 6 : 5}>
           <Typography>{'Reps'}</Typography>
         </Grid>
       );
@@ -36,11 +36,11 @@ export default function SetColumnHeaders(props: SetTitleProps): JSX.Element {
     case SetType.TIME_AND_DISTANCE:
       displayComponent = (
         <>
-          <Grid item xs={3}>
+          <Grid item xs={props.displayAction ? 3 : 5}>
             <Typography>{'Time'}</Typography>
           </Grid>
 
-          <Grid item xs={3}>
+          <Grid item xs={props.displayAction ? 3 : 5}>
             <Typography>{'Distance'}</Typography>
           </Grid>
         </>
@@ -49,11 +49,11 @@ export default function SetColumnHeaders(props: SetTitleProps): JSX.Element {
     case SetType.TIME_AND_REPS:
       displayComponent = (
         <>
-          <Grid item xs={3}>
+          <Grid item xs={props.displayAction ? 3 : 5}>
             <Typography>{'Time'}</Typography>
           </Grid>
 
-          <Grid item xs={3}>
+          <Grid item xs={props.displayAction ? 3 : 5}>
             <Typography>{'Reps'}</Typography>
           </Grid>
         </>
