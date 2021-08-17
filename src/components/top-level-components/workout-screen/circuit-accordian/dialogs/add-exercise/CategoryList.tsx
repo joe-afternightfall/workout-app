@@ -1,10 +1,10 @@
+import clsx from 'clsx';
 import React from 'react';
 import { connect } from 'react-redux';
 import { State } from '../../../../../../configs/redux/store';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { List, ListItem, ListItemText, ListSubheader } from '@material-ui/core';
 import { CategoryTypeVO } from '../../../../../../configs/models/workout-configurations/category-type/CategoryTypeVO';
-import clsx from 'clsx';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
