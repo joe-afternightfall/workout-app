@@ -42,12 +42,7 @@ const ExerciseSwipeableView = (
         );
 
         return (
-          <TabPanel
-            key={index}
-            value={props.selectedIndex}
-            index={index}
-            dir={theme.direction}
-          >
+          <TabPanel key={index} value={props.selectedIndex} index={index}>
             {foundExercises.length === 0 ? (
               <Grid container justify={'center'}>
                 <Grid item>
