@@ -18,10 +18,10 @@ import CloseIcon from '@material-ui/icons/Close';
 import { WorkoutVO } from '../../../../../configs/models/WorkoutVO';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import ExerciseTitle from '../../../../shared/workout-related/ExerciseTitle';
-import { SetType } from '../../../../../configs/models/workout-configurations/exercise-type/ExerciseTypeDAO';
 import { ExerciseTypeVO } from '../../../../../configs/models/workout-configurations/exercise-type/ExerciseTypeVO';
 import SetColumnHeaders from '../../../../shared/workout-related/SetColumnHeaders';
 import StopwatchDisplay from '../../../workout-screen/stopwatch/StopwatchDisplay';
+import Content from './dialog/Content';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -44,6 +44,8 @@ export default function PastWorkoutDialog(
   props: PastWorkoutDialogProps
 ): JSX.Element {
   const classes = useStyles();
+
+  console.log('props.workout: ' + JSON.stringify(props.workout));
 
   return (
     <Dialog
@@ -131,83 +133,17 @@ export default function PastWorkoutDialog(
 
                                 {circuitExercise.sets.map(
                                   (set: CircuitExerciseSet, index: number) => {
-                                    let displayComp = <div />;
-                                    switch (foundExercise.setType) {
-                                      case SetType.WEIGHTS:
-                                        displayComp = (
-                                          <>
-                                            <Grid item xs={3}>
-                                              <Typography>
-                                                {set.reps}
-                                              </Typography>
-                                            </Grid>
-                                            <Grid item xs={3}>
-                                              <Typography>
-                                                {set.weight}
-                                              </Typography>
-                                            </Grid>
-                                          </>
-                                        );
-                                        break;
-                                      case SetType.TIME:
-                                        displayComp = (
-                                          <Grid item xs={3}>
-                                            <Typography>{set.time}</Typography>
-                                          </Grid>
-                                        );
-                                        break;
-                                      case SetType.TIME_AND_DISTANCE:
-                                        displayComp = (
-                                          <>
-                                            <Grid item xs={3}>
-                                              <Typography>
-                                                {set.time}
-                                              </Typography>
-                                            </Grid>
-                                            <Grid item xs={3}>
-                                              <Typography>
-                                                {set.distance}
-                                              </Typography>
-                                            </Grid>
-                                          </>
-                                        );
-                                        break;
-                                      case SetType.TIME_AND_REPS:
-                                        displayComp = (
-                                          <>
-                                            <Grid item xs={3}>
-                                              <Typography>
-                                                {set.time}
-                                              </Typography>
-                                            </Grid>
-                                            <Grid item xs={3}>
-                                              <Typography>
-                                                {set.reps}
-                                              </Typography>
-                                            </Grid>
-                                          </>
-                                        );
-                                        break;
-                                      case SetType.REPS:
-                                        displayComp = (
-                                          <Grid item xs={3}>
-                                            <Typography>{set.reps}</Typography>
-                                          </Grid>
-                                        );
-                                        break;
-                                      default:
-                                        break;
-                                    }
                                     return (
                                       <Grid key={index} item xs={12} container>
-                                        <Grid item xs={12} container>
-                                          <Grid item xs={2}>
-                                            <Typography>
-                                              {(set.setNumber += 1)}
-                                            </Typography>
-                                          </Grid>
-                                          {displayComp}
+                                        <Grid item xs={2}>
+                                          <Typography>
+                                            {set.setNumber}
+                                          </Typography>
                                         </Grid>
+                                        <Content
+                                          set={set}
+                                          setType={foundExercise.setType}
+                                        />
                                       </Grid>
                                     );
                                   }

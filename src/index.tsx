@@ -56,3 +56,4 @@ reportWebVitals();
 // todo: look into how to wrap this up into an app
 // todo: work with mike on mocks for all breakpoints:  mobile/tablets/monitor
 // todo: create "on-hover" tooltips for side drawer when showing icons
+// todo: allow for decimal's as weights
