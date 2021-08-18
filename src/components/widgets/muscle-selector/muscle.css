@@ -19,9 +19,7 @@
     opacity: 0.5;
     fill: #00bcd4 !important;
 }
-.muscle-groups .muscles-helper {
-    display: none;
-}
+
 .muscle-groups label[for="obliques"]:hover ~ svg #Obliques path {
     opacity: 0.75;
 }
@@ -126,9 +124,4 @@
 .muscle-groups .trapezius:checked ~ svg #Trapezius path {
     opacity: 0.8;
     fill: #00bcd4 !important;
-}
-
-html {
-    background: #333;
-    background: linear-gradient(25deg, #111, #555);
 }
