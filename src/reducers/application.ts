@@ -132,7 +132,7 @@ export default {
                 sets: [
                   {
                     id: uuidv4(),
-                    setNumber: 0,
+                    setNumber: 1,
                     weight: '',
                     reps: '',
                     time: {
@@ -199,7 +199,7 @@ export default {
                 exercise.exerciseId === action.exerciseId
             );
             if (foundExercise) {
-              let numberOfSets = foundExercise.sets.length;
+              let numberOfSets = foundExercise.sets.length + 1;
               foundExercise.sets = [
                 ...foundExercise.sets,
                 {

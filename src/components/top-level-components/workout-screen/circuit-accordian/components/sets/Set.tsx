@@ -131,7 +131,7 @@ export default function Set(props: SetProps): JSX.Element {
       className={props.set.markedDone ? classes.completedRow : ''}
     >
       <Grid item xs={2}>
-        <Typography>{props.set.setNumber + 1}</Typography>
+        <Typography>{props.set.setNumber}</Typography>
       </Grid>
 
       {setComponent}
