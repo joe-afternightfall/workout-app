@@ -1,4 +1,5 @@
 import './muscle.css';
+import './muscle';
 import {
   Theme,
   WithStyles,
@@ -7,10 +8,19 @@ import {
 } from '@material-ui/core/styles';
 import React, { Component } from 'react';
 import { Styles } from '@material-ui/styles';
-import MuscleGroupsManikin from './MuscleGroupsManikin';
-import { Card, CardHeader, CardContent } from '@material-ui/core';
+import Manikin from './Manikin';
+import { Card, CardHeader, CardContent, Grid } from '@material-ui/core';
 
-const styles: Styles<Theme, StyledComponentProps> = () => ({});
+const styles: Styles<Theme, StyledComponentProps> = () => ({
+  cardHeader: {
+    // margin: '-0.5rem -1rem 1rem',
+    // padding: '0 1rem 0.75rem',
+    background: '#00bcd4',
+    color: '#eee',
+    textAlign: 'center',
+    // fontSize: '1.25rem',
+  },
+});
 
 class MuscleSelectorCard extends Component<MuscleSelectorCardProps> {
   render(): JSX.Element {
@@ -18,131 +28,137 @@ class MuscleSelectorCard extends Component<MuscleSelectorCardProps> {
 
     return (
       <Card>
-        <CardHeader title={'Muscle Group Selector'} />
+        <CardHeader
+          className={classes.cardHeader}
+          title={'Muscle Group Selector'}
+        />
 
         <CardContent>
-          <main>
+          <Grid container item xs={12}>
             <div className={'muscle-groups'}>
-              <h1>{'Muscle Group Selector'}</h1>
-
               <h2>{'Arms'}</h2>
 
-              <label htmlFor={'biceps'}>{'Biceps'}</label>
               <input
                 type={'checkbox'}
                 className={'biceps muscles-helper'}
                 id={'biceps'}
                 value={' '}
               />
-              <label htmlFor={'deltoids'}>{'Deltoids'}</label>
+              <label htmlFor={'biceps'}>{'Biceps'}</label>
+
               <input
                 type={'checkbox'}
                 className={'deltoids muscles-helper'}
                 id={'deltoids'}
                 value={' '}
               />
-              <label htmlFor={'forearms'}>{'Forearms'}</label>
+              <label htmlFor={'deltoids'}>{'Deltoids'}</label>
+
               <input
                 type={'checkbox'}
                 className={'forearms muscles-helper'}
                 id={'forearms'}
                 value={' '}
               />
-              <label htmlFor={'triceps'}>{'Triceps'}</label>
+              <label htmlFor={'forearms'}>{'Forearms'}</label>
+
               <input
                 type={'checkbox'}
                 className={'triceps muscles-helper'}
                 id={'triceps'}
                 value={' '}
               />
+              <label htmlFor={'triceps'}>{'Triceps'}</label>
 
               <h2>{'Back'}</h2>
 
-              <label htmlFor={'trapezius'}>{'Trapezius'}</label>
               <input
                 type={'checkbox'}
                 className={'trapezius muscles-helper'}
                 id={'trapezius'}
                 value={' '}
               />
+              <label htmlFor={'trapezius'}>{'Trapezius'}</label>
 
-              <label htmlFor={'lats'}>{'Lats'}</label>
               <input
                 type={'checkbox'}
                 className={'lats muscles-helper'}
                 id={'lats'}
                 value={' '}
               />
+              <label htmlFor={'lats'}>{'Lats'}</label>
 
               <h2>{'Core'}</h2>
 
-              <label htmlFor={'abs'}>{'Abs'}</label>
               <input
                 type={'checkbox'}
                 className={'abs muscles-helper'}
                 id={'abs'}
                 value={' '}
               />
-              <label htmlFor={'obliques'}>{'Obliques'}</label>
+              <label htmlFor={'abs'}>{'Abs'}</label>
+
               <input
                 type={'checkbox'}
                 className={'obliques muscles-helper'}
                 id={'obliques'}
                 value={' '}
               />
-              <label htmlFor={'pectorals'}>{'Pectorals'}</label>
+              <label htmlFor={'obliques'}>{'Obliques'}</label>
+
               <input
                 type={'checkbox'}
                 className={'pectorals muscles-helper'}
                 id={'pectorals'}
                 value={' '}
               />
+              <label htmlFor={'pectorals'}>{'Pectorals'}</label>
 
               <h2>{'Legs'}</h2>
 
-              <label htmlFor={'adductors'}>{'Adductors'}</label>
               <input
                 type={'checkbox'}
                 className={'adductors muscles-helper'}
                 id={'adductors'}
                 value={' '}
               />
+              <label htmlFor={'adductors'}>{'Adductors'}</label>
 
-              <label htmlFor={'calves'}>{'Calves'}</label>
               <input
                 type={'checkbox'}
                 className={'calves muscles-helper'}
                 id={'calves'}
                 value={' '}
               />
+              <label htmlFor={'calves'}>{'Calves'}</label>
 
-              <label htmlFor={'hamstrings'}>{'Hamstrings'}</label>
               <input
                 type={'checkbox'}
                 className={'hamstrings muscles-helper'}
                 id={'hamstrings'}
                 value={' '}
               />
+              <label htmlFor={'hamstrings'}>{'Hamstrings'}</label>
 
-              <label htmlFor={'glutes'}>{'Glutes'}</label>
               <input
                 type={'checkbox'}
                 className={'glutes muscles-helper'}
                 id={'glutes'}
                 value={' '}
               />
+              <label htmlFor={'glutes'}>{'Glutes'}</label>
 
-              <label htmlFor={'quads'}>{'Quads'}</label>
               <input
                 type={'checkbox'}
                 className={'quads muscles-helper'}
                 id={'quads'}
                 value={' '}
               />
+              <label htmlFor={'quads'}>{'Quads'}</label>
 
-              <MuscleGroupsManikin />
+              <Manikin />
             </div>
-          </main>
+          </Grid>
         </CardContent>
       </Card>
     );
