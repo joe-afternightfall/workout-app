@@ -25,6 +25,11 @@ const useStyles = makeStyles(() =>
         borderColor: 'rgba(51, 51, 51, .75)',
       },
     },
+    checkedLabel: {
+      opacity: 1,
+      fontWeight: 'bold',
+      color: '#00bcd4',
+    },
   })
 );
 
@@ -32,6 +37,11 @@ export default function SelectorControl(
   props: SelectorControlsProps
 ): JSX.Element {
   const classes = useStyles();
+  const [checked, setChecked] = React.useState('');
+
+  const handleToggle = (inputId: string) => {
+    checked === inputId ? setChecked('') : setChecked(inputId);
+  };
 
   return (
     <>
@@ -40,9 +50,17 @@ export default function SelectorControl(
         className={clsx(classes.checkbox, props.inputId)}
         id={props.inputId}
         value={' '}
+        onChange={() => {
+          handleToggle(props.inputId);
+        }}
       />
 
-      <label htmlFor={props.inputId} className={classes.label}>
+      <label
+        htmlFor={props.inputId}
+        className={clsx(classes.label, {
+          [classes.checkedLabel]: checked === props.inputId,
+        })}
+      >
         <Typography>{props.title}</Typography>
       </label>
     </>
