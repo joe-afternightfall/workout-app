@@ -1,58 +1,14 @@
-.muscle-groups {
-    position: relative;
-    background: #eee;
-    width: 320px;
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
-    box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, .5);
-    overflow: hidden;
-    border-top: 0.75rem solid #00bcd4;
-}
-.muscle-groups h1 {
-    margin: -0.5rem -1rem 1rem;
-    padding: 0 1rem 0.75rem;
-    background: #00bcd4;
-    color: #eee;
-    text-align: center;
-    font-size: 1.25rem;
-}
-.muscle-groups h2 {
-    margin: 0 0 0.5rem;
-    font-size: 0.8rem;
-    letter-spacing: -0.03em;
-    text-transform: uppercase;
-}
-.muscle-groups label + h2 {
-    margin-top: 1rem;
-}
-.muscle-groups label {
-    width: 50px;
-    display: block;
-    margin-bottom: 0.5rem;
-    cursor: pointer;
-    font-size: 0.7rem;
-    opacity: 0.5;
-    position: relative;
-    z-index: 200;
-    border-left: 5px solid transparent;
-    padding-left: 6px;
-    margin-left: -11px;
-}
-.muscle-groups label:hover, .muscle-groups label.hover {
-    opacity: 1;
-    border-color: rgba(51, 51, 51, .75);
-}
 .muscle-groups input:checked + label {
     opacity: 1;
     font-weight: bold;
     color: #00bcd4;
 }
 .muscle-groups svg {
-    position: absolute;
-    right: -1.5rem;
-    bottom: 3rem;
-    height: 350px;
-    z-index: 100;
+    /*position: absolute;*/
+    /*right: -1.5rem;*/
+    /*bottom: 3rem;*/
+    /*height: 350px;*/
+    /*z-index: 100;*/
 }
 .muscle-groups svg g[id] path {
     opacity: 0.2;

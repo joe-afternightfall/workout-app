@@ -9,8 +9,13 @@ import {
 import React, { Component } from 'react';
 import { Styles } from '@material-ui/styles';
 import Manikin from './Manikin';
-import { Card, CardHeader, CardContent, Grid } from '@material-ui/core';
+import {
+  Card,
+  CardHeader,
+  CardContent,
+} from '@material-ui/core';
 import SelectorControls from './SelectorControls';
+import SectionTitle from './controls/SectionTitle';
 
 const styles: Styles<Theme, StyledComponentProps> = () => ({
   cardHeader: {
@@ -21,6 +26,7 @@ const styles: Styles<Theme, StyledComponentProps> = () => ({
     textAlign: 'center',
     // fontSize: '1.25rem',
   },
+  sectionTitle: {},
 });
 
 class MuscleSelectorCard extends Component<MuscleSelectorCardProps> {
@@ -35,35 +41,31 @@ class MuscleSelectorCard extends Component<MuscleSelectorCardProps> {
         />
 
         <CardContent>
-          <Grid container item xs={12}>
-            <div className={'muscle-groups'}>
-              <h2>{'Arms'}</h2>
+          <div className={'muscle-groups'}>
+            <SectionTitle title={'Arms'} />
+            <SelectorControls inputId={'biceps'} title={'Biceps'} />
+            <SelectorControls inputId={'deltoids'} title={'Deltoids'} />
+            <SelectorControls inputId={'forearms'} title={'Forearms'} />
+            <SelectorControls inputId={'triceps'} title={'Triceps'} />
 
-              <SelectorControls inputId={'biceps'} title={'Biceps'} />
-              <SelectorControls inputId={'deltoids'} title={'Deltoids'} />
-              <SelectorControls inputId={'forearms'} title={'Forearms'} />
-              <SelectorControls inputId={'triceps'} title={'Triceps'} />
+            <SectionTitle title={'Back'} />
+            <SelectorControls inputId={'trapezius'} title={'Trapezius'} />
+            <SelectorControls inputId={'lats'} title={'Lats'} />
 
-              <h2>{'Back'}</h2>
+            <SectionTitle title={'Core'} />
+            <SelectorControls inputId={'abs'} title={'Abs'} />
+            <SelectorControls inputId={'obliques'} title={'Obliques'} />
+            <SelectorControls inputId={'pectorals'} title={'Pectorals'} />
 
-              <SelectorControls inputId={'trapezius'} title={'Trapezius'} />
-              <SelectorControls inputId={'lats'} title={'Lats'} />
+            <SectionTitle title={'Legs'} />
+            <SelectorControls inputId={'adductors'} title={'Adductors'} />
+            <SelectorControls inputId={'calves'} title={'Calves'} />
+            <SelectorControls inputId={'hamstrings'} title={'Hamstrings'} />
+            <SelectorControls inputId={'glutes'} title={'Glutes'} />
+            <SelectorControls inputId={'quads'} title={'Quads'} />
 
-              <h2>{'Core'}</h2>
-              <SelectorControls inputId={'abs'} title={'Abs'} />
-              <SelectorControls inputId={'obliques'} title={'Obliques'} />
-              <SelectorControls inputId={'pectorals'} title={'Pectorals'} />
-
-              <h2>{'Legs'}</h2>
-              <SelectorControls inputId={'adductors'} title={'Adductors'} />
-              <SelectorControls inputId={'calves'} title={'Calves'} />
-              <SelectorControls inputId={'hamstrings'} title={'Hamstrings'} />
-              <SelectorControls inputId={'glutes'} title={'Glutes'} />
-              <SelectorControls inputId={'quads'} title={'Quads'} />
-
-              <Manikin />
-            </div>
-          </Grid>
+            <Manikin />
+          </div>
         </CardContent>
       </Card>
     );
