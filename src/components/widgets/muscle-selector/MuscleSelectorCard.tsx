@@ -10,6 +10,7 @@ import React, { Component } from 'react';
 import { Styles } from '@material-ui/styles';
 import Manikin from './Manikin';
 import { Card, CardHeader, CardContent, Grid } from '@material-ui/core';
+import SelectorControls from './SelectorControls';
 
 const styles: Styles<Theme, StyledComponentProps> = () => ({
   cardHeader: {
@@ -38,123 +39,27 @@ class MuscleSelectorCard extends Component<MuscleSelectorCardProps> {
             <div className={'muscle-groups'}>
               <h2>{'Arms'}</h2>
 
-              <input
-                type={'checkbox'}
-                className={'biceps muscles-helper'}
-                id={'biceps'}
-                value={' '}
-              />
-              <label htmlFor={'biceps'}>{'Biceps'}</label>
-
-              <input
-                type={'checkbox'}
-                className={'deltoids muscles-helper'}
-                id={'deltoids'}
-                value={' '}
-              />
-              <label htmlFor={'deltoids'}>{'Deltoids'}</label>
-
-              <input
-                type={'checkbox'}
-                className={'forearms muscles-helper'}
-                id={'forearms'}
-                value={' '}
-              />
-              <label htmlFor={'forearms'}>{'Forearms'}</label>
-
-              <input
-                type={'checkbox'}
-                className={'triceps muscles-helper'}
-                id={'triceps'}
-                value={' '}
-              />
-              <label htmlFor={'triceps'}>{'Triceps'}</label>
+              <SelectorControls inputId={'biceps'} title={'Biceps'} />
+              <SelectorControls inputId={'deltoids'} title={'Deltoids'} />
+              <SelectorControls inputId={'forearms'} title={'Forearms'} />
+              <SelectorControls inputId={'triceps'} title={'Triceps'} />
 
               <h2>{'Back'}</h2>
 
-              <input
-                type={'checkbox'}
-                className={'trapezius muscles-helper'}
-                id={'trapezius'}
-                value={' '}
-              />
-              <label htmlFor={'trapezius'}>{'Trapezius'}</label>
-
-              <input
-                type={'checkbox'}
-                className={'lats muscles-helper'}
-                id={'lats'}
-                value={' '}
-              />
-              <label htmlFor={'lats'}>{'Lats'}</label>
+              <SelectorControls inputId={'trapezius'} title={'Trapezius'} />
+              <SelectorControls inputId={'lats'} title={'Lats'} />
 
               <h2>{'Core'}</h2>
-
-              <input
-                type={'checkbox'}
-                className={'abs muscles-helper'}
-                id={'abs'}
-                value={' '}
-              />
-              <label htmlFor={'abs'}>{'Abs'}</label>
-
-              <input
-                type={'checkbox'}
-                className={'obliques muscles-helper'}
-                id={'obliques'}
-                value={' '}
-              />
-              <label htmlFor={'obliques'}>{'Obliques'}</label>
-
-              <input
-                type={'checkbox'}
-                className={'pectorals muscles-helper'}
-                id={'pectorals'}
-                value={' '}
-              />
-              <label htmlFor={'pectorals'}>{'Pectorals'}</label>
+              <SelectorControls inputId={'abs'} title={'Abs'} />
+              <SelectorControls inputId={'obliques'} title={'Obliques'} />
+              <SelectorControls inputId={'pectorals'} title={'Pectorals'} />
 
               <h2>{'Legs'}</h2>
-
-              <input
-                type={'checkbox'}
-                className={'adductors muscles-helper'}
-                id={'adductors'}
-                value={' '}
-              />
-              <label htmlFor={'adductors'}>{'Adductors'}</label>
-
-              <input
-                type={'checkbox'}
-                className={'calves muscles-helper'}
-                id={'calves'}
-                value={' '}
-              />
-              <label htmlFor={'calves'}>{'Calves'}</label>
-
-              <input
-                type={'checkbox'}
-                className={'hamstrings muscles-helper'}
-                id={'hamstrings'}
-                value={' '}
-              />
-              <label htmlFor={'hamstrings'}>{'Hamstrings'}</label>
-
-              <input
-                type={'checkbox'}
-                className={'glutes muscles-helper'}
-                id={'glutes'}
-                value={' '}
-              />
-              <label htmlFor={'glutes'}>{'Glutes'}</label>
-
-              <input
-                type={'checkbox'}
-                className={'quads muscles-helper'}
-                id={'quads'}
-                value={' '}
-              />
-              <label htmlFor={'quads'}>{'Quads'}</label>
+              <SelectorControls inputId={'adductors'} title={'Adductors'} />
+              <SelectorControls inputId={'calves'} title={'Calves'} />
+              <SelectorControls inputId={'hamstrings'} title={'Hamstrings'} />
+              <SelectorControls inputId={'glutes'} title={'Glutes'} />
+              <SelectorControls inputId={'quads'} title={'Quads'} />
 
               <Manikin />
             </div>
