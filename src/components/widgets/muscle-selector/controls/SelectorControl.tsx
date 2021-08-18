@@ -28,7 +28,7 @@ const useStyles = makeStyles(() =>
   })
 );
 
-export default function SelectorControls(
+export default function SelectorControl(
   props: SelectorControlsProps
 ): JSX.Element {
   const classes = useStyles();

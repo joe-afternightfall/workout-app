@@ -1,5 +1,6 @@
 import './muscle.css';
 import './muscle';
+import Manikin from './Manikin';
 import {
   Theme,
   WithStyles,
@@ -8,14 +9,9 @@ import {
 } from '@material-ui/core/styles';
 import React, { Component } from 'react';
 import { Styles } from '@material-ui/styles';
-import Manikin from './Manikin';
-import {
-  Card,
-  CardHeader,
-  CardContent,
-} from '@material-ui/core';
-import SelectorControls from './SelectorControls';
 import SectionTitle from './controls/SectionTitle';
+import SelectorControl from './controls/SelectorControl';
+import { Card, CardHeader, CardContent } from '@material-ui/core';
 
 const styles: Styles<Theme, StyledComponentProps> = () => ({
   cardHeader: {
@@ -43,26 +39,26 @@ class MuscleSelectorCard extends Component<MuscleSelectorCardProps> {
         <CardContent>
           <div className={'muscle-groups'}>
             <SectionTitle title={'Arms'} />
-            <SelectorControls inputId={'biceps'} title={'Biceps'} />
-            <SelectorControls inputId={'deltoids'} title={'Deltoids'} />
-            <SelectorControls inputId={'forearms'} title={'Forearms'} />
-            <SelectorControls inputId={'triceps'} title={'Triceps'} />
+            <SelectorControl inputId={'biceps'} title={'Biceps'} />
+            <SelectorControl inputId={'deltoids'} title={'Deltoids'} />
+            <SelectorControl inputId={'forearms'} title={'Forearms'} />
+            <SelectorControl inputId={'triceps'} title={'Triceps'} />
 
             <SectionTitle title={'Back'} />
-            <SelectorControls inputId={'trapezius'} title={'Trapezius'} />
-            <SelectorControls inputId={'lats'} title={'Lats'} />
+            <SelectorControl inputId={'trapezius'} title={'Trapezius'} />
+            <SelectorControl inputId={'lats'} title={'Lats'} />
 
             <SectionTitle title={'Core'} />
-            <SelectorControls inputId={'abs'} title={'Abs'} />
-            <SelectorControls inputId={'obliques'} title={'Obliques'} />
-            <SelectorControls inputId={'pectorals'} title={'Pectorals'} />
+            <SelectorControl inputId={'abs'} title={'Abs'} />
+            <SelectorControl inputId={'obliques'} title={'Obliques'} />
+            <SelectorControl inputId={'pectorals'} title={'Pectorals'} />
 
             <SectionTitle title={'Legs'} />
-            <SelectorControls inputId={'adductors'} title={'Adductors'} />
-            <SelectorControls inputId={'calves'} title={'Calves'} />
-            <SelectorControls inputId={'hamstrings'} title={'Hamstrings'} />
-            <SelectorControls inputId={'glutes'} title={'Glutes'} />
-            <SelectorControls inputId={'quads'} title={'Quads'} />
+            <SelectorControl inputId={'adductors'} title={'Adductors'} />
+            <SelectorControl inputId={'calves'} title={'Calves'} />
+            <SelectorControl inputId={'hamstrings'} title={'Hamstrings'} />
+            <SelectorControl inputId={'glutes'} title={'Glutes'} />
+            <SelectorControl inputId={'quads'} title={'Quads'} />
 
             <Manikin />
           </div>
