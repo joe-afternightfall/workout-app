@@ -1,5 +1,4 @@
 import './muscle.css';
-import './muscle';
 import Manikin from './Manikin';
 import {
   Theme,
