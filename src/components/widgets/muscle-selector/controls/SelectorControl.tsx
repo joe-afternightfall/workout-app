@@ -75,7 +75,7 @@ const SelectorControl = (
 
 export interface SelectorControlProps {
   selectedMuscleGroupIds: string[];
-  selectHandler: (muscleGroupId: string) => void;
+  selectHandler: (muscleGroupCheckboxId: string) => void;
 }
 
 export interface SelectorControlsPassedInProps {
@@ -91,8 +91,8 @@ const mapStateToProps = (state: State): SelectorControlProps => {
 
 const mapDispatchToProps = (dispatch: Dispatch): SelectorControlProps =>
   ({
-    selectHandler: (muscleGroupId: string) => {
-      dispatch(toggleMuscleGroup(muscleGroupId));
+    selectHandler: (muscleGroupCheckboxId: string) => {
+      dispatch(toggleMuscleGroup(muscleGroupCheckboxId));
     },
   } as unknown as SelectorControlProps);
 
