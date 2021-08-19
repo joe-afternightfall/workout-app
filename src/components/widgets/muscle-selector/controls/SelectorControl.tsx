@@ -46,22 +46,23 @@ const SelectorControl = (
     props.selectHandler(inputId);
   };
 
-  const foundIndex = props.selectedMuscleGroupIds.indexOf(props.inputId);
+  const checkboxInputId = `${props.inputId}-checkbox`;
+  const foundIndex = props.selectedMuscleGroupIds.indexOf(checkboxInputId);
 
   return (
     <>
       <input
         type={'checkbox'}
         className={clsx(classes.checkbox, props.inputId)}
-        id={props.inputId}
+        id={checkboxInputId}
         value={' '}
         onChange={() => {
-          handleToggle(props.inputId);
+          handleToggle(checkboxInputId);
         }}
       />
 
       <label
-        htmlFor={props.inputId}
+        htmlFor={checkboxInputId}
         className={clsx(classes.label, {
           [classes.checkedLabel]: foundIndex !== -1,
         })}
