@@ -40,6 +40,7 @@ import {
   StopStopwatchAction,
   UpdateStopwatchAction,
 } from './stopwatch';
+import { ToggleMuscleGroupAction } from './muscle-selector';
 
 export enum ActionTypes {
   // Application Actions
@@ -69,6 +70,7 @@ export enum ActionTypes {
   VALIDATED_USER = 'VALIDATED_USER',
   SETUP_NEW_USER = 'SETUP_NEW_USER',
   LOAD_USER_WORKOUTS = 'LOAD_USER_WORKOUTS',
+  TOGGLE_MUSCLE_GROUP = 'TOGGLE_MUSCLE_GROUP',
 
   // Stopwatch
   RESET_STOPWATCH = 'RESET_STOPWATCH',
@@ -116,4 +118,5 @@ export type ApplicationActions =
   | StopStopwatchAction
   | StartStopwatchAction
   | ResetStopwatchAction
-  | UpdateStopwatchAction;
+  | UpdateStopwatchAction
+  | ToggleMuscleGroupAction;
