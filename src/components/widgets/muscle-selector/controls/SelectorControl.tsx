@@ -5,7 +5,11 @@ import { connect } from 'react-redux';
 import { Typography } from '@material-ui/core';
 import { State } from '../../../../configs/redux/store';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { toggleMuscleGroup } from '../../../../creators/muscle-selector';
+import {
+  applyHoverStylesToMuscleGroup,
+  clearHoverStylesForMuscleGroup,
+  toggleMuscleGroup,
+} from '../../../../creators/muscle-selector';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -41,13 +45,20 @@ const SelectorControl = (
   props: SelectorControlProps & SelectorControlsPassedInProps
 ): JSX.Element => {
   const classes = useStyles();
-
-  const handleToggle = (inputId: string) => {
-    props.selectHandler(inputId);
-  };
-
   const checkboxInputId = `${props.inputId}-checkbox`;
   const foundIndex = props.selectedMuscleGroupIds.indexOf(checkboxInputId);
+
+  const handleToggle = () => {
+    props.selectHandler(checkboxInputId);
+  };
+
+  const handleMouseOver = () => {
+    props.mouseOverHandler(checkboxInputId);
+  };
+
+  const handleMouseOut = () => {
+    props.mouseOutHandler();
+  };
 
   return (
     <>
@@ -57,7 +68,7 @@ const SelectorControl = (
         id={checkboxInputId}
         value={' '}
         onChange={() => {
-          handleToggle(checkboxInputId);
+          handleToggle();
         }}
       />
 
@@ -66,6 +77,12 @@ const SelectorControl = (
         className={clsx(classes.label, {
           [classes.checkedLabel]: foundIndex !== -1,
         })}
+        onMouseOver={() => {
+          handleMouseOver();
+        }}
+        onMouseOut={() => {
+          handleMouseOut();
+        }}
       >
         <Typography>{props.title}</Typography>
       </label>
@@ -76,6 +93,8 @@ const SelectorControl = (
 export interface SelectorControlProps {
   selectedMuscleGroupIds: string[];
   selectHandler: (muscleGroupCheckboxId: string) => void;
+  mouseOverHandler: (muscleGroupId: string) => void;
+  mouseOutHandler: () => void;
 }
 
 export interface SelectorControlsPassedInProps {
@@ -93,6 +112,12 @@ const mapDispatchToProps = (dispatch: Dispatch): SelectorControlProps =>
   ({
     selectHandler: (muscleGroupCheckboxId: string) => {
       dispatch(toggleMuscleGroup(muscleGroupCheckboxId));
+    },
+    mouseOverHandler: (muscleGroupId: string) => {
+      dispatch(applyHoverStylesToMuscleGroup(muscleGroupId));
+    },
+    mouseOutHandler: () => {
+      dispatch(clearHoverStylesForMuscleGroup());
     },
   } as unknown as SelectorControlProps);
 

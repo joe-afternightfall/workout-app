@@ -1,5 +1,5 @@
 import './muscle.css';
-import Manikin from './Manikin';
+import { Manikin } from './Manikin';
 import {
   Theme,
   WithStyles,
@@ -67,8 +67,6 @@ class MuscleSelectorCard extends Component<MuscleSelectorCardProps> {
   }
 }
 
-export interface MuscleSelectorCardProps extends WithStyles<typeof styles> {
-  DELETE_ME?: undefined;
-}
+export type MuscleSelectorCardProps = WithStyles<typeof styles>;
 
 export default withStyles(styles, { withTheme: true })(MuscleSelectorCard);

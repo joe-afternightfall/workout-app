@@ -6,147 +6,62 @@
     z-index: 100;
 }
 
-.muscle-groups svg g[id] path {
-    opacity: 0.2;
-    transition: opacity 0.25s ease-in-out;
-}
-
-.muscle-groups svg g g[id]:hover path {
-    cursor: pointer;
-    opacity: 0.5;
-    fill: #00bcd4 !important;
-}
-
-#obliques-checkbox:hover ~ svg #obliques-svg path {
-    opacity: 0.75;
-}
-
 #obliques-checkbox:checked ~ svg #obliques-svg path {
     opacity: 0.8;
     fill: #00bcd4 !important;
 }
-
-#abs-checkbox:hover ~ svg #abs-svg path {
-    opacity: 0.75;
-}
-
 #abs-checkbox:checked ~ svg #abs-svg path {
     opacity: 0.8;
     fill: #00bcd4 !important;
 }
-
-#quads-checkbox:hover ~ svg #quads-svg path {
-    opacity: 0.75;
-}
-
 #quads-checkbox:checked ~ svg #quads-svg path {
     opacity: 0.8;
     fill: #00bcd4 !important;
 }
-
-#biceps-checkbox:hover ~ svg #biceps-svg path {
-    opacity: 0.75;
-}
-
 #biceps-checkbox:checked ~ svg #biceps-svg path {
     opacity: 0.8;
     fill: #00bcd4 !important;
 }
-
-#adductors-checkbox:hover ~ svg #adductors-svg path {
-    opacity: 0.75;
-}
-
 #adductors-checkbox:checked ~ svg #adductors-svg path {
     opacity: 0.8;
     fill: #00bcd4 !important;
 }
-
-#pectorals-checkbox:hover ~ svg #pectorals-svg path {
-    opacity: 0.75;
-}
-
 #pectorals-checkbox:checked ~ svg #pectorals-svg path {
     opacity: 0.8;
     fill: #00bcd4 !important;
 }
-
-#deltoids-checkbox:hover ~ svg #deltoids-svg path {
-    opacity: 0.75;
-}
-
 #deltoids-checkbox:checked ~ svg #deltoids-svg path {
     opacity: 0.8;
     fill: #00bcd4 !important;
 }
-
-#hamstrings-checkbox:hover ~ svg #hamstrings-svg path {
-    opacity: 0.75;
-}
-
 #hamstrings-checkbox:checked ~ svg #hamstrings-svg path {
     opacity: 0.8;
     fill: #00bcd4 !important;
 }
-
-#quads-checkbox:hover ~ svg #quads-svg path {
-    opacity: 0.75;
-}
-
 #quads-checkbox:checked ~ svg #quads-svg path {
     opacity: 0.8;
     fill: #00bcd4 !important;
 }
-
-#forearms-checkbox:hover ~ svg #forearms-svg path {
-    opacity: 0.75;
-}
-
 #forearms-checkbox:checked ~ svg #forearms-svg path {
     opacity: 0.8;
     fill: #00bcd4 !important;
 }
-
-#calves-checkbox:hover ~ svg #calves-svg path {
-    opacity: 0.75;
-}
-
 #calves-checkbox:checked ~ svg #calves-svg path {
     opacity: 0.8;
     fill: #00bcd4 !important;
 }
-
-#triceps-checkbox:hover ~ svg #triceps-svg path {
-    opacity: 0.75;
-}
-
 #triceps-checkbox:checked ~ svg #triceps-svg path {
     opacity: 0.8;
     fill: #00bcd4 !important;
 }
-
-#glutes-checkbox:hover ~ svg #glutes-svg path {
-    opacity: 0.75;
-}
-
 #glutes-checkbox:checked ~ svg #glutes-svg path {
     opacity: 0.8;
     fill: #00bcd4 !important;
 }
-
-#lats-checkbox:hover ~ svg #lats-svg path {
-    opacity: 0.75;
-}
-
 #lats-checkbox:checked ~ svg #lats-svg path {
     opacity: 0.8;
     fill: #00bcd4 !important;
 }
-
-#trapezius-checkbox:hover ~ svg #trapezius-svg path {
-    opacity: 0.75;
-}
-
 #trapezius-checkbox:checked ~ svg #trapezius-svg path {
     opacity: 0.8;
     fill: #00bcd4 !important;

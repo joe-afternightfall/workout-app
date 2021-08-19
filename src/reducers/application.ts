@@ -427,6 +427,12 @@ export default {
         }
         break;
       }
+      case ActionTypes.APPLY_HOVER_STYLES_TO_MUSCLE_GROUP:
+        newState.applyHoverStylesToMuscleGroup = action.groupId;
+        break;
+      case ActionTypes.CLEAR_HOVER_STYLES_FOR_MUSCLE_GROUP:
+        newState.applyHoverStylesToMuscleGroup = '';
+        break;
       default:
         newState = state;
     }
@@ -461,4 +467,5 @@ export interface ApplicationState {
   };
   stopwatch: StopwatchState;
   selectedMuscleGroupIds: string[];
+  applyHoverStylesToMuscleGroup: string;
 }

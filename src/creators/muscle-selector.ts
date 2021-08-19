@@ -13,3 +13,27 @@ export const toggleMuscleGroup = (
     muscleGroupId: muscleGroupId,
   };
 };
+
+export interface ApplyHoverStylesToMuscleGroupAction {
+  type: ActionTypes.APPLY_HOVER_STYLES_TO_MUSCLE_GROUP;
+  groupId: string;
+}
+export const applyHoverStylesToMuscleGroup = (
+  groupId: string
+): ApplyHoverStylesToMuscleGroupAction => {
+  return {
+    type: ActionTypes.APPLY_HOVER_STYLES_TO_MUSCLE_GROUP,
+    groupId: groupId,
+  };
+};
+
+export interface ClearHoverStylesForMuscleGroupAction {
+  type: ActionTypes.CLEAR_HOVER_STYLES_FOR_MUSCLE_GROUP;
+}
+
+export const clearHoverStylesForMuscleGroup =
+  (): ClearHoverStylesForMuscleGroupAction => {
+    return {
+      type: ActionTypes.CLEAR_HOVER_STYLES_FOR_MUSCLE_GROUP,
+    };
+  };
