@@ -4,7 +4,11 @@ import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { State } from '../../../../configs/redux/store';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { toggleMuscleGroup } from '../../../../creators/muscle-selector';
+import {
+  applyHoverStylesToMuscleGroup,
+  clearHoverStylesForMuscleGroup,
+  toggleMuscleGroup,
+} from '../../../../creators/muscle-selector';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -50,6 +54,14 @@ const SvgComponent = (
     return props.hoveringOverGroup === checkboxInputId;
   };
 
+  const handleMouseOver = () => {
+    props.mouseOverHandler(checkboxInputId);
+  };
+
+  const handleMouseOut = () => {
+    props.mouseOutHandler();
+  };
+
   return (
     <g
       id={`${props.muscleName}-svg`}
@@ -60,9 +72,17 @@ const SvgComponent = (
         [classes.selected]: checkSelectedIds(),
         [classes.hovering]: checkForHover(),
       })}
+      onMouseOver={handleMouseOver}
+      onMouseOut={handleMouseOut}
     >
       {props.paths.map((path: string, index: number) => {
-        return <path key={index} d={path} style={{ fill: props.fill }} />;
+        return (
+          <path
+            key={index}
+            d={path}
+            style={{ fill: checkSelectedIds() ? '' : props.fill }}
+          />
+        );
       })}
     </g>
   );
@@ -72,6 +92,8 @@ export interface SvgComponentProps {
   hoveringOverGroup: string;
   selectedMuscleGroupIds: string[];
   selectHandler: (muscleGroupCheckboxId: string) => void;
+  mouseOverHandler: (muscleGroupId: string) => void;
+  mouseOutHandler: () => void;
 }
 
 export interface PassedInSvgComponentProps {
@@ -91,6 +113,12 @@ const mapDispatchToProps = (dispatch: Dispatch): SvgComponentProps =>
   ({
     selectHandler: (muscleGroupId: string) => {
       dispatch(toggleMuscleGroup(muscleGroupId));
+    },
+    mouseOverHandler: (muscleGroupId: string) => {
+      dispatch(applyHoverStylesToMuscleGroup(muscleGroupId));
+    },
+    mouseOutHandler: () => {
+      dispatch(clearHoverStylesForMuscleGroup());
     },
   } as unknown as SvgComponentProps);
 

@@ -38,6 +38,10 @@ const useStyles = makeStyles(() =>
       fontWeight: 'bold',
       color: '#00bcd4',
     },
+    hovering: {
+      opacity: 1,
+      borderColor: 'rgba(51, 51, 51, .75)',
+    },
   })
 );
 
@@ -60,6 +64,10 @@ const SelectorControl = (
     props.mouseOutHandler();
   };
 
+  const checkForHover = (): boolean => {
+    return props.hoveringOverGroup === checkboxInputId;
+  };
+
   return (
     <>
       <input
@@ -76,13 +84,10 @@ const SelectorControl = (
         htmlFor={checkboxInputId}
         className={clsx(classes.label, {
           [classes.checkedLabel]: foundIndex !== -1,
+          [classes.hovering]: checkForHover(),
         })}
-        onMouseOver={() => {
-          handleMouseOver();
-        }}
-        onMouseOut={() => {
-          handleMouseOut();
-        }}
+        onMouseOver={handleMouseOver}
+        onMouseOut={handleMouseOut}
       >
         <Typography>{props.title}</Typography>
       </label>
@@ -91,6 +96,7 @@ const SelectorControl = (
 };
 
 export interface SelectorControlProps {
+  hoveringOverGroup: string;
   selectedMuscleGroupIds: string[];
   selectHandler: (muscleGroupCheckboxId: string) => void;
   mouseOverHandler: (muscleGroupId: string) => void;
@@ -104,6 +110,7 @@ export interface SelectorControlsPassedInProps {
 
 const mapStateToProps = (state: State): SelectorControlProps => {
   return {
+    hoveringOverGroup: state.applicationState.applyHoverStylesToMuscleGroup,
     selectedMuscleGroupIds: state.applicationState.selectedMuscleGroupIds,
   } as unknown as SelectorControlProps;
 };
