@@ -1,45 +1,9 @@
 import React from 'react';
 
-document
-  .querySelectorAll('.muscle-groups svg g g[id]')
-  .forEach(function (group) {
-    // For the hover
-    // group.addEventListener('mouseover', function (el: any) {
-    //   let id = el.path[1].id.toLowerCase();
-    //   if (!id) id = el.path[2].id.toLowerCase();
-    //   const label = document.querySelectorAll('label[for=' + id + ']')[0];
-    //   if (label.classList) label.classList.add('hover');
-    //   else label.className += ' ' + 'hover';
-    // });
-    // group.addEventListener('mouseout', function (el: any) {
-    //   let id = el.path[1].id.toLowerCase();
-    //   if (!id) id = el.path[2].id.toLowerCase();
-    //   const label = document.querySelectorAll('label[for=' + id + ']')[0];
-    //   const clss = 'hover';
-    //   if (label.classList) label.classList.remove(clss);
-    //   else
-    //     label.className = label.className.replace(
-    //       new RegExp('(^|\\b)' + clss.split(' ').join('|') + '(\\b|$)', 'gi'),
-    //       ' '
-    //     );
-    // });
-    // For the click
-    // group.addEventListener('click', function (el: any) {
-    //   let id = el.path[1].id.toLowerCase();
-    //   if (!id) id = el.path[2].id.toLowerCase();
-    //   const input = document.getElementById(id) as HTMLInputElement;
-    //   if (input.checked) input.checked = false;
-    //   else input.checked = true;
-    // });
-  });
-
 export default function Manikin(): JSX.Element {
-  const [active, setActive] = React.useState<string>();
-
-  const handleChange = (elementId: string) => {
-    const input = document.getElementById(elementId) as HTMLInputElement;
-    if (input.checked) input.checked = false;
-    else input.checked = true;
+  const handleClick = (checkboxId: string) => {
+    const checkbox = document.getElementById(checkboxId) as HTMLInputElement;
+    checkbox.checked ? (checkbox.checked = false) : (checkbox.checked = true);
   };
 
   return (
@@ -69,7 +33,7 @@ export default function Manikin(): JSX.Element {
           <g
             id={'trapezius-svg'}
             onClick={() => {
-              handleChange('trapezius-checkbox');
+              handleClick('trapezius-checkbox');
             }}
           >
             <g>
@@ -84,7 +48,7 @@ export default function Manikin(): JSX.Element {
           <g
             id={'lats-svg'}
             onClick={() => {
-              handleChange('lats-checkbox');
+              handleClick('lats-checkbox');
             }}
           >
             <path
@@ -103,7 +67,7 @@ export default function Manikin(): JSX.Element {
           <g
             id={'triceps-svg'}
             onClick={() => {
-              handleChange('triceps-checkbox');
+              handleClick('triceps-checkbox');
             }}
           >
             <path
@@ -122,7 +86,7 @@ export default function Manikin(): JSX.Element {
           <g
             id={'forearms-svg'}
             onClick={() => {
-              handleChange('forearms-checkbox');
+              handleClick('forearms-checkbox');
             }}
           >
             <path
@@ -141,7 +105,7 @@ export default function Manikin(): JSX.Element {
           <g
             id={'glutes-svg'}
             onClick={() => {
-              handleChange('glutes-checkbox');
+              handleClick('glutes-checkbox');
             }}
           >
             <path
@@ -160,7 +124,7 @@ export default function Manikin(): JSX.Element {
           <g
             id={'hamstrings-svg'}
             onClick={() => {
-              handleChange('hamstrings-checkbox');
+              handleClick('hamstrings-checkbox');
             }}
           >
             <path
@@ -179,7 +143,7 @@ export default function Manikin(): JSX.Element {
           <g
             id={'calves-svg'}
             onClick={() => {
-              handleChange('calves-checkbox');
+              handleClick('calves-checkbox');
             }}
           >
             <path
@@ -201,7 +165,7 @@ export default function Manikin(): JSX.Element {
         <g
           id={'deltoids-svg'}
           onClick={() => {
-            handleChange('deltoids-checkbox');
+            handleClick('deltoids-checkbox');
           }}
         >
           <path
@@ -220,7 +184,7 @@ export default function Manikin(): JSX.Element {
         <g
           id={'biceps-svg'}
           onClick={() => {
-            handleChange('biceps-checkbox');
+            handleClick('biceps-checkbox');
           }}
         >
           <path
@@ -239,7 +203,7 @@ export default function Manikin(): JSX.Element {
         <g
           id={'pectorals-svg'}
           onClick={() => {
-            handleChange('pectorals-checkbox');
+            handleClick('pectorals-checkbox');
           }}
         >
           <path
@@ -258,7 +222,7 @@ export default function Manikin(): JSX.Element {
         <g
           id={'obliques-svg'}
           onClick={() => {
-            handleChange('obliques-checkbox');
+            handleClick('obliques-checkbox');
           }}
         >
           <path
@@ -277,7 +241,7 @@ export default function Manikin(): JSX.Element {
         <g
           id={'abs-svg'}
           onClick={() => {
-            handleChange('abs-checkbox');
+            handleClick('abs-checkbox');
           }}
         >
           <path
@@ -290,7 +254,7 @@ export default function Manikin(): JSX.Element {
         <g
           id={'quads-svg'}
           onClick={() => {
-            handleChange('quads-checkbox');
+            handleClick('quads-checkbox');
           }}
         >
           <path
@@ -309,7 +273,7 @@ export default function Manikin(): JSX.Element {
         <g
           id={'adductors-svg'}
           onClick={() => {
-            handleChange('adductors-checkbox');
+            handleClick('adductors-checkbox');
           }}
         >
           <path
