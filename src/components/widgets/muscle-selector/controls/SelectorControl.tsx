@@ -1,7 +1,11 @@
-import React from 'react';
 import clsx from 'clsx';
+import React from 'react';
+import { Dispatch } from 'redux';
+import { connect } from 'react-redux';
 import { Typography } from '@material-ui/core';
+import { State } from '../../../../configs/redux/store';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
+import { toggleMuscleGroup } from '../../../../creators/muscle-selector';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -33,15 +37,16 @@ const useStyles = makeStyles(() =>
   })
 );
 
-export default function SelectorControl(
-  props: SelectorControlsProps
-): JSX.Element {
+const SelectorControl = (
+  props: SelectorControlProps & SelectorControlsPassedInProps
+): JSX.Element => {
   const classes = useStyles();
-  const [checked, setChecked] = React.useState('');
 
   const handleToggle = (inputId: string) => {
-    checked === inputId ? setChecked('') : setChecked(inputId);
+    props.selectHandler(inputId);
   };
+
+  const foundIndex = props.selectedMuscleGroupIds.indexOf(props.inputId);
 
   return (
     <>
@@ -58,16 +63,36 @@ export default function SelectorControl(
       <label
         htmlFor={props.inputId}
         className={clsx(classes.label, {
-          [classes.checkedLabel]: checked === props.inputId,
+          [classes.checkedLabel]: foundIndex !== -1,
         })}
       >
         <Typography>{props.title}</Typography>
       </label>
     </>
   );
+};
+
+export interface SelectorControlProps {
+  selectedMuscleGroupIds: string[];
+  selectHandler: (muscleGroupId: string) => void;
 }
 
-export interface SelectorControlsProps {
+export interface SelectorControlsPassedInProps {
   inputId: string;
   title: string;
 }
+
+const mapStateToProps = (state: State): SelectorControlProps => {
+  return {
+    selectedMuscleGroupIds: state.applicationState.selectedMuscleGroupIds,
+  } as unknown as SelectorControlProps;
+};
+
+const mapDispatchToProps = (dispatch: Dispatch): SelectorControlProps =>
+  ({
+    selectHandler: (muscleGroupId: string) => {
+      dispatch(toggleMuscleGroup(muscleGroupId));
+    },
+  } as unknown as SelectorControlProps);
+
+export default connect(mapStateToProps, mapDispatchToProps)(SelectorControl);
