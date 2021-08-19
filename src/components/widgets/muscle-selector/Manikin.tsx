@@ -1,9 +1,21 @@
 import React from 'react';
+import { Dispatch } from 'redux';
+import { connect } from 'react-redux';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { toggleMuscleGroup } from '../../../creators/muscle-selector';
 
-export default function Manikin(): JSX.Element {
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {},
+  })
+);
+
+const Manikin = (props: ManikinProps): JSX.Element => {
+  const classes = useStyles();
   const handleClick = (checkboxId: string) => {
     const checkbox = document.getElementById(checkboxId) as HTMLInputElement;
     checkbox.checked ? (checkbox.checked = false) : (checkbox.checked = true);
+    props.selectHandler(checkboxId);
   };
 
   return (
@@ -306,4 +318,21 @@ export default function Manikin(): JSX.Element {
       />
     </svg>
   );
+};
+
+export interface ManikinProps {
+  selectHandler: (muscleGroupCheckboxId: string) => void;
 }
+
+const mapStateToProps = (state: any): ManikinProps => {
+  return {} as unknown as ManikinProps;
+};
+
+const mapDispatchToProps = (dispatch: Dispatch): ManikinProps =>
+  ({
+    selectHandler: (muscleGroupId: string) => {
+      dispatch(toggleMuscleGroup(muscleGroupId));
+    },
+  } as unknown as ManikinProps);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Manikin);
