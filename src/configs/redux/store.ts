@@ -57,6 +57,7 @@ export const createStore = (history: History): Store => {
         currentTimeMin: 0,
         watch: 0,
       },
+      selectedMuscleGroupIds: [],
     } as unknown as ApplicationState,
   });
 };
