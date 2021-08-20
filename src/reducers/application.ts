@@ -26,7 +26,7 @@ function findCircuit(
 }
 
 export default {
-  reducer(
+  reducer: function (
     state: ApplicationState = {} as unknown as ApplicationState,
     action: ApplicationActions
   ): ApplicationState {
@@ -408,6 +408,31 @@ export default {
       case ActionTypes.UPDATE_STOPWATCH:
         newState.stopwatch = action.stopwatchState;
         break;
+      case ActionTypes.TOGGLE_MUSCLE_GROUP: {
+        const foundId = newState.selectedMuscleGroupIds.find(
+          (id: string) => id === action.muscleGroupId
+        );
+        if (foundId) {
+          const foundIndex = newState.selectedMuscleGroupIds.indexOf(foundId);
+          newState.selectedMuscleGroupIds.splice(foundIndex, 1);
+          return {
+            ...newState,
+            selectedMuscleGroupIds: [...newState.selectedMuscleGroupIds],
+          };
+        } else {
+          newState.selectedMuscleGroupIds = [
+            ...newState.selectedMuscleGroupIds,
+            action.muscleGroupId,
+          ];
+        }
+        break;
+      }
+      case ActionTypes.APPLY_HOVER_STYLES_TO_MUSCLE_GROUP:
+        newState.applyHoverStylesToMuscleGroup = action.groupId;
+        break;
+      case ActionTypes.CLEAR_HOVER_STYLES_FOR_MUSCLE_GROUP:
+        newState.applyHoverStylesToMuscleGroup = '';
+        break;
       default:
         newState = state;
     }
@@ -441,4 +466,6 @@ export interface ApplicationState {
     circuits: WorkoutCircuitProps[];
   };
   stopwatch: StopwatchState;
+  selectedMuscleGroupIds: string[];
+  applyHoverStylesToMuscleGroup: string;
 }

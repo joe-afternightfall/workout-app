@@ -5,12 +5,14 @@ import {
   CIRCUIT_TYPES_SCREEN_PATH,
   CATEGORY_TYPES_SCREEN_PATH,
   EXERCISE_TYPES_SCREEN_PATH,
+  CIRCUIT_BUILDER_SCREEN_PATH,
 } from './app';
 import {
   Settings,
   AccountCircle as AccountIcon,
   DashboardRounded as DashboardIcon,
   FitnessCenter as FitnessCenterIcon,
+  Build as BuilderIcon,
 } from '@material-ui/icons';
 import { ComponentType } from 'react';
 import { SvgIconTypeMap } from '@material-ui/core';
@@ -22,6 +24,7 @@ import WorkoutScreen from '../../components/top-level-components/workout-screen/
 import CircuitTypesTable from '../../components/top-level-components/workout-configs/circuit-types-screen/CircuitTypesTable';
 import CategoryTypesTable from '../../components/top-level-components/workout-configs/category-types-screen/CategoryTypesTable';
 import ExerciseTypesTable from '../../components/top-level-components/workout-configs/exercise-types-screen/ExerciseTypesTable';
+import CircuitBuilderScreen from '../../components/top-level-components/circuit-builder/CircuitBuilderScreen';
 
 export interface PageProps {
   path: string;
@@ -89,6 +92,21 @@ export const routes: RoutesMap = {
         icon: AccountIcon,
         testId: 'profile-nav',
         routerComponent: ProfileScreen,
+      },
+    ],
+  },
+  CIRCUIT_BUILDER_SCREEN: {
+    nested: false,
+    mainTitle: '',
+    mainIcon: BuilderIcon,
+    pageProps: [
+      {
+        path: CIRCUIT_BUILDER_SCREEN_PATH,
+        drawerTitle: 'Circuit Builder',
+        headerTitle: 'Circuit Builder',
+        icon: BuilderIcon,
+        testId: 'circuit-builder-nav',
+        routerComponent: CircuitBuilderScreen,
       },
     ],
   },

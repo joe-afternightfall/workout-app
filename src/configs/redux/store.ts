@@ -57,6 +57,8 @@ export const createStore = (history: History): Store => {
         currentTimeMin: 0,
         watch: 0,
       },
+      selectedMuscleGroupIds: [],
+      applyHoverStylesToMuscleGroup: '',
     } as unknown as ApplicationState,
   });
 };
