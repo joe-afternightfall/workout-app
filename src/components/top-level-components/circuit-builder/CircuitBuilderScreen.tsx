@@ -13,8 +13,6 @@ const styles: Styles<Theme, StyledComponentProps> = () => ({});
 
 class CircuitBuilderScreen extends Component<CircuitBuilderScreenProps> {
   render(): JSX.Element {
-    const { classes } = this.props;
-
     return (
       <Grid xs={12} item container>
         <Grid item xs={12} md={8}>

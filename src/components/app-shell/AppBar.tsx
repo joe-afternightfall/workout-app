@@ -1,6 +1,5 @@
 import React from 'react';
 import { Dispatch } from 'redux';
-import Headroom from 'react-headroom';
 import { connect } from 'react-redux';
 import AppTooltip from './AppTooltip';
 import MenuIcon from '@material-ui/icons/Menu';
