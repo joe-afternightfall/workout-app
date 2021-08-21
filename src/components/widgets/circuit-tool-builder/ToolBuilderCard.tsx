@@ -1,27 +1,23 @@
 import {
+  Tab,
+  Tabs,
+  Card,
+  Grid,
+  AppBar,
+  TextField,
+  CardHeader,
+  CardContent,
+} from '@material-ui/core';
+import {
   Theme,
   WithStyles,
   withStyles,
   StyledComponentProps,
 } from '@material-ui/core/styles';
-import SwipeableViews from 'react-swipeable-views';
 import React, { Component } from 'react';
 import { Styles } from '@material-ui/styles';
-import CircuitSelector from './components/CircuitSelector';
-import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  Checkbox,
-  FormControlLabel,
-  FormGroup,
-  Grid,
-  TextField,
-} from '@material-ui/core';
 import BuilderViews from './components/BuilderViews';
+import CircuitSelector from './components/CircuitSelector';
 
 const styles: Styles<Theme, StyledComponentProps> = () => ({
   root: {
