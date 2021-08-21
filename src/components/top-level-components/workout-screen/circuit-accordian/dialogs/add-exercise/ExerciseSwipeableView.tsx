@@ -1,9 +1,9 @@
 import React from 'react';
 import { Dispatch } from 'redux';
-import TabPanel from './TabPanel';
 import { connect } from 'react-redux';
 import SwipeableViews from 'react-swipeable-views';
 import { State } from '../../../../../../configs/redux/store';
+import TabPanel from '../../../../../shared/SwipeableViewTabPanel';
 import { addExerciseToCircuit } from '../../../../../../creators/workout';
 import { List, ListItem, Button, Typography, Grid } from '@material-ui/core';
 import { useTheme, makeStyles, createStyles } from '@material-ui/core/styles';
