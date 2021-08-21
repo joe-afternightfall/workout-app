@@ -3,13 +3,13 @@ import React from 'react';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { Typography } from '@material-ui/core';
-import { State } from '../../../../configs/redux/store';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import {
   applyHoverStylesToMuscleGroup,
   clearHoverStylesForMuscleGroup,
   toggleMuscleGroup,
-} from '../../../../creators/muscle-selector';
+} from '../../../../../creators/muscle-selector';
+import { State } from '../../../../../configs/redux/store';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -45,7 +45,7 @@ const useStyles = makeStyles(() =>
   })
 );
 
-const SelectorControl = (
+const Selector = (
   props: SelectorControlProps & SelectorControlsPassedInProps
 ): JSX.Element => {
   const classes = useStyles();
@@ -128,4 +128,4 @@ const mapDispatchToProps = (dispatch: Dispatch): SelectorControlProps =>
     },
   } as unknown as SelectorControlProps);
 
-export default connect(mapStateToProps, mapDispatchToProps)(SelectorControl);
+export default connect(mapStateToProps, mapDispatchToProps)(Selector);
