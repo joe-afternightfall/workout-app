@@ -1,6 +1,6 @@
 import React from 'react';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { Typography } from '@material-ui/core';
+import { Grid, Typography, Divider } from '@material-ui/core';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -16,7 +16,16 @@ const useStyles = makeStyles(() =>
 export default function SectionTitle(props: SectionTitleProps): JSX.Element {
   const classes = useStyles();
 
-  return <Typography className={classes.root}>{props.title}</Typography>;
+  return (
+    <Grid container>
+      <Grid item xs={12}>
+        <Typography className={classes.root}>{props.title}</Typography>
+      </Grid>
+      <Grid item xs={8}>
+        <Divider />
+      </Grid>
+    </Grid>
+  );
 }
 
 export interface SectionTitleProps {
