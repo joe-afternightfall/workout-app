@@ -24,7 +24,6 @@ import {
 } from './user-info';
 import {
   LoadCircuitTypesAction,
-  LoadCategoryTypesAction,
   LoadExerciseTypesAction,
 } from './workout-configurations';
 import {
@@ -53,7 +52,6 @@ export enum ActionTypes {
 
   // Workout configurations
   LOAD_EXERCISE_TYPES = 'LOAD_EXERCISE_TYPES',
-  LOAD_CATEGORY_TYPES = 'LOAD_CATEGORY_TYPES',
   LOAD_CIRCUIT_TYPES = 'LOAD_CIRCUIT_TYPES',
 
   UPDATE_WORKOUT_DATE = 'UPDATE_WORKOUT_DATE',
@@ -95,7 +93,6 @@ export enum ActionTypes {
 export type ApplicationActions =
   | LocationChangeAction
   | LoadExerciseTypesAction
-  | LoadCategoryTypesAction
   | LoadCircuitTypesAction
   | UpdateWorkoutDateAction
   | AddCircuitAction
