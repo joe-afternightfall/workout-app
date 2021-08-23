@@ -1,10 +1,10 @@
 import clsx from 'clsx';
 import React from 'react';
-import { connect } from 'react-redux';
-import { State } from '../../../../../../configs/redux/store';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { List, ListItem, ListItemText, ListSubheader } from '@material-ui/core';
-import { CategoryTypeVO } from '../../../../../../configs/models/workout-configurations/category-type/CategoryTypeVO';
+import muscleGroups, {
+  MuscleGroup,
+} from '../../../../../../configs/models/workout-configurations/MuscleGroups';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -28,9 +28,9 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const CategoryList = (
-  props: CategoryListProps & PassedInCategoryListProps
-): JSX.Element => {
+export default function MuscleGroupsList(
+  props: MuscleGroupsListProps
+): JSX.Element {
   const classes = useStyles();
 
   return (
@@ -40,7 +40,7 @@ const CategoryList = (
         <ListSubheader component={'div'}>{'Exercise Categories'}</ListSubheader>
       }
     >
-      {props.categoryTypes.map((category: CategoryTypeVO, index: number) => {
+      {muscleGroups.map((muscle: MuscleGroup, index: number) => {
         return (
           <ListItem
             key={index}
@@ -55,27 +55,15 @@ const CategoryList = (
               selected: classes.selected,
             }}
           >
-            <ListItemText primary={category.name} />
+            <ListItemText primary={muscle.name} />
           </ListItem>
         );
       })}
     </List>
   );
-};
-
-export interface CategoryListProps {
-  categoryTypes: CategoryTypeVO[];
 }
 
-export interface PassedInCategoryListProps {
+export interface MuscleGroupsListProps {
   clickHandler: (index: number) => void;
   activeTab: number;
 }
-
-const mapStateToProps = (state: State): CategoryListProps => {
-  return {
-    categoryTypes: state.applicationState.workoutConfigurations.categoryTypes,
-  } as unknown as CategoryListProps;
-};
-
-export default connect(mapStateToProps)(CategoryList);
