@@ -1,16 +1,16 @@
 import firebase from 'firebase';
 import { v4 as uuidv4 } from 'uuid';
+import { exerciseTypeSnapToVO } from '../../utils/vo-builder';
 import { EXERCISE_TYPES_ROUTE } from '../../configs/constants/firebase-routes';
 import {
-  ExerciseTypeDAO,
   SetType,
+  ExerciseTypeDAO,
 } from '../../configs/models/workout-configurations/exercise-type/ExerciseTypeDAO';
 import { ExerciseTypeVO } from '../../configs/models/workout-configurations/exercise-type/ExerciseTypeVO';
-import { exerciseTypeSnapToVO } from '../../utils/vo-builder';
 
 export const createNewExerciseType = async (
   name: string,
-  workoutCategoryId: string,
+  muscleGroupIds: string[],
   setType: SetType
 ): Promise<void> => {
   const ref = firebase.database().ref(EXERCISE_TYPES_ROUTE);
@@ -18,7 +18,7 @@ export const createNewExerciseType = async (
   const exerciseTypeDAO = new ExerciseTypeDAO(
     uuidv4(),
     name,
-    workoutCategoryId,
+    muscleGroupIds,
     setType
   );
 
@@ -48,7 +48,7 @@ export const getAllExerciseTypes = async (): Promise<ExerciseTypeVO[]> => {
 export const updateExerciseType = async (
   firebaseId: string,
   exerciseName: string,
-  workoutCategoryId: string,
+  muscleGroupIds: string[],
   setType: SetType
 ): Promise<void> => {
   return await firebase
@@ -58,7 +58,7 @@ export const updateExerciseType = async (
     .update(
       {
         name: exerciseName,
-        workoutCategoryId: workoutCategoryId,
+        muscleGroupIds: muscleGroupIds,
         setType: setType,
       },
       (error: Error | null) => {
