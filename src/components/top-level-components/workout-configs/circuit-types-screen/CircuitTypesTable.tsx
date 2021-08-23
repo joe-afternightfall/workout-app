@@ -88,11 +88,17 @@ const CircuitTypesTable = (props: CircuitTypesTableProps): JSX.Element => {
             title: '#',
             field: 'number',
             editable: 'never',
+            cellStyle: {
+              width: '10%',
+            },
           },
           {
             title: 'Circuit Name',
             field: 'circuit.name',
             editComponent: editField,
+            cellStyle: {
+              width: '80%',
+            },
           },
         ]}
         actions={[

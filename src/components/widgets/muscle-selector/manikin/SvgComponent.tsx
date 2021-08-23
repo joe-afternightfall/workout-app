@@ -2,13 +2,13 @@ import clsx from 'clsx';
 import React from 'react';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import { State } from '../../../../configs/redux/store';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
 import {
+  toggleMuscleGroup,
   applyHoverStylesToMuscleGroup,
   clearHoverStylesForMuscleGroup,
-  toggleMuscleGroup,
 } from '../../../../creators/muscle-selector';
+import { State } from '../../../../configs/redux/store';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(() =>
   createStyles({

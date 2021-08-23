@@ -11,6 +11,7 @@ export default function TabPanel(props: TabPanelProps): JSX.Element {
       id={`tab-panel-${index}`}
       aria-labelledby={`tab-${index}`}
       {...other}
+      style={{ height: '100%' }}
     >
       {value === index && <Box p={3}>{children}</Box>}
     </div>

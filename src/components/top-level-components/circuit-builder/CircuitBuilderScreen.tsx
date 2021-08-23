@@ -5,9 +5,9 @@ import {
   StyledComponentProps,
 } from '@material-ui/core/styles';
 import React, { Component } from 'react';
-import { Styles } from '@material-ui/styles';
 import { Grid } from '@material-ui/core';
-import MuscleSelectorCard from '../../widgets/muscle-selector/MuscleSelectorCard';
+import { Styles } from '@material-ui/styles';
+import FullScreenDialog from '../../widgets/circuit-tool-builder/FullScreenDialog';
 
 const styles: Styles<Theme, StyledComponentProps> = () => ({});
 
@@ -15,8 +15,9 @@ class CircuitBuilderScreen extends Component<CircuitBuilderScreenProps> {
   render(): JSX.Element {
     return (
       <Grid xs={12} item container>
-        <Grid item xs={12} md={8}>
-          <MuscleSelectorCard />
+        <Grid item xs={5} />
+        <Grid item xs={7}>
+          <FullScreenDialog />
         </Grid>
       </Grid>
     );

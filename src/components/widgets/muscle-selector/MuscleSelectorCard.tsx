@@ -4,12 +4,10 @@ import {
   withStyles,
   StyledComponentProps,
 } from '@material-ui/core/styles';
-import { Manikin } from './Manikin';
 import React, { Component } from 'react';
 import { Styles } from '@material-ui/styles';
-import SectionTitle from './controls/SectionTitle';
-import SelectorControl from './controls/SelectorControl';
-import { Card, CardHeader, CardContent, Grid } from '@material-ui/core';
+import { Card, CardHeader, CardContent } from '@material-ui/core';
+import { ManikinBothSides } from './ManikinBothSides';
 
 const styles: Styles<Theme, StyledComponentProps> = () => ({
   cardHeader: {
@@ -31,34 +29,7 @@ class MuscleSelectorCard extends Component<MuscleSelectorCardProps> {
         />
 
         <CardContent>
-          <Grid container>
-            <Grid item xs={4}>
-              <SectionTitle title={'Arms'} />
-              <SelectorControl inputId={'biceps'} title={'Biceps'} />
-              <SelectorControl inputId={'deltoids'} title={'Deltoids'} />
-              <SelectorControl inputId={'forearms'} title={'Forearms'} />
-              <SelectorControl inputId={'triceps'} title={'Triceps'} />
-
-              <SectionTitle title={'Back'} />
-              <SelectorControl inputId={'trapezius'} title={'Trapezius'} />
-              <SelectorControl inputId={'lats'} title={'Lats'} />
-
-              <SectionTitle title={'Core'} />
-              <SelectorControl inputId={'abs'} title={'Abs'} />
-              <SelectorControl inputId={'obliques'} title={'Obliques'} />
-              <SelectorControl inputId={'pectorals'} title={'Pectorals'} />
-
-              <SectionTitle title={'Legs'} />
-              <SelectorControl inputId={'adductors'} title={'Adductors'} />
-              <SelectorControl inputId={'calves'} title={'Calves'} />
-              <SelectorControl inputId={'hamstrings'} title={'Hamstrings'} />
-              <SelectorControl inputId={'glutes'} title={'Glutes'} />
-              <SelectorControl inputId={'quads'} title={'Quads'} />
-            </Grid>
-            <Grid item xs={8}>
-              <Manikin />
-            </Grid>
-          </Grid>
+          <ManikinBothSides />
         </CardContent>
       </Card>
     );
