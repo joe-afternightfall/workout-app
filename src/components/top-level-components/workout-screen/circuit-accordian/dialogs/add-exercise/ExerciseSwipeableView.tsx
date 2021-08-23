@@ -8,7 +8,9 @@ import { addExerciseToCircuit } from '../../../../../../creators/workout';
 import { List, ListItem, Button, Typography, Grid } from '@material-ui/core';
 import { useTheme, makeStyles, createStyles } from '@material-ui/core/styles';
 import { ExerciseTypeVO } from '../../../../../../configs/models/workout-configurations/exercise-type/ExerciseTypeVO';
-import { CategoryTypeVO } from '../../../../../../configs/models/workout-configurations/category-type/CategoryTypeVO';
+import muscleGroups, {
+  MuscleGroup,
+} from '../../../../../../configs/models/workout-configurations/MuscleGroups';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -33,12 +35,12 @@ const ExerciseSwipeableView = (
       onChangeIndex={props.viewChangeHandler}
       className={classes.root}
     >
-      {props.categoryTypes.map((category: CategoryTypeVO, index: number) => {
-        const categoryTypeId = props.categoryTypes[index].id;
-
+      {muscleGroups.map((muscle: MuscleGroup, index: number) => {
         const foundExercises = props.exerciseTypes.filter(
           (exercise: ExerciseTypeVO) =>
-            exercise.workoutCategoryId === categoryTypeId
+            exercise.muscleGroupIds.find(
+              (exerciseMuscleId: string) => exerciseMuscleId === muscle.id
+            )
         );
 
         return (
@@ -85,7 +87,6 @@ const ExerciseSwipeableView = (
 };
 
 export interface ExerciseSwipeableViewProps {
-  categoryTypes: CategoryTypeVO[];
   exerciseTypes: ExerciseTypeVO[];
   addExerciseHandler: (circuitId: string, exerciseId: string) => void;
 }
@@ -99,7 +100,6 @@ export interface PassedInExerciseSwipeableViewProps {
 
 const mapStateToProps = (state: State): ExerciseSwipeableViewProps => {
   return {
-    categoryTypes: state.applicationState.workoutConfigurations.categoryTypes,
     exerciseTypes: state.applicationState.workoutConfigurations.exerciseTypes,
   } as unknown as ExerciseSwipeableViewProps;
 };
