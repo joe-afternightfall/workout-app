@@ -1,5 +1,5 @@
 import React from 'react';
-import CategoryList from './CategoryList';
+import MuscleGroupsList from './MuscleGroupsList';
 import ExerciseSwipeableView from './ExerciseSwipeableView';
 import { Button, Dialog, DialogContent, Grid } from '@material-ui/core';
 
@@ -33,7 +33,7 @@ export default function AddExerciseDialog(
         <DialogContent style={{ padding: '24px 16px 24px 0' }}>
           <Grid container spacing={2}>
             <Grid item xs={3}>
-              <CategoryList
+              <MuscleGroupsList
                 activeTab={activeTab}
                 clickHandler={handleViewChange}
               />
