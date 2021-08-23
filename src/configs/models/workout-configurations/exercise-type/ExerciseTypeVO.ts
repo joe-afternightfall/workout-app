@@ -8,10 +8,10 @@ export class ExerciseTypeVO extends ExerciseTypeDAO {
     firebaseId: string,
     id: string,
     name: string,
-    workoutCategoryId: string,
+    muscleGroupIds: string[],
     setType: SetType
   ) {
-    super(id, name, workoutCategoryId, setType);
+    super(id, name, muscleGroupIds, setType);
     this.firebaseId = firebaseId;
   }
 }
