@@ -2,8 +2,6 @@ import { ExerciseTypeDAO } from '../configs/models/workout-configurations/exerci
 import { ExerciseTypeVO } from '../configs/models/workout-configurations/exercise-type/ExerciseTypeVO';
 import { CircuitTypeDAO } from '../configs/models/workout-configurations/circuit-type/CircuitTypeDAO';
 import { CircuitTypeVO } from '../configs/models/workout-configurations/circuit-type/CircuitTypeVO';
-import { CategoryTypeDAO } from '../configs/models/workout-configurations/category-type/CategoryTypeDAO';
-import { CategoryTypeVO } from '../configs/models/workout-configurations/category-type/CategoryTypeVO';
 import { WorkoutDAO } from '../configs/models/WorkoutDAO';
 import { WorkoutVO } from '../configs/models/WorkoutVO';
 import { UserProfileDAO } from '../configs/models/UserProfileDAO';
@@ -20,7 +18,7 @@ export const exerciseTypeSnapToVO = (
       firebaseId: key,
       id: snap[key].id,
       name: snap[key].name,
-      workoutCategoryId: snap[key].workoutCategoryId,
+      muscleGroupIds: snap[key].muscleGroupIds,
       setType: snap[key].setType,
     };
   });
@@ -33,22 +31,6 @@ export interface CircuitTypeSnapshot {
 export const circuitTypeSnapToVO = (
   snap: CircuitTypeSnapshot
 ): CircuitTypeVO[] => {
-  return Object.keys(snap).map((key: string) => {
-    return {
-      firebaseId: key,
-      id: snap[key].id,
-      name: snap[key].name,
-    };
-  });
-};
-
-export interface CategoryTypeSnapshot {
-  [key: string]: CategoryTypeDAO;
-}
-
-export const categoryTypeSnapToVO = (
-  snap: CategoryTypeSnapshot
-): CategoryTypeVO[] => {
   return Object.keys(snap).map((key: string) => {
     return {
       firebaseId: key,
