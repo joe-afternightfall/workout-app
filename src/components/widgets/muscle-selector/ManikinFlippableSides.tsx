@@ -14,7 +14,7 @@ export default function ManikinFlippableSides(): JSX.Element {
       <Grid item xs={12} container justify={'space-between'}>
         <Grid item>
           <Typography>
-            {displayFront ? 'Back Muscle Groups' : 'Front Muscle Groups'}
+            {displayFront ? 'Front Muscle Groups' : 'Back Muscle Groups'}
           </Typography>
         </Grid>
         <Grid item>
