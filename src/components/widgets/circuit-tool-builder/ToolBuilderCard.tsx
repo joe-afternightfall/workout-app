@@ -41,21 +41,9 @@ class ToolBuilderCard extends Component<ToolBuilderCardProps> {
   render(): JSX.Element {
     const { classes } = this.props;
 
-    const selectCircuit = (circuitId: string) => {
-      this.setState({
-        circuitId: circuitId,
-      });
-    };
-
     const handleViewChange = (index: number) => {
       this.setState({
         viewIndex: index,
-      });
-    };
-
-    const handleTextFieldChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      this.setState({
-        circuitNickname: e.target.value,
       });
     };
 
@@ -75,54 +63,30 @@ class ToolBuilderCard extends Component<ToolBuilderCardProps> {
     // }
 
     return (
-      <Card className={classes.root}>
-        <CardHeader title={'Tool Builder'} />
-        <CardContent style={{ height: '100vh' }}>
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
-              <CircuitSelector
-                selectedCircuitId={this.state.circuitId}
-                onChangeHandler={selectCircuit}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                fullWidth
-                value={this.state.circuitNickname}
-                label={'Circuit Nickname'}
-                onChange={handleTextFieldChange}
-              />
-            </Grid>
-
-            <Grid item xs={12}>
-              <Card raised={false}>
-                <CardHeader
-                  style={{ padding: 0 }}
-                  title={
-                    <AppBar position="static" color="default">
-                      <Tabs
-                        value={this.state.viewIndex}
-                        onChange={handleChange}
-                        indicatorColor={'primary'}
-                        textColor={'primary'}
-                        variant={'fullWidth'}
-                        aria-label="full width tabs example"
-                      >
-                        <Tab label={'Muscle Groups'} value={0} />
-                        <Tab label={'Exercise List'} value={1} />
-                      </Tabs>
-                    </AppBar>
-                  }
-                />
-                <CardContent style={{ padding: 0 }}>
-                  <BuilderViews
-                    selectedIndex={this.state.viewIndex}
-                    viewChangeHandler={handleViewChange}
-                  />
-                </CardContent>
-              </Card>
-            </Grid>
-          </Grid>
+      <Card raised={false}>
+        <CardHeader
+          style={{ padding: 0 }}
+          title={
+            <AppBar position="static" color="default">
+              <Tabs
+                value={this.state.viewIndex}
+                onChange={handleChange}
+                indicatorColor={'primary'}
+                textColor={'primary'}
+                variant={'fullWidth'}
+                aria-label="full width tabs example"
+              >
+                <Tab label={'Muscle Groups'} value={0} />
+                <Tab label={'Exercise List'} value={1} />
+              </Tabs>
+            </AppBar>
+          }
+        />
+        <CardContent style={{ padding: 0 }}>
+          <BuilderViews
+            selectedIndex={this.state.viewIndex}
+            viewChangeHandler={handleViewChange}
+          />
         </CardContent>
       </Card>
     );

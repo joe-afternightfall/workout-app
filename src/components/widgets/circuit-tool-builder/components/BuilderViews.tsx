@@ -1,12 +1,9 @@
-import React, { useState } from 'react';
-import { createStyles, makeStyles, useTheme } from '@material-ui/core/styles';
+import React from 'react';
 import SwipeableViews from 'react-swipeable-views';
+import { Grid, Typography } from '@material-ui/core';
 import TabPanel from '../../../shared/SwipeableViewTabPanel';
-import { Button, Grid, Typography } from '@material-ui/core';
-import FrontSide from '../../muscle-selector/manikin/FrontSide';
-import FrontSideControls from '../../muscle-selector/controls/FrontSideControls';
-import BackSideControls from '../../muscle-selector/controls/BackSideControls';
-import BackSide from '../../muscle-selector/manikin/BackSide';
+import { createStyles, makeStyles, useTheme } from '@material-ui/core/styles';
+import ManikinFlippableSides from '../../muscle-selector/ManikinFlippableSides';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -25,7 +22,6 @@ const useStyles = makeStyles(() =>
 export default function BuilderViews(props: BuilderViewsProps): JSX.Element {
   const classes = useStyles();
   const theme = useTheme();
-  const [displayFront, setDisplayFront] = useState<boolean>(true);
 
   return (
     <SwipeableViews
@@ -36,23 +32,7 @@ export default function BuilderViews(props: BuilderViewsProps): JSX.Element {
     >
       <TabPanel value={props.selectedIndex} index={0}>
         <Grid container item xs={12}>
-          <Grid item xs={12} container justify={'flex-end'}>
-            <Grid item>
-              <Button
-                onClick={() => {
-                  setDisplayFront(!displayFront);
-                }}
-              >
-                {displayFront ? 'Back Muscle Groups' : 'Front Muscle Groups'}
-              </Button>
-            </Grid>
-          </Grid>
-          <Grid item xs={4}>
-            {displayFront ? <FrontSideControls /> : <BackSideControls />}
-          </Grid>
-          <Grid item xs={8}>
-            {displayFront ? <FrontSide /> : <BackSide />}
-          </Grid>
+          <ManikinFlippableSides />
         </Grid>
       </TabPanel>
       <TabPanel value={props.selectedIndex} index={1}>
