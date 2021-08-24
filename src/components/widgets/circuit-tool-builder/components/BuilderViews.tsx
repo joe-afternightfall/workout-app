@@ -4,6 +4,7 @@ import { Grid, Typography } from '@material-ui/core';
 import TabPanel from '../../../shared/SwipeableViewTabPanel';
 import { createStyles, makeStyles, useTheme } from '@material-ui/core/styles';
 import ManikinFlippableSides from '../../muscle-selector/ManikinFlippableSides';
+import BottomExerciseDialog from './BottomExerciseDialog';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -32,7 +33,12 @@ export default function BuilderViews(props: BuilderViewsProps): JSX.Element {
     >
       <TabPanel value={props.selectedIndex} index={0}>
         <Grid container item xs={12}>
-          <ManikinFlippableSides />
+          <Grid item xs={12}>
+            <BottomExerciseDialog />
+          </Grid>
+          <Grid item xs={12}>
+            <ManikinFlippableSides />
+          </Grid>
         </Grid>
       </TabPanel>
       <TabPanel value={props.selectedIndex} index={1}>
