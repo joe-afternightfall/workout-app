@@ -10,7 +10,8 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import { TransitionProps } from '@material-ui/core/transitions';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import { Grid } from '@material-ui/core';
+import { Grid, TextField } from '@material-ui/core';
+import CircuitSelector from './components/CircuitSelector';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -34,6 +35,8 @@ const Transition = React.forwardRef(function Transition(
 export default function FullScreenDialog(): JSX.Element {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
+  const [circuitId, setCircuitId] = React.useState('');
+  const [circuitNickname, setCircuitNickname] = React.useState('');
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -41,6 +44,14 @@ export default function FullScreenDialog(): JSX.Element {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const handleSelectCircuit = (circuitId: string) => {
+    setCircuitId(circuitId);
+  };
+
+  const handleTextFieldChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCircuitNickname(e.target.value);
   };
 
   return (
@@ -71,6 +82,22 @@ export default function FullScreenDialog(): JSX.Element {
                 </IconButton>
               </Toolbar>
             </AppBar>
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={6}>
+                <CircuitSelector
+                  selectedCircuitId={circuitId}
+                  onChangeHandler={handleSelectCircuit}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  fullWidth
+                  value={circuitNickname}
+                  label={'Circuit Nickname'}
+                  onChange={handleTextFieldChange}
+                />
+              </Grid>
+            </Grid>
           </Grid>
           <Grid item xs={5}>
             <ToolBuilderCard />
