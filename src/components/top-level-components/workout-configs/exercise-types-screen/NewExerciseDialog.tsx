@@ -109,7 +109,7 @@ export default function NewExerciseDialog(
         <Button onClick={props.closeClickHandler}>{'Cancel'}</Button>
         <Button
           disabled={
-            textField === '' || selectedMuscleIds === [] || setType === ''
+            textField === '' || selectedMuscleIds.length === 0 || setType === ''
           }
           onClick={() => {
             if (
