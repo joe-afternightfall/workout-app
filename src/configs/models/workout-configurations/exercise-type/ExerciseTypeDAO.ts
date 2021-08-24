@@ -9,18 +9,18 @@ export enum SetType {
 export class ExerciseTypeDAO {
   id: string;
   name: string;
-  workoutCategoryId: string;
+  muscleGroupIds: string[];
   setType: SetType;
 
   constructor(
     id: string,
     name: string,
-    workoutCategoryId: string,
+    muscleGroupIds: string[],
     setType: SetType
   ) {
     this.id = id;
     this.name = name;
-    this.workoutCategoryId = workoutCategoryId;
+    this.muscleGroupIds = muscleGroupIds;
     this.setType = setType;
   }
 }

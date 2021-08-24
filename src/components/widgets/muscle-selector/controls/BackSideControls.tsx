@@ -6,17 +6,17 @@ export default function BackSideControls(): JSX.Element {
   return (
     <div>
       <SectionTitle title={'Arms'} />
-      <Selector inputId={'forearms'} title={'Forearms'} />
-      <Selector inputId={'triceps'} title={'Triceps'} />
+      <Selector muscleName={'forearms'} title={'Forearms'} />
+      <Selector muscleName={'triceps'} title={'Triceps'} />
 
       <SectionTitle title={'Back'} />
-      <Selector inputId={'trapezius'} title={'Trapezius'} />
-      <Selector inputId={'lats'} title={'Lats'} />
+      <Selector muscleName={'trapezius'} title={'Trapezius'} />
+      <Selector muscleName={'lats'} title={'Lats'} />
 
       <SectionTitle title={'Legs'} />
-      <Selector inputId={'calves'} title={'Calves'} />
-      <Selector inputId={'hamstrings'} title={'Hamstrings'} />
-      <Selector inputId={'glutes'} title={'Glutes'} />
+      <Selector muscleName={'calves'} title={'Calves'} />
+      <Selector muscleName={'hamstrings'} title={'Hamstrings'} />
+      <Selector muscleName={'glutes'} title={'Glutes'} />
     </div>
   );
 }

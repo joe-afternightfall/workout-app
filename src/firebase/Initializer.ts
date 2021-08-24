@@ -1,14 +1,12 @@
 import { Store } from 'redux';
 import firebase from 'firebase';
 import {
-  CATEGORY_TYPES_ROUTE,
   EXERCISE_TYPES_ROUTE,
   CIRCUIT_TYPES_ROUTE,
   WORKOUTS_ROUTE,
 } from '../configs/constants/firebase-routes';
 import {
   updateExerciseTypes,
-  updateCategoryTypes,
   updateCircuitTypes,
   updateUserWorkouts,
 } from './update-methods';
@@ -37,7 +35,6 @@ export class Initializer {
     firebase.analytics();
 
     const exerciseTypes = firebase.database().ref(EXERCISE_TYPES_ROUTE);
-    const categoryTypes = firebase.database().ref(CATEGORY_TYPES_ROUTE);
     const circuitTypes = firebase.database().ref(CIRCUIT_TYPES_ROUTE);
     const workouts = firebase.database().ref(WORKOUTS_ROUTE);
 
@@ -51,18 +48,6 @@ export class Initializer {
 
     exerciseTypes.on('child_removed', async () => {
       await updateExerciseTypes(this.store);
-    });
-
-    categoryTypes.on('child_added', async () => {
-      await updateCategoryTypes(this.store);
-    });
-
-    categoryTypes.on('child_changed', async () => {
-      await updateCategoryTypes(this.store);
-    });
-
-    categoryTypes.on('child_removed', async () => {
-      await updateCategoryTypes(this.store);
     });
 
     circuitTypes.on('child_added', async () => {

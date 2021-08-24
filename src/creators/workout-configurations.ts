@@ -1,21 +1,6 @@
 import { ActionTypes } from './actions';
-import { CategoryTypeVO } from '../configs/models/workout-configurations/category-type/CategoryTypeVO';
 import { ExerciseTypeVO } from '../configs/models/workout-configurations/exercise-type/ExerciseTypeVO';
 import { CircuitTypeVO } from '../configs/models/workout-configurations/circuit-type/CircuitTypeVO';
-
-export interface LoadCategoryTypesAction {
-  type: ActionTypes.LOAD_CATEGORY_TYPES;
-  categoryTypes: CategoryTypeVO[];
-}
-
-export const loadCategoryTypes = (
-  categoryTypes: CategoryTypeVO[]
-): LoadCategoryTypesAction => {
-  return {
-    type: ActionTypes.LOAD_CATEGORY_TYPES,
-    categoryTypes: categoryTypes,
-  };
-};
 
 export interface LoadExerciseTypesAction {
   type: ActionTypes.LOAD_EXERCISE_TYPES;

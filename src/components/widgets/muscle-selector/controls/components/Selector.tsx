@@ -10,6 +10,9 @@ import {
   toggleMuscleGroup,
 } from '../../../../../creators/muscle-selector';
 import { State } from '../../../../../configs/redux/store';
+import muscleGroups, {
+  MuscleGroup,
+} from '../../../../../configs/models/workout-configurations/MuscleGroups';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -49,15 +52,27 @@ const Selector = (
   props: SelectorControlProps & SelectorControlsPassedInProps
 ): JSX.Element => {
   const classes = useStyles();
-  const checkboxInputId = `${props.inputId}-checkbox`;
-  const foundIndex = props.selectedMuscleGroupIds.indexOf(checkboxInputId);
+  const foundMuscle = muscleGroups.find(
+    (group: MuscleGroup) => group.name === props.muscleName
+  );
+  let checkboxInputId = '';
+  let foundIndex = -1;
+
+  if (foundMuscle) {
+    checkboxInputId = `${foundMuscle.name}-checkbox`;
+    foundIndex = props.selectedMuscleGroupIds.indexOf(foundMuscle.id);
+  }
 
   const handleToggle = () => {
-    props.selectHandler(checkboxInputId);
+    if (foundMuscle) {
+      props.selectHandler(foundMuscle.id);
+    }
   };
 
   const handleMouseOver = () => {
-    props.mouseOverHandler(checkboxInputId);
+    if (foundMuscle) {
+      props.mouseOverHandler(foundMuscle.id);
+    }
   };
 
   const handleMouseOut = () => {
@@ -65,14 +80,17 @@ const Selector = (
   };
 
   const checkForHover = (): boolean => {
-    return props.hoveringOverGroup === checkboxInputId;
+    if (foundMuscle) {
+      return props.hoveringOverGroup === foundMuscle.id;
+    }
+    return false;
   };
 
   return (
     <>
       <input
         type={'checkbox'}
-        className={clsx(classes.checkbox, props.inputId)}
+        className={clsx(classes.checkbox, props.muscleName)}
         id={checkboxInputId}
         value={' '}
         onChange={() => {
@@ -104,7 +122,7 @@ export interface SelectorControlProps {
 }
 
 export interface SelectorControlsPassedInProps {
-  inputId: string;
+  muscleName: string;
   title: string;
 }
 

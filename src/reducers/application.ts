@@ -10,7 +10,6 @@ import {
 import { ActionTypes, ApplicationActions } from '../creators/actions';
 import { CircuitTypeVO } from '../configs/models/workout-configurations/circuit-type/CircuitTypeVO';
 import { ExerciseTypeVO } from '../configs/models/workout-configurations/exercise-type/ExerciseTypeVO';
-import { CategoryTypeVO } from '../configs/models/workout-configurations/category-type/CategoryTypeVO';
 import { UserProfileVO } from '../configs/models/UserProfileVO';
 import { WorkoutVO } from '../configs/models/WorkoutVO';
 import { StopwatchState } from '../components/top-level-components/workout-screen/stopwatch/Stopwatch';
@@ -77,9 +76,6 @@ export default {
         break;
       case ActionTypes.LOAD_EXERCISE_TYPES:
         newState.workoutConfigurations.exerciseTypes = action.exerciseTypes;
-        break;
-      case ActionTypes.LOAD_CATEGORY_TYPES:
-        newState.workoutConfigurations.categoryTypes = action.categoryTypes;
         break;
       case ActionTypes.LOAD_CIRCUIT_TYPES:
         newState.workoutConfigurations.circuitTypes = action.circuitTypes;
@@ -457,7 +453,6 @@ export interface ApplicationState {
   expandedAccordion: string;
   workoutConfigurations: {
     exerciseTypes: ExerciseTypeVO[];
-    categoryTypes: CategoryTypeVO[];
     circuitTypes: CircuitTypeVO[];
   };
   workout: {

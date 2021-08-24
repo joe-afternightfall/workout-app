@@ -12,6 +12,7 @@ const useStyles = makeStyles(() =>
   })
 );
 
+// todo: change select menu to "tabs" where only one can be selected
 export default function SetTypesMenu(props: SetTypesMenuProps): JSX.Element {
   const classes = useStyles();
 

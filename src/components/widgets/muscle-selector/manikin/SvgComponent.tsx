@@ -9,6 +9,9 @@ import {
 } from '../../../../creators/muscle-selector';
 import { State } from '../../../../configs/redux/store';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
+import muscleGroups, {
+  MuscleGroup,
+} from '../../../../configs/models/workout-configurations/MuscleGroups';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -35,27 +38,41 @@ const SvgComponent = (
   props: SvgComponentProps & PassedInSvgComponentProps
 ): JSX.Element => {
   const classes = useStyles();
-  const checkboxInputId = `${props.muscleName}-checkbox`;
+  const foundMuscle = muscleGroups.find(
+    (group: MuscleGroup) => group.name === props.muscleName
+  );
+  let muscleCheckboxName = '';
+
+  if (foundMuscle) {
+    muscleCheckboxName = `${foundMuscle.name}-checkbox`;
+  }
 
   const handleClick = () => {
     const checkbox = document.getElementById(
-      checkboxInputId
+      muscleCheckboxName
     ) as HTMLInputElement;
     checkbox.checked ? (checkbox.checked = false) : (checkbox.checked = true);
-    props.selectHandler(checkboxInputId);
+    if (foundMuscle) {
+      props.selectHandler(foundMuscle.id);
+    }
   };
 
   const checkSelectedIds = (): boolean => {
-    const foundIndex = props.selectedMuscleGroupIds.indexOf(checkboxInputId);
-    return foundIndex !== -1;
+    if (foundMuscle) {
+      const foundIndex = props.selectedMuscleGroupIds.indexOf(foundMuscle.id);
+      return foundIndex !== -1;
+    }
+    return false;
   };
 
   const checkForHover = (): boolean => {
-    return props.hoveringOverGroup === checkboxInputId;
+    return props.hoveringOverGroup === muscleCheckboxName;
   };
 
   const handleMouseOver = () => {
-    props.mouseOverHandler(checkboxInputId);
+    if (foundMuscle) {
+      props.mouseOverHandler(foundMuscle.id);
+    }
   };
 
   const handleMouseOut = () => {

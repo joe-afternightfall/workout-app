@@ -6,26 +6,26 @@ export default function BothSidesControls(): JSX.Element {
   return (
     <div>
       <SectionTitle title={'Arms'} />
-      <Selector inputId={'biceps'} title={'Biceps'} />
-      <Selector inputId={'deltoids'} title={'Deltoids'} />
-      <Selector inputId={'forearms'} title={'Forearms'} />
-      <Selector inputId={'triceps'} title={'Triceps'} />
+      <Selector muscleName={'biceps'} title={'Biceps'} />
+      <Selector muscleName={'deltoids'} title={'Deltoids'} />
+      <Selector muscleName={'forearms'} title={'Forearms'} />
+      <Selector muscleName={'triceps'} title={'Triceps'} />
 
       <SectionTitle title={'BackManikin'} />
-      <Selector inputId={'trapezius'} title={'Trapezius'} />
-      <Selector inputId={'lats'} title={'Lats'} />
+      <Selector muscleName={'trapezius'} title={'Trapezius'} />
+      <Selector muscleName={'lats'} title={'Lats'} />
 
       <SectionTitle title={'Core'} />
-      <Selector inputId={'abs'} title={'Abs'} />
-      <Selector inputId={'obliques'} title={'Obliques'} />
-      <Selector inputId={'pectorals'} title={'Pectorals'} />
+      <Selector muscleName={'abs'} title={'Abs'} />
+      <Selector muscleName={'obliques'} title={'Obliques'} />
+      <Selector muscleName={'pectorals'} title={'Pectorals'} />
 
       <SectionTitle title={'Legs'} />
-      <Selector inputId={'adductors'} title={'Adductors'} />
-      <Selector inputId={'calves'} title={'Calves'} />
-      <Selector inputId={'hamstrings'} title={'Hamstrings'} />
-      <Selector inputId={'glutes'} title={'Glutes'} />
-      <Selector inputId={'quads'} title={'Quads'} />
+      <Selector muscleName={'adductors'} title={'Adductors'} />
+      <Selector muscleName={'calves'} title={'Calves'} />
+      <Selector muscleName={'hamstrings'} title={'Hamstrings'} />
+      <Selector muscleName={'glutes'} title={'Glutes'} />
+      <Selector muscleName={'quads'} title={'Quads'} />
     </div>
   );
 }

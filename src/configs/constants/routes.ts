@@ -3,7 +3,6 @@ import {
   DASHBOARD_SCREEN_PATH,
   USER_PROFILE_SCREEN_PATH,
   CIRCUIT_TYPES_SCREEN_PATH,
-  CATEGORY_TYPES_SCREEN_PATH,
   EXERCISE_TYPES_SCREEN_PATH,
   CIRCUIT_BUILDER_SCREEN_PATH,
 } from './app';
@@ -22,7 +21,6 @@ import DashboardScreen from '../../components/top-level-components/dashboard-scr
 import ProfileScreen from '../../components/top-level-components/profile-screen/ProfileScreen';
 import WorkoutScreen from '../../components/top-level-components/workout-screen/WorkoutScreenConnector';
 import CircuitTypesTable from '../../components/top-level-components/workout-configs/circuit-types-screen/CircuitTypesTable';
-import CategoryTypesTable from '../../components/top-level-components/workout-configs/category-types-screen/CategoryTypesTable';
 import ExerciseTypesTable from '../../components/top-level-components/workout-configs/exercise-types-screen/ExerciseTypesTable';
 import CircuitBuilderScreen from '../../components/top-level-components/circuit-builder/CircuitBuilderScreen';
 
@@ -122,14 +120,6 @@ export const routes: RoutesMap = {
         icon: Settings,
         testId: 'exercise-types-nav',
         routerComponent: ExerciseTypesTable,
-      },
-      {
-        path: CATEGORY_TYPES_SCREEN_PATH,
-        drawerTitle: 'Category Types',
-        headerTitle: 'Category Types',
-        icon: Settings,
-        testId: 'category-types-nav',
-        routerComponent: CategoryTypesTable,
       },
       {
         path: CIRCUIT_TYPES_SCREEN_PATH,
