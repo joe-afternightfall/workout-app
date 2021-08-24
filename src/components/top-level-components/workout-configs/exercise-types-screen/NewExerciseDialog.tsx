@@ -1,22 +1,22 @@
 import React from 'react';
 import {
+  Grid,
+  TextField,
+  IconButton,
+  DialogTitle,
   DialogActions,
   DialogContent,
-  DialogTitle,
-  Grid,
-  IconButton,
-  TextField,
 } from '@material-ui/core';
-import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
+import Button from '@material-ui/core/Button';
+import SetTypesMenu from './dialog/SetTypesMenu';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
+import SelectedMuscleGroupsBox from './dialog/SelectedMuscleGroupsBox';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import { createNewExerciseType } from '../../../../services/workout-configurations/exercise-types-service';
-import { CategoryTypeVO } from '../../../../configs/models/workout-configurations/category-type/CategoryTypeVO';
-import CategorySelectMenu from './dialog/CategorySelectMenu';
+import ManikinFlippableSides from '../../../widgets/muscle-selector/ManikinFlippableSides';
 import { SetType } from '../../../../configs/models/workout-configurations/exercise-type/ExerciseTypeDAO';
-import SetTypesMenu from './dialog/SetTypesMenu';
+import { createNewExerciseType } from '../../../../services/workout-configurations/exercise-types-service';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -37,18 +37,15 @@ export default function NewExerciseDialog(
   props: NewExerciseDialogProps
 ): JSX.Element {
   const classes = useStyles();
-  const [selectedCategoryId, setSelectedCategoryId] =
-    React.useState<string>('');
+  const [selectedMuscleIds, setSelectedMuscleIds] = React.useState<string[]>(
+    []
+  );
   const [textField, setTextField] = React.useState<string>('');
   const [setType, setSetType] = React.useState<string>('');
 
-  // const checkboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   event.target.checked ? setChecked(event.target.name) : setChecked('');
-  // };
-
-  const selectMenuChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-    setSelectedCategoryId(event.target.value as string);
-  };
+  React.useEffect(() => {
+    setSelectedMuscleIds(props.selectedMuscleGroupIds);
+  });
 
   const setTypesMenuChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     setSetType(event.target.value as SetType);
@@ -61,7 +58,7 @@ export default function NewExerciseDialog(
   return (
     <Dialog
       fullWidth
-      maxWidth={'xs'}
+      maxWidth={'md'}
       open={props.open}
       onClose={props.closeClickHandler}
     >
@@ -79,27 +76,31 @@ export default function NewExerciseDialog(
 
       <DialogContent>
         <Grid container spacing={3}>
-          <Grid item xs={12}>
-            <TextField
-              style={{ width: '100%' }}
-              placeholder={'Enter Name'}
-              onChange={textFieldChange}
-            />
+          <Grid item xs={6}>
+            <Grid container spacing={4}>
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  placeholder={'Enter Name'}
+                  onChange={textFieldChange}
+                />
+              </Grid>
+
+              <Grid item xs={12}>
+                <SetTypesMenu
+                  value={setType}
+                  onChangeHandler={setTypesMenuChange}
+                />
+              </Grid>
+
+              <SelectedMuscleGroupsBox
+                selectedIds={props.selectedMuscleGroupIds}
+              />
+            </Grid>
           </Grid>
 
-          <Grid item xs={12}>
-            <CategorySelectMenu
-              selectedCategoryId={selectedCategoryId}
-              categoryTypes={props.categoryTypes}
-              onChangeHandler={selectMenuChange}
-            />
-          </Grid>
-
-          <Grid item xs={12}>
-            <SetTypesMenu
-              value={setType}
-              onChangeHandler={setTypesMenuChange}
-            />
+          <Grid item xs={6}>
+            <ManikinFlippableSides />
           </Grid>
         </Grid>
       </DialogContent>
@@ -108,7 +109,7 @@ export default function NewExerciseDialog(
         <Button onClick={props.closeClickHandler}>{'Cancel'}</Button>
         <Button
           disabled={
-            textField === '' || selectedCategoryId === '' || setType === ''
+            textField === '' || selectedMuscleIds === [] || setType === ''
           }
           onClick={() => {
             if (
@@ -118,13 +119,11 @@ export default function NewExerciseDialog(
               setType === SetType.REPS ||
               setType === SetType.TIME_AND_REPS
             ) {
-              createNewExerciseType(
-                textField,
-                selectedCategoryId,
-                setType
-              ).then(() => {
-                props.closeClickHandler();
-              });
+              createNewExerciseType(textField, selectedMuscleIds, setType).then(
+                () => {
+                  props.closeClickHandler();
+                }
+              );
             }
           }}
         >
@@ -138,5 +137,5 @@ export default function NewExerciseDialog(
 export interface NewExerciseDialogProps {
   open: boolean;
   closeClickHandler: () => void;
-  categoryTypes: CategoryTypeVO[];
+  selectedMuscleGroupIds: string[];
 }

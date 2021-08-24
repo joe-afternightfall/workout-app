@@ -7,10 +7,11 @@ import NewExerciseDialog from './NewExerciseDialog';
 import { State } from '../../../../configs/redux/store';
 import {
   deleteExerciseType,
-  updateExerciseType,
 } from '../../../../services/workout-configurations/exercise-types-service';
-import { CategoryTypeVO } from '../../../../configs/models/workout-configurations/category-type/CategoryTypeVO';
 import { ExerciseTypeVO } from '../../../../configs/models/workout-configurations/exercise-type/ExerciseTypeVO';
+import muscleGroups, {
+  MuscleGroup,
+} from '../../../../configs/models/workout-configurations/MuscleGroups';
 
 const editField = (props: {
   value: string;
@@ -46,23 +47,24 @@ const ExerciseTypesTable = (props: ExerciseTableProps): JSX.Element => {
     (exercise: ExerciseTypeVO, index: number) => {
       index += 1;
 
-      const foundCategory = props.categoryTypes.find(
-        (category: CategoryTypeVO) => category.id === exercise.workoutCategoryId
-      );
+      const foundMuscles: (MuscleGroup | undefined)[] =
+        exercise.muscleGroupIds.map((id: string) =>
+          muscleGroups.find((muscle: MuscleGroup) => muscle.id === id)
+        );
 
       return {
         number: index,
         exercise: exercise.name,
         firebaseId: exercise.firebaseId,
-        categoryId: foundCategory && foundCategory.id,
+        muscleGroup: foundMuscles[0],
         setType: exercise.setType && exercise.setType,
       };
     }
   );
 
-  const categoryTypes = props.categoryTypes.reduce(
-    (obj: CategoryTypesObject, category: CategoryTypeVO) => {
-      obj[category.id] = category.name;
+  const categoryTypes = muscleGroups.reduce(
+    (obj: CategoryTypesObject, muscle: MuscleGroup) => {
+      obj[muscle.id] = muscle.name;
       return obj;
     },
     {}
@@ -73,7 +75,7 @@ const ExerciseTypesTable = (props: ExerciseTableProps): JSX.Element => {
       <NewExerciseDialog
         open={open}
         closeClickHandler={closeDialog}
-        categoryTypes={props.categoryTypes}
+        selectedMuscleGroupIds={props.selectedMuscleGroupIds}
       />
 
       <MaterialTable
@@ -86,22 +88,23 @@ const ExerciseTypesTable = (props: ExerciseTableProps): JSX.Element => {
           pageSizeOptions: [6, 12, 18],
           actionsColumnIndex: -1,
         }}
+        // todo: create custom "edit" component to select multiple muscle groups
         editable={{
-          onRowUpdate: (rowData): Promise<void> =>
-            new Promise((resolve) => {
-              if (rowData.categoryId) {
-                updateExerciseType(
-                  rowData.firebaseId,
-                  rowData.exercise,
-                  rowData.categoryId,
-                  rowData.setType
-                ).then(() => {
-                  setTimeout(() => {
-                    resolve();
-                  }, 1500);
-                });
-              }
-            }),
+          // onRowUpdate: (rowData): Promise<void> =>
+          //   new Promise((resolve) => {
+          //     if (rowData.categoryId) {
+          //       updateExerciseType(
+          //         rowData.firebaseId,
+          //         rowData.exercise,
+          //         rowData.categoryId,
+          //         rowData.setType
+          //       ).then(() => {
+          //         setTimeout(() => {
+          //           resolve();
+          //         }, 1500);
+          //       });
+          //     }
+          //   }),
           onRowDelete: (rowData): Promise<void> =>
             new Promise((resolve) => {
               deleteExerciseType(rowData.firebaseId).then(() => {
@@ -129,18 +132,26 @@ const ExerciseTypesTable = (props: ExerciseTableProps): JSX.Element => {
             editComponent: editField,
           },
           {
-            title: 'Workout Category',
-            field: 'categoryId',
+            title: 'Part of Body',
+            field: 'muscleGroup.bodySection',
             cellStyle: {
-              width: '30%',
+              width: '20%',
             },
-            lookup: categoryTypes,
+            // lookup: categoryTypes,
+          },
+          {
+            title: 'Muscle Group',
+            field: 'muscleGroup.name',
+            cellStyle: {
+              width: '20%',
+            },
+            // lookup: categoryTypes,
           },
           {
             title: 'Set Type',
             field: 'setType',
             cellStyle: {
-              width: '30%',
+              width: '20%',
             },
             // todo: make this object dynamic using SetType
             lookup: {
@@ -169,13 +180,13 @@ const ExerciseTypesTable = (props: ExerciseTableProps): JSX.Element => {
 
 export interface ExerciseTableProps {
   exerciseTypes: ExerciseTypeVO[];
-  categoryTypes: CategoryTypeVO[];
+  selectedMuscleGroupIds: string[];
 }
 
 const mapStateToProps = (state: State): ExerciseTableProps => {
   return {
+    selectedMuscleGroupIds: state.applicationState.selectedMuscleGroupIds,
     exerciseTypes: state.applicationState.workoutConfigurations.exerciseTypes,
-    categoryTypes: state.applicationState.workoutConfigurations.categoryTypes,
   } as unknown as ExerciseTableProps;
 };
 

@@ -1,50 +1,59 @@
 import React from 'react';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { Box, Chip, Grid } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
-import { State } from '../../../../../configs/redux/store';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
+import { capitalizeFirstLetter } from '../../../../../utils/formatter';
 import { toggleMuscleGroup } from '../../../../../creators/muscle-selector';
+import muscleGroups, {
+  MuscleGroup,
+} from '../../../../../configs/models/workout-configurations/MuscleGroups';
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
-    root: {},
+    chipsContainer: {
+      background: '#f6f6f6',
+      minHeight: '16vh',
+      margin: '12px 0',
+    },
   })
 );
 
 const SelectedMuscleGroupsBox = (
-  props: SelectedMuscleGroupsBoxProps
+  props: SelectedMuscleGroupsBoxProps & PassedInProps
 ): JSX.Element => {
   const classes = useStyles();
-  console.log(
-    'props.selectedMuscleGroupIds: ' +
-      JSON.stringify(props.selectedMuscleGroupIds)
-  );
+
   return (
     <Grid item xs={12} container>
       <Grid item xs={12}>
-        <Typography>{'Selected Muscle Groups'}</Typography>
+        <Typography>{'Muscles Worked'}</Typography>
       </Grid>
       <Grid item xs={12}>
-        <Box style={{ background: '#f6f6f6' }} component={'div'} m={1}>
+        <Box className={classes.chipsContainer} component={'div'} m={1}>
           <Grid container spacing={2}>
-            {props.selectedMuscleGroupIds.map(
-              (muscle: string, index: number) => {
-                return (
-                  <Grid item xs={4} key={index}>
-                    <Chip
-                      size={'small'}
-                      label={muscle}
-                      onDelete={() => {
-                        alert(muscle + 'delete clicked');
-                      }}
-                      color={'primary'}
-                    />
-                  </Grid>
-                );
+            {props.selectedIds.map((muscleId: string, index: number) => {
+              const foundMuscle = muscleGroups.find(
+                (group: MuscleGroup) => group.id === muscleId
+              );
+              let chipLabel = '';
+              if (foundMuscle) {
+                chipLabel = capitalizeFirstLetter(foundMuscle.name);
               }
-            )}
+              return (
+                <Grid item key={index}>
+                  <Chip
+                    size={'small'}
+                    label={chipLabel}
+                    onDelete={() => {
+                      props.deleteHandler(muscleId);
+                    }}
+                    color={'primary'}
+                  />
+                </Grid>
+              );
+            })}
           </Grid>
         </Box>
       </Grid>
@@ -52,16 +61,13 @@ const SelectedMuscleGroupsBox = (
   );
 };
 
-export interface SelectedMuscleGroupsBoxProps {
-  selectedMuscleGroupIds: string[];
-  deleteHandler: (muscleGroupCheckboxId: string) => void;
+interface PassedInProps {
+  selectedIds: string[];
 }
 
-const mapStateToProps = (state: State): SelectedMuscleGroupsBoxProps => {
-  return {
-    selectedMuscleGroupIds: state.applicationState.selectedMuscleGroupIds,
-  } as unknown as SelectedMuscleGroupsBoxProps;
-};
+export interface SelectedMuscleGroupsBoxProps {
+  deleteHandler: (muscleGroupCheckboxId: string) => void;
+}
 
 const mapDispatchToProps = (dispatch: Dispatch): SelectedMuscleGroupsBoxProps =>
   ({
@@ -70,7 +76,4 @@ const mapDispatchToProps = (dispatch: Dispatch): SelectedMuscleGroupsBoxProps =>
     },
   } as unknown as SelectedMuscleGroupsBoxProps);
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SelectedMuscleGroupsBox);
+export default connect(null, mapDispatchToProps)(SelectedMuscleGroupsBox);
