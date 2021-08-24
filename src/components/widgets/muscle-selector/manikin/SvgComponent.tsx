@@ -66,7 +66,10 @@ const SvgComponent = (
   };
 
   const checkForHover = (): boolean => {
-    return props.hoveringOverGroup === muscleCheckboxName;
+    if (foundMuscle) {
+      return props.hoveringOverGroup === foundMuscle.id;
+    }
+    return false;
   };
 
   const handleMouseOver = () => {
