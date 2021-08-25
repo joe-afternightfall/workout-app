@@ -6,12 +6,12 @@ import AppBar from '@material-ui/core/AppBar';
 import ToolBuilderCard from './ToolBuilderCard';
 import Toolbar from '@material-ui/core/Toolbar';
 import CloseIcon from '@material-ui/icons/Close';
+import { Grid, TextField } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
+import CircuitSelector from './components/CircuitSelector';
 import { TransitionProps } from '@material-ui/core/transitions';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import { Grid, TextField } from '@material-ui/core';
-import CircuitSelector from './components/CircuitSelector';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
