@@ -7,7 +7,7 @@ import {
 import React, { Component } from 'react';
 import { Grid } from '@material-ui/core';
 import { Styles } from '@material-ui/styles';
-import FullScreenDialog from '../../widgets/circuit-tool-builder/FullScreenDialog';
+import BuilderDialog from '../../widgets/circuit-tool-builder/BuilderDialog';
 
 const styles: Styles<Theme, StyledComponentProps> = () => ({});
 
@@ -17,7 +17,7 @@ class CircuitBuilderScreen extends Component<CircuitBuilderScreenProps> {
       <Grid xs={12} item container>
         <Grid item xs={5} />
         <Grid item xs={7}>
-          <FullScreenDialog />
+          <BuilderDialog />
         </Grid>
       </Grid>
     );
