@@ -5,8 +5,8 @@ import {
   List,
   ListItem,
   ListItemText,
+  ListSubheader,
   SwipeableDrawer,
-  Typography,
 } from '@material-ui/core';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
@@ -25,7 +25,7 @@ const useStyles = makeStyles({
 });
 
 const BottomExerciseDialog = (
-  props: BottomExerciseDialogProps
+  props: BottomExerciseDialogProps & PassedInProps
 ): JSX.Element => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
@@ -86,18 +86,29 @@ const BottomExerciseDialog = (
       >
         <Grid container spacing={2} style={{ height: '50vh' }}>
           {groupIds().map((group, index: number) => {
+            // todo: come back to subheader and try implementing app bar across dialog
             return (
               <Grid key={index} item xs={3}>
                 <List
-                  title={'List Title'}
                   subheader={
-                    <Typography>{group && group.muscleName}</Typography>
+                    <ListSubheader
+                      component={'div'}
+                      id={'nested-list-subheader'}
+                    >
+                      {group && group.muscleName}
+                    </ListSubheader>
                   }
                 >
                   {group &&
                     group.exercises.map((exercise: ExerciseTypeVO) => {
                       return (
-                        <ListItem button key={exercise.id}>
+                        <ListItem
+                          button
+                          key={exercise.id}
+                          onClick={() => {
+                            props.addExerciseHandler(exercise);
+                          }}
+                        >
                           <ListItemText primary={exercise.name} />
                         </ListItem>
                       );
@@ -117,49 +128,14 @@ export interface BottomExerciseDialogProps {
   selectedMuscleGroupIds: string[];
 }
 
+interface PassedInProps {
+  addExerciseHandler: (exercise: ExerciseTypeVO) => void;
+}
+
 const mapStateToProps = (state: State): BottomExerciseDialogProps => {
-  const biceps = new ExerciseTypeVO(
-    'firebase-1',
-    'id-1',
-    'Bicep Curl',
-    ['1'],
-    SetType.WEIGHTS
-  );
-
-  const skullCrushers = new ExerciseTypeVO(
-    'firebase-2',
-    'id-2',
-    'Skull Crushers Curl',
-    ['4'],
-    SetType.WEIGHTS
-  );
-
-  const straightRaises = new ExerciseTypeVO(
-    'firebase-3',
-    'id-3',
-    'Straight Raises',
-    ['4'],
-    SetType.WEIGHTS
-  );
-
-  const sideRaises = new ExerciseTypeVO(
-    'firebase-4',
-    'id-4',
-    'Side Raises',
-    ['2'],
-    SetType.WEIGHTS
-  );
-  const curl = new ExerciseTypeVO(
-    'firebase-5',
-    'id-5',
-    'Another Curl',
-    ['1'],
-    SetType.WEIGHTS
-  );
-
   return {
     selectedMuscleGroupIds: state.applicationState.selectedMuscleGroupIds,
-    exerciseTypes: [biceps, skullCrushers, straightRaises, sideRaises, curl],
+    exerciseTypes: state.applicationState.workoutConfigurations.exerciseTypes,
   } as unknown as BottomExerciseDialogProps;
 };
 

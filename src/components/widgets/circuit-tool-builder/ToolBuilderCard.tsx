@@ -14,6 +14,7 @@ import TabPanel from '../../shared/SwipeableViewTabPanel';
 import BottomExerciseDialog from './components/BottomExerciseDialog';
 import ManikinFlippableSides from '../muscle-selector/ManikinFlippableSides';
 import { createStyles, makeStyles, useTheme } from '@material-ui/core/styles';
+import { ExerciseTypeVO } from '../../../configs/models/workout-configurations/exercise-type/ExerciseTypeVO';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -88,7 +89,9 @@ export default function ToolBuilderCard(
           <TabPanel value={state.viewIndex} index={0}>
             <Grid container item xs={12}>
               <Grid item xs={12}>
-                <BottomExerciseDialog />
+                <BottomExerciseDialog
+                  addExerciseHandler={props.addExerciseHandler}
+                />
               </Grid>
               <Grid item xs={12}>
                 <ManikinFlippableSides />
@@ -105,5 +108,5 @@ export default function ToolBuilderCard(
 }
 
 export interface ToolBuilderCardProps {
-  DELETE_ME?: undefined;
+  addExerciseHandler: (exercise: ExerciseTypeVO) => void;
 }
