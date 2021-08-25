@@ -32,7 +32,7 @@ const Transition = React.forwardRef(function Transition(
   return <Slide direction={'up'} ref={ref} {...props} />;
 });
 
-export default function FullScreenDialog(): JSX.Element {
+export default function BuilderDialog(): JSX.Element {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [circuitId, setCircuitId] = React.useState('');
