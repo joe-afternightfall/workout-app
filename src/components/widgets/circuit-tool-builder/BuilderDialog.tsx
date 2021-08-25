@@ -182,14 +182,17 @@ export default function BuilderDialog(): JSX.Element {
                 <Typography variant={'h6'} className={classes.title}>
                   {'Circuit Template'}
                 </Typography>
-                <IconButton
-                  edge={'start'}
-                  color={'inherit'}
-                  onClick={handleClose}
-                  aria-label={'close'}
-                >
-                  <CloseIcon />
-                </IconButton>
+                <div>
+                  <Button>{'Save Template'}</Button>
+                  <IconButton
+                    edge={'start'}
+                    color={'inherit'}
+                    onClick={handleClose}
+                    aria-label={'close'}
+                  >
+                    <CloseIcon />
+                  </IconButton>
+                </div>
               </Toolbar>
             </AppBar>
             <Grid container spacing={2} style={{ padding: '0 24px' }}>
