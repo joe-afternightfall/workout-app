@@ -15,6 +15,7 @@ import BottomExerciseDialog from './components/BottomExerciseDialog';
 import ManikinFlippableSides from '../muscle-selector/ManikinFlippableSides';
 import { createStyles, makeStyles, useTheme } from '@material-ui/core/styles';
 import { ExerciseTypeVO } from '../../../configs/models/workout-configurations/exercise-type/ExerciseTypeVO';
+import { SetTemplate } from './BuilderDialog';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -36,27 +37,17 @@ export default function ToolBuilderCard(
   const classes = useStyles();
   const theme = useTheme();
 
-  const [state, setState] = useState({
-    circuitId: '',
-    viewIndex: 0,
-    circuitNickname: '',
-  });
+  const [viewIndex, setViewIndex] = useState(0);
 
   const handleViewChange = (index: number) => {
-    setState({
-      ...state,
-      viewIndex: index,
-    });
+    setViewIndex(index);
   };
 
   const handleChange = (
     e: React.ChangeEvent<Record<string, never>>,
     newValue: number
   ) => {
-    setState({
-      ...state,
-      viewIndex: newValue,
-    });
+    setViewIndex(newValue);
   };
 
   return (
@@ -66,7 +57,7 @@ export default function ToolBuilderCard(
         title={
           <AppBar position={'static'} color={'default'}>
             <Tabs
-              value={state.viewIndex}
+              value={viewIndex}
               onChange={handleChange}
               indicatorColor={'primary'}
               textColor={'primary'}
@@ -82,14 +73,15 @@ export default function ToolBuilderCard(
       <CardContent style={{ padding: 0 }}>
         <SwipeableViews
           axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-          index={state.viewIndex}
+          index={viewIndex}
           onChangeIndex={handleViewChange}
           className={classes.viewRoot}
         >
-          <TabPanel value={state.viewIndex} index={0}>
+          <TabPanel value={viewIndex} index={0}>
             <Grid container item xs={12}>
               <Grid item xs={12}>
                 <BottomExerciseDialog
+                  selectedExercises={props.selectedExercises}
                   addExerciseHandler={props.addExerciseHandler}
                 />
               </Grid>
@@ -98,7 +90,7 @@ export default function ToolBuilderCard(
               </Grid>
             </Grid>
           </TabPanel>
-          <TabPanel value={state.viewIndex} index={1}>
+          <TabPanel value={viewIndex} index={1}>
             <Typography>{'Exercise List'}</Typography>
           </TabPanel>
         </SwipeableViews>
@@ -108,5 +100,6 @@ export default function ToolBuilderCard(
 }
 
 export interface ToolBuilderCardProps {
+  selectedExercises: SetTemplate[];
   addExerciseHandler: (exercise: ExerciseTypeVO) => void;
 }

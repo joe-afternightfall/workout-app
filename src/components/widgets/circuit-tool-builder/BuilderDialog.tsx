@@ -1,32 +1,32 @@
-import { v4 as uuidv4 } from 'uuid';
-import React, { useState } from 'react';
-import Slide from '@material-ui/core/Slide';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import AppBar from '@material-ui/core/AppBar';
-import ToolBuilderCard from './ToolBuilderCard';
-import Toolbar from '@material-ui/core/Toolbar';
-import CloseIcon from '@material-ui/icons/Close';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import DragHandleIcon from '@material-ui/icons/DragHandle';
 import {
+  AppBar,
+  Dialog,
+  Button,
+  Slide,
   Card,
-  DialogContent,
   Grid,
   List,
   ListItem,
-  ListItemText,
+  Toolbar,
+  ListItemIcon,
   TextField,
+  ListItemText,
+  IconButton,
+  Typography,
 } from '@material-ui/core';
+import { v4 as uuidv4 } from 'uuid';
+import React, { useState } from 'react';
+import ToolBuilderCard from './ToolBuilderCard';
+import { arrayMoveImmutable } from 'array-move';
+import CloseIcon from '@material-ui/icons/Close';
 import { Container, Draggable } from 'react-smooth-dnd';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
+import SetIncrementer from './components/SetIncrementer';
+import DeleteIcon from '@material-ui/icons/HighlightOff';
+import DragHandleIcon from '@material-ui/icons/DragHandle';
 import CircuitSelector from './components/CircuitSelector';
 import { TransitionProps } from '@material-ui/core/transitions';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { ExerciseTypeVO } from '../../../configs/models/workout-configurations/exercise-type/ExerciseTypeVO';
-import SetIncrementer from './components/SetIncrementer';
-import { arrayMoveImmutable } from 'array-move';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -51,7 +51,7 @@ const Transition = React.forwardRef(function Transition(
   return <Slide direction={'up'} ref={ref} {...props} />;
 });
 
-interface SetTemplate {
+export interface SetTemplate {
   setTemplateId: string;
   exerciseSet: ExerciseTypeVO;
   sets: number;
@@ -97,6 +97,16 @@ export default function BuilderDialog(): JSX.Element {
           reps: 0,
         },
       ],
+    });
+  };
+
+  const handleDeleteExercise = (set: SetTemplate) => {
+    const foundIndex = template.exercises.indexOf(set);
+    const setExercises = template.exercises;
+    setExercises.splice(foundIndex, 1);
+    setTemplate({
+      ...template,
+      exercises: setExercises,
     });
   };
 
@@ -170,7 +180,7 @@ export default function BuilderDialog(): JSX.Element {
             <AppBar className={classes.appBar}>
               <Toolbar>
                 <Typography variant={'h6'} className={classes.title}>
-                  {'Preconfigure Circuit'}
+                  {'Circuit Template'}
                 </Typography>
                 <IconButton
                   edge={'start'}
@@ -239,6 +249,17 @@ export default function BuilderDialog(): JSX.Element {
                                                 <Typography>
                                                   {`${index}. ${setTemplate.exerciseSet.name}`}
                                                 </Typography>
+                                              </Grid>
+                                              <Grid item>
+                                                <IconButton
+                                                  onClick={() => {
+                                                    handleDeleteExercise(
+                                                      setTemplate
+                                                    );
+                                                  }}
+                                                >
+                                                  <DeleteIcon />
+                                                </IconButton>
                                               </Grid>
                                             </Grid>
                                             <Grid item sm={3}>
@@ -328,7 +349,10 @@ export default function BuilderDialog(): JSX.Element {
             </Grid>
           </Grid>
           <Grid item xs={5}>
-            <ToolBuilderCard addExerciseHandler={handleAddExercise} />
+            <ToolBuilderCard
+              selectedExercises={template.exercises}
+              addExerciseHandler={handleAddExercise}
+            />
           </Grid>
         </Grid>
       </Dialog>

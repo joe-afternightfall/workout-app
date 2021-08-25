@@ -16,7 +16,7 @@ import muscleGroups, {
   MuscleGroup,
 } from '../../../../configs/models/workout-configurations/MuscleGroups';
 import { ExerciseTypeVO } from '../../../../configs/models/workout-configurations/exercise-type/ExerciseTypeVO';
-import { SetType } from '../../../../configs/models/workout-configurations/exercise-type/ExerciseTypeDAO';
+import { SetTemplate } from '../BuilderDialog';
 
 const useStyles = makeStyles({
   list: {
@@ -84,7 +84,7 @@ const BottomExerciseDialog = (
         onClose={toggleDrawer(false)}
         onOpen={toggleDrawer(true)}
       >
-        <Grid container spacing={2} style={{ height: '50vh' }}>
+        <Grid container spacing={2} style={{ height: '60vh' }}>
           {groupIds().map((group, index: number) => {
             // todo: come back to subheader and try implementing app bar across dialog
             return (
@@ -101,9 +101,13 @@ const BottomExerciseDialog = (
                 >
                   {group &&
                     group.exercises.map((exercise: ExerciseTypeVO) => {
+                      const foundExercise = props.selectedExercises.find(
+                        (set: SetTemplate) => set.exerciseSet.id === exercise.id
+                      );
                       return (
                         <ListItem
                           button
+                          disabled={foundExercise ? true : false}
                           key={exercise.id}
                           onClick={() => {
                             props.addExerciseHandler(exercise);
@@ -129,6 +133,7 @@ export interface BottomExerciseDialogProps {
 }
 
 interface PassedInProps {
+  selectedExercises: SetTemplate[];
   addExerciseHandler: (exercise: ExerciseTypeVO) => void;
 }
 
