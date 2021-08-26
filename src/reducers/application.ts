@@ -13,6 +13,7 @@ import { ExerciseTypeVO } from '../configs/models/workout-configurations/exercis
 import { UserProfileVO } from '../configs/models/UserProfileVO';
 import { WorkoutVO } from '../configs/models/WorkoutVO';
 import { StopwatchState } from '../components/top-level-components/workout-screen/stopwatch/Stopwatch';
+import { CircuitTemplateVO } from '../configs/models/CircuitTemplateVO';
 
 function findCircuit(
   state: ApplicationState,
@@ -43,6 +44,9 @@ export default {
       case ActionTypes.SETUP_NEW_USER:
         newState.setupNewUser = true;
         newState.userEmail = action.email;
+        break;
+      case ActionTypes.LOAD_CIRCUIT_TEMPLATES:
+        newState.circuitTemplates = action.templates;
         break;
       case ActionTypes.LOAD_USER_WORKOUTS:
         newState.userWorkouts = action.workouts;
@@ -440,6 +444,7 @@ export default {
 export interface ApplicationState {
   userIsValidated: boolean;
   userEmail: string;
+  circuitTemplates: CircuitTemplateVO[];
   userWorkouts: WorkoutVO[];
   setupNewUser: boolean;
   drawerSize: string;

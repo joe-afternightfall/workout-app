@@ -4,11 +4,13 @@ import {
   EXERCISE_TYPES_ROUTE,
   CIRCUIT_TYPES_ROUTE,
   WORKOUTS_ROUTE,
+  CIRCUIT_TEMPLATES_ROUTE,
 } from '../configs/constants/firebase-routes';
 import {
   updateExerciseTypes,
   updateCircuitTypes,
   updateUserWorkouts,
+  updateCircuitTemplates,
 } from './update-methods';
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -37,6 +39,7 @@ export class Initializer {
     const exerciseTypes = firebase.database().ref(EXERCISE_TYPES_ROUTE);
     const circuitTypes = firebase.database().ref(CIRCUIT_TYPES_ROUTE);
     const workouts = firebase.database().ref(WORKOUTS_ROUTE);
+    const circuitTemplates = firebase.database().ref(CIRCUIT_TEMPLATES_ROUTE);
 
     exerciseTypes.on('child_added', async () => {
       await updateExerciseTypes(this.store);
@@ -72,6 +75,18 @@ export class Initializer {
 
     workouts.on('child_removed', async () => {
       await updateUserWorkouts(this.store);
+    });
+
+    circuitTemplates.on('child_added', async () => {
+      await updateCircuitTemplates(this.store);
+    });
+
+    circuitTemplates.on('child_changed', async () => {
+      await updateCircuitTemplates(this.store);
+    });
+
+    circuitTemplates.on('child_removed', async () => {
+      await updateCircuitTemplates(this.store);
     });
   }
 }

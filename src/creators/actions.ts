@@ -44,6 +44,7 @@ import {
   ClearHoverStylesForMuscleGroupAction,
   ToggleMuscleGroupAction,
 } from './muscle-selector';
+import { LoadCircuitTemplatesAction } from './circuit-template';
 
 export enum ActionTypes {
   // Application Actions
@@ -54,6 +55,7 @@ export enum ActionTypes {
   LOAD_EXERCISE_TYPES = 'LOAD_EXERCISE_TYPES',
   LOAD_CIRCUIT_TYPES = 'LOAD_CIRCUIT_TYPES',
 
+  LOAD_CIRCUIT_TEMPLATES = 'LOAD_CIRCUIT_TEMPLATES',
   UPDATE_WORKOUT_DATE = 'UPDATE_WORKOUT_DATE',
   ADD_CIRCUIT = 'ADD_CIRCUIT',
   DELETE_CIRCUIT = 'DELETE_CIRCUIT',
@@ -124,4 +126,5 @@ export type ApplicationActions =
   | UpdateStopwatchAction
   | ToggleMuscleGroupAction
   | ApplyHoverStylesToMuscleGroupAction
-  | ClearHoverStylesForMuscleGroupAction;
+  | ClearHoverStylesForMuscleGroupAction
+  | LoadCircuitTemplatesAction;
