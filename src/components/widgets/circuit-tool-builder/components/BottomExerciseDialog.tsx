@@ -8,9 +8,7 @@ import {
   ListSubheader,
   SwipeableDrawer,
 } from '@material-ui/core';
-import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import { makeStyles } from '@material-ui/core/styles';
 import { State } from '../../../../configs/redux/store';
 import muscleGroups, {
   MuscleGroup,
@@ -18,16 +16,9 @@ import muscleGroups, {
 import { SetTemplate } from '../../../../configs/models/CircuitTemplateDAO';
 import { ExerciseTypeVO } from '../../../../configs/models/workout-configurations/exercise-type/ExerciseTypeVO';
 
-const useStyles = makeStyles({
-  list: {
-    width: 'auto',
-  },
-});
-
 const BottomExerciseDialog = (
   props: BottomExerciseDialogProps & PassedInProps
 ): JSX.Element => {
-  const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
   const toggleDrawer =
@@ -144,7 +135,7 @@ const mapStateToProps = (state: State): BottomExerciseDialogProps => {
   } as unknown as BottomExerciseDialogProps;
 };
 
-const mapDispatchToProps = (dispatch: Dispatch): BottomExerciseDialogProps =>
+const mapDispatchToProps = (): BottomExerciseDialogProps =>
   ({} as unknown as BottomExerciseDialogProps);
 
 export default connect(

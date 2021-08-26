@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import {
   Card,
   Grid,
@@ -9,27 +9,18 @@ import {
   ListItemText,
   ListItemIcon,
 } from '@material-ui/core';
-import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { Draggable } from 'react-smooth-dnd';
 import SetIncrementer from './SetIncrementer';
 import { State } from '../../../../configs/redux/store';
 import DeleteIcon from '@material-ui/icons/HighlightOff';
 import DragHandleIcon from '@material-ui/icons/DragHandle';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { SetTemplate } from '../../../../configs/models/CircuitTemplateDAO';
 import { ExerciseTypeVO } from '../../../../configs/models/workout-configurations/exercise-type/ExerciseTypeVO';
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {},
-  })
-);
 
 const DraggableSetTemplate = (
   props: SetTemplateProps & PassedInProps
 ): JSX.Element => {
-  const classes = useStyles();
   const { index, setTemplate, exerciseTypes } = props;
 
   const foundExercise = exerciseTypes.find(
@@ -79,6 +70,13 @@ const DraggableSetTemplate = (
                               textAlign: 'center',
                             },
                           }}
+                          onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                            props.fieldChangeHandler(
+                              'weight',
+                              e.target.value,
+                              setTemplate.setTemplateId
+                            );
+                          }}
                         />
                       </Grid>
                       <Grid item sm={2}>
@@ -90,6 +88,13 @@ const DraggableSetTemplate = (
                             style: {
                               textAlign: 'center',
                             },
+                          }}
+                          onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                            props.fieldChangeHandler(
+                              'reps',
+                              e.target.value,
+                              setTemplate.setTemplateId
+                            );
                           }}
                         />
                       </Grid>
@@ -144,6 +149,11 @@ interface PassedInProps {
   setTemplate: SetTemplate;
   deleteSetHandler: (set: SetTemplate) => void;
   setChangeHandler: (action: 'add' | 'subtract', id: string) => void;
+  fieldChangeHandler: (
+    field: 'weight' | 'reps',
+    value: string,
+    setId: string
+  ) => void;
 }
 
 export interface SetTemplateProps {
@@ -156,7 +166,7 @@ const mapStateToProps = (state: State): SetTemplateProps => {
   } as unknown as SetTemplateProps;
 };
 
-const mapDispatchToProps = (dispatch: Dispatch): SetTemplateProps =>
+const mapDispatchToProps = (): SetTemplateProps =>
   ({} as unknown as SetTemplateProps);
 
 export default connect(

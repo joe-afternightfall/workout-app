@@ -151,6 +151,25 @@ export default function BuilderDialog(): JSX.Element {
     }
   };
 
+  const handleSetFieldChange = (
+    field: 'weight' | 'reps',
+    value: string,
+    setId: string
+  ) => {
+    const foundSet = template.exercises.find(
+      (set: SetTemplate) => set.setTemplateId === setId
+    );
+
+    if (foundSet) {
+      foundSet[field] = Number(value);
+
+      setTemplate({
+        ...template,
+        exercises: [...template.exercises],
+      });
+    }
+  };
+
   return (
     <div>
       <Button variant="outlined" color="primary" onClick={handleClickOpen}>
@@ -223,6 +242,7 @@ export default function BuilderDialog(): JSX.Element {
                             setTemplate={setTemplate}
                             deleteSetHandler={handleDeleteExercise}
                             setChangeHandler={handleSetChange}
+                            fieldChangeHandler={handleSetFieldChange}
                           />
                         );
                       }
