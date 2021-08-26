@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { State } from '../../../configs/redux/store';
 import { CircuitTemplateVO } from '../../../configs/models/CircuitTemplateVO';
 import {
@@ -16,12 +14,6 @@ import {
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { SetTemplate } from '../../../configs/models/CircuitTemplateDAO';
 import { ExerciseTypeVO } from '../../../configs/models/workout-configurations/exercise-type/ExerciseTypeVO';
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {},
-  })
-);
 
 const Templates = (props: TemplatesProps): JSX.Element => {
   const [openPanel, setOpenPanel] = useState('');
@@ -97,7 +89,7 @@ const mapStateToProps = (state: State): TemplatesProps => {
   } as unknown as TemplatesProps;
 };
 
-const mapDispatchToProps = (dispatch: Dispatch): TemplatesProps =>
+const mapDispatchToProps = (): TemplatesProps =>
   ({} as unknown as TemplatesProps);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Templates);
