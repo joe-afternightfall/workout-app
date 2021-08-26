@@ -6,6 +6,8 @@ import { WorkoutDAO } from '../configs/models/WorkoutDAO';
 import { WorkoutVO } from '../configs/models/WorkoutVO';
 import { UserProfileDAO } from '../configs/models/UserProfileDAO';
 import { UserProfileVO } from '../configs/models/UserProfileVO';
+import { CircuitTemplateDAO } from '../configs/models/CircuitTemplateDAO';
+import { CircuitTemplateVO } from '../configs/models/CircuitTemplateVO';
 
 export interface ExerciseTypeSnapshot {
   [key: string]: ExerciseTypeDAO;
@@ -75,6 +77,24 @@ export const userProfileSnapToVO = (
       weights: snap[key].weights,
       dateOfBirth: snap[key].dateOfBirth,
       lastUpdatedOn: snap[key].lastUpdatedOn,
+    };
+  });
+};
+
+export interface CircuitTemplateSnapshot {
+  [key: string]: CircuitTemplateDAO;
+}
+
+export const circuitTemplateSnapToVO = (
+  snap: CircuitTemplateSnapshot
+): CircuitTemplateVO[] => {
+  return Object.keys(snap).map((key: string) => {
+    return {
+      firebaseId: key,
+      id: snap[key].id,
+      circuitId: snap[key].circuitId,
+      circuitNickname: snap[key].circuitNickname,
+      exercises: snap[key].exercises,
     };
   });
 };

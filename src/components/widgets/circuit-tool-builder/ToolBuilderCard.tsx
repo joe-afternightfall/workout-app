@@ -15,7 +15,7 @@ import BottomExerciseDialog from './components/BottomExerciseDialog';
 import ManikinFlippableSides from '../muscle-selector/ManikinFlippableSides';
 import { createStyles, makeStyles, useTheme } from '@material-ui/core/styles';
 import { ExerciseTypeVO } from '../../../configs/models/workout-configurations/exercise-type/ExerciseTypeVO';
-import { SetTemplate } from './BuilderDialog';
+import { SetTemplate } from '../../../configs/models/CircuitTemplateDAO';
 
 const useStyles = makeStyles(() =>
   createStyles({

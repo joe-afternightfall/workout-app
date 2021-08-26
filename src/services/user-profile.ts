@@ -1,18 +1,18 @@
 import firebase from 'firebase';
-import { v4 as uuidv4 } from 'uuid';
-import { ThunkAction } from 'redux-thunk';
-import { AnyAction, Dispatch } from 'redux';
-import { State } from '../configs/redux/store';
 import {
   loadUserInfo,
   setupNewUser,
   toggleUserProfileDialog,
 } from '../creators/user-info';
-import { UserProfileVO } from '../configs/models/UserProfileVO';
-import { USER_PROFILES_ROUTE } from '../configs/constants/firebase-routes';
-import { UserProfileDAO } from '../configs/models/UserProfileDAO';
-import { ProfileDialogState } from '../components/top-level-components/profile-screen/ProfileDialog';
+import { v4 as uuidv4 } from 'uuid';
+import { ThunkAction } from 'redux-thunk';
+import { AnyAction, Dispatch } from 'redux';
+import { State } from '../configs/redux/store';
 import { userProfileSnapToVO } from '../utils/vo-builder';
+import { UserProfileVO } from '../configs/models/UserProfileVO';
+import { UserProfileDAO } from '../configs/models/UserProfileDAO';
+import { USER_PROFILES_ROUTE } from '../configs/constants/firebase-routes';
+import { ProfileDialogState } from '../components/top-level-components/profile-screen/ProfileDialog';
 
 export const createNewUserProfile = async (
   profile: ProfileDialogState
