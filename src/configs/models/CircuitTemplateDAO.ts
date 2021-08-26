@@ -1,8 +1,6 @@
-import { ExerciseTypeVO } from './workout-configurations/exercise-type/ExerciseTypeVO';
-
 export interface SetTemplate {
   setTemplateId: string;
-  exerciseSet: ExerciseTypeVO;
+  exerciseId: string;
   sets: number;
   weight: number;
   reps: number;

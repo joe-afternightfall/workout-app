@@ -1,34 +1,27 @@
 import {
-  AppBar,
-  Dialog,
-  Button,
-  Slide,
-  Card,
-  Grid,
   List,
-  ListItem,
+  Grid,
+  Slide,
+  AppBar,
+  Button,
+  Dialog,
   Toolbar,
-  ListItemIcon,
   TextField,
-  ListItemText,
   IconButton,
   Typography,
 } from '@material-ui/core';
 import { v4 as uuidv4 } from 'uuid';
 import React, { useState } from 'react';
-import ToolBuilderCard from './ToolBuilderCard';
+import { Container } from 'react-smooth-dnd';
 import { arrayMoveImmutable } from 'array-move';
+import ToolBuilderCard from './ToolBuilderCard';
 import CloseIcon from '@material-ui/icons/Close';
-import { Container, Draggable } from 'react-smooth-dnd';
-import SetIncrementer from './components/SetIncrementer';
-import DeleteIcon from '@material-ui/icons/HighlightOff';
-import DragHandleIcon from '@material-ui/icons/DragHandle';
 import CircuitSelector from './components/CircuitSelector';
 import { TransitionProps } from '@material-ui/core/transitions';
 import { SetTemplate } from '../../../configs/models/CircuitTemplateDAO';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import { ExerciseTypeVO } from '../../../configs/models/workout-configurations/exercise-type/ExerciseTypeVO';
 import { createNewCircuitTemplate } from '../../../services/circuit-template';
+import DraggableSetTemplate from './components/DraggableSetTemplate';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -78,14 +71,14 @@ export default function BuilderDialog(): JSX.Element {
     setOpen(false);
   };
 
-  const handleAddExercise = (exercise: ExerciseTypeVO) => {
+  const handleAddExercise = (exerciseId: string) => {
     setTemplate({
       ...template,
       exercises: [
         ...template.exercises,
         {
           setTemplateId: uuidv4(),
-          exerciseSet: exercise,
+          exerciseId: exerciseId,
           sets: 0,
           weight: 0,
           reps: 0,
@@ -222,129 +215,15 @@ export default function BuilderDialog(): JSX.Element {
                     {template.exercises.map(
                       (setTemplate: SetTemplate, index: number) => {
                         index += 1;
-                        return (
-                          <Draggable key={setTemplate.setTemplateId}>
-                            <Card>
-                              <ListItem
-                                style={{ paddingLeft: 0, paddingRight: 0 }}
-                              >
-                                <Grid container>
-                                  <Grid item xs={11}>
-                                    <ListItemText
-                                      primary={
-                                        <Grid
-                                          key={index}
-                                          container
-                                          xs={12}
-                                          style={{ marginTop: 8 }}
-                                        >
-                                          <Grid
-                                            item
-                                            xs={12}
-                                            container
-                                            spacing={2}
-                                          >
-                                            <Grid
-                                              item
-                                              sm={5}
-                                              container
-                                              alignItems={'center'}
-                                            >
-                                              <Grid item>
-                                                <Typography>
-                                                  {`${index}. ${setTemplate.exerciseSet.name}`}
-                                                </Typography>
-                                              </Grid>
-                                              <Grid item>
-                                                <IconButton
-                                                  onClick={() => {
-                                                    handleDeleteExercise(
-                                                      setTemplate
-                                                    );
-                                                  }}
-                                                >
-                                                  <DeleteIcon />
-                                                </IconButton>
-                                              </Grid>
-                                            </Grid>
-                                            <Grid item sm={3}>
-                                              <SetIncrementer
-                                                setNumber={setTemplate.sets}
-                                                setTemplateId={
-                                                  setTemplate.setTemplateId
-                                                }
-                                                changeHandler={handleSetChange}
-                                              />
-                                            </Grid>
-                                            <Grid item sm={2}>
-                                              <TextField
-                                                variant={'outlined'}
-                                                name={'weight'}
-                                                value={setTemplate.weight}
-                                                inputProps={{
-                                                  style: {
-                                                    textAlign: 'center',
-                                                  },
-                                                }}
-                                              />
-                                            </Grid>
-                                            <Grid item sm={2}>
-                                              <TextField
-                                                variant={'outlined'}
-                                                name={'reps'}
-                                                value={setTemplate.reps}
-                                                inputProps={{
-                                                  style: {
-                                                    textAlign: 'center',
-                                                  },
-                                                }}
-                                              />
-                                            </Grid>
-                                          </Grid>
 
-                                          <Grid
-                                            item
-                                            xs={12}
-                                            container
-                                            style={{ textAlign: 'center' }}
-                                            spacing={2}
-                                          >
-                                            <Grid item sm={5} />
-                                            <Grid item sm={3}>
-                                              <Typography>{'Sets'}</Typography>
-                                            </Grid>
-                                            <Grid item sm={2}>
-                                              <Typography>
-                                                {'Weight'}
-                                              </Typography>
-                                            </Grid>
-                                            <Grid item sm={2}>
-                                              <Typography>{'Reps'}</Typography>
-                                            </Grid>
-                                          </Grid>
-                                        </Grid>
-                                      }
-                                    />
-                                  </Grid>
-                                  <Grid
-                                    item
-                                    xs={1}
-                                    container
-                                    alignItems={'center'}
-                                    justify={'center'}
-                                  >
-                                    <Grid item>
-                                      <ListItemIcon className={'drag-handle'}>
-                                        <IconButton>
-                                          <DragHandleIcon />
-                                        </IconButton>
-                                      </ListItemIcon>
-                                    </Grid>
-                                  </Grid>
-                                </Grid>
-                              </ListItem>
-                            </Card>
-                          </Draggable>
+                        return (
+                          <DraggableSetTemplate
+                            key={index}
+                            index={index}
+                            setTemplate={setTemplate}
+                            deleteSetHandler={handleDeleteExercise}
+                            setChangeHandler={handleSetChange}
+                          />
                         );
                       }
                     )}

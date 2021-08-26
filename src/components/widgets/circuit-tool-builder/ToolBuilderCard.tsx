@@ -101,5 +101,5 @@ export default function ToolBuilderCard(
 
 export interface ToolBuilderCardProps {
   selectedExercises: SetTemplate[];
-  addExerciseHandler: (exercise: ExerciseTypeVO) => void;
+  addExerciseHandler: (exerciseId: string) => void;
 }

@@ -1,8 +1,8 @@
 import React from 'react';
 import {
-  Button,
-  Grid,
   List,
+  Grid,
+  Button,
   ListItem,
   ListItemText,
   ListSubheader,
@@ -102,7 +102,7 @@ const BottomExerciseDialog = (
                   {group &&
                     group.exercises.map((exercise: ExerciseTypeVO) => {
                       const foundExercise = props.selectedExercises.find(
-                        (set: SetTemplate) => set.exerciseSet.id === exercise.id
+                        (set: SetTemplate) => set.exerciseId === exercise.id
                       );
                       return (
                         <ListItem
@@ -110,7 +110,7 @@ const BottomExerciseDialog = (
                           disabled={foundExercise ? true : false}
                           key={exercise.id}
                           onClick={() => {
-                            props.addExerciseHandler(exercise);
+                            props.addExerciseHandler(exercise.id);
                           }}
                         >
                           <ListItemText primary={exercise.name} />
@@ -134,7 +134,7 @@ export interface BottomExerciseDialogProps {
 
 interface PassedInProps {
   selectedExercises: SetTemplate[];
-  addExerciseHandler: (exercise: ExerciseTypeVO) => void;
+  addExerciseHandler: (exercise: string) => void;
 }
 
 const mapStateToProps = (state: State): BottomExerciseDialogProps => {
