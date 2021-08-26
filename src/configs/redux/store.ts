@@ -59,6 +59,7 @@ export const createStore = (history: History): Store => {
       },
       selectedMuscleGroupIds: [],
       applyHoverStylesToMuscleGroup: '',
+      circuitTemplates: [],
     } as unknown as ApplicationState,
   });
 };

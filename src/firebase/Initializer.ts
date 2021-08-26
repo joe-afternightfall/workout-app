@@ -4,6 +4,7 @@ import {
   EXERCISE_TYPES_ROUTE,
   CIRCUIT_TYPES_ROUTE,
   WORKOUTS_ROUTE,
+  CIRCUIT_TEMPLATES_ROUTE,
 } from '../configs/constants/firebase-routes';
 import {
   updateExerciseTypes,
@@ -38,7 +39,7 @@ export class Initializer {
     const exerciseTypes = firebase.database().ref(EXERCISE_TYPES_ROUTE);
     const circuitTypes = firebase.database().ref(CIRCUIT_TYPES_ROUTE);
     const workouts = firebase.database().ref(WORKOUTS_ROUTE);
-    const circuitTemplates = firebase.database().ref(CIRCUIT_TYPES_ROUTE);
+    const circuitTemplates = firebase.database().ref(CIRCUIT_TEMPLATES_ROUTE);
 
     exerciseTypes.on('child_added', async () => {
       await updateExerciseTypes(this.store);
