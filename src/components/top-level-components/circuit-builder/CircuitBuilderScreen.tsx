@@ -4,6 +4,7 @@ import {
   withStyles,
   StyledComponentProps,
 } from '@material-ui/core/styles';
+import Templates from './Templates';
 import React, { Component } from 'react';
 import { Grid } from '@material-ui/core';
 import { Styles } from '@material-ui/styles';
@@ -15,7 +16,9 @@ class CircuitBuilderScreen extends Component<CircuitBuilderScreenProps> {
   render(): JSX.Element {
     return (
       <Grid xs={12} item container>
-        <Grid item xs={5} />
+        <Grid item xs={5}>
+          <Templates />
+        </Grid>
         <Grid item xs={7}>
           <BuilderDialog />
         </Grid>

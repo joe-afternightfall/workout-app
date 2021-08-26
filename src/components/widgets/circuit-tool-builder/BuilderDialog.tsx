@@ -25,8 +25,10 @@ import DeleteIcon from '@material-ui/icons/HighlightOff';
 import DragHandleIcon from '@material-ui/icons/DragHandle';
 import CircuitSelector from './components/CircuitSelector';
 import { TransitionProps } from '@material-ui/core/transitions';
+import { SetTemplate } from '../../../configs/models/CircuitTemplateDAO';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { ExerciseTypeVO } from '../../../configs/models/workout-configurations/exercise-type/ExerciseTypeVO';
+import { createNewCircuitTemplate } from '../../../services/circuit-template';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -51,15 +53,7 @@ const Transition = React.forwardRef(function Transition(
   return <Slide direction={'up'} ref={ref} {...props} />;
 });
 
-export interface SetTemplate {
-  setTemplateId: string;
-  exerciseSet: ExerciseTypeVO;
-  sets: number;
-  weight: number;
-  reps: number;
-}
-
-interface CircuitTemplate {
+export interface BuilderTemplate {
   id: string;
   circuitId: string;
   circuitNickname: string;
@@ -69,7 +63,7 @@ interface CircuitTemplate {
 export default function BuilderDialog(): JSX.Element {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
-  const [template, setTemplate] = useState<CircuitTemplate>({
+  const [template, setTemplate] = useState<BuilderTemplate>({
     id: uuidv4(),
     circuitId: '',
     circuitNickname: '',
@@ -183,7 +177,15 @@ export default function BuilderDialog(): JSX.Element {
                   {'Circuit Template'}
                 </Typography>
                 <div>
-                  <Button>{'Save Template'}</Button>
+                  <Button
+                    onClick={() => {
+                      createNewCircuitTemplate(template).then(() => {
+                        handleClose();
+                      });
+                    }}
+                  >
+                    {'Save Template'}
+                  </Button>
                   <IconButton
                     edge={'start'}
                     color={'inherit'}

@@ -15,8 +15,8 @@ import { State } from '../../../../configs/redux/store';
 import muscleGroups, {
   MuscleGroup,
 } from '../../../../configs/models/workout-configurations/MuscleGroups';
+import { SetTemplate } from '../../../../configs/models/CircuitTemplateDAO';
 import { ExerciseTypeVO } from '../../../../configs/models/workout-configurations/exercise-type/ExerciseTypeVO';
-import { SetTemplate } from '../BuilderDialog';
 
 const useStyles = makeStyles({
   list: {
