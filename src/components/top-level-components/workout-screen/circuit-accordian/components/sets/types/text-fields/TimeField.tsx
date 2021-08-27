@@ -16,7 +16,7 @@ export default function TimeField(props: TimeFieldProps): JSX.Element {
         {/*  />*/}
         {/*</Grid>*/}
 
-        <Grid item xs={6}>
+        <Grid item xs={6} sm={3}>
           <TextField
             fullWidth
             name={'minutes'}
@@ -26,7 +26,7 @@ export default function TimeField(props: TimeFieldProps): JSX.Element {
           />
         </Grid>
 
-        <Grid item xs={6}>
+        <Grid item xs={6} sm={3}>
           <TextField
             fullWidth
             name={'seconds'}
@@ -42,11 +42,11 @@ export default function TimeField(props: TimeFieldProps): JSX.Element {
         {/*  <Typography variant={'caption'}>{'hours'}</Typography>*/}
         {/*</Grid>*/}
 
-        <Grid item xs={6}>
+        <Grid item xs={6} sm={3}>
           <Typography variant={'caption'}>{'minutes'}</Typography>
         </Grid>
 
-        <Grid item xs={6}>
+        <Grid item xs={6} sm={3}>
           <Typography variant={'caption'}>{'seconds'}</Typography>
         </Grid>
       </Grid>

@@ -5,13 +5,9 @@ import { CircuitExerciseSet } from '../../../../WorkoutScreen';
 
 export default function TimedSet(props: TimedSetProps): JSX.Element {
   return (
-    <>
-      <Grid item xs={3}>
-        <TimeField set={props.set} changeHandler={props.timeChangeHandler} />
-      </Grid>
-
-      <Grid item xs={3} />
-    </>
+    <Grid item xs={6}>
+      <TimeField set={props.set} changeHandler={props.timeChangeHandler} />
+    </Grid>
   );
 }
 
