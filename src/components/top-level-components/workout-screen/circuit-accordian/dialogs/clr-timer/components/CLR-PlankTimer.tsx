@@ -59,7 +59,7 @@ export default function PlankTimer(props: PlankTimerProps): JSX.Element {
   ) : (
     <CountdownCircleTimer
       key={key}
-      isPlaying
+      isPlaying={props.isPlaying}
       duration={duration}
       colors={[
         ['#004777', 0.33],
@@ -85,6 +85,7 @@ export default function PlankTimer(props: PlankTimerProps): JSX.Element {
 }
 
 export interface PlankTimerProps {
+  isPlaying: boolean;
   closeHandler: () => void;
   nextStepHandler: () => void;
   resetStepperHandler: () => void;

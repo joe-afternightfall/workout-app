@@ -5,6 +5,7 @@ import {
   IconButton,
   DialogTitle,
   DialogContent,
+  Button,
 } from '@material-ui/core';
 import TimerIcon from '@material-ui/icons/Timer';
 import PlankTimer from './components/CLR-PlankTimer';
@@ -27,6 +28,7 @@ const useStyles = makeStyles(() =>
 export default function TimerDialog(): JSX.Element {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
+  const [startTimer, setStartTimer] = React.useState(false);
   const [activeStep, setActiveStep] = React.useState(0);
 
   const handleNextStep = () => {
@@ -45,6 +47,10 @@ export default function TimerDialog(): JSX.Element {
     setOpen(false);
   };
 
+  const toggleTimer = (toggle: boolean) => {
+    setStartTimer(toggle);
+  };
+
   return (
     <>
       <IconButton onClick={handleClickOpen}>
@@ -61,8 +67,14 @@ export default function TimerDialog(): JSX.Element {
             justify={'center'}
             className={classes.contentWrapper}
           >
+            <Grid item xs={12}>
+              <Button onClick={() => toggleTimer(!startTimer)}>
+                {startTimer ? 'pause' : 'start'}
+              </Button>
+            </Grid>
             <Grid item>
               <PlankTimer
+                isPlaying={startTimer}
                 closeHandler={handleClose}
                 nextStepHandler={handleNextStep}
                 resetStepperHandler={handleResetStepper}
