@@ -3,8 +3,8 @@ import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
+import CustomStepIcon from './stepper/CustomStepIcon';
+import CustomStepConnector from './stepper/CustomStepConnector';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -31,10 +31,14 @@ export default function PlankStepper(props: PlankStepperProps): JSX.Element {
 
   return (
     <div className={classes.root}>
-      <Stepper alternativeLabel activeStep={props.activeStep}>
+      <Stepper
+        alternativeLabel
+        activeStep={props.activeStep}
+        connector={<CustomStepConnector />}
+      >
         {steps.map((label: string, index: number) => (
           <Step key={index}>
-            <StepLabel>{label}</StepLabel>
+            <StepLabel StepIconComponent={CustomStepIcon}>{label}</StepLabel>
           </Step>
         ))}
       </Stepper>
