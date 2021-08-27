@@ -6,17 +6,17 @@ export default function TimeField(props: TimeFieldProps): JSX.Element {
   return (
     <Grid item xs={12} container alignItems={'center'}>
       <Grid item xs={12} container alignItems={'center'} spacing={2}>
-        <Grid item xs={4}>
-          <TextField
-            fullWidth
-            name={'hours'}
-            variant={'outlined'}
-            value={props.set.time.hours}
-            onChange={props.changeHandler}
-          />
-        </Grid>
+        {/*<Grid item xs={4}>*/}
+        {/*  <TextField*/}
+        {/*    fullWidth*/}
+        {/*    name={'hours'}*/}
+        {/*    variant={'outlined'}*/}
+        {/*    value={props.set.time.hours}*/}
+        {/*    onChange={props.changeHandler}*/}
+        {/*  />*/}
+        {/*</Grid>*/}
 
-        <Grid item xs={4}>
+        <Grid item xs={6}>
           <TextField
             fullWidth
             name={'minutes'}
@@ -26,7 +26,7 @@ export default function TimeField(props: TimeFieldProps): JSX.Element {
           />
         </Grid>
 
-        <Grid item xs={4}>
+        <Grid item xs={6}>
           <TextField
             fullWidth
             name={'seconds'}
@@ -38,15 +38,15 @@ export default function TimeField(props: TimeFieldProps): JSX.Element {
       </Grid>
 
       <Grid item xs={12} container alignItems={'center'}>
-        <Grid item xs={4}>
-          <Typography variant={'caption'}>{'hours'}</Typography>
-        </Grid>
+        {/*<Grid item xs={4}>*/}
+        {/*  <Typography variant={'caption'}>{'hours'}</Typography>*/}
+        {/*</Grid>*/}
 
-        <Grid item xs={4}>
+        <Grid item xs={6}>
           <Typography variant={'caption'}>{'minutes'}</Typography>
         </Grid>
 
-        <Grid item xs={4}>
+        <Grid item xs={6}>
           <Typography variant={'caption'}>{'seconds'}</Typography>
         </Grid>
       </Grid>
