@@ -12,7 +12,6 @@ import { mobileRoutes } from '../../configs/constants/mobile-routes';
 const useStyles = makeStyles(() =>
   createStyles({
     toolbar: {
-      width: '100%',
       padding: 0,
       color: '#fff',
     },
@@ -35,13 +34,13 @@ const MobileAppBar = (props: MobileAppBarProps): JSX.Element => {
   };
 
   return (
-    <AppBar position={'fixed'} color={'primary'} className={classes.root}>
+    <AppBar position={'fixed'} className={classes.root}>
       <Toolbar className={classes.toolbar}>
         <Tabs
           value={value}
           onChange={handleChange}
           variant={'fullWidth'}
-          style={{ margin: 'auto' }}
+          style={{ width: '100%' }}
         >
           {Object.keys(mobileRoutes).map((route: string, index: number) => {
             return (
