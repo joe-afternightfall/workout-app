@@ -1,12 +1,18 @@
 import React, { useState } from 'react';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { Grid, Typography } from '@material-ui/core';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { Button, Grid, Typography } from '@material-ui/core';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 import CheckIcon from '@material-ui/icons/Check';
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {},
+    button: {
+      borderRadius: '50%',
+      // background: theme.palette.primary.main,
+      height: '85%',
+      margin: 'auto',
+      width: '100%',
+    },
   })
 );
 
@@ -24,7 +30,12 @@ export default function PlankTimer(props: PlankTimerProps): JSX.Element {
   const [key, setKey] = useState(0);
   const [counter, setCounter] = useState(0);
   const [duration, setDuration] = useState(10);
+  const [startTimer, setStartTimer] = React.useState(false);
   const [message, setMessage] = useState('Get ready to start');
+
+  const toggleTimer = (toggle: boolean) => {
+    setStartTimer(toggle);
+  };
 
   const handleComplete = (): [value: boolean, value: number] => {
     setCounter(counter + 1);
@@ -57,30 +68,55 @@ export default function PlankTimer(props: PlankTimerProps): JSX.Element {
       </Grid>
     </Grid>
   ) : (
-    <CountdownCircleTimer
-      key={key}
-      isPlaying={props.isPlaying}
-      duration={duration}
-      colors={[
-        ['#004777', 0.33],
-        ['#F7B801', 0.33],
-        ['#A30000', 0.33],
-      ]}
-      onComplete={handleComplete}
-    >
-      {({ remainingTime }) => {
-        return (
-          <Grid container style={{ textAlign: 'center' }}>
-            <Grid item xs={12}>
-              <Typography>{message}</Typography>
-            </Grid>
-            <Grid item xs={12}>
-              <Typography>{remainingTime}</Typography>
-            </Grid>
-          </Grid>
-        );
-      }}
-    </CountdownCircleTimer>
+    <Grid container justify={'center'} spacing={2}>
+      <Grid item xs={12} container justify={'center'}>
+        <Grid item>
+          <Typography>{message}</Typography>
+        </Grid>
+      </Grid>
+      <Grid item>
+        <CountdownCircleTimer
+          key={key}
+          isPlaying={startTimer}
+          duration={duration}
+          colors={[
+            ['#004777', 0.33],
+            ['#F7B801', 0.33],
+            ['#A30000', 0.33],
+          ]}
+          onComplete={handleComplete}
+        >
+          {}
+          {({ remainingTime }) => {
+            return (
+              <Grid container style={{ height: '100%', textAlign: 'center' }}>
+                <Button
+                  className={classes.button}
+                  onClick={() => toggleTimer(!startTimer)}
+                >
+                  {startTimer ? (
+                    <>
+                      <Grid item xs={12}>
+                        <Typography variant={'h6'}>{remainingTime}</Typography>
+                      </Grid>
+                      <Grid item xs={12}>
+                        <Typography variant={'overline'}>{'pause'}</Typography>
+                      </Grid>
+                    </>
+                  ) : (
+                    <>
+                      <Grid item xs={12}>
+                        <Typography>{'press to start'}</Typography>
+                      </Grid>
+                    </>
+                  )}
+                </Button>
+              </Grid>
+            );
+          }}
+        </CountdownCircleTimer>
+      </Grid>
+    </Grid>
   );
 }
 

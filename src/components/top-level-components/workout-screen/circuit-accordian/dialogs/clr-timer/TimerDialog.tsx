@@ -67,19 +67,12 @@ export default function TimerDialog(): JSX.Element {
             justify={'center'}
             className={classes.contentWrapper}
           >
-            <Grid item xs={12}>
-              <Button onClick={() => toggleTimer(!startTimer)}>
-                {startTimer ? 'pause' : 'start'}
-              </Button>
-            </Grid>
-            <Grid item>
-              <PlankTimer
-                isPlaying={startTimer}
-                closeHandler={handleClose}
-                nextStepHandler={handleNextStep}
-                resetStepperHandler={handleResetStepper}
-              />
-            </Grid>
+            <PlankTimer
+              isPlaying={startTimer}
+              closeHandler={handleClose}
+              nextStepHandler={handleNextStep}
+              resetStepperHandler={handleResetStepper}
+            />
           </Grid>
         </DialogContent>
       </Dialog>
