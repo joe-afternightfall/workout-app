@@ -18,6 +18,7 @@ const useStyles = makeStyles(() =>
       minHeight: '30vh',
       height: '100%',
       textAlign: 'center',
+      paddingBottom: 16,
     },
     dialogTitle: {
       padding: '16px 0',

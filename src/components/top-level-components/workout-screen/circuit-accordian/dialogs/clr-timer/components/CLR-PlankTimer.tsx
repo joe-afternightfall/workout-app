@@ -95,14 +95,14 @@ export default function PlankTimer(props: PlankTimerProps): JSX.Element {
                   onClick={() => toggleTimer(!startTimer)}
                 >
                   {startTimer ? (
-                    <>
+                    <Grid container>
                       <Grid item xs={12}>
                         <Typography variant={'h6'}>{remainingTime}</Typography>
                       </Grid>
                       <Grid item xs={12}>
                         <Typography variant={'overline'}>{'pause'}</Typography>
                       </Grid>
-                    </>
+                    </Grid>
                   ) : (
                     <>
                       <Grid item xs={12}>
