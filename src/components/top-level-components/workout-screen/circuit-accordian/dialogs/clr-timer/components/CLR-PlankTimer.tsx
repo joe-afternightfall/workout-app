@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import { Button, Grid, Typography } from '@material-ui/core';
-import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 import CheckIcon from '@material-ui/icons/Check';
+import { Button, Grid, Typography } from '@material-ui/core';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
+import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     button: {
       borderRadius: '50%',
@@ -121,7 +121,6 @@ export default function PlankTimer(props: PlankTimerProps): JSX.Element {
 }
 
 export interface PlankTimerProps {
-  isPlaying: boolean;
   closeHandler: () => void;
   nextStepHandler: () => void;
   resetStepperHandler: () => void;
