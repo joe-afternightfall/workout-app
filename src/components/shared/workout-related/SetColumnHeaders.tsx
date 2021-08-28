@@ -6,30 +6,22 @@ export default function SetColumnHeaders(props: SetTitleProps): JSX.Element {
   let displayComponent: JSX.Element;
 
   switch (props.setType) {
-    case SetType.TIME:
-      displayComponent = (
-        <Grid item xs={props.displayAction ? 6 : 5}>
-          <Typography>{'Time'}</Typography>
-        </Grid>
-      );
-      break;
     case SetType.WEIGHTS:
       displayComponent = (
         <>
           <Grid item xs={props.displayAction ? 3 : 5}>
-            <Typography>{'lbs'}</Typography>
+            <Typography>{'reps'}</Typography>
           </Grid>
-
           <Grid item xs={props.displayAction ? 3 : 5}>
-            <Typography>{'Reps'}</Typography>
+            <Typography>{'lbs'}</Typography>
           </Grid>
         </>
       );
       break;
-    case SetType.REPS:
+    case SetType.TIME:
       displayComponent = (
         <Grid item xs={props.displayAction ? 6 : 5}>
-          <Typography>{'Reps'}</Typography>
+          <Typography>{'time'}</Typography>
         </Grid>
       );
       break;
@@ -37,11 +29,11 @@ export default function SetColumnHeaders(props: SetTitleProps): JSX.Element {
       displayComponent = (
         <>
           <Grid item xs={props.displayAction ? 3 : 5}>
-            <Typography>{'Time'}</Typography>
+            <Typography>{'time'}</Typography>
           </Grid>
 
           <Grid item xs={props.displayAction ? 3 : 5}>
-            <Typography>{'Distance'}</Typography>
+            <Typography>{'distance'}</Typography>
           </Grid>
         </>
       );
@@ -50,13 +42,20 @@ export default function SetColumnHeaders(props: SetTitleProps): JSX.Element {
       displayComponent = (
         <>
           <Grid item xs={props.displayAction ? 3 : 5}>
-            <Typography>{'Time'}</Typography>
+            <Typography>{'time'}</Typography>
           </Grid>
 
           <Grid item xs={props.displayAction ? 3 : 5}>
-            <Typography>{'Reps'}</Typography>
+            <Typography>{'reps'}</Typography>
           </Grid>
         </>
+      );
+      break;
+    case SetType.REPS:
+      displayComponent = (
+        <Grid item xs={props.displayAction ? 6 : 5}>
+          <Typography>{'reps'}</Typography>
+        </Grid>
       );
       break;
     default:
@@ -66,7 +65,7 @@ export default function SetColumnHeaders(props: SetTitleProps): JSX.Element {
   return (
     <Grid item xs={12} container>
       <Grid item xs={2}>
-        <Typography>{'Set'}</Typography>
+        <Typography>{'set'}</Typography>
       </Grid>
 
       {displayComponent}

@@ -13,6 +13,7 @@ import {
 import React, { Component } from 'react';
 import { Styles } from '@material-ui/styles';
 import { CircuitExerciseSet } from '../../WorkoutScreen';
+import TimerDialog from '../dialogs/clr-timer/TimerDialog';
 import AddIcon from '@material-ui/icons/AddCircleOutlineOutlined';
 import DeleteExerciseDialog from '../dialogs/DeleteExerciseDialog';
 import { Button, Divider, Grid, ListItem } from '@material-ui/core';
@@ -37,18 +38,30 @@ class ExerciseCircuit extends Component<ExerciseCircuitProps> {
     return (
       <ListItem style={{ width: '100%' }}>
         <Grid container spacing={2}>
-          <Grid container item xs={12} alignItems={'center'} spacing={2}>
+          <Grid container item xs={12} justify={'space-between'}>
             <Grid item>
-              <ExerciseTitle title={exercise.name} />
+              <Grid alignItems={'center'} container spacing={2}>
+                <Grid item>
+                  <ExerciseTitle title={exercise.name} />
+                </Grid>
+
+                <Grid item>
+                  <DeleteExerciseDialog
+                    exercise={exercise}
+                    circuitId={circuitId}
+                    deleteExerciseHandler={this.props.deleteExerciseHandler}
+                  />
+                </Grid>
+              </Grid>
             </Grid>
 
-            <Grid item>
-              <DeleteExerciseDialog
-                exercise={exercise}
-                circuitId={circuitId}
-                deleteExerciseHandler={this.props.deleteExerciseHandler}
-              />
-            </Grid>
+            {exercise.id === '67412f93-2039-4978-b3b0-5bc275ac7ad0' ? (
+              <Grid item style={{ marginRight: 16 }}>
+                <TimerDialog />
+              </Grid>
+            ) : (
+              <React.Fragment />
+            )}
           </Grid>
 
           <SetColumnHeaders setType={exercise.setType} displayAction={true} />
