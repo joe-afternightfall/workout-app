@@ -57,3 +57,4 @@ reportWebVitals();
 // todo: work with mike on mocks for all breakpoints:  mobile/tablets/monitor
 // todo: create "on-hover" tooltips for side drawer when showing icons
 // todo: allow for decimal's as weights
+// todo: add "timer" option to set types
