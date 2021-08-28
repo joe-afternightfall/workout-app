@@ -6,10 +6,10 @@ import Tabs from '@material-ui/core/Tabs';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import { routerActions } from 'connected-react-router';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { mobileRoutes } from '../../configs/constants/mobile-routes';
-import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     toolbar: {
       width: '100%',
@@ -65,7 +65,7 @@ export interface MobileAppBarProps {
   routeClickHandler: (path: string) => void;
 }
 
-const mapStateToProps = (state: any): MobileAppBarProps => {
+const mapStateToProps = (): MobileAppBarProps => {
   return {} as unknown as MobileAppBarProps;
 };
 

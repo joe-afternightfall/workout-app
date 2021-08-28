@@ -11,7 +11,7 @@ const styles: Styles<Theme, StyledComponentProps> = () => ({});
 
 class MobileWorkoutScreen extends Component<MobileWorkoutScreenProps> {
   render(): JSX.Element {
-    const { classes } = this.props;
+    // const { classes } = this.props;
 
     return <div>MOBILE WORKOUT SCREEN</div>;
   }
