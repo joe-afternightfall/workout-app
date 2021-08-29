@@ -2,9 +2,10 @@ import clsx from 'clsx';
 import React from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { List, ListItem, ListItemText, ListSubheader } from '@material-ui/core';
-import muscleGroups, {
+import {
   MuscleGroup,
-} from '../../../../../../configs/models/workout-configurations/MuscleGroups';
+  muscleGroups,
+} from 'workout-app-common-core/core/src/models/workout-configurations/MuscleGroups';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
