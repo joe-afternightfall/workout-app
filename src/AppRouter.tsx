@@ -3,16 +3,14 @@ import MobileApp from './MobileApp';
 import { Route } from 'react-router';
 import { connect } from 'react-redux';
 import { State } from './configs/redux/store';
-import { useTheme } from '@material-ui/core/styles';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { mobileRoutes } from './configs/constants/mobile-routes';
 import SignInScreen from './components/top-level-components/sign-in-screen/SignInScreen';
 import { WORKOUT_SCREEN_PATH } from './configs/constants/app';
 import WorkoutScreen from './components/top-level-components/workout-screen/WorkoutScreenConnector';
 
 const AppRouter = (props: AppRouterProps): JSX.Element => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
+  // const theme = useTheme();
+  // const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
 
   return props.isValidated ? (
     <MobileApp>
