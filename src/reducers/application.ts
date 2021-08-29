@@ -1,5 +1,4 @@
 import { v4 as uuidv4 } from 'uuid';
-import { RouteProp } from '../configs/constants/routes';
 import { LOCATION_CHANGE } from 'connected-react-router';
 import { getPageInfo } from '../utils/get-current-page-info';
 import {
@@ -14,6 +13,7 @@ import { UserProfileVO } from '../configs/models/UserProfileVO';
 import { WorkoutVO } from '../configs/models/WorkoutVO';
 import { StopwatchState } from '../components/top-level-components/workout-screen/stopwatch/Stopwatch';
 import { CircuitTemplateVO } from '../configs/models/CircuitTemplateVO';
+import { MobileRouteProp } from '../configs/constants/mobile-routes';
 
 function findCircuit(
   state: ApplicationState,
@@ -55,21 +55,6 @@ export default {
         newState.userProfile = action.userProfile;
         newState.setupNewUser = false;
         newState.openUserProfileDialog = false;
-        break;
-      case ActionTypes.CLOSE_SIDE_DRAWER:
-        newState.sideDrawerIsOpen = false;
-        break;
-      case ActionTypes.OPEN_SIDE_DRAWER:
-        newState.sideDrawerIsOpen = true;
-        break;
-      case ActionTypes.SET_DRAWER_SIZE:
-        newState.drawerSize = action.size;
-        break;
-      case ActionTypes.USER_CLICKED_CLOSE_DRAWER:
-        newState.userClickedCloseDrawer = true;
-        break;
-      case ActionTypes.USER_CLICKED_OPEN_DRAWER:
-        newState.userClickedCloseDrawer = false;
         break;
       case ActionTypes.TOGGLE_USER_PROFILE_DIALOG:
         newState.openUserProfileDialog = action.shouldOpen;
@@ -442,19 +427,16 @@ export default {
 };
 
 export interface ApplicationState {
+  currentLocation: string;
+  activePage: MobileRouteProp | undefined;
   userIsValidated: boolean;
   userEmail: string;
   circuitTemplates: CircuitTemplateVO[];
+  // todo: rename userWorkouts to "pastWorkouts"
   userWorkouts: WorkoutVO[];
   setupNewUser: boolean;
-  drawerSize: string;
-  userClickedCloseDrawer: boolean;
-  sideDrawerIsOpen: boolean;
-  sideDrawerIsClosed: boolean;
   userProfile: UserProfileVO | null;
   openUserProfileDialog: boolean;
-  currentLocation: string;
-  activePage: RouteProp | undefined;
   expandedAccordion: string;
   workoutConfigurations: {
     exerciseTypes: ExerciseTypeVO[];
