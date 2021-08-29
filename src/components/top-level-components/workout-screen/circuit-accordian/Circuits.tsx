@@ -29,7 +29,7 @@ import {
   updateDistanceSetField,
   UpdateDistanceSetFieldProps,
 } from '../../../../creators/workout';
-import { ExerciseTypeVO } from '../../../../configs/models/workout-configurations/exercise-type/ExerciseTypeVO';
+import { ExerciseTypeVO } from 'workout-app-common-core/core/src';
 
 // todo: rename to WorkoutCircuit
 

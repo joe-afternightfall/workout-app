@@ -11,7 +11,7 @@ import { addCircuit } from '../../../../../creators/workout';
 import { Button, Dialog, IconButton, List } from '@material-ui/core';
 import BaseDialogContent from '../../../../app-shell/BaseDialogContent';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import { CircuitTypeVO } from '../../../../../configs/models/workout-configurations/circuit-type/CircuitTypeVO';
+import { CircuitTypeVO } from 'workout-app-common-core/core/src';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

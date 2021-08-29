@@ -27,13 +27,6 @@ import {
   LoadExerciseTypesAction,
 } from './workout-configurations';
 import {
-  CloseSideDrawerAction,
-  OpenSideDrawerAction,
-  SetDrawerSizeAction,
-  UserClickedCloseDrawerAction,
-  UserClickedOpenDrawerAction,
-} from './side-drawer';
-import {
   ResetStopwatchAction,
   StartStopwatchAction,
   StopStopwatchAction,
@@ -83,13 +76,6 @@ export enum ActionTypes {
   START_STOPWATCH = 'START_STOPWATCH',
   STOP_STOPWATCH = 'STOP_STOPWATCH',
   UPDATE_STOPWATCH = 'UPDATE_STOPWATCH',
-
-  // Side drawer actions
-  CLOSE_SIDE_DRAWER = 'CLOSE_SIDE_DRAWER',
-  OPEN_SIDE_DRAWER = 'OPEN_SIDE_DRAWER',
-  SET_DRAWER_SIZE = 'SET_DRAWER_SIZE',
-  USER_CLICKED_CLOSE_DRAWER = 'USER_CLICKED_CLOSE_DRAWER',
-  USER_CLICKED_OPEN_DRAWER = 'USER_CLICKED_OPEN_DRAWER',
 }
 
 export type ApplicationActions =
@@ -110,11 +96,6 @@ export type ApplicationActions =
   | UpdateDistanceSetFieldAction
   | ClearUserInfoAction
   | UpdateWorkoutSetFieldAction
-  | CloseSideDrawerAction
-  | OpenSideDrawerAction
-  | SetDrawerSizeAction
-  | UserClickedCloseDrawerAction
-  | UserClickedOpenDrawerAction
   | ToggleUserProfileDialogAction
   | LoadUserInfoAction
   | ValidatedUserAction

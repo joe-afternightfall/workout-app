@@ -9,9 +9,11 @@ import { ThunkAction } from 'redux-thunk';
 import { AnyAction, Dispatch } from 'redux';
 import { State } from '../configs/redux/store';
 import { userProfileSnapToVO } from '../utils/vo-builder';
-import { UserProfileVO } from '../configs/models/UserProfileVO';
-import { UserProfileDAO } from '../configs/models/UserProfileDAO';
 import { USER_PROFILES_ROUTE } from '../configs/constants/firebase-routes';
+import {
+  UserProfileVO,
+  UserProfileDAO,
+} from 'workout-app-common-core/core/src';
 import { ProfileDialogState } from '../components/top-level-components/profile-screen/ProfileDialog';
 
 export const createNewUserProfile = async (

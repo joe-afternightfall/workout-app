@@ -17,7 +17,7 @@ import { State } from '../../../configs/redux/store';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { toggleUserProfileDialog } from '../../../creators/user-info';
-import { UserProfileVO } from '../../../configs/models/UserProfileVO';
+import { UserProfileVO } from 'workout-app-common-core/core/src';
 import icon from '../../../configs/icons/blue-monster-brute.svg';
 import { findLatestWeight } from '../../../utils/find-latest';
 

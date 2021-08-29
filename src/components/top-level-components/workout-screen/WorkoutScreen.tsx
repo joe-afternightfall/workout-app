@@ -14,7 +14,7 @@ import AddCircuitDialog from './circuit-accordian/dialogs/AddCircuitDialog';
 import WorkoutDoneDialog from './circuit-accordian/dialogs/WorkoutDoneDialog';
 
 const styles: Styles<Theme, StyledComponentProps> = () => ({});
-
+// todo: rip out of file and into common place
 export interface CircuitExerciseSet {
   id: string;
   setNumber: number;

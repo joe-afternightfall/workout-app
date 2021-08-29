@@ -16,7 +16,7 @@ import { Grid } from '@material-ui/core';
 import CornerNumber from './cells/CornerNumber';
 import BackgroundNumber from './cells/BackgroundNumber';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { WorkoutVO } from '../../../../../configs/models/WorkoutVO';
+import { WorkoutVO } from 'workout-app-common-core/core/src';
 
 const useStyles = makeStyles(() =>
   createStyles({

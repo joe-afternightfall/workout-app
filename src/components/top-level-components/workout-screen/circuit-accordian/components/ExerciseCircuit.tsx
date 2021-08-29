@@ -19,7 +19,7 @@ import DeleteExerciseDialog from '../dialogs/DeleteExerciseDialog';
 import { Button, Divider, Grid, ListItem } from '@material-ui/core';
 import ExerciseTitle from '../../../../shared/workout-related/ExerciseTitle';
 import SetColumnHeaders from '../../../../shared/workout-related/SetColumnHeaders';
-import { ExerciseTypeVO } from '../../../../../configs/models/workout-configurations/exercise-type/ExerciseTypeVO';
+import { ExerciseTypeVO } from 'workout-app-common-core/core/src';
 
 const styles: Styles<Theme, StyledComponentProps> = () => ({});
 

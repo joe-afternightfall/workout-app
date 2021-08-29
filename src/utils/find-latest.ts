@@ -1,4 +1,4 @@
-import { UserWeight } from '../configs/models/UserProfileDAO';
+import { UserWeight } from 'workout-app-common-core/core/src/models/UserProfileDAO';
 
 export const findLatestWeight = (
   weights: UserWeight[]
