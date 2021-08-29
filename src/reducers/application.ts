@@ -1,19 +1,21 @@
 import { v4 as uuidv4 } from 'uuid';
+import {
+  WorkoutVO,
+  CircuitTypeVO,
+  UserProfileVO,
+  ExerciseTypeVO,
+  CircuitTemplateVO,
+} from 'workout-app-common-core/core/src';
 import { LOCATION_CHANGE } from 'connected-react-router';
 import { getPageInfo } from '../utils/get-current-page-info';
+import { MobileRouteProp } from '../configs/constants/mobile-routes';
+import { ActionTypes, ApplicationActions } from '../creators/actions';
 import {
   CircuitExercise,
   CircuitExerciseSet,
   WorkoutCircuitProps,
 } from '../components/top-level-components/workout-screen/WorkoutScreen';
-import { ActionTypes, ApplicationActions } from '../creators/actions';
-import { CircuitTypeVO } from '../configs/models/workout-configurations/circuit-type/CircuitTypeVO';
-import { ExerciseTypeVO } from '../configs/models/workout-configurations/exercise-type/ExerciseTypeVO';
-import { UserProfileVO } from '../configs/models/UserProfileVO';
-import { WorkoutVO } from '../configs/models/WorkoutVO';
 import { StopwatchState } from '../components/top-level-components/workout-screen/stopwatch/Stopwatch';
-import { CircuitTemplateVO } from '../configs/models/CircuitTemplateVO';
-import { MobileRouteProp } from '../configs/constants/mobile-routes';
 
 function findCircuit(
   state: ApplicationState,

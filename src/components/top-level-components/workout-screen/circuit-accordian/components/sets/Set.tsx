@@ -13,8 +13,7 @@ import { Grid, Typography } from '@material-ui/core';
 import TimeAndDistanceSet from './types/TimeAndDistanceSet';
 import { CircuitExerciseSet } from '../../../WorkoutScreen';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { SetType } from '../../../../../../configs/models/workout-configurations/exercise-type/ExerciseTypeDAO';
-import { ExerciseTypeVO } from '../../../../../../configs/models/workout-configurations/exercise-type/ExerciseTypeVO';
+import { ExerciseTypeVO, SetType } from 'workout-app-common-core/core/src';
 
 const useStyles = makeStyles(() =>
   createStyles({

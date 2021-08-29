@@ -30,7 +30,8 @@
     "redux": "4.1.0",
     "redux-thunk": "2.3.0",
     "safe-regex": "^2.1.1",
-    "web-vitals": "1.1.2"
+    "web-vitals": "1.1.2",
+    "workout-app-common-core": "0.0.2"
   },
   "devDependencies": {
     "@firebase/auth-types": "0.10.3",

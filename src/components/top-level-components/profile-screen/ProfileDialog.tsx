@@ -31,7 +31,7 @@ import { State } from '../../../configs/redux/store';
 import NumbersTextField from '../../shared/NumbersTextField';
 import { findLatestWeight } from '../../../utils/find-latest';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { UserProfileVO } from '../../../configs/models/UserProfileVO';
+import { UserProfileVO } from 'workout-app-common-core/core/src';
 import { toggleUserProfileDialog } from '../../../creators/user-info';
 
 const useStyles = makeStyles(() =>

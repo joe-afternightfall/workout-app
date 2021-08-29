@@ -1,7 +1,7 @@
 import firebase from 'firebase';
 import { exerciseTypeSnapToVO } from '../../utils/vo-builder';
 import { EXERCISE_TYPES_ROUTE } from '../../configs/constants/firebase-routes';
-import { ExerciseTypeVO } from '../../configs/models/workout-configurations/exercise-type/ExerciseTypeVO';
+import { ExerciseTypeVO } from 'workout-app-common-core/core/src';
 
 export const getAllExerciseTypes = async (): Promise<ExerciseTypeVO[]> => {
   return await firebase

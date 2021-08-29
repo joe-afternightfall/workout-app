@@ -15,10 +15,10 @@ import {
   CircuitExerciseSet,
 } from '../../../workout-screen/WorkoutScreen';
 import CloseIcon from '@material-ui/icons/Close';
-import { WorkoutVO } from '../../../../../configs/models/WorkoutVO';
+import { WorkoutVO } from 'workout-app-common-core/core/src';
+import { ExerciseTypeVO } from 'workout-app-common-core/core/src';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import ExerciseTitle from '../../../../shared/workout-related/ExerciseTitle';
-import { ExerciseTypeVO } from '../../../../../configs/models/workout-configurations/exercise-type/ExerciseTypeVO';
 import SetColumnHeaders from '../../../../shared/workout-related/SetColumnHeaders';
 import StopwatchDisplay from '../../../workout-screen/stopwatch/StopwatchDisplay';
 import Content from './dialog/Content';

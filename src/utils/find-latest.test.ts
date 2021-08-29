@@ -1,5 +1,5 @@
-import { UserWeight } from '../configs/models/UserProfileDAO';
 import { findLatestWeight } from './find-latest';
+import { UserWeight } from 'workout-app-common-core/core/src/models/UserProfileDAO';
 
 describe('find latest util', () => {
   it('should find latest weight', () => {
