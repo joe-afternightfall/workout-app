@@ -11,13 +11,9 @@ import { getLightTheme } from './configs/theme/light-theme';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import BottomAppBar from './components/app-shell/BottomAppBar';
 
-const styles: Styles<Theme, StyledComponentProps> = (theme: Theme) => ({
+const styles: Styles<Theme, StyledComponentProps> = () => ({
   root: {
-    // display: 'flex',
-  },
-  content: {
-    // flexGrow: 1,
-    padding: theme.spacing(3),
+    padding: '24px 16px',
   },
 });
 
@@ -30,7 +26,7 @@ class App extends Component<AppProps> {
         <div className={classes.root}>
           <CssBaseline />
 
-          <main className={classes.content}>
+          <main>
             <div>{this.props.children}</div>
           </main>
 
