@@ -7,6 +7,7 @@ import {
 import { History } from 'history';
 import thunkMiddleware from 'redux-thunk';
 import { routerReducer } from 'react-router-redux';
+import workout, { WorkoutState } from '../../reducers/workout';
 import { connectRouter, routerMiddleware } from 'connected-react-router';
 import application, { ApplicationState } from '../../reducers/application';
 
@@ -17,6 +18,7 @@ export const createStore = (history: History): Store => {
     )(originalCreateStore),
     allReducers = combineReducers({
       applicationState: application.reducer,
+      workoutState: workout.reducer,
       router: connectRouter(history),
       routing: routerReducer,
     });
@@ -61,6 +63,7 @@ export const createStore = (history: History): Store => {
       applyHoverStylesToMuscleGroup: '',
       circuitTemplates: [],
     } as unknown as ApplicationState,
+    workoutState: {} as unknown as WorkoutState,
   });
 };
 

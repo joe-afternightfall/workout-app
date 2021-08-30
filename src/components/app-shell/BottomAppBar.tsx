@@ -22,7 +22,7 @@ const useStyles = makeStyles(() =>
   })
 );
 
-const MobileAppBar = (props: MobileAppBarProps): JSX.Element => {
+const BottomAppBar = (props: BottomAppBarProps): JSX.Element => {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
@@ -60,19 +60,19 @@ const MobileAppBar = (props: MobileAppBarProps): JSX.Element => {
   );
 };
 
-export interface MobileAppBarProps {
+export interface BottomAppBarProps {
   routeClickHandler: (path: string) => void;
 }
 
-const mapStateToProps = (): MobileAppBarProps => {
-  return {} as unknown as MobileAppBarProps;
+const mapStateToProps = (): BottomAppBarProps => {
+  return {} as unknown as BottomAppBarProps;
 };
 
-const mapDispatchToProps = (dispatch: Dispatch): MobileAppBarProps =>
+const mapDispatchToProps = (dispatch: Dispatch): BottomAppBarProps =>
   ({
     routeClickHandler: (path: string) => {
       dispatch(routerActions.push(path));
     },
-  } as unknown as MobileAppBarProps);
+  } as unknown as BottomAppBarProps);
 
-export default connect(mapStateToProps, mapDispatchToProps)(MobileAppBar);
+export default connect(mapStateToProps, mapDispatchToProps)(BottomAppBar);

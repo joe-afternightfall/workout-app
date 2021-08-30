@@ -3,6 +3,7 @@ import createMuiTheme, {
   Theme,
   ThemeOptions,
 } from '@material-ui/core/styles/createMuiTheme';
+import { blue, indigo } from '@material-ui/core/colors';
 
 interface CustomPalette extends Palette {
   colors: {
@@ -54,23 +55,25 @@ export function getLightTheme(): Theme {
         },
       },
       text: {
-        primary: '#686868',
-        secondary: '#686868',
+        // primary: '#686868',
+        // secondary: '#686868',
       },
-      type: 'light',
-      primary: {
-        light: '#474F8F',
-        main: '#1A2474',
-        dark: '#121951',
-        // contrastText: '#6B8E9B',
-        contrastText: '#FFF',
-      },
-      secondary: {
-        light: '#8B77F4',
-        main: '#6F55F2',
-        dark: '#4D3BA9',
-        contrastText: '#FFF',
-      },
+      type: 'dark',
+      primary: indigo,
+      secondary: blue,
+      // primary: {
+      //   light: '#474F8F',
+      //   main: '#1A2474',
+      //   dark: '#121951',
+      //   // contrastText: '#6B8E9B',
+      //   contrastText: '#FFF',
+      // },
+      // secondary: {
+      //   light: '#8B77F4',
+      //   main: '#6F55F2',
+      //   dark: '#4D3BA9',
+      //   contrastText: '#FFF',
+      // },
     },
   } as unknown as AppThemeOptions);
 }
