@@ -1,9 +1,6 @@
 import React from 'react';
-import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import TabPanel from '../../../../../shared/SwipeableViewTabPanel';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import { Grid, Typography } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import SelectionCard from '../components/SelectionCard';
 import {
   deepOrange,
@@ -11,12 +8,6 @@ import {
   lightBlue,
   teal,
 } from '@material-ui/core/colors';
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {},
-  })
-);
 
 const RoutineSelectionList = (
   props: RoutineSelectionListProps & PassedInProps
@@ -72,11 +63,11 @@ export interface RoutineSelectionListProps {
   DELETE_ME?: undefined;
 }
 
-const mapStateToProps = (state: any): RoutineSelectionListProps => {
+const mapStateToProps = (): RoutineSelectionListProps => {
   return {} as unknown as RoutineSelectionListProps;
 };
 
-const mapDispatchToProps = (dispatch: Dispatch): RoutineSelectionListProps =>
+const mapDispatchToProps = (): RoutineSelectionListProps =>
   ({} as unknown as RoutineSelectionListProps);
 
 export default connect(

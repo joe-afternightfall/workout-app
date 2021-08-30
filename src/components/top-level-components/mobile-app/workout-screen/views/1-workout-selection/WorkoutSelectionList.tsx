@@ -1,5 +1,4 @@
 import React from 'react';
-import { Dispatch } from 'redux';
 import {
   teal,
   lightBlue,
@@ -10,19 +9,10 @@ import {
 import { connect } from 'react-redux';
 import { Grid } from '@material-ui/core';
 import SelectionCard from '../components/SelectionCard';
-import TabPanel from '../../../../../shared/SwipeableViewTabPanel';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {},
-  })
-);
 
 const WorkoutSelectionList = (
   props: WorkoutSelectionListProps & PassedInProps
 ): JSX.Element => {
-  const classes = useStyles();
   const selectionList: { name: string; color: string }[] = [
     {
       name: 'Back & Biceps',
@@ -74,11 +64,11 @@ export interface WorkoutSelectionListProps {
   DELETE_ME?: undefined;
 }
 
-const mapStateToProps = (state: any): WorkoutSelectionListProps => {
+const mapStateToProps = (): WorkoutSelectionListProps => {
   return {} as unknown as WorkoutSelectionListProps;
 };
 
-const mapDispatchToProps = (dispatch: Dispatch): WorkoutSelectionListProps =>
+const mapDispatchToProps = (): WorkoutSelectionListProps =>
   ({} as unknown as WorkoutSelectionListProps);
 
 export default connect(

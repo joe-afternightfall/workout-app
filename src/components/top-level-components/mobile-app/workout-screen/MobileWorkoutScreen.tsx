@@ -10,7 +10,6 @@ import {
 import SwipeableViews from 'react-swipeable-views';
 import WorkoutSelectionList from './views/1-workout-selection/WorkoutSelectionList';
 import RoutineSelectionList from './views/2-routine-selection/RoutineSelectionList';
-import Typography from '@material-ui/core/Typography';
 import FolderList from './views/3-preview-list/TossPreview';
 import TabPanel from './views/components/TabPanel';
 

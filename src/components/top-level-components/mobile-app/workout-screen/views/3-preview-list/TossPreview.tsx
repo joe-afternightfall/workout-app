@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export default function FolderList() {
+export default function FolderList(): JSX.Element {
   const classes = useStyles();
 
   return (
