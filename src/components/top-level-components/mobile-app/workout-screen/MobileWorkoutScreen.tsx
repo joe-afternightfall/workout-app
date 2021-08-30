@@ -63,7 +63,6 @@ export default function MobileWorkoutScreen(): JSX.Element {
               />
             </TabPanel>
             <TabPanel value={value} index={2} dir={theme.direction}>
-              <Typography>{'tab-panel role'}</Typography>
               <FolderList />
             </TabPanel>
           </SwipeableViews>

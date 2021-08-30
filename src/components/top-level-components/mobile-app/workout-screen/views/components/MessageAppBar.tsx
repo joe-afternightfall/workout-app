@@ -35,6 +35,9 @@ export default function MessageAppBar(props: MessageAppBarProps): JSX.Element {
     case 1:
       appBarMessage = 'Routines';
       break;
+    case 2:
+      appBarMessage = 'Preview Workout';
+      break;
     default:
       break;
   }

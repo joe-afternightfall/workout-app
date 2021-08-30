@@ -24,22 +24,22 @@ const RoutineSelectionList = (
   const routineList = [
     {
       id: '111',
-      name: 'Month 1',
+      name: 'Routine 1',
       color: deepOrange[500],
     },
     {
       id: '222',
-      name: 'Month 2',
+      name: 'Routine 2',
       color: deepPurple[500],
     },
     {
       id: '333',
-      name: 'Month 3',
+      name: 'Routine 3',
       color: teal[500],
     },
     {
       id: '444',
-      name: 'Month 4',
+      name: 'Routine 4',
       color: lightBlue[500],
     },
   ];
