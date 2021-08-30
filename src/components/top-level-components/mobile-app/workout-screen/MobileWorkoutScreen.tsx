@@ -1,30 +1,22 @@
-import {
-  Theme,
-  WithStyles,
-  withStyles,
-  StyledComponentProps,
-} from '@material-ui/core/styles';
-import React, { Component } from 'react';
+import React from 'react';
 import { Grid } from '@material-ui/core';
-import { Styles } from '@material-ui/styles';
-import WorkoutSwipeableViews from './WorkoutSwipeableViews';
+import WorkoutSwipeableViews from './views/WorkoutSwipeableViews';
+import MessageAppBar from './views/components/MessageAppBar';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
-const styles: Styles<Theme, StyledComponentProps> = () => ({});
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    toolbar: theme.mixins.toolbar,
+  })
+);
 
-class MobileWorkoutScreen extends Component<MobileWorkoutScreenProps> {
-  render(): JSX.Element {
-    // const { classes } = this.props;
+export default function MobileWorkoutScreen(): JSX.Element {
 
-    return (
-      <Grid container justify={'center'} spacing={2}>
-        <Grid item xs={12}>
-          <WorkoutSwipeableViews />
-        </Grid>
+  return (
+    <Grid container justify={'center'}>
+      <Grid item xs={12}>
+        <WorkoutSwipeableViews />
       </Grid>
-    );
-  }
+    </Grid>
+  );
 }
-
-export type MobileWorkoutScreenProps = WithStyles<typeof styles>;
-
-export default withStyles(styles, { withTheme: true })(MobileWorkoutScreen);
