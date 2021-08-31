@@ -1,16 +1,17 @@
 import React from 'react';
-import { Grid } from '@material-ui/core';
-import MessageAppBar from './views/components/MessageAppBar';
 import {
-  createStyles,
-  makeStyles,
   Theme,
   useTheme,
+  makeStyles,
+  createStyles,
 } from '@material-ui/core/styles';
+import { Grid } from '@material-ui/core';
 import SwipeableViews from 'react-swipeable-views';
+import FolderList from './views/3-preview-list/TossPreview';
+import MessageAppBar from './views/components/MessageAppBar';
 import WorkoutSelectionList from './views/1-workout-selection/WorkoutSelectionList';
 import RoutineSelectionList from './views/2-routine-selection/RoutineSelectionList';
-import FolderList from './views/3-preview-list/TossPreview';
+import ActiveWorkout from './views/4-active-workout/ActiveWorkout';
 import TabPanel from './views/components/TabPanel';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -43,6 +44,7 @@ export default function MobileWorkoutScreen(): JSX.Element {
           <div className={classes.toolbar} />
 
           <SwipeableViews
+            disabled
             axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
             index={value}
             onChangeIndex={handleChangeIndex}
@@ -62,7 +64,14 @@ export default function MobileWorkoutScreen(): JSX.Element {
               />
             </TabPanel>
             <TabPanel value={value} index={2} dir={theme.direction}>
-              <FolderList />
+              <FolderList
+                goForwardHandler={() => {
+                  handleChangeIndex(3);
+                }}
+              />
+            </TabPanel>
+            <TabPanel value={value} index={3} dir={theme.direction}>
+              <ActiveWorkout />
             </TabPanel>
           </SwipeableViews>
         </div>
