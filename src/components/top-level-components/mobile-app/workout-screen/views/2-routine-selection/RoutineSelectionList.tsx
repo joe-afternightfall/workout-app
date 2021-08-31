@@ -8,6 +8,7 @@ import {
   lightBlue,
   teal,
 } from '@material-ui/core/colors';
+import { isOdd } from '../../../../../../utils/number-util';
 
 const RoutineSelectionList = (
   props: RoutineSelectionListProps & PassedInProps
@@ -43,10 +44,10 @@ const RoutineSelectionList = (
             <SelectionCard
               title={item.name}
               addTopMargin={index > 0}
-              cardColor={item.color}
               clickHandler={() => {
                 props.goForwardHandler();
               }}
+              justify={isOdd(index) ? 'flex-end' : 'flex-start'}
             />
           </Grid>
         );
