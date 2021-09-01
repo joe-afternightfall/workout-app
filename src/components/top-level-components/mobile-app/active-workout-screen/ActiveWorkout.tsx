@@ -9,7 +9,6 @@ import {
   ListItemText,
   Slide,
   Toolbar,
-  IconButton,
   AppBar,
 } from '@material-ui/core';
 import LinkIcon from '@material-ui/icons/Link';
@@ -19,6 +18,7 @@ import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { DASHBOARD_SCREEN_PATH } from '../../../../configs/constants/app';
 import { routerActions } from 'connected-react-router';
+import SuperSetItem from '../shared/SuperSetItem';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -79,77 +79,16 @@ const ActiveWorkout = (props: ActiveWorkoutProps): JSX.Element => {
             justify={'space-around'}
           >
             <Grid item xs={12} container>
-              <Grid item>
-                <Grid
-                  container
-                  direction="column"
-                  justify="center"
-                  alignItems="stretch"
-                  style={{ height: '100%', width: 56 }}
-                >
-                  <Grid item>
-                    <div
-                      style={{
-                        backgroundColor: 'blue',
-                        height: 81,
-                        width: '100%',
-                      }}
-                    />
-                  </Grid>
-                  <Grid item>
-                    <div
-                      style={{
-                        backgroundColor: 'red',
-                        height: 75,
-                        width: '100%',
-                      }}
-                    />
-                  </Grid>
-                </Grid>
-              </Grid>
-              <Grid item xs={10} style={{ paddingLeft: 16 }}>
-                <Grid container>
-                  <Grid item xs={12} container>
-                    <Grid item xs={12}>
-                      <Typography color={'textPrimary'} variant={'body1'}>
-                        {'Burpee'}
-                      </Typography>
-                    </Grid>
-                    <Grid item xs={12}>
-                      <Typography color={'textSecondary'} variant={'body2'}>
-                        {'10 reps | 8 reps | 6 reps | 4 reps'}
-                      </Typography>
-                    </Grid>
-                    <Grid item xs={12} container alignItems={'center'}>
-                      <img
-                        style={{ height: 18, marginTop: 6 }}
-                        src={barbellIcon}
-                        alt={'barbell'}
-                      />
-                    </Grid>
-                    <Grid
-                      item
-                      xs={12}
-                      container
-                      alignItems={'center'}
-                      style={{ marginTop: -4 }}
-                    >
-                      <Grid item xs={10}>
-                        <Divider variant={'fullWidth'} />
-                      </Grid>
-                      <Grid item xs={2} container alignItems={'center'}>
-                        <LinkIcon style={{ marginLeft: 8 }} />
-                      </Grid>
-                    </Grid>
-                    <Grid item xs={12}>
-                      <ListItemText
-                        primary={'Mountain Climbers'}
-                        secondary={'20 reps | 18 reps | 16 reps | 14 reps'}
-                      />
-                    </Grid>
-                  </Grid>
-                </Grid>
-              </Grid>
+              <SuperSetItem
+                firstExerciseTitle={'Mountain Climbers'}
+                firstExerciseRepsAndSets={'10 reps | 8 reps | 6 reps | 4 reps'}
+                // firstExerciseIcon={}
+                secondExerciseTitle={'Jumping Jacks'}
+                secondExerciseRepsAndSets={
+                  '20 reps | 38 reps | 46 reps | 54 reps'
+                }
+                // secondExerciseIcon={}
+              />
             </Grid>
 
             <Grid item xs={12}>
