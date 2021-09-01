@@ -6,25 +6,27 @@ import {
   IconButton,
   Typography,
 } from '@material-ui/core';
+import { Dispatch } from 'redux';
+import { connect } from 'react-redux';
+import { routerActions } from 'connected-react-router';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(() =>
   createStyles({
     root: {
-      flexGrow: 1,
+      minHeight: 48,
     },
     menuButton: {
       paddingTop: 8,
       paddingBottom: 8,
     },
-    title: {
-      flexGrow: 1,
-    },
   })
 );
 
-export default function MessageAppBar(props: MessageAppBarProps): JSX.Element {
+const MessageAppBar = (
+  props: MessageAppBarProps & PassedInProps
+): JSX.Element => {
   const classes = useStyles();
   let appBarMessage = '';
 
@@ -42,17 +44,23 @@ export default function MessageAppBar(props: MessageAppBarProps): JSX.Element {
       break;
   }
 
+  const routeAndClick = () => {
+    props.routeClickHandler();
+    props.clickHandler();
+  };
+
   return (
-    <AppBar position={'absolute'} style={{ minHeight: 48 }}>
+    <AppBar position={'absolute'} className={classes.root}>
       <Toolbar>
         <Grid container>
           <Grid item xs={2}>
             <IconButton
               edge={'start'}
               color={'inherit'}
-              onClick={props.clickHandler}
+              onClick={
+                props.activeTab === 0 ? routeAndClick : props.clickHandler
+              }
               className={classes.menuButton}
-              disabled={props.activeTab === 0}
             >
               <ArrowBackIcon fontSize={'small'} />
             </IconButton>
@@ -60,9 +68,7 @@ export default function MessageAppBar(props: MessageAppBarProps): JSX.Element {
 
           <Grid item xs={8} container justify={'center'} alignItems={'center'}>
             <Grid item>
-              <Typography variant={'overline'} className={classes.title}>
-                {appBarMessage}
-              </Typography>
+              <Typography variant={'overline'}>{appBarMessage}</Typography>
             </Grid>
           </Grid>
 
@@ -71,9 +77,26 @@ export default function MessageAppBar(props: MessageAppBarProps): JSX.Element {
       </Toolbar>
     </AppBar>
   );
-}
+};
 
-interface MessageAppBarProps {
+interface PassedInProps {
   activeTab: number;
   clickHandler: () => void;
 }
+
+export interface MessageAppBarProps {
+  routeClickHandler: () => void;
+}
+
+const mapStateToProps = (): MessageAppBarProps => {
+  return {} as unknown as MessageAppBarProps;
+};
+
+const mapDispatchToProps = (dispatch: Dispatch): MessageAppBarProps =>
+  ({
+    routeClickHandler: () => {
+      dispatch(routerActions.goBack());
+    },
+  } as unknown as MessageAppBarProps);
+
+export default connect(mapStateToProps, mapDispatchToProps)(MessageAppBar);
