@@ -13,7 +13,7 @@ import AppBottomNavigation from './components/app-shell/AppBottomNavigation';
 
 const styles: Styles<Theme, StyledComponentProps> = () => ({
   root: {
-    padding: '24px 16px',
+    padding: '24px 12px 12px 12px',
   },
 });
 

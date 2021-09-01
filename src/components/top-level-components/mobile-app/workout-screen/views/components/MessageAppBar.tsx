@@ -14,12 +14,15 @@ import { createStyles, makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(() =>
   createStyles({
-    root: {
-      minHeight: 48,
+    toolbar: {
+      height: '10vh',
     },
     menuButton: {
       paddingTop: 8,
       paddingBottom: 8,
+    },
+    gridWrapper: {
+      height: '100%',
     },
   })
 );
@@ -50,9 +53,9 @@ const MessageAppBar = (
   };
 
   return (
-    <AppBar position={'absolute'} className={classes.root}>
-      <Toolbar>
-        <Grid container>
+    <AppBar position={'absolute'}>
+      <Toolbar className={classes.toolbar}>
+        <Grid container className={classes.gridWrapper} alignItems={'center'}>
           <Grid item xs={2}>
             <IconButton
               edge={'start'}
