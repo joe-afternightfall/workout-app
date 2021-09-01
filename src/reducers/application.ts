@@ -35,10 +35,15 @@ export default {
     let newState = Object.assign({}, state);
 
     switch (action.type) {
-      case LOCATION_CHANGE:
+      case LOCATION_CHANGE: {
         newState.currentLocation = action.payload.location.pathname;
-        newState.activePage = getPageInfo(newState.currentLocation);
+        const activePage = getPageInfo(newState.currentLocation);
+        newState.activePage = activePage;
+        if (activePage) {
+          newState.selectedNavTestId = activePage.testId;
+        }
         break;
+      }
       case ActionTypes.VALIDATED_USER:
         newState.userIsValidated = true;
         newState.userEmail = action.email;
@@ -452,4 +457,5 @@ export interface ApplicationState {
   stopwatch: StopwatchState;
   selectedMuscleGroupIds: string[];
   applyHoverStylesToMuscleGroup: string;
+  selectedNavTestId: string;
 }
