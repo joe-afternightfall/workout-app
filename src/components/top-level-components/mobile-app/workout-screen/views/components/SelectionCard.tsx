@@ -5,9 +5,6 @@ import { Card, CardActionArea, Grid, Typography } from '@material-ui/core';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {
-      padding: '0 16px',
-    },
     actionArea: {
       color: '#fff',
       height: '13vh',
@@ -27,7 +24,7 @@ export default function SelectionCard(props: SelectionCardProps): JSX.Element {
 
   return (
     <Card
-      className={clsx(classes.root, {
+      className={clsx({
         [classes.topMargin]: props.addTopMargin,
       })}
     >
@@ -44,7 +41,9 @@ export default function SelectionCard(props: SelectionCardProps): JSX.Element {
           style={{ height: '100%' }}
         >
           <Grid item>
-            <Typography variant={'h5'}>{props.title}</Typography>
+            <Typography variant={'h5'} style={{ margin: '0 16px' }}>
+              {props.title}
+            </Typography>
           </Grid>
         </Grid>
       </CardActionArea>
