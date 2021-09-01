@@ -32,49 +32,47 @@ export default function MobileWorkoutScreen(): JSX.Element {
   return (
     <Grid container justify={'center'}>
       <Grid item xs={12}>
-        <div>
-          <MessageAppBar
-            activeTab={value}
-            clickHandler={() => {
-              const newTab = value - 1;
-              handleChangeIndex(newTab);
-            }}
-          />
+        <MessageAppBar
+          activeTab={value}
+          clickHandler={() => {
+            const newTab = value - 1;
+            handleChangeIndex(newTab);
+          }}
+        />
 
-          <div className={classes.toolbar} />
+        <div className={classes.toolbar} />
 
-          <SwipeableViews
-            disabled
-            axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-            index={value}
-            onChangeIndex={handleChangeIndex}
-          >
-            <TabPanel value={value} index={0} dir={theme.direction}>
-              <WorkoutSelectionList
-                goForwardHandler={() => {
-                  handleChangeIndex(1);
-                }}
-              />
-            </TabPanel>
-            <TabPanel value={value} index={1} dir={theme.direction}>
-              <RoutineSelectionList
-                goForwardHandler={() => {
-                  handleChangeIndex(2);
-                }}
-              />
-            </TabPanel>
-            <TabPanel value={value} index={2} dir={theme.direction}>
-              <FolderList
-                goForwardHandler={() => {
-                  handleChangeIndex(3);
-                }}
-              />
-            </TabPanel>
-            <TabPanel value={value} index={3} dir={theme.direction}>
-              <ActiveWorkout />
-            </TabPanel>
-          </SwipeableViews>
-        </div>
+        <SwipeableViews
+          disabled
+          index={value}
+          onChangeIndex={handleChangeIndex}
+          axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+        >
+          <TabPanel value={value} index={0} dir={theme.direction}>
+            <WorkoutSelectionList
+              goForwardHandler={() => {
+                handleChangeIndex(1);
+              }}
+            />
+          </TabPanel>
+          <TabPanel value={value} index={1} dir={theme.direction}>
+            <RoutineSelectionList
+              goForwardHandler={() => {
+                handleChangeIndex(2);
+              }}
+            />
+          </TabPanel>
+          <TabPanel value={value} index={2} dir={theme.direction}>
+            <FolderList
+              goForwardHandler={() => {
+                handleChangeIndex(3);
+              }}
+            />
+          </TabPanel>
+          <TabPanel value={value} index={3} dir={theme.direction}>
+            <ActiveWorkout />
+          </TabPanel>
+        </SwipeableViews>
       </Grid>
     </Grid>
   );
