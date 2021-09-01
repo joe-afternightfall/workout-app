@@ -1,13 +1,16 @@
 import React from 'react';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
+import {
+  AppBar,
+  Toolbar,
+  BottomNavigation,
+  BottomNavigationAction,
+} from '@material-ui/core';
 import { routerActions } from 'connected-react-router';
-import BottomNavigation from '@material-ui/core/BottomNavigation';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { mobileRoutes } from '../../configs/constants/mobile-routes';
-import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
+import { State } from '../../configs/redux/store';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -27,33 +30,26 @@ const useStyles = makeStyles(() =>
   })
 );
 
-const BottomNavigation = (props: BottomAppBarProps): JSX.Element => {
+const AppBottomNavigation = (props: AppBottomNavigationProps): JSX.Element => {
   const classes = useStyles();
-  const [value, setValue] = React.useState(0);
-
-  const handleChange = (
-    e: React.ChangeEvent<Record<string, never>>,
-    newValue: number
-  ) => {
-    setValue(newValue);
-  };
 
   return (
     <AppBar position={'fixed'} className={classes.root}>
       <Toolbar className={classes.toolbar}>
         <BottomNavigation
-          value={value}
-          onChange={handleChange}
           className={classes.navRoot}
+          value={props.selectedNavTestId}
         >
           {Object.keys(mobileRoutes).map((route: string, index: number) => {
+            const currentRoute = mobileRoutes[route];
             return (
               <BottomNavigationAction
                 key={index}
-                label={mobileRoutes[route].headerTitle}
-                icon={React.createElement(mobileRoutes[route].icon)}
+                value={currentRoute.testId}
+                label={currentRoute.headerTitle}
+                icon={React.createElement(currentRoute.icon)}
                 onClick={() => {
-                  props.routeClickHandler(mobileRoutes[route].path);
+                  props.routeClickHandler(currentRoute.path);
                 }}
               />
             );
@@ -64,19 +60,25 @@ const BottomNavigation = (props: BottomAppBarProps): JSX.Element => {
   );
 };
 
-export interface BottomAppBarProps {
+export interface AppBottomNavigationProps {
   routeClickHandler: (path: string) => void;
+  selectedNavTestId: string;
 }
 
-const mapStateToProps = (): BottomAppBarProps => {
-  return {} as unknown as BottomAppBarProps;
+const mapStateToProps = (state: State): AppBottomNavigationProps => {
+  return {
+    selectedNavTestId: state.applicationState.selectedNavTestId,
+  } as unknown as AppBottomNavigationProps;
 };
 
-const mapDispatchToProps = (dispatch: Dispatch): BottomAppBarProps =>
+const mapDispatchToProps = (dispatch: Dispatch): AppBottomNavigationProps =>
   ({
     routeClickHandler: (path: string) => {
       dispatch(routerActions.push(path));
     },
-  } as unknown as BottomAppBarProps);
+  } as unknown as AppBottomNavigationProps);
 
-export default connect(mapStateToProps, mapDispatchToProps)(BottomNavigation);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AppBottomNavigation);
