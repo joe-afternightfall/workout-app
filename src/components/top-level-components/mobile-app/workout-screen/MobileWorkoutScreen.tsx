@@ -7,16 +7,18 @@ import {
 } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
 import SwipeableViews from 'react-swipeable-views';
+import TabPanel from './views/components/TabPanel';
 import FolderList from './views/3-preview-list/TossPreview';
 import MessageAppBar from './views/components/MessageAppBar';
+import ActiveWorkout from './views/4-active-workout/ActiveWorkout';
 import WorkoutSelectionList from './views/1-workout-selection/WorkoutSelectionList';
 import RoutineSelectionList from './views/2-routine-selection/RoutineSelectionList';
-import ActiveWorkout from './views/4-active-workout/ActiveWorkout';
-import TabPanel from './views/components/TabPanel';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    toolbar: theme.mixins.toolbar,
+    toolbar: {
+      height: '10vh',
+    },
   })
 );
 
