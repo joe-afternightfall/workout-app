@@ -1,28 +1,33 @@
 import React from 'react';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import Tab from '@material-ui/core/Tab';
-import Tabs from '@material-ui/core/Tabs';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import { routerActions } from 'connected-react-router';
+import BottomNavigation from '@material-ui/core/BottomNavigation';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { mobileRoutes } from '../../configs/constants/mobile-routes';
+import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 
 const useStyles = makeStyles(() =>
   createStyles({
-    toolbar: {
-      padding: 0,
-      color: '#fff',
-    },
     root: {
       top: 'auto',
       bottom: 0,
     },
+    toolbar: {
+      padding: 0,
+      color: '#fff',
+      height: '8vh',
+    },
+    navRoot: {
+      width: '100%',
+      height: '100%',
+    },
   })
 );
 
-const BottomAppBar = (props: BottomAppBarProps): JSX.Element => {
+const BottomNavigation = (props: BottomAppBarProps): JSX.Element => {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
@@ -36,25 +41,24 @@ const BottomAppBar = (props: BottomAppBarProps): JSX.Element => {
   return (
     <AppBar position={'fixed'} className={classes.root}>
       <Toolbar className={classes.toolbar}>
-        <Tabs
+        <BottomNavigation
           value={value}
           onChange={handleChange}
-          variant={'fullWidth'}
-          style={{ width: '100%' }}
+          className={classes.navRoot}
         >
           {Object.keys(mobileRoutes).map((route: string, index: number) => {
             return (
-              <Tab
+              <BottomNavigationAction
                 key={index}
-                icon={React.createElement(mobileRoutes[route].icon)}
                 label={mobileRoutes[route].headerTitle}
+                icon={React.createElement(mobileRoutes[route].icon)}
                 onClick={() => {
                   props.routeClickHandler(mobileRoutes[route].path);
                 }}
               />
             );
           })}
-        </Tabs>
+        </BottomNavigation>
       </Toolbar>
     </AppBar>
   );
@@ -75,4 +79,4 @@ const mapDispatchToProps = (dispatch: Dispatch): BottomAppBarProps =>
     },
   } as unknown as BottomAppBarProps);
 
-export default connect(mapStateToProps, mapDispatchToProps)(BottomAppBar);
+export default connect(mapStateToProps, mapDispatchToProps)(BottomNavigation);
