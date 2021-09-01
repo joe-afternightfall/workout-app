@@ -9,6 +9,7 @@ import {
 import { connect } from 'react-redux';
 import { Grid } from '@material-ui/core';
 import SelectionCard from '../components/SelectionCard';
+import { isOdd } from '../../../../../../utils/number-util';
 
 const WorkoutSelectionList = (
   props: WorkoutSelectionListProps & PassedInProps
@@ -44,10 +45,10 @@ const WorkoutSelectionList = (
             <SelectionCard
               addTopMargin={index > 0}
               title={item.name}
-              cardColor={item.color}
               clickHandler={() => {
                 props.goForwardHandler();
               }}
+              justify={isOdd(index) ? 'flex-end' : 'flex-start'}
             />
           </Grid>
         );

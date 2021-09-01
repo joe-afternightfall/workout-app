@@ -1,0 +1,8 @@
+{
+  "appId": "io.ionic.WorkoutApp",
+  "appName": "Workout App",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "build",
+  "cordova": {}
+}

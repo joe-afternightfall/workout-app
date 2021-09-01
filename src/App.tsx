@@ -9,11 +9,11 @@ import React, { Component } from 'react';
 import { Styles } from '@material-ui/styles';
 import { getLightTheme } from './configs/theme/light-theme';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import BottomAppBar from './components/app-shell/BottomAppBar';
+import AppBottomNavigation from './components/app-shell/AppBottomNavigation';
 
 const styles: Styles<Theme, StyledComponentProps> = () => ({
   root: {
-    padding: '24px 16px',
+    padding: '24px 12px 12px 12px',
   },
 });
 
@@ -30,7 +30,7 @@ class App extends Component<AppProps> {
             <div>{this.props.children}</div>
           </main>
 
-          <BottomAppBar />
+          <AppBottomNavigation />
         </div>
       </MuiThemeProvider>
     );
