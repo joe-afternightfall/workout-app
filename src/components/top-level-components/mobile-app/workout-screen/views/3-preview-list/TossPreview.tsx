@@ -1,8 +1,11 @@
 import React from 'react';
+import { Dispatch } from 'redux';
+import { connect } from 'react-redux';
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import { routerActions } from 'connected-react-router';
 import {
   Button,
   Divider,
@@ -13,26 +16,36 @@ import {
 import LinkIcon from '@material-ui/icons/Link';
 import barbellIcon from '../../../../../../configs/icons/barbell.gif';
 import dumbBellIcon from '../../../../../../configs/icons/dumbbell.png';
+import {
+  DASHBOARD_SCREEN_PATH,
+  MOBILE_ACTIVE_WORKOUT_SCREEN_PATH,
+} from '../../../../../../configs/constants/app';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
+      height: '83vh',
+    },
+    listWrapper: {
       width: '100%',
       backgroundColor: theme.palette.background.paper,
+    },
+    startButton: {
+      height: '6vh',
+      width: '100%',
+      background: 'orange',
+      position: 'fixed',
+      bottom: 0,
     },
   })
 );
 
-interface Props {
-  goForwardHandler: () => void;
-}
-
-export default function FolderList(props: Props): JSX.Element {
+const WorkoutPreview = (props: WorkoutPreviewProps): JSX.Element => {
   const classes = useStyles();
 
   return (
-    <>
-      <List className={classes.root}>
+    <div className={classes.root}>
+      <List className={classes.listWrapper}>
         <ListItem style={{ paddingLeft: 0 }}>
           <ListItemIcon
             style={{ backgroundColor: 'orange', height: 56, marginRight: 8 }}
@@ -145,9 +158,136 @@ export default function FolderList(props: Props): JSX.Element {
             }
           />
         </ListItem>
+        <ListItem
+          style={{ width: '100%', padding: 4, backgroundColor: 'black' }}
+        />
+        <ListItem style={{ paddingLeft: 0 }}>
+          <ListItemIcon
+            style={{ backgroundColor: 'gray', height: 56, marginRight: 8 }}
+          />
+          <ListItemText
+            primary={'Crunch'}
+            secondary={
+              <Grid item xs={12} container alignItems={'center'}>
+                <Grid item xs={12}>
+                  <img
+                    style={{ height: 18, marginTop: 6 }}
+                    src={dumbBellIcon}
+                    alt={'dumbBellIcon'}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  {'20 reps | 20 reps | 20 reps'}
+                </Grid>
+              </Grid>
+            }
+          />
+        </ListItem>
+        <ListItem
+          style={{ width: '100%', padding: 4, backgroundColor: 'black' }}
+        />
+        <ListItem style={{ paddingLeft: 0 }}>
+          <ListItemIcon
+            style={{ backgroundColor: 'gray', height: 56, marginRight: 8 }}
+          />
+          <ListItemText
+            primary={'Crunch'}
+            secondary={
+              <Grid item xs={12} container alignItems={'center'}>
+                <Grid item xs={12}>
+                  <img
+                    style={{ height: 18, marginTop: 6 }}
+                    src={dumbBellIcon}
+                    alt={'dumbBellIcon'}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  {'20 reps | 20 reps | 20 reps'}
+                </Grid>
+              </Grid>
+            }
+          />
+        </ListItem>
+        <ListItem
+          style={{ width: '100%', padding: 4, backgroundColor: 'black' }}
+        />
+        <ListItem style={{ paddingLeft: 0 }}>
+          <ListItemIcon
+            style={{ backgroundColor: 'gray', height: 56, marginRight: 8 }}
+          />
+          <ListItemText
+            primary={'Crunch'}
+            secondary={
+              <Grid item xs={12} container alignItems={'center'}>
+                <Grid item xs={12}>
+                  <img
+                    style={{ height: 18, marginTop: 6 }}
+                    src={dumbBellIcon}
+                    alt={'dumbBellIcon'}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  {'20 reps | 20 reps | 20 reps'}
+                </Grid>
+              </Grid>
+            }
+          />
+        </ListItem>
+        <ListItem
+          style={{ width: '100%', padding: 4, backgroundColor: 'black' }}
+        />
+        <ListItem style={{ paddingLeft: 0 }}>
+          <ListItemIcon
+            style={{ backgroundColor: 'gray', height: 56, marginRight: 8 }}
+          />
+          <ListItemText
+            primary={'Crunch'}
+            secondary={
+              <Grid item xs={12} container alignItems={'center'}>
+                <Grid item xs={12}>
+                  <img
+                    style={{ height: 18, marginTop: 6 }}
+                    src={dumbBellIcon}
+                    alt={'dumbBellIcon'}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  {'20 reps | 20 reps | 20 reps'}
+                </Grid>
+              </Grid>
+            }
+          />
+        </ListItem>
+        <ListItem
+          style={{
+            width: '100%',
+            padding: 4,
+            backgroundColor: 'black',
+            paddingBottom: '5vh',
+          }}
+        />
       </List>
 
-      <Button onClick={props.goForwardHandler}>{'Start Workout'}</Button>
-    </>
+      <Button className={classes.startButton} onClick={props.routeClickHandler}>
+        {'Start Workout'}
+      </Button>
+    </div>
   );
+};
+
+export interface WorkoutPreviewProps {
+  routeClickHandler: () => void;
 }
+
+const mapStateToProps = (state: any): WorkoutPreviewProps => {
+  return {} as unknown as WorkoutPreviewProps;
+};
+
+const mapDispatchToProps = (dispatch: Dispatch): WorkoutPreviewProps =>
+  ({
+    routeClickHandler: () => {
+      dispatch(routerActions.push(MOBILE_ACTIVE_WORKOUT_SCREEN_PATH));
+    },
+  } as unknown as WorkoutPreviewProps);
+
+export default connect(mapStateToProps, mapDispatchToProps)(WorkoutPreview);
