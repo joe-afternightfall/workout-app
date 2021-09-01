@@ -40,38 +40,38 @@ const ActiveWorkout = (props: ActiveWorkoutProps): JSX.Element => {
 
   return (
     <Grid style={{ height: '100%' }}>
-      <>
-        <AppBar position={'absolute'}>
-          <Toolbar className={classes.toolbar}>
-            <Grid
-              container
-              className={classes.gridWrapper}
-              alignItems={'center'}
-            >
-              <Grid item xs={2}>
-                <Button onClick={props.exitClickHandler}>{'exit'}</Button>
-              </Grid>
-
+      <Slide mountOnEnter unmountOnExit in={true} direction={'up'}>
+        <div>
+          <AppBar position={'absolute'}>
+            <Toolbar className={classes.toolbar}>
               <Grid
-                item
-                xs={8}
                 container
-                justify={'center'}
+                className={classes.gridWrapper}
                 alignItems={'center'}
               >
-                <Grid item>
-                  <Typography variant={'overline'}>{'1/10'}</Typography>
+                <Grid item xs={2}>
+                  <Button onClick={props.exitClickHandler}>{'exit'}</Button>
                 </Grid>
+
+                <Grid
+                  item
+                  xs={8}
+                  container
+                  justify={'center'}
+                  alignItems={'center'}
+                >
+                  <Grid item>
+                    <Typography variant={'overline'}>{'1/10'}</Typography>
+                  </Grid>
+                </Grid>
+
+                <Grid item xs={2} />
               </Grid>
+            </Toolbar>
+          </AppBar>
 
-              <Grid item xs={2} />
-            </Grid>
-          </Toolbar>
-        </AppBar>
+          <div className={classes.toolbar} />
 
-        <div className={classes.toolbar} />
-
-        <Slide mountOnEnter unmountOnExit in={true} direction={'up'}>
           <Grid
             container
             direction={'column'}
@@ -213,8 +213,8 @@ const ActiveWorkout = (props: ActiveWorkoutProps): JSX.Element => {
               </Card>
             </Grid>
           </Grid>
-        </Slide>
-      </>
+        </div>
+      </Slide>
     </Grid>
   );
 };
