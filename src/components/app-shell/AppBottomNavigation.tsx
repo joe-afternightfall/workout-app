@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import React from 'react';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
@@ -27,6 +28,9 @@ const useStyles = makeStyles(() =>
       width: '100%',
       height: '100%',
     },
+    hide: {
+      display: 'none',
+    },
   })
 );
 
@@ -34,7 +38,12 @@ const AppBottomNavigation = (props: AppBottomNavigationProps): JSX.Element => {
   const classes = useStyles();
 
   return (
-    <AppBar position={'fixed'} className={classes.root}>
+    <AppBar
+      position={'fixed'}
+      className={clsx(classes.root, {
+        [classes.hide]: props.selectedNavTestId === 'mobile-workout-nav',
+      })}
+    >
       <Toolbar className={classes.toolbar}>
         <BottomNavigation
           className={classes.navRoot}
