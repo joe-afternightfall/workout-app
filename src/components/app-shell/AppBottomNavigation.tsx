@@ -7,6 +7,7 @@ import {
   Toolbar,
   BottomNavigation,
   BottomNavigationAction,
+  Slide,
 } from '@material-ui/core';
 import { routerActions } from 'connected-react-router';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
@@ -38,34 +39,41 @@ const AppBottomNavigation = (props: AppBottomNavigationProps): JSX.Element => {
   const classes = useStyles();
 
   return (
-    <AppBar
-      position={'fixed'}
-      className={clsx(classes.root, {
-        [classes.hide]: props.selectedNavTestId === 'mobile-workout-nav',
-      })}
+    <Slide
+      mountOnEnter
+      unmountOnExit
+      direction={'up'}
+      in={props.selectedNavTestId !== 'mobile-workout-nav'}
     >
-      <Toolbar className={classes.toolbar}>
-        <BottomNavigation
-          className={classes.navRoot}
-          value={props.selectedNavTestId}
-        >
-          {Object.keys(mobileRoutes).map((route: string, index: number) => {
-            const currentRoute = mobileRoutes[route];
-            return (
-              <BottomNavigationAction
-                key={index}
-                value={currentRoute.testId}
-                label={currentRoute.headerTitle}
-                icon={React.createElement(currentRoute.icon)}
-                onClick={() => {
-                  props.routeClickHandler(currentRoute.path);
-                }}
-              />
-            );
-          })}
-        </BottomNavigation>
-      </Toolbar>
-    </AppBar>
+      <AppBar
+        position={'fixed'}
+        className={clsx(classes.root, {
+          [classes.hide]: props.selectedNavTestId === 'mobile-workout-nav',
+        })}
+      >
+        <Toolbar className={classes.toolbar}>
+          <BottomNavigation
+            className={classes.navRoot}
+            value={props.selectedNavTestId}
+          >
+            {Object.keys(mobileRoutes).map((route: string, index: number) => {
+              const currentRoute = mobileRoutes[route];
+              return (
+                <BottomNavigationAction
+                  key={index}
+                  value={currentRoute.testId}
+                  label={currentRoute.headerTitle}
+                  icon={React.createElement(currentRoute.icon)}
+                  onClick={() => {
+                    props.routeClickHandler(currentRoute.path);
+                  }}
+                />
+              );
+            })}
+          </BottomNavigation>
+        </Toolbar>
+      </AppBar>
+    </Slide>
   );
 };
 
