@@ -5,7 +5,12 @@ export default function TabPanel(props: TabPanelProps): JSX.Element {
   const { children, value, index, ...other } = props;
 
   return (
-    <div role={'tab-panel'} hidden={value !== index} {...other}>
+    <div
+      role={'tab-panel'}
+      hidden={value !== index}
+      {...other}
+      style={{ height: '100%' }}
+    >
       {value === index && <Box component={'div'}>{children}</Box>}
     </div>
   );
