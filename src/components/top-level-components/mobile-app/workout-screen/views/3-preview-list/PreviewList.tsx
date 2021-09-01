@@ -6,7 +6,7 @@ import FolderList from './TossPreview';
 const PreviewList = (props: PreviewListProps & PassedInProps): JSX.Element => {
   return (
     <TabPanel value={props.activeTab} index={2}>
-      <FolderList />
+      {/*<FolderList />*/}
     </TabPanel>
   );
 };
