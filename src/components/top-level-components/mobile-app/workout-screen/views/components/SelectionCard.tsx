@@ -1,9 +1,9 @@
 import clsx from 'clsx';
 import React from 'react';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { Card, CardActionArea, Grid, Typography } from '@material-ui/core';
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     actionArea: {
       color: '#fff',
