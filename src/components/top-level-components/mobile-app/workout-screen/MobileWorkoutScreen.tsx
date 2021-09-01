@@ -10,7 +10,6 @@ import SwipeableViews from 'react-swipeable-views';
 import TabPanel from './views/components/TabPanel';
 import FolderList from './views/3-preview-list/TossPreview';
 import MessageAppBar from './views/components/MessageAppBar';
-import ActiveWorkout from './views/4-active-workout/ActiveWorkout';
 import WorkoutSelectionList from './views/1-workout-selection/WorkoutSelectionList';
 import RoutineSelectionList from './views/2-routine-selection/RoutineSelectionList';
 
@@ -49,6 +48,9 @@ export default function MobileWorkoutScreen(): JSX.Element {
           index={value}
           onChangeIndex={handleChangeIndex}
           axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+          containerStyle={{
+            transition: 'transform 0.35s cubic-bezier(0.15, 0.3, 0.25, 1) 0s',
+          }}
         >
           <TabPanel value={value} index={0} dir={theme.direction}>
             <WorkoutSelectionList
@@ -65,14 +67,7 @@ export default function MobileWorkoutScreen(): JSX.Element {
             />
           </TabPanel>
           <TabPanel value={value} index={2} dir={theme.direction}>
-            <FolderList
-              goForwardHandler={() => {
-                handleChangeIndex(3);
-              }}
-            />
-          </TabPanel>
-          <TabPanel value={value} index={3} dir={theme.direction}>
-            <ActiveWorkout />
+            <FolderList />
           </TabPanel>
         </SwipeableViews>
       </Grid>
