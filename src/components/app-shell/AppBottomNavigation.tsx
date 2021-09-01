@@ -37,14 +37,17 @@ const useStyles = makeStyles(() =>
 
 const AppBottomNavigation = (props: AppBottomNavigationProps): JSX.Element => {
   const classes = useStyles();
+  let shouldDisplay = true;
 
+  if (props.selectedNavTestId === 'mobile-workout-nav') {
+    shouldDisplay = false;
+  }
+
+  if (props.selectedNavTestId === 'mobile-profile-nav') {
+    shouldDisplay = false;
+  }
   return (
-    <Slide
-      mountOnEnter
-      unmountOnExit
-      direction={'up'}
-      in={props.selectedNavTestId !== 'mobile-workout-nav'}
-    >
+    <Slide mountOnEnter unmountOnExit direction={'up'} in={shouldDisplay}>
       <AppBar
         position={'fixed'}
         className={clsx(classes.root, {
