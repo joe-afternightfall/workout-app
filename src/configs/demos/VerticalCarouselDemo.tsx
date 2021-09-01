@@ -1,7 +1,7 @@
 import React from 'react';
 import Slider from 'react-slick';
 
-export default function VerticalCarouselDemo() {
+export default function VerticalCarouselDemo(): JSX.Element {
   const settings = {
     dots: true,
     infinite: true,

@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-  Theme,
-  useTheme,
-  makeStyles,
-  createStyles,
-} from '@material-ui/core/styles';
+import { useTheme, makeStyles, createStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
 import SwipeableViews from 'react-swipeable-views';
 import TabPanel from './views/components/TabPanel';
@@ -13,7 +8,7 @@ import MessageAppBar from './views/components/MessageAppBar';
 import WorkoutSelectionList from './views/1-workout-selection/WorkoutSelectionList';
 import RoutineSelectionList from './views/2-routine-selection/RoutineSelectionList';
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     toolbar: {
       height: '8vh',

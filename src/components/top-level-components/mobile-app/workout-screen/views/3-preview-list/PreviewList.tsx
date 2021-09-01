@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import TabPanel from '../../../../../shared/SwipeableViewTabPanel';
-import FolderList from './TossPreview';
 
 const PreviewList = (props: PreviewListProps & PassedInProps): JSX.Element => {
   return (

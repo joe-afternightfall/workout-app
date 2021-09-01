@@ -162,7 +162,7 @@ export interface ActiveWorkoutProps {
   exitClickHandler: () => void;
 }
 
-const mapStateToProps = (state: any): ActiveWorkoutProps => {
+const mapStateToProps = (): ActiveWorkoutProps => {
   return {} as unknown as ActiveWorkoutProps;
 };
 
