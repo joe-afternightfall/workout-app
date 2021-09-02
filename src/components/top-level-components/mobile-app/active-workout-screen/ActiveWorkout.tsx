@@ -23,7 +23,10 @@ import SuperSetItem from '../shared/SuperSetItem';
 const useStyles = makeStyles(() =>
   createStyles({
     toolbar: {
-      height: '10vh',
+      height: '8vh',
+    },
+    toolbarMixin: {
+      height: '7vh',
     },
     menuButton: {
       paddingTop: 8,
@@ -31,6 +34,9 @@ const useStyles = makeStyles(() =>
     },
     gridWrapper: {
       height: '100%',
+    },
+    appBar: {
+      backgroundColor: '#ed440b',
     },
   })
 );
@@ -42,12 +48,12 @@ const ActiveWorkout = (props: ActiveWorkoutProps): JSX.Element => {
     <Grid style={{ height: '100%' }}>
       <Slide mountOnEnter unmountOnExit in={true} direction={'up'}>
         <div>
-          <AppBar position={'absolute'}>
+          <AppBar position={'absolute'} className={classes.appBar}>
             <Toolbar className={classes.toolbar}>
               <Grid
                 container
                 className={classes.gridWrapper}
-                alignItems={'center'}
+                alignItems={'flex-end'}
               >
                 <Grid item xs={2}>
                   <Button onClick={props.exitClickHandler}>{'exit'}</Button>
@@ -70,15 +76,10 @@ const ActiveWorkout = (props: ActiveWorkoutProps): JSX.Element => {
             </Toolbar>
           </AppBar>
 
-          <div className={classes.toolbar} />
+          <div className={classes.toolbarMixin} />
 
-          <Grid
-            container
-            direction={'column'}
-            alignItems={'stretch'}
-            justify={'space-around'}
-          >
-            <Grid item xs={12} container>
+          <Grid container style={{ height: '87vh' }}>
+            <Grid item xs={12}>
               <SuperSetItem
                 firstExerciseTitle={'Mountain Climbers'}
                 firstExerciseRepsAndSets={'10 reps | 8 reps | 6 reps | 4 reps'}
@@ -91,19 +92,17 @@ const ActiveWorkout = (props: ActiveWorkoutProps): JSX.Element => {
               />
             </Grid>
 
-            <Grid item xs={12}>
-              <Grid container>
-                <Grid item xs={8}>
-                  <TextField fullWidth variant={'outlined'} value={'10 reps'} />
-                  <TextField fullWidth variant={'outlined'} value={'20 reps'} />
-                </Grid>
-                <Grid item xs={2}>
-                  <Button>{'Did It'}</Button>
-                </Grid>
+            <Grid item xs={12} container alignItems={'center'}>
+              <Grid item xs={8}>
+                <TextField fullWidth variant={'outlined'} value={'10 reps'} />
+                <TextField fullWidth variant={'outlined'} value={'20 reps'} />
+              </Grid>
+              <Grid item xs={2}>
+                <Button>{'Did It'}</Button>
               </Grid>
             </Grid>
 
-            <Grid item xs={12} container>
+            <Grid item xs={12} container alignItems={'flex-end'}>
               <Card>
                 <Grid item xs={12} container>
                   <Grid item xs={12}>

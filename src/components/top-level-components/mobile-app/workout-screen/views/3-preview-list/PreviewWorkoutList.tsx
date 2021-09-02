@@ -9,6 +9,16 @@ import { MOBILE_ACTIVE_WORKOUT_SCREEN_PATH } from '../../../../../../configs/con
 import SingleListItem from '../../../shared/SingleListItem';
 import WorkoutListDivider from '../../../shared/WorkoutListDivider';
 import SuperSetItem from '../../../shared/SuperSetItem';
+import barbellIcon from '../../../../../../configs/icons/barbell.gif';
+import dumbBellIcon from '../../../../../../configs/icons/dumbbell.png';
+import bicepHammerCurlOne from '../../../../../../configs/icons/exercises/dumbells/dumbell-bicep-hammer-curl-1.png';
+import bicepHammerCurlTwo from '../../../../../../configs/icons/exercises/dumbells/dumbell-bicep-hammer-curl-2.png';
+import bicepCurlOne from '../../../../../../configs/icons/exercises/dumbells/dumbell-biceps-curl-1.png';
+import bicepCurlTwo from '../../../../../../configs/icons/exercises/dumbells/dumbell-biceps-curl-2.png';
+import benchPress from '../../../../../../configs/icons/exercises/barbells/bench-press-barbell.png';
+import preacherCurl from '../../../../../../configs/icons/exercises/barbells/preacher-curl-barbell.png';
+import inclinePressDumbBells from '../../../../../../configs/icons/exercises/dumbells/incline-press-dumbells.png';
+import reverseBentOverRows from '../../../../../../configs/icons/exercises/barbells/reverse-grip-bent-over-rows-barbell.png';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -29,6 +39,10 @@ const useStyles = makeStyles((theme: Theme) =>
       position: 'fixed',
       bottom: 0,
     },
+    exerciseIcon: {
+      height: '13vh',
+      margin: 'auto',
+    },
   })
 );
 
@@ -40,17 +54,42 @@ const PreviewWorkoutList = (props: PreviewWorkoutListProps): JSX.Element => {
       <Paper elevation={5} square>
         <List className={classes.listWrapper}>
           <SingleListItem
-            exerciseTitle={'Downward Dog'}
-            repsAndSets={'5 reps | 5 reps | 5 reps'}
+            equipmentIcon={
+              <img style={{ height: 18 }} src={barbellIcon} alt={'barbell'} />
+            }
+            exerciseIcon={
+              <img
+                src={benchPress}
+                alt={'app-logo'}
+                className={classes.exerciseIcon}
+              />
+            }
+            exerciseTitle={'Bench Press'}
+            repsAndSets={'80 x 12 | 85 x 12 | 90 x 12'}
           />
           <WorkoutListDivider />
           <SuperSetItem
-            firstExerciseTitle={'Bench Press'}
+            firstExerciseTitle={'Incline Press Barbells'}
             firstExerciseRepsAndSets={'90 x 12 | 80 x 12 | 120 x 6'}
             // firstExerciseIcon={}
             secondExerciseTitle={'Jumping Jacks'}
             secondExerciseRepsAndSets={'20 reps | 38 reps | 46 reps | 54 reps'}
             // secondExerciseIcon={}
+          />
+          <WorkoutListDivider />
+          <SingleListItem
+            equipmentIcon={
+              <img style={{ height: 18 }} src={barbellIcon} alt={'barbell'} />
+            }
+            exerciseIcon={
+              <img
+                src={preacherCurl}
+                alt={'app-logo'}
+                className={classes.exerciseIcon}
+              />
+            }
+            exerciseTitle={'Preacher Curl'}
+            repsAndSets={'40 x 12 | 45 x 10 | 50 x 10'}
           />
           <WorkoutListDivider />
           <SuperSetItem
@@ -63,14 +102,35 @@ const PreviewWorkoutList = (props: PreviewWorkoutListProps): JSX.Element => {
           />
           <WorkoutListDivider />
           <SingleListItem
+            equipmentIcon={
+              <img style={{ height: 18 }} src={barbellIcon} alt={'barbell'} />
+            }
+            exerciseIcon={
+              <img
+                src={reverseBentOverRows}
+                alt={'app-logo'}
+                className={classes.exerciseIcon}
+              />
+            }
             exerciseTitle={'Downward Dog'}
             repsAndSets={'5 reps | 5 reps | 5 reps'}
           />
           <WorkoutListDivider />
           <SingleListItem
-            exerciseTitle={'Downward Dog'}
-            repsAndSets={'5 reps | 5 reps | 5 reps'}
+            equipmentIcon={
+              <img style={{ height: 18 }} src={barbellIcon} alt={'barbell'} />
+            }
+            exerciseIcon={
+              <img
+                src={preacherCurl}
+                alt={'app-logo'}
+                className={classes.exerciseIcon}
+              />
+            }
+            exerciseTitle={'Preacher Curl'}
+            repsAndSets={'40 x 12 | 45 x 10 | 50 x 10'}
           />
+
           <WorkoutListDivider />
           <SuperSetItem
             firstExerciseTitle={'Mountain Climbers'}

@@ -5,19 +5,23 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItem from '@material-ui/core/ListItem';
 import LinkIcon from '@material-ui/icons/Link';
 import barbellIcon from '../../../../configs/icons/barbell.gif';
-import icon from '../../../../configs/icons/exercises/Bench-press-1.png';
+import dumbBellIcon from '../../../../configs/icons/dumbbell.png';
+import inclinePressDumbBells from '../../../../configs/icons/exercises/dumbells/incline-press-dumbells.png';
+import preacherCurls from '../../../../configs/icons/exercises/barbells/preacher-curl-barbell.png';
 
 const useStyles = makeStyles(() =>
   createStyles({
     listItemRoot: {
       padding: 0,
     },
-    icon: {
+    exerciseIcon: {
       height: '13vh',
+      margin: 'auto',
     },
     itemIconWrapper: {
       backgroundColor: 'gray',
       padding: 4,
+      width: '13vh',
     },
     title: {
       fontSize: '1.225rem',
@@ -47,7 +51,11 @@ export default function SuperSetItem(props: SuperSetItemProps): JSX.Element {
     <div>
       <ListItem className={classes.listItemRoot}>
         <ListItemIcon className={classes.itemIconWrapper}>
-          <img src={icon} alt={'app-logo'} className={classes.icon} />
+          <img
+            src={inclinePressDumbBells}
+            alt={'app-logo'}
+            className={classes.exerciseIcon}
+          />
         </ListItemIcon>
         <ListItemText
           className={classes.textWrapper}
@@ -67,7 +75,7 @@ export default function SuperSetItem(props: SuperSetItemProps): JSX.Element {
                 <Grid item>
                   <img
                     style={{ height: 18 }}
-                    src={barbellIcon}
+                    src={dumbBellIcon}
                     alt={'barbell'}
                   />
                 </Grid>
@@ -112,7 +120,11 @@ export default function SuperSetItem(props: SuperSetItemProps): JSX.Element {
 
       <ListItem className={classes.bottomListItemRoot}>
         <ListItemIcon className={classes.itemIconWrapper}>
-          <img src={icon} alt={'app-logo'} className={classes.icon} />
+          <img
+            src={preacherCurls}
+            alt={'app-logo'}
+            className={classes.exerciseIcon}
+          />
         </ListItemIcon>
         <ListItemText
           className={classes.textWrapper}

@@ -4,7 +4,7 @@ import { Grid, ListItemIcon, Typography } from '@material-ui/core';
 import ListItemText from '@material-ui/core/ListItemText';
 import barbellIcon from '../../../../configs/icons/barbell.gif';
 import ListItem from '@material-ui/core/ListItem';
-import icon from '../../../../configs/icons/exercises/Bench-press-1.png';
+import icon from '../../../../configs/icons/exercises/bench-press-barbell.png';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -15,12 +15,14 @@ const useStyles = makeStyles(() =>
       fontSize: '1.225rem',
       paddingBottom: '1vh',
     },
-    icon: {
+    exerciseIcon: {
       height: '13vh',
+      margin: 'auto',
     },
     itemIconWrapper: {
       backgroundColor: 'gray',
       padding: 4,
+      width: '13vh',
     },
     textWrapper: {
       paddingLeft: 12,
@@ -39,7 +41,7 @@ export default function SingleListItem(
   return (
     <ListItem className={classes.listItemRoot}>
       <ListItemIcon className={classes.itemIconWrapper}>
-        <img src={icon} alt={'app-logo'} className={classes.icon} />
+        {props.exerciseIcon}
       </ListItemIcon>
       <ListItemText
         className={classes.textWrapper}
@@ -79,5 +81,6 @@ export default function SingleListItem(
 export interface SingleListItemProps {
   exerciseTitle: string;
   repsAndSets: string;
-  // equipmentIcon: JSX.Element;
+  equipmentIcon: JSX.Element;
+  exerciseIcon: JSX.Element;
 }
