@@ -52,6 +52,10 @@ export function getLightTheme(): Theme {
           green: '#77C74B',
           blue: '#2C9DF0',
           purple: '#725FE7',
+          // madMuscleBlack: '#151515',
+          // madMuscleOrange: '#ed440b',
+          // otherAppPurple: '#7137b5',
+          // otherAppOrange: '#cf6719',
         },
       },
       text: {

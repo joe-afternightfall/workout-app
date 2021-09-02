@@ -4,20 +4,29 @@ import { Grid, ListItemIcon, Typography } from '@material-ui/core';
 import ListItemText from '@material-ui/core/ListItemText';
 import barbellIcon from '../../../../configs/icons/barbell.gif';
 import ListItem from '@material-ui/core/ListItem';
+import icon from '../../../../configs/icons/exercises/Bench-press-1.png';
 
 const useStyles = makeStyles(() =>
   createStyles({
-    root: {
+    listItemRoot: {
       padding: 0,
     },
-    listItemText: {
-      margin: '4px 0',
-    },
     title: {
-      fontSize: '0.875rem',
+      fontSize: '1.225rem',
+      paddingBottom: '1vh',
+    },
+    icon: {
+      height: '13vh',
+    },
+    itemIconWrapper: {
+      backgroundColor: 'gray',
+      padding: 4,
+    },
+    textWrapper: {
+      paddingLeft: 12,
     },
     secondaryTitle: {
-      fontSize: '0.775rem',
+      paddingTop: 4,
     },
   })
 );
@@ -28,11 +37,12 @@ export default function SingleListItem(
   const classes = useStyles();
 
   return (
-    <ListItem className={classes.root}>
-      <ListItemIcon
-        style={{ backgroundColor: 'gray', height: 56, marginRight: 8 }}
-      />
+    <ListItem className={classes.listItemRoot}>
+      <ListItemIcon className={classes.itemIconWrapper}>
+        <img src={icon} alt={'app-logo'} className={classes.icon} />
+      </ListItemIcon>
       <ListItemText
+        className={classes.textWrapper}
         disableTypography
         primary={
           <Typography
@@ -43,12 +53,11 @@ export default function SingleListItem(
             {props.exerciseTitle}
           </Typography>
         }
-        className={classes.listItemText}
         secondary={
           <Grid item xs={12} container alignItems={'center'}>
-            <Grid item style={{ height: 20 }} container alignItems={'center'}>
-              <Grid item style={{ height: 16 }}>
-                <img style={{ height: 16 }} src={barbellIcon} alt={'barbell'} />
+            <Grid item container alignItems={'center'}>
+              <Grid item>
+                <img style={{ height: 18 }} src={barbellIcon} alt={'barbell'} />
               </Grid>
             </Grid>
             <Grid item xs={12}>

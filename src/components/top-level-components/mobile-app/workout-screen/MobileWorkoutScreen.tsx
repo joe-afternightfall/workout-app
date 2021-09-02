@@ -11,7 +11,7 @@ import RoutineSelectionList from './views/2-routine-selection/RoutineSelectionLi
 const useStyles = makeStyles(() =>
   createStyles({
     toolbar: {
-      height: '8vh',
+      height: '7vh',
     },
   })
 );
