@@ -3,7 +3,7 @@ import { useTheme, makeStyles, createStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
 import SwipeableViews from 'react-swipeable-views';
 import TabPanel from './views/components/TabPanel';
-import FolderList from './views/3-preview-list/TossPreview';
+import PreviewWorkoutList from './views/3-preview-list/PreviewWorkoutList';
 import MessageAppBar from './views/components/MessageAppBar';
 import WorkoutSelectionList from './views/1-workout-selection/WorkoutSelectionList';
 import RoutineSelectionList from './views/2-routine-selection/RoutineSelectionList';
@@ -62,7 +62,7 @@ export default function MobileWorkoutScreen(): JSX.Element {
             />
           </TabPanel>
           <TabPanel value={value} index={2} dir={theme.direction}>
-            <FolderList />
+            <PreviewWorkoutList />
           </TabPanel>
         </SwipeableViews>
       </Grid>
