@@ -36,7 +36,7 @@ const useStyles = makeStyles(() =>
     bottomListItemRoot: {
       padding: 0,
       color: '#fff',
-      marginTop: -14,
+      marginTop: -16,
     },
     secondaryTitle: {
       paddingTop: 4,
