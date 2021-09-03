@@ -7,7 +7,7 @@ import {
   ListItemText,
 } from '@material-ui/core';
 import LinkIcon from '@material-ui/icons/Link';
-import barbellIcon from '../../../../configs/icons/barbell.gif';
+import barbellIcon from '../../../../../configs/icons/barbell.gif';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(() =>
