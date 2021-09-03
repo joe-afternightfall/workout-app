@@ -23,7 +23,7 @@ import LargeSuperSetItem from './components/LargeSuperSetItem';
 import UpNextCard from './components/UpNextCard';
 import clsx from 'clsx';
 import CurrentSet from './components/CurrentSet';
-import Blinker from './Toss';
+import Blinker from '../shared/Blinker';
 
 // scrollIntoView(someElement);
 const useStyles = makeStyles(() =>
