@@ -11,14 +11,14 @@ export default function Content(props: ContentProps): JSX.Element {
   let displayComp;
 
   switch (setType) {
-    case SetType.WEIGHTS:
+    case SetType.TIME_AND_REPS:
       displayComp = (
         <>
           <Grid item xs={5}>
-            <Typography>{set.reps}</Typography>
+            <TimeField time={set.time} />
           </Grid>
           <Grid item xs={5}>
-            <Typography>{set.weight}</Typography>
+            <Typography>{set.reps}</Typography>
           </Grid>
         </>
       );
@@ -42,11 +42,11 @@ export default function Content(props: ContentProps): JSX.Element {
         </>
       );
       break;
-    case SetType.TIME_AND_REPS:
+    case SetType.WEIGHTS:
       displayComp = (
         <>
           <Grid item xs={5}>
-            <TimeField time={set.time} />
+            <Typography>{set.weight}</Typography>
           </Grid>
           <Grid item xs={5}>
             <Typography>{set.reps}</Typography>
