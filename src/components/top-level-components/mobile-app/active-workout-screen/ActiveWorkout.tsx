@@ -45,11 +45,15 @@ const useStyles = makeStyles(() =>
     didItButton: {
       width: '100%',
       height: '100%',
-      backgroundColor: '#ed440b',
       borderRadius: '0 8px 8px 0',
+    },
+    activeButton: {
+      backgroundColor: '#ed440b',
     },
     textField: {
       fontSize: '5vh',
+    },
+    activeTextField: {
       backgroundColor: '#ed440b',
       opacity: 0.6,
     },
@@ -117,7 +121,7 @@ const ActiveWorkout = (props: ActiveWorkoutProps): JSX.Element => {
             xs={12}
             container
             alignItems={'center'}
-            style={{ height: '24vh' }}
+            style={{ height: '24vh', marginBottom: 16 }}
           >
             <Grid
               item
@@ -132,7 +136,11 @@ const ActiveWorkout = (props: ActiveWorkoutProps): JSX.Element => {
                   variant={'outlined'}
                   value={'10 reps'}
                   InputProps={{
-                    className: clsx(classes.textField, classes.topTextField),
+                    className: clsx(
+                      classes.textField,
+                      classes.topTextField,
+                      classes.activeTextField
+                    ),
                   }}
                 />
               </Grid>
@@ -141,6 +149,94 @@ const ActiveWorkout = (props: ActiveWorkoutProps): JSX.Element => {
                   fullWidth
                   variant={'outlined'}
                   value={'20 reps'}
+                  InputProps={{
+                    className: clsx(
+                      classes.textField,
+                      classes.bottomTextField,
+                      classes.activeTextField
+                    ),
+                  }}
+                />
+              </Grid>
+            </Grid>
+            <Grid item xs={4} style={{ height: '100%' }}>
+              <Button
+                className={clsx(classes.didItButton, classes.activeButton)}
+              >
+                {'Did It'}
+              </Button>
+            </Grid>
+          </Grid>
+
+          <Grid
+            item
+            xs={12}
+            container
+            alignItems={'center'}
+            style={{ height: '24vh', marginBottom: 16 }}
+          >
+            <Grid
+              item
+              xs={8}
+              container
+              alignItems={'center'}
+              style={{ paddingRight: 8 }}
+            >
+              <Grid item xs={12} style={{ marginBottom: 6 }}>
+                <TextField
+                  fullWidth
+                  variant={'outlined'}
+                  value={'  reps'}
+                  InputProps={{
+                    className: clsx(classes.textField, classes.topTextField),
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  variant={'outlined'}
+                  value={'  reps'}
+                  InputProps={{
+                    className: clsx(classes.textField, classes.bottomTextField),
+                  }}
+                />
+              </Grid>
+            </Grid>
+            <Grid item xs={4} style={{ height: '100%' }}>
+              <Button className={classes.didItButton}>{'Did It'}</Button>
+            </Grid>
+          </Grid>
+
+          <Grid
+            item
+            xs={12}
+            container
+            alignItems={'center'}
+            style={{ height: '24vh', marginBottom: 16 }}
+          >
+            <Grid
+              item
+              xs={8}
+              container
+              alignItems={'center'}
+              style={{ paddingRight: 8 }}
+            >
+              <Grid item xs={12} style={{ marginBottom: 6 }}>
+                <TextField
+                  fullWidth
+                  variant={'outlined'}
+                  value={' reps'}
+                  InputProps={{
+                    className: clsx(classes.textField, classes.topTextField),
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  variant={'outlined'}
+                  value={' reps'}
                   InputProps={{
                     className: clsx(classes.textField, classes.bottomTextField),
                   }}
