@@ -20,8 +20,10 @@ import { DASHBOARD_SCREEN_PATH } from '../../../../configs/constants/app';
 import { routerActions } from 'connected-react-router';
 import SuperSetItem from '../shared/SuperSetItem';
 import LargeSuperSetItem from './components/LargeSuperSetItem';
-import UpNextCard from './UpNextCard';
+import UpNextCard from './components/UpNextCard';
 import clsx from 'clsx';
+import CurrentSet from './components/CurrentSet';
+import Blinker from './Toss';
 
 // scrollIntoView(someElement);
 const useStyles = makeStyles(() =>
@@ -121,50 +123,22 @@ const ActiveWorkout = (props: ActiveWorkoutProps): JSX.Element => {
             xs={12}
             container
             alignItems={'center'}
-            style={{ height: '24vh', marginBottom: 16 }}
+            style={{ height: '25h', marginBottom: 16 }}
           >
-            <Grid
-              item
-              xs={8}
-              container
-              alignItems={'center'}
-              style={{ paddingRight: 8 }}
-            >
-              <Grid item xs={12} style={{ marginBottom: 6 }}>
-                <TextField
-                  fullWidth
-                  variant={'outlined'}
-                  value={'10 reps'}
-                  InputProps={{
-                    className: clsx(
-                      classes.textField,
-                      classes.topTextField,
-                      classes.activeTextField
-                    ),
-                  }}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  fullWidth
-                  variant={'outlined'}
-                  value={'20 reps'}
-                  InputProps={{
-                    className: clsx(
-                      classes.textField,
-                      classes.bottomTextField,
-                      classes.activeTextField
-                    ),
-                  }}
-                />
-              </Grid>
+            <Grid item xs={8} style={{ paddingRight: 4 }}>
+              <CurrentSet />
             </Grid>
             <Grid item xs={4} style={{ height: '100%' }}>
-              <Button
-                className={clsx(classes.didItButton, classes.activeButton)}
-              >
-                {'Did It'}
-              </Button>
+              <Blinker
+                disabled={false}
+                component={
+                  <Button
+                    className={clsx(classes.didItButton, classes.activeButton)}
+                  >
+                    {'Did It'}
+                  </Button>
+                }
+              />
             </Grid>
           </Grid>
 
@@ -173,7 +147,7 @@ const ActiveWorkout = (props: ActiveWorkoutProps): JSX.Element => {
             xs={12}
             container
             alignItems={'center'}
-            style={{ height: '24vh', marginBottom: 16 }}
+            style={{ height: '25vh', marginBottom: 16 }}
           >
             <Grid
               item
@@ -213,7 +187,7 @@ const ActiveWorkout = (props: ActiveWorkoutProps): JSX.Element => {
             xs={12}
             container
             alignItems={'center'}
-            style={{ height: '24vh', marginBottom: 16 }}
+            style={{ height: '25vh', marginBottom: 16 }}
           >
             <Grid
               item
@@ -253,7 +227,7 @@ const ActiveWorkout = (props: ActiveWorkoutProps): JSX.Element => {
             xs={12}
             container
             alignItems={'flex-end'}
-            style={{ height: '29vh' }}
+            style={{ height: '28vh' }}
           >
             <UpNextCard />
           </Grid>
