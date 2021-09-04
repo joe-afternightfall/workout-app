@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { scroller } from 'react-scroll';
 import { Grid, Slide } from '@material-ui/core';
 import ActiveSet from './2-active-set/ActiveSet';
@@ -42,7 +41,7 @@ const useStyles = makeStyles(() =>
   })
 );
 
-const ActiveWorkout = (): JSX.Element => {
+export default function ActiveWorkout(): JSX.Element {
   const classes = useStyles();
 
   const scrollToSection = () => {
@@ -89,13 +88,4 @@ const ActiveWorkout = (): JSX.Element => {
       </div>
     </Slide>
   );
-};
-
-const mapStateToProps = (): ActiveWorkoutProps => {
-  return {} as unknown as ActiveWorkoutProps;
-};
-
-const mapDispatchToProps = (): ActiveWorkoutProps =>
-  ({} as unknown as ActiveWorkoutProps);
-
-export default connect(mapStateToProps, mapDispatchToProps)(ActiveWorkout);
+}
