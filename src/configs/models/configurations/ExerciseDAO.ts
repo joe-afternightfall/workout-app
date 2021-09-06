@@ -6,6 +6,7 @@ export class ExerciseDAO {
   muscleGroupIds: string[];
   iconId: string;
   gripTypeId: string;
+  gripWidthId: string;
   parameterTypeId: string;
   alternateSides: boolean;
 
@@ -17,6 +18,7 @@ export class ExerciseDAO {
     muscleGroupIds: string[],
     iconId: string,
     gripTypeId: string,
+    gripWidthId: string,
     parameterTypeId: string,
     alternateSides: boolean
   ) {
@@ -27,6 +29,7 @@ export class ExerciseDAO {
     this.muscleGroupIds = muscleGroupIds;
     this.iconId = iconId;
     this.gripTypeId = gripTypeId;
+    this.gripWidthId = gripWidthId;
     this.parameterTypeId = parameterTypeId;
     this.alternateSides = alternateSides;
   }

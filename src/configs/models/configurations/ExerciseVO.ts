@@ -12,6 +12,7 @@ export class ExerciseVO extends ExerciseDAO {
     muscleGroupIds: string[],
     iconId: string,
     gripTypeId: string,
+    gripWidthId: string,
     parameterTypeId: string,
     alternateSides: boolean
   ) {
@@ -23,6 +24,7 @@ export class ExerciseVO extends ExerciseDAO {
       muscleGroupIds,
       iconId,
       gripTypeId,
+      gripWidthId,
       parameterTypeId,
       alternateSides
     );
