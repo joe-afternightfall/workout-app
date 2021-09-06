@@ -12,6 +12,7 @@ import { State } from '../../../configs/redux/store';
 import { getUserProfile } from '../../../services/user-profile';
 import { loadUsersWorkouts, validatedUser } from '../../../creators/user-info';
 import { getWorkoutsForUser } from '../../../services/workout-service';
+import { initializeWorkoutConfigs } from '../../../creators/initialize';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -88,6 +89,7 @@ const mapDispatchToProps = (dispatch: Dispatch): SignInScreenProps =>
       );
       const workouts = await getWorkoutsForUser(email);
       dispatch(loadUsersWorkouts(workouts));
+      dispatch(initializeWorkoutConfigs());
     },
   } as unknown as SignInScreenProps);
 

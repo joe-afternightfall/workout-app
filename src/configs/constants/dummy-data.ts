@@ -1,4 +1,3 @@
-import { Routine } from '../models/AppInterfaces';
 import { TrainingSetTypeVO } from '../models/configurations/TrainingSetTypeVO';
 import { PhaseVO } from '../models/configurations/PhaseVO';
 import { ExerciseVO } from '../models/configurations/ExerciseVO';
@@ -6,6 +5,8 @@ import { EquipmentVO } from '../models/configurations/EquipmentVO';
 import { GripTypeVO } from '../models/configurations/GripTypeVO';
 import { ParameterTypeVO } from '../models/configurations/ParameterTypeVO';
 import { GripWidthVO } from '../models/configurations/GripWidthVO';
+import { WorkoutCategoryVO } from '../models/configurations/WorkoutCategoryVO';
+import { RoutineTemplateVO } from '../models/workout/RoutineTemplateVO';
 
 export const trainingSetTypes: TrainingSetTypeVO[] = [
   {
@@ -85,7 +86,7 @@ export const phases: PhaseVO[] = [
   },
 ];
 
-export const workoutCategories = [
+export const workoutCategories: WorkoutCategoryVO[] = [
   {
     firebaseId: 'c7b03c13-126f-4f9a-afe2-19ecde8a6540',
     id: '7ce750dc-fc73-43ad-99c3-a60a8b846177',
@@ -553,10 +554,11 @@ export const exercises: ExerciseVO[] = [
   },
 ];
 
-export const routineTemplates: Routine[] = [
+export const routineTemplates: RoutineTemplateVO[] = [
   {
+    firebaseId: '4d3bba0f-e1dc-418e-8bbd-997ee4725cab',
     id: 'e7b654c8-bdbd-4ad6-b5bd-f367c90750c9',
-    name: 'Smokey Joes Ball Busting Back and Bis',
+    name: 'Smokey Joes Ball Busting Back Breaking Bananza',
     workoutCategoryId: '7ce750dc-fc73-43ad-99c3-a60a8b846177',
     phases: [
       {

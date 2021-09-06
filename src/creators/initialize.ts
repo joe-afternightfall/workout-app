@@ -1,8 +1,15 @@
-import { LOCATION_CHANGE } from 'connected-react-router';
+import { WorkoutActionTypes } from './actions-workout';
 import {
-  WorkoutActions,
-  WorkoutActionTypes,
-} from '../creators/actions-workout';
+  equipmentList,
+  exercises,
+  gripTypes,
+  gripWidths,
+  parameterTypes,
+  phases,
+  routineTemplates,
+  trainingSetTypes,
+  workoutCategories,
+} from '../configs/constants/dummy-data';
 import { TrainingSetTypeVO } from '../configs/models/configurations/TrainingSetTypeVO';
 import { PhaseVO } from '../configs/models/configurations/PhaseVO';
 import { WorkoutCategoryVO } from '../configs/models/configurations/WorkoutCategoryVO';
@@ -13,30 +20,8 @@ import { ParameterTypeVO } from '../configs/models/configurations/ParameterTypeV
 import { ExerciseVO } from '../configs/models/configurations/ExerciseVO';
 import { RoutineTemplateVO } from '../configs/models/workout/RoutineTemplateVO';
 
-export default {
-  reducer: (
-    state: WorkoutState = {} as unknown as WorkoutState,
-    action: WorkoutActions
-  ): WorkoutState => {
-    const newState = Object.assign({}, state);
-
-    switch (action.type) {
-      case LOCATION_CHANGE:
-        newState.currentLocation = action.payload.location.pathname;
-        break;
-      case WorkoutActionTypes.INITIALIZE:
-        newState.configs = action.configs;
-        break;
-      default:
-        break;
-    }
-
-    return newState;
-  },
-};
-
-export interface WorkoutState {
-  currentLocation: string;
+export interface InitializeWorkoutConfigsAction {
+  type: WorkoutActionTypes.INITIALIZE;
   configs: {
     trainingSetTypes: TrainingSetTypeVO[];
     phases: PhaseVO[];
@@ -49,3 +34,20 @@ export interface WorkoutState {
     routineTemplates: RoutineTemplateVO[];
   };
 }
+
+export const initializeWorkoutConfigs = (): InitializeWorkoutConfigsAction => {
+  return {
+    type: WorkoutActionTypes.INITIALIZE,
+    configs: {
+      trainingSetTypes: trainingSetTypes,
+      phases: phases,
+      workoutCategories: workoutCategories,
+      equipmentList: equipmentList,
+      gripWidths: gripWidths,
+      gripTypes: gripTypes,
+      parameterTypes: parameterTypes,
+      exercises: exercises,
+      routineTemplates: routineTemplates,
+    },
+  };
+};
