@@ -7,7 +7,7 @@ export class ExerciseDAO {
   iconId: string;
   gripTypeId: string;
   parameterTypeId: string;
-  trainingSetTypeId: string;
+  alternateSides: boolean;
 
   constructor(
     id: string,
@@ -18,7 +18,7 @@ export class ExerciseDAO {
     iconId: string,
     gripTypeId: string,
     parameterTypeId: string,
-    trainingSetTypeId: string
+    alternateSides: boolean
   ) {
     this.id = id;
     this.name = name;
@@ -28,6 +28,6 @@ export class ExerciseDAO {
     this.iconId = iconId;
     this.gripTypeId = gripTypeId;
     this.parameterTypeId = parameterTypeId;
-    this.trainingSetTypeId = trainingSetTypeId;
+    this.alternateSides = alternateSides;
   }
 }
