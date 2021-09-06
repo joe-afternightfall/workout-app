@@ -12,32 +12,6 @@ const useStyles = makeStyles(() =>
     toolbarMixin: {
       height: '7vh',
     },
-    menuButton: {
-      paddingTop: 8,
-      paddingBottom: 8,
-    },
-    didItButton: {
-      width: '100%',
-      height: '100%',
-      borderRadius: '0 8px 8px 0',
-      backgroundColor: '#222323',
-    },
-    activeButton: {
-      backgroundColor: '#ed440b',
-    },
-    textField: {
-      fontSize: '5vh',
-    },
-    activeTextField: {
-      backgroundColor: '#ed440b',
-      opacity: 0.6,
-    },
-    bottomTextField: {
-      borderRadius: '0 0 0 8px',
-    },
-    topTextField: {
-      borderRadius: '8px 0 0 0',
-    },
   })
 );
 

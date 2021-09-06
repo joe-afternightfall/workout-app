@@ -1,9 +1,9 @@
-import React from 'react';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { Button, Grid } from '@material-ui/core';
 import clsx from 'clsx';
-import SetTextField from './components/SetTextField';
+import React from 'react';
+import { Button, Grid } from '@material-ui/core';
 import SetDivider from './components/SetDivider';
+import SetTextField from './components/SetTextField';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -15,14 +15,11 @@ const useStyles = makeStyles(() =>
       width: '100%',
       height: '100%',
       borderRadius: '0 8px 8px 0',
-      backgroundColor: '#222323',
-    },
-    activeOrange: {
-      backgroundColor: '#ed440b',
+      // backgroundColor: '#222323',
     },
     inputRowWrapper: {
       border: '1px solid',
-      borderColor: 'rgba(255, 255, 255, 0.23)',
+      borderColor: '#222323',
       borderRadius: 'inherit',
       height: '12.2vh',
     },
@@ -33,8 +30,13 @@ const useStyles = makeStyles(() =>
     bottomRow: {
       borderRadius: '0 0 0 4px',
     },
-    activeColor: {
-      backgroundColor: '#ed440b',
+    baseColor: {
+      borderColor: '#222323',
+      backgroundColor: '#222323',
+    },
+    activeOrange: {
+      borderColor: '#ED440B',
+      backgroundColor: '#ED440B',
     },
   })
 );
@@ -63,6 +65,10 @@ export default function ActiveSet(props: ActiveSetProps): JSX.Element {
   //       setValues({ ...values, [prop]: event.target.value });
   //     };
 
+  const displayColor = props.currentSet
+    ? classes.activeOrange
+    : classes.baseColor;
+
   return (
     <Grid container alignItems={'center'} className={classes.root}>
       <Grid item xs={8} style={{ paddingRight: 4 }}>
@@ -73,7 +79,7 @@ export default function ActiveSet(props: ActiveSetProps): JSX.Element {
           className={clsx(
             classes.inputRowWrapper,
             classes.topRow,
-            classes.activeColor
+            displayColor
           )}
         >
           <SetTextField value={'44'} inputAdornment={'lb'} fullLength={false} />
@@ -94,7 +100,7 @@ export default function ActiveSet(props: ActiveSetProps): JSX.Element {
           className={clsx(
             classes.inputRowWrapper,
             classes.bottomRow,
-            classes.activeColor
+            displayColor
           )}
         >
           <SetTextField value={'77'} inputAdornment={'lb'} fullLength={false} />
@@ -110,9 +116,7 @@ export default function ActiveSet(props: ActiveSetProps): JSX.Element {
       </Grid>
       <Grid item xs={4} style={{ height: '100%' }}>
         <Button
-          className={clsx(classes.didItButton, {
-            [classes.activeOrange]: props.currentSet,
-          })}
+          className={clsx(classes.didItButton, displayColor)}
           onClick={props.didItClickHandler}
         >
           {'Did It'}
