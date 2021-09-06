@@ -23,6 +23,7 @@ const useStyles = makeStyles(() =>
       backgroundColor: 'gray',
       padding: 4,
       width: '13vh',
+      height: '13vh',
     },
     textWrapper: {
       paddingLeft: 12,
@@ -58,9 +59,7 @@ export default function SingleListItem(
         secondary={
           <Grid item xs={12} container alignItems={'center'}>
             <Grid item container alignItems={'center'}>
-              <Grid item>
-                <img style={{ height: 18 }} src={barbellIcon} alt={'barbell'} />
-              </Grid>
+              <Grid item>{props.equipmentIcon}</Grid>
             </Grid>
             <Grid item xs={12}>
               <Typography
@@ -81,6 +80,6 @@ export default function SingleListItem(
 export interface SingleListItemProps {
   exerciseTitle: string;
   repsAndSets: string;
-  equipmentIcon: JSX.Element;
-  exerciseIcon: JSX.Element;
+  equipmentIcon?: JSX.Element;
+  exerciseIcon?: JSX.Element;
 }
