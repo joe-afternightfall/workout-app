@@ -47,11 +47,10 @@ reportWebVitals();
 // todo: allow user to add new category while adding exercise
 // todo: display loader while waiting for user profile to not show dashboard
 // todo: don't allow work out date after today to be selected
-// todo: allow user to make there own "daily checklist"
+// todo: allow user to make their own "daily checklist"
 // todo: add application to log rocket
-// todo: look into how to wrap this up into an app
-// todo: work with mike on mocks for all breakpoints:  mobile/tablets/monitor
 // todo: create "on-hover" tooltips for side drawer when showing icons
 // todo: allow for decimal's as weights
 // todo: add "timer" option to set types
+// todo: make a dynamic timer that can take in params
 // todo: show "last workout" weight and date when on workout screen
