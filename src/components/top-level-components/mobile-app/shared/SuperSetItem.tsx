@@ -22,6 +22,7 @@ const useStyles = makeStyles(() =>
       backgroundColor: 'gray',
       padding: 4,
       width: '13vh',
+      height: '13vh',
     },
     title: {
       fontSize: '1.225rem',
@@ -51,11 +52,7 @@ export default function SuperSetItem(props: SuperSetItemProps): JSX.Element {
     <div>
       <ListItem className={classes.listItemRoot}>
         <ListItemIcon className={classes.itemIconWrapper}>
-          <img
-            src={inclinePressDumbBells}
-            alt={'app-logo'}
-            className={classes.exerciseIcon}
-          />
+          {props.firstExerciseIcon}
         </ListItemIcon>
         <ListItemText
           className={classes.textWrapper}
@@ -72,13 +69,7 @@ export default function SuperSetItem(props: SuperSetItemProps): JSX.Element {
           secondary={
             <Grid item xs={12} container alignItems={'center'}>
               <Grid item container alignItems={'center'}>
-                <Grid item>
-                  <img
-                    style={{ height: 18 }}
-                    src={dumbBellIcon}
-                    alt={'barbell'}
-                  />
-                </Grid>
+                <Grid item>{props.firstEquipmentIcon}</Grid>
               </Grid>
               <Grid item xs={12}>
                 <Typography
@@ -120,11 +111,7 @@ export default function SuperSetItem(props: SuperSetItemProps): JSX.Element {
 
       <ListItem className={classes.bottomListItemRoot}>
         <ListItemIcon className={classes.itemIconWrapper}>
-          <img
-            src={preacherCurls}
-            alt={'app-logo'}
-            className={classes.exerciseIcon}
-          />
+          {props.secondExerciseIcon}
         </ListItemIcon>
         <ListItemText
           className={classes.textWrapper}
@@ -141,13 +128,7 @@ export default function SuperSetItem(props: SuperSetItemProps): JSX.Element {
           secondary={
             <Grid item xs={12} container alignItems={'center'}>
               <Grid item container alignItems={'center'}>
-                <Grid item>
-                  <img
-                    style={{ height: 18 }}
-                    src={barbellIcon}
-                    alt={'barbell'}
-                  />
-                </Grid>
+                <Grid item>{props.secondEquipmentIcon}</Grid>
               </Grid>
               <Grid item xs={12}>
                 <Typography variant={'body2'} color={'textSecondary'}>
@@ -165,8 +146,10 @@ export default function SuperSetItem(props: SuperSetItemProps): JSX.Element {
 export interface SuperSetItemProps {
   firstExerciseTitle: string;
   firstExerciseRepsAndSets: string;
-  // firstExerciseIcon: string;
+  firstEquipmentIcon?: JSX.Element;
+  firstExerciseIcon?: JSX.Element;
   secondExerciseTitle: string;
   secondExerciseRepsAndSets: string;
-  // secondExerciseIcon: string;
+  secondEquipmentIcon?: JSX.Element;
+  secondExerciseIcon?: JSX.Element;
 }

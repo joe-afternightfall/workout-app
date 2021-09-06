@@ -27,6 +27,12 @@ export default {
       case WorkoutActionTypes.INITIALIZE:
         newState.configs = action.configs;
         break;
+      case WorkoutActionTypes.SELECTED_WORKOUT_CATEGORY:
+        newState.selectedWorkoutCategory = action.category;
+        break;
+      case WorkoutActionTypes.SELECTED_ROUTINE:
+        newState.selectedRoutine = action.routine;
+        break;
       default:
         break;
     }
@@ -48,4 +54,6 @@ export interface WorkoutState {
     exercises: ExerciseVO[];
     routineTemplates: RoutineTemplateVO[];
   };
+  selectedWorkoutCategory: WorkoutCategoryVO;
+  selectedRoutine: RoutineTemplateVO;
 }
