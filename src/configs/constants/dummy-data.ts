@@ -1,11 +1,11 @@
-import { Routine } from './AppInterfaces';
-import { TrainingSetTypeVO } from './configurations/TrainingSetTypeVO';
-import { PhaseVO } from './configurations/PhaseVO';
-import { ExerciseVO } from './configurations/ExerciseVO';
-import { EquipmentVO } from './configurations/EquipmentVO';
-import { GripTypeVO } from './configurations/GripTypeVO';
-import { ParameterTypeVO } from './configurations/ParameterTypeVO';
-import { GripWidthVO } from './configurations/GripWidthVO';
+import { Routine } from '../models/AppInterfaces';
+import { TrainingSetTypeVO } from '../models/configurations/TrainingSetTypeVO';
+import { PhaseVO } from '../models/configurations/PhaseVO';
+import { ExerciseVO } from '../models/configurations/ExerciseVO';
+import { EquipmentVO } from '../models/configurations/EquipmentVO';
+import { GripTypeVO } from '../models/configurations/GripTypeVO';
+import { ParameterTypeVO } from '../models/configurations/ParameterTypeVO';
+import { GripWidthVO } from '../models/configurations/GripWidthVO';
 
 export const trainingSetTypes: TrainingSetTypeVO[] = [
   {
