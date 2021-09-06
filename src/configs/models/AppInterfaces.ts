@@ -16,10 +16,10 @@ export interface Segment {
   id: string;
   order: number;
   trainingSetTypeId: string;
-  exercises: WorkoutExercises[];
+  exercises: WorkoutExercise[];
 }
 
-export interface WorkoutExercises {
+export interface WorkoutExercise {
   id: string;
   order: number;
   exerciseId: string;
