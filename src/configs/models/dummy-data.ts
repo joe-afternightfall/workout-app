@@ -3,6 +3,9 @@ import { TrainingSetTypeVO } from './configurations/TrainingSetTypeVO';
 import { PhaseVO } from './configurations/PhaseVO';
 import { ExerciseVO } from './configurations/ExerciseVO';
 import { EquipmentVO } from './configurations/EquipmentVO';
+import { GripTypeVO } from './configurations/GripTypeVO';
+import { ParameterTypeVO } from './configurations/ParameterTypeVO';
+import { GripWidthVO } from './configurations/GripWidthVO';
 
 export const trainingSetTypes: TrainingSetTypeVO[] = [
   {
@@ -88,21 +91,21 @@ export const workoutCategories = [
     id: '7ce750dc-fc73-43ad-99c3-a60a8b846177',
     name: 'Back and Biceps',
     color: '',
-    muscleGroupIds: ['', '', ''],
+    muscleGroupIds: ['5', '6', '1'],
   },
   {
     firebaseId: 'df4876c5-9aaf-4fa3-b635-66414bc521c4',
     id: '70f1b717-792c-4986-ba3d-db65c25c329d',
     name: 'Chest and Triceps',
     color: '',
-    muscleGroupIds: ['', '', ''],
+    muscleGroupIds: ['9', '4'],
   },
   {
     firebaseId: '500c9b74-ee52-4878-af0e-1024211d908a',
     id: '75fff0e4-937f-410b-8080-725b788616c4',
     name: 'Shoulders and Legs',
     color: '',
-    muscleGroupIds: ['', '', ''],
+    muscleGroupIds: ['2', '12', '11'],
   },
 ];
 
@@ -177,20 +180,376 @@ export const equipmentList: EquipmentVO[] = [
     description: '',
     iconId: '',
   },
+  {
+    firebaseId: '435e4455-a986-4f76-b233-95b0d920d46d',
+    id: '5b5cd46c-85df-4a73-a828-1a2eae3852c1',
+    name: 'Workout Machine',
+    description: '',
+    iconId: '',
+  },
+  {
+    firebaseId: 'f740e6a4-d9b8-4bdb-a292-49d9b8d6ada8',
+    id: '3ee4a478-4c7e-44bf-bedf-56598b9ebba9',
+    name: 'Rope',
+    description: '',
+    iconId: '',
+  },
+  {
+    firebaseId: 'aabdd2c3-1ca8-4612-9be5-b3a272f192ae',
+    id: 'fd2f9bea-6421-45ce-92de-7ae14b1711e1',
+    name: 'Dip Stand',
+    description: '',
+    iconId: '',
+  },
+];
+
+export const gripWidths: GripWidthVO[] = [
+  {
+    firebaseId: 'b064d339-909c-4dcb-946e-6b7fc7bb42ce',
+    id: 'c8f86b64-b3c7-4950-a9ca-b2c7a24dac55',
+    name: 'Narrow',
+    description:
+      'Narrow grip is about 2 inches or so in from shoulder width, or just beyond hip width.',
+    iconId: '',
+  },
+  {
+    firebaseId: '71512c41-ac95-4d10-a390-0c18d60ecb43',
+    id: 'cbf7efb7-eff1-48a0-869b-35293ca3eaa1',
+    name: 'Normal',
+    description: 'Normal grip is a shoulder-width grip',
+    iconId: '',
+  },
+  {
+    firebaseId: '0c4f0ea5-838d-44c4-b4ce-edac42131912',
+    id: 'c5be7ab8-c05a-43dc-8090-daddc474cf14',
+    name: 'Wide',
+    description:
+      'A wide grip is a grip that is wider than shoulder width.  Around 6 inches wider than shoulder width.',
+    iconId: '',
+  },
+];
+
+export const gripTypes: GripTypeVO[] = [
+  {
+    firebaseId: '51ac89b6-692e-4b86-b01f-9374db0e4fc7',
+    id: '621dd118-48d5-4fc1-8f11-54c694e8353f',
+    name: 'Underhand',
+    description:
+      'Underhand grip is when your palms are facing towards you as you grip the bar.',
+    iconId: '',
+  },
+  {
+    firebaseId: 'aee6b848-9364-4ea2-86d4-a0dd5b202336',
+    id: 'ab7dfeaf-b0d1-4a6b-8740-45824a8948f7',
+    name: 'Overhand',
+    description:
+      'Overhand grip is when your palms are facing away from you as you grip the bar.',
+    iconId: '',
+  },
+  {
+    firebaseId: 'd90954dd-9f2a-4c08-b1d2-2f59ceb43b94',
+    id: 'e56a40a2-207d-4b11-9b4f-e1dd50d32d28',
+    name: 'Neutral',
+    description:
+      'Neutral grip is when the palms of you hands are facing each other as you grip the handles.',
+    iconId: '',
+  },
+];
+
+export const parameterTypes: ParameterTypeVO[] = [
+  {
+    firebaseId: 'b2d4b558-425f-4824-9f5b-261f04a4bc30',
+    id: '769d3b23-31dd-4a16-b1d4-79e57ac305e9',
+    name: 'weight & reps',
+    description: 'Example: Bench press - 12 reps of 90 lb',
+  },
+  {
+    firebaseId: 'bb9497fa-2e82-44e4-927a-87b28cb2c525',
+    id: '5046e288-3dd6-4da7-81e7-677798400b3b',
+    name: 'repetitions',
+    description: 'Example: 30 Situps',
+  },
+  {
+    firebaseId: 'e3d819d3-c0e5-4926-a280-c5374db20d89',
+    id: '2dfbe410-5d1c-4449-a3e9-b29f6ebec693',
+    name: 'duration',
+    description: 'Example: 60 sec Plank',
+  },
 ];
 
 export const exercises: ExerciseVO[] = [
   {
-    firebaseId: '',
+    firebaseId: '3d1d5d4a-3376-4045-b9ba-cdd3c8463ae8',
     id: 'f32b6601-8bbc-4750-b46c-1c5969b3c8b9',
     name: 'Tea Cups',
     description: '',
     equipmentId: 'f4d03bda-923f-4a09-bd04-1ed1d8d008f4',
     muscleGroupIds: ['6'],
     iconId: '',
-    gripTypeId: '',
-    parameterTypeId: '',
+    gripTypeId: 'e56a40a2-207d-4b11-9b4f-e1dd50d32d28',
+    gripWidthId: 'cbf7efb7-eff1-48a0-869b-35293ca3eaa1',
+    parameterTypeId: '769d3b23-31dd-4a16-b1d4-79e57ac305e9',
     alternateSides: true,
+  },
+  {
+    firebaseId: 'bcb523a3-3506-411e-ad42-dc45ffba2822',
+    id: 'e9a51010-791c-499b-828f-a90712b36847',
+    name: 'Tricep Kickbacks',
+    description: '',
+    equipmentId: 'f4d03bda-923f-4a09-bd04-1ed1d8d008f4',
+    muscleGroupIds: ['4'],
+    iconId: '',
+    gripTypeId: 'e56a40a2-207d-4b11-9b4f-e1dd50d32d28',
+    gripWidthId: 'cbf7efb7-eff1-48a0-869b-35293ca3eaa1',
+    parameterTypeId: '769d3b23-31dd-4a16-b1d4-79e57ac305e9',
+    alternateSides: true,
+  },
+  {
+    firebaseId: '3c874392-a505-4660-833b-2668e3d38d3e',
+    id: '4aea5789-c95d-4dd3-854e-804f077a7607',
+    name: 'Reach for the stars',
+    description: '',
+    equipmentId: 'f4d03bda-923f-4a09-bd04-1ed1d8d008f4',
+    muscleGroupIds: ['6'],
+    iconId: '',
+    gripTypeId: 'e56a40a2-207d-4b11-9b4f-e1dd50d32d28',
+    gripWidthId: 'cbf7efb7-eff1-48a0-869b-35293ca3eaa1',
+    parameterTypeId: '769d3b23-31dd-4a16-b1d4-79e57ac305e9',
+    alternateSides: true,
+  },
+  {
+    firebaseId: '35cfb6f0-815d-434a-bd7a-8dabb1e23ee7',
+    id: '820950cd-5d8c-40a0-a573-34a0b0c74df5',
+    name: 'Straight Arm Extensions',
+    description: '',
+    equipmentId: 'f4d03bda-923f-4a09-bd04-1ed1d8d008f4',
+    muscleGroupIds: ['2'],
+    iconId: '',
+    gripTypeId: 'e56a40a2-207d-4b11-9b4f-e1dd50d32d28',
+    gripWidthId: 'cbf7efb7-eff1-48a0-869b-35293ca3eaa1',
+    parameterTypeId: '769d3b23-31dd-4a16-b1d4-79e57ac305e9',
+    alternateSides: false,
+  },
+  {
+    firebaseId: '',
+    id: '53db13a9-6ba9-47d8-9be7-fa2cbbb0f238',
+    name: 'Side Arm Raises',
+    description: '',
+    equipmentId: 'f4d03bda-923f-4a09-bd04-1ed1d8d008f4',
+    muscleGroupIds: ['2'],
+    iconId: '',
+    gripTypeId: 'e56a40a2-207d-4b11-9b4f-e1dd50d32d28',
+    gripWidthId: 'cbf7efb7-eff1-48a0-869b-35293ca3eaa1',
+    parameterTypeId: '769d3b23-31dd-4a16-b1d4-79e57ac305e9',
+    alternateSides: false,
+  },
+  {
+    firebaseId: '',
+    id: '09ef9f7f-689a-4557-b07c-77d1a1178cf7',
+    name: 'Military Press',
+    description: '',
+    equipmentId: '57fd527b-4127-43af-944f-a44a04edf2c0',
+    muscleGroupIds: ['2'],
+    iconId: '',
+    gripTypeId: 'e56a40a2-207d-4b11-9b4f-e1dd50d32d28',
+    gripWidthId: 'cbf7efb7-eff1-48a0-869b-35293ca3eaa1',
+    parameterTypeId: '769d3b23-31dd-4a16-b1d4-79e57ac305e9',
+    alternateSides: false,
+  },
+  {
+    firebaseId: '',
+    id: '53db13a9-6ba9-47d8-9be7-fa2cbbb0f238',
+    name: 'Bent Over Rows',
+    description: '',
+    equipmentId: '57fd527b-4127-43af-944f-a44a04edf2c0',
+    muscleGroupIds: ['4'],
+    iconId: '',
+    gripTypeId: 'e56a40a2-207d-4b11-9b4f-e1dd50d32d28',
+    gripWidthId: 'cbf7efb7-eff1-48a0-869b-35293ca3eaa1',
+    parameterTypeId: '769d3b23-31dd-4a16-b1d4-79e57ac305e9',
+    alternateSides: false,
+  },
+  {
+    firebaseId: '',
+    id: '09ef9f7f-689a-4557-b07c-77d1a1178cf7',
+    name: 'Butterflies',
+    description: '',
+    equipmentId: 'f4d03bda-923f-4a09-bd04-1ed1d8d008f4',
+    muscleGroupIds: ['9'],
+    iconId: '',
+    gripTypeId: 'e56a40a2-207d-4b11-9b4f-e1dd50d32d28',
+    gripWidthId: 'cbf7efb7-eff1-48a0-869b-35293ca3eaa1',
+    parameterTypeId: '769d3b23-31dd-4a16-b1d4-79e57ac305e9',
+    alternateSides: false,
+  },
+  {
+    firebaseId: '',
+    id: '5cbe89ba-6ba7-4973-9042-d3841688adfc',
+    name: 'Narrow Grip Decline Bench Press',
+    description: '',
+    equipmentId: '57fd527b-4127-43af-944f-a44a04edf2c0',
+    muscleGroupIds: ['9'],
+    iconId: '',
+    gripTypeId: 'e56a40a2-207d-4b11-9b4f-e1dd50d32d28',
+    gripWidthId: 'c8f86b64-b3c7-4950-a9ca-b2c7a24dac55',
+    parameterTypeId: '769d3b23-31dd-4a16-b1d4-79e57ac305e9',
+    alternateSides: false,
+  },
+  {
+    firebaseId: '',
+    id: '11233135-e453-429b-94af-da92cedb7b8a',
+    name: 'Underhand Dead Lifts',
+    description: '',
+    equipmentId: '57fd527b-4127-43af-944f-a44a04edf2c0',
+    muscleGroupIds: ['11'],
+    iconId: '',
+    gripTypeId: '621dd118-48d5-4fc1-8f11-54c694e8353f',
+    gripWidthId: 'cbf7efb7-eff1-48a0-869b-35293ca3eaa1',
+    parameterTypeId: '769d3b23-31dd-4a16-b1d4-79e57ac305e9',
+    alternateSides: false,
+  },
+  {
+    firebaseId: '',
+    id: '064324d5-0995-42e3-a35f-d1148adea6b5',
+    name: 'Hammer Curls',
+    description: '',
+    equipmentId: 'f4d03bda-923f-4a09-bd04-1ed1d8d008f4',
+    muscleGroupIds: ['1'],
+    iconId: '',
+    gripTypeId: 'e56a40a2-207d-4b11-9b4f-e1dd50d32d28',
+    gripWidthId: 'cbf7efb7-eff1-48a0-869b-35293ca3eaa1',
+    parameterTypeId: '769d3b23-31dd-4a16-b1d4-79e57ac305e9',
+    alternateSides: false,
+  },
+  {
+    firebaseId: '',
+    id: '101a7f47-7ed2-492d-b6ad-a04e43425845',
+    name: 'Dumbbell Swings',
+    description: '',
+    equipmentId: 'f4d03bda-923f-4a09-bd04-1ed1d8d008f4',
+    muscleGroupIds: ['1'],
+    iconId: '',
+    gripTypeId: 'e56a40a2-207d-4b11-9b4f-e1dd50d32d28',
+    gripWidthId: 'cbf7efb7-eff1-48a0-869b-35293ca3eaa1',
+    parameterTypeId: '769d3b23-31dd-4a16-b1d4-79e57ac305e9',
+    alternateSides: false,
+  },
+  {
+    firebaseId: '',
+    id: '27884aff-3b76-4ad5-9fe9-9b39041cad9a',
+    name: 'Lat Bar Pull Down',
+    description: '',
+    equipmentId: '57fd527b-4127-43af-944f-a44a04edf2c0',
+    muscleGroupIds: ['6'],
+    iconId: '',
+    gripTypeId: 'ab7dfeaf-b0d1-4a6b-8740-45824a8948f7',
+    gripWidthId: 'cbf7efb7-eff1-48a0-869b-35293ca3eaa1',
+    parameterTypeId: '769d3b23-31dd-4a16-b1d4-79e57ac305e9',
+    alternateSides: false,
+  },
+  {
+    firebaseId: '',
+    id: '7ac15fc5-df0d-4e6b-b166-a56946129d5b',
+    name: 'Skull Crushers',
+    description: '',
+    equipmentId: 'f4d03bda-923f-4a09-bd04-1ed1d8d008f4',
+    muscleGroupIds: ['4'],
+    iconId: '',
+    gripTypeId: 'e56a40a2-207d-4b11-9b4f-e1dd50d32d28',
+    gripWidthId: 'cbf7efb7-eff1-48a0-869b-35293ca3eaa1',
+    parameterTypeId: '769d3b23-31dd-4a16-b1d4-79e57ac305e9',
+    alternateSides: false,
+  },
+  {
+    firebaseId: '',
+    id: '6f2cb872-7084-49a3-81a1-19c5a4be21f0',
+    name: 'Sit Down Weighted Rows',
+    description: '',
+    equipmentId: '5b5cd46c-85df-4a73-a828-1a2eae3852c1',
+    muscleGroupIds: ['5'],
+    iconId: '',
+    gripTypeId: 'e56a40a2-207d-4b11-9b4f-e1dd50d32d28',
+    gripWidthId: 'cbf7efb7-eff1-48a0-869b-35293ca3eaa1',
+    parameterTypeId: '769d3b23-31dd-4a16-b1d4-79e57ac305e9',
+    alternateSides: false,
+  },
+  {
+    firebaseId: '',
+    id: '4baf4525-e7b5-460b-8426-653339f1958f',
+    name: 'V-Ups',
+    description: '',
+    equipmentId: '1433ea34-1255-4ee1-9e9f-39c948443659',
+    muscleGroupIds: ['7'],
+    iconId: '',
+    gripTypeId: '',
+    gripWidthId: '',
+    parameterTypeId: '5046e288-3dd6-4da7-81e7-677798400b3b',
+    alternateSides: false,
+  },
+  {
+    firebaseId: '',
+    id: 'beaa86cf-2e7c-4d43-9770-b13987585df8',
+    name: 'Leg Lifts',
+    description: '',
+    equipmentId: '5b5cd46c-85df-4a73-a828-1a2eae3852c1',
+    muscleGroupIds: ['11'],
+    iconId: '',
+    gripTypeId: '',
+    gripWidthId: '',
+    parameterTypeId: '769d3b23-31dd-4a16-b1d4-79e57ac305e9',
+    alternateSides: false,
+  },
+  {
+    firebaseId: '',
+    id: 'c179a3c7-6f74-43d4-8eff-ee648bb3ddd4',
+    name: 'Bicycle Crunches',
+    description: '',
+    equipmentId: '6a05efa2-b40c-4163-8aba-b495e25bc5b6',
+    muscleGroupIds: ['7'],
+    iconId: '',
+    gripTypeId: '',
+    gripWidthId: '',
+    parameterTypeId: '5046e288-3dd6-4da7-81e7-677798400b3b',
+    alternateSides: false,
+  },
+  {
+    firebaseId: '',
+    id: 'cfaf9654-45f6-43f5-ba14-fa029af31aa8',
+    name: 'Tricep Extentions',
+    description: '',
+    equipmentId: '3ee4a478-4c7e-44bf-bedf-56598b9ebba9',
+    muscleGroupIds: ['4'],
+    iconId: '',
+    gripTypeId: 'e56a40a2-207d-4b11-9b4f-e1dd50d32d28',
+    gripWidthId: 'cbf7efb7-eff1-48a0-869b-35293ca3eaa1',
+    parameterTypeId: '769d3b23-31dd-4a16-b1d4-79e57ac305e9',
+    alternateSides: false,
+  },
+  {
+    firebaseId: '',
+    id: 'cd90b6d2-2435-49b8-a269-856fea9b77fb',
+    name: 'Kneeling Dumbbell Rows',
+    description: '',
+    equipmentId: 'f4d03bda-923f-4a09-bd04-1ed1d8d008f4',
+    muscleGroupIds: ['1'],
+    iconId: '',
+    gripTypeId: 'e56a40a2-207d-4b11-9b4f-e1dd50d32d28',
+    gripWidthId: 'cbf7efb7-eff1-48a0-869b-35293ca3eaa1',
+    parameterTypeId: '769d3b23-31dd-4a16-b1d4-79e57ac305e9',
+    alternateSides: true,
+  },
+  {
+    firebaseId: '',
+    id: '8890130a-138c-4800-9f67-5aec2f3186d8',
+    name: 'Dips',
+    description: '',
+    equipmentId: 'fd2f9bea-6421-45ce-92de-7ae14b1711e1',
+    muscleGroupIds: ['4'],
+    iconId: '',
+    gripTypeId: '',
+    gripWidthId: '',
+    parameterTypeId: '5046e288-3dd6-4da7-81e7-677798400b3b',
+    alternateSides: false,
   },
 ];
 
@@ -268,7 +627,7 @@ export const routineTemplates: Routine[] = [
               {
                 id: 'a13917f1-778a-4fab-8b70-33a0977edd53',
                 order: 1,
-                exerciseId: 'e9a51010-791c-499b-828f-a90712b36847', // need to make
+                exerciseId: 'e9a51010-791c-499b-828f-a90712b36847',
                 sets: [
                   {
                     id: '472d446d-4e76-4cea-93c7-09a99e8d432c',
@@ -330,7 +689,7 @@ export const routineTemplates: Routine[] = [
               {
                 id: '6b56f8e8-0c59-4c47-8043-cb355900e689',
                 order: 1,
-                exerciseId: '4aea5789-c95d-4dd3-854e-804f077a7607', // need to make
+                exerciseId: '4aea5789-c95d-4dd3-854e-804f077a7607',
                 sets: [
                   {
                     id: 'e7760ba7-a988-41f8-9398-547ae3aa4583',
@@ -385,7 +744,7 @@ export const routineTemplates: Routine[] = [
               {
                 id: 'ca676b27-6c2a-4dbf-a06b-61ba36a4d356',
                 order: 2,
-                exerciseId: '820950cd-5d8c-40a0-a573-34a0b0c74df5', // need to make
+                exerciseId: '820950cd-5d8c-40a0-a573-34a0b0c74df5',
                 sets: [
                   {
                     id: '1e42a6a3-9521-4525-b007-c1e6a2dc7de3',
@@ -447,7 +806,7 @@ export const routineTemplates: Routine[] = [
               {
                 id: '29c8aab8-121e-45dd-9da0-1bb9d6f18fed',
                 order: 2,
-                exerciseId: '53db13a9-6ba9-47d8-9be7-fa2cbbb0f238', // need to make
+                exerciseId: '53db13a9-6ba9-47d8-9be7-fa2cbbb0f238',
                 sets: [
                   {
                     id: 'bb87324d-4d51-4919-ae20-09a325f24147',
@@ -501,8 +860,8 @@ export const routineTemplates: Routine[] = [
               },
               {
                 id: '6d50fb5c-b19d-448b-9fc8-d6e3203b3f5c',
-                order: 2,
-                exerciseId: '09ef9f7f-689a-4557-b07c-77d1a1178cf7', // need to make
+                order: 1,
+                exerciseId: '09ef9f7f-689a-4557-b07c-77d1a1178cf7',
                 sets: [
                   {
                     id: '3d348a11-bffc-4ac7-a9e7-ab8edf4d3a21',
@@ -564,7 +923,7 @@ export const routineTemplates: Routine[] = [
               {
                 id: '29c8aab8-121e-45dd-9da0-1bb9d6f18fed',
                 order: 2,
-                exerciseId: '53db13a9-6ba9-47d8-9be7-fa2cbbb0f238', // need to make
+                exerciseId: '53db13a9-6ba9-47d8-9be7-fa2cbbb0f238',
                 sets: [
                   {
                     id: 'bb87324d-4d51-4919-ae20-09a325f24147',
@@ -617,9 +976,9 @@ export const routineTemplates: Routine[] = [
                 ],
               },
               {
-                id: '',
+                id: '72e8dbc2-6be2-4913-9fb3-beccea8f4cf0',
                 order: 1,
-                exerciseId: '09ef9f7f-689a-4557-b07c-77d1a1178cf7', // need to make
+                exerciseId: '09ef9f7f-689a-4557-b07c-77d1a1178cf7',
                 sets: [
                   {
                     id: 'de99d466-9bf7-45f4-9c2e-04bdaa88df65',
@@ -681,7 +1040,7 @@ export const routineTemplates: Routine[] = [
               {
                 id: '09a78b3c-dd43-4f8c-8747-b19449d26a4b',
                 order: 1,
-                exerciseId: '5cbe89ba-6ba7-4973-9042-d3841688adfc', // need to make
+                exerciseId: '5cbe89ba-6ba7-4973-9042-d3841688adfc',
                 sets: [
                   {
                     id: 'fc2f5fa4-201a-48fd-88c9-90d2b639953f',
@@ -736,7 +1095,7 @@ export const routineTemplates: Routine[] = [
               {
                 id: '006a42ac-268b-4533-8beb-525380c7f4d5',
                 order: 1,
-                exerciseId: '11233135-e453-429b-94af-da92cedb7b8a', // need to make
+                exerciseId: '11233135-e453-429b-94af-da92cedb7b8a',
                 sets: [
                   {
                     id: 'e644662c-e7ff-4718-b5c3-d95c6c0de62d',
@@ -798,7 +1157,7 @@ export const routineTemplates: Routine[] = [
               {
                 id: '12dd9134-f83d-4f1f-b1fe-251ee22d7a9a',
                 order: 2,
-                exerciseId: '064324d5-0995-42e3-a35f-d1148adea6b5', // need to make
+                exerciseId: '064324d5-0995-42e3-a35f-d1148adea6b5',
                 sets: [
                   {
                     id: '8a8fbd4e-5356-4321-b07f-280ed50a9d3e',
@@ -853,7 +1212,7 @@ export const routineTemplates: Routine[] = [
               {
                 id: '335d2ae7-de43-42dc-8615-fbad4038cefa',
                 order: 1,
-                exerciseId: '101a7f47-7ed2-492d-b6ad-a04e43425845', // need to make
+                exerciseId: '101a7f47-7ed2-492d-b6ad-a04e43425845',
                 sets: [
                   {
                     id: '3b4d2af3-17cb-4262-a0da-84bc06c295d5',
@@ -922,7 +1281,7 @@ export const routineTemplates: Routine[] = [
               {
                 id: 'c8a4deae-9e96-4ff1-85f2-381a96f7f7e1',
                 order: 1,
-                exerciseId: '27884aff-3b76-4ad5-9fe9-9b39041cad9a', // need to make
+                exerciseId: '27884aff-3b76-4ad5-9fe9-9b39041cad9a',
                 sets: [
                   {
                     id: 'd06c510f-3449-4bc7-afa6-a17036add9f4',
@@ -984,7 +1343,7 @@ export const routineTemplates: Routine[] = [
               {
                 id: 'c9d3efc2-ae03-4c48-92d9-5501845d6b4a',
                 order: 2,
-                exerciseId: '7ac15fc5-df0d-4e6b-b166-a56946129d5b', // need to make
+                exerciseId: '7ac15fc5-df0d-4e6b-b166-a56946129d5b',
                 sets: [
                   {
                     id: '0bc7998e-df94-4f84-b0f3-f130f6e59aac',
@@ -1039,7 +1398,7 @@ export const routineTemplates: Routine[] = [
               {
                 id: '2e8637c7-7de4-4d4c-9d3d-0a5c2cc52b94',
                 order: 1,
-                exerciseId: '6f2cb872-7084-49a3-81a1-19c5a4be21f0', // need to make
+                exerciseId: '6f2cb872-7084-49a3-81a1-19c5a4be21f0',
                 sets: [
                   {
                     id: 'e77372f3-e0b1-4229-9836-4dccfb2f2126',
@@ -1101,7 +1460,7 @@ export const routineTemplates: Routine[] = [
               {
                 id: 'c39a4780-a2df-4ad9-8be2-54b8cd2f3685',
                 order: 1,
-                exerciseId: '4baf4525-e7b5-460b-8426-653339f1958f', // need to make Downward Dog
+                exerciseId: '4baf4525-e7b5-460b-8426-653339f1958f',
                 sets: [
                   {
                     id: '8312f4d6-b1d7-4b7b-ad5e-6078ad895928',
@@ -1163,7 +1522,7 @@ export const routineTemplates: Routine[] = [
               {
                 id: '7478f052-1d5e-4d0e-b55e-4b6f1cc98503',
                 order: 2,
-                exerciseId: 'beaa86cf-2e7c-4d43-9770-b13987585df8', // need to make
+                exerciseId: 'beaa86cf-2e7c-4d43-9770-b13987585df8',
                 sets: [
                   {
                     id: 'd796df06-0f9b-49ef-a0d2-84479246e51e',
@@ -1218,7 +1577,7 @@ export const routineTemplates: Routine[] = [
               {
                 id: '97e5c08a-d59e-4722-976e-cc08154d75bf',
                 order: 1,
-                exerciseId: 'cfaf9654-45f6-43f5-ba14-fa029af31aa8', // need to make
+                exerciseId: 'cfaf9654-45f6-43f5-ba14-fa029af31aa8',
                 sets: [
                   {
                     id: '089741ae-bd50-457b-a852-ecefa2471b63',
@@ -1280,7 +1639,7 @@ export const routineTemplates: Routine[] = [
               {
                 id: 'a512fd89-a16e-49fa-8f18-09495ee42735',
                 order: 1,
-                exerciseId: 'c179a3c7-6f74-43d4-8eff-ee648bb3ddd4', // need to make bicyle crunches
+                exerciseId: 'c179a3c7-6f74-43d4-8eff-ee648bb3ddd4',
                 sets: [
                   {
                     id: 'f8d8b45e-6787-4b9d-bd69-3c898cd16acc',
@@ -1342,7 +1701,7 @@ export const routineTemplates: Routine[] = [
               {
                 id: '91aee288-2ea2-477c-805a-52021f25110f',
                 order: 1,
-                exerciseId: 'cd90b6d2-2435-49b8-a269-856fea9b77fb', // need to make
+                exerciseId: 'cd90b6d2-2435-49b8-a269-856fea9b77fb',
                 sets: [
                   {
                     id: '1602158f-d60c-42c0-89a6-6d44308f35ae',
@@ -1397,12 +1756,12 @@ export const routineTemplates: Routine[] = [
               {
                 id: '67304d69-a827-4101-91cb-2eb09abee63f',
                 order: 2,
-                exerciseId: '8890130a-138c-4800-9f67-5aec2f3186d8', // need to make
+                exerciseId: '8890130a-138c-4800-9f67-5aec2f3186d8',
                 sets: [
                   {
                     id: '2d2d1447-b389-4b8f-8689-8ea4d775a49d',
                     setNumber: 1,
-                    weight: 20,
+                    weight: 0,
                     reps: 12,
                     duration: {
                       currentTimeMs: 0,
@@ -1418,7 +1777,7 @@ export const routineTemplates: Routine[] = [
                   {
                     id: 'f5068e1a-8e04-4019-bf07-6e090fb25d1a',
                     setNumber: 2,
-                    weight: 25,
+                    weight: 0,
                     reps: 12,
                     duration: {
                       currentTimeMs: 0,
@@ -1434,7 +1793,7 @@ export const routineTemplates: Routine[] = [
                   {
                     id: '128566f4-6046-445d-8b1f-3a332da604cc',
                     setNumber: 3,
-                    weight: 30,
+                    weight: 0,
                     reps: 12,
                     duration: {
                       currentTimeMs: 0,
