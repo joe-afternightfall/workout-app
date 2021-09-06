@@ -29,8 +29,8 @@ export interface WorkoutExercises {
 export interface Set {
   id: string;
   setNumber: number;
-  weight: string;
-  reps: string;
+  weight: number;
+  reps: number;
   duration: WorkoutDuration;
   distance: WorkoutDistance;
   markedDone: boolean;
@@ -44,5 +44,5 @@ export interface WorkoutDuration {
 
 export interface WorkoutDistance {
   unit: string;
-  value: string;
+  value: number;
 }
