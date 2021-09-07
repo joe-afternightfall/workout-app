@@ -1,35 +1,37 @@
-import { WorkoutActionTypes } from './actions-workout';
 import {
   equipmentList,
   exercises,
-  gripTypes,
-  gripWidths,
-  parameterTypes,
   phases,
   routineTemplates,
-  trainingSetTypes,
   workoutCategories,
 } from '../configs/constants/dummy-data';
-import { TrainingSetTypeVO } from '../configs/models/configurations/TrainingSetTypeVO';
+import {
+  GripType,
+  GripWidth,
+  ParameterType,
+  TrainingSetType,
+} from '../configs/models/AppInterfaces';
+import { WorkoutActionTypes } from './actions-workout';
+import { gripTypes } from '../configs/app-data/grip-types';
+import { gripWidths } from '../configs/app-data/grip-widths';
 import { PhaseVO } from '../configs/models/configurations/PhaseVO';
-import { WorkoutCategoryVO } from '../configs/models/configurations/WorkoutCategoryVO';
-import { EquipmentVO } from '../configs/models/configurations/EquipmentVO';
-import { GripWidthVO } from '../configs/models/configurations/GripWidthVO';
-import { GripTypeVO } from '../configs/models/configurations/GripTypeVO';
-import { ParameterTypeVO } from '../configs/models/configurations/ParameterTypeVO';
+import { parameterTypes } from '../configs/app-data/parameter-types';
 import { ExerciseVO } from '../configs/models/configurations/ExerciseVO';
+import { trainingSetTypes } from '../configs/app-data/training-set-types';
+import { EquipmentVO } from '../configs/models/configurations/EquipmentVO';
 import { RoutineTemplateVO } from '../configs/models/workout/RoutineTemplateVO';
+import { WorkoutCategoryVO } from '../configs/models/configurations/WorkoutCategoryVO';
 
 export interface InitializeWorkoutConfigsAction {
   type: WorkoutActionTypes.INITIALIZE;
   configs: {
-    trainingSetTypes: TrainingSetTypeVO[];
+    trainingSetTypes: TrainingSetType[];
     phases: PhaseVO[];
     workoutCategories: WorkoutCategoryVO[];
     equipmentList: EquipmentVO[];
-    gripWidths: GripWidthVO[];
-    gripTypes: GripTypeVO[];
-    parameterTypes: ParameterTypeVO[];
+    gripWidths: GripWidth[];
+    gripTypes: GripType[];
+    parameterTypes: ParameterType[];
     exercises: ExerciseVO[];
     routineTemplates: RoutineTemplateVO[];
   };

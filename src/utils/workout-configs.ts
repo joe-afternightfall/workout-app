@@ -1,6 +1,10 @@
 import { PhaseVO } from '../configs/models/configurations/PhaseVO';
-import { Set, Segment, WorkoutExercise } from '../configs/models/AppInterfaces';
-import { TrainingSetTypeVO } from '../configs/models/configurations/TrainingSetTypeVO';
+import {
+  Set,
+  Segment,
+  WorkoutExercise,
+  TrainingSetType,
+} from '../configs/models/AppInterfaces';
 import { ExerciseVO } from '../configs/models/configurations/ExerciseVO';
 
 export const getPhaseName = (allPhases: PhaseVO[], id: string): string => {
@@ -10,10 +14,10 @@ export const getPhaseName = (allPhases: PhaseVO[], id: string): string => {
 };
 
 export const determineTrainingSetType = (
-  allTypes: TrainingSetTypeVO[],
+  allTypes: TrainingSetType[],
   id: string
 ): string => {
-  const foundType = allTypes.find((type: TrainingSetTypeVO) => type.id === id);
+  const foundType = allTypes.find((type: TrainingSetType) => type.id === id);
 
   return foundType ? foundType.name : '';
 };

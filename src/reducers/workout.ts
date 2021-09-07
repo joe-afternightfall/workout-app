@@ -3,15 +3,17 @@ import {
   WorkoutActions,
   WorkoutActionTypes,
 } from '../creators/actions-workout';
-import { TrainingSetTypeVO } from '../configs/models/configurations/TrainingSetTypeVO';
 import { PhaseVO } from '../configs/models/configurations/PhaseVO';
 import { WorkoutCategoryVO } from '../configs/models/configurations/WorkoutCategoryVO';
 import { EquipmentVO } from '../configs/models/configurations/EquipmentVO';
-import { GripWidthVO } from '../configs/models/configurations/GripWidthVO';
-import { GripTypeVO } from '../configs/models/configurations/GripTypeVO';
-import { ParameterTypeVO } from '../configs/models/configurations/ParameterTypeVO';
 import { ExerciseVO } from '../configs/models/configurations/ExerciseVO';
 import { RoutineTemplateVO } from '../configs/models/workout/RoutineTemplateVO';
+import {
+  TrainingSetType,
+  GripType,
+  ParameterType,
+  GripWidth,
+} from '../configs/models/AppInterfaces';
 
 export default {
   reducer: (
@@ -44,13 +46,13 @@ export default {
 export interface WorkoutState {
   currentLocation: string;
   configs: {
-    trainingSetTypes: TrainingSetTypeVO[];
+    trainingSetTypes: TrainingSetType[];
     phases: PhaseVO[];
     workoutCategories: WorkoutCategoryVO[];
     equipmentList: EquipmentVO[];
-    gripWidths: GripWidthVO[];
-    gripTypes: GripTypeVO[];
-    parameterTypes: ParameterTypeVO[];
+    gripWidths: GripWidth[];
+    gripTypes: GripType[];
+    parameterTypes: ParameterType[];
     exercises: ExerciseVO[];
     routineTemplates: RoutineTemplateVO[];
   };
