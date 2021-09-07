@@ -27,6 +27,7 @@ export interface WorkoutExercise {
 }
 
 export interface Set {
+  // [key: number]: string | number;
   id: string;
   setNumber: number;
   weight: number;

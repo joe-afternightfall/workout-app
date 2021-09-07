@@ -2,28 +2,30 @@ import React from 'react';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { scroller } from 'react-scroll';
-import { Grid, Slide } from '@material-ui/core';
-import UpNextCard from './3-up-next-card/UpNextCard';
-import ActiveWorkoutAppBar from './components/AppBar';
-import ActiveExercise from './1-active-exercise/ActiveExercise';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { State } from '../../../../configs/redux/store';
-import { WorkoutDAO } from '../../../../configs/models/workout/WorkoutDAO';
 import {
-  Phase,
+  isSuperset,
+  getExercise,
+  isStraightSet,
+  getExerciseName,
+} from '../../../../utils/active-workout';
+import { Grid, Slide } from '@material-ui/core';
+import {
   Set,
+  Phase,
   WorkoutExercise,
   WorkoutDuration,
   WorkoutDistance,
 } from '../../../../configs/models/AppInterfaces';
-import { ExerciseVO } from '../../../../configs/models/configurations/ExerciseVO';
-import {
-  getExercise,
-  getExerciseName,
-  isSuperset,
-} from '../../../../utils/active-workout';
-import ActiveSuperset from './2-active-set/components/ActiveSuperset';
+import UpNextCard from './3-up-next-card/UpNextCard';
+import ActiveWorkoutAppBar from './components/AppBar';
+import { State } from '../../../../configs/redux/store';
+import ActiveExercise from './1-active-exercise/ActiveExercise';
 import { getPhaseName } from '../../../../utils/workout-configs';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
+import ActiveSuperset from './2-active-set/components/ActiveSuperset';
+import { WorkoutDAO } from '../../../../configs/models/workout/WorkoutDAO';
+import ActiveStraightSet from './2-active-set/components/ActiveStraightSet';
+import { ExerciseVO } from '../../../../configs/models/configurations/ExerciseVO';
 import { markCurrentSetAsDone } from '../../../../creators/new-workout/active-workout';
 
 const useStyles = makeStyles(() =>
@@ -55,9 +57,17 @@ const ActiveWorkout = (props: ActiveWorkoutProps): JSX.Element => {
   const classes = useStyles();
   const totalSegments = props.currentPhase.segments.length;
   const lastSegment = props.currentSegmentIndex === totalSegments;
-  const currentSegment = props.currentPhase.segments[props.currentSegmentIndex];
+  const currentSegment = props.currentPhase.segments.find(
+    (segment) => segment.order === props.currentSegmentIndex
+  );
 
-  const superset = isSuperset(currentSegment.trainingSetTypeId);
+  let superset = false;
+  let straightSet = false;
+
+  if (currentSegment) {
+    superset = isSuperset(currentSegment.trainingSetTypeId);
+    straightSet = isStraightSet(currentSegment.trainingSetTypeId);
+  }
 
   const scrollToSection = () => {
     scroller.scrollTo('third-set-row', {
@@ -69,29 +79,30 @@ const ActiveWorkout = (props: ActiveWorkoutProps): JSX.Element => {
 
   const builtSets: BuiltSets = {};
 
-  currentSegment.exercises.map((exercise: WorkoutExercise) => {
-    return exercise.sets.map((set: Set) => {
-      const exerciseSet = {
-        setNumber: set.setNumber,
-        setId: set.id,
-        segmentId: currentSegment.id,
-        exercise: getExercise(props.allExercises, exercise.exerciseId),
-        exerciseOrder: exercise.order,
-        weight: set.weight,
-        reps: set.reps,
-        duration: set.duration,
-        distance: set.distance,
-        markedDone: set.markedDone,
-      };
+  currentSegment &&
+    currentSegment.exercises.map((exercise: WorkoutExercise) => {
+      return exercise.sets.map((set: Set) => {
+        const exerciseSet = {
+          setNumber: set.setNumber,
+          setId: set.id,
+          segmentId: currentSegment && currentSegment.id,
+          exercise: getExercise(props.allExercises, exercise.exerciseId),
+          exerciseOrder: exercise.order,
+          weight: set.weight,
+          reps: set.reps,
+          duration: set.duration,
+          distance: set.distance,
+          markedDone: set.markedDone,
+        };
 
-      builtSets[set.setNumber]
-        ? (builtSets[set.setNumber] = [
-            ...builtSets[set.setNumber],
-            exerciseSet,
-          ])
-        : (builtSets[set.setNumber] = [exerciseSet]);
+        builtSets[set.setNumber]
+          ? (builtSets[set.setNumber] = [
+              ...builtSets[set.setNumber],
+              exerciseSet,
+            ])
+          : (builtSets[set.setNumber] = [exerciseSet]);
+      });
     });
-  });
 
   const didItClickHandler = () => {
     // todo: scrollToSection
@@ -113,27 +124,38 @@ const ActiveWorkout = (props: ActiveWorkoutProps): JSX.Element => {
           <Grid item xs={12}>
             <ActiveExercise
               superset={superset}
-              exerciseTitles={currentSegment.exercises.map(
-                (exercise: WorkoutExercise) => {
-                  return {
-                    title: getExerciseName(
-                      props.allExercises,
-                      exercise.exerciseId
-                    ),
-                  };
-                }
-              )}
+              exerciseTitles={
+                currentSegment
+                  ? currentSegment.exercises.map(
+                      (exercise: WorkoutExercise) => {
+                        return {
+                          title: getExerciseName(
+                            props.allExercises,
+                            exercise.exerciseId
+                          ),
+                        };
+                      }
+                    )
+                  : []
+              }
             />
           </Grid>
 
           <Grid item xs={12}>
-            {superset ? (
+            {superset && (
               <ActiveSuperset
                 currentSetIndex={props.currentSetIndex}
                 builtSets={builtSets}
                 didItClickHandler={props.didItClickHandler}
               />
-            ) : undefined}
+            )}
+            {straightSet && (
+              <ActiveStraightSet
+                currentSetIndex={props.currentSetIndex}
+                builtSets={builtSets}
+                didItClickHandler={props.didItClickHandler}
+              />
+            )}
           </Grid>
 
           {/*todo: add logic for displaying message when done with first phase and there is another phase after*/}
