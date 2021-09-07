@@ -12,7 +12,6 @@ import { WorkoutDAO } from '../../../../configs/models/workout/WorkoutDAO';
 import {
   Phase,
   Set,
-  Segment,
   WorkoutExercise,
   WorkoutDuration,
   WorkoutDistance,
@@ -25,6 +24,7 @@ import {
 } from '../../../../utils/active-workout';
 import ActiveSuperset from './2-active-set/components/ActiveSuperset';
 import { getPhaseName } from '../../../../utils/workout-configs';
+import { markCurrentSetAsDone } from '../../../../creators/new-workout/active-workout';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -37,6 +37,7 @@ const useStyles = makeStyles(() =>
 export interface ActiveSetInfo {
   setNumber: number;
   setId: string;
+  segmentId: string;
   exercise: ExerciseVO | undefined;
   exerciseOrder: number;
   weight: number;
@@ -54,9 +55,9 @@ const ActiveWorkout = (props: ActiveWorkoutProps): JSX.Element => {
   const classes = useStyles();
   const totalSegments = props.currentPhase.segments.length;
   const lastSegment = props.currentSegmentIndex === totalSegments;
-  const firstPhase = props.currentPhase.order === 1;
+  const currentSegment = props.currentPhase.segments[props.currentSegmentIndex];
 
-  const superset = isSuperset(props.currentSegment.trainingSetTypeId);
+  const superset = isSuperset(currentSegment.trainingSetTypeId);
 
   const scrollToSection = () => {
     scroller.scrollTo('third-set-row', {
@@ -68,11 +69,12 @@ const ActiveWorkout = (props: ActiveWorkoutProps): JSX.Element => {
 
   const builtSets: BuiltSets = {};
 
-  props.currentSegment.exercises.map((exercise: WorkoutExercise) => {
+  currentSegment.exercises.map((exercise: WorkoutExercise) => {
     return exercise.sets.map((set: Set) => {
       const exerciseSet = {
         setNumber: set.setNumber,
         setId: set.id,
+        segmentId: currentSegment.id,
         exercise: getExercise(props.allExercises, exercise.exerciseId),
         exerciseOrder: exercise.order,
         weight: set.weight,
@@ -93,10 +95,6 @@ const ActiveWorkout = (props: ActiveWorkoutProps): JSX.Element => {
 
   const didItClickHandler = () => {
     // todo: scrollToSection
-    // todo: mark set as done
-    // todo: increment currentSetIndex
-    // todo: if last set reset currentSetIndex to 1
-    // todo: if last set increment currentSegmentIndex
     // todo: if last segment reset all and increment to next phase
   };
 
@@ -115,7 +113,7 @@ const ActiveWorkout = (props: ActiveWorkoutProps): JSX.Element => {
           <Grid item xs={12}>
             <ActiveExercise
               superset={superset}
-              exerciseTitles={props.currentSegment.exercises.map(
+              exerciseTitles={currentSegment.exercises.map(
                 (exercise: WorkoutExercise) => {
                   return {
                     title: getExerciseName(
@@ -133,6 +131,7 @@ const ActiveWorkout = (props: ActiveWorkoutProps): JSX.Element => {
               <ActiveSuperset
                 currentSetIndex={props.currentSetIndex}
                 builtSets={builtSets}
+                didItClickHandler={props.didItClickHandler}
               />
             ) : undefined}
           </Grid>
@@ -162,9 +161,13 @@ interface ActiveWorkoutProps {
   activeWorkout: WorkoutDAO;
   allExercises: ExerciseVO[];
   currentPhase: Phase;
-  currentSegment: Segment;
   currentSegmentIndex: number;
   currentSetIndex: number;
+  didItClickHandler: (
+    segmentId: string,
+    setNumber: number,
+    lastSet: boolean
+  ) => void;
 }
 
 const mapStateToProps = (state: State): ActiveWorkoutProps => {
@@ -177,13 +180,21 @@ const mapStateToProps = (state: State): ActiveWorkoutProps => {
     activeWorkout: state.workoutState.activeWorkout,
     allExercises: state.workoutState.configs.exercises,
     currentPhase: state.workoutState.currentPhase,
-    currentSegment: state.workoutState.currentSegment,
+    // currentSegment: state.workoutState.currentSegment,
     currentSegmentIndex: state.workoutState.currentSegmentIndex,
     currentSetIndex: state.workoutState.currentSetIndex,
   } as unknown as ActiveWorkoutProps;
 };
 
 const mapDispatchToProps = (dispatch: Dispatch): ActiveWorkoutProps =>
-  ({} as unknown as ActiveWorkoutProps);
+  ({
+    didItClickHandler: (
+      segmentId: string,
+      setNumber: number,
+      lastSet: boolean
+    ) => {
+      dispatch(markCurrentSetAsDone(segmentId, setNumber, lastSet));
+    },
+  } as unknown as ActiveWorkoutProps);
 
 export default connect(mapStateToProps, mapDispatchToProps)(ActiveWorkout);

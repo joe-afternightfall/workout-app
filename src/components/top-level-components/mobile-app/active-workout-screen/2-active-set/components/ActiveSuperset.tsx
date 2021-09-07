@@ -43,27 +43,37 @@ const useStyles = makeStyles(() =>
       borderRadius: '0 8px 8px 0',
       // backgroundColor: '#222323',
     },
+    done: {
+      borderColor: '#ED440B',
+      backgroundColor: '#ED440B',
+      opacity: 0.6,
+    },
   })
 );
-
-interface SupersetsArray {
-  element: JSX.Element;
-}
 
 export default function ActiveSuperset(
   props: ActiveSupersetProps
 ): JSX.Element {
   const classes = useStyles();
   const supersets: JSX.Element[] = [];
+  let segmentId = '';
 
   Object.values(props.builtSets).map((setInfo: ActiveSetInfo[]) => {
     let activeSet = false;
+    let setNumber = -1;
+    let markedDone = false;
+    let lastSet = false;
+
     supersets.push(
       <Grid container alignItems={'center'} className={classes.root}>
         <Grid item xs={8} style={{ paddingRight: 4 }}>
           {setInfo.map((info: ActiveSetInfo, index: number) => {
+            segmentId = info.segmentId;
+            setNumber = info.setNumber;
             if (info.exercise) {
               activeSet = props.currentSetIndex === info.setNumber;
+              markedDone = info.markedDone;
+              lastSet = Object.keys(props.builtSets).length === info.setNumber;
               return (
                 <Grid
                   item
@@ -72,7 +82,8 @@ export default function ActiveSuperset(
                   className={clsx(
                     classes.inputRowWrapper,
                     index === 0 ? classes.topRow : classes.bottomRow,
-                    activeSet ? classes.activeOrange : classes.baseColor
+                    activeSet ? classes.activeOrange : classes.baseColor,
+                    markedDone ? classes.done : undefined
                   )}
                 >
                   {isWeightsAndReps(info.exercise.parameterTypeId) ? (
@@ -107,8 +118,13 @@ export default function ActiveSuperset(
           <Button
             className={clsx(
               classes.didItButton,
-              activeSet ? classes.activeOrange : classes.baseColor
+              activeSet ? classes.activeOrange : classes.baseColor,
+              markedDone ? classes.done : undefined
             )}
+            onClick={() => {
+              props.didItClickHandler(segmentId, setNumber, lastSet);
+            }}
+            disabled={markedDone}
           >
             {'Did It'}
           </Button>
@@ -123,4 +139,9 @@ export default function ActiveSuperset(
 export interface ActiveSupersetProps {
   builtSets: BuiltSets;
   currentSetIndex: number;
+  didItClickHandler: (
+    segmentId: string,
+    setNumber: number,
+    lastSet: boolean
+  ) => void;
 }
