@@ -80,7 +80,48 @@ export default {
             phases: phases,
           }
         );
+        newState.currentPhase = newState.activeWorkout.routine.phases[0];
+        newState.currentSegmentIndex = 4;
+        newState.currentSetIndex = 1;
         break;
+      }
+      case WorkoutActionTypes.MARK_CURRENT_SET_AS_DONE: {
+        const segments = newState.currentPhase.segments;
+        const foundSegment = segments.find(
+          (segment) => segment.id === action.segmentId
+        );
+
+        if (foundSegment) {
+          foundSegment.exercises.map((exercise: WorkoutExercise) => {
+            const foundSet = exercise.sets.find(
+              (set: Set) => set.setNumber === action.setNumber
+            );
+
+            if (foundSet) {
+              if (foundSet.markedDone) {
+                foundSet.markedDone = false;
+                return;
+              } else {
+                foundSet.markedDone = true;
+              }
+            }
+          });
+        }
+
+        return {
+          ...newState,
+          currentSetIndex: action.lastSet ? 1 : newState.currentSetIndex + 1,
+          currentSegmentIndex: action.lastSet
+            ? newState.currentSegmentIndex + 1
+            : newState.currentSegmentIndex,
+          activeWorkout: {
+            ...newState.activeWorkout,
+            routine: {
+              ...newState.activeWorkout.routine,
+              phases: [...newState.activeWorkout.routine.phases],
+            },
+          },
+        };
       }
       default:
         break;
@@ -106,4 +147,9 @@ export interface WorkoutState {
   selectedWorkoutCategory: WorkoutCategoryVO;
   selectedRoutineTemplate: RoutineTemplateVO;
   activeWorkout: WorkoutDAO;
+  currentPhase: Phase;
+  currentSegmentIndex: number;
+  currentSetIndex: number;
+  totalSegments: number;
+  lastSegment: number;
 }
