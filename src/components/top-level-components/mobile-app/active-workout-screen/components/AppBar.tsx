@@ -59,16 +59,28 @@ const ActiveWorkoutAppBar = (
             </Button>
           </Grid>
 
-          <Grid
-            item
-            xs={8}
-            container
-            justify={'center'}
-            alignItems={'flex-end'}
-            className={classes.titleWrapper}
-          >
-            <Typography variant={'subtitle1'}>{'1/10'}</Typography>
-            <Typography variant={'subtitle1'}>{props.currentPhase}</Typography>
+          <Grid item xs={8} className={classes.titleWrapper}>
+            <Grid
+              item
+              xs={12}
+              container
+              justify={'center'}
+              alignItems={'flex-end'}
+            >
+              <Typography variant={'subtitle2'}>{props.phaseTitle}</Typography>
+            </Grid>
+
+            <Grid
+              item
+              xs={12}
+              container
+              justify={'center'}
+              alignItems={'flex-end'}
+            >
+              <Typography variant={'subtitle1'}>
+                {props.currentSegmentCount}
+              </Typography>
+            </Grid>
           </Grid>
 
           <Grid
@@ -89,7 +101,8 @@ const ActiveWorkoutAppBar = (
 };
 
 interface PassedInProps {
-  currentPhase: string;
+  phaseTitle: string;
+  currentSegmentCount: string;
 }
 
 interface ActiveWorkoutAppBarProps {
