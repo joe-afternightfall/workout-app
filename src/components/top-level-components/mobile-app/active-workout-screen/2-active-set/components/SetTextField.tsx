@@ -48,7 +48,7 @@ export default function SetTextField(props: SetTextFieldProps): JSX.Element {
 }
 
 export interface SetTextFieldProps {
-  value: string;
+  value: number;
   inputAdornment: 'reps' | 'lb';
   fullLength: boolean;
 }
