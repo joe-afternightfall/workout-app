@@ -10,13 +10,21 @@ import SingleListItem from '../../../shared/SingleListItem';
 import { State } from '../../../../../../configs/redux/store';
 import { Segment } from '../../../../../../configs/models/AppInterfaces';
 import { ExerciseVO } from '../../../../../../configs/models/configurations/ExerciseVO';
+import {
+  isCircuitSet,
+  isStraightSet,
+  isSuperset,
+} from '../../../../../../utils/active-workout';
 
 const PreviewListItem = (
   props: PreviewListItemProps & PassedInProps
 ): JSX.Element => {
   const sortedExercises = sortSegmentExercises(props.segment.exercises);
 
-  if (sortedExercises.length === 1) {
+  if (
+    isStraightSet(props.segment.trainingSetTypeId) ||
+    isCircuitSet(props.segment.trainingSetTypeId)
+  ) {
     return (
       <SingleListItem
         exerciseTitle={`${props.segment.order} ${getExerciseName(
@@ -26,7 +34,7 @@ const PreviewListItem = (
         repsAndSets={buildRepsAndSets(sortedExercises[0].sets)}
       />
     );
-  } else if (sortedExercises.length === 2) {
+  } else if (isSuperset(props.segment.trainingSetTypeId)) {
     return (
       <SuperSetItem
         firstExerciseTitle={`${props.segment.order} ${getExerciseName(
