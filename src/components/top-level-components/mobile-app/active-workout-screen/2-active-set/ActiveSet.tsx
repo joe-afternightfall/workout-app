@@ -4,6 +4,7 @@ import { Button, Grid } from '@material-ui/core';
 import SetDivider from './components/SetDivider';
 import SetTextField from './components/SetTextField';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
+import { ActiveSetInfo } from '../ActiveWorkout';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -41,33 +42,13 @@ const useStyles = makeStyles(() =>
   })
 );
 
-// interface LocalState {
-//   amount: string;
-//   password: string;
-//   weight: string;
-//   weightRange: string;
-//   showPassword: boolean;
-// }
-
 export default function ActiveSet(props: ActiveSetProps): JSX.Element {
   const classes = useStyles();
-  // const [values, setValues] = React.useState<LocalState>({
-  //   amount: '',
-  //   password: '',
-  //   weight: '',
-  //   weightRange: '',
-  //   showPassword: false,
-  // });
-  //
-  // const handleChange =
-  //   (prop: keyof LocalState) =>
-  //     (event: React.ChangeEvent<HTMLInputElement>) => {
-  //       setValues({ ...values, [prop]: event.target.value });
-  //     };
 
-  const displayColor = props.currentSet
-    ? classes.activeOrange
-    : classes.baseColor;
+  // const displayColor = props.currentSet
+  //   ? classes.activeOrange
+  //   : classes.baseColor;
+  const displayColor = false;
 
   return (
     <Grid container alignItems={'center'} className={classes.root}>
@@ -82,15 +63,11 @@ export default function ActiveSet(props: ActiveSetProps): JSX.Element {
             displayColor
           )}
         >
-          <SetTextField value={'44'} inputAdornment={'lb'} fullLength={false} />
+          <SetTextField value={22} inputAdornment={'lb'} fullLength={false} />
 
           <SetDivider />
 
-          <SetTextField
-            value={'22'}
-            inputAdornment={'reps'}
-            fullLength={false}
-          />
+          <SetTextField value={22} inputAdornment={'reps'} fullLength={false} />
         </Grid>
 
         <Grid
@@ -103,15 +80,11 @@ export default function ActiveSet(props: ActiveSetProps): JSX.Element {
             displayColor
           )}
         >
-          <SetTextField value={'77'} inputAdornment={'lb'} fullLength={false} />
+          <SetTextField value={77} inputAdornment={'lb'} fullLength={false} />
 
           <SetDivider />
 
-          <SetTextField
-            value={'44'}
-            inputAdornment={'reps'}
-            fullLength={false}
-          />
+          <SetTextField value={22} inputAdornment={'reps'} fullLength={false} />
         </Grid>
       </Grid>
       <Grid item xs={4} style={{ height: '100%' }}>
@@ -128,5 +101,5 @@ export default function ActiveSet(props: ActiveSetProps): JSX.Element {
 
 export interface ActiveSetProps {
   didItClickHandler: () => void;
-  currentSet: boolean;
+  activeSetInfo: ActiveSetInfo;
 }
