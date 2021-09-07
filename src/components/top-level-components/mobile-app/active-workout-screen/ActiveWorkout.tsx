@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { scroller } from 'react-scroll';
 import { Grid, Slide } from '@material-ui/core';
-import ActiveSet from './2-active-set/ActiveSet';
 import UpNextCard from './3-up-next-card/UpNextCard';
 import ActiveWorkoutAppBar from './components/AppBar';
 import ActiveExercise from './1-active-exercise/ActiveExercise';
@@ -15,9 +14,17 @@ import {
   Set,
   Segment,
   WorkoutExercise,
+  WorkoutDuration,
+  WorkoutDistance,
 } from '../../../../configs/models/AppInterfaces';
 import { ExerciseVO } from '../../../../configs/models/configurations/ExerciseVO';
-import { getExerciseName, isSuperset } from '../../../../utils/active-workout';
+import {
+  getExercise,
+  getExerciseName,
+  isSuperset,
+} from '../../../../utils/active-workout';
+import ActiveSuperset from './2-active-set/components/ActiveSuperset';
+import { getPhaseName } from '../../../../utils/workout-configs';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -27,16 +34,29 @@ const useStyles = makeStyles(() =>
   })
 );
 
+export interface ActiveSetInfo {
+  setNumber: number;
+  setId: string;
+  exercise: ExerciseVO | undefined;
+  exerciseOrder: number;
+  weight: number;
+  reps: number;
+  duration: WorkoutDuration;
+  distance: WorkoutDistance;
+  markedDone: boolean;
+}
+
+export interface BuiltSets {
+  [key: number]: ActiveSetInfo[];
+}
+
 const ActiveWorkout = (props: ActiveWorkoutProps): JSX.Element => {
   const classes = useStyles();
-  const [currentPhase, setCurrentPhase] = useState<Phase>(
-    props.activeWorkout.routine.phases[0]
-  );
-  const [currentSegment, setCurrentSegment] = useState<Segment>(
-    currentPhase.segments[0]
-  );
+  const totalSegments = props.currentPhase.segments.length;
+  const lastSegment = props.currentSegmentIndex === totalSegments;
+  const firstPhase = props.currentPhase.order === 1;
 
-  const superset = isSuperset(currentSegment.trainingSetTypeId);
+  const superset = isSuperset(props.currentSegment.trainingSetTypeId);
 
   const scrollToSection = () => {
     scroller.scrollTo('third-set-row', {
@@ -45,12 +65,49 @@ const ActiveWorkout = (props: ActiveWorkoutProps): JSX.Element => {
       smooth: 'easeInOutQuart',
     });
   };
-  const totalSegments = currentPhase.segments.length;
 
+  const builtSets: BuiltSets = {};
+
+  props.currentSegment.exercises.map((exercise: WorkoutExercise) => {
+    return exercise.sets.map((set: Set) => {
+      const exerciseSet = {
+        setNumber: set.setNumber,
+        setId: set.id,
+        exercise: getExercise(props.allExercises, exercise.exerciseId),
+        exerciseOrder: exercise.order,
+        weight: set.weight,
+        reps: set.reps,
+        duration: set.duration,
+        distance: set.distance,
+        markedDone: set.markedDone,
+      };
+
+      builtSets[set.setNumber]
+        ? (builtSets[set.setNumber] = [
+            ...builtSets[set.setNumber],
+            exerciseSet,
+          ])
+        : (builtSets[set.setNumber] = [exerciseSet]);
+    });
+  });
+
+  const didItClickHandler = () => {
+    // todo: scrollToSection
+    // todo: mark set as done
+    // todo: increment currentSetIndex
+    // todo: if last set reset currentSetIndex to 1
+    // todo: if last set increment currentSegmentIndex
+    // todo: if last segment reset all and increment to next phase
+  };
+
+  const segmentLength = props.currentPhase.segments.length;
   return (
     <Slide mountOnEnter unmountOnExit in={true} direction={'up'}>
       <div>
-        <ActiveWorkoutAppBar currentPhase={'blah'} />
+        <ActiveWorkoutAppBar
+          currentSegmentCount={`${props.currentSegmentIndex}/${segmentLength}`}
+          phaseTitle={props.phaseName}
+        />
 
         <div className={classes.toolbarMixin} />
 
@@ -58,7 +115,7 @@ const ActiveWorkout = (props: ActiveWorkoutProps): JSX.Element => {
           <Grid item xs={12}>
             <ActiveExercise
               superset={superset}
-              exerciseTitles={currentSegment.exercises.map(
+              exerciseTitles={props.currentSegment.exercises.map(
                 (exercise: WorkoutExercise) => {
                   return {
                     title: getExerciseName(
@@ -72,41 +129,57 @@ const ActiveWorkout = (props: ActiveWorkoutProps): JSX.Element => {
           </Grid>
 
           <Grid item xs={12}>
-            {currentSegment.trainingSetTypeId}
-            <ActiveSet didItClickHandler={() => alert('clicked')} currentSet />
+            {superset ? (
+              <ActiveSuperset
+                currentSetIndex={props.currentSetIndex}
+                builtSets={builtSets}
+              />
+            ) : undefined}
           </Grid>
 
-          <Grid item xs={12}>
-            <ActiveSet
-              didItClickHandler={() => alert('clicked')}
-              currentSet={false}
-            />
-          </Grid>
-
-          <Grid
-            item
-            xs={12}
-            container
-            alignItems={'flex-end'}
-            style={{ height: '28vh' }}
-          >
-            <UpNextCard />
-          </Grid>
+          {/*todo: add logic for displaying message when done with first phase and there is another phase after*/}
+          {lastSegment ? (
+            <React.Fragment />
+          ) : (
+            <Grid
+              item
+              xs={12}
+              container
+              alignItems={'flex-end'}
+              style={{ height: '28vh' }}
+            >
+              <UpNextCard />
+            </Grid>
+          )}
         </Grid>
       </div>
     </Slide>
   );
 };
 
-export interface ActiveWorkoutProps {
+interface ActiveWorkoutProps {
+  phaseName: string;
   activeWorkout: WorkoutDAO;
   allExercises: ExerciseVO[];
+  currentPhase: Phase;
+  currentSegment: Segment;
+  currentSegmentIndex: number;
+  currentSetIndex: number;
 }
 
 const mapStateToProps = (state: State): ActiveWorkoutProps => {
+  const phaseName = getPhaseName(
+    state.workoutState.configs.phases,
+    state.workoutState.currentPhase.phaseId
+  );
   return {
+    phaseName: phaseName,
     activeWorkout: state.workoutState.activeWorkout,
     allExercises: state.workoutState.configs.exercises,
+    currentPhase: state.workoutState.currentPhase,
+    currentSegment: state.workoutState.currentSegment,
+    currentSegmentIndex: state.workoutState.currentSegmentIndex,
+    currentSetIndex: state.workoutState.currentSetIndex,
   } as unknown as ActiveWorkoutProps;
 };
 
