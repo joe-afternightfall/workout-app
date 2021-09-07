@@ -15,6 +15,7 @@ import {
 } from '../../../../../../utils/workout-configs';
 import { PhaseVO } from '../../../../../../configs/models/configurations/PhaseVO';
 import PreviewListItem from './PreviewListItem';
+import { startWorkout } from '../../../../../../creators/new-workout/workout-selections';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -69,7 +70,7 @@ const PreviewWorkoutList = (props: PreviewWorkoutListProps): JSX.Element => {
 
         <Button
           className={classes.startButton}
-          onClick={props.routeClickHandler}
+          onClick={props.startClickHandler}
         >
           {'Start Workout'}
         </Button>
@@ -79,7 +80,7 @@ const PreviewWorkoutList = (props: PreviewWorkoutListProps): JSX.Element => {
 };
 
 export interface PreviewWorkoutListProps {
-  routeClickHandler: () => void;
+  startClickHandler: () => void;
   routinePhases: Phase[];
   configPhases: PhaseVO[];
 }
@@ -97,7 +98,8 @@ const mapStateToProps = (state: State): PreviewWorkoutListProps => {
 
 const mapDispatchToProps = (dispatch: Dispatch): PreviewWorkoutListProps =>
   ({
-    routeClickHandler: () => {
+    startClickHandler: () => {
+      dispatch(startWorkout());
       dispatch(routerActions.push(MOBILE_ACTIVE_WORKOUT_SCREEN_PATH));
     },
   } as unknown as PreviewWorkoutListProps);
