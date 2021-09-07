@@ -6,7 +6,7 @@ export const trainingSetTypes: TrainingSetType[] = [
     name: 'Straight Set',
     description:
       'Performing straight sets is the standard method for arranging your weight training workout. Straight sets require you to perform a number of sets using the same number of repetitions and using the same weight. For example, you may perform three sets of 12 repetitions using 40 pounds for a particular exercise and two sets of six repetitions using 75 pounds for another.',
-    iconId: '503bd6e6-02ca-44f3-9f8e-c20ad466419f',
+    iconId: '',
   },
   {
     id: '3fd3c30c-6c6a-4cfd-8e59-5b500e486374',
