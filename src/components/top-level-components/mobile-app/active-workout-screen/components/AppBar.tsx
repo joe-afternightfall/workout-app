@@ -36,7 +36,9 @@ const useStyles = makeStyles(() =>
   })
 );
 
-const ActiveWorkoutAppBar = (props: ActiveWorkoutAppBarProps): JSX.Element => {
+const ActiveWorkoutAppBar = (
+  props: ActiveWorkoutAppBarProps & PassedInProps
+): JSX.Element => {
   const classes = useStyles();
 
   return (
@@ -66,6 +68,7 @@ const ActiveWorkoutAppBar = (props: ActiveWorkoutAppBarProps): JSX.Element => {
             className={classes.titleWrapper}
           >
             <Typography variant={'subtitle1'}>{'1/10'}</Typography>
+            <Typography variant={'subtitle1'}>{props.currentPhase}</Typography>
           </Grid>
 
           <Grid
@@ -85,7 +88,11 @@ const ActiveWorkoutAppBar = (props: ActiveWorkoutAppBarProps): JSX.Element => {
   );
 };
 
-export interface ActiveWorkoutAppBarProps {
+interface PassedInProps {
+  currentPhase: string;
+}
+
+interface ActiveWorkoutAppBarProps {
   exitClickHandler: () => void;
 }
 

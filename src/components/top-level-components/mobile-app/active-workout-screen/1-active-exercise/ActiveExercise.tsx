@@ -5,15 +5,18 @@ import ExerciseItem from './components/ExerciseItem';
 export default function ActiveExercise(
   props: ActiveExerciseProps
 ): JSX.Element {
-  const isSuperSet = props.exercises.length === 2;
-  return (
-    <div style={{ height: isSuperSet ? '34vh' : '20vh' }}>
-      <ExerciseItem bottom={false} title={props.exercises[0].title} />
+  // todo: implement circuit set, pyramid, giant, drop
+  const exerciseTitles = props.exerciseTitles;
+  const superset = props.superset;
 
-      {isSuperSet && (
+  return (
+    <div style={{ height: superset ? '34vh' : '20vh' }}>
+      <ExerciseItem bottom={false} title={exerciseTitles[0].title} />
+
+      {superset && (
         <>
           <ExerciseDivider />
-          <ExerciseItem bottom={true} title={props.exercises[1].title} />
+          <ExerciseItem bottom={true} title={exerciseTitles[1].title} />
         </>
       )}
     </div>
@@ -21,5 +24,6 @@ export default function ActiveExercise(
 }
 
 export interface ActiveExerciseProps {
-  exercises: { title: string }[];
+  exerciseTitles: { title: string }[];
+  superset: boolean;
 }
