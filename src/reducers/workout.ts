@@ -9,11 +9,17 @@ import { EquipmentVO } from '../configs/models/configurations/EquipmentVO';
 import { ExerciseVO } from '../configs/models/configurations/ExerciseVO';
 import { RoutineTemplateVO } from '../configs/models/workout/RoutineTemplateVO';
 import {
-  TrainingSetType,
   GripType,
-  ParameterType,
   GripWidth,
+  ParameterType,
+  Phase,
+  Segment,
+  TrainingSetType,
+  WorkoutExercise,
+  Set,
 } from '../configs/models/AppInterfaces';
+import { WorkoutDAO } from '../configs/models/workout/WorkoutDAO';
+import { v4 as uuidv4 } from 'uuid';
 
 export default {
   reducer: (
@@ -35,6 +41,47 @@ export default {
       case WorkoutActionTypes.SELECTED_ROUTINE:
         newState.selectedRoutineTemplate = action.routine;
         break;
+      case WorkoutActionTypes.START_WORKOUT: {
+        const template = newState.selectedRoutineTemplate;
+        const phases: Phase[] = template.phases;
+
+        phases
+          .sort((a: Phase, b: Phase) => a.order - b.order)
+          .map((phase: Phase) => {
+            return phase.segments
+              .sort((c: Segment, d: Segment) => c.order - d.order)
+              .map((segment: Segment) => {
+                return segment.exercises
+                  .sort(
+                    (e: WorkoutExercise, f: WorkoutExercise) =>
+                      e.order - f.order
+                  )
+                  .map((exercise: WorkoutExercise) => {
+                    return exercise.sets.sort(
+                      (g: Set, h: Set) => g.setNumber - h.setNumber
+                    );
+                  });
+              });
+          });
+
+        newState.activeWorkout = new WorkoutDAO(
+          uuidv4(),
+          '', // todo: come back to userId and implement from firebase
+          new Date().toLocaleDateString(),
+          {
+            currentTimeMs: 0,
+            currentTimeSec: 0,
+            currentTimeMin: 0,
+          },
+          {
+            id: template.id,
+            name: template.name,
+            workoutCategoryId: template.workoutCategoryId,
+            phases: phases,
+          }
+        );
+        break;
+      }
       default:
         break;
     }
@@ -58,4 +105,5 @@ export interface WorkoutState {
   };
   selectedWorkoutCategory: WorkoutCategoryVO;
   selectedRoutineTemplate: RoutineTemplateVO;
+  activeWorkout: WorkoutDAO;
 }

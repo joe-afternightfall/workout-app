@@ -28,3 +28,13 @@ export const selectedRoutine = (
     routine: routine,
   };
 };
+
+export interface StartWorkoutAction {
+  type: WorkoutActionTypes.START_WORKOUT;
+}
+
+export const startWorkout = (): StartWorkoutAction => {
+  return {
+    type: WorkoutActionTypes.START_WORKOUT,
+  };
+};
