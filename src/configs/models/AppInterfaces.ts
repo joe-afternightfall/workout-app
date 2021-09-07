@@ -46,3 +46,30 @@ export interface WorkoutDistance {
   unit: string;
   value: number;
 }
+
+export interface TrainingSetType {
+  id: string;
+  name: string; // ex(superset | straight set | circuit | pyramid | drop set | giant set (triples or quadruples))
+  description: string;
+  iconId: string;
+}
+
+export interface GripWidth {
+  id: string;
+  name: string;
+  description: string;
+  iconId: string;
+}
+
+export interface GripType {
+  id: string;
+  name: string;
+  description: string;
+  iconId: string;
+}
+
+export interface ParameterType {
+  id: string;
+  name: string;
+  description: string;
+}

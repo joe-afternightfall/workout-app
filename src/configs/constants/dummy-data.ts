@@ -1,57 +1,8 @@
-import { TrainingSetTypeVO } from '../models/configurations/TrainingSetTypeVO';
 import { PhaseVO } from '../models/configurations/PhaseVO';
 import { ExerciseVO } from '../models/configurations/ExerciseVO';
 import { EquipmentVO } from '../models/configurations/EquipmentVO';
-import { GripTypeVO } from '../models/configurations/GripTypeVO';
-import { ParameterTypeVO } from '../models/configurations/ParameterTypeVO';
-import { GripWidthVO } from '../models/configurations/GripWidthVO';
 import { WorkoutCategoryVO } from '../models/configurations/WorkoutCategoryVO';
 import { RoutineTemplateVO } from '../models/workout/RoutineTemplateVO';
-
-export const trainingSetTypes: TrainingSetTypeVO[] = [
-  {
-    firebaseId: '752f5ed4-5bb7-4f98-b4df-da02104bf040',
-    id: '40ac0220-8032-4860-81dd-68943d786123',
-    name: 'Straight Sets',
-    description:
-      'Performing straight sets is the standard method for arranging your weight training workout. Straight sets require you to perform a number of sets using the same number of repetitions and using the same weight. For example, you may perform three sets of 12 repetitions using 40 pounds for a particular exercise and two sets of six repetitions using 75 pounds for another.',
-    iconId: '503bd6e6-02ca-44f3-9f8e-c20ad466419f',
-  },
-  {
-    firebaseId: 'b88dc0f3-0636-4553-ac71-e76a05f70710',
-    id: '3fd3c30c-6c6a-4cfd-8e59-5b500e486374',
-    name: 'Super Sets',
-    description:
-      'Pairing exercises is called super setting. You do not rest between pairings, but only on completion of the second exercise within the super set. There are three main types of super sets. In agonist super sets, you pair exercises that work the same muscle group. For example, you can combine lunges with squats or bench presses with push ups. In antagonist super sets, you pair exercises that work opposite muscle groups, as with lat pull downs and shoulder presses or leg extensions and leg curls. In upper body / lower body super sets, you pair an upper body exercise with a lower body exercises. For example, you can combine bench presses with lunges or step ups with biceps curls. All of these types of super sets allow you to perform more work in less time, which makes them very useful if you only have a short time to work out. All super set methods will increase the intensity of your workout by reducing the amount of time you rest.',
-    iconId: '',
-  },
-  {
-    firebaseId: '1b538cc7-bec3-462d-b139-2fd02677c122',
-    id: '08d72ffa-6856-4bab-ad8a-fc019bdc2809',
-    name: 'Tri Sets and Giant Sets',
-    description:
-      'If you combine three exercises, this is called a tri set. Groupings of four or more exercises are called giant sets. Both tri sets and giant sets will further increase the intensity of your workout.',
-    iconId: '',
-  },
-  {
-    firebaseId: '5ccb528a-e3b6-4838-b153-081b38a4426d',
-    id: '37ee55d5-3e52-4f36-b829-1874de7f2c0e',
-    name: 'Drop Sets',
-    description:
-      "Drop sets are used by bodybuilders to increase muscle mass and also will increase your muscular endurance. Drop sets allow you to extend your set beyond its normal termination point. Usually, when performing any exercise, you have to stop because your muscles are tired. However, they are only too tired to lift the weight you are using and are not completely exhausted. When performing drop sets, once you have reached muscular failure--the point at which you can't continue lifting the weight--you immediately reduce, or drop, the weight and continue your set using a lighter weight to work your muscles more intensely.\n" +
-      '\n' +
-      'An example for bicep curls would be performing 10 reps using 35 pounds to failure, then seven reps using 27.5 pounds to failure, finishing with six reps using 20 pounds to failure.',
-    iconId: '',
-  },
-  {
-    firebaseId: '3479a8ed-d039-4872-9b51-89954f272a95',
-    id: '3fd3c30c-6c6a-4cfd-8e59-5b500e486374',
-    name: 'Pyramid Sets',
-    description:
-      'When you perform pyramid sets, you manipulate the weight used and repetitions performed as you progress through your workout. For example, in set one you do 12 reps with 60 pounds; in set two, you perform 10 reps with 70 pounds; and in set three, you do eight reps with 80 pounds. Pyramid sets allow you to warm up gradually as you increase the intensity of your workout.',
-    iconId: '',
-  },
-];
 
 export const phases: PhaseVO[] = [
   {
@@ -201,80 +152,6 @@ export const equipmentList: EquipmentVO[] = [
     name: 'Dip Stand',
     description: '',
     iconId: '',
-  },
-];
-
-export const gripWidths: GripWidthVO[] = [
-  {
-    firebaseId: 'b064d339-909c-4dcb-946e-6b7fc7bb42ce',
-    id: 'c8f86b64-b3c7-4950-a9ca-b2c7a24dac55',
-    name: 'Narrow',
-    description:
-      'Narrow grip is about 2 inches or so in from shoulder width, or just beyond hip width.',
-    iconId: '',
-  },
-  {
-    firebaseId: '71512c41-ac95-4d10-a390-0c18d60ecb43',
-    id: 'cbf7efb7-eff1-48a0-869b-35293ca3eaa1',
-    name: 'Normal',
-    description: 'Normal grip is a shoulder-width grip',
-    iconId: '',
-  },
-  {
-    firebaseId: '0c4f0ea5-838d-44c4-b4ce-edac42131912',
-    id: 'c5be7ab8-c05a-43dc-8090-daddc474cf14',
-    name: 'Wide',
-    description:
-      'A wide grip is a grip that is wider than shoulder width.  Around 6 inches wider than shoulder width.',
-    iconId: '',
-  },
-];
-
-export const gripTypes: GripTypeVO[] = [
-  {
-    firebaseId: '51ac89b6-692e-4b86-b01f-9374db0e4fc7',
-    id: '621dd118-48d5-4fc1-8f11-54c694e8353f',
-    name: 'Underhand',
-    description:
-      'Underhand grip is when your palms are facing towards you as you grip the bar.',
-    iconId: '',
-  },
-  {
-    firebaseId: 'aee6b848-9364-4ea2-86d4-a0dd5b202336',
-    id: 'ab7dfeaf-b0d1-4a6b-8740-45824a8948f7',
-    name: 'Overhand',
-    description:
-      'Overhand grip is when your palms are facing away from you as you grip the bar.',
-    iconId: '',
-  },
-  {
-    firebaseId: 'd90954dd-9f2a-4c08-b1d2-2f59ceb43b94',
-    id: 'e56a40a2-207d-4b11-9b4f-e1dd50d32d28',
-    name: 'Neutral',
-    description:
-      'Neutral grip is when the palms of you hands are facing each other as you grip the handles.',
-    iconId: '',
-  },
-];
-
-export const parameterTypes: ParameterTypeVO[] = [
-  {
-    firebaseId: 'b2d4b558-425f-4824-9f5b-261f04a4bc30',
-    id: '769d3b23-31dd-4a16-b1d4-79e57ac305e9',
-    name: 'weight & reps',
-    description: 'Example: Bench press - 12 reps of 90 lb',
-  },
-  {
-    firebaseId: 'bb9497fa-2e82-44e4-927a-87b28cb2c525',
-    id: '5046e288-3dd6-4da7-81e7-677798400b3b',
-    name: 'repetitions',
-    description: 'Example: 30 Situps',
-  },
-  {
-    firebaseId: 'e3d819d3-c0e5-4926-a280-c5374db20d89',
-    id: '2dfbe410-5d1c-4449-a3e9-b29f6ebec693',
-    name: 'duration',
-    description: 'Example: 60 sec Plank',
   },
 ];
 
