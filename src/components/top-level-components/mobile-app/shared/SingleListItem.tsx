@@ -2,9 +2,7 @@ import React from 'react';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { Grid, ListItemIcon, Typography } from '@material-ui/core';
 import ListItemText from '@material-ui/core/ListItemText';
-import barbellIcon from '../../../../configs/icons/barbell.gif';
 import ListItem from '@material-ui/core/ListItem';
-import icon from '../../../../configs/icons/exercises/bench-press-barbell.png';
 
 const useStyles = makeStyles(() =>
   createStyles({

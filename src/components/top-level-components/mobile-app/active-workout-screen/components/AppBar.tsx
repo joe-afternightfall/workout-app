@@ -11,10 +11,10 @@ import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import ListIcon from '@material-ui/icons/List';
 import { routerActions } from 'connected-react-router';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { DASHBOARD_SCREEN_PATH } from '../../../../../configs/constants/app';
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     toolbar: {
       padding: 0,

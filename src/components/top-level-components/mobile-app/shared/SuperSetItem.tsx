@@ -4,10 +4,6 @@ import { Divider, Grid, ListItemIcon, Typography } from '@material-ui/core';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItem from '@material-ui/core/ListItem';
 import LinkIcon from '@material-ui/icons/Link';
-import barbellIcon from '../../../../configs/icons/barbell.gif';
-import dumbBellIcon from '../../../../configs/icons/dumbbell.png';
-import inclinePressDumbBells from '../../../../configs/icons/exercises/dumbells/incline-press-dumbells.png';
-import preacherCurls from '../../../../configs/icons/exercises/barbells/preacher-curl-barbell.png';
 
 const useStyles = makeStyles(() =>
   createStyles({
