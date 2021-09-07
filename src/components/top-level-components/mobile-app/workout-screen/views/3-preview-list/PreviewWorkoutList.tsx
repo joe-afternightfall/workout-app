@@ -85,7 +85,7 @@ export interface PreviewWorkoutListProps {
 }
 
 const mapStateToProps = (state: State): PreviewWorkoutListProps => {
-  const selectedRoutine = state.workoutState.selectedRoutine;
+  const selectedRoutine = state.workoutState.selectedRoutineTemplate;
   const sortedPhases = selectedRoutine.phases.sort(
     (a: Phase, b: Phase) => a.order - b.order
   );
