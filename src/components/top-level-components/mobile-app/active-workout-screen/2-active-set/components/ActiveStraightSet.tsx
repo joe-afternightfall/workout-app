@@ -10,8 +10,8 @@ import SetDivider from './SetDivider';
 const useStyles = makeStyles(() =>
   createStyles({
     root: {
-      height: '12vh',
-      marginBottom: 16,
+      height: '11.5vh',
+      marginBottom: 8,
     },
     bottomRow: {
       borderRadius: '0 0 0 4px',
@@ -113,7 +113,12 @@ export default function ActiveStraightSet(
                       markedDone ? classes.done : undefined
                     )}
                     onClick={() => {
-                      props.didItClickHandler(segmentId, setNumber, lastSet);
+                      props.didItClickHandler(
+                        segmentId,
+                        setNumber,
+                        lastSet,
+                        props.lastSegment
+                      );
                     }}
                     disabled={markedDone}
                   >
@@ -137,6 +142,8 @@ export interface ActiveStraightSetProps {
   didItClickHandler: (
     segmentId: string,
     setNumber: number,
-    lastSet: boolean
+    lastSet: boolean,
+    lastSegment: boolean
   ) => void;
+  lastSegment: boolean;
 }

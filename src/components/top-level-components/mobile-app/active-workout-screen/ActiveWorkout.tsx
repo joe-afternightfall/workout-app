@@ -56,15 +56,16 @@ export interface BuiltSets {
 const ActiveWorkout = (props: ActiveWorkoutProps): JSX.Element => {
   const classes = useStyles();
   const totalSegments = props.currentPhase.segments.length;
-  const lastSegment = props.currentSegmentIndex === totalSegments;
   const currentSegment = props.currentPhase.segments.find(
     (segment) => segment.order === props.currentSegmentIndex
   );
 
+  let lastSegment = false;
   let superset = false;
   let straightSet = false;
 
   if (currentSegment) {
+    lastSegment = currentSegment.order === totalSegments;
     superset = isSuperset(currentSegment.trainingSetTypeId);
     straightSet = isStraightSet(currentSegment.trainingSetTypeId);
   }
@@ -144,6 +145,7 @@ const ActiveWorkout = (props: ActiveWorkoutProps): JSX.Element => {
           <Grid item xs={12}>
             {superset && (
               <ActiveSuperset
+                lastSegment={lastSegment}
                 currentSetIndex={props.currentSetIndex}
                 builtSets={builtSets}
                 didItClickHandler={props.didItClickHandler}
@@ -151,6 +153,7 @@ const ActiveWorkout = (props: ActiveWorkoutProps): JSX.Element => {
             )}
             {straightSet && (
               <ActiveStraightSet
+                lastSegment={lastSegment}
                 currentSetIndex={props.currentSetIndex}
                 builtSets={builtSets}
                 didItClickHandler={props.didItClickHandler}
@@ -188,7 +191,8 @@ interface ActiveWorkoutProps {
   didItClickHandler: (
     segmentId: string,
     setNumber: number,
-    lastSet: boolean
+    lastSet: boolean,
+    lastSegment: boolean
   ) => void;
 }
 
@@ -202,7 +206,6 @@ const mapStateToProps = (state: State): ActiveWorkoutProps => {
     activeWorkout: state.workoutState.activeWorkout,
     allExercises: state.workoutState.configs.exercises,
     currentPhase: state.workoutState.currentPhase,
-    // currentSegment: state.workoutState.currentSegment,
     currentSegmentIndex: state.workoutState.currentSegmentIndex,
     currentSetIndex: state.workoutState.currentSetIndex,
   } as unknown as ActiveWorkoutProps;
@@ -213,9 +216,12 @@ const mapDispatchToProps = (dispatch: Dispatch): ActiveWorkoutProps =>
     didItClickHandler: (
       segmentId: string,
       setNumber: number,
-      lastSet: boolean
+      lastSet: boolean,
+      lastSegment: boolean
     ) => {
-      dispatch(markCurrentSetAsDone(segmentId, setNumber, lastSet));
+      dispatch(
+        markCurrentSetAsDone(segmentId, setNumber, lastSet, lastSegment)
+      );
     },
   } as unknown as ActiveWorkoutProps);
 

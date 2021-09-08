@@ -122,7 +122,12 @@ export default function ActiveSuperset(
               markedDone ? classes.done : undefined
             )}
             onClick={() => {
-              props.didItClickHandler(segmentId, setNumber, lastSet);
+              props.didItClickHandler(
+                segmentId,
+                setNumber,
+                lastSet,
+                props.lastSegment
+              );
             }}
             disabled={markedDone}
           >
@@ -142,6 +147,8 @@ export interface ActiveSupersetProps {
   didItClickHandler: (
     segmentId: string,
     setNumber: number,
-    lastSet: boolean
+    lastSet: boolean,
+    lastSegment: boolean
   ) => void;
+  lastSegment: boolean;
 }
