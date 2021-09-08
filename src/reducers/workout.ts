@@ -81,48 +81,81 @@ export default {
           }
         );
         newState.currentPhase = newState.activeWorkout.routine.phases[0];
-        newState.currentSegmentIndex = 4;
+        newState.currentSegmentIndex = 1;
         newState.currentSetIndex = 1;
         break;
       }
-      case WorkoutActionTypes.MARK_CURRENT_SET_AS_DONE: {
-        const segments = newState.currentPhase.segments;
-        const foundSegment = segments.find(
-          (segment) => segment.id === action.segmentId
-        );
+      case WorkoutActionTypes.MARK_CURRENT_SET_AS_DONE:
+        {
+          const segments = newState.currentPhase.segments;
+          const foundSegment = segments.find(
+            (segment) => segment.id === action.segmentId
+          );
 
-        if (foundSegment) {
-          foundSegment.exercises.map((exercise: WorkoutExercise) => {
-            const foundSet = exercise.sets.find(
-              (set: Set) => set.setNumber === action.setNumber
-            );
+          if (foundSegment) {
+            foundSegment.exercises.map((exercise: WorkoutExercise) => {
+              const foundSet = exercise.sets.find(
+                (set: Set) => set.setNumber === action.setNumber
+              );
 
-            if (foundSet) {
-              if (foundSet.markedDone) {
-                foundSet.markedDone = false;
-                return;
-              } else {
-                foundSet.markedDone = true;
+              if (foundSet) {
+                if (foundSet.markedDone) {
+                  foundSet.markedDone = false;
+                  return;
+                } else {
+                  foundSet.markedDone = true;
+                }
               }
-            }
-          });
-        }
+            });
+          }
 
-        return {
-          ...newState,
-          currentSetIndex: action.lastSet ? 1 : newState.currentSetIndex + 1,
-          currentSegmentIndex: action.lastSet
-            ? newState.currentSegmentIndex + 1
-            : newState.currentSegmentIndex,
-          activeWorkout: {
-            ...newState.activeWorkout,
-            routine: {
-              ...newState.activeWorkout.routine,
-              phases: [...newState.activeWorkout.routine.phases],
-            },
-          },
-        };
-      }
+          if (action.lastSet && action.lastSegment) {
+            const foundPhase = newState.activeWorkout.routine.phases.find(
+              (phase: Phase) => phase.order === newState.currentPhase.order + 1
+            );
+            if (foundPhase) {
+              return {
+                ...newState,
+                currentSetIndex: 1,
+                currentSegmentIndex: 1,
+                currentPhase: foundPhase,
+                activeWorkout: {
+                  ...newState.activeWorkout,
+                  routine: {
+                    ...newState.activeWorkout.routine,
+                    phases: [...newState.activeWorkout.routine.phases],
+                  },
+                },
+              };
+            }
+          } else if (action.lastSet && !action.lastSegment) {
+            return {
+              ...newState,
+              currentSetIndex: 1,
+              currentSegmentIndex: newState.currentSegmentIndex + 1,
+              activeWorkout: {
+                ...newState.activeWorkout,
+                routine: {
+                  ...newState.activeWorkout.routine,
+                  phases: [...newState.activeWorkout.routine.phases],
+                },
+              },
+            };
+          } else {
+            return {
+              ...newState,
+              currentSetIndex: newState.currentSetIndex + 1,
+              activeWorkout: {
+                ...newState.activeWorkout,
+                routine: {
+                  ...newState.activeWorkout.routine,
+                  phases: [...newState.activeWorkout.routine.phases],
+                },
+              },
+            };
+          }
+        }
+        break;
       default:
         break;
     }
