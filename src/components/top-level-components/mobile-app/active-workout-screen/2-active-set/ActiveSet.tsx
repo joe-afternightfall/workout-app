@@ -92,7 +92,7 @@ export default function ActiveSet(props: ActiveSetProps): JSX.Element {
           className={clsx(classes.didItButton, displayColor)}
           onClick={props.didItClickHandler}
         >
-          {'Did It'}
+          {'Crushed It'}
         </Button>
       </Grid>
     </Grid>

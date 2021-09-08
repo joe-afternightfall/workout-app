@@ -122,7 +122,7 @@ export default function ActiveStraightSet(
                     }}
                     disabled={markedDone}
                   >
-                    {'Did It'}
+                    {'Crushed It'}
                   </Button>
                 </Grid>
               </Grid>
