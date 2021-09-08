@@ -27,25 +27,25 @@ const PreviewListItem = (
   ) {
     return (
       <SingleListItem
-        exerciseTitle={`${props.segment.order} ${getExerciseName(
+        exerciseTitle={getExerciseName(
           props.exercises,
           sortedExercises[0].exerciseId
-        )}`}
+        )}
         repsAndSets={buildRepsAndSets(sortedExercises[0].sets)}
       />
     );
   } else if (isSuperset(props.segment.trainingSetTypeId)) {
     return (
       <SuperSetItem
-        firstExerciseTitle={`${props.segment.order} ${getExerciseName(
+        firstExerciseTitle={getExerciseName(
           props.exercises,
           sortedExercises[0].exerciseId
-        )}`}
+        )}
         firstExerciseRepsAndSets={buildRepsAndSets(sortedExercises[0].sets)}
-        secondExerciseTitle={`${props.segment.order} ${getExerciseName(
+        secondExerciseTitle={getExerciseName(
           props.exercises,
           sortedExercises[1].exerciseId
-        )}`}
+        )}
         secondExerciseRepsAndSets={buildRepsAndSets(sortedExercises[1].sets)}
       />
     );

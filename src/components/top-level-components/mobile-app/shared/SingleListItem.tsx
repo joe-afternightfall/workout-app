@@ -10,7 +10,7 @@ const useStyles = makeStyles(() =>
       padding: 0,
     },
     title: {
-      fontSize: '1.225rem',
+      fontSize: '1.125rem',
       paddingBottom: '1vh',
     },
     exerciseIcon: {

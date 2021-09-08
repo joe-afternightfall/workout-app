@@ -21,7 +21,7 @@ const useStyles = makeStyles(() =>
       height: '13vh',
     },
     title: {
-      fontSize: '1.225rem',
+      fontSize: '1.125rem',
       paddingBottom: '1vh',
     },
     textWrapper: {
