@@ -510,7 +510,7 @@ export const routineTemplates: RoutineTemplateVO[] = [
                 sets: [
                   {
                     id: '472d446d-4e76-4cea-93c7-09a99e8d432c',
-                    setNumber: 3,
+                    setNumber: 2,
                     weight: 15,
                     reps: 12,
                     duration: {
@@ -543,7 +543,7 @@ export const routineTemplates: RoutineTemplateVO[] = [
                   {
                     id: 'b5d2d742-3659-4644-8dd4-b8c66bc95026',
                     setNumber: 3,
-                    weight: 25,
+                    weight: 20,
                     reps: 15,
                     duration: {
                       currentTimeMs: 0,
