@@ -1,6 +1,6 @@
 import React from 'react';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { Divider, Grid } from '@material-ui/core';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -14,7 +14,7 @@ const useStyles = makeStyles(() =>
   })
 );
 
-export default function SetDivider(props: SetDividerProps): JSX.Element {
+export default function SetDivider(): JSX.Element {
   const classes = useStyles();
 
   return (
@@ -28,8 +28,4 @@ export default function SetDivider(props: SetDividerProps): JSX.Element {
       <Divider orientation={'vertical'} className={classes.divider} />
     </Grid>
   );
-}
-
-export interface SetDividerProps {
-  DELETE_ME?: undefined;
 }
