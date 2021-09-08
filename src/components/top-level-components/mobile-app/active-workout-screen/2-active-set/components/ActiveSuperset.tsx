@@ -131,7 +131,7 @@ export default function ActiveSuperset(
             }}
             disabled={markedDone}
           >
-            {'Did It'}
+            {'Crushed It'}
           </Button>
         </Grid>
       </Grid>
