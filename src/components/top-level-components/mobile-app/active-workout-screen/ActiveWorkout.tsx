@@ -170,7 +170,6 @@ const ActiveWorkout = (props: ActiveWorkoutProps): JSX.Element => {
               xs={12}
               container
               alignItems={'flex-end'}
-              style={{ height: '28vh' }}
             >
               <UpNextCard />
             </Grid>
