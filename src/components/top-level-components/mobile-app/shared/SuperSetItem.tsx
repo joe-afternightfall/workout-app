@@ -1,9 +1,10 @@
+import clsx from 'clsx';
 import React from 'react';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { Divider, Grid, ListItemIcon, Typography } from '@material-ui/core';
-import ListItemText from '@material-ui/core/ListItemText';
+import LinkDivider from './LinkDivider';
 import ListItem from '@material-ui/core/ListItem';
-import LinkIcon from '@material-ui/icons/Link';
+import ListItemText from '@material-ui/core/ListItemText';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
+import { Grid, ListItemIcon, Typography } from '@material-ui/core';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -24,19 +25,21 @@ const useStyles = makeStyles(() =>
       fontSize: '1.125rem',
       paddingBottom: '1vh',
     },
-    textWrapper: {
-      paddingLeft: 12,
-    },
-    dividerWrapper: {
-      marginTop: -12,
-    },
-    bottomListItemRoot: {
-      padding: 0,
-      color: '#fff',
-      marginTop: -16,
+    upNextTitle: {
+      fontSize: '1rem',
     },
     secondaryTitle: {
       paddingTop: 4,
+    },
+    textWrapper: {
+      paddingLeft: 12,
+    },
+    bottomListItemRoot: {
+      padding: 0,
+      marginTop: -16,
+    },
+    upNextHighlight: {
+      color: '#ED440B',
     },
   })
 );
@@ -54,13 +57,36 @@ export default function SuperSetItem(props: SuperSetItemProps): JSX.Element {
           className={classes.textWrapper}
           disableTypography
           primary={
-            <Typography
-              variant={'body1'}
-              color={'textPrimary'}
-              className={classes.title}
-            >
-              {props.firstExerciseTitle}
-            </Typography>
+            props.upNextTitle ? (
+              <Grid item xs={12} container alignItems={'center'}>
+                <Grid item xs={12}>
+                  <Typography
+                    variant={'body1'}
+                    color={'textPrimary'}
+                    className={classes.upNextHighlight}
+                  >
+                    {'Up Next'}
+                  </Typography>
+                </Grid>
+                <Grid item xs={12}>
+                  <Typography
+                    variant={'body1'}
+                    color={'textPrimary'}
+                    className={classes.upNextTitle}
+                  >
+                    {props.firstExerciseTitle}
+                  </Typography>
+                </Grid>
+              </Grid>
+            ) : (
+              <Typography
+                variant={'body1'}
+                color={'textPrimary'}
+                className={classes.title}
+              >
+                {props.firstExerciseTitle}
+              </Typography>
+            )
           }
           secondary={
             <Grid item xs={12} container alignItems={'center'}>
@@ -69,7 +95,9 @@ export default function SuperSetItem(props: SuperSetItemProps): JSX.Element {
               </Grid>
               <Grid item xs={12}>
                 <Typography
-                  className={classes.secondaryTitle}
+                  className={clsx({
+                    [classes.secondaryTitle]: !props.upNextTitle,
+                  })}
                   variant={'body2'}
                   color={'textSecondary'}
                 >
@@ -81,29 +109,7 @@ export default function SuperSetItem(props: SuperSetItemProps): JSX.Element {
         />
       </ListItem>
 
-      <ListItem className={classes.listItemRoot}>
-        <ListItemIcon
-          style={{
-            height: 0,
-            width: '13.5vh',
-            marginRight: 12,
-          }}
-        />
-        <ListItemText
-          disableTypography
-          className={classes.dividerWrapper}
-          primary={
-            <Grid item xs={12} container alignItems={'center'}>
-              <Grid item xs={10}>
-                <Divider variant={'fullWidth'} />
-              </Grid>
-              <Grid item xs={2} container alignItems={'center'}>
-                <LinkIcon style={{ marginLeft: 8, height: 22 }} />
-              </Grid>
-            </Grid>
-          }
-        />
-      </ListItem>
+      <LinkDivider />
 
       <ListItem className={classes.bottomListItemRoot}>
         <ListItemIcon className={classes.itemIconWrapper}>
@@ -116,7 +122,9 @@ export default function SuperSetItem(props: SuperSetItemProps): JSX.Element {
             <Typography
               variant={'body1'}
               color={'textPrimary'}
-              className={classes.title}
+              className={
+                props.upNextTitle ? classes.upNextTitle : classes.title
+              }
             >
               {props.secondExerciseTitle}
             </Typography>
@@ -140,6 +148,7 @@ export default function SuperSetItem(props: SuperSetItemProps): JSX.Element {
 }
 
 export interface SuperSetItemProps {
+  upNextTitle?: boolean;
   firstExerciseTitle: string;
   firstExerciseRepsAndSets: string;
   firstEquipmentIcon?: JSX.Element;
