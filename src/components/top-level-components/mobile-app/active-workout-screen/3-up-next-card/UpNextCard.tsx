@@ -1,12 +1,11 @@
 import React from 'react';
 import { Grid, Card } from '@material-ui/core';
-import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import {
   Segment,
   WorkoutExercise,
 } from '../../../../../configs/models/AppInterfaces';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { State } from '../../../../../configs/redux/store';
 import {
   isCircuitSet,
@@ -21,16 +20,9 @@ import {
 import SuperSetItem from '../../shared/SuperSetItem';
 import { ExerciseVO } from '../../../../../configs/models/configurations/ExerciseVO';
 
-export interface UpNextCardProps {
-  nextSegment: Segment;
-}
-
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
-    supersetRoot: {
-      width: '100%',
-    },
-    baseRoot: {
+    root: {
       width: '100%',
     },
   })
@@ -40,23 +32,26 @@ const UpNextCard = (props: UpNextCardProps): JSX.Element => {
   const classes = useStyles();
   let display = <div />;
 
-  const workoutExercises = props.nextSegment.exercises;
-  const straightSet = isStraightSet(props.nextSegment.trainingSetTypeId);
-  const circuitSet = isCircuitSet(props.nextSegment.trainingSetTypeId);
+  const nextSegment = props.nextSegment;
+  const workoutExercises = nextSegment.exercises;
+  const straightSet = isStraightSet(nextSegment.trainingSetTypeId);
+  const circuitSet = isCircuitSet(nextSegment.trainingSetTypeId);
+
   if (straightSet || circuitSet) {
     workoutExercises.map((exercise: WorkoutExercise) => {
       display = (
         <SingleListItem
+          displayUpNextTitle
           key={exercise.id}
           exerciseTitle={getExerciseName(props.exercises, exercise.exerciseId)}
           repsAndSets={buildRepsAndSets(exercise.sets)}
         />
       );
     });
-  } else if (isSuperset(props.nextSegment.trainingSetTypeId)) {
+  } else if (isSuperset(nextSegment.trainingSetTypeId)) {
     display = (
       <SuperSetItem
-        upNextTitle
+        displayUpNextTitle
         firstExerciseTitle={getExerciseName(
           props.exercises,
           workoutExercises[0].exerciseId
@@ -71,15 +66,8 @@ const UpNextCard = (props: UpNextCardProps): JSX.Element => {
     );
   }
 
-  let rootClass = '';
-  if (straightSet || circuitSet) {
-    rootClass = classes.baseRoot;
-  } else {
-    rootClass = classes.supersetRoot;
-  }
-
   return (
-    <Card className={rootClass}>
+    <Card className={classes.root}>
       <Grid item xs={12} container>
         {display}
       </Grid>
@@ -103,7 +91,4 @@ const mapStateToProps = (state: State): UpNextCardProps => {
   } as unknown as UpNextCardProps;
 };
 
-const mapDispatchToProps = (dispatch: Dispatch): UpNextCardProps =>
-  ({} as unknown as UpNextCardProps);
-
-export default connect(mapStateToProps, mapDispatchToProps)(UpNextCard);
+export default connect(mapStateToProps)(UpNextCard);
