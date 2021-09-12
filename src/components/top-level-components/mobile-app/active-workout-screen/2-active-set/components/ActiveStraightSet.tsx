@@ -1,11 +1,12 @@
 import React from 'react';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { ActiveSetInfo, BuiltSets } from '../../ActiveWorkout';
+import { ActiveSetInfo } from '../../ActiveWorkout';
 import { Button, Grid } from '@material-ui/core';
 import clsx from 'clsx';
 import { isWeightsAndReps } from '../../../../../../utils/active-workout';
 import SetTextField from './SetTextField';
 import SetDivider from './SetDivider';
+import { BuiltSets } from '../../ActiveWorkoutConnector';
 
 const useStyles = makeStyles(() =>
   createStyles({

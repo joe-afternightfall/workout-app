@@ -5,7 +5,8 @@ import clsx from 'clsx';
 import SetTextField from './SetTextField';
 import SetDivider from './SetDivider';
 import { isWeightsAndReps } from '../../../../../../utils/active-workout';
-import { BuiltSets, ActiveSetInfo } from '../../ActiveWorkout';
+import { ActiveSetInfo } from '../../ActiveWorkout';
+import { BuiltSets } from '../../ActiveWorkoutConnector';
 
 // todo: need to handle isDuration param type
 
