@@ -108,6 +108,7 @@ const ActiveWorkout = (props: ActiveWorkoutProps): JSX.Element => {
   const didItClickHandler = () => {
     // todo: scrollToSection
     // todo: if last segment reset all and increment to next phase
+    // todo: if last exercise/last segment/last phase call workout done
   };
 
   const segmentLength = props.currentPhase.segments.length;
@@ -165,12 +166,7 @@ const ActiveWorkout = (props: ActiveWorkoutProps): JSX.Element => {
           {lastSegment ? (
             <React.Fragment />
           ) : (
-            <Grid
-              item
-              xs={12}
-              container
-              alignItems={'flex-end'}
-            >
+            <Grid item xs={12} container alignItems={'flex-end'}>
               <UpNextCard />
             </Grid>
           )}
@@ -180,7 +176,7 @@ const ActiveWorkout = (props: ActiveWorkoutProps): JSX.Element => {
   );
 };
 
-interface ActiveWorkoutProps {
+export interface ActiveWorkoutProps {
   phaseName: string;
   activeWorkout: WorkoutDAO;
   allExercises: ExerciseVO[];
