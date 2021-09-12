@@ -3,19 +3,19 @@ import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { Grid, ListItemIcon, Typography } from '@material-ui/core';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItem from '@material-ui/core/ListItem';
+import clsx from 'clsx';
 
 const useStyles = makeStyles(() =>
   createStyles({
-    listItemRoot: {
+    root: {
       padding: 0,
     },
     title: {
       fontSize: '1.125rem',
       paddingBottom: '1vh',
     },
-    exerciseIcon: {
-      height: '13vh',
-      margin: 'auto',
+    upNextTitle: {
+      fontSize: '1rem',
     },
     itemIconWrapper: {
       backgroundColor: 'gray',
@@ -29,6 +29,9 @@ const useStyles = makeStyles(() =>
     secondaryTitle: {
       paddingTop: 4,
     },
+    upNextHighlight: {
+      color: '#ED440B',
+    },
   })
 );
 
@@ -38,7 +41,7 @@ export default function SingleListItem(
   const classes = useStyles();
 
   return (
-    <ListItem className={classes.listItemRoot}>
+    <ListItem className={classes.root}>
       <ListItemIcon className={classes.itemIconWrapper}>
         {props.exerciseIcon}
       </ListItemIcon>
@@ -46,13 +49,36 @@ export default function SingleListItem(
         className={classes.textWrapper}
         disableTypography
         primary={
-          <Typography
-            variant={'body1'}
-            color={'textPrimary'}
-            className={classes.title}
-          >
-            {props.exerciseTitle}
-          </Typography>
+          props.upNextTitle ? (
+            <Grid item xs={12} container alignItems={'center'}>
+              <Grid item xs={12}>
+                <Typography
+                  variant={'body1'}
+                  color={'textPrimary'}
+                  className={classes.upNextHighlight}
+                >
+                  {'Up Next'}
+                </Typography>
+              </Grid>
+              <Grid item xs={12}>
+                <Typography
+                  variant={'body1'}
+                  color={'textPrimary'}
+                  className={classes.upNextTitle}
+                >
+                  {props.exerciseTitle}
+                </Typography>
+              </Grid>
+            </Grid>
+          ) : (
+            <Typography
+              variant={'body1'}
+              color={'textPrimary'}
+              className={classes.title}
+            >
+              {props.exerciseTitle}
+            </Typography>
+          )
         }
         secondary={
           <Grid item xs={12} container alignItems={'center'}>
@@ -61,7 +87,9 @@ export default function SingleListItem(
             </Grid>
             <Grid item xs={12}>
               <Typography
-                className={classes.secondaryTitle}
+                className={clsx({
+                  [classes.secondaryTitle]: !props.upNextTitle,
+                })}
                 variant={'body2'}
                 color={'textSecondary'}
               >
@@ -76,6 +104,7 @@ export default function SingleListItem(
 }
 
 export interface SingleListItemProps {
+  upNextTitle?: boolean;
   exerciseTitle: string;
   repsAndSets: string;
   equipmentIcon?: JSX.Element;
