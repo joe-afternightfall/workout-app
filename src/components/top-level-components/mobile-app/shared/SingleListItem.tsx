@@ -10,6 +10,10 @@ const useStyles = makeStyles(() =>
     root: {
       padding: 0,
     },
+    bottomRoot: {
+      padding: 0,
+      marginTop: -16,
+    },
     title: {
       fontSize: '1.125rem',
       paddingBottom: '1vh',
@@ -41,7 +45,9 @@ export default function SingleListItem(
   const classes = useStyles();
 
   return (
-    <ListItem className={classes.root}>
+    <ListItem
+      className={props.bottomListItem ? classes.bottomRoot : classes.root}
+    >
       <ListItemIcon className={classes.itemIconWrapper}>
         {props.exerciseIcon}
       </ListItemIcon>
@@ -49,7 +55,7 @@ export default function SingleListItem(
         className={classes.textWrapper}
         disableTypography
         primary={
-          props.upNextTitle ? (
+          props.displayUpNextTitle ? (
             <Grid item xs={12} container alignItems={'center'}>
               <Grid item xs={12}>
                 <Typography
@@ -74,7 +80,11 @@ export default function SingleListItem(
             <Typography
               variant={'body1'}
               color={'textPrimary'}
-              className={classes.title}
+              className={
+                props.bottomListItem && props.upNextCard
+                  ? classes.upNextTitle
+                  : classes.title
+              }
             >
               {props.exerciseTitle}
             </Typography>
@@ -87,11 +97,11 @@ export default function SingleListItem(
             </Grid>
             <Grid item xs={12}>
               <Typography
-                className={clsx({
-                  [classes.secondaryTitle]: !props.upNextTitle,
-                })}
                 variant={'body2'}
                 color={'textSecondary'}
+                className={clsx({
+                  [classes.secondaryTitle]: !props.equipmentIcon,
+                })}
               >
                 {props.repsAndSets}
               </Typography>
@@ -104,7 +114,9 @@ export default function SingleListItem(
 }
 
 export interface SingleListItemProps {
-  upNextTitle?: boolean;
+  displayUpNextTitle?: boolean;
+  bottomListItem?: boolean;
+  upNextCard?: boolean;
   exerciseTitle: string;
   repsAndSets: string;
   equipmentIcon?: JSX.Element;
