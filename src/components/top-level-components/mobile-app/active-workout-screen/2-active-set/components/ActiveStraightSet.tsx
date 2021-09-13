@@ -56,7 +56,7 @@ export default function ActiveStraightSet(
 
     straightSets.push(
       <>
-        {setInfo.map((info: ActiveSetInfo, index: number) => {
+        {setInfo.map((info: ActiveSetInfo) => {
           segmentId = info.segmentId;
           setNumber = info.setNumber;
           if (info.exercise) {
