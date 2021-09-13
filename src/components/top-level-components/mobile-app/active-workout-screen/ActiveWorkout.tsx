@@ -1,4 +1,3 @@
-import clsx from 'clsx';
 import React from 'react';
 import { Grid, Slide } from '@material-ui/core';
 import {
@@ -118,7 +117,7 @@ export default function ActiveWorkout(props: ActiveWorkoutProps): JSX.Element {
             <React.Fragment />
           ) : (
             <Grid item xs={12} container alignItems={'flex-end'}>
-              <UpNextCard />
+              <UpNextCard bottomMargin={superset} />
             </Grid>
           )}
         </Grid>
