@@ -1,7 +1,6 @@
 import React from 'react';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { ListItemIcon, Typography } from '@material-ui/core';
-import inclinePressDumbBells from '../../../../../../configs/icons/exercises/dumbells/incline-press-dumbells.png';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItem from '@material-ui/core/ListItem';
 import clsx from 'clsx';
