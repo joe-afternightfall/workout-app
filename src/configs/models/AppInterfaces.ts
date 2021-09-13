@@ -1,3 +1,5 @@
+import { ExerciseVO } from './configurations/ExerciseVO';
+
 export interface Routine {
   id: string;
   name: string;
@@ -73,4 +75,21 @@ export interface ParameterType {
   id: string;
   name: string;
   description: string;
+}
+
+export interface BuiltSets {
+  [key: number]: ActiveSetInfo[];
+}
+
+export interface ActiveSetInfo {
+  setNumber: number;
+  setId: string;
+  segmentId: string;
+  exercise: ExerciseVO | undefined;
+  exerciseOrder: number;
+  weight: number;
+  reps: number;
+  duration: WorkoutDuration;
+  distance: WorkoutDistance;
+  markedDone: boolean;
 }

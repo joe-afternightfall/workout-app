@@ -1,25 +1,19 @@
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import ActiveWorkout, {
-  ActiveSetInfo,
-  ActiveWorkoutProps,
-} from './ActiveWorkout';
-import { State } from '../../../../configs/redux/store';
-import { markCurrentSetAsDone } from '../../../../creators/new-workout/active-workout';
 import {
+  isSuperset,
   getExercise,
   isStraightSet,
-  isSuperset,
 } from '../../../../utils/active-workout';
 import {
-  Segment,
   Set,
+  Segment,
+  BuiltSets,
   WorkoutExercise,
 } from '../../../../configs/models/AppInterfaces';
-
-export interface BuiltSets {
-  [key: number]: ActiveSetInfo[];
-}
+import { State } from '../../../../configs/redux/store';
+import ActiveWorkout, { ActiveWorkoutProps } from './ActiveWorkout';
+import { markCurrentSetAsDone } from '../../../../creators/new-workout/active-workout';
 
 const mapStateToProps = (state: State): ActiveWorkoutProps => {
   const allExercises = state.workoutState.configs.exercises;

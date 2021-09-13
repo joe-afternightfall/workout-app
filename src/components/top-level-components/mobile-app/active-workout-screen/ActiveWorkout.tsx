@@ -2,12 +2,10 @@ import React from 'react';
 import { Grid, Slide } from '@material-ui/core';
 import {
   Segment,
+  BuiltSets,
   WorkoutExercise,
-  WorkoutDuration,
-  WorkoutDistance,
 } from '../../../../configs/models/AppInterfaces';
 import UpNextCard from './3-up-next-card/UpNextCard';
-import { BuiltSets } from './ActiveWorkoutConnector';
 import ActiveWorkoutAppBar from './components/AppBar';
 import ActiveSuperset from './2-active-set/ActiveSuperset';
 import ActiveExercise from './1-active-exercise/ActiveExercise';
@@ -25,26 +23,13 @@ const useStyles = makeStyles(() =>
   })
 );
 
-export interface ActiveSetInfo {
-  setNumber: number;
-  setId: string;
-  segmentId: string;
-  exercise: ExerciseVO | undefined;
-  exerciseOrder: number;
-  weight: number;
-  reps: number;
-  duration: WorkoutDuration;
-  distance: WorkoutDistance;
-  markedDone: boolean;
-}
-
 export default function ActiveWorkout(props: ActiveWorkoutProps): JSX.Element {
   const classes = useStyles();
   const { superset, lastSegment, straightSet, currentSegment, builtSets } =
     props;
 
-  const scrollToSection = () => {
-    scroller.scrollTo('third-set-row', {
+  const scrollToSection = (setNumber: number) => {
+    scroller.scrollTo(`active-set-${setNumber}`, {
       duration: 800,
       delay: 0,
       smooth: 'easeInOutQuart',
@@ -57,10 +42,11 @@ export default function ActiveWorkout(props: ActiveWorkoutProps): JSX.Element {
     lastSet: boolean,
     lastSegment: boolean
   ) => {
-    // todo: scrollToSection
     // todo: if last exercise/last segment/last phase call workout done
     if (lastSet || lastSegment) {
       scroll.scrollToTop();
+    } else {
+      scrollToSection(setNumber + 1);
     }
     props.crushedItClickHandler(segmentId, setNumber, lastSet, lastSegment);
   };

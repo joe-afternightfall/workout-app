@@ -1,10 +1,12 @@
 import React from 'react';
 import BaseSet from './BaseSet';
 import { Grid } from '@material-ui/core';
-import { ActiveSetInfo } from '../ActiveWorkout';
-import { BuiltSets } from '../ActiveWorkoutConnector';
 import CrushedItButton from './components/CrushedItButton';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
+import {
+  BuiltSets,
+  ActiveSetInfo,
+} from '../../../../../configs/models/AppInterfaces';
 
 const useStyles = makeStyles(() =>
   createStyles({
