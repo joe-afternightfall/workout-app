@@ -1,49 +1,38 @@
 import React from 'react';
 import clsx from 'clsx';
-import SetDivider from './SetDivider';
 import { Grid } from '@material-ui/core';
-import SetTextField from './SetTextField';
-import CrushedItButton from './CrushedItButton';
-import { ActiveSetInfo } from '../../ActiveWorkout';
-import { BuiltSets } from '../../ActiveWorkoutConnector';
+import { ActiveSetInfo } from '../ActiveWorkout';
+import SetDivider from './components/SetDivider';
+import SetTextField from './components/SetTextField';
+import { BuiltSets } from '../ActiveWorkoutConnector';
+import CrushedItButton from './components/CrushedItButton';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { isWeightsAndReps } from '../../../../../../utils/active-workout';
-
-// todo: need to handle isDuration param type
+import { isWeightsAndReps } from '../../../../../utils/active-workout';
 
 const useStyles = makeStyles(() =>
   createStyles({
     root: {
-      height: '25vh',
-      marginBottom: 16,
-    },
-    topRow: {
-      marginBottom: '.6vh',
-      borderRadius: '4px 0 0 0',
+      height: '11.5vh',
+      marginBottom: 8,
     },
     bottomRow: {
       borderRadius: '0 0 0 4px',
     },
-    inputRowWrapper: {
-      border: '1px solid',
-      borderColor: '#222323',
-      // borderRadius: 'inherit',
-      height: '12.2vh',
-      // backgroundColor: '#222323',
+    inputWrapper: {
+      borderRadius: '4px 0 0 4px',
+      height: '100%',
+      paddingRight: 4,
     },
     baseColor: {
-      borderColor: '#222323',
       backgroundColor: '#222323',
     },
     activeOrange: {
-      borderColor: '#ED440B',
       backgroundColor: '#ED440B',
     },
     didItButton: {
       width: '100%',
       height: '100%',
       borderRadius: '0 8px 8px 0',
-      // backgroundColor: '#222323',
     },
     done: {
       borderColor: '#ED440B',
@@ -53,11 +42,11 @@ const useStyles = makeStyles(() =>
   })
 );
 
-export default function ActiveSuperset(
-  props: ActiveSupersetProps
+export default function ActiveStraightSet(
+  props: ActiveStraightSetProps
 ): JSX.Element {
   const classes = useStyles();
-  const supersets: JSX.Element[] = [];
+  const straightSets: JSX.Element[] = [];
   let segmentId = '';
 
   Object.values(props.builtSets).map((setInfo: ActiveSetInfo[]) => {
@@ -65,28 +54,38 @@ export default function ActiveSuperset(
     let setNumber = -1;
     let markedDone = false;
     let lastSet = false;
-    const crushedItHandler = () => {
-      props.didItClickHandler(segmentId, setNumber, lastSet, props.lastSegment);
-    };
 
-    supersets.push(
-      <Grid container alignItems={'center'} className={classes.root}>
-        <Grid item xs={8} style={{ paddingRight: 4 }}>
-          {setInfo.map((info: ActiveSetInfo, index: number) => {
-            segmentId = info.segmentId;
-            setNumber = info.setNumber;
-            if (info.exercise) {
-              activeSet = props.currentSetIndex === info.setNumber;
-              markedDone = info.markedDone;
-              lastSet = Object.keys(props.builtSets).length === info.setNumber;
-              return (
+    straightSets.push(
+      <>
+        {setInfo.map((info: ActiveSetInfo) => {
+          segmentId = info.segmentId;
+          setNumber = info.setNumber;
+          const crushedItHandler = () => {
+            props.didItClickHandler(
+              segmentId,
+              setNumber,
+              lastSet,
+              props.lastSegment
+            );
+          };
+          if (info.exercise) {
+            activeSet = props.currentSetIndex === info.setNumber;
+            markedDone = info.markedDone;
+            lastSet = Object.keys(props.builtSets).length === info.setNumber;
+            return (
+              <Grid
+                item
+                xs={12}
+                container
+                alignItems={'center'}
+                className={classes.root}
+              >
                 <Grid
                   item
-                  xs={12}
+                  xs={8}
                   container
                   className={clsx(
-                    classes.inputRowWrapper,
-                    index === 0 ? classes.topRow : classes.bottomRow,
+                    classes.inputWrapper,
                     activeSet ? classes.activeOrange : classes.baseColor,
                     markedDone ? classes.done : undefined
                   )}
@@ -115,25 +114,26 @@ export default function ActiveSuperset(
                     />
                   )}
                 </Grid>
-              );
-            }
-          })}
-        </Grid>
-        <Grid item xs={4} style={{ height: '100%' }}>
-          <CrushedItButton
-            activeSet={activeSet}
-            markedDone={markedDone}
-            crushedItClickHandler={crushedItHandler}
-          />
-        </Grid>
-      </Grid>
+
+                <Grid item xs={4} style={{ height: '100%', paddingLeft: 4 }}>
+                  <CrushedItButton
+                    activeSet={activeSet}
+                    markedDone={markedDone}
+                    crushedItClickHandler={crushedItHandler}
+                  />
+                </Grid>
+              </Grid>
+            );
+          }
+        })}
+      </>
     );
   });
 
-  return <div>{supersets.map((element) => element)}</div>;
+  return <Grid container>{straightSets.map((element) => element)}</Grid>;
 }
 
-export interface ActiveSupersetProps {
+export interface ActiveStraightSetProps {
   builtSets: BuiltSets;
   currentSetIndex: number;
   didItClickHandler: (

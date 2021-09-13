@@ -9,12 +9,12 @@ import {
 import UpNextCard from './3-up-next-card/UpNextCard';
 import { BuiltSets } from './ActiveWorkoutConnector';
 import ActiveWorkoutAppBar from './components/AppBar';
+import ActiveSuperset from './2-active-set/ActiveSuperset';
 import ActiveExercise from './1-active-exercise/ActiveExercise';
+import ActiveStraightSet from './2-active-set/ActiveStraightSet';
 import { scroller, animateScroll as scroll } from 'react-scroll';
 import { getExerciseName } from '../../../../utils/active-workout';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import ActiveSuperset from './2-active-set/components/ActiveSuperset';
-import ActiveStraightSet from './2-active-set/components/ActiveStraightSet';
 import { ExerciseVO } from '../../../../configs/models/configurations/ExerciseVO';
 
 const useStyles = makeStyles(() =>
