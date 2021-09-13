@@ -60,10 +60,7 @@ export default function ActiveWorkout(props: ActiveWorkoutProps): JSX.Element {
   return (
     <Slide mountOnEnter unmountOnExit in={true} direction={'up'}>
       <div>
-        <ActiveWorkoutAppBar
-          currentSegmentCount={`${props.currentSegmentIndex}/${props.totalSegments}`}
-          phaseTitle={props.phaseName}
-        />
+        <ActiveWorkoutAppBar />
 
         <div className={classes.toolbarMixin} />
 
@@ -122,11 +119,8 @@ export default function ActiveWorkout(props: ActiveWorkoutProps): JSX.Element {
 }
 
 export interface ActiveWorkoutProps {
-  phaseName: string;
   allExercises: ExerciseVO[];
-  currentSegmentIndex: number;
   currentSetIndex: number;
-  totalSegments: number;
   superset: boolean;
   straightSet: boolean;
   lastSegment: boolean;

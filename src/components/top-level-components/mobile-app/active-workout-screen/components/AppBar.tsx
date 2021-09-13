@@ -11,7 +11,9 @@ import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import ListIcon from '@material-ui/icons/List';
 import { routerActions } from 'connected-react-router';
+import { State } from '../../../../../configs/redux/store';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
+import { getPhaseName } from '../../../../../utils/workout-configs';
 import { DASHBOARD_SCREEN_PATH } from '../../../../../configs/constants/app';
 
 const useStyles = makeStyles(() =>
@@ -36,9 +38,7 @@ const useStyles = makeStyles(() =>
   })
 );
 
-const ActiveWorkoutAppBar = (
-  props: ActiveWorkoutAppBarProps & PassedInProps
-): JSX.Element => {
+const ActiveWorkoutAppBar = (props: ActiveWorkoutAppBarProps): JSX.Element => {
   const classes = useStyles();
 
   return (
@@ -67,7 +67,7 @@ const ActiveWorkoutAppBar = (
               justify={'center'}
               alignItems={'flex-end'}
             >
-              <Typography variant={'subtitle2'}>{props.phaseTitle}</Typography>
+              <Typography variant={'subtitle2'}>{props.phaseName}</Typography>
             </Grid>
 
             <Grid
@@ -100,17 +100,23 @@ const ActiveWorkoutAppBar = (
   );
 };
 
-interface PassedInProps {
-  phaseTitle: string;
-  currentSegmentCount: string;
-}
-
 interface ActiveWorkoutAppBarProps {
+  phaseName: string;
+  currentSegmentCount: string;
   exitClickHandler: () => void;
 }
 
-const mapStateToProps = (): ActiveWorkoutAppBarProps => {
-  return {} as unknown as ActiveWorkoutAppBarProps;
+const mapStateToProps = (state: State): ActiveWorkoutAppBarProps => {
+  const totalSegments = state.workoutState.currentPhase.segments.length;
+  const currentSegmentIndex = state.workoutState.currentSegmentIndex;
+
+  return {
+    phaseName: getPhaseName(
+      state.workoutState.configs.phases,
+      state.workoutState.currentPhase.phaseId
+    ),
+    currentSegmentCount: `${currentSegmentIndex}/${totalSegments}`,
+  } as unknown as ActiveWorkoutAppBarProps;
 };
 
 const mapDispatchToProps = (dispatch: Dispatch): ActiveWorkoutAppBarProps =>
