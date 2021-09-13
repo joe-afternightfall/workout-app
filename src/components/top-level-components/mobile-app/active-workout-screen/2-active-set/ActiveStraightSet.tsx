@@ -1,43 +1,16 @@
 import React from 'react';
-import clsx from 'clsx';
+import BaseSet from './BaseSet';
 import { Grid } from '@material-ui/core';
 import { ActiveSetInfo } from '../ActiveWorkout';
-import SetDivider from './components/SetDivider';
-import SetTextField from './components/SetTextField';
 import { BuiltSets } from '../ActiveWorkoutConnector';
 import CrushedItButton from './components/CrushedItButton';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { isWeightsAndReps } from '../../../../../utils/active-workout';
 
 const useStyles = makeStyles(() =>
   createStyles({
     root: {
       height: '11.5vh',
       marginBottom: 8,
-    },
-    bottomRow: {
-      borderRadius: '0 0 0 4px',
-    },
-    inputWrapper: {
-      borderRadius: '4px 0 0 4px',
-      height: '100%',
-      paddingRight: 4,
-    },
-    baseColor: {
-      backgroundColor: '#222323',
-    },
-    activeOrange: {
-      backgroundColor: '#ED440B',
-    },
-    didItButton: {
-      width: '100%',
-      height: '100%',
-      borderRadius: '0 8px 8px 0',
-    },
-    done: {
-      borderColor: '#ED440B',
-      backgroundColor: '#ED440B',
-      opacity: 0.6,
     },
   })
 );
@@ -80,40 +53,17 @@ export default function ActiveStraightSet(
                 alignItems={'center'}
                 className={classes.root}
               >
-                <Grid
-                  item
-                  xs={8}
-                  container
-                  className={clsx(
-                    classes.inputWrapper,
-                    activeSet ? classes.activeOrange : classes.baseColor,
-                    markedDone ? classes.done : undefined
-                  )}
-                >
-                  {isWeightsAndReps(info.exercise.parameterTypeId) ? (
-                    <>
-                      <SetTextField
-                        value={info.weight}
-                        inputAdornment={'lb'}
-                        fullLength={false}
-                      />
-
-                      <SetDivider />
-
-                      <SetTextField
-                        value={info.reps}
-                        inputAdornment={'reps'}
-                        fullLength={false}
-                      />
-                    </>
-                  ) : (
-                    <SetTextField
-                      value={info.reps}
-                      inputAdornment={'reps'}
-                      fullLength={true}
-                    />
-                  )}
-                </Grid>
+                <BaseSet
+                  superset={false}
+                  activeSet={activeSet}
+                  markedDone={markedDone}
+                  scrollToSetNumber={info.setNumber}
+                  info={{
+                    reps: info.reps,
+                    weight: info.weight,
+                    parameterTypeId: info.exercise.parameterTypeId,
+                  }}
+                />
 
                 <Grid item xs={4} style={{ height: '100%', paddingLeft: 4 }}>
                   <CrushedItButton
