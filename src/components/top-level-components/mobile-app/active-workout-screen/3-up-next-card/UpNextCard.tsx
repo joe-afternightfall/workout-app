@@ -27,6 +27,7 @@ const useStyles = makeStyles(() =>
       width: '100%',
     },
     list: {
+      width: '100%',
       paddingTop: 0,
       paddingBottom: 0,
     },
