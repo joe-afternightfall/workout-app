@@ -1,12 +1,13 @@
 import React from 'react';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { Button, Grid } from '@material-ui/core';
 import clsx from 'clsx';
-import SetTextField from './SetTextField';
 import SetDivider from './SetDivider';
-import { isWeightsAndReps } from '../../../../../../utils/active-workout';
+import { Grid } from '@material-ui/core';
+import SetTextField from './SetTextField';
+import CrushedItButton from './CrushedItButton';
 import { ActiveSetInfo } from '../../ActiveWorkout';
 import { BuiltSets } from '../../ActiveWorkoutConnector';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
+import { isWeightsAndReps } from '../../../../../../utils/active-workout';
 
 // todo: need to handle isDuration param type
 
@@ -64,6 +65,9 @@ export default function ActiveSuperset(
     let setNumber = -1;
     let markedDone = false;
     let lastSet = false;
+    const crushedItHandler = () => {
+      props.didItClickHandler(segmentId, setNumber, lastSet, props.lastSegment);
+    };
 
     supersets.push(
       <Grid container alignItems={'center'} className={classes.root}>
@@ -116,24 +120,11 @@ export default function ActiveSuperset(
           })}
         </Grid>
         <Grid item xs={4} style={{ height: '100%' }}>
-          <Button
-            className={clsx(
-              classes.didItButton,
-              activeSet ? classes.activeOrange : classes.baseColor,
-              markedDone ? classes.done : undefined
-            )}
-            onClick={() => {
-              props.didItClickHandler(
-                segmentId,
-                setNumber,
-                lastSet,
-                props.lastSegment
-              );
-            }}
-            disabled={markedDone}
-          >
-            {'Crushed It'}
-          </Button>
+          <CrushedItButton
+            activeSet={activeSet}
+            markedDone={markedDone}
+            crushedItClickHandler={crushedItHandler}
+          />
         </Grid>
       </Grid>
     );

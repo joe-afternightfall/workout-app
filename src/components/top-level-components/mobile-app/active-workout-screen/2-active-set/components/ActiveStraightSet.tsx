@@ -1,12 +1,13 @@
 import React from 'react';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { ActiveSetInfo } from '../../ActiveWorkout';
-import { Button, Grid } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import clsx from 'clsx';
 import { isWeightsAndReps } from '../../../../../../utils/active-workout';
 import SetTextField from './SetTextField';
 import SetDivider from './SetDivider';
 import { BuiltSets } from '../../ActiveWorkoutConnector';
+import CrushedItButton from './CrushedItButton';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -59,6 +60,14 @@ export default function ActiveStraightSet(
         {setInfo.map((info: ActiveSetInfo) => {
           segmentId = info.segmentId;
           setNumber = info.setNumber;
+          const crushedItHandler = () => {
+            props.didItClickHandler(
+              segmentId,
+              setNumber,
+              lastSet,
+              props.lastSegment
+            );
+          };
           if (info.exercise) {
             activeSet = props.currentSetIndex === info.setNumber;
             markedDone = info.markedDone;
@@ -107,24 +116,11 @@ export default function ActiveStraightSet(
                 </Grid>
 
                 <Grid item xs={4} style={{ height: '100%', paddingLeft: 4 }}>
-                  <Button
-                    className={clsx(
-                      classes.didItButton,
-                      activeSet ? classes.activeOrange : classes.baseColor,
-                      markedDone ? classes.done : undefined
-                    )}
-                    onClick={() => {
-                      props.didItClickHandler(
-                        segmentId,
-                        setNumber,
-                        lastSet,
-                        props.lastSegment
-                      );
-                    }}
-                    disabled={markedDone}
-                  >
-                    {'Crushed It'}
-                  </Button>
+                  <CrushedItButton
+                    activeSet={activeSet}
+                    markedDone={markedDone}
+                    crushedItClickHandler={crushedItHandler}
+                  />
                 </Grid>
               </Grid>
             );
