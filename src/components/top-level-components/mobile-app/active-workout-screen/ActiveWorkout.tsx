@@ -1,21 +1,22 @@
+import clsx from 'clsx';
 import React from 'react';
-import { scroller } from 'react-scroll';
-import { getExerciseName } from '../../../../utils/active-workout';
 import { Grid, Slide } from '@material-ui/core';
 import {
+  Segment,
   WorkoutExercise,
   WorkoutDuration,
   WorkoutDistance,
-  Segment,
 } from '../../../../configs/models/AppInterfaces';
 import UpNextCard from './3-up-next-card/UpNextCard';
+import { BuiltSets } from './ActiveWorkoutConnector';
 import ActiveWorkoutAppBar from './components/AppBar';
 import ActiveExercise from './1-active-exercise/ActiveExercise';
+import { scroller, animateScroll as scroll } from 'react-scroll';
+import { getExerciseName } from '../../../../utils/active-workout';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import ActiveSuperset from './2-active-set/components/ActiveSuperset';
 import ActiveStraightSet from './2-active-set/components/ActiveStraightSet';
 import { ExerciseVO } from '../../../../configs/models/configurations/ExerciseVO';
-import { BuiltSets } from './ActiveWorkoutConnector';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -51,10 +52,18 @@ export default function ActiveWorkout(props: ActiveWorkoutProps): JSX.Element {
     });
   };
 
-  const didItClickHandler = () => {
+  const didItClickHandler = (
+    segmentId: string,
+    setNumber: number,
+    lastSet: boolean,
+    lastSegment: boolean
+  ) => {
     // todo: scrollToSection
-    // todo: if last segment reset all and increment to next phase
     // todo: if last exercise/last segment/last phase call workout done
+    if (lastSet || lastSegment) {
+      scroll.scrollToTop();
+    }
+    props.crushedItClickHandler(segmentId, setNumber, lastSet, lastSegment);
   };
 
   return (
@@ -91,7 +100,7 @@ export default function ActiveWorkout(props: ActiveWorkoutProps): JSX.Element {
                 lastSegment={lastSegment}
                 currentSetIndex={props.currentSetIndex}
                 builtSets={builtSets}
-                didItClickHandler={props.crushedItClickHandler}
+                didItClickHandler={didItClickHandler}
               />
             )}
             {straightSet && (
@@ -99,7 +108,7 @@ export default function ActiveWorkout(props: ActiveWorkoutProps): JSX.Element {
                 lastSegment={lastSegment}
                 currentSetIndex={props.currentSetIndex}
                 builtSets={builtSets}
-                didItClickHandler={props.crushedItClickHandler}
+                didItClickHandler={didItClickHandler}
               />
             )}
           </Grid>
