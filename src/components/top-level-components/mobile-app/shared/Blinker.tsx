@@ -8,7 +8,7 @@ const useStyles = makeStyles(() =>
         opacity: 1,
       },
       to: {
-        opacity: 0.2,
+        opacity: 0.6,
       },
     },
     flicker: {
