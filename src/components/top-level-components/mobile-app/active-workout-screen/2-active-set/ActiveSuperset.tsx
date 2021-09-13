@@ -1,6 +1,7 @@
 import React from 'react';
 import BaseSet from './BaseSet';
 import { Grid } from '@material-ui/core';
+import Blinker from '../../shared/Blinker';
 import CrushedItButton from './components/CrushedItButton';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import {
@@ -31,52 +32,67 @@ export default function ActiveSuperset(
   const supersets: JSX.Element[] = [];
   let segmentId = '';
 
-  Object.values(props.builtSets).map((setInfo: ActiveSetInfo[]) => {
-    let activeSet = false;
-    let setNumber = -1;
-    let markedDone = false;
-    let lastSet = false;
-    const crushedItHandler = () => {
-      props.didItClickHandler(segmentId, setNumber, lastSet, props.lastSegment);
-    };
+  Object.values(props.builtSets).map(
+    (setInfo: ActiveSetInfo[], index: number) => {
+      let activeSet = false;
+      let setNumber = -1;
+      let markedDone = false;
+      let lastSet = false;
+      const crushedItHandler = () => {
+        props.didItClickHandler(
+          segmentId,
+          setNumber,
+          lastSet,
+          props.lastSegment
+        );
+      };
 
-    supersets.push(
-      <Grid container alignItems={'center'} className={classes.root}>
-        <Grid item xs={8} style={{ paddingRight: 4 }}>
-          {setInfo.map((info: ActiveSetInfo, index: number) => {
-            segmentId = info.segmentId;
-            setNumber = info.setNumber;
-            if (info.exercise) {
-              activeSet = props.currentSetIndex === info.setNumber;
-              markedDone = info.markedDone;
-              lastSet = Object.keys(props.builtSets).length === info.setNumber;
-              return (
-                <BaseSet
-                  superset={true}
+      supersets.push(
+        <Blinker
+          shouldBlink={props.currentSetIndex === index + 1}
+          component={
+            <Grid container alignItems={'center'} className={classes.root}>
+              <Grid item xs={8} style={{ paddingRight: 4 }}>
+                {setInfo.map((info: ActiveSetInfo, index: number) => {
+                  segmentId = info.segmentId;
+                  setNumber = info.setNumber;
+                  if (info.exercise) {
+                    activeSet = props.currentSetIndex === info.setNumber;
+                    markedDone = info.markedDone;
+                    lastSet =
+                      Object.keys(props.builtSets).length === info.setNumber;
+                    return (
+                      <BaseSet
+                        superset={true}
+                        activeSet={activeSet}
+                        markedDone={markedDone}
+                        scrollToSetNumber={setNumber}
+                        extraStyles={
+                          index === 0 ? classes.topRow : classes.bottomRow
+                        }
+                        info={{
+                          reps: info.reps,
+                          weight: info.weight,
+                          parameterTypeId: info.exercise.parameterTypeId,
+                        }}
+                      />
+                    );
+                  }
+                })}
+              </Grid>
+              <Grid item xs={4} style={{ height: '100%' }}>
+                <CrushedItButton
                   activeSet={activeSet}
                   markedDone={markedDone}
-                  scrollToSetNumber={setNumber}
-                  extraStyles={index === 0 ? classes.topRow : classes.bottomRow}
-                  info={{
-                    reps: info.reps,
-                    weight: info.weight,
-                    parameterTypeId: info.exercise.parameterTypeId,
-                  }}
+                  crushedItClickHandler={crushedItHandler}
                 />
-              );
-            }
-          })}
-        </Grid>
-        <Grid item xs={4} style={{ height: '100%' }}>
-          <CrushedItButton
-            activeSet={activeSet}
-            markedDone={markedDone}
-            crushedItClickHandler={crushedItHandler}
-          />
-        </Grid>
-      </Grid>
-    );
-  });
+              </Grid>
+            </Grid>
+          }
+        />
+      );
+    }
+  );
 
   return <div>{supersets.map((element) => element)}</div>;
 }

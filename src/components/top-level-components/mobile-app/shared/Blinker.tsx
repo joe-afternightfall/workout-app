@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import React from 'react';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 
@@ -29,7 +30,7 @@ export default function Blinker(props: BlinkerProps): JSX.Element {
     shouldBlink: props.shouldBlink,
   });
 
-  return <div className={`${flicker} ${withAnimation}`}>{props.component}</div>;
+  return <div className={clsx(flicker, withAnimation)}>{props.component}</div>;
 }
 
 export interface BlinkerProps {
