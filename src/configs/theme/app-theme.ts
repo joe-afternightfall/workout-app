@@ -1,9 +1,8 @@
-import { Palette } from '@material-ui/core/styles/createPalette';
 import createMuiTheme, {
   Theme,
   ThemeOptions,
 } from '@material-ui/core/styles/createMuiTheme';
-import { blue, indigo } from '@material-ui/core/colors';
+import { Palette } from '@material-ui/core/styles/createPalette';
 
 interface CustomPalette extends Palette {
   colors: {
@@ -31,7 +30,7 @@ interface AppThemeOptions extends ThemeOptions {
   palette: CustomPalette;
 }
 
-export function getLightTheme(): Theme {
+export function getTheme(): Theme {
   return createMuiTheme({
     palette: {
       colors: {
@@ -63,21 +62,19 @@ export function getLightTheme(): Theme {
         // secondary: '#686868',
       },
       type: 'dark',
-      primary: indigo,
-      secondary: blue,
-      // primary: {
-      //   light: '#474F8F',
-      //   main: '#1A2474',
-      //   dark: '#121951',
-      //   // contrastText: '#6B8E9B',
-      //   contrastText: '#FFF',
-      // },
-      // secondary: {
-      //   light: '#8B77F4',
-      //   main: '#6F55F2',
-      //   dark: '#4D3BA9',
-      //   contrastText: '#FFF',
-      // },
+      primary: {
+        light: '#F0693B',
+        main: '#ED440B',
+        dark: '#A52F07',
+        // contrastText: '#6B8E9B',
+        contrastText: '#FFF',
+      },
+      secondary: {
+        light: '#834BFF',
+        main: '#651FFF',
+        dark: '#4615B2',
+        contrastText: '#FFF',
+      },
     },
   } as unknown as AppThemeOptions);
 }
