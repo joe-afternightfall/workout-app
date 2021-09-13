@@ -8,7 +8,7 @@ const useStyles = makeStyles(() =>
         opacity: 1,
       },
       to: {
-        opacity: 0.6,
+        opacity: 0.2,
       },
     },
     flicker: {
@@ -18,21 +18,21 @@ const useStyles = makeStyles(() =>
       animationDirection: 'alternate',
       animationTimingFunction: 'ease-in-out',
     },
-    withAnimation: ({ disabled }: { disabled: boolean }) => ({
-      animationPlayState: disabled ? 'paused' : 'running',
+    withAnimation: ({ shouldBlink }: { shouldBlink: boolean }) => ({
+      animationPlayState: shouldBlink ? 'running' : 'paused',
     }),
   })
 );
 
 export default function Blinker(props: BlinkerProps): JSX.Element {
-  const { flicker, withAnimation } = useStyles({ disabled: props.disabled });
+  const { flicker, withAnimation } = useStyles({
+    shouldBlink: props.shouldBlink,
+  });
 
-  return (
-    <span className={`${flicker} ${withAnimation}`}>{props.component}</span>
-  );
+  return <div className={`${flicker} ${withAnimation}`}>{props.component}</div>;
 }
 
 export interface BlinkerProps {
-  disabled: boolean;
+  shouldBlink: boolean;
   component: JSX.Element;
 }
