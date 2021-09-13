@@ -29,6 +29,7 @@ const useStyles = makeStyles(() =>
       backgroundColor: 'gray',
       padding: 4,
       width: '15vh',
+      height: '15vh',
     },
   })
 );
@@ -43,11 +44,11 @@ export default function ExerciseItem(props: ExerciseItemProps): JSX.Element {
       })}
     >
       <ListItemIcon className={classes.iconWrapper}>
-        <img
-          alt={'exercise-icon'}
-          src={inclinePressDumbBells}
-          className={classes.exerciseIcon}
-        />
+        {/*<img*/}
+        {/*  alt={'exercise-icon'}*/}
+        {/*  src={inclinePressDumbBells}*/}
+        {/*  className={classes.exerciseIcon}*/}
+        {/*/>*/}
       </ListItemIcon>
       <ListItemText
         className={classes.textWrapper}
