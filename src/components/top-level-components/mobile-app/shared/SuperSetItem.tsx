@@ -4,7 +4,7 @@ import SingleListItem from './SingleListItem';
 
 export default function SuperSetItem(props: SuperSetItemProps): JSX.Element {
   return (
-    <div>
+    <>
       <SingleListItem
         displayUpNextTitle={props.displayUpNextTitle}
         exerciseTitle={props.firstExerciseTitle}
@@ -21,7 +21,7 @@ export default function SuperSetItem(props: SuperSetItemProps): JSX.Element {
         repsAndSets={props.secondExerciseRepsAndSets}
         equipmentIcon={props.secondEquipmentIcon}
       />
-    </div>
+    </>
   );
 }
 

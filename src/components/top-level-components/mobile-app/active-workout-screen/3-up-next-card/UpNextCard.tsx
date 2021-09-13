@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Card } from '@material-ui/core';
+import { Grid, Card, List } from '@material-ui/core';
 import { connect } from 'react-redux';
 import {
   Segment,
@@ -19,16 +19,24 @@ import {
 } from '../../../../../utils/workout-configs';
 import SuperSetItem from '../../shared/SuperSetItem';
 import { ExerciseVO } from '../../../../../configs/models/configurations/ExerciseVO';
+import clsx from 'clsx';
 
 const useStyles = makeStyles(() =>
   createStyles({
     root: {
       width: '100%',
     },
+    list: {
+      paddingTop: 0,
+      paddingBottom: 0,
+    },
+    bottomMargin: {
+      marginBottom: 12,
+    },
   })
 );
 
-const UpNextCard = (props: UpNextCardProps): JSX.Element => {
+const UpNextCard = (props: UpNextCardProps & PassedInProps): JSX.Element => {
   const classes = useStyles();
   let display = <div />;
 
@@ -67,13 +75,21 @@ const UpNextCard = (props: UpNextCardProps): JSX.Element => {
   }
 
   return (
-    <Card className={classes.root}>
+    <Card
+      className={clsx(classes.root, {
+        [classes.bottomMargin]: props.bottomMargin,
+      })}
+    >
       <Grid item xs={12} container>
-        {display}
+        <List className={classes.list}>{display}</List>
       </Grid>
     </Card>
   );
 };
+
+interface PassedInProps {
+  bottomMargin?: boolean;
+}
 
 export interface UpNextCardProps {
   nextSegment: Segment;
