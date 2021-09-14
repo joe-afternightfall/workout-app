@@ -39,34 +39,32 @@ const PreviewWorkoutList = (props: PreviewWorkoutListProps): JSX.Element => {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
-      <Paper elevation={5} square>
-        {props.routinePhases.map((phase: Phase, index: number) => {
-          return (
-            <List
-              key={index}
-              className={classes.listWrapper}
-              subheader={
-                <ListSubheader component={'div'} className={classes.subHeader}>
-                  {getPhaseName(props.configPhases, phase.phaseId)}
-                </ListSubheader>
-              }
-            >
-              {sortPhaseSegments(phase.segments).map((segment: Segment) => {
-                return (
-                  <>
-                    <PreviewListItem key={segment.id} segment={segment} />
-                    <WorkoutListDivider />
-                  </>
-                );
-              })}
-            </List>
-          );
-        })}
+    <Paper elevation={5} square className={classes.root}>
+      {props.routinePhases.map((phase: Phase, index: number) => {
+        return (
+          <List
+            key={index}
+            className={classes.listWrapper}
+            subheader={
+              <ListSubheader component={'div'} className={classes.subHeader}>
+                {getPhaseName(props.configPhases, phase.phaseId)}
+              </ListSubheader>
+            }
+          >
+            {sortPhaseSegments(phase.segments).map((segment: Segment) => {
+              return (
+                <>
+                  <PreviewListItem key={segment.id} segment={segment} />
+                  <WorkoutListDivider />
+                </>
+              );
+            })}
+          </List>
+        );
+      })}
 
-        <BottomActionButtons />
-      </Paper>
-    </div>
+      <BottomActionButtons />
+    </Paper>
   );
 };
 
