@@ -13,6 +13,7 @@ import { connect } from 'react-redux';
 import { routerActions } from 'connected-react-router';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
+import { editPreviewList } from '../../../../../../creators/new-workout/workout-selections';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -82,11 +83,12 @@ const MessageAppBar = (
 
           <Grid item xs={2} container justify={'flex-end'}>
             <Button
+              variant={'text'}
               color={'primary'}
               className={clsx({
                 [classes.hide]: appBarMessage !== 'Preview Workout',
               })}
-              variant={'text'}
+              onClick={props.editClickHandler}
             >
               {'Edit'}
             </Button>
@@ -104,6 +106,7 @@ interface PassedInProps {
 
 export interface MessageAppBarProps {
   routeClickHandler: () => void;
+  editClickHandler: () => void;
 }
 
 const mapStateToProps = (): MessageAppBarProps => {
@@ -114,6 +117,9 @@ const mapDispatchToProps = (dispatch: Dispatch): MessageAppBarProps =>
   ({
     routeClickHandler: () => {
       dispatch(routerActions.goBack());
+    },
+    editClickHandler: () => {
+      dispatch(editPreviewList());
     },
   } as unknown as MessageAppBarProps);
 
