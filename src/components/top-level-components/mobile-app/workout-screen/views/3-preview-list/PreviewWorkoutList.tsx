@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import { routerActions } from 'connected-react-router';
-import { Button, ListSubheader, Paper } from '@material-ui/core';
+import { ListSubheader, Paper } from '@material-ui/core';
 import { State } from '../../../../../../configs/redux/store';
 import WorkoutListDivider from '../../../shared/WorkoutListDivider';
 import { Phase, Segment } from '../../../../../../configs/models/AppInterfaces';
@@ -16,28 +16,21 @@ import {
 import { PhaseVO } from '../../../../../../configs/models/configurations/PhaseVO';
 import PreviewListItem from './PreviewListItem';
 import { startWorkout } from '../../../../../../creators/new-workout/workout-selections';
+import BottomActionButtons from './BottomActionButtons';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       height: '87vh',
     },
+    subHeader: {
+      zIndex: 2,
+    },
     listWrapper: {
       width: '100%',
       paddingTop: 0,
       paddingBottom: '6vh',
       backgroundColor: theme.palette.background.paper,
-    },
-    startButton: {
-      borderRadius: 0,
-      height: '6vh',
-      width: '100%',
-      background: theme.palette.primary.main,
-      position: 'fixed',
-      bottom: 0,
-      '&:hover': {
-        background: theme.palette.primary.dark,
-      },
     },
   })
 );
@@ -54,7 +47,7 @@ const PreviewWorkoutList = (props: PreviewWorkoutListProps): JSX.Element => {
               key={index}
               className={classes.listWrapper}
               subheader={
-                <ListSubheader component={'div'}>
+                <ListSubheader component={'div'} className={classes.subHeader}>
                   {getPhaseName(props.configPhases, phase.phaseId)}
                 </ListSubheader>
               }
@@ -71,12 +64,7 @@ const PreviewWorkoutList = (props: PreviewWorkoutListProps): JSX.Element => {
           );
         })}
 
-        <Button
-          className={classes.startButton}
-          onClick={props.startClickHandler}
-        >
-          {'Start Workout'}
-        </Button>
+        <BottomActionButtons />
       </Paper>
     </div>
   );

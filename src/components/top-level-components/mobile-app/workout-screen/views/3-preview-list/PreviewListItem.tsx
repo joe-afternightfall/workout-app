@@ -15,6 +15,7 @@ import {
   isStraightSet,
   isSuperset,
 } from '../../../../../../utils/active-workout';
+import EditOptions from '../../../shared/EditOptions';
 
 const PreviewListItem = (
   props: PreviewListItemProps & PassedInProps
@@ -26,28 +27,35 @@ const PreviewListItem = (
     isCircuitSet(props.segment.trainingSetTypeId)
   ) {
     return (
-      <SingleListItem
-        exerciseTitle={getExerciseName(
-          props.exercises,
-          sortedExercises[0].exerciseId
-        )}
-        repsAndSets={buildRepsAndSets(sortedExercises[0].sets)}
-      />
+      <>
+        {props.displayEditOptions && <EditOptions />}
+        <SingleListItem
+          exerciseTitle={getExerciseName(
+            props.exercises,
+            sortedExercises[0].exerciseId
+          )}
+          repsAndSets={buildRepsAndSets(sortedExercises[0].sets)}
+        />
+      </>
     );
   } else if (isSuperset(props.segment.trainingSetTypeId)) {
     return (
-      <SuperSetItem
-        firstExerciseTitle={getExerciseName(
-          props.exercises,
-          sortedExercises[0].exerciseId
-        )}
-        firstExerciseRepsAndSets={buildRepsAndSets(sortedExercises[0].sets)}
-        secondExerciseTitle={getExerciseName(
-          props.exercises,
-          sortedExercises[1].exerciseId
-        )}
-        secondExerciseRepsAndSets={buildRepsAndSets(sortedExercises[1].sets)}
-      />
+      <>
+        {props.displayEditOptions && <EditOptions superset />}
+        <SuperSetItem
+          displayEditOptions={props.displayEditOptions}
+          firstExerciseTitle={getExerciseName(
+            props.exercises,
+            sortedExercises[0].exerciseId
+          )}
+          firstExerciseRepsAndSets={buildRepsAndSets(sortedExercises[0].sets)}
+          secondExerciseTitle={getExerciseName(
+            props.exercises,
+            sortedExercises[1].exerciseId
+          )}
+          secondExerciseRepsAndSets={buildRepsAndSets(sortedExercises[1].sets)}
+        />
+      </>
     );
   } else {
     return <React.Fragment />;
@@ -60,11 +68,13 @@ interface PassedInProps {
 
 interface PreviewListItemProps {
   exercises: ExerciseVO[];
+  displayEditOptions: boolean;
 }
 
 const mapStateToProps = (state: State): PreviewListItemProps => {
   return {
     exercises: state.workoutState.configs.exercises,
+    displayEditOptions: state.workoutState.editPreviewList,
   } as unknown as PreviewListItemProps;
 };
 

@@ -12,7 +12,7 @@ export default function SuperSetItem(props: SuperSetItemProps): JSX.Element {
         equipmentIcon={props.firstEquipmentIcon}
       />
 
-      <LinkDivider />
+      <LinkDivider shrink={props.displayEditOptions} />
 
       <SingleListItem
         upNextCard
@@ -27,6 +27,7 @@ export default function SuperSetItem(props: SuperSetItemProps): JSX.Element {
 
 export interface SuperSetItemProps {
   displayUpNextTitle?: boolean;
+  displayEditOptions?: boolean;
   firstExerciseTitle: string;
   firstExerciseRepsAndSets: string;
   firstEquipmentIcon?: JSX.Element;
