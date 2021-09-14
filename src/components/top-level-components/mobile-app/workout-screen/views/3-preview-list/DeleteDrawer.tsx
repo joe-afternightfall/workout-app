@@ -43,7 +43,6 @@ const DeleteDrawer = (
     <Drawer
       anchor={'bottom'}
       open={props.open}
-      onClose={props.closeHandler}
       classes={{ paper: classes.root }}
     >
       <Grid container spacing={2}>

@@ -15,18 +15,14 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       height: '6vh',
       width: '100%',
-      // background: theme.palette.primary.main,
+      zIndex: 5,
       position: 'fixed',
       bottom: 0,
     },
     button: {
       borderRadius: 0,
       height: '100%',
-      // height: '6vh',
-      // width: '100%',
       background: theme.palette.primary.main,
-      // position: 'fixed',
-      // bottom: 0,
       '&:hover': {
         background: theme.palette.primary.dark,
       },
