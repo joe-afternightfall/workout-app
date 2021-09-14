@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import EditOptions from './EditOptions';
 import {
   getExerciseName,
   buildRepsAndSets,
@@ -15,7 +16,6 @@ import {
   isStraightSet,
   isSuperset,
 } from '../../../../../../utils/active-workout';
-import EditOptions from '../../../shared/EditOptions';
 
 const PreviewListItem = (
   props: PreviewListItemProps & PassedInProps
