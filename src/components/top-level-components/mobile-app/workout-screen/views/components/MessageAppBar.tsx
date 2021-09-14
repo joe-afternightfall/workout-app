@@ -1,7 +1,9 @@
+import clsx from 'clsx';
 import React from 'react';
 import {
   Grid,
   AppBar,
+  Button,
   Toolbar,
   IconButton,
   Typography,
@@ -15,6 +17,7 @@ import { createStyles, makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles(() =>
   createStyles({
     toolbar: {
+      padding: '0 12px',
       height: '8vh',
     },
     menuButton: {
@@ -23,6 +26,9 @@ const useStyles = makeStyles(() =>
     },
     gridWrapper: {
       height: '100%',
+    },
+    hide: {
+      display: 'none',
     },
   })
 );
@@ -58,8 +64,7 @@ const MessageAppBar = (
         <Grid container className={classes.gridWrapper} alignItems={'flex-end'}>
           <Grid item xs={2}>
             <IconButton
-              edge={'start'}
-              color={'inherit'}
+              color={'primary'}
               onClick={
                 props.activeTab === 0 ? routeAndClick : props.clickHandler
               }
@@ -75,7 +80,17 @@ const MessageAppBar = (
             </Grid>
           </Grid>
 
-          <Grid item xs={2} />
+          <Grid item xs={2} container justify={'flex-end'}>
+            <Button
+              color={'primary'}
+              className={clsx({
+                [classes.hide]: appBarMessage !== 'Preview Workout',
+              })}
+              variant={'text'}
+            >
+              {'Edit'}
+            </Button>
+          </Grid>
         </Grid>
       </Toolbar>
     </AppBar>

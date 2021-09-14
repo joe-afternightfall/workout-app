@@ -32,9 +32,12 @@ const useStyles = makeStyles((theme: Theme) =>
       borderRadius: 0,
       height: '6vh',
       width: '100%',
-      background: '#ed440b',
+      background: theme.palette.primary.main,
       position: 'fixed',
       bottom: 0,
+      '&:hover': {
+        background: theme.palette.primary.dark,
+      },
     },
   })
 );
