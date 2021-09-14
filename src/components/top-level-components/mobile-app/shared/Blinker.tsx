@@ -13,6 +13,7 @@ const useStyles = makeStyles(() =>
       },
     },
     flicker: {
+      width: '100%',
       animationName: '$flicker',
       animationDuration: '1000ms',
       animationIterationCount: 'infinite',
