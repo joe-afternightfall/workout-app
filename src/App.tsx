@@ -7,7 +7,7 @@ import {
 } from '@material-ui/core/styles';
 import React, { Component } from 'react';
 import { Styles } from '@material-ui/styles';
-import { getLightTheme } from './configs/theme/light-theme';
+import { getTheme } from './configs/theme/app-theme';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBottomNavigation from './components/app-shell/AppBottomNavigation';
 
@@ -22,7 +22,7 @@ class App extends Component<AppProps> {
     const { classes } = this.props;
 
     return (
-      <MuiThemeProvider theme={getLightTheme()}>
+      <MuiThemeProvider theme={getTheme()}>
         <div className={classes.root}>
           <CssBaseline />
 

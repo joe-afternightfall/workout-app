@@ -1,176 +1,129 @@
 import React from 'react';
+import { Grid, Slide } from '@material-ui/core';
 import {
-  Button,
-  Card,
-  Divider,
-  Grid,
-  TextField,
-  Typography,
-  ListItemText,
-  Slide,
-  Toolbar,
-  AppBar,
-} from '@material-ui/core';
-import LinkIcon from '@material-ui/icons/Link';
-import barbellIcon from '../../../../configs/icons/barbell.gif';
+  Segment,
+  BuiltSets,
+  WorkoutExercise,
+} from '../../../../configs/models/AppInterfaces';
+import UpNextCard from './3-up-next-card/UpNextCard';
+import ActiveWorkoutAppBar from './components/AppBar';
+import ActiveSuperset from './2-active-set/ActiveSuperset';
+import ActiveExercise from './1-active-exercise/ActiveExercise';
+import ActiveStraightSet from './2-active-set/ActiveStraightSet';
+import { scroller, animateScroll as scroll } from 'react-scroll';
+import { getExerciseName } from '../../../../utils/active-workout';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { Dispatch } from 'redux';
-import { connect } from 'react-redux';
-import { DASHBOARD_SCREEN_PATH } from '../../../../configs/constants/app';
-import { routerActions } from 'connected-react-router';
-import SuperSetItem from '../shared/SuperSetItem';
+import { ExerciseVO } from '../../../../configs/models/configurations/ExerciseVO';
 
 const useStyles = makeStyles(() =>
   createStyles({
-    toolbar: {
-      height: '10vh',
-    },
-    menuButton: {
-      paddingTop: 8,
-      paddingBottom: 8,
-    },
-    gridWrapper: {
-      height: '100%',
+    toolbarMixin: {
+      height: '7vh',
     },
   })
 );
 
-const ActiveWorkout = (props: ActiveWorkoutProps): JSX.Element => {
+export default function ActiveWorkout(props: ActiveWorkoutProps): JSX.Element {
   const classes = useStyles();
+  const { superset, lastSegment, straightSet, currentSegment, builtSets } =
+    props;
+
+  const scrollToSection = (setNumber: number) => {
+    scroller.scrollTo(`active-set-${setNumber}`, {
+      duration: 800,
+      delay: 0,
+      smooth: 'easeInOutQuart',
+    });
+  };
+
+  const didItClickHandler = (
+    segmentId: string,
+    setNumber: number,
+    lastSet: boolean,
+    lastSegment: boolean
+  ) => {
+    // todo: if last exercise/last segment/last phase call workout done
+    if (lastSet || lastSegment) {
+      scroll.scrollToTop();
+    } else {
+      scrollToSection(setNumber + 1);
+    }
+    props.crushedItClickHandler(segmentId, setNumber, lastSet, lastSegment);
+  };
 
   return (
-    <Grid style={{ height: '100%' }}>
-      <Slide mountOnEnter unmountOnExit in={true} direction={'up'}>
-        <div>
-          <AppBar position={'absolute'}>
-            <Toolbar className={classes.toolbar}>
-              <Grid
-                container
-                className={classes.gridWrapper}
-                alignItems={'center'}
-              >
-                <Grid item xs={2}>
-                  <Button onClick={props.exitClickHandler}>{'exit'}</Button>
-                </Grid>
+    <Slide mountOnEnter unmountOnExit in={true} direction={'up'}>
+      <div>
+        <ActiveWorkoutAppBar />
 
-                <Grid
-                  item
-                  xs={8}
-                  container
-                  justify={'center'}
-                  alignItems={'center'}
-                >
-                  <Grid item>
-                    <Typography variant={'overline'}>{'1/10'}</Typography>
-                  </Grid>
-                </Grid>
+        <div className={classes.toolbarMixin} />
 
-                <Grid item xs={2} />
-              </Grid>
-            </Toolbar>
-          </AppBar>
-
-          <div className={classes.toolbar} />
-
-          <Grid
-            container
-            direction={'column'}
-            alignItems={'stretch'}
-            justify={'space-around'}
-          >
-            <Grid item xs={12} container>
-              <SuperSetItem
-                firstExerciseTitle={'Mountain Climbers'}
-                firstExerciseRepsAndSets={'10 reps | 8 reps | 6 reps | 4 reps'}
-                // firstExerciseIcon={}
-                secondExerciseTitle={'Jumping Jacks'}
-                secondExerciseRepsAndSets={
-                  '20 reps | 38 reps | 46 reps | 54 reps'
-                }
-                // secondExerciseIcon={}
-              />
-            </Grid>
-
-            <Grid item xs={12}>
-              <Grid container>
-                <Grid item xs={8}>
-                  <TextField fullWidth variant={'outlined'} value={'10 reps'} />
-                  <TextField fullWidth variant={'outlined'} value={'20 reps'} />
-                </Grid>
-                <Grid item xs={2}>
-                  <Button>{'Did It'}</Button>
-                </Grid>
-              </Grid>
-            </Grid>
-
-            <Grid item xs={12} container>
-              <Card>
-                <Grid item xs={12} container>
-                  <Grid item xs={12}>
-                    <Typography color={'textPrimary'} variant={'body1'}>
-                      {'Up Next'}
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Typography color={'textPrimary'} variant={'body1'}>
-                      {'Burpee'}
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Typography color={'textSecondary'} variant={'body2'}>
-                      {'10 reps | 8 reps | 6 reps | 4 reps'}
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={12} container alignItems={'center'}>
-                    <img
-                      style={{ height: 18, marginTop: 6 }}
-                      src={barbellIcon}
-                      alt={'barbell'}
-                    />
-                  </Grid>
-                  <Grid
-                    item
-                    xs={12}
-                    container
-                    alignItems={'center'}
-                    style={{ marginTop: -4 }}
-                  >
-                    <Grid item xs={10}>
-                      <Divider variant={'fullWidth'} />
-                    </Grid>
-                    <Grid item xs={2} container alignItems={'center'}>
-                      <LinkIcon style={{ marginLeft: 8 }} />
-                    </Grid>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <ListItemText
-                      primary={'Mountain Climbers'}
-                      secondary={'20 reps | 18 reps | 16 reps | 14 reps'}
-                    />
-                  </Grid>
-                </Grid>
-              </Card>
-            </Grid>
+        <Grid container style={{ height: '87vh' }}>
+          <Grid item xs={12}>
+            <ActiveExercise
+              superset={superset}
+              exerciseTitles={
+                currentSegment
+                  ? currentSegment.exercises.map(
+                      (exercise: WorkoutExercise) => {
+                        return {
+                          title: getExerciseName(
+                            props.allExercises,
+                            exercise.exerciseId
+                          ),
+                        };
+                      }
+                    )
+                  : []
+              }
+            />
           </Grid>
-        </div>
-      </Slide>
-    </Grid>
-  );
-};
 
-export interface ActiveWorkoutProps {
-  exitClickHandler: () => void;
+          <Grid item xs={12}>
+            {superset && (
+              <ActiveSuperset
+                lastSegment={lastSegment}
+                currentSetIndex={props.currentSetIndex}
+                builtSets={builtSets}
+                didItClickHandler={didItClickHandler}
+              />
+            )}
+            {straightSet && (
+              <ActiveStraightSet
+                lastSegment={lastSegment}
+                currentSetIndex={props.currentSetIndex}
+                builtSets={builtSets}
+                didItClickHandler={didItClickHandler}
+              />
+            )}
+          </Grid>
+
+          {/*todo: add logic for displaying message when done with first phase and there is another phase after*/}
+          {lastSegment ? (
+            <React.Fragment />
+          ) : (
+            <Grid item xs={12} container alignItems={'flex-end'}>
+              <UpNextCard bottomMargin={superset} />
+            </Grid>
+          )}
+        </Grid>
+      </div>
+    </Slide>
+  );
 }
 
-const mapStateToProps = (): ActiveWorkoutProps => {
-  return {} as unknown as ActiveWorkoutProps;
-};
-
-const mapDispatchToProps = (dispatch: Dispatch): ActiveWorkoutProps =>
-  ({
-    exitClickHandler: () => {
-      dispatch(routerActions.push(DASHBOARD_SCREEN_PATH));
-    },
-  } as unknown as ActiveWorkoutProps);
-
-export default connect(mapStateToProps, mapDispatchToProps)(ActiveWorkout);
+export interface ActiveWorkoutProps {
+  allExercises: ExerciseVO[];
+  currentSetIndex: number;
+  superset: boolean;
+  straightSet: boolean;
+  lastSegment: boolean;
+  currentSegment: Segment;
+  builtSets: BuiltSets;
+  crushedItClickHandler: (
+    segmentId: string,
+    setNumber: number,
+    lastSet: boolean,
+    lastSegment: boolean
+  ) => void;
+}

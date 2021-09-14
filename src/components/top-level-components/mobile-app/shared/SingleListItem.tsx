@@ -2,22 +2,39 @@ import React from 'react';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { Grid, ListItemIcon, Typography } from '@material-ui/core';
 import ListItemText from '@material-ui/core/ListItemText';
-import barbellIcon from '../../../../configs/icons/barbell.gif';
 import ListItem from '@material-ui/core/ListItem';
+import clsx from 'clsx';
 
 const useStyles = makeStyles(() =>
   createStyles({
     root: {
       padding: 0,
     },
-    listItemText: {
-      margin: '4px 0',
+    bottomRoot: {
+      padding: 0,
+      marginTop: -16,
     },
     title: {
-      fontSize: '0.875rem',
+      fontSize: '1.125rem',
+      paddingBottom: '1vh',
+    },
+    upNextTitle: {
+      fontSize: '1rem',
+    },
+    itemIconWrapper: {
+      backgroundColor: 'gray',
+      padding: 4,
+      width: '13vh',
+      height: '13vh',
+    },
+    textWrapper: {
+      paddingLeft: 12,
     },
     secondaryTitle: {
-      fontSize: '0.775rem',
+      paddingTop: 4,
+    },
+    upNextHighlight: {
+      color: '#ED440B',
     },
   })
 );
@@ -28,34 +45,63 @@ export default function SingleListItem(
   const classes = useStyles();
 
   return (
-    <ListItem className={classes.root}>
-      <ListItemIcon
-        style={{ backgroundColor: 'gray', height: 56, marginRight: 8 }}
-      />
+    <ListItem
+      className={props.bottomListItem ? classes.bottomRoot : classes.root}
+    >
+      <ListItemIcon className={classes.itemIconWrapper}>
+        {props.exerciseIcon}
+      </ListItemIcon>
       <ListItemText
+        className={classes.textWrapper}
         disableTypography
         primary={
-          <Typography
-            variant={'body1'}
-            color={'textPrimary'}
-            className={classes.title}
-          >
-            {props.exerciseTitle}
-          </Typography>
+          props.displayUpNextTitle ? (
+            <Grid item xs={12} container alignItems={'center'}>
+              <Grid item xs={12}>
+                <Typography
+                  variant={'body1'}
+                  color={'textPrimary'}
+                  className={classes.upNextHighlight}
+                >
+                  {'Up Next'}
+                </Typography>
+              </Grid>
+              <Grid item xs={12}>
+                <Typography
+                  variant={'body1'}
+                  color={'textPrimary'}
+                  className={classes.upNextTitle}
+                >
+                  {props.exerciseTitle}
+                </Typography>
+              </Grid>
+            </Grid>
+          ) : (
+            <Typography
+              variant={'body1'}
+              color={'textPrimary'}
+              className={
+                props.bottomListItem && props.upNextCard
+                  ? classes.upNextTitle
+                  : classes.title
+              }
+            >
+              {props.exerciseTitle}
+            </Typography>
+          )
         }
-        className={classes.listItemText}
         secondary={
           <Grid item xs={12} container alignItems={'center'}>
-            <Grid item style={{ height: 20 }} container alignItems={'center'}>
-              <Grid item style={{ height: 16 }}>
-                <img style={{ height: 16 }} src={barbellIcon} alt={'barbell'} />
-              </Grid>
+            <Grid item container alignItems={'center'}>
+              <Grid item>{props.equipmentIcon}</Grid>
             </Grid>
             <Grid item xs={12}>
               <Typography
-                className={classes.secondaryTitle}
                 variant={'body2'}
                 color={'textSecondary'}
+                className={clsx({
+                  [classes.secondaryTitle]: !props.equipmentIcon,
+                })}
               >
                 {props.repsAndSets}
               </Typography>
@@ -68,7 +114,11 @@ export default function SingleListItem(
 }
 
 export interface SingleListItemProps {
+  displayUpNextTitle?: boolean;
+  bottomListItem?: boolean;
+  upNextCard?: boolean;
   exerciseTitle: string;
   repsAndSets: string;
-  // equipmentIcon: JSX.Element;
+  equipmentIcon?: JSX.Element;
+  exerciseIcon?: JSX.Element;
 }

@@ -69,4 +69,5 @@ export const createStore = (history: History): Store => {
 
 export interface State {
   applicationState: ApplicationState;
+  workoutState: WorkoutState;
 }

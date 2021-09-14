@@ -8,7 +8,7 @@ import { State } from './configs/redux/store';
 import { mobileRoutes } from './configs/constants/mobile-routes';
 import { MOBILE_ACTIVE_WORKOUT_SCREEN_PATH } from './configs/constants/app';
 import SignInScreen from './components/top-level-components/sign-in-screen/SignInScreen';
-import ActiveWorkout from './components/top-level-components/mobile-app/active-workout-screen/ActiveWorkout';
+import ActiveWorkout from './components/top-level-components/mobile-app/active-workout-screen/ActiveWorkoutConnector';
 
 const AppRouter = (props: AppRouterProps): JSX.Element => {
   // const theme = useTheme();
