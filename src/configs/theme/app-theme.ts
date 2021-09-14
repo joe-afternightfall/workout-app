@@ -32,6 +32,15 @@ interface AppThemeOptions extends ThemeOptions {
 
 export function getTheme(): Theme {
   return createMuiTheme({
+    overrides: {
+      MuiCssBaseline: {
+        '@global': {
+          '*::-webkit-scrollbar': {
+            display: 'none',
+          },
+        },
+      },
+    },
     palette: {
       colors: {
         // background: '#f3f4f2',
