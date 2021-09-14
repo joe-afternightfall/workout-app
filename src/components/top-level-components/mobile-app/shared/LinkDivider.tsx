@@ -25,7 +25,7 @@ const useStyles = makeStyles(() =>
   })
 );
 
-export default function LinkDivider(): JSX.Element {
+export default function LinkDivider(props: LinkDividerProps): JSX.Element {
   const classes = useStyles();
 
   return (
@@ -35,7 +35,7 @@ export default function LinkDivider(): JSX.Element {
         disableTypography
         className={classes.dividerWrapper}
         primary={
-          <Grid item xs={12} container alignItems={'center'}>
+          <Grid item xs={props.shrink ? 8 : 12} container alignItems={'center'}>
             <Grid item xs={10}>
               <Divider variant={'fullWidth'} />
             </Grid>
@@ -50,5 +50,5 @@ export default function LinkDivider(): JSX.Element {
 }
 
 export interface LinkDividerProps {
-  DELETE_ME?: undefined;
+  shrink?: boolean;
 }
