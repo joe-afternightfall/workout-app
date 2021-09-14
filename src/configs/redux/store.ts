@@ -63,7 +63,9 @@ export const createStore = (history: History): Store => {
       applyHoverStylesToMuscleGroup: '',
       circuitTemplates: [],
     } as unknown as ApplicationState,
-    workoutState: {} as unknown as WorkoutState,
+    workoutState: {
+      editPreviewList: false,
+    } as unknown as WorkoutState,
   });
 };
 

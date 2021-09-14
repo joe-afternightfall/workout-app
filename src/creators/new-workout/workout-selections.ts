@@ -38,3 +38,13 @@ export const startWorkout = (): StartWorkoutAction => {
     type: WorkoutActionTypes.START_WORKOUT,
   };
 };
+
+export interface EditPreviewListAction {
+  type: WorkoutActionTypes.EDIT_PREVIEW_LIST;
+}
+
+export const editPreviewList = (): EditPreviewListAction => {
+  return {
+    type: WorkoutActionTypes.EDIT_PREVIEW_LIST,
+  };
+};
