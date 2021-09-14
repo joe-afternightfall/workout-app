@@ -1,11 +1,12 @@
 import clsx from 'clsx';
-import React from 'react';
+import React, { useState } from 'react';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import { IconButton, Slide } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ReorderIcon from '@material-ui/icons/Reorder';
+import { IconButton, Slide } from '@material-ui/core';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import DeleteDrawer from './DeleteDrawer';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -38,6 +39,15 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const EditOptions = (props: EditOptionsProps & PassedInProps): JSX.Element => {
   const classes = useStyles();
+  const [open, setOpen] = useState(false);
+
+  const openDrawer = () => {
+    setOpen(true);
+  };
+
+  const closeDrawer = () => {
+    setOpen(false);
+  };
 
   return (
     <div
@@ -45,10 +55,12 @@ const EditOptions = (props: EditOptionsProps & PassedInProps): JSX.Element => {
         [classes.superset]: props.superset,
       })}
     >
+      <DeleteDrawer open={open} closeHandler={closeDrawer} />
       <Slide mountOnEnter unmountOnExit direction={'right'} in={true}>
         <IconButton
           className={clsx(classes.baseButton, classes.deleteButton)}
           aria-label={'delete'}
+          onClick={openDrawer}
         >
           <DeleteIcon />
         </IconButton>
