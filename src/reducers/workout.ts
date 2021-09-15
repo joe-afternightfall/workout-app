@@ -14,9 +14,9 @@ import {
   ParameterType,
   Phase,
   Segment,
+  Set,
   TrainingSetType,
   WorkoutExercise,
-  Set,
 } from '../configs/models/AppInterfaces';
 import { WorkoutDAO } from '../configs/models/workout/WorkoutDAO';
 import { v4 as uuidv4 } from 'uuid';
@@ -43,6 +43,10 @@ export default {
         break;
       case WorkoutActionTypes.TOGGLE_EDIT_PREVIEW_LIST:
         newState.displayEditPreviewList = action.display;
+        break;
+      case WorkoutActionTypes.TOGGLE_EDIT_SET:
+        newState.displayEditSet = action.display;
+        newState.editSetSegmentId = action.segmentId;
         break;
       case WorkoutActionTypes.START_WORKOUT: {
         const template = newState.selectedRoutineTemplate;
@@ -189,4 +193,6 @@ export interface WorkoutState {
   totalSegments: number;
   lastSegment: number;
   displayEditPreviewList: boolean;
+  displayEditSet: boolean;
+  editSetSegmentId: string;
 }

@@ -52,3 +52,20 @@ export const toggleEditPreviewOptions = (
     display: display,
   };
 };
+
+export interface ToggleEditSetAction {
+  type: WorkoutActionTypes.TOGGLE_EDIT_SET;
+  display: boolean;
+  segmentId: string;
+}
+
+export const toggleEditSet = (
+  display: boolean,
+  segmentId: string
+): ToggleEditSetAction => {
+  return {
+    type: WorkoutActionTypes.TOGGLE_EDIT_SET,
+    display: display,
+    segmentId: segmentId,
+  };
+};
