@@ -1,9 +1,12 @@
-import React from 'react';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { Grid, ListItemIcon, Typography } from '@material-ui/core';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItem from '@material-ui/core/ListItem';
 import clsx from 'clsx';
+import React from 'react';
+import { Dispatch } from 'redux';
+import { connect } from 'react-redux';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import { Grid, ListItemIcon, Typography } from '@material-ui/core';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
+import { State } from '../../../../configs/redux/store';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -39,15 +42,13 @@ const useStyles = makeStyles(() =>
   })
 );
 
-export default function SingleListItem(
-  props: SingleListItemProps
-): JSX.Element {
+const SingleListItem = (
+  props: SingleListItemProps & PassedInProps
+): JSX.Element => {
   const classes = useStyles();
 
-  return (
-    <ListItem
-      className={props.bottomListItem ? classes.bottomRoot : classes.root}
-    >
+  const display = (
+    <>
       <ListItemIcon className={classes.itemIconWrapper}>
         {props.exerciseIcon}
       </ListItemIcon>
@@ -109,11 +110,27 @@ export default function SingleListItem(
           </Grid>
         }
       />
+    </>
+  );
+
+  return props.displayEditOptions ? (
+    <ListItem
+      button
+      className={props.bottomListItem ? classes.bottomRoot : classes.root}
+      onClick={() => alert('list item clicked')}
+    >
+      {display}
+    </ListItem>
+  ) : (
+    <ListItem
+      className={props.bottomListItem ? classes.bottomRoot : classes.root}
+    >
+      {display}
     </ListItem>
   );
-}
+};
 
-export interface SingleListItemProps {
+interface PassedInProps {
   displayUpNextTitle?: boolean;
   bottomListItem?: boolean;
   upNextCard?: boolean;
@@ -122,3 +139,18 @@ export interface SingleListItemProps {
   equipmentIcon?: JSX.Element;
   exerciseIcon?: JSX.Element;
 }
+
+export interface SingleListItemProps {
+  displayEditOptions: boolean;
+}
+
+const mapStateToProps = (state: State): SingleListItemProps => {
+  return {
+    displayEditOptions: state.workoutState.displayEditPreviewList,
+  } as unknown as SingleListItemProps;
+};
+
+const mapDispatchToProps = (dispatch: Dispatch): SingleListItemProps =>
+  ({} as unknown as SingleListItemProps);
+
+export default connect(mapStateToProps, mapDispatchToProps)(SingleListItem);
