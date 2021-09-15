@@ -54,6 +54,7 @@ export default function BaseSet(props: BaseSetProps): JSX.Element {
       item
       xs={superset ? 12 : 8}
       container
+      alignItems={'center'}
       id={`active-set-${props.scrollToSetNumber}`}
       className={clsx(
         baseClass,
