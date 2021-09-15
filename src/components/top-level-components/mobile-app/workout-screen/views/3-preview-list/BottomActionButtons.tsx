@@ -101,7 +101,7 @@ export interface BottomActionButtonsProps {
 
 const mapStateToProps = (state: State): BottomActionButtonsProps => {
   return {
-    displayEditOptions: state.workoutState.editPreviewList,
+    displayEditOptions: state.workoutState.displayEditPreviewList,
   } as unknown as BottomActionButtonsProps;
 };
 

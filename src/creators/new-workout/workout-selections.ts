@@ -39,12 +39,16 @@ export const startWorkout = (): StartWorkoutAction => {
   };
 };
 
-export interface EditPreviewListAction {
-  type: WorkoutActionTypes.EDIT_PREVIEW_LIST;
+export interface ToggleEditPreviewOptionsAction {
+  type: WorkoutActionTypes.TOGGLE_EDIT_PREVIEW_LIST;
+  display: boolean;
 }
 
-export const editPreviewList = (): EditPreviewListAction => {
+export const toggleEditPreviewOptions = (
+  display: boolean
+): ToggleEditPreviewOptionsAction => {
   return {
-    type: WorkoutActionTypes.EDIT_PREVIEW_LIST,
+    type: WorkoutActionTypes.TOGGLE_EDIT_PREVIEW_LIST,
+    display: display,
   };
 };

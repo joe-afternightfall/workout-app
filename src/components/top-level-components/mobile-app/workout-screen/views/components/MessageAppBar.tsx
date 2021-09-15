@@ -13,7 +13,9 @@ import { connect } from 'react-redux';
 import { routerActions } from 'connected-react-router';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { editPreviewList } from '../../../../../../creators/new-workout/workout-selections';
+import { toggleEditPreviewOptions } from '../../../../../../creators/new-workout/workout-selections';
+import { State } from '../../../../../../configs/redux/store';
+import DiscardDialog from './DiscardDialog';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -64,20 +66,26 @@ const MessageAppBar = (
       <Toolbar className={classes.toolbar}>
         <Grid container className={classes.gridWrapper} alignItems={'flex-end'}>
           <Grid item xs={2}>
-            <IconButton
-              color={'primary'}
-              onClick={
-                props.activeTab === 0 ? routeAndClick : props.clickHandler
-              }
-              className={classes.menuButton}
-            >
-              <ArrowBackIcon fontSize={'small'} />
-            </IconButton>
+            {props.displayEditOptions ? (
+              <DiscardDialog />
+            ) : (
+              <IconButton
+                color={'primary'}
+                onClick={
+                  props.activeTab === 0 ? routeAndClick : props.clickHandler
+                }
+                className={classes.menuButton}
+              >
+                <ArrowBackIcon fontSize={'small'} />
+              </IconButton>
+            )}
           </Grid>
 
           <Grid item xs={8} container justify={'center'} alignItems={'center'}>
             <Grid item>
-              <Typography variant={'overline'}>{appBarMessage}</Typography>
+              <Typography variant={'overline'}>
+                {props.displayEditOptions ? '' : appBarMessage}
+              </Typography>
             </Grid>
           </Grid>
 
@@ -88,9 +96,13 @@ const MessageAppBar = (
               className={clsx({
                 [classes.hide]: appBarMessage !== 'Preview Workout',
               })}
-              onClick={props.editClickHandler}
+              onClick={
+                props.displayEditOptions
+                  ? () => alert('save clicked')
+                  : props.editClickHandler
+              }
             >
-              {'Edit'}
+              {props.displayEditOptions ? 'Save' : 'Edit'}
             </Button>
           </Grid>
         </Grid>
@@ -107,10 +119,13 @@ interface PassedInProps {
 export interface MessageAppBarProps {
   routeClickHandler: () => void;
   editClickHandler: () => void;
+  displayEditOptions: boolean;
 }
 
-const mapStateToProps = (): MessageAppBarProps => {
-  return {} as unknown as MessageAppBarProps;
+const mapStateToProps = (state: State): MessageAppBarProps => {
+  return {
+    displayEditOptions: state.workoutState.displayEditPreviewList,
+  } as unknown as MessageAppBarProps;
 };
 
 const mapDispatchToProps = (dispatch: Dispatch): MessageAppBarProps =>
@@ -119,7 +134,7 @@ const mapDispatchToProps = (dispatch: Dispatch): MessageAppBarProps =>
       dispatch(routerActions.goBack());
     },
     editClickHandler: () => {
-      dispatch(editPreviewList());
+      dispatch(toggleEditPreviewOptions(true));
     },
   } as unknown as MessageAppBarProps);
 

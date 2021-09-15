@@ -74,7 +74,7 @@ interface PreviewListItemProps {
 const mapStateToProps = (state: State): PreviewListItemProps => {
   return {
     exercises: state.workoutState.configs.exercises,
-    displayEditOptions: state.workoutState.editPreviewList,
+    displayEditOptions: state.workoutState.displayEditPreviewList,
   } as unknown as PreviewListItemProps;
 };
 

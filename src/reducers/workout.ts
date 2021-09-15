@@ -41,8 +41,8 @@ export default {
       case WorkoutActionTypes.SELECTED_ROUTINE:
         newState.selectedRoutineTemplate = action.routine;
         break;
-      case WorkoutActionTypes.EDIT_PREVIEW_LIST:
-        newState.editPreviewList = true;
+      case WorkoutActionTypes.TOGGLE_EDIT_PREVIEW_LIST:
+        newState.displayEditPreviewList = action.display;
         break;
       case WorkoutActionTypes.START_WORKOUT: {
         const template = newState.selectedRoutineTemplate;
@@ -188,5 +188,5 @@ export interface WorkoutState {
   currentSetIndex: number;
   totalSegments: number;
   lastSegment: number;
-  editPreviewList: boolean;
+  displayEditPreviewList: boolean;
 }

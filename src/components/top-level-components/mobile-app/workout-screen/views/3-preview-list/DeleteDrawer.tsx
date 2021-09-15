@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     removeButton: {
       width: '100%',
-      color: theme.palette.error.dark,
+      color: '#CC0000',
       borderRadius: '0 0 8px 8px',
     },
     replaceButton: {

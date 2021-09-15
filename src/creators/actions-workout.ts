@@ -1,10 +1,10 @@
 import { LocationChangeAction } from 'connected-react-router';
 import { InitializeWorkoutConfigsAction } from './initialize';
 import {
-  EditPreviewListAction,
   SelectedRoutineAction,
   SelectedWorkoutCategoryAction,
   StartWorkoutAction,
+  ToggleEditPreviewOptionsAction,
 } from './new-workout/workout-selections';
 import { MarkCurrentSetAsDoneAction } from './new-workout/active-workout';
 
@@ -15,7 +15,7 @@ export enum WorkoutActionTypes {
   SELECTED_ROUTINE = 'SELECTED_ROUTINE',
   START_WORKOUT = 'START_WORKOUT',
   MARK_CURRENT_SET_AS_DONE = 'MARK_CURRENT_SET_AS_DONE',
-  EDIT_PREVIEW_LIST = 'EDIT_PREVIEW_LIST',
+  TOGGLE_EDIT_PREVIEW_LIST = 'TOGGLE_EDIT_PREVIEW_LIST',
 }
 
 export type WorkoutActions =
@@ -25,4 +25,4 @@ export type WorkoutActions =
   | SelectedRoutineAction
   | StartWorkoutAction
   | MarkCurrentSetAsDoneAction
-  | EditPreviewListAction;
+  | ToggleEditPreviewOptionsAction;
