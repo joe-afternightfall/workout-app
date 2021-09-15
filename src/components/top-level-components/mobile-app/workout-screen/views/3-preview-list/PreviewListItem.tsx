@@ -30,6 +30,7 @@ const PreviewListItem = (
       <>
         {props.displayEditOptions && <EditOptions />}
         <SingleListItem
+          segmentId={props.segment.id}
           exerciseTitle={getExerciseName(
             props.exercises,
             sortedExercises[0].exerciseId
@@ -43,6 +44,7 @@ const PreviewListItem = (
       <>
         {props.displayEditOptions && <EditOptions superset />}
         <SuperSetItem
+          segmentId={props.segment.id}
           displayEditOptions={props.displayEditOptions}
           firstExerciseTitle={getExerciseName(
             props.exercises,

@@ -61,7 +61,9 @@ const MessageAppBar = (
     props.clickHandler();
   };
 
-  return (
+  return props.displayEditSet ? (
+    <React.Fragment />
+  ) : (
     <AppBar position={'absolute'} color={'transparent'} elevation={0}>
       <Toolbar className={classes.toolbar}>
         <Grid container className={classes.gridWrapper} alignItems={'flex-end'}>
@@ -120,11 +122,13 @@ export interface MessageAppBarProps {
   routeClickHandler: () => void;
   editClickHandler: () => void;
   displayEditOptions: boolean;
+  displayEditSet: boolean;
 }
 
 const mapStateToProps = (state: State): MessageAppBarProps => {
   return {
     displayEditOptions: state.workoutState.displayEditPreviewList,
+    displayEditSet: state.workoutState.displayEditSet,
   } as unknown as MessageAppBarProps;
 };
 
