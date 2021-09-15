@@ -7,6 +7,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import { Grid, ListItemIcon, Typography } from '@material-ui/core';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { State } from '../../../../configs/redux/store';
+import { toggleEditSet } from '../../../../creators/new-workout/workout-selections';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -46,6 +47,12 @@ const SingleListItem = (
   props: SingleListItemProps & PassedInProps
 ): JSX.Element => {
   const classes = useStyles();
+
+  const openEditSet = () => {
+    if (props.segmentId) {
+      props.editSetHandler(props.segmentId);
+    }
+  };
 
   const display = (
     <>
@@ -117,7 +124,7 @@ const SingleListItem = (
     <ListItem
       button
       className={props.bottomListItem ? classes.bottomRoot : classes.root}
-      onClick={() => alert('list item clicked')}
+      onClick={openEditSet}
     >
       {display}
     </ListItem>
@@ -138,10 +145,12 @@ interface PassedInProps {
   repsAndSets: string;
   equipmentIcon?: JSX.Element;
   exerciseIcon?: JSX.Element;
+  segmentId?: string;
 }
 
 export interface SingleListItemProps {
   displayEditOptions: boolean;
+  editSetHandler: (segmentId: string) => void;
 }
 
 const mapStateToProps = (state: State): SingleListItemProps => {
@@ -151,6 +160,10 @@ const mapStateToProps = (state: State): SingleListItemProps => {
 };
 
 const mapDispatchToProps = (dispatch: Dispatch): SingleListItemProps =>
-  ({} as unknown as SingleListItemProps);
+  ({
+    editSetHandler: (segmentId: string) => {
+      dispatch(toggleEditSet(true, segmentId));
+    },
+  } as unknown as SingleListItemProps);
 
 export default connect(mapStateToProps, mapDispatchToProps)(SingleListItem);

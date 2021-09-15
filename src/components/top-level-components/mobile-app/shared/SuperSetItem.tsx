@@ -6,6 +6,7 @@ export default function SuperSetItem(props: SuperSetItemProps): JSX.Element {
   return (
     <>
       <SingleListItem
+        segmentId={props.segmentId}
         displayUpNextTitle={props.displayUpNextTitle}
         exerciseTitle={props.firstExerciseTitle}
         repsAndSets={props.firstExerciseRepsAndSets}
@@ -15,6 +16,7 @@ export default function SuperSetItem(props: SuperSetItemProps): JSX.Element {
       <LinkDivider shrink={props.displayEditOptions} />
 
       <SingleListItem
+        segmentId={props.segmentId}
         upNextCard
         bottomListItem
         exerciseTitle={props.secondExerciseTitle}
@@ -36,4 +38,5 @@ export interface SuperSetItemProps {
   secondExerciseRepsAndSets: string;
   secondEquipmentIcon?: JSX.Element;
   secondExerciseIcon?: JSX.Element;
+  segmentId?: string;
 }

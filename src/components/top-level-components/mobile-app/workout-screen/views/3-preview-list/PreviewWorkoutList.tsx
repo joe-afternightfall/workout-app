@@ -38,7 +38,9 @@ const useStyles = makeStyles((theme: Theme) =>
 const PreviewWorkoutList = (props: PreviewWorkoutListProps): JSX.Element => {
   const classes = useStyles();
 
-  return (
+  return props.displayEditSet ? (
+    <React.Fragment />
+  ) : (
     <Paper elevation={5} square className={classes.root}>
       {props.routinePhases.map((phase: Phase, index: number) => {
         return (
@@ -72,6 +74,7 @@ export interface PreviewWorkoutListProps {
   startClickHandler: () => void;
   routinePhases: Phase[];
   configPhases: PhaseVO[];
+  displayEditSet: boolean;
 }
 
 const mapStateToProps = (state: State): PreviewWorkoutListProps => {
@@ -82,6 +85,7 @@ const mapStateToProps = (state: State): PreviewWorkoutListProps => {
   return {
     routinePhases: sortedPhases,
     configPhases: state.workoutState.configs.phases,
+    displayEditSet: state.workoutState.displayEditSet,
   } as unknown as PreviewWorkoutListProps;
 };
 
