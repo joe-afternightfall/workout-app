@@ -10,7 +10,6 @@ import { Styles } from '@material-ui/styles';
 import { getTheme } from './configs/theme/app-theme';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBottomNavigation from './components/app-shell/AppBottomNavigation';
-import EditSet from './components/top-level-components/mobile-app/workout-screen/views/3-preview-list/EditSet';
 
 const styles: Styles<Theme, StyledComponentProps> = () => ({
   root: {
@@ -25,7 +24,6 @@ class App extends Component<AppProps> {
     return (
       <MuiThemeProvider theme={getTheme()}>
         <div className={classes.root}>
-          <EditSet />
           <CssBaseline />
 
           <main>
