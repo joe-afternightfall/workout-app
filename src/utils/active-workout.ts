@@ -1,4 +1,43 @@
 import { ExerciseVO } from '../configs/models/configurations/ExerciseVO';
+import {
+  BuiltSets,
+  Segment,
+  Set,
+  WorkoutExercise,
+} from '../configs/models/AppInterfaces';
+
+export const buildSetInfo = (
+  segment: Segment,
+  allExercises: ExerciseVO[]
+): BuiltSets => {
+  const builtSets: BuiltSets = {};
+
+  segment.exercises.map((exercise: WorkoutExercise) => {
+    exercise.sets.map((set: Set) => {
+      const exerciseSet = {
+        setNumber: set.setNumber,
+        setId: set.id,
+        segmentId: segment.id,
+        exercise: getExercise(allExercises, exercise.exerciseId),
+        exerciseOrder: exercise.order,
+        weight: set.weight,
+        reps: set.reps,
+        duration: set.duration,
+        distance: set.distance,
+        markedDone: set.markedDone,
+      };
+
+      builtSets[set.setNumber]
+        ? (builtSets[set.setNumber] = [
+            ...builtSets[set.setNumber],
+            exerciseSet,
+          ])
+        : (builtSets[set.setNumber] = [exerciseSet]);
+    });
+  });
+
+  return builtSets;
+};
 
 export const getExerciseName = (
   allExercises: ExerciseVO[],
