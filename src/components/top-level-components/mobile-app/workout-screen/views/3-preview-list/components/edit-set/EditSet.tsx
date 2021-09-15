@@ -2,7 +2,7 @@ import React from 'react';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import { State } from '../../../../../../configs/redux/store';
+import { State } from '../../../../../../../../configs/redux/store';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from '@material-ui/icons/Add';
 import {
@@ -18,16 +18,16 @@ import {
 } from '@material-ui/core';
 import ActiveExercise, {
   Title,
-} from '../../../active-workout-screen/1-active-exercise/ActiveExercise';
+} from '../../../../../active-workout-screen/1-active-exercise/ActiveExercise';
 import {
   getExercise,
   getExerciseName,
   isSuperset,
-} from '../../../../../../utils/active-workout';
+} from '../../../../../../../../utils/active-workout';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import { closeEditSet } from '../../../../../../creators/new-workout/workout-selections';
-import StraightSetRow from '../../../shared/set-fields/StraightSetRow';
-import { Segment } from '../../../../../../configs/models/AppInterfaces';
+import { closeEditSet } from '../../../../../../../../creators/new-workout/workout-selections';
+import StraightSetRow from '../../../../../shared/set-fields/StraightSetRow';
+import { Segment } from '../../../../../../../../configs/models/AppInterfaces';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

@@ -3,13 +3,13 @@ import { connect } from 'react-redux';
 import { Grid } from '@material-ui/core';
 import TabPanel from './views/components/TabPanel';
 import SwipeableViews from 'react-swipeable-views';
-import EditSet from './views/3-preview-list/EditSet';
+import { State } from '../../../../configs/redux/store';
 import MessageAppBar from './views/components/MessageAppBar';
+import EditSet from './views/3-preview-list/components/edit-set/EditSet';
 import PreviewWorkoutList from './views/3-preview-list/PreviewWorkoutList';
 import { useTheme, makeStyles, createStyles } from '@material-ui/core/styles';
 import WorkoutSelectionList from './views/1-workout-selection/WorkoutSelectionList';
 import RoutineSelectionList from './views/2-routine-selection/RoutineSelectionList';
-import { State } from '../../../../configs/redux/store';
 
 const useStyles = makeStyles(() =>
   createStyles({
