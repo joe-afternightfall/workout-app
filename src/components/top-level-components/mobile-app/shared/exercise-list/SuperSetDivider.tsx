@@ -1,8 +1,12 @@
 import React from 'react';
+import {
+  Grid,
+  Divider,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+} from '@material-ui/core';
 import LinkIcon from '@material-ui/icons/Link';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import { Divider, Grid, ListItemIcon } from '@material-ui/core';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(() =>
@@ -25,7 +29,9 @@ const useStyles = makeStyles(() =>
   })
 );
 
-export default function LinkDivider(props: LinkDividerProps): JSX.Element {
+export default function SuperSetDivider(
+  props: SuperSetDividerProps
+): JSX.Element {
   const classes = useStyles();
 
   return (
@@ -49,6 +55,6 @@ export default function LinkDivider(props: LinkDividerProps): JSX.Element {
   );
 }
 
-export interface LinkDividerProps {
+export interface SuperSetDividerProps {
   shrink?: boolean;
 }

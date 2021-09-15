@@ -1,11 +1,11 @@
 import React from 'react';
-import LinkDivider from './LinkDivider';
-import SingleListItem from './SingleListItem';
+import SuperSetDivider from './SuperSetDivider';
+import SingleSetItem from './SingleSetItem';
 
 export default function SuperSetItem(props: SuperSetItemProps): JSX.Element {
   return (
     <>
-      <SingleListItem
+      <SingleSetItem
         segmentId={props.segmentId}
         displayUpNextTitle={props.displayUpNextTitle}
         exerciseTitle={props.firstExerciseTitle}
@@ -13,9 +13,9 @@ export default function SuperSetItem(props: SuperSetItemProps): JSX.Element {
         equipmentIcon={props.firstEquipmentIcon}
       />
 
-      <LinkDivider shrink={props.displayEditOptions} />
+      <SuperSetDivider shrink={props.displayEditOptions} />
 
-      <SingleListItem
+      <SingleSetItem
         segmentId={props.segmentId}
         upNextCard
         bottomListItem

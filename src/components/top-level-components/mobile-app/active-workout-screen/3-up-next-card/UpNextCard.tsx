@@ -12,12 +12,12 @@ import {
   isStraightSet,
   isSuperset,
 } from '../../../../../utils/active-workout';
-import SingleListItem from '../../shared/SingleListItem';
+import SingleSetItem from '../../shared/exercise-list/SingleSetItem';
 import {
   buildRepsAndSets,
   getExerciseName,
 } from '../../../../../utils/workout-configs';
-import SuperSetItem from '../../shared/SuperSetItem';
+import SuperSetItem from '../../shared/exercise-list/SuperSetItem';
 import { ExerciseVO } from '../../../../../configs/models/configurations/ExerciseVO';
 import clsx from 'clsx';
 
@@ -49,7 +49,7 @@ const UpNextCard = (props: UpNextCardProps & PassedInProps): JSX.Element => {
   if (straightSet || circuitSet) {
     workoutExercises.map((exercise: WorkoutExercise) => {
       display = (
-        <SingleListItem
+        <SingleSetItem
           displayUpNextTitle
           key={exercise.id}
           exerciseTitle={getExerciseName(props.exercises, exercise.exerciseId)}

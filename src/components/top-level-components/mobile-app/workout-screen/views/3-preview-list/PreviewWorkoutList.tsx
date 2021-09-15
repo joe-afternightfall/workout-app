@@ -6,7 +6,7 @@ import List from '@material-ui/core/List';
 import { routerActions } from 'connected-react-router';
 import { ListSubheader, Paper } from '@material-ui/core';
 import { State } from '../../../../../../configs/redux/store';
-import WorkoutListDivider from '../../../shared/WorkoutListDivider';
+import WorkoutListDivider from '../../../shared/exercise-list/WorkoutListDivider';
 import { Phase, Segment } from '../../../../../../configs/models/AppInterfaces';
 import { MOBILE_ACTIVE_WORKOUT_SCREEN_PATH } from '../../../../../../configs/constants/app';
 import {

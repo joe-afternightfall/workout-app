@@ -2,20 +2,20 @@ import React from 'react';
 import { connect } from 'react-redux';
 import EditOptions from './EditOptions';
 import {
+  isSuperset,
+  isCircuitSet,
+  isStraightSet,
+} from '../../../../../../utils/active-workout';
+import {
   getExerciseName,
   buildRepsAndSets,
   sortSegmentExercises,
 } from '../../../../../../utils/workout-configs';
-import SuperSetItem from '../../../shared/SuperSetItem';
-import SingleListItem from '../../../shared/SingleListItem';
 import { State } from '../../../../../../configs/redux/store';
+import SuperSetItem from '../../../shared/exercise-list/SuperSetItem';
+import SingleSetItem from '../../../shared/exercise-list/SingleSetItem';
 import { Segment } from '../../../../../../configs/models/AppInterfaces';
 import { ExerciseVO } from '../../../../../../configs/models/configurations/ExerciseVO';
-import {
-  isCircuitSet,
-  isStraightSet,
-  isSuperset,
-} from '../../../../../../utils/active-workout';
 
 const PreviewListItem = (
   props: PreviewListItemProps & PassedInProps
@@ -29,7 +29,7 @@ const PreviewListItem = (
     return (
       <>
         {props.displayEditOptions && <EditOptions />}
-        <SingleListItem
+        <SingleSetItem
           segmentId={props.segment.id}
           exerciseTitle={getExerciseName(
             props.exercises,

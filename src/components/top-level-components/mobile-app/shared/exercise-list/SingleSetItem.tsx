@@ -4,10 +4,10 @@ import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import { State } from '../../../../../configs/redux/store';
 import { Grid, ListItemIcon, Typography } from '@material-ui/core';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { State } from '../../../../configs/redux/store';
-import { openEditSet } from '../../../../creators/new-workout/workout-selections';
+import { openEditSet } from '../../../../../creators/new-workout/workout-selections';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -43,8 +43,8 @@ const useStyles = makeStyles(() =>
   })
 );
 
-const SingleListItem = (
-  props: SingleListItemProps & PassedInProps
+const SingleSetItem = (
+  props: SingleSetItemProps & PassedInProps
 ): JSX.Element => {
   const classes = useStyles();
 
@@ -148,22 +148,22 @@ interface PassedInProps {
   segmentId?: string;
 }
 
-export interface SingleListItemProps {
+export interface SingleSetItemProps {
   displayEditOptions: boolean;
   editSetHandler: (segmentId: string) => void;
 }
 
-const mapStateToProps = (state: State): SingleListItemProps => {
+const mapStateToProps = (state: State): SingleSetItemProps => {
   return {
     displayEditOptions: state.workoutState.displayEditPreviewList,
-  } as unknown as SingleListItemProps;
+  } as unknown as SingleSetItemProps;
 };
 
-const mapDispatchToProps = (dispatch: Dispatch): SingleListItemProps =>
+const mapDispatchToProps = (dispatch: Dispatch): SingleSetItemProps =>
   ({
     editSetHandler: (segmentId: string) => {
       dispatch(openEditSet(segmentId));
     },
-  } as unknown as SingleListItemProps);
+  } as unknown as SingleSetItemProps);
 
-export default connect(mapStateToProps, mapDispatchToProps)(SingleListItem);
+export default connect(mapStateToProps, mapDispatchToProps)(SingleSetItem);
