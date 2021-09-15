@@ -3,11 +3,16 @@ import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { State } from '../../../../../../configs/redux/store';
+import DeleteIcon from '@material-ui/icons/Delete';
+import AddIcon from '@material-ui/icons/Add';
 import {
   AppBar,
+  Button,
   Grid,
   IconButton,
+  InputAdornment,
   Slide,
+  TextField,
   Toolbar,
   Typography,
 } from '@material-ui/core';
@@ -15,14 +20,27 @@ import ActiveExercise, {
   Title,
 } from '../../../active-workout-screen/1-active-exercise/ActiveExercise';
 import {
+  getExercise,
   getExerciseName,
   isSuperset,
 } from '../../../../../../utils/active-workout';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { closeEditSet } from '../../../../../../creators/new-workout/workout-selections';
+import StraightSetRow from '../../../shared/set-fields/StraightSetRow';
+import { Segment } from '../../../../../../configs/models/AppInterfaces';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    root: {
+      fontSize: '5vh',
+    },
+    notchedOutline: {
+      border: 0,
+    },
+    baseColor: {
+      borderColor: '#222323',
+      backgroundColor: '#222323',
+    },
     toolbarMixin: {
       height: '7vh',
     },
@@ -82,7 +100,7 @@ const EditSet = (props: EditSetProps): JSX.Element => {
 
         <div className={classes.toolbarMixin} />
 
-        <Grid container style={{ height: '87vh' }}>
+        <Grid container>
           <Grid item xs={12}>
             {props.display && (
               <ActiveExercise
@@ -91,6 +109,103 @@ const EditSet = (props: EditSetProps): JSX.Element => {
               />
             )}
           </Grid>
+
+          <Grid item xs={12}>
+            {props.superset ? (
+              <React.Fragment />
+            ) : (
+              props.segment &&
+              props.segment.exercises[0].sets.map((set, index) => {
+                return (
+                  <StraightSetRow
+                    key={index}
+                    setNumber={-1}
+                    markedDone={false}
+                    activeSet={false}
+                    info={{
+                      reps: set.reps,
+                      weight: set.weight,
+                      parameterTypeId: props.parameterTypeId,
+                    }}
+                    actionButton={
+                      <Button
+                        style={{
+                          backgroundColor: '#222323',
+                          color: '#ED440B',
+                          width: '100%',
+                          height: '100%',
+                          borderRadius: '0 8px 8px 0',
+                          padding: '6px 0',
+                        }}
+                        color={'primary'}
+                        variant={'contained'}
+                      >
+                        <DeleteIcon fontSize={'large'} />
+                      </Button>
+                    }
+                  />
+                );
+              })
+            )}
+          </Grid>
+
+          <Grid item xs={12} container justify={'flex-end'}>
+            <Grid
+              item
+              xs={4}
+              style={{ height: '100%', paddingLeft: 4, marginBottom: 20 }}
+            >
+              <Button
+                style={{
+                  backgroundColor: '#222323',
+                  color: '#ED440B',
+                  width: '100%',
+                  height: '11.5vh',
+                  borderRadius: '8px',
+                  padding: '6px 0',
+                }}
+                color={'primary'}
+                variant={'contained'}
+              >
+                <AddIcon fontSize={'large'} />
+              </Button>
+            </Grid>
+          </Grid>
+
+          <Grid item xs={12} container>
+            <Grid item xs={6} className={classes.baseColor}>
+              <TextField
+                fullWidth
+                variant={'outlined'}
+                // value={props.value}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position={'start'}>{'Sec'}</InputAdornment>
+                  ),
+                  classes: {
+                    root: classes.root,
+                    notchedOutline: classes.notchedOutline,
+                  },
+                }}
+              />
+            </Grid>
+            <Grid item xs={6} className={classes.baseColor}>
+              <TextField
+                fullWidth
+                variant={'outlined'}
+                // value={props.value}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position={'start'}>{'Sec'}</InputAdornment>
+                  ),
+                  classes: {
+                    root: classes.root,
+                    notchedOutline: classes.notchedOutline,
+                  },
+                }}
+              />
+            </Grid>
+          </Grid>
         </Grid>
       </div>
     </Slide>
@@ -98,10 +213,12 @@ const EditSet = (props: EditSetProps): JSX.Element => {
 };
 
 export interface EditSetProps {
+  segment: Segment;
   superset: boolean;
   titles: Title[];
   display: boolean;
   segmentId: string;
+  parameterTypeId: string;
   closeClickHandler: () => void;
 }
 
@@ -120,29 +237,34 @@ const mapStateToProps = (state: State): EditSetProps => {
 
   const titles: Title[] = [];
   let superset = false;
+  let parameterTypeId = '';
 
   if (foundSegment) {
     foundSegment.map((segment) => {
       if (segment) {
         superset = isSuperset(segment.trainingSetTypeId);
         segment.exercises.map((exercise) => {
-          const name = getExerciseName(
+          const foundExercise = getExercise(
             state.workoutState.configs.exercises,
             exercise.exerciseId
           );
-          titles.push({
-            title: name,
-          });
+          if (foundExercise) {
+            titles.push({
+              title: foundExercise.name,
+            });
+            parameterTypeId = foundExercise.parameterTypeId;
+          }
         });
       }
     });
   }
 
   return {
-    segment: state.workoutState.selectedRoutineTemplate,
     titles: titles || [],
     superset: superset,
+    segment: foundSegment && foundSegment[0],
     display: state.workoutState.displayEditSet,
+    parameterTypeId: parameterTypeId,
   } as unknown as EditSetProps;
 };
 
