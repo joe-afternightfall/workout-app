@@ -106,9 +106,7 @@ export interface EditSetProps {
 }
 
 const mapStateToProps = (state: State): EditSetProps => {
-  const routineTemplate =
-    state.workoutState.selectedRoutineTemplate &&
-    state.workoutState.selectedRoutineTemplate;
+  const routineTemplate = state.workoutState.selectedRoutineTemplate;
 
   const foundSegment =
     routineTemplate &&
