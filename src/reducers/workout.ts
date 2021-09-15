@@ -44,9 +44,13 @@ export default {
       case WorkoutActionTypes.TOGGLE_EDIT_PREVIEW_LIST:
         newState.displayEditPreviewList = action.display;
         break;
-      case WorkoutActionTypes.TOGGLE_EDIT_SET:
-        newState.displayEditSet = action.display;
+      case WorkoutActionTypes.OPEN_EDIT_SET:
+        newState.displayEditSet = true;
         newState.editSetSegmentId = action.segmentId;
+        break;
+      case WorkoutActionTypes.CLOSE_EDIT_SET:
+        newState.displayEditSet = false;
+        newState.editSetSegmentId = '';
         break;
       case WorkoutActionTypes.START_WORKOUT: {
         const template = newState.selectedRoutineTemplate;

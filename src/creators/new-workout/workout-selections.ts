@@ -53,19 +53,24 @@ export const toggleEditPreviewOptions = (
   };
 };
 
-export interface ToggleEditSetAction {
-  type: WorkoutActionTypes.TOGGLE_EDIT_SET;
-  display: boolean;
+export interface OpenEditSetAction {
+  type: WorkoutActionTypes.OPEN_EDIT_SET;
   segmentId: string;
 }
 
-export const toggleEditSet = (
-  display: boolean,
-  segmentId: string
-): ToggleEditSetAction => {
+export const openEditSet = (segmentId: string): OpenEditSetAction => {
   return {
-    type: WorkoutActionTypes.TOGGLE_EDIT_SET,
-    display: display,
+    type: WorkoutActionTypes.OPEN_EDIT_SET,
     segmentId: segmentId,
+  };
+};
+
+export interface CloseEditSetAction {
+  type: WorkoutActionTypes.CLOSE_EDIT_SET;
+}
+
+export const closeEditSet = (): CloseEditSetAction => {
+  return {
+    type: WorkoutActionTypes.CLOSE_EDIT_SET,
   };
 };

@@ -7,7 +7,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import { Grid, ListItemIcon, Typography } from '@material-ui/core';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { State } from '../../../../configs/redux/store';
-import { toggleEditSet } from '../../../../creators/new-workout/workout-selections';
+import { openEditSet } from '../../../../creators/new-workout/workout-selections';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -162,7 +162,7 @@ const mapStateToProps = (state: State): SingleListItemProps => {
 const mapDispatchToProps = (dispatch: Dispatch): SingleListItemProps =>
   ({
     editSetHandler: (segmentId: string) => {
-      dispatch(toggleEditSet(true, segmentId));
+      dispatch(openEditSet(segmentId));
     },
   } as unknown as SingleListItemProps);
 

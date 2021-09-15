@@ -19,6 +19,7 @@ import {
   isSuperset,
 } from '../../../../../../utils/active-workout';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import { closeEditSet } from '../../../../../../creators/new-workout/workout-selections';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -53,7 +54,11 @@ const EditSet = (props: EditSetProps): JSX.Element => {
               alignItems={'flex-end'}
             >
               <Grid item xs={2}>
-                <IconButton color={'primary'} className={classes.menuButton}>
+                <IconButton
+                  color={'primary'}
+                  className={classes.menuButton}
+                  onClick={props.closeClickHandler}
+                >
                   <ArrowBackIcon fontSize={'small'} />
                 </IconButton>
               </Grid>
@@ -79,10 +84,12 @@ const EditSet = (props: EditSetProps): JSX.Element => {
 
         <Grid container style={{ height: '87vh' }}>
           <Grid item xs={12}>
-            <ActiveExercise
-              superset={props.superset}
-              exerciseTitles={props.titles}
-            />
+            {props.display && (
+              <ActiveExercise
+                superset={props.superset}
+                exerciseTitles={props.titles}
+              />
+            )}
           </Grid>
         </Grid>
       </div>
@@ -95,6 +102,7 @@ export interface EditSetProps {
   titles: Title[];
   display: boolean;
   segmentId: string;
+  closeClickHandler: () => void;
 }
 
 const mapStateToProps = (state: State): EditSetProps => {
@@ -134,13 +142,17 @@ const mapStateToProps = (state: State): EditSetProps => {
 
   return {
     segment: state.workoutState.selectedRoutineTemplate,
-    titles: titles,
+    titles: titles || [],
     superset: superset,
     display: state.workoutState.displayEditSet,
   } as unknown as EditSetProps;
 };
 
 const mapDispatchToProps = (dispatch: Dispatch): EditSetProps =>
-  ({} as unknown as EditSetProps);
+  ({
+    closeClickHandler: () => {
+      dispatch(closeEditSet());
+    },
+  } as unknown as EditSetProps);
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditSet);
