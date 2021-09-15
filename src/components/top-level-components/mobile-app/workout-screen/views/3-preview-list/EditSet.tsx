@@ -37,9 +37,10 @@ const useStyles = makeStyles((theme: Theme) =>
     notchedOutline: {
       border: 0,
     },
-    baseColor: {
+    fieldWrapper: {
       borderColor: '#222323',
       backgroundColor: '#222323',
+      borderRadius: 8,
     },
     toolbarMixin: {
       height: '7vh',
@@ -172,38 +173,61 @@ const EditSet = (props: EditSetProps): JSX.Element => {
             </Grid>
           </Grid>
 
-          <Grid item xs={12} container>
-            <Grid item xs={6} className={classes.baseColor}>
-              <TextField
-                fullWidth
-                variant={'outlined'}
-                // value={props.value}
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position={'start'}>{'Sec'}</InputAdornment>
-                  ),
-                  classes: {
-                    root: classes.root,
-                    notchedOutline: classes.notchedOutline,
-                  },
-                }}
-              />
+          <Grid item xs={12}>
+            <Grid container spacing={2} justify={'center'}>
+              <Grid item xs={6}>
+                <div className={classes.fieldWrapper}>
+                  <TextField
+                    variant={'outlined'}
+                    value={'80'}
+                    inputProps={{ style: { textAlign: 'center' } }}
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position={'start'}>
+                          {'Sec'}
+                        </InputAdornment>
+                      ),
+                      classes: {
+                        root: classes.root,
+                        notchedOutline: classes.notchedOutline,
+                      },
+                    }}
+                  />
+                </div>
+              </Grid>
+              <Grid item xs={6}>
+                <div className={classes.fieldWrapper}>
+                  <TextField
+                    variant={'outlined'}
+                    value={'70'}
+                    inputProps={{ style: { textAlign: 'center' } }}
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position={'start'}>
+                          {'Sec'}
+                        </InputAdornment>
+                      ),
+                      classes: {
+                        root: classes.root,
+                        notchedOutline: classes.notchedOutline,
+                      },
+                    }}
+                  />
+                </div>
+              </Grid>
             </Grid>
-            <Grid item xs={6} className={classes.baseColor}>
-              <TextField
-                fullWidth
-                variant={'outlined'}
-                // value={props.value}
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position={'start'}>{'Sec'}</InputAdornment>
-                  ),
-                  classes: {
-                    root: classes.root,
-                    notchedOutline: classes.notchedOutline,
-                  },
-                }}
-              />
+          </Grid>
+
+          <Grid item xs={12} container>
+            <Grid item xs={6} container justify={'center'}>
+              <Typography color={'textSecondary'} variant={'caption'}>
+                {'Rest between sets'}
+              </Typography>
+            </Grid>
+            <Grid item xs={6} container justify={'center'}>
+              <Typography color={'textSecondary'} variant={'caption'}>
+                {'Rest between exercises'}
+              </Typography>
             </Grid>
           </Grid>
         </Grid>
