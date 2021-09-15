@@ -1,12 +1,15 @@
 import React from 'react';
-import { useTheme, makeStyles, createStyles } from '@material-ui/core/styles';
+import { connect } from 'react-redux';
 import { Grid } from '@material-ui/core';
-import SwipeableViews from 'react-swipeable-views';
 import TabPanel from './views/components/TabPanel';
-import PreviewWorkoutList from './views/3-preview-list/PreviewWorkoutList';
+import SwipeableViews from 'react-swipeable-views';
+import EditSet from './views/3-preview-list/EditSet';
 import MessageAppBar from './views/components/MessageAppBar';
+import PreviewWorkoutList from './views/3-preview-list/PreviewWorkoutList';
+import { useTheme, makeStyles, createStyles } from '@material-ui/core/styles';
 import WorkoutSelectionList from './views/1-workout-selection/WorkoutSelectionList';
 import RoutineSelectionList from './views/2-routine-selection/RoutineSelectionList';
+import { State } from '../../../../configs/redux/store';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -16,7 +19,7 @@ const useStyles = makeStyles(() =>
   })
 );
 
-export default function MobileWorkoutScreen(): JSX.Element {
+const MobileWorkoutScreen = (props: MobileWorkoutScreenProps): JSX.Element => {
   const classes = useStyles();
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
@@ -25,7 +28,9 @@ export default function MobileWorkoutScreen(): JSX.Element {
     setValue(index);
   };
 
-  return (
+  return props.displayEditSet ? (
+    <EditSet />
+  ) : (
     <Grid container justify={'center'}>
       <Grid item xs={12}>
         <MessageAppBar
@@ -68,4 +73,16 @@ export default function MobileWorkoutScreen(): JSX.Element {
       </Grid>
     </Grid>
   );
+};
+
+export interface MobileWorkoutScreenProps {
+  displayEditSet: boolean;
 }
+
+const mapStateToProps = (state: State): MobileWorkoutScreenProps => {
+  return {
+    displayEditSet: state.workoutState.displayEditSet,
+  } as unknown as MobileWorkoutScreenProps;
+};
+
+export default connect(mapStateToProps)(MobileWorkoutScreen);
