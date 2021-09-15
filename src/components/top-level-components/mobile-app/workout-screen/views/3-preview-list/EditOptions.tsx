@@ -11,30 +11,21 @@ import DeleteDrawer from './DeleteDrawer';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     baseButton: {
+      zIndex: 1,
       borderRadius: 0,
       height: '5vh',
       width: '5vh',
-    },
-    deleteButton: {
-      zIndex: 1,
       position: 'absolute',
       transform: 'translate(0, 4vh)',
-      borderRadius: 0,
-      height: '5vh',
-      width: '5vh',
+    },
+    deleteButton: {
       background: theme.palette.primary.main,
       '&:hover': {
         background: theme.palette.primary.dark,
       },
     },
     dragButton: {
-      zIndex: 1,
-      position: 'absolute',
-      transform: 'translate(0, 4vh)',
       right: 0,
-      borderRadius: 0,
-      height: '5vh',
-      width: '5vh',
     },
     superset: {
       transform: 'translate(0, 10vh)',
@@ -60,7 +51,9 @@ const EditOptions = (props: EditOptionsProps & PassedInProps): JSX.Element => {
       <Slide mountOnEnter unmountOnExit direction={'right'} in={true}>
         <div>
           <IconButton
-            className={clsx(classes.deleteButton)}
+            className={clsx(classes.baseButton, classes.deleteButton, {
+              [classes.superset]: props.superset,
+            })}
             aria-label={'delete'}
             onClick={openDrawer}
           >
@@ -72,7 +65,9 @@ const EditOptions = (props: EditOptionsProps & PassedInProps): JSX.Element => {
       <Slide mountOnEnter unmountOnExit direction={'left'} in={true}>
         <div>
           <IconButton
-            className={clsx(classes.dragButton)}
+            className={clsx(classes.baseButton, classes.dragButton, {
+              [classes.superset]: props.superset,
+            })}
             aria-label={'re-order'}
           >
             <ReorderIcon />
