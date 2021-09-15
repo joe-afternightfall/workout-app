@@ -5,6 +5,7 @@ import {
   SelectedWorkoutCategoryAction,
   StartWorkoutAction,
   ToggleEditPreviewOptionsAction,
+  ToggleEditSetAction,
 } from './new-workout/workout-selections';
 import { MarkCurrentSetAsDoneAction } from './new-workout/active-workout';
 
@@ -16,6 +17,7 @@ export enum WorkoutActionTypes {
   START_WORKOUT = 'START_WORKOUT',
   MARK_CURRENT_SET_AS_DONE = 'MARK_CURRENT_SET_AS_DONE',
   TOGGLE_EDIT_PREVIEW_LIST = 'TOGGLE_EDIT_PREVIEW_LIST',
+  TOGGLE_EDIT_SET = 'TOGGLE_EDIT_SET',
 }
 
 export type WorkoutActions =
@@ -25,4 +27,5 @@ export type WorkoutActions =
   | SelectedRoutineAction
   | StartWorkoutAction
   | MarkCurrentSetAsDoneAction
-  | ToggleEditPreviewOptionsAction;
+  | ToggleEditPreviewOptionsAction
+  | ToggleEditSetAction;

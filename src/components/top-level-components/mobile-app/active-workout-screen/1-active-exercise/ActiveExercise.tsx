@@ -23,7 +23,11 @@ export default function ActiveExercise(
   );
 }
 
+export interface Title {
+  title: string;
+}
+
 export interface ActiveExerciseProps {
-  exerciseTitles: { title: string }[];
+  exerciseTitles: Title[];
   superset: boolean;
 }
