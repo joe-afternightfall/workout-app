@@ -1,5 +1,4 @@
 import React from 'react';
-import BaseSet from './BaseSet';
 import { Grid } from '@material-ui/core';
 import Blinker from '../../shared/Blinker';
 import {
@@ -8,6 +7,7 @@ import {
 } from '../../../../../configs/models/AppInterfaces';
 import CrushedItButton from './components/CrushedItButton';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
+import StraightSetRow from '../../shared/set-fields/StraightSetRow';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -52,37 +52,23 @@ export default function ActiveStraightSet(
               <Blinker
                 shouldBlink={activeSet}
                 component={
-                  <Grid
-                    item
-                    xs={12}
-                    container
-                    alignItems={'center'}
-                    className={classes.root}
-                  >
-                    <BaseSet
-                      superset={false}
-                      activeSet={activeSet}
-                      markedDone={markedDone}
-                      scrollToSetNumber={info.setNumber}
-                      info={{
-                        reps: info.reps,
-                        weight: info.weight,
-                        parameterTypeId: info.exercise.parameterTypeId,
-                      }}
-                    />
-
-                    <Grid
-                      item
-                      xs={4}
-                      style={{ height: '100%', paddingLeft: 4 }}
-                    >
+                  <StraightSetRow
+                    setNumber={info.setNumber}
+                    markedDone={markedDone}
+                    activeSet={activeSet}
+                    info={{
+                      reps: info.reps,
+                      weight: info.weight,
+                      parameterTypeId: info.exercise.parameterTypeId,
+                    }}
+                    actionButton={
                       <CrushedItButton
                         activeSet={activeSet}
                         markedDone={markedDone}
                         crushedItClickHandler={crushedItHandler}
                       />
-                    </Grid>
-                  </Grid>
+                    }
+                  />
                 }
               />
             );
