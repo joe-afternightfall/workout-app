@@ -64,7 +64,7 @@ export const createStore = (history: History): Store => {
       circuitTemplates: [],
     } as unknown as ApplicationState,
     workoutState: {
-      editPreviewList: false,
+      displayEditPreviewList: false,
     } as unknown as WorkoutState,
   });
 };
