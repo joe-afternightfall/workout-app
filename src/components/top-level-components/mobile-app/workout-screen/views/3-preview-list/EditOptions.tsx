@@ -10,26 +10,31 @@ import DeleteDrawer from './DeleteDrawer';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {
-      zIndex: 1,
-      width: '100%',
-      position: 'absolute',
-      transform: 'translate(0, 4vh)',
-    },
     baseButton: {
       borderRadius: 0,
       height: '5vh',
       width: '5vh',
     },
     deleteButton: {
+      zIndex: 1,
+      position: 'absolute',
+      transform: 'translate(0, 4vh)',
+      borderRadius: 0,
+      height: '5vh',
+      width: '5vh',
       background: theme.palette.primary.main,
       '&:hover': {
         background: theme.palette.primary.dark,
       },
     },
     dragButton: {
+      zIndex: 1,
       position: 'absolute',
+      transform: 'translate(0, 4vh)',
       right: 0,
+      borderRadius: 0,
+      height: '5vh',
+      width: '5vh',
     },
     superset: {
       transform: 'translate(0, 10vh)',
@@ -50,31 +55,31 @@ const EditOptions = (props: EditOptionsProps & PassedInProps): JSX.Element => {
   };
 
   return (
-    <div
-      className={clsx(classes.root, {
-        [classes.superset]: props.superset,
-      })}
-    >
+    <>
       <DeleteDrawer open={open} closeHandler={closeDrawer} />
       <Slide mountOnEnter unmountOnExit direction={'right'} in={true}>
-        <IconButton
-          className={clsx(classes.baseButton, classes.deleteButton)}
-          aria-label={'delete'}
-          onClick={openDrawer}
-        >
-          <DeleteIcon />
-        </IconButton>
+        <div>
+          <IconButton
+            className={clsx(classes.deleteButton)}
+            aria-label={'delete'}
+            onClick={openDrawer}
+          >
+            <DeleteIcon />
+          </IconButton>
+        </div>
       </Slide>
 
       <Slide mountOnEnter unmountOnExit direction={'left'} in={true}>
-        <IconButton
-          className={clsx(classes.baseButton, classes.dragButton)}
-          aria-label={'re-order'}
-        >
-          <ReorderIcon />
-        </IconButton>
+        <div>
+          <IconButton
+            className={clsx(classes.dragButton)}
+            aria-label={'re-order'}
+          >
+            <ReorderIcon />
+          </IconButton>
+        </div>
       </Slide>
-    </div>
+    </>
   );
 };
 
