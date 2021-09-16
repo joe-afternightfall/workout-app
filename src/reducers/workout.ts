@@ -59,6 +59,34 @@ export default {
         newState.displayEditSet = false;
         newState.editSetSegmentId = '';
         break;
+      case WorkoutActionTypes.ADD_SET_TO_EDITING_COPY:
+        newState.copyOfRoutineTemplate.phases.map((phase) => {
+          phase.segments.map((segment) => {
+            segment.exercises.map((exercise) => {
+              if (exercise.id === action.segmentExerciseId) {
+                const numberOfSets = exercise.sets.length;
+                const lastSet = exercise.sets[numberOfSets - 1];
+                exercise.sets.push({
+                  id: uuidv4(),
+                  setNumber: numberOfSets + 1,
+                  weight: lastSet ? lastSet.weight : 0,
+                  reps: lastSet ? lastSet.reps : 0,
+                  duration: {
+                    currentTimeMs: 0,
+                    currentTimeSec: 0,
+                    currentTimeMin: 0,
+                  },
+                  distance: {
+                    unit: '',
+                    value: 0,
+                  },
+                  markedDone: false,
+                });
+              }
+            });
+          });
+        });
+        break;
       case WorkoutActionTypes.DELETE_SET_FROM_EDITING_COPY: {
         newState.copyOfRoutineTemplate.phases.map((phase) => {
           phase.segments.map((segment) => {
@@ -67,6 +95,9 @@ export default {
                 if (set.id === action.setId) {
                   const foundIndex = exercise.sets.indexOf(set);
                   exercise.sets.splice(foundIndex, 1);
+                  exercise.sets.map((set, index) => {
+                    set.setNumber = index + 1;
+                  });
                 }
               });
             });
