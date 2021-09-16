@@ -13,7 +13,10 @@ import { connect } from 'react-redux';
 import { routerActions } from 'connected-react-router';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { toggleEditPreviewOptions } from '../../../../../../creators/new-workout/workout-selections';
+import {
+  copyRoutineForEdit,
+  toggleEditPreviewOptions,
+} from '../../../../../../creators/new-workout/workout-selections';
 import { State } from '../../../../../../configs/redux/store';
 import DiscardDialog from './DiscardDialog';
 
@@ -139,6 +142,7 @@ const mapDispatchToProps = (dispatch: Dispatch): MessageAppBarProps =>
     },
     editClickHandler: () => {
       dispatch(toggleEditPreviewOptions(true));
+      dispatch(copyRoutineForEdit());
     },
   } as unknown as MessageAppBarProps);
 
