@@ -65,6 +65,7 @@ const useStyles = makeStyles((theme: Theme) =>
 const EditSet = (props: EditSetProps): JSX.Element => {
   const classes = useStyles();
 
+  const atMaxSets = props.segment.exercises[0].sets.length === 5;
   return (
     <Slide mountOnEnter unmountOnExit in={props.display} direction={'left'}>
       <div>
@@ -120,6 +121,8 @@ const EditSet = (props: EditSetProps): JSX.Element => {
             ) : (
               props.segment &&
               props.segment.exercises[0].sets.map((set, index) => {
+                const shouldDisable =
+                  props.segment.exercises[0].sets.length === 1;
                 return (
                   <StraightSetRow
                     key={index}
@@ -135,14 +138,16 @@ const EditSet = (props: EditSetProps): JSX.Element => {
                       <Button
                         style={{
                           backgroundColor: '#222323',
-                          color: '#ED440B',
+                          color: shouldDisable ? '#4F5050' : '#ED440B',
                           width: '100%',
                           height: '100%',
                           borderRadius: '0 8px 8px 0',
                           padding: '6px 0',
+                          opacity: shouldDisable ? 0.6 : 1,
                         }}
                         color={'primary'}
                         variant={'contained'}
+                        disabled={shouldDisable}
                         onClick={() => {
                           props.deleteClickHandler(set.id);
                         }}
@@ -157,22 +162,20 @@ const EditSet = (props: EditSetProps): JSX.Element => {
           </Grid>
 
           <Grid item xs={12} container justify={'flex-end'}>
-            <Grid
-              item
-              xs={4}
-              style={{ height: '100%', paddingLeft: 4, marginBottom: 20 }}
-            >
+            <Grid item xs={4} style={{ paddingLeft: 4, marginBottom: 20 }}>
               <Button
                 style={{
                   backgroundColor: '#222323',
-                  color: '#ED440B',
+                  color: atMaxSets ? '#4F5050' : '#ED440B',
                   width: '100%',
                   height: '11.5vh',
                   borderRadius: '8px',
                   padding: '6px 0',
+                  opacity: atMaxSets ? 0.6 : 1,
                 }}
                 color={'primary'}
                 variant={'contained'}
+                disabled={atMaxSets}
                 onClick={() => {
                   props.addSetClickHandler(props.segment.exercises[0].id);
                 }}
