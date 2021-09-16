@@ -44,6 +44,16 @@ export interface ToggleEditPreviewOptionsAction {
   display: boolean;
 }
 
+export interface OpenEditPreviewOptionsAction {
+  type: WorkoutActionTypes.OPEN_EDIT_PREVIEW_OPTIONS;
+}
+
+export const openEditPreviewOptions = (): OpenEditPreviewOptionsAction => {
+  return {
+    type: WorkoutActionTypes.OPEN_EDIT_PREVIEW_OPTIONS,
+  };
+};
+
 export const toggleEditPreviewOptions = (
   display: boolean
 ): ToggleEditPreviewOptionsAction => {
