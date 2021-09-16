@@ -82,11 +82,8 @@ const mapStateToProps = (state: State): PreviewWorkoutListProps => {
   const selectedRoutine = workoutState.displayEditPreviewList
     ? workoutState.copyOfRoutineTemplate
     : workoutState.selectedRoutineTemplate;
-  const sortedPhases = selectedRoutine.phases.sort(
-    (a: Phase, b: Phase) => a.order - b.order
-  );
   return {
-    routinePhases: sortedPhases,
+    routinePhases: selectedRoutine.phases,
     configPhases: workoutState.configs.phases,
     displayEditSet: workoutState.displayEditSet,
   } as unknown as PreviewWorkoutListProps;
