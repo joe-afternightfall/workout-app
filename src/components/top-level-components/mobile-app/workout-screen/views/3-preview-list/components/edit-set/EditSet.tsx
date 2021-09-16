@@ -21,13 +21,13 @@ import ActiveExercise, {
 } from '../../../../../active-workout-screen/1-active-exercise/ActiveExercise';
 import {
   getExercise,
-  getExerciseName,
   isSuperset,
 } from '../../../../../../../../utils/active-workout';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { closeEditSet } from '../../../../../../../../creators/new-workout/workout-selections';
 import StraightSetRow from '../../../../../shared/set-fields/StraightSetRow';
 import { Segment } from '../../../../../../../../configs/models/AppInterfaces';
+import { deleteSetFromEditingCopy } from '../../../../../../../../creators/new-workout/preview-workout';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -140,6 +140,9 @@ const EditSet = (props: EditSetProps): JSX.Element => {
                         }}
                         color={'primary'}
                         variant={'contained'}
+                        onClick={() => {
+                          props.deleteClickHandle(set.id);
+                        }}
                       >
                         <DeleteIcon fontSize={'large'} />
                       </Button>
@@ -244,6 +247,7 @@ export interface EditSetProps {
   segmentId: string;
   parameterTypeId: string;
   closeClickHandler: () => void;
+  deleteClickHandle: (setId: string) => void;
 }
 
 const mapStateToProps = (state: State): EditSetProps => {
@@ -296,6 +300,9 @@ const mapDispatchToProps = (dispatch: Dispatch): EditSetProps =>
   ({
     closeClickHandler: () => {
       dispatch(closeEditSet());
+    },
+    deleteClickHandle: (setId: string) => {
+      dispatch(deleteSetFromEditingCopy(setId));
     },
   } as unknown as EditSetProps);
 
