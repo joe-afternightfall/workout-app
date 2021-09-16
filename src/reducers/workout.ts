@@ -13,13 +13,13 @@ import {
   GripWidth,
   ParameterType,
   Phase,
-  Segment,
   Set,
   TrainingSetType,
   WorkoutExercise,
 } from '../configs/models/AppInterfaces';
 import { WorkoutDAO } from '../configs/models/workout/WorkoutDAO';
 import { v4 as uuidv4 } from 'uuid';
+import * as ramda from 'ramda';
 
 export default {
   reducer: (
@@ -44,6 +44,13 @@ export default {
       case WorkoutActionTypes.TOGGLE_EDIT_PREVIEW_LIST:
         newState.displayEditPreviewList = action.display;
         break;
+      case WorkoutActionTypes.OPEN_EDIT_PREVIEW_OPTIONS: {
+        newState.copyOfRoutineTemplate = ramda.clone(
+          newState.selectedRoutineTemplate
+        );
+        newState.displayEditPreviewList = true;
+        break;
+      }
       case WorkoutActionTypes.OPEN_EDIT_SET:
         newState.displayEditSet = true;
         newState.editSetSegmentId = action.segmentId;
@@ -51,9 +58,6 @@ export default {
       case WorkoutActionTypes.CLOSE_EDIT_SET:
         newState.displayEditSet = false;
         newState.editSetSegmentId = '';
-        break;
-      case WorkoutActionTypes.COPY_ROUTINE_FOR_EDIT:
-        newState.copyOfRoutineTemplate = newState.selectedRoutineTemplate;
         break;
       case WorkoutActionTypes.DELETE_SET_FROM_EDITING_COPY: {
         newState.copyOfRoutineTemplate.phases.map((phase) => {
