@@ -52,28 +52,26 @@ export default {
         newState.displayEditSet = false;
         newState.editSetSegmentId = '';
         break;
+      case WorkoutActionTypes.COPY_ROUTINE_FOR_EDIT:
+        newState.copyOfRoutineTemplate = newState.selectedRoutineTemplate;
+        break;
+      case WorkoutActionTypes.DELETE_SET_FROM_EDITING_COPY: {
+        newState.copyOfRoutineTemplate.phases.map((phase) => {
+          phase.segments.map((segment) => {
+            segment.exercises.map((exercise) => {
+              exercise.sets.map((set) => {
+                if (set.id === action.setId) {
+                  const foundIndex = exercise.sets.indexOf(set);
+                  exercise.sets.splice(foundIndex, 1);
+                }
+              });
+            });
+          });
+        });
+        break;
+      }
       case WorkoutActionTypes.START_WORKOUT: {
         const template = newState.selectedRoutineTemplate;
-        const phases: Phase[] = template.phases;
-
-        phases
-          .sort((a: Phase, b: Phase) => a.order - b.order)
-          .map((phase: Phase) => {
-            return phase.segments
-              .sort((c: Segment, d: Segment) => c.order - d.order)
-              .map((segment: Segment) => {
-                return segment.exercises
-                  .sort(
-                    (e: WorkoutExercise, f: WorkoutExercise) =>
-                      e.order - f.order
-                  )
-                  .map((exercise: WorkoutExercise) => {
-                    return exercise.sets.sort(
-                      (g: Set, h: Set) => g.setNumber - h.setNumber
-                    );
-                  });
-              });
-          });
 
         newState.activeWorkout = new WorkoutDAO(
           uuidv4(),
@@ -88,7 +86,7 @@ export default {
             id: template.id,
             name: template.name,
             workoutCategoryId: template.workoutCategoryId,
-            phases: phases,
+            phases: template.phases,
           }
         );
         newState.currentPhase = newState.activeWorkout.routine.phases[0];
@@ -190,6 +188,7 @@ export interface WorkoutState {
   };
   selectedWorkoutCategory: WorkoutCategoryVO;
   selectedRoutineTemplate: RoutineTemplateVO;
+  copyOfRoutineTemplate: RoutineTemplateVO;
   activeWorkout: WorkoutDAO;
   currentPhase: Phase;
   currentSegmentIndex: number;

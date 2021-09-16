@@ -74,3 +74,13 @@ export const closeEditSet = (): CloseEditSetAction => {
     type: WorkoutActionTypes.CLOSE_EDIT_SET,
   };
 };
+
+export interface CopyRoutineForEditAction {
+  type: WorkoutActionTypes.COPY_ROUTINE_FOR_EDIT;
+}
+
+export const copyRoutineForEdit = (): CopyRoutineForEditAction => {
+  return {
+    type: WorkoutActionTypes.COPY_ROUTINE_FOR_EDIT,
+  };
+};
