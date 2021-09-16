@@ -104,6 +104,7 @@ export default {
         });
         break;
       case WorkoutActionTypes.DELETE_SET_FROM_EDITING_COPY: {
+        //todo: extract out below giant map()
         newState.copyOfRoutineTemplate.phases.map((phase) => {
           phase.segments.map((segment) => {
             segment.exercises.map((exercise) => {
@@ -126,6 +127,23 @@ export default {
           newState.copyOfRoutineTemplate
         );
         newState.displayEditPreviewList = false;
+        break;
+      }
+      case WorkoutActionTypes.UPDATE_SET_TEXT_FIELD: {
+        // todo: add NPM util to access deeply nested objects
+        if (newState.displayEditPreviewList) {
+          newState.copyOfRoutineTemplate.phases.map((phase) => {
+            phase.segments.map((segment) => {
+              segment.exercises.map((exercise) => {
+                exercise.sets.map((set) => {
+                  if (set.id === action.setId) {
+                    set[action.name] = action.value;
+                  }
+                });
+              });
+            });
+          });
+        }
         break;
       }
       case WorkoutActionTypes.START_WORKOUT: {
