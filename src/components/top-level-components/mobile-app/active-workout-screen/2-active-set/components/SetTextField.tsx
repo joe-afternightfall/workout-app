@@ -1,6 +1,10 @@
 import React from 'react';
+import { Dispatch } from 'redux';
+import { connect } from 'react-redux';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { Grid, InputAdornment, TextField } from '@material-ui/core';
+import { updateSetTextField } from '../../../../../../creators/new-workout/update-workout';
+import { validateReps } from '../../../../../../utils/validator';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -19,8 +23,18 @@ const useStyles = makeStyles(() =>
   })
 );
 
-export default function SetTextField(props: SetTextFieldProps): JSX.Element {
+const SetTextField = (
+  props: SetTextFieldProps & PassedInProps
+): JSX.Element => {
   const classes = useStyles();
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.name === 'reps') {
+      if (validateReps(event.target.value)) {
+        props.onChangeHandler(Number(event.target.value));
+      }
+    }
+  };
 
   return (
     <Grid
@@ -31,13 +45,14 @@ export default function SetTextField(props: SetTextFieldProps): JSX.Element {
         fullWidth
         variant={'outlined'}
         value={props.value}
+        name={props.setType}
         inputProps={{
           style: { textAlign: props.fullLength ? 'center' : undefined },
         }}
         InputProps={{
           endAdornment: (
             <InputAdornment position={'start'}>
-              {props.inputAdornment}
+              {props.setType === 'weight' ? 'lb' : 'reps'}
             </InputAdornment>
           ),
           classes: {
@@ -45,13 +60,42 @@ export default function SetTextField(props: SetTextFieldProps): JSX.Element {
             notchedOutline: classes.notchedOutline,
           },
         }}
+        onChange={handleChange}
       />
     </Grid>
   );
+};
+
+export interface SetFieldInfoProps {
+  setId: string;
+  reps: number;
+  weight?: number;
+  parameterTypeId: string;
+}
+
+export interface PassedInProps {
+  value: number;
+  fullLength: boolean;
+  setType: 'weight' | 'reps';
+  setId: string;
 }
 
 export interface SetTextFieldProps {
-  value: number;
-  inputAdornment: 'reps' | 'lb';
-  fullLength: boolean;
+  onChangeHandler: (value: number) => void;
 }
+
+const mapStateToProps = (): SetTextFieldProps => {
+  return {} as unknown as SetTextFieldProps;
+};
+
+const mapDispatchToProps = (
+  dispatch: Dispatch,
+  ownProps: PassedInProps
+): SetTextFieldProps =>
+  ({
+    onChangeHandler: (value: number) => {
+      dispatch(updateSetTextField(ownProps.setId, ownProps.setType, value));
+    },
+  } as unknown as SetTextFieldProps);
+
+export default connect(mapStateToProps, mapDispatchToProps)(SetTextField);

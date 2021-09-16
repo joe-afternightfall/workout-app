@@ -130,6 +130,7 @@ const EditSet = (props: EditSetProps): JSX.Element => {
                     markedDone={false}
                     activeSet={false}
                     info={{
+                      setId: set.id,
                       reps: set.reps,
                       weight: set.weight,
                       parameterTypeId: props.parameterTypeId,
