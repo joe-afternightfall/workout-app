@@ -40,3 +40,14 @@ export const deleteSegmentFromRoutineCopy = (
     segmentId: segmentId,
   };
 };
+
+export interface SaveEditedVersionOfRoutineAction {
+  type: WorkoutActionTypes.SAVE_EDITED_VERSION_OF_ROUTINE;
+}
+
+export const saveEditedVersionOfRoutine =
+  (): SaveEditedVersionOfRoutineAction => {
+    return {
+      type: WorkoutActionTypes.SAVE_EDITED_VERSION_OF_ROUTINE,
+    };
+  };

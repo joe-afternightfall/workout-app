@@ -16,6 +16,7 @@ import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { openEditPreviewOptions } from '../../../../../../creators/new-workout/workout-selections';
 import { State } from '../../../../../../configs/redux/store';
 import DiscardDialog from './DiscardDialog';
+import { saveEditedVersionOfRoutine } from '../../../../../../creators/new-workout/preview-workout';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -100,7 +101,7 @@ const MessageAppBar = (
               })}
               onClick={
                 props.displayEditOptions
-                  ? () => alert('save clicked')
+                  ? props.saveEditedVersionOfRoutine
                   : props.editClickHandler
               }
             >
@@ -123,6 +124,7 @@ export interface MessageAppBarProps {
   editClickHandler: () => void;
   displayEditOptions: boolean;
   displayEditSet: boolean;
+  saveEditedVersionOfRoutine: () => void;
 }
 
 const mapStateToProps = (state: State): MessageAppBarProps => {
@@ -139,6 +141,9 @@ const mapDispatchToProps = (dispatch: Dispatch): MessageAppBarProps =>
     },
     editClickHandler: () => {
       dispatch(openEditPreviewOptions());
+    },
+    saveEditedVersionOfRoutine: () => {
+      dispatch(saveEditedVersionOfRoutine());
     },
   } as unknown as MessageAppBarProps);
 

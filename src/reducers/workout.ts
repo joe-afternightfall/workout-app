@@ -121,6 +121,13 @@ export default {
         });
         break;
       }
+      case WorkoutActionTypes.SAVE_EDITED_VERSION_OF_ROUTINE: {
+        newState.selectedRoutineTemplate = ramda.clone(
+          newState.copyOfRoutineTemplate
+        );
+        newState.displayEditPreviewList = false;
+        break;
+      }
       case WorkoutActionTypes.START_WORKOUT: {
         const template = newState.selectedRoutineTemplate;
 
