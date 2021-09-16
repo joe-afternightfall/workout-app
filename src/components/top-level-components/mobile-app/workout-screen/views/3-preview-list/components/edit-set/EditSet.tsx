@@ -27,7 +27,10 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { closeEditSet } from '../../../../../../../../creators/new-workout/workout-selections';
 import StraightSetRow from '../../../../../shared/set-fields/StraightSetRow';
 import { Segment } from '../../../../../../../../configs/models/AppInterfaces';
-import { deleteSetFromEditingCopy } from '../../../../../../../../creators/new-workout/preview-workout';
+import {
+  addSetToEditingCopy,
+  deleteSetFromEditingCopy,
+} from '../../../../../../../../creators/new-workout/preview-workout';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -141,7 +144,7 @@ const EditSet = (props: EditSetProps): JSX.Element => {
                         color={'primary'}
                         variant={'contained'}
                         onClick={() => {
-                          props.deleteClickHandle(set.id);
+                          props.deleteClickHandler(set.id);
                         }}
                       >
                         <DeleteIcon fontSize={'large'} />
@@ -170,6 +173,9 @@ const EditSet = (props: EditSetProps): JSX.Element => {
                 }}
                 color={'primary'}
                 variant={'contained'}
+                onClick={() => {
+                  props.addSetClickHandler(props.segment.exercises[0].id);
+                }}
               >
                 <AddIcon fontSize={'large'} />
               </Button>
@@ -247,7 +253,8 @@ export interface EditSetProps {
   segmentId: string;
   parameterTypeId: string;
   closeClickHandler: () => void;
-  deleteClickHandle: (setId: string) => void;
+  deleteClickHandler: (setId: string) => void;
+  addSetClickHandler: (segmentExerciseId: string) => void;
 }
 
 const mapStateToProps = (state: State): EditSetProps => {
@@ -301,8 +308,11 @@ const mapDispatchToProps = (dispatch: Dispatch): EditSetProps =>
     closeClickHandler: () => {
       dispatch(closeEditSet());
     },
-    deleteClickHandle: (setId: string) => {
+    deleteClickHandler: (setId: string) => {
       dispatch(deleteSetFromEditingCopy(setId));
+    },
+    addSetClickHandler: (segmentExerciseId: string) => {
+      dispatch(addSetToEditingCopy(segmentExerciseId));
     },
   } as unknown as EditSetProps);
 
