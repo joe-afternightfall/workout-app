@@ -31,6 +31,9 @@ export default function SetTextField(props: SetTextFieldProps): JSX.Element {
         fullWidth
         variant={'outlined'}
         value={props.value}
+        inputProps={{
+          style: { textAlign: props.fullLength ? 'center' : undefined },
+        }}
         InputProps={{
           endAdornment: (
             <InputAdornment position={'start'}>
