@@ -59,6 +59,22 @@ export default {
         newState.displayEditSet = false;
         newState.editSetSegmentId = '';
         break;
+      case WorkoutActionTypes.DELETE_SEGMENT_FROM_ROUTINE_COPY: {
+        const clonedPhases = ramda.clone(newState.copyOfRoutineTemplate.phases);
+        clonedPhases.map((phase) => {
+          phase.segments.map((segment) => {
+            if (segment.id === action.segmentId) {
+              const foundIndex = phase.segments.indexOf(segment);
+              phase.segments.splice(foundIndex, 1);
+              phase.segments.map((segment, index) => {
+                segment.order = index + 1;
+              });
+            }
+          });
+        });
+        newState.copyOfRoutineTemplate.phases = clonedPhases;
+        break;
+      }
       case WorkoutActionTypes.ADD_SET_TO_EDITING_COPY:
         newState.copyOfRoutineTemplate.phases.map((phase) => {
           phase.segments.map((segment) => {

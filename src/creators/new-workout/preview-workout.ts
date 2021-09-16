@@ -27,3 +27,16 @@ export const addSetToEditingCopy = (
     segmentExerciseId: segmentExerciseId,
   };
 };
+
+export interface DeleteSegmentFromRoutineCopyAction {
+  type: WorkoutActionTypes.DELETE_SEGMENT_FROM_ROUTINE_COPY;
+  segmentId: string;
+}
+export const deleteSegmentFromRoutineCopy = (
+  segmentId: string
+): DeleteSegmentFromRoutineCopyAction => {
+  return {
+    type: WorkoutActionTypes.DELETE_SEGMENT_FROM_ROUTINE_COPY,
+    segmentId: segmentId,
+  };
+};

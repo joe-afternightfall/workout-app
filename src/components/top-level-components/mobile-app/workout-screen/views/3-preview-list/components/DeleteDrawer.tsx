@@ -3,6 +3,7 @@ import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { Button, Drawer, Grid } from '@material-ui/core';
+import { deleteSegmentFromRoutineCopy } from '../../../../../../../creators/new-workout/preview-workout';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -54,7 +55,14 @@ const DeleteDrawer = (
             </Button>
           </Grid>
           <Grid item xs={12}>
-            <Button variant={'contained'} className={classes.removeButton}>
+            <Button
+              variant={'contained'}
+              className={classes.removeButton}
+              onClick={() => {
+                props.deleteSegmentHandler();
+                props.closeHandler();
+              }}
+            >
               {'Remove Exercise'}
             </Button>
           </Grid>
@@ -78,18 +86,26 @@ const DeleteDrawer = (
 
 interface PassedInProps {
   open: boolean;
+  segmentId: string;
   closeHandler: () => void;
 }
 
 export interface DeleteDrawerProps {
-  delete_me?: undefined;
+  deleteSegmentHandler: () => void;
 }
 
 const mapStateToProps = (state: any): DeleteDrawerProps => {
   return {} as unknown as DeleteDrawerProps;
 };
 
-const mapDispatchToProps = (dispatch: Dispatch): DeleteDrawerProps =>
-  ({} as unknown as DeleteDrawerProps);
+const mapDispatchToProps = (
+  dispatch: Dispatch,
+  ownProps: PassedInProps
+): DeleteDrawerProps =>
+  ({
+    deleteSegmentHandler: () => {
+      dispatch(deleteSegmentFromRoutineCopy(ownProps.segmentId));
+    },
+  } as unknown as DeleteDrawerProps);
 
 export default connect(mapStateToProps, mapDispatchToProps)(DeleteDrawer);

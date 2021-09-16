@@ -47,7 +47,11 @@ const EditOptions = (props: EditOptionsProps & PassedInProps): JSX.Element => {
 
   return (
     <>
-      <DeleteDrawer open={open} closeHandler={closeDrawer} />
+      <DeleteDrawer
+        open={open}
+        segmentId={props.segmentId}
+        closeHandler={closeDrawer}
+      />
       <Slide mountOnEnter unmountOnExit direction={'right'} in={true}>
         <div>
           <IconButton
@@ -80,6 +84,7 @@ const EditOptions = (props: EditOptionsProps & PassedInProps): JSX.Element => {
 
 interface PassedInProps {
   superset?: boolean;
+  segmentId: string;
 }
 
 export interface EditOptionsProps {

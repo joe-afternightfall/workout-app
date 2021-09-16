@@ -13,6 +13,7 @@ import {
 import { MarkCurrentSetAsDoneAction } from './new-workout/active-workout';
 import {
   AddSetToEditingCopyAction,
+  DeleteSegmentFromRoutineCopyAction,
   DeleteSetFromEditingCopyAction,
 } from './new-workout/preview-workout';
 
@@ -28,8 +29,10 @@ export enum WorkoutActionTypes {
   OPEN_EDIT_SET = 'OPEN_EDIT_SET',
   CLOSE_EDIT_SET = 'CLOSE_EDIT_SET',
   COPY_ROUTINE_FOR_EDIT = 'COPY_ROUTINE_FOR_EDIT',
+  // TODO:  rename the below vars to from_routine_copy
   DELETE_SET_FROM_EDITING_COPY = 'DELETE_SET_FROM_EDITING_COPY',
   ADD_SET_TO_EDITING_COPY = 'ADD_SET_TO_EDITING_COPY',
+  DELETE_SEGMENT_FROM_ROUTINE_COPY = 'DELETE_SEGMENT_FROM_ROUTINE_COPY',
 }
 
 export type WorkoutActions =
@@ -45,4 +48,5 @@ export type WorkoutActions =
   | CopyRoutineForEditAction
   | DeleteSetFromEditingCopyAction
   | OpenEditPreviewOptionsAction
-  | AddSetToEditingCopyAction;
+  | AddSetToEditingCopyAction
+  | DeleteSegmentFromRoutineCopyAction;

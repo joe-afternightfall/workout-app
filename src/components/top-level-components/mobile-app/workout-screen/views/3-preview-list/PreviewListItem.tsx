@@ -28,7 +28,9 @@ const PreviewListItem = (
   ) {
     return (
       <>
-        {props.displayEditOptions && <EditOptions />}
+        {props.displayEditOptions && (
+          <EditOptions segmentId={props.segment.id} />
+        )}
         <SingleSetItem
           segmentId={props.segment.id}
           exerciseTitle={getExerciseName(
@@ -42,7 +44,9 @@ const PreviewListItem = (
   } else if (isSuperset(props.segment.trainingSetTypeId)) {
     return (
       <>
-        {props.displayEditOptions && <EditOptions superset />}
+        {props.displayEditOptions && (
+          <EditOptions superset segmentId={props.segment.id} />
+        )}
         <SuperSetItem
           segmentId={props.segment.id}
           displayEditOptions={props.displayEditOptions}
