@@ -57,6 +57,7 @@ export default function ActiveStraightSet(
                     markedDone={markedDone}
                     activeSet={activeSet}
                     info={{
+                      setId: info.setId,
                       reps: info.reps,
                       weight: info.weight,
                       parameterTypeId: info.exercise.parameterTypeId,

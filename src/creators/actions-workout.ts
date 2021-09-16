@@ -17,6 +17,7 @@ import {
   DeleteSetFromEditingCopyAction,
   SaveEditedVersionOfRoutineAction,
 } from './new-workout/preview-workout';
+import { UpdateSetTextFieldAction } from './new-workout/update-workout';
 
 export enum WorkoutActionTypes {
   // Workout Actions
@@ -35,6 +36,7 @@ export enum WorkoutActionTypes {
   ADD_SET_TO_EDITING_COPY = 'ADD_SET_TO_EDITING_COPY',
   DELETE_SEGMENT_FROM_ROUTINE_COPY = 'DELETE_SEGMENT_FROM_ROUTINE_COPY',
   SAVE_EDITED_VERSION_OF_ROUTINE = 'SAVE_EDITED_VERSION_OF_ROUTINE',
+  UPDATE_SET_TEXT_FIELD = 'UPDATE_SET_TEXT_FIELD',
 }
 
 export type WorkoutActions =
@@ -52,4 +54,5 @@ export type WorkoutActions =
   | OpenEditPreviewOptionsAction
   | AddSetToEditingCopyAction
   | DeleteSegmentFromRoutineCopyAction
-  | SaveEditedVersionOfRoutineAction;
+  | SaveEditedVersionOfRoutineAction
+  | UpdateSetTextFieldAction;

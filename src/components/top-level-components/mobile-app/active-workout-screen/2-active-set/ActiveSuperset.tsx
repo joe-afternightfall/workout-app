@@ -71,6 +71,7 @@ export default function ActiveSuperset(
                           index === 0 ? classes.topRow : classes.bottomRow
                         }
                         info={{
+                          setId: info.setId,
                           reps: info.reps,
                           weight: info.weight,
                           parameterTypeId: info.exercise.parameterTypeId,

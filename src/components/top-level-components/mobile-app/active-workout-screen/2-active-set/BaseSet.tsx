@@ -2,7 +2,7 @@ import React from 'react';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
 import { isWeightsAndReps } from '../../../../../utils/active-workout';
-import SetTextField from './components/SetTextField';
+import SetTextField, { SetFieldInfoProps } from './components/SetTextField';
 import SetDivider from './components/SetDivider';
 import clsx from 'clsx';
 
@@ -67,23 +67,26 @@ export default function BaseSet(props: BaseSetProps): JSX.Element {
         <>
           <SetTextField
             value={info.weight}
-            inputAdornment={'lb'}
             fullLength={false}
+            setType={'weight'}
+            setId={info.setId}
           />
 
           <SetDivider />
 
           <SetTextField
             value={info.reps}
-            inputAdornment={'reps'}
             fullLength={false}
+            setType={'reps'}
+            setId={info.setId}
           />
         </>
       ) : (
         <SetTextField
           value={info.reps}
-          inputAdornment={'reps'}
           fullLength={true}
+          setType={'reps'}
+          setId={info.setId}
         />
       )}
     </Grid>
@@ -94,11 +97,7 @@ export interface BaseSetProps {
   superset: boolean;
   markedDone: boolean;
   activeSet: boolean;
-  info: {
-    reps: number;
-    weight?: number;
-    parameterTypeId: string;
-  };
+  info: SetFieldInfoProps;
   extraStyles?: string;
   scrollToSetNumber: number;
 }
