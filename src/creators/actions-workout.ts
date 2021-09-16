@@ -7,8 +7,10 @@ import {
   ToggleEditPreviewOptionsAction,
   OpenEditSetAction,
   CloseEditSetAction,
+  CopyRoutineForEditAction,
 } from './new-workout/workout-selections';
 import { MarkCurrentSetAsDoneAction } from './new-workout/active-workout';
+import { DeleteSetFromEditingCopyAction } from './new-workout/preview-workout';
 
 export enum WorkoutActionTypes {
   // Workout Actions
@@ -20,6 +22,8 @@ export enum WorkoutActionTypes {
   TOGGLE_EDIT_PREVIEW_LIST = 'TOGGLE_EDIT_PREVIEW_LIST',
   OPEN_EDIT_SET = 'OPEN_EDIT_SET',
   CLOSE_EDIT_SET = 'CLOSE_EDIT_SET',
+  COPY_ROUTINE_FOR_EDIT = 'COPY_ROUTINE_FOR_EDIT',
+  DELETE_SET_FROM_EDITING_COPY = 'DELETE_SET_FROM_EDITING_COPY',
 }
 
 export type WorkoutActions =
@@ -31,4 +35,6 @@ export type WorkoutActions =
   | MarkCurrentSetAsDoneAction
   | ToggleEditPreviewOptionsAction
   | OpenEditSetAction
-  | CloseEditSetAction;
+  | CloseEditSetAction
+  | CopyRoutineForEditAction
+  | DeleteSetFromEditingCopyAction;

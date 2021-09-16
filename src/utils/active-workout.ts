@@ -1,10 +1,33 @@
 import { ExerciseVO } from '../configs/models/configurations/ExerciseVO';
 import {
   BuiltSets,
+  Phase,
   Segment,
   Set,
   WorkoutExercise,
 } from '../configs/models/AppInterfaces';
+
+// TODO: rename this file
+
+export const sortWorkoutByOrder = (phases: Phase[]): Phase[] => {
+  const phasesCopy: Phase[] = phases;
+  phasesCopy
+    .sort((a: Phase, b: Phase) => a.order - b.order)
+    .map((phase: Phase) => {
+      phase.segments
+        .sort((c: Segment, d: Segment) => c.order - d.order)
+        .map((segment: Segment) => {
+          segment.exercises
+            .sort((e: WorkoutExercise, f: WorkoutExercise) => e.order - f.order)
+            .map((exercise: WorkoutExercise) => {
+              exercise.sets.sort((g: Set, h: Set) => g.setNumber - h.setNumber);
+            });
+        });
+    });
+
+  console.log('RETURNING_COPY_PHASES *********');
+  return phasesCopy;
+};
 
 export const buildSetInfo = (
   segment: Segment,

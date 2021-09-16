@@ -2,17 +2,12 @@ import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import {
   isSuperset,
-  getExercise,
   isStraightSet,
+  buildSetInfo,
 } from '../../../../utils/active-workout';
-import {
-  Set,
-  Segment,
-  BuiltSets,
-  WorkoutExercise,
-} from '../../../../configs/models/AppInterfaces';
 import { State } from '../../../../configs/redux/store';
 import ActiveWorkout, { ActiveWorkoutProps } from './ActiveWorkout';
+import { Segment, BuiltSets } from '../../../../configs/models/AppInterfaces';
 import { markCurrentSetAsDone } from '../../../../creators/new-workout/active-workout';
 
 const mapStateToProps = (state: State): ActiveWorkoutProps => {
@@ -23,32 +18,11 @@ const mapStateToProps = (state: State): ActiveWorkoutProps => {
       segment.order === state.workoutState.currentSegmentIndex
   );
 
-  const builtSets: BuiltSets = {};
+  let builtSets: BuiltSets = {};
 
-  currentSegment &&
-    currentSegment.exercises.map((exercise: WorkoutExercise) => {
-      return exercise.sets.map((set: Set) => {
-        const exerciseSet = {
-          setNumber: set.setNumber,
-          setId: set.id,
-          segmentId: currentSegment && currentSegment.id,
-          exercise: getExercise(allExercises, exercise.exerciseId),
-          exerciseOrder: exercise.order,
-          weight: set.weight,
-          reps: set.reps,
-          duration: set.duration,
-          distance: set.distance,
-          markedDone: set.markedDone,
-        };
-
-        builtSets[set.setNumber]
-          ? (builtSets[set.setNumber] = [
-              ...builtSets[set.setNumber],
-              exerciseSet,
-            ])
-          : (builtSets[set.setNumber] = [exerciseSet]);
-      });
-    });
+  if (currentSegment) {
+    builtSets = buildSetInfo(currentSegment, allExercises);
+  }
 
   return {
     allExercises: state.workoutState.configs.exercises,
