@@ -21,6 +21,7 @@ import { trainingSetTypes } from '../configs/app-data/training-set-types';
 import { EquipmentVO } from '../configs/models/configurations/EquipmentVO';
 import { RoutineTemplateVO } from '../configs/models/workout/RoutineTemplateVO';
 import { WorkoutCategoryVO } from '../configs/models/configurations/WorkoutCategoryVO';
+import { sortWorkoutByOrder } from '../utils/active-workout';
 
 export interface InitializeWorkoutConfigsAction {
   type: WorkoutActionTypes.INITIALIZE;
@@ -38,6 +39,11 @@ export interface InitializeWorkoutConfigsAction {
 }
 
 export const initializeWorkoutConfigs = (): InitializeWorkoutConfigsAction => {
+  const routineTemplatesCopy = routineTemplates;
+  routineTemplatesCopy.map((template) => {
+    template.phases = sortWorkoutByOrder(template.phases);
+  });
+
   return {
     type: WorkoutActionTypes.INITIALIZE,
     configs: {
@@ -49,7 +55,7 @@ export const initializeWorkoutConfigs = (): InitializeWorkoutConfigsAction => {
       gripTypes: gripTypes,
       parameterTypes: parameterTypes,
       exercises: exercises,
-      routineTemplates: routineTemplates,
+      routineTemplates: routineTemplatesCopy,
     },
   };
 };
