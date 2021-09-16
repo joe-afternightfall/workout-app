@@ -78,14 +78,17 @@ export interface PreviewWorkoutListProps {
 }
 
 const mapStateToProps = (state: State): PreviewWorkoutListProps => {
-  const selectedRoutine = state.workoutState.selectedRoutineTemplate;
+  const workoutState = state.workoutState;
+  const selectedRoutine = workoutState.displayEditPreviewList
+    ? workoutState.copyOfRoutineTemplate
+    : workoutState.selectedRoutineTemplate;
   const sortedPhases = selectedRoutine.phases.sort(
     (a: Phase, b: Phase) => a.order - b.order
   );
   return {
     routinePhases: sortedPhases,
-    configPhases: state.workoutState.configs.phases,
-    displayEditSet: state.workoutState.displayEditSet,
+    configPhases: workoutState.configs.phases,
+    displayEditSet: workoutState.displayEditSet,
   } as unknown as PreviewWorkoutListProps;
 };
 
