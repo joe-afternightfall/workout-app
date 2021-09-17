@@ -5,13 +5,7 @@ import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { State } from '../../../../../../../../configs/redux/store';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from '@material-ui/icons/Add';
-import {
-  Grid,
-  InputAdornment,
-  Slide,
-  TextField,
-  Typography,
-} from '@material-ui/core';
+import { Grid, Slide } from '@material-ui/core';
 import ActiveExercise, {
   Title,
 } from '../../../../../active-workout-screen/1-active-exercise/ActiveExercise';
@@ -27,20 +21,10 @@ import {
 } from '../../../../../../../../creators/new-workout/preview-workout';
 import ActionButton from './components/ActionButton';
 import EditAppBar from './components/EditAppBar';
+import RestBetweenOptions from './components/RestBetweenOptions';
 
 const useStyles = makeStyles(() =>
   createStyles({
-    root: {
-      fontSize: '5vh',
-    },
-    notchedOutline: {
-      border: 0,
-    },
-    fieldWrapper: {
-      borderColor: '#222323',
-      backgroundColor: '#222323',
-      borderRadius: 8,
-    },
     addButtonWrapper: {
       paddingLeft: 4,
       marginBottom: 20,
@@ -117,61 +101,7 @@ const EditSet = (props: EditSetProps): JSX.Element => {
           </Grid>
 
           <Grid item xs={12}>
-            <Grid container spacing={2} justify={'center'}>
-              <Grid item xs={6}>
-                <div className={classes.fieldWrapper}>
-                  <TextField
-                    variant={'outlined'}
-                    value={'80'}
-                    inputProps={{ style: { textAlign: 'center' } }}
-                    InputProps={{
-                      endAdornment: (
-                        <InputAdornment position={'start'}>
-                          {'Sec'}
-                        </InputAdornment>
-                      ),
-                      classes: {
-                        root: classes.root,
-                        notchedOutline: classes.notchedOutline,
-                      },
-                    }}
-                  />
-                </div>
-              </Grid>
-              <Grid item xs={6}>
-                <div className={classes.fieldWrapper}>
-                  <TextField
-                    variant={'outlined'}
-                    value={'70'}
-                    inputProps={{ style: { textAlign: 'center' } }}
-                    InputProps={{
-                      endAdornment: (
-                        <InputAdornment position={'start'}>
-                          {'Sec'}
-                        </InputAdornment>
-                      ),
-                      classes: {
-                        root: classes.root,
-                        notchedOutline: classes.notchedOutline,
-                      },
-                    }}
-                  />
-                </div>
-              </Grid>
-            </Grid>
-          </Grid>
-
-          <Grid item xs={12} container>
-            <Grid item xs={6} container justify={'center'}>
-              <Typography color={'textSecondary'} variant={'caption'}>
-                {'Rest between sets'}
-              </Typography>
-            </Grid>
-            <Grid item xs={6} container justify={'center'}>
-              <Typography color={'textSecondary'} variant={'caption'}>
-                {'Rest between exercises'}
-              </Typography>
-            </Grid>
+            <RestBetweenOptions />
           </Grid>
         </Grid>
       </div>
