@@ -38,12 +38,12 @@ const EditSupersetRow = (
   const { segment, deleteClickHandler, allExercises } = props;
 
   const builtSets = buildSetInfo(segment, allExercises);
-  const shouldDisable = false;
+  let shouldDisable = false;
   const supersets: JSX.Element[] = [];
 
-  // segment.exercises.map(
-  //   (exercise) => (shouldDisable = exercise.sets.length === 1)
-  // );
+  segment.exercises.map(
+    (exercise) => (shouldDisable = exercise.sets.length === 1)
+  );
 
   Object.values(builtSets).map((setInfo: ActiveSetInfo[], index: number) => {
     supersets.push(
@@ -73,7 +73,7 @@ const EditSupersetRow = (
           <ActionButton
             disabled={shouldDisable}
             clickHandler={() => {
-              alert('clicked delete');
+              deleteClickHandler(setInfo);
             }}
             icon={<DeleteIcon fontSize={'large'} />}
           />
@@ -91,7 +91,7 @@ interface PassedInProps {
 
 export interface EditSupersetRowProps {
   allExercises: ExerciseVO[];
-  deleteClickHandler: (setId: string) => void;
+  deleteClickHandler: (setInfo: ActiveSetInfo[]) => void;
 }
 
 const mapStateToProps = (state: State): EditSupersetRowProps => {
@@ -102,8 +102,10 @@ const mapStateToProps = (state: State): EditSupersetRowProps => {
 
 const mapDispatchToProps = (dispatch: Dispatch): EditSupersetRowProps =>
   ({
-    deleteClickHandler: (setId: string) => {
-      dispatch(deleteSetFromEditingCopy(setId));
+    deleteClickHandler: (setInfo: ActiveSetInfo[]) => {
+      setInfo.map((info) => {
+        dispatch(deleteSetFromEditingCopy(info.setId));
+      });
     },
   } as unknown as EditSupersetRowProps);
 

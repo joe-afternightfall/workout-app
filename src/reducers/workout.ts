@@ -107,8 +107,8 @@ export default {
         break;
       }
       case WorkoutActionTypes.DELETE_SET_FROM_EDITING_COPY: {
-        //todo: extract out below giant map()
-        newState.copyOfRoutineTemplate.phases.map((phase) => {
+        const clonedPhases = ramda.clone(newState.copyOfRoutineTemplate.phases);
+        clonedPhases.map((phase) => {
           phase.segments.map((segment) => {
             segment.exercises.map((exercise) => {
               exercise.sets.map((set) => {
@@ -123,6 +123,7 @@ export default {
             });
           });
         });
+        newState.copyOfRoutineTemplate.phases = clonedPhases;
         break;
       }
       case WorkoutActionTypes.SAVE_EDITED_VERSION_OF_ROUTINE: {
