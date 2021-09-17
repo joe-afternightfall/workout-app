@@ -1,10 +1,10 @@
-import React from 'react';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { Grid } from '@material-ui/core';
-import { isWeightsAndReps } from '../../../../../utils/active-workout';
-import SetTextField, { SetFieldInfoProps } from './components/SetTextField';
-import SetDivider from './components/SetDivider';
 import clsx from 'clsx';
+import React from 'react';
+import SetDivider from './SetDivider';
+import { Grid } from '@material-ui/core';
+import SetTextField, { SetFieldInfoProps } from './SetTextField';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
+import { isWeightsAndReps } from '../../../../../utils/active-workout';
 
 const useStyles = makeStyles(() =>
   createStyles({

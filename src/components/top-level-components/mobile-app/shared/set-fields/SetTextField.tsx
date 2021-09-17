@@ -3,8 +3,8 @@ import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { Grid, InputAdornment, TextField } from '@material-ui/core';
-import { updateSetTextField } from '../../../../../../creators/new-workout/update-workout';
-import { validateReps } from '../../../../../../utils/validator';
+import { validateReps } from '../../../../../utils/validator';
+import { updateSetTextField } from '../../../../../creators/new-workout/update-workout';
 
 const useStyles = makeStyles(() =>
   createStyles({
