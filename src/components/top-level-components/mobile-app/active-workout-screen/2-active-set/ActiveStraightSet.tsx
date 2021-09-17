@@ -6,26 +6,16 @@ import {
   ActiveSetInfo,
 } from '../../../../../configs/models/AppInterfaces';
 import CrushedItButton from './components/CrushedItButton';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
 import StraightSetRow from '../../shared/set-fields/StraightSetRow';
-
-const useStyles = makeStyles(() =>
-  createStyles({
-    root: {
-      height: '11.5vh',
-      marginBottom: 8,
-    },
-  })
-);
 
 export default function ActiveStraightSet(
   props: ActiveStraightSetProps
 ): JSX.Element {
-  const classes = useStyles();
+  const { builtSets, didItClickHandler, currentSetIndex, lastSegment } = props;
   const straightSets: JSX.Element[] = [];
   let segmentId = '';
 
-  Object.values(props.builtSets).map((setInfo: ActiveSetInfo[]) => {
+  Object.values(builtSets).map((setInfo: ActiveSetInfo[]) => {
     let activeSet = false;
     let setNumber = -1;
     let markedDone = false;
@@ -37,17 +27,12 @@ export default function ActiveStraightSet(
           segmentId = info.segmentId;
           setNumber = info.setNumber;
           const crushedItHandler = () => {
-            props.didItClickHandler(
-              segmentId,
-              setNumber,
-              lastSet,
-              props.lastSegment
-            );
+            didItClickHandler(segmentId, setNumber, lastSet, lastSegment);
           };
           if (info.exercise) {
-            activeSet = props.currentSetIndex === info.setNumber;
+            activeSet = currentSetIndex === info.setNumber;
             markedDone = info.markedDone;
-            lastSet = Object.keys(props.builtSets).length === info.setNumber;
+            lastSet = Object.keys(builtSets).length === info.setNumber;
             return (
               <Blinker
                 shouldBlink={activeSet}

@@ -1,5 +1,4 @@
 import React from 'react';
-import BaseSet from './BaseSet';
 import { Grid } from '@material-ui/core';
 import Blinker from '../../shared/Blinker';
 import CrushedItButton from './components/CrushedItButton';
@@ -8,6 +7,7 @@ import {
   BuiltSets,
   ActiveSetInfo,
 } from '../../../../../configs/models/AppInterfaces';
+import BaseSet from '../../shared/set-fields/BaseSet';
 
 const useStyles = makeStyles(() =>
   createStyles({

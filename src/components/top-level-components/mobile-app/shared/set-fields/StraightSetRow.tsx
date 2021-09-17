@@ -1,8 +1,8 @@
 import React from 'react';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
-import BaseSet from '../../active-workout-screen/2-active-set/BaseSet';
+import BaseSet from './BaseSet';
 import { Grid } from '@material-ui/core';
-import { SetFieldInfoProps } from '../../active-workout-screen/2-active-set/components/SetTextField';
+import { SetFieldInfoProps } from './SetTextField';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(() =>
   createStyles({
