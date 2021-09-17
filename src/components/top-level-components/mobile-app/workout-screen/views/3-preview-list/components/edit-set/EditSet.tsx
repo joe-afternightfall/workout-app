@@ -1,19 +1,15 @@
 import React from 'react';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { State } from '../../../../../../../../configs/redux/store';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from '@material-ui/icons/Add';
 import {
-  AppBar,
-  Button,
   Grid,
-  IconButton,
   InputAdornment,
   Slide,
   TextField,
-  Toolbar,
   Typography,
 } from '@material-ui/core';
 import ActiveExercise, {
@@ -23,8 +19,6 @@ import {
   getExercise,
   isSuperset,
 } from '../../../../../../../../utils/active-workout';
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import { closeEditSet } from '../../../../../../../../creators/new-workout/workout-selections';
 import StraightSetRow from '../../../../../shared/set-fields/StraightSetRow';
 import { Segment } from '../../../../../../../../configs/models/AppInterfaces';
 import {
@@ -32,8 +26,9 @@ import {
   deleteSetFromEditingCopy,
 } from '../../../../../../../../creators/new-workout/preview-workout';
 import ActionButton from './components/ActionButton';
+import EditAppBar from './components/EditAppBar';
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     root: {
       fontSize: '5vh',
@@ -45,20 +40,6 @@ const useStyles = makeStyles((theme: Theme) =>
       borderColor: '#222323',
       backgroundColor: '#222323',
       borderRadius: 8,
-    },
-    toolbarMixin: {
-      height: '7vh',
-    },
-    toolbar: {
-      padding: '0 12px',
-      height: '8vh',
-    },
-    gridWrapper: {
-      height: '100%',
-    },
-    menuButton: {
-      paddingTop: 8,
-      paddingBottom: 8,
     },
     addButtonWrapper: {
       paddingLeft: 4,
@@ -75,41 +56,7 @@ const EditSet = (props: EditSetProps): JSX.Element => {
   return (
     <Slide mountOnEnter unmountOnExit in={props.display} direction={'left'}>
       <div>
-        <AppBar position={'absolute'} color={'transparent'} elevation={0}>
-          <Toolbar className={classes.toolbar}>
-            <Grid
-              container
-              className={classes.gridWrapper}
-              alignItems={'flex-end'}
-            >
-              <Grid item xs={2}>
-                <IconButton
-                  color={'primary'}
-                  className={classes.menuButton}
-                  onClick={props.closeClickHandler}
-                >
-                  <ArrowBackIcon fontSize={'small'} />
-                </IconButton>
-              </Grid>
-
-              <Grid
-                item
-                xs={8}
-                container
-                justify={'center'}
-                alignItems={'center'}
-              >
-                <Grid item>
-                  <Typography variant={'overline'}>{'Edit'}</Typography>
-                </Grid>
-              </Grid>
-
-              <Grid item xs={2} />
-            </Grid>
-          </Toolbar>
-        </AppBar>
-
-        <div className={classes.toolbarMixin} />
+        <EditAppBar />
 
         <Grid container>
           <Grid item xs={12}>
@@ -239,7 +186,6 @@ export interface EditSetProps {
   display: boolean;
   segmentId: string;
   parameterTypeId: string;
-  closeClickHandler: () => void;
   deleteClickHandler: (setId: string) => void;
   addSetClickHandler: (segmentExerciseId: string) => void;
 }
@@ -292,9 +238,6 @@ const mapStateToProps = (state: State): EditSetProps => {
 
 const mapDispatchToProps = (dispatch: Dispatch): EditSetProps =>
   ({
-    closeClickHandler: () => {
-      dispatch(closeEditSet());
-    },
     deleteClickHandler: (setId: string) => {
       dispatch(deleteSetFromEditingCopy(setId));
     },
