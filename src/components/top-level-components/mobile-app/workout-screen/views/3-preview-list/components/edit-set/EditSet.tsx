@@ -31,6 +31,7 @@ import {
   addSetToEditingCopy,
   deleteSetFromEditingCopy,
 } from '../../../../../../../../creators/new-workout/preview-workout';
+import ActionButton from './components/ActionButton';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -58,6 +59,11 @@ const useStyles = makeStyles((theme: Theme) =>
     menuButton: {
       paddingTop: 8,
       paddingBottom: 8,
+    },
+    addButtonWrapper: {
+      paddingLeft: 4,
+      marginBottom: 20,
+      height: '11.5vh',
     },
   })
 );
@@ -136,25 +142,13 @@ const EditSet = (props: EditSetProps): JSX.Element => {
                       parameterTypeId: props.parameterTypeId,
                     }}
                     actionButton={
-                      <Button
-                        style={{
-                          backgroundColor: '#222323',
-                          color: shouldDisable ? '#4F5050' : '#ED440B',
-                          width: '100%',
-                          height: '100%',
-                          borderRadius: '0 8px 8px 0',
-                          padding: '6px 0',
-                          opacity: shouldDisable ? 0.6 : 1,
-                        }}
-                        color={'primary'}
-                        variant={'contained'}
+                      <ActionButton
                         disabled={shouldDisable}
-                        onClick={() => {
+                        clickHandler={() => {
                           props.deleteClickHandler(set.id);
                         }}
-                      >
-                        <DeleteIcon fontSize={'large'} />
-                      </Button>
+                        icon={<DeleteIcon fontSize={'large'} />}
+                      />
                     }
                   />
                 );
@@ -163,26 +157,15 @@ const EditSet = (props: EditSetProps): JSX.Element => {
           </Grid>
 
           <Grid item xs={12} container justify={'flex-end'}>
-            <Grid item xs={4} style={{ paddingLeft: 4, marginBottom: 20 }}>
-              <Button
-                style={{
-                  backgroundColor: '#222323',
-                  color: atMaxSets ? '#4F5050' : '#ED440B',
-                  width: '100%',
-                  height: '11.5vh',
-                  borderRadius: '8px',
-                  padding: '6px 0',
-                  opacity: atMaxSets ? 0.6 : 1,
-                }}
-                color={'primary'}
-                variant={'contained'}
+            <Grid item xs={4} className={classes.addButtonWrapper}>
+              <ActionButton
+                soloButton
                 disabled={atMaxSets}
-                onClick={() => {
+                clickHandler={() => {
                   props.addSetClickHandler(props.segment.exercises[0].id);
                 }}
-              >
-                <AddIcon fontSize={'large'} />
-              </Button>
+                icon={<AddIcon fontSize={'large'} />}
+              />
             </Grid>
           </Grid>
 
