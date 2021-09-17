@@ -10,6 +10,10 @@ const useStyles = makeStyles(() =>
       height: '11.5vh',
       marginBottom: 8,
     },
+    buttonWrapper: {
+      height: '100%',
+      paddingLeft: 4,
+    },
   })
 );
 
@@ -17,20 +21,20 @@ export default function StraightSetRow(
   props: StraightSetRowProps
 ): JSX.Element {
   const classes = useStyles();
-  const { info, activeSet, markedDone } = props;
+  const { info, activeSet, markedDone, actionButton, setNumber } = props;
 
   return (
     <Grid item xs={12} container alignItems={'center'} className={classes.root}>
       <BaseSet
+        info={info}
         superset={false}
         activeSet={activeSet}
         markedDone={markedDone}
-        scrollToSetNumber={props.setNumber}
-        info={info}
+        scrollToSetNumber={setNumber}
       />
 
-      <Grid item xs={4} style={{ height: '100%', paddingLeft: 4 }}>
-        {props.actionButton}
+      <Grid item xs={4} className={classes.buttonWrapper}>
+        {actionButton}
       </Grid>
     </Grid>
   );

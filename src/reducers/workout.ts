@@ -75,8 +75,9 @@ export default {
         newState.copyOfRoutineTemplate.phases = clonedPhases;
         break;
       }
-      case WorkoutActionTypes.ADD_SET_TO_EDITING_COPY:
-        newState.copyOfRoutineTemplate.phases.map((phase) => {
+      case WorkoutActionTypes.ADD_SET_TO_EDITING_COPY: {
+        const clonedPhases = ramda.clone(newState.copyOfRoutineTemplate.phases);
+        clonedPhases.map((phase) => {
           phase.segments.map((segment) => {
             segment.exercises.map((exercise) => {
               if (exercise.id === action.segmentExerciseId) {
@@ -102,7 +103,9 @@ export default {
             });
           });
         });
+        newState.copyOfRoutineTemplate.phases = clonedPhases;
         break;
+      }
       case WorkoutActionTypes.DELETE_SET_FROM_EDITING_COPY: {
         //todo: extract out below giant map()
         newState.copyOfRoutineTemplate.phases.map((phase) => {

@@ -14,7 +14,10 @@ import {
   isSuperset,
 } from '../../../../../../../../utils/active-workout';
 import StraightSetRow from '../../../../../shared/set-fields/StraightSetRow';
-import { Segment } from '../../../../../../../../configs/models/AppInterfaces';
+import {
+  Segment,
+  WorkoutExercise,
+} from '../../../../../../../../configs/models/AppInterfaces';
 import {
   addSetToEditingCopy,
   deleteSetFromEditingCopy,
@@ -22,6 +25,7 @@ import {
 import ActionButton from './components/ActionButton';
 import EditAppBar from './components/EditAppBar';
 import RestBetweenOptions from './components/RestBetweenOptions';
+import EditSupersetRow from '../../../../../shared/set-rows/EditSupersetRow';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -54,7 +58,7 @@ const EditSet = (props: EditSetProps): JSX.Element => {
 
           <Grid item xs={12}>
             {props.superset ? (
-              <React.Fragment />
+              <EditSupersetRow segment={props.segment} />
             ) : (
               props.segment &&
               props.segment.exercises[0].sets.map((set, index) => {
@@ -93,7 +97,7 @@ const EditSet = (props: EditSetProps): JSX.Element => {
                 soloButton
                 disabled={atMaxSets}
                 clickHandler={() => {
-                  props.addSetClickHandler(props.segment.exercises[0].id);
+                  props.addSetClickHandler(props.segment.exercises);
                 }}
                 icon={<AddIcon fontSize={'large'} />}
               />
@@ -117,7 +121,7 @@ export interface EditSetProps {
   segmentId: string;
   parameterTypeId: string;
   deleteClickHandler: (setId: string) => void;
-  addSetClickHandler: (segmentExerciseId: string) => void;
+  addSetClickHandler: (exercises: WorkoutExercise[]) => void;
 }
 
 const mapStateToProps = (state: State): EditSetProps => {
@@ -171,8 +175,10 @@ const mapDispatchToProps = (dispatch: Dispatch): EditSetProps =>
     deleteClickHandler: (setId: string) => {
       dispatch(deleteSetFromEditingCopy(setId));
     },
-    addSetClickHandler: (segmentExerciseId: string) => {
-      dispatch(addSetToEditingCopy(segmentExerciseId));
+    addSetClickHandler: (exercises: WorkoutExercise[]) => {
+      exercises.map((exercise) => {
+        dispatch(addSetToEditingCopy(exercise.id));
+      });
     },
   } as unknown as EditSetProps);
 
