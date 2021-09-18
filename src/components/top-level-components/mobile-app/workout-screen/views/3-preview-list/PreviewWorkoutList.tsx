@@ -1,4 +1,5 @@
 import React from 'react';
+import clsx from 'clsx';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
@@ -32,6 +33,9 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingBottom: '6vh',
       backgroundColor: theme.palette.background.paper,
     },
+    editingBackground: {
+      backgroundColor: '#313131',
+    },
   })
 );
 
@@ -46,7 +50,9 @@ const PreviewWorkoutList = (props: PreviewWorkoutListProps): JSX.Element => {
         return (
           <List
             key={index}
-            className={classes.listWrapper}
+            className={clsx(classes.listWrapper, {
+              [classes.editingBackground]: props.displayEditOptions,
+            })}
             subheader={
               <ListSubheader component={'div'} className={classes.subHeader}>
                 {getPhaseName(props.configPhases, phase.phaseId)}
@@ -54,7 +60,9 @@ const PreviewWorkoutList = (props: PreviewWorkoutListProps): JSX.Element => {
             }
           >
             {sortPhaseSegments(phase.segments).map((segment: Segment) => {
-              return (
+              return props.displayEditOptions ? (
+                <PreviewListItem key={segment.id} segment={segment} />
+              ) : (
                 <>
                   <PreviewListItem key={segment.id} segment={segment} />
                   <WorkoutListDivider />
@@ -75,6 +83,7 @@ export interface PreviewWorkoutListProps {
   routinePhases: Phase[];
   configPhases: PhaseVO[];
   displayEditSet: boolean;
+  displayEditOptions: boolean;
 }
 
 const mapStateToProps = (state: State): PreviewWorkoutListProps => {
@@ -86,6 +95,7 @@ const mapStateToProps = (state: State): PreviewWorkoutListProps => {
     routinePhases: selectedRoutine.phases,
     configPhases: workoutState.configs.phases,
     displayEditSet: workoutState.displayEditSet,
+    displayEditOptions: state.workoutState.displayEditPreviewList,
   } as unknown as PreviewWorkoutListProps;
 };
 

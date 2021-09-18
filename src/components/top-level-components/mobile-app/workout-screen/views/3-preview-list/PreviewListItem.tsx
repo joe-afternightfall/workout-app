@@ -16,52 +16,99 @@ import SuperSetItem from '../../../shared/exercise-list/SuperSetItem';
 import SingleSetItem from '../../../shared/exercise-list/SingleSetItem';
 import { Segment } from '../../../../../../configs/models/AppInterfaces';
 import { ExerciseVO } from '../../../../../../configs/models/configurations/ExerciseVO';
+import { Card } from '@material-ui/core';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    editingCard: {
+      margin: '12px 0',
+    },
+  })
+);
 
 const PreviewListItem = (
   props: PreviewListItemProps & PassedInProps
 ): JSX.Element => {
+  const classes = useStyles();
+
   const sortedExercises = sortSegmentExercises(props.segment.exercises);
 
   if (
     isStraightSet(props.segment.trainingSetTypeId) ||
     isCircuitSet(props.segment.trainingSetTypeId)
   ) {
-    return (
+    return props.displayEditOptions ? (
       <>
-        {props.displayEditOptions && (
-          <EditOptions segmentId={props.segment.id} />
-        )}
-        <SingleSetItem
+        <EditOptions
           segmentId={props.segment.id}
-          exerciseTitle={getExerciseName(
-            props.exercises,
-            sortedExercises[0].exerciseId
-          )}
-          repsAndSets={buildRepsAndSets(sortedExercises[0].sets)}
+          orderNumber={props.segment.order}
         />
+
+        <Card className={classes.editingCard}>
+          <SingleSetItem
+            segmentId={props.segment.id}
+            exerciseTitle={getExerciseName(
+              props.exercises,
+              sortedExercises[0].exerciseId
+            )}
+            repsAndSets={buildRepsAndSets(sortedExercises[0].sets)}
+          />
+        </Card>
       </>
+    ) : (
+      <SingleSetItem
+        segmentId={props.segment.id}
+        exerciseTitle={getExerciseName(
+          props.exercises,
+          sortedExercises[0].exerciseId
+        )}
+        repsAndSets={buildRepsAndSets(sortedExercises[0].sets)}
+      />
     );
   } else if (isSuperset(props.segment.trainingSetTypeId)) {
-    return (
+    return props.displayEditOptions ? (
       <>
-        {props.displayEditOptions && (
-          <EditOptions superset segmentId={props.segment.id} />
-        )}
-        <SuperSetItem
+        <EditOptions
+          superset
           segmentId={props.segment.id}
-          displayEditOptions={props.displayEditOptions}
-          firstExerciseTitle={getExerciseName(
-            props.exercises,
-            sortedExercises[0].exerciseId
-          )}
-          firstExerciseRepsAndSets={buildRepsAndSets(sortedExercises[0].sets)}
-          secondExerciseTitle={getExerciseName(
-            props.exercises,
-            sortedExercises[1].exerciseId
-          )}
-          secondExerciseRepsAndSets={buildRepsAndSets(sortedExercises[1].sets)}
+          orderNumber={props.segment.order}
         />
+
+        <Card className={classes.editingCard}>
+          <SuperSetItem
+            segmentId={props.segment.id}
+            displayEditOptions={props.displayEditOptions}
+            firstExerciseTitle={getExerciseName(
+              props.exercises,
+              sortedExercises[0].exerciseId
+            )}
+            firstExerciseRepsAndSets={buildRepsAndSets(sortedExercises[0].sets)}
+            secondExerciseTitle={getExerciseName(
+              props.exercises,
+              sortedExercises[1].exerciseId
+            )}
+            secondExerciseRepsAndSets={buildRepsAndSets(
+              sortedExercises[1].sets
+            )}
+          />
+        </Card>
       </>
+    ) : (
+      <SuperSetItem
+        segmentId={props.segment.id}
+        displayEditOptions={props.displayEditOptions}
+        firstExerciseTitle={getExerciseName(
+          props.exercises,
+          sortedExercises[0].exerciseId
+        )}
+        firstExerciseRepsAndSets={buildRepsAndSets(sortedExercises[0].sets)}
+        secondExerciseTitle={getExerciseName(
+          props.exercises,
+          sortedExercises[1].exerciseId
+        )}
+        secondExerciseRepsAndSets={buildRepsAndSets(sortedExercises[1].sets)}
+      />
     );
   } else {
     return <React.Fragment />;

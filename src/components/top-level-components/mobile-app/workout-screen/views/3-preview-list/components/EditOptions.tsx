@@ -30,6 +30,9 @@ const useStyles = makeStyles((theme: Theme) =>
     superset: {
       transform: 'translate(0, 10vh)',
     },
+    firstSuperset: {
+      transform: 'translate(0, 12vh)',
+    },
   })
 );
 
@@ -56,7 +59,9 @@ const EditOptions = (props: EditOptionsProps & PassedInProps): JSX.Element => {
         <div>
           <IconButton
             className={clsx(classes.baseButton, classes.deleteButton, {
-              [classes.superset]: props.superset,
+              [classes.superset]: props.superset && props.orderNumber !== 1,
+              [classes.firstSuperset]:
+                props.superset && props.orderNumber === 1,
             })}
             aria-label={'delete'}
             onClick={openDrawer}
@@ -70,7 +75,9 @@ const EditOptions = (props: EditOptionsProps & PassedInProps): JSX.Element => {
         <div>
           <IconButton
             className={clsx(classes.baseButton, classes.dragButton, {
-              [classes.superset]: props.superset,
+              [classes.superset]: props.superset && props.orderNumber !== 1,
+              [classes.firstSuperset]:
+                props.superset && props.orderNumber === 1,
             })}
             aria-label={'re-order'}
           >
@@ -85,6 +92,7 @@ const EditOptions = (props: EditOptionsProps & PassedInProps): JSX.Element => {
 interface PassedInProps {
   superset?: boolean;
   segmentId: string;
+  orderNumber: number;
 }
 
 export interface EditOptionsProps {
