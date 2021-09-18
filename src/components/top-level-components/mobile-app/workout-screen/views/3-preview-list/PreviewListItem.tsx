@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import EditOptions from './components/EditOptions';
+import EditOptions from './components/edit-set/components/EditOptions';
 import {
   isSuperset,
   isCircuitSet,

@@ -3,7 +3,7 @@ import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { Button, Drawer, Grid } from '@material-ui/core';
-import { deleteSegmentFromRoutineCopy } from '../../../../../../../creators/new-workout/preview-workout';
+import { deleteSegmentFromRoutineCopy } from '../../../../../../../../../creators/new-workout/preview-workout';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

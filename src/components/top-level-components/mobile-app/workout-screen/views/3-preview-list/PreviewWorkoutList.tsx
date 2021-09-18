@@ -17,7 +17,7 @@ import {
 import { PhaseVO } from '../../../../../../configs/models/configurations/PhaseVO';
 import PreviewListItem from './PreviewListItem';
 import { startWorkout } from '../../../../../../creators/new-workout/workout-selections';
-import BottomActionButtons from './components/BottomActionButtons';
+import BottomActionButtons from './components/edit-set/components/BottomActionButtons';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

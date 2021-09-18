@@ -4,11 +4,11 @@ import { connect } from 'react-redux';
 import LinkIcon from '@material-ui/icons/Link';
 import { routerActions } from 'connected-react-router';
 import FitnessCenterIcon from '@material-ui/icons/FitnessCenter';
-import { State } from '../../../../../../../configs/redux/store';
+import { State } from '../../../../../../../../../configs/redux/store';
 import { Button, Grid, Slide, Typography } from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import { startWorkout } from '../../../../../../../creators/new-workout/workout-selections';
-import { MOBILE_ACTIVE_WORKOUT_SCREEN_PATH } from '../../../../../../../configs/constants/app';
+import { startWorkout } from '../../../../../../../../../creators/new-workout/workout-selections';
+import { MOBILE_ACTIVE_WORKOUT_SCREEN_PATH } from '../../../../../../../../../configs/constants/app';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
