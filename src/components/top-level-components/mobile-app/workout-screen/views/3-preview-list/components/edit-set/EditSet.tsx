@@ -42,74 +42,72 @@ const EditSet = (props: EditSetProps): JSX.Element => {
 
   const atMaxSets = props.segment.exercises[0].sets.length === 5;
   return (
-    <Slide mountOnEnter unmountOnExit in={props.display} direction={'left'}>
-      <div>
-        <EditAppBar />
+    <>
+      <EditAppBar />
 
-        <Grid container>
-          <Grid item xs={12}>
-            {props.display && (
-              <ActiveExercise
-                superset={props.superset}
-                exerciseTitles={props.titles}
-              />
-            )}
-          </Grid>
+      <Grid container>
+        <Grid item xs={12}>
+          {props.display && (
+            <ActiveExercise
+              superset={props.superset}
+              exerciseTitles={props.titles}
+            />
+          )}
+        </Grid>
 
-          <Grid item xs={12}>
-            {props.superset ? (
-              <EditSupersetRow segment={props.segment} />
-            ) : (
-              props.segment &&
-              props.segment.exercises[0].sets.map((set, index) => {
-                const shouldDisable =
-                  props.segment.exercises[0].sets.length === 1;
-                return (
-                  <StraightSetRow
-                    key={index}
-                    setNumber={-1}
-                    markedDone={false}
-                    activeSet={false}
-                    info={{
-                      setId: set.id,
-                      reps: set.reps,
-                      weight: set.weight,
-                      parameterTypeId: props.parameterTypeId,
-                    }}
-                    actionButton={
-                      <ActionButton
-                        disabled={shouldDisable}
-                        clickHandler={() => {
-                          props.deleteClickHandler(set.id);
-                        }}
-                        icon={<DeleteIcon fontSize={'large'} />}
-                      />
-                    }
-                  />
-                );
-              })
-            )}
-          </Grid>
+        <Grid item xs={12}>
+          {props.superset ? (
+            <EditSupersetRow segment={props.segment} />
+          ) : (
+            props.segment &&
+            props.segment.exercises[0].sets.map((set, index) => {
+              const shouldDisable =
+                props.segment.exercises[0].sets.length === 1;
+              return (
+                <StraightSetRow
+                  key={index}
+                  setNumber={-1}
+                  markedDone={false}
+                  activeSet={false}
+                  info={{
+                    setId: set.id,
+                    reps: set.reps,
+                    weight: set.weight,
+                    parameterTypeId: props.parameterTypeId,
+                  }}
+                  actionButton={
+                    <ActionButton
+                      disabled={shouldDisable}
+                      clickHandler={() => {
+                        props.deleteClickHandler(set.id);
+                      }}
+                      icon={<DeleteIcon fontSize={'large'} />}
+                    />
+                  }
+                />
+              );
+            })
+          )}
+        </Grid>
 
-          <Grid item xs={12} container justify={'flex-end'}>
-            <Grid item xs={4} className={classes.addButtonWrapper}>
-              <ActionButton
-                soloButton
-                disabled={atMaxSets}
-                clickHandler={() => {
-                  props.addSetClickHandler(props.segment.exercises);
-                }}
-                icon={<AddIcon fontSize={'large'} />}
-              />
-            </Grid>
-          </Grid>
-
-          <Grid item xs={12}>
-            <RestBetweenOptions />
+        <Grid item xs={12} container justify={'flex-end'}>
+          <Grid item xs={4} className={classes.addButtonWrapper}>
+            <ActionButton
+              soloButton
+              disabled={atMaxSets}
+              clickHandler={() => {
+                props.addSetClickHandler(props.segment.exercises);
+              }}
+              icon={<AddIcon fontSize={'large'} />}
+            />
           </Grid>
         </Grid>
-      </div>
-    </Slide>
+
+        <Grid item xs={12}>
+          <RestBetweenOptions />
+        </Grid>
+      </Grid>
+    </>
   );
 };
 
