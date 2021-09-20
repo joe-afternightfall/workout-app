@@ -1,13 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Grid } from '@material-ui/core';
-import TabPanel from './views/components/TabPanel';
-import SwipeableViews from 'react-swipeable-views';
+import TransitionTab from './TransitionTab';
+import { AnimatePresence } from 'framer-motion';
 import { State } from '../../../../configs/redux/store';
 import MessageAppBar from './views/components/MessageAppBar';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
 import EditSet from './views/3-preview-list/components/edit-set/EditSet';
 import PreviewWorkoutList from './views/3-preview-list/PreviewWorkoutList';
-import { useTheme, makeStyles, createStyles } from '@material-ui/core/styles';
 import WorkoutSelectionList from './views/1-workout-selection/WorkoutSelectionList';
 import RoutineSelectionList from './views/2-routine-selection/RoutineSelectionList';
 
@@ -21,11 +21,17 @@ const useStyles = makeStyles(() =>
 
 const MobileWorkoutScreen = (props: MobileWorkoutScreenProps): JSX.Element => {
   const classes = useStyles();
-  const theme = useTheme();
-  const [value, setValue] = React.useState(0);
+  const [direction, setDirection] = React.useState<1 | -1>(1);
+  const [activeIndex, setActiveIndex] = React.useState<number>(0);
 
-  const handleChangeIndex = (index: number) => {
-    setValue(index);
+  const goForward = () => {
+    setDirection(1);
+    setActiveIndex(activeIndex + 1);
+  };
+
+  const goBack = () => {
+    setDirection(-1);
+    setActiveIndex(activeIndex - 1);
   };
 
   return props.displayEditSet ? (
@@ -33,43 +39,30 @@ const MobileWorkoutScreen = (props: MobileWorkoutScreenProps): JSX.Element => {
   ) : (
     <Grid container justify={'center'}>
       <Grid item xs={12}>
-        <MessageAppBar
-          activeTab={value}
-          clickHandler={() => {
-            const newTab = value - 1;
-            handleChangeIndex(newTab);
-          }}
-        />
+        <MessageAppBar activeTab={activeIndex} clickHandler={goBack} />
 
         <div className={classes.toolbar} />
 
-        <SwipeableViews
-          disabled
-          index={value}
-          onChangeIndex={handleChangeIndex}
-          axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-          containerStyle={{
-            transition: 'transform 0.35s cubic-bezier(0.15, 0.3, 0.25, 1) 0s',
-          }}
-        >
-          <TabPanel value={value} index={0} dir={theme.direction}>
-            <WorkoutSelectionList
-              goForwardHandler={() => {
-                handleChangeIndex(1);
-              }}
-            />
-          </TabPanel>
-          <TabPanel value={value} index={1} dir={theme.direction}>
-            <RoutineSelectionList
-              goForwardHandler={() => {
-                handleChangeIndex(2);
-              }}
-            />
-          </TabPanel>
-          <TabPanel value={value} index={2} dir={theme.direction}>
-            <PreviewWorkoutList />
-          </TabPanel>
-        </SwipeableViews>
+        <AnimatePresence>
+          <TransitionTab
+            key={0}
+            direction={direction}
+            isVisible={activeIndex === 0}
+            component={<WorkoutSelectionList goForwardHandler={goForward} />}
+          />
+          <TransitionTab
+            key={1}
+            direction={direction}
+            isVisible={activeIndex === 1}
+            component={<RoutineSelectionList goForwardHandler={goForward} />}
+          />
+          <TransitionTab
+            key={2}
+            direction={direction}
+            isVisible={activeIndex === 2}
+            component={<PreviewWorkoutList />}
+          />
+        </AnimatePresence>
       </Grid>
     </Grid>
   );
