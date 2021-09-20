@@ -18,6 +18,7 @@ import { Segment } from '../../../../../../configs/models/AppInterfaces';
 import { ExerciseVO } from '../../../../../../configs/models/configurations/ExerciseVO';
 import { Card } from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { Draggable } from 'react-smooth-dnd';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -39,7 +40,7 @@ const PreviewListItem = (
     isCircuitSet(props.segment.trainingSetTypeId)
   ) {
     return props.displayEditOptions ? (
-      <>
+      <Draggable key={props.segment.id}>
         <EditOptions
           segmentId={props.segment.id}
           orderNumber={props.segment.order}
@@ -55,7 +56,7 @@ const PreviewListItem = (
             repsAndSets={buildRepsAndSets(sortedExercises[0].sets)}
           />
         </Card>
-      </>
+      </Draggable>
     ) : (
       <SingleSetItem
         segmentId={props.segment.id}
@@ -68,7 +69,7 @@ const PreviewListItem = (
     );
   } else if (isSuperset(props.segment.trainingSetTypeId)) {
     return props.displayEditOptions ? (
-      <>
+      <Draggable key={props.segment.id}>
         <EditOptions
           superset
           segmentId={props.segment.id}
@@ -93,7 +94,7 @@ const PreviewListItem = (
             )}
           />
         </Card>
-      </>
+      </Draggable>
     ) : (
       <SuperSetItem
         segmentId={props.segment.id}
