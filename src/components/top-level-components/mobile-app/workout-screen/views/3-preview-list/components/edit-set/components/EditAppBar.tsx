@@ -15,8 +15,11 @@ import { closeEditSet } from '../../../../../../../../../creators/new-workout/wo
 const useStyles = makeStyles(() =>
   createStyles({
     toolbar: {
+      position: 'fixed',
+      top: -24,
       padding: '0 12px',
       height: '8vh',
+      width: '100%',
     },
     gridWrapper: {
       height: '100%',
@@ -36,7 +39,7 @@ const EditAppBar = (props: EditAppBarProps): JSX.Element => {
 
   return (
     <>
-      <AppBar position={'absolute'} color={'transparent'} elevation={0}>
+      <AppBar color={'transparent'} elevation={0}>
         <Toolbar className={classes.toolbar}>
           <Grid
             container
