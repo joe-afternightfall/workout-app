@@ -44,32 +44,17 @@ const MobileWorkoutScreen = (props: MobileWorkoutScreenProps): JSX.Element => {
           </>
         )}
 
-        <AnimatePresence>
-          <TransitionTab
-            framerKey={0}
-            direction={direction}
-            isVisible={activeIndex === 0}
-            component={<WorkoutSelectionList goForwardHandler={goForward} />}
-          />
-          <TransitionTab
-            framerKey={1}
-            direction={direction}
-            isVisible={activeIndex === 1}
-            component={<RoutineSelectionList goForwardHandler={goForward} />}
-          />
-          <TransitionTab
-            framerKey={2}
-            direction={direction}
-            isVisible={activeIndex === 2}
-            component={<PreviewWorkoutList />}
-          />
-          <TransitionTab
-            framerKey={3}
-            direction={direction}
-            isVisible={props.displayEditSet}
-            component={<EditSet />}
-          />
-        </AnimatePresence>
+        {activeIndex === 0 && (
+          <WorkoutSelectionList goForwardHandler={goForward} />
+        )}
+
+        {activeIndex === 1 && (
+          <RoutineSelectionList goForwardHandler={goForward} />
+        )}
+
+        {activeIndex === 2 && <PreviewWorkoutList />}
+
+        {props.displayEditSet && <EditSet />}
       </Grid>
     </Grid>
   );
