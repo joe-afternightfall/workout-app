@@ -74,11 +74,16 @@ const EditOptions = (props: EditOptionsProps & PassedInProps): JSX.Element => {
       <Slide mountOnEnter unmountOnExit direction={'left'} in={true}>
         <div>
           <IconButton
-            className={clsx(classes.baseButton, classes.dragButton, {
-              [classes.superset]: props.superset && props.orderNumber !== 1,
-              [classes.firstSuperset]:
-                props.superset && props.orderNumber === 1,
-            })}
+            className={clsx(
+              'drag-handle',
+              classes.baseButton,
+              classes.dragButton,
+              {
+                [classes.superset]: props.superset && props.orderNumber !== 1,
+                [classes.firstSuperset]:
+                  props.superset && props.orderNumber === 1,
+              }
+            )}
             aria-label={'re-order'}
           >
             <ReorderIcon />
