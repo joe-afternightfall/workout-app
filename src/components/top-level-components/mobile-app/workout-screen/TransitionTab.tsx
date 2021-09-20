@@ -5,10 +5,12 @@ import { motion } from 'framer-motion';
 export default function TransitionTab(
   props: FramerMotionTabProps
 ): JSX.Element {
-  return props.isVisible ? (
+  const { key, component, isVisible, direction } = props;
+
+  return isVisible ? (
     <motion.div
-      key={props.key}
-      initial={{ x: props.direction > 0 ? '100vw' : '-100vw' }}
+      key={key}
+      initial={{ x: direction > 0 ? '100vw' : '-100vw' }}
       animate={{
         x: 0,
         transition: {
@@ -26,7 +28,7 @@ export default function TransitionTab(
       }}
     >
       <Grid item xs={12}>
-        {props.component}
+        {component}
       </Grid>
     </motion.div>
   ) : (
