@@ -34,33 +34,40 @@ const MobileWorkoutScreen = (props: MobileWorkoutScreenProps): JSX.Element => {
     setActiveIndex(activeIndex - 1);
   };
 
-  return props.displayEditSet ? (
-    <EditSet />
-  ) : (
+  return (
     <Grid container justify={'center'}>
       <Grid item xs={12}>
-        <MessageAppBar activeTab={activeIndex} clickHandler={goBack} />
-
-        <div className={classes.toolbar} />
+        {!props.displayEditSet && (
+          <>
+            <MessageAppBar activeTab={activeIndex} clickHandler={goBack} />
+            <div className={classes.toolbar} />
+          </>
+        )}
 
         <AnimatePresence>
           <TransitionTab
-            key={0}
+            framerKey={0}
             direction={direction}
             isVisible={activeIndex === 0}
             component={<WorkoutSelectionList goForwardHandler={goForward} />}
           />
           <TransitionTab
-            key={1}
+            framerKey={1}
             direction={direction}
             isVisible={activeIndex === 1}
             component={<RoutineSelectionList goForwardHandler={goForward} />}
           />
           <TransitionTab
-            key={2}
+            framerKey={2}
             direction={direction}
             isVisible={activeIndex === 2}
             component={<PreviewWorkoutList />}
+          />
+          <TransitionTab
+            framerKey={3}
+            direction={direction}
+            isVisible={props.displayEditSet}
+            component={<EditSet />}
           />
         </AnimatePresence>
       </Grid>

@@ -5,11 +5,11 @@ import { motion } from 'framer-motion';
 export default function TransitionTab(
   props: FramerMotionTabProps
 ): JSX.Element {
-  const { key, component, isVisible, direction } = props;
+  const { framerKey, component, isVisible, direction } = props;
 
   return isVisible ? (
     <motion.div
-      key={key}
+      key={framerKey}
       initial={{ x: direction > 0 ? '100vw' : '-100vw' }}
       animate={{
         x: 0,
@@ -37,7 +37,7 @@ export default function TransitionTab(
 }
 
 export interface FramerMotionTabProps {
-  key: number;
+  framerKey: number;
   direction: 1 | -1;
   isVisible: boolean;
   component: JSX.Element;
