@@ -23,6 +23,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       height: '87vh',
+      overflow: 'scroll',
     },
     subHeader: {
       zIndex: 2,
