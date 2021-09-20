@@ -18,6 +18,8 @@ import { PhaseVO } from '../../../../../../configs/models/configurations/PhaseVO
 import PreviewListItem from './PreviewListItem';
 import { startWorkout } from '../../../../../../creators/new-workout/workout-selections';
 import BottomActionButtons from './components/edit-set/components/BottomActionButtons';
+import { Container } from 'react-smooth-dnd';
+import { arrayMoveImmutable as arrayMove } from 'array-move';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -37,11 +39,26 @@ const useStyles = makeStyles((theme: Theme) =>
     editingBackground: {
       backgroundColor: '#313131',
     },
+    selectedRow: {
+      zIndex: 1000,
+      // marginBottom: theme.spacing(1),
+      border: `solid 1px ${theme.palette.primary.main}`,
+    },
   })
 );
 
 const PreviewWorkoutList = (props: PreviewWorkoutListProps): JSX.Element => {
   const classes = useStyles();
+  const orderAndUpdate = (props: {
+    removedIndex: number | null;
+    addedIndex: number | null;
+  }) => {
+    console.log('props: ' + JSON.stringify(props.removedIndex));
+    if (props.removedIndex !== null && props.addedIndex !== null) {
+      console.log('props.removedIndex: ' + JSON.stringify(props.removedIndex));
+      console.log('props.addedIndex: ' + JSON.stringify(props.addedIndex));
+    }
+  };
 
   return props.displayEditSet ? (
     <React.Fragment />
@@ -60,16 +77,22 @@ const PreviewWorkoutList = (props: PreviewWorkoutListProps): JSX.Element => {
               </ListSubheader>
             }
           >
-            {sortPhaseSegments(phase.segments).map((segment: Segment) => {
-              return props.displayEditOptions ? (
-                <PreviewListItem key={segment.id} segment={segment} />
-              ) : (
-                <>
+            <Container
+              dragClass={classes.selectedRow}
+              dragHandleSelector={'.drag-handle'}
+              onDrop={orderAndUpdate}
+            >
+              {sortPhaseSegments(phase.segments).map((segment: Segment) => {
+                return props.displayEditOptions ? (
                   <PreviewListItem key={segment.id} segment={segment} />
-                  <WorkoutListDivider />
-                </>
-              );
-            })}
+                ) : (
+                  <div key={segment.id}>
+                    <PreviewListItem segment={segment} />
+                    <WorkoutListDivider />
+                  </div>
+                );
+              })}
+            </Container>
           </List>
         );
       })}
