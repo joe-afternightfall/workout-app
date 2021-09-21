@@ -61,7 +61,11 @@ const SetTextField = (
         InputProps={{
           endAdornment: (
             <InputAdornment position={'start'}>
-              {props.setType === 'weight' ? 'lb' : 'reps'}
+              {props.setType === 'weight'
+                ? 'lb'
+                : props.alternateSides
+                ? 'reps/side'
+                : 'reps'}
             </InputAdornment>
           ),
           classes: {
@@ -80,6 +84,7 @@ export interface SetFieldInfoProps {
   reps: number;
   weight?: number;
   parameterTypeId: string;
+  alternateSides: boolean;
 }
 
 export interface PassedInProps {
@@ -87,6 +92,7 @@ export interface PassedInProps {
   fullLength: boolean;
   setType: 'weight' | 'reps';
   setId: string;
+  alternateSides: boolean;
 }
 
 export interface SetTextFieldProps {

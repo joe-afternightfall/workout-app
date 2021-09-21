@@ -46,6 +46,7 @@ export default function ActiveStraightSet(
                       reps: info.reps,
                       weight: info.weight,
                       parameterTypeId: info.exercise.parameterTypeId,
+                      alternateSides: info.exercise.alternateSides,
                     }}
                     actionButton={
                       <CrushedItButton

@@ -45,6 +45,7 @@ const EditSet = ({
   parameterTypeId,
   deleteClickHandler,
   addSetClickHandler,
+  alternateSides,
 }: EditSetProps): JSX.Element => {
   const classes = useStyles();
 
@@ -78,6 +79,7 @@ const EditSet = ({
                     reps: set.reps,
                     weight: set.weight,
                     parameterTypeId: parameterTypeId,
+                    alternateSides: alternateSides,
                   }}
                   actionButton={
                     <ActionButton
@@ -119,6 +121,7 @@ export interface EditSetProps {
   segment: Segment;
   superset: boolean;
   titles: Title[];
+  alternateSides: boolean;
   display: boolean;
   segmentId: string;
   parameterTypeId: string;
@@ -149,6 +152,7 @@ const mapStateToProps = (state: State): EditSetProps => {
   const titles: Title[] = [];
   let superset = false;
   let parameterTypeId = '';
+  let alternateSides = false;
 
   if (foundSegment.order !== -1) {
     superset = isSuperset(foundSegment.trainingSetTypeId);
@@ -162,6 +166,7 @@ const mapStateToProps = (state: State): EditSetProps => {
           title: foundExercise.name,
         });
         parameterTypeId = foundExercise.parameterTypeId;
+        alternateSides = foundExercise.alternateSides;
       }
     });
   }
@@ -172,6 +177,7 @@ const mapStateToProps = (state: State): EditSetProps => {
     segment: foundSegment,
     display: state.workoutState.displayEditSet,
     parameterTypeId: parameterTypeId,
+    alternateSides: alternateSides,
   } as unknown as EditSetProps;
 };
 

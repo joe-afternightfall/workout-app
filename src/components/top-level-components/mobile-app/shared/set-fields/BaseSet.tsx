@@ -70,6 +70,7 @@ export default function BaseSet(props: BaseSetProps): JSX.Element {
             fullLength={false}
             setType={'weight'}
             setId={info.setId}
+            alternateSides={info.alternateSides}
           />
 
           <SetDivider />
@@ -79,6 +80,7 @@ export default function BaseSet(props: BaseSetProps): JSX.Element {
             fullLength={false}
             setType={'reps'}
             setId={info.setId}
+            alternateSides={info.alternateSides}
           />
         </>
       ) : (
@@ -87,6 +89,7 @@ export default function BaseSet(props: BaseSetProps): JSX.Element {
           fullLength={true}
           setType={'reps'}
           setId={info.setId}
+          alternateSides={info.alternateSides}
         />
       )}
     </Grid>
