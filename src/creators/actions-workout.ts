@@ -12,9 +12,9 @@ import {
 } from './new-workout/workout-selections';
 import { MarkCurrentSetAsDoneAction } from './new-workout/active-workout';
 import {
-  AddSetToEditingCopyAction,
+  AddSetToRoutineCopyAction,
   DeleteSegmentFromRoutineCopyAction,
-  DeleteSetFromEditingCopyAction,
+  DeleteSetFromRoutineCopyAction,
   SaveEditedVersionOfRoutineAction,
 } from './new-workout/preview-workout';
 import {
@@ -35,9 +35,8 @@ export enum WorkoutActionTypes {
   OPEN_EDIT_SET = 'OPEN_EDIT_SET',
   CLOSE_EDIT_SET = 'CLOSE_EDIT_SET',
   COPY_ROUTINE_FOR_EDIT = 'COPY_ROUTINE_FOR_EDIT',
-  // TODO:  rename the below vars to from_routine_copy
-  DELETE_SET_FROM_EDITING_COPY = 'DELETE_SET_FROM_EDITING_COPY',
-  ADD_SET_TO_EDITING_COPY = 'ADD_SET_TO_EDITING_COPY',
+  DELETE_SET_FROM_ROUTINE_COPY = 'DELETE_SET_FROM_ROUTINE_COPY',
+  ADD_SET_TO_ROUTINE_COPY = 'ADD_SET_TO_ROUTINE_COPY',
   DELETE_SEGMENT_FROM_ROUTINE_COPY = 'DELETE_SEGMENT_FROM_ROUTINE_COPY',
   SAVE_EDITED_VERSION_OF_ROUTINE = 'SAVE_EDITED_VERSION_OF_ROUTINE',
   UPDATE_SET_TEXT_FIELD = 'UPDATE_SET_TEXT_FIELD',
@@ -56,9 +55,9 @@ export type WorkoutActions =
   | OpenEditSetAction
   | CloseEditSetAction
   | CopyRoutineForEditAction
-  | DeleteSetFromEditingCopyAction
+  | DeleteSetFromRoutineCopyAction
   | OpenEditPreviewOptionsAction
-  | AddSetToEditingCopyAction
+  | AddSetToRoutineCopyAction
   | DeleteSegmentFromRoutineCopyAction
   | SaveEditedVersionOfRoutineAction
   | UpdateSetTextFieldAction

@@ -11,7 +11,7 @@ import {
 import { buildSetInfo } from '../../../../../utils/active-workout';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import ActionButton from '../../workout-screen/views/3-preview-list/components/edit-set/components/ActionButton';
-import { deleteSetFromEditingCopy } from '../../../../../creators/new-workout/preview-workout';
+import { deleteSetFromRoutineCopy } from '../../../../../creators/new-workout/preview-workout';
 import { ExerciseVO } from '../../../../../configs/models/configurations/ExerciseVO';
 import { State } from '../../../../../configs/redux/store';
 
@@ -108,7 +108,7 @@ const mapDispatchToProps = (dispatch: Dispatch): EditSupersetRowProps =>
   ({
     deleteClickHandler: (setInfo: ActiveSetInfo[]) => {
       setInfo.map((info) => {
-        dispatch(deleteSetFromEditingCopy(info.setId));
+        dispatch(deleteSetFromRoutineCopy(info.setId));
       });
     },
   } as unknown as EditSupersetRowProps);

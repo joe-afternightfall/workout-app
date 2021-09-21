@@ -19,8 +19,8 @@ import {
   WorkoutExercise,
 } from '../../../../../../../../configs/models/AppInterfaces';
 import {
-  addSetToEditingCopy,
-  deleteSetFromEditingCopy,
+  addSetToRoutineCopy,
+  deleteSetFromRoutineCopy,
 } from '../../../../../../../../creators/new-workout/preview-workout';
 import ActionButton from './components/ActionButton';
 import EditAppBar from './components/EditAppBar';
@@ -178,11 +178,11 @@ const mapStateToProps = (state: State): EditSetProps => {
 const mapDispatchToProps = (dispatch: Dispatch): EditSetProps =>
   ({
     deleteClickHandler: (setId: string) => {
-      dispatch(deleteSetFromEditingCopy(setId));
+      dispatch(deleteSetFromRoutineCopy(setId));
     },
     addSetClickHandler: (exercises: WorkoutExercise[]) => {
       exercises.map((exercise) => {
-        dispatch(addSetToEditingCopy(exercise.id));
+        dispatch(addSetToRoutineCopy(exercise.id));
       });
     },
   } as unknown as EditSetProps);

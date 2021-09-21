@@ -1,29 +1,29 @@
 import { WorkoutActionTypes } from '../actions-workout';
 
-export interface DeleteSetFromEditingCopyAction {
-  type: WorkoutActionTypes.DELETE_SET_FROM_EDITING_COPY;
+export interface DeleteSetFromRoutineCopyAction {
+  type: WorkoutActionTypes.DELETE_SET_FROM_ROUTINE_COPY;
   setId: string;
 }
 
-export const deleteSetFromEditingCopy = (
+export const deleteSetFromRoutineCopy = (
   setId: string
-): DeleteSetFromEditingCopyAction => {
+): DeleteSetFromRoutineCopyAction => {
   return {
-    type: WorkoutActionTypes.DELETE_SET_FROM_EDITING_COPY,
+    type: WorkoutActionTypes.DELETE_SET_FROM_ROUTINE_COPY,
     setId: setId,
   };
 };
 
-export interface AddSetToEditingCopyAction {
-  type: WorkoutActionTypes.ADD_SET_TO_EDITING_COPY;
+export interface AddSetToRoutineCopyAction {
+  type: WorkoutActionTypes.ADD_SET_TO_ROUTINE_COPY;
   segmentExerciseId: string;
 }
 
-export const addSetToEditingCopy = (
+export const addSetToRoutineCopy = (
   segmentExerciseId: string
-): AddSetToEditingCopyAction => {
+): AddSetToRoutineCopyAction => {
   return {
-    type: WorkoutActionTypes.ADD_SET_TO_EDITING_COPY,
+    type: WorkoutActionTypes.ADD_SET_TO_ROUTINE_COPY,
     segmentExerciseId: segmentExerciseId,
   };
 };
