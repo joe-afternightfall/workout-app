@@ -18,8 +18,8 @@ import { PhaseVO } from '../../../../../../configs/models/configurations/PhaseVO
 import PreviewListItem from './PreviewListItem';
 import { startWorkout } from '../../../../../../creators/new-workout/workout-selections';
 import BottomActionButtons from './components/edit-set/components/BottomActionButtons';
-import { Container } from 'react-smooth-dnd';
-import { arrayMoveImmutable as arrayMove } from 'array-move';
+import { Container, DropResult } from 'react-smooth-dnd';
+import { updateSegmentOrder } from '../../../../../../creators/new-workout/update-workout';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -41,22 +41,16 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     selectedRow: {
       zIndex: 1000,
-      // marginBottom: theme.spacing(1),
-      border: `solid 1px ${theme.palette.primary.main}`,
     },
   })
 );
 
 const PreviewWorkoutList = (props: PreviewWorkoutListProps): JSX.Element => {
   const classes = useStyles();
-  const orderAndUpdate = (props: {
-    removedIndex: number | null;
-    addedIndex: number | null;
-  }) => {
-    console.log('props: ' + JSON.stringify(props.removedIndex));
-    if (props.removedIndex !== null && props.addedIndex !== null) {
-      console.log('props.removedIndex: ' + JSON.stringify(props.removedIndex));
-      console.log('props.addedIndex: ' + JSON.stringify(props.addedIndex));
+  const orderAndUpdate = (phase: Phase, dropProps: DropResult) => {
+    const { removedIndex, addedIndex } = dropProps;
+    if (removedIndex !== null && addedIndex !== null) {
+      props.updateSegmentOrderHandler(phase.id, removedIndex, addedIndex);
     }
   };
 
@@ -80,7 +74,9 @@ const PreviewWorkoutList = (props: PreviewWorkoutListProps): JSX.Element => {
             <Container
               dragClass={classes.selectedRow}
               dragHandleSelector={'.drag-handle'}
-              onDrop={orderAndUpdate}
+              onDrop={(e: DropResult) => {
+                orderAndUpdate(phase, e);
+              }}
             >
               {sortPhaseSegments(phase.segments).map((segment: Segment) => {
                 return props.displayEditOptions ? (
@@ -108,6 +104,11 @@ export interface PreviewWorkoutListProps {
   configPhases: PhaseVO[];
   displayEditSet: boolean;
   displayEditOptions: boolean;
+  updateSegmentOrderHandler: (
+    phaseId: string,
+    fromIndex: number,
+    toIndex: number
+  ) => void;
 }
 
 const mapStateToProps = (state: State): PreviewWorkoutListProps => {
@@ -128,6 +129,13 @@ const mapDispatchToProps = (dispatch: Dispatch): PreviewWorkoutListProps =>
     startClickHandler: () => {
       dispatch(startWorkout());
       dispatch(routerActions.push(MOBILE_ACTIVE_WORKOUT_SCREEN_PATH));
+    },
+    updateSegmentOrderHandler: (
+      phaseId: string,
+      fromIndex: number,
+      toIndex: number
+    ) => {
+      dispatch(updateSegmentOrder(phaseId, fromIndex, toIndex));
     },
   } as unknown as PreviewWorkoutListProps);
 
