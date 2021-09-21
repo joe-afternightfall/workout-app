@@ -19,3 +19,23 @@ export const updateSetTextField = (
     value: value,
   };
 };
+
+export interface UpdateSegmentOrderAction {
+  type: WorkoutActionTypes.UPDATE_SEGMENT_ORDER;
+  phaseId: string;
+  fromIndex: number;
+  toIndex: number;
+}
+
+export const updateSegmentOrder = (
+  phaseId: string,
+  fromIndex: number,
+  toIndex: number
+): UpdateSegmentOrderAction => {
+  return {
+    type: WorkoutActionTypes.UPDATE_SEGMENT_ORDER,
+    phaseId: phaseId,
+    fromIndex: fromIndex,
+    toIndex: toIndex,
+  };
+};

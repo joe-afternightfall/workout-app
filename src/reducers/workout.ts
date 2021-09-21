@@ -20,6 +20,7 @@ import {
 import { WorkoutDAO } from '../configs/models/workout/WorkoutDAO';
 import { v4 as uuidv4 } from 'uuid';
 import * as ramda from 'ramda';
+import { arrayMoveImmutable as arrayMove } from 'array-move';
 
 export default {
   reducer: (
@@ -148,6 +149,21 @@ export default {
             });
           });
         }
+        break;
+      }
+      case WorkoutActionTypes.UPDATE_SEGMENT_ORDER: {
+        const clonedPhases = ramda.clone(newState.copyOfRoutineTemplate.phases);
+        const foundPhase = clonedPhases.find(
+          (phase) => phase.id === action.phaseId
+        );
+        if (foundPhase) {
+          arrayMove(foundPhase.segments, action.fromIndex, action.toIndex).map(
+            (segment, index) => {
+              segment.order = index + 1;
+            }
+          );
+        }
+        newState.copyOfRoutineTemplate.phases = clonedPhases;
         break;
       }
       case WorkoutActionTypes.START_WORKOUT: {
