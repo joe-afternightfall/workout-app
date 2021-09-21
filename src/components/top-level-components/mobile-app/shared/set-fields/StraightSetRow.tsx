@@ -24,7 +24,13 @@ export default function StraightSetRow(
   const { info, activeSet, markedDone, actionButton, setNumber } = props;
 
   return (
-    <Grid item xs={12} container alignItems={'center'} className={classes.root}>
+    <Grid
+      item
+      xs={12}
+      container
+      alignItems={'flex-start'}
+      className={classes.root}
+    >
       <BaseSet
         info={info}
         superset={false}

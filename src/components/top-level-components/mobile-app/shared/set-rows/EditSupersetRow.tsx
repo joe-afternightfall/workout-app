@@ -47,7 +47,7 @@ const EditSupersetRow = (
 
   Object.values(builtSets).map((setInfo: ActiveSetInfo[], index: number) => {
     supersets.push(
-      <Grid container alignItems={'center'} className={classes.root}>
+      <Grid container alignItems={'flex-start'} className={classes.root}>
         <Grid item xs={8} style={{ paddingRight: 4 }}>
           {setInfo.map((info) => {
             if (info.exercise) {
