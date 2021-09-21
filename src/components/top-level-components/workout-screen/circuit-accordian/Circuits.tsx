@@ -31,8 +31,6 @@ import {
 } from '../../../../creators/workout';
 import { ExerciseTypeVO } from 'workout-app-common-core/core/src';
 
-// todo: rename to WorkoutCircuit
-
 const Circuits = (props: CircuitProps): JSX.Element => {
   const handleChange =
     (panel: string) =>

@@ -67,7 +67,6 @@ class ExerciseCircuit extends Component<ExerciseCircuitProps> {
           <SetColumnHeaders setType={exercise.setType} displayAction={true} />
 
           {this.props.sets.map((set: CircuitExerciseSet, index: number) => (
-            // todo: handle re-numbering when deleting
             <Set
               key={index}
               set={set}
