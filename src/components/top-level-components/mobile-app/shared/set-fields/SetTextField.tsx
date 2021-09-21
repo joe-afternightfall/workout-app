@@ -3,7 +3,7 @@ import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { Grid, InputAdornment, TextField } from '@material-ui/core';
-import { validateReps } from '../../../../../utils/validator';
+import { validateReps, validateWeight } from '../../../../../utils/validator';
 import { updateSetTextField } from '../../../../../creators/new-workout/update-workout';
 
 const useStyles = makeStyles(() =>
@@ -31,7 +31,11 @@ const SetTextField = (
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.name === 'reps') {
       if (validateReps(event.target.value)) {
-        props.onChangeHandler(Number(event.target.value));
+        props.onChangeHandler(event.target.value);
+      }
+    } else if (event.target.name === 'weight') {
+      if (validateWeight(event.target.value)) {
+        props.onChangeHandler(event.target.value);
       }
     }
   };
@@ -81,7 +85,7 @@ export interface PassedInProps {
 }
 
 export interface SetTextFieldProps {
-  onChangeHandler: (value: number) => void;
+  onChangeHandler: (value: string) => void;
 }
 
 const mapStateToProps = (): SetTextFieldProps => {

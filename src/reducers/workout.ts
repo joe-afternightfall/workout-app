@@ -135,9 +135,11 @@ export default {
         break;
       }
       case WorkoutActionTypes.UPDATE_SET_TEXT_FIELD: {
-        // todo: add NPM util to access deeply nested objects
         if (newState.displayEditPreviewList) {
-          newState.copyOfRoutineTemplate.phases.map((phase) => {
+          const clonedPhases = ramda.clone(
+            newState.copyOfRoutineTemplate.phases
+          );
+          clonedPhases.map((phase) => {
             phase.segments.map((segment) => {
               segment.exercises.map((exercise) => {
                 exercise.sets.map((set) => {
@@ -148,6 +150,7 @@ export default {
               });
             });
           });
+          newState.copyOfRoutineTemplate.phases = clonedPhases;
         }
         break;
       }
