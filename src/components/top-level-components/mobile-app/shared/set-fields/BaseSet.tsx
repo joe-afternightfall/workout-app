@@ -63,10 +63,10 @@ export default function BaseSet(props: BaseSetProps): JSX.Element {
         markedDone ? classes.done : undefined
       )}
     >
-      {isWeightsAndReps(info.parameterTypeId) && info.weight ? (
+      {isWeightsAndReps(info.parameterTypeId) ? (
         <>
           <SetTextField
-            value={info.weight}
+            value={info.weight ? info.weight : 0}
             fullLength={false}
             setType={'weight'}
             setId={info.setId}
@@ -75,7 +75,7 @@ export default function BaseSet(props: BaseSetProps): JSX.Element {
           <SetDivider />
 
           <SetTextField
-            value={info.reps}
+            value={info.reps ? info.reps : 0}
             fullLength={false}
             setType={'reps'}
             setId={info.setId}
@@ -83,7 +83,7 @@ export default function BaseSet(props: BaseSetProps): JSX.Element {
         </>
       ) : (
         <SetTextField
-          value={info.reps}
+          value={info.reps ? info.reps : 0}
           fullLength={true}
           setType={'reps'}
           setId={info.setId}

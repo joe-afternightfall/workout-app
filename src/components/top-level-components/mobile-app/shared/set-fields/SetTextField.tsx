@@ -31,11 +31,11 @@ const SetTextField = (
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.name === 'reps') {
       if (validateReps(event.target.value)) {
-        props.onChangeHandler(event.target.value);
+        return props.onChangeHandler(event.target.value);
       }
     } else if (event.target.name === 'weight') {
       if (validateWeight(event.target.value)) {
-        props.onChangeHandler(event.target.value);
+        return props.onChangeHandler(event.target.value);
       }
     }
   };
