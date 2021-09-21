@@ -3,6 +3,12 @@ import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { Grid, InputAdornment, TextField, Typography } from '@material-ui/core';
+import { Segment } from '../../../../../../../../../configs/models/AppInterfaces';
+import { updateRestBetween } from '../../../../../../../../../creators/new-workout/update-workout';
+import {
+  trimLeadingZeros,
+  validateForOnlyNumbers,
+} from '../../../../../../../../../utils/validator';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -20,7 +26,10 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const RestBetweenOptions = (props: RestBetweenOptionsProps): JSX.Element => {
+const RestBetweenOptions = ({
+  segment,
+  updateRestBetweenHandler,
+}: RestBetweenOptionsProps & PassedInProps): JSX.Element => {
   const classes = useStyles();
 
   return (
@@ -30,7 +39,7 @@ const RestBetweenOptions = (props: RestBetweenOptionsProps): JSX.Element => {
           <div className={classes.fieldWrapper}>
             <TextField
               variant={'outlined'}
-              value={'80'}
+              value={segment.secondsRestBetweenSets}
               inputProps={{ style: { textAlign: 'center' } }}
               InputProps={{
                 endAdornment: (
@@ -41,6 +50,9 @@ const RestBetweenOptions = (props: RestBetweenOptionsProps): JSX.Element => {
                   notchedOutline: classes.notchedOutline,
                 },
               }}
+              onChange={(e) => {
+                updateRestBetweenHandler('set', e.target.value);
+              }}
             />
           </div>
         </Grid>
@@ -48,7 +60,7 @@ const RestBetweenOptions = (props: RestBetweenOptionsProps): JSX.Element => {
           <div className={classes.fieldWrapper}>
             <TextField
               variant={'outlined'}
-              value={'70'}
+              value={segment.secondsRestBetweenNextSegment}
               inputProps={{ style: { textAlign: 'center' } }}
               InputProps={{
                 endAdornment: (
@@ -58,6 +70,9 @@ const RestBetweenOptions = (props: RestBetweenOptionsProps): JSX.Element => {
                   root: classes.inputRoot,
                   notchedOutline: classes.notchedOutline,
                 },
+              }}
+              onChange={(e) => {
+                updateRestBetweenHandler('segment', e.target.value);
               }}
             />
           </div>
@@ -79,15 +94,29 @@ const RestBetweenOptions = (props: RestBetweenOptionsProps): JSX.Element => {
   );
 };
 
+interface PassedInProps {
+  segment: Segment;
+}
+
 export interface RestBetweenOptionsProps {
-  DELETE_ME?: undefined;
+  updateRestBetweenHandler: (type: 'set' | 'segment', value: string) => void;
 }
 
 const mapStateToProps = (state: any): RestBetweenOptionsProps => {
   return {} as unknown as RestBetweenOptionsProps;
 };
 
-const mapDispatchToProps = (dispatch: Dispatch): RestBetweenOptionsProps =>
-  ({} as unknown as RestBetweenOptionsProps);
+const mapDispatchToProps = (
+  dispatch: Dispatch,
+  ownProps: PassedInProps
+): RestBetweenOptionsProps =>
+  ({
+    updateRestBetweenHandler: (type: 'set' | 'segment', value: string) => {
+      const trimmedValue = trimLeadingZeros(value);
+      if (validateForOnlyNumbers(trimmedValue)) {
+        dispatch(updateRestBetween(ownProps.segment.id, type, value));
+      }
+    },
+  } as unknown as RestBetweenOptionsProps);
 
 export default connect(mapStateToProps, mapDispatchToProps)(RestBetweenOptions);

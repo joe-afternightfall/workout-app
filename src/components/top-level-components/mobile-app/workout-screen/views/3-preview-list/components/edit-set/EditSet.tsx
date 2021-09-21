@@ -37,32 +37,36 @@ const useStyles = makeStyles(() =>
   })
 );
 
-const EditSet = (props: EditSetProps): JSX.Element => {
+const EditSet = ({
+  superset,
+  segment,
+  display,
+  titles,
+  parameterTypeId,
+  deleteClickHandler,
+  addSetClickHandler,
+}: EditSetProps): JSX.Element => {
   const classes = useStyles();
 
-  const atMaxSets = props.segment.exercises[0].sets.length === 5;
+  const atMaxSets = segment.exercises[0].sets.length === 5;
   return (
     <>
       <EditAppBar />
 
       <Grid container>
         <Grid item xs={12}>
-          {props.display && (
-            <ActiveExercise
-              superset={props.superset}
-              exerciseTitles={props.titles}
-            />
+          {display && (
+            <ActiveExercise superset={superset} exerciseTitles={titles} />
           )}
         </Grid>
 
         <Grid item xs={12}>
-          {props.superset ? (
-            <EditSupersetRow segment={props.segment} />
+          {superset ? (
+            <EditSupersetRow segment={segment} />
           ) : (
-            props.segment &&
-            props.segment.exercises[0].sets.map((set, index) => {
-              const shouldDisable =
-                props.segment.exercises[0].sets.length === 1;
+            segment &&
+            segment.exercises[0].sets.map((set, index) => {
+              const shouldDisable = segment.exercises[0].sets.length === 1;
               return (
                 <StraightSetRow
                   key={index}
@@ -73,13 +77,13 @@ const EditSet = (props: EditSetProps): JSX.Element => {
                     setId: set.id,
                     reps: set.reps,
                     weight: set.weight,
-                    parameterTypeId: props.parameterTypeId,
+                    parameterTypeId: parameterTypeId,
                   }}
                   actionButton={
                     <ActionButton
                       disabled={shouldDisable}
                       clickHandler={() => {
-                        props.deleteClickHandler(set.id);
+                        deleteClickHandler(set.id);
                       }}
                       icon={<DeleteIcon fontSize={'large'} />}
                     />
@@ -96,7 +100,7 @@ const EditSet = (props: EditSetProps): JSX.Element => {
               soloButton
               disabled={atMaxSets}
               clickHandler={() => {
-                props.addSetClickHandler(props.segment.exercises);
+                addSetClickHandler(segment.exercises);
               }}
               icon={<AddIcon fontSize={'large'} />}
             />
@@ -104,7 +108,7 @@ const EditSet = (props: EditSetProps): JSX.Element => {
         </Grid>
 
         <Grid item xs={12}>
-          <RestBetweenOptions />
+          <RestBetweenOptions segment={segment} />
         </Grid>
       </Grid>
     </>
@@ -128,6 +132,8 @@ const mapStateToProps = (state: State): EditSetProps => {
     id: '',
     order: -1,
     trainingSetTypeId: '',
+    secondsRestBetweenSets: -1,
+    secondsRestBetweenNextSegment: -1,
     exercises: [],
   };
 

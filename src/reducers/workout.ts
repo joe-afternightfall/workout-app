@@ -154,6 +154,22 @@ export default {
         }
         break;
       }
+      case WorkoutActionTypes.UPDATE_REST_BETWEEN: {
+        const clonedPhases = ramda.clone(newState.copyOfRoutineTemplate.phases);
+        clonedPhases.map((phase) => {
+          phase.segments.map((segment) => {
+            if (segment.id === action.segmentId) {
+              if (action.restType === 'set') {
+                segment.secondsRestBetweenSets = Number(action.value);
+              } else {
+                segment.secondsRestBetweenNextSegment = Number(action.value);
+              }
+            }
+          });
+        });
+        newState.copyOfRoutineTemplate.phases = clonedPhases;
+        break;
+      }
       case WorkoutActionTypes.UPDATE_SEGMENT_ORDER: {
         const clonedPhases = ramda.clone(newState.copyOfRoutineTemplate.phases);
         const foundPhase = clonedPhases.find(

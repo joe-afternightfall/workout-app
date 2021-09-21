@@ -5,7 +5,7 @@ import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { Grid, InputAdornment, TextField } from '@material-ui/core';
 import {
   trimLeadingZeros,
-  validateReps,
+  validateForOnlyNumbers,
   validateWeight,
 } from '../../../../../utils/validator';
 import { updateSetTextField } from '../../../../../creators/new-workout/update-workout';
@@ -35,7 +35,7 @@ const SetTextField = (
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const trimmedValue = trimLeadingZeros(event.target.value);
     if (event.target.name === 'reps') {
-      if (validateReps(trimmedValue)) {
+      if (validateForOnlyNumbers(trimmedValue)) {
         return props.onChangeHandler(trimmedValue);
       }
     } else if (event.target.name === 'weight') {

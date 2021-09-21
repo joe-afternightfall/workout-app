@@ -39,3 +39,23 @@ export const updateSegmentOrder = (
     toIndex: toIndex,
   };
 };
+
+export interface UpdateRestBetweenAction {
+  type: WorkoutActionTypes.UPDATE_REST_BETWEEN;
+  segmentId: string;
+  restType: 'set' | 'segment';
+  value: string;
+}
+
+export const updateRestBetween = (
+  segmentId: string,
+  type: 'set' | 'segment',
+  value: string
+): UpdateRestBetweenAction => {
+  return {
+    type: WorkoutActionTypes.UPDATE_REST_BETWEEN,
+    segmentId: segmentId,
+    restType: type,
+    value: value,
+  };
+};

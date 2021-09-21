@@ -18,6 +18,7 @@ import {
   SaveEditedVersionOfRoutineAction,
 } from './new-workout/preview-workout';
 import {
+  UpdateRestBetweenAction,
   UpdateSegmentOrderAction,
   UpdateSetTextFieldAction,
 } from './new-workout/update-workout';
@@ -41,6 +42,7 @@ export enum WorkoutActionTypes {
   SAVE_EDITED_VERSION_OF_ROUTINE = 'SAVE_EDITED_VERSION_OF_ROUTINE',
   UPDATE_SET_TEXT_FIELD = 'UPDATE_SET_TEXT_FIELD',
   UPDATE_SEGMENT_ORDER = 'UPDATE_SEGMENT_ORDER',
+  UPDATE_REST_BETWEEN = 'UPDATE_REST_BETWEEN',
 }
 
 export type WorkoutActions =
@@ -60,4 +62,5 @@ export type WorkoutActions =
   | DeleteSegmentFromRoutineCopyAction
   | SaveEditedVersionOfRoutineAction
   | UpdateSetTextFieldAction
-  | UpdateSegmentOrderAction;
+  | UpdateSegmentOrderAction
+  | UpdateRestBetweenAction;
