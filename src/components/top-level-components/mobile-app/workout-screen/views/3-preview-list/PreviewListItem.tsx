@@ -17,10 +17,10 @@ import SingleSetItem from '../../../shared/exercise-list/SingleSetItem';
 import { Segment } from '../../../../../../configs/models/AppInterfaces';
 import { ExerciseVO } from '../../../../../../configs/models/configurations/ExerciseVO';
 import { Card } from '@material-ui/core';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { Draggable } from 'react-smooth-dnd';
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     editingCard: {
       margin: '12px 0',

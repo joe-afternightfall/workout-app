@@ -1,8 +1,8 @@
 import React from 'react';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { Button, Drawer, Grid } from '@material-ui/core';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { deleteSegmentFromRoutineCopy } from '../../../../../../../../../creators/new-workout/preview-workout';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -94,10 +94,6 @@ export interface DeleteDrawerProps {
   deleteSegmentHandler: () => void;
 }
 
-const mapStateToProps = (state: any): DeleteDrawerProps => {
-  return {} as unknown as DeleteDrawerProps;
-};
-
 const mapDispatchToProps = (
   dispatch: Dispatch,
   ownProps: PassedInProps
@@ -108,4 +104,4 @@ const mapDispatchToProps = (
     },
   } as unknown as DeleteDrawerProps);
 
-export default connect(mapStateToProps, mapDispatchToProps)(DeleteDrawer);
+export default connect(null, mapDispatchToProps)(DeleteDrawer);

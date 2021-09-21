@@ -1,8 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Grid } from '@material-ui/core';
-import TransitionTab from './TransitionTab';
-import { AnimatePresence } from 'framer-motion';
 import { State } from '../../../../configs/redux/store';
 import MessageAppBar from './views/components/MessageAppBar';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
@@ -21,16 +19,16 @@ const useStyles = makeStyles(() =>
 
 const MobileWorkoutScreen = (props: MobileWorkoutScreenProps): JSX.Element => {
   const classes = useStyles();
-  const [direction, setDirection] = React.useState<1 | -1>(1);
+  // const [direction, setDirection] = React.useState<1 | -1>(1);
   const [activeIndex, setActiveIndex] = React.useState<number>(0);
 
   const goForward = () => {
-    setDirection(1);
+    // setDirection(1);
     setActiveIndex(activeIndex + 1);
   };
 
   const goBack = () => {
-    setDirection(-1);
+    // setDirection(-1);
     setActiveIndex(activeIndex - 1);
   };
 

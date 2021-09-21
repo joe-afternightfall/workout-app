@@ -1,12 +1,10 @@
 import clsx from 'clsx';
 import React, { useState } from 'react';
-import { Dispatch } from 'redux';
-import { connect } from 'react-redux';
+import DeleteDrawer from './DeleteDrawer';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ReorderIcon from '@material-ui/icons/Reorder';
 import { IconButton, Slide } from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import DeleteDrawer from './DeleteDrawer';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -36,7 +34,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const EditOptions = (props: EditOptionsProps & PassedInProps): JSX.Element => {
+export default function EditOptions(props: EditOptionsProps): JSX.Element {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
 
@@ -92,23 +90,10 @@ const EditOptions = (props: EditOptionsProps & PassedInProps): JSX.Element => {
       </Slide>
     </>
   );
-};
+}
 
-interface PassedInProps {
+interface EditOptionsProps {
   superset?: boolean;
   segmentId: string;
   orderNumber: number;
 }
-
-export interface EditOptionsProps {
-  DELETE_ME?: undefined;
-}
-
-const mapStateToProps = (state: any): EditOptionsProps => {
-  return {} as unknown as EditOptionsProps;
-};
-
-const mapDispatchToProps = (dispatch: Dispatch): EditOptionsProps =>
-  ({} as unknown as EditOptionsProps);
-
-export default connect(mapStateToProps, mapDispatchToProps)(EditOptions);

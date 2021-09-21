@@ -1,31 +1,31 @@
 import React from 'react';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { State } from '../../../../../../../../configs/redux/store';
-import DeleteIcon from '@material-ui/icons/Delete';
+import { Grid } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
-import { Grid, Slide } from '@material-ui/core';
-import ActiveExercise, {
-  Title,
-} from '../../../../../active-workout-screen/1-active-exercise/ActiveExercise';
+import EditAppBar from './components/EditAppBar';
+import DeleteIcon from '@material-ui/icons/Delete';
+import ActionButton from './components/ActionButton';
 import {
   getExercise,
   isSuperset,
 } from '../../../../../../../../utils/active-workout';
-import StraightSetRow from '../../../../../shared/set-fields/StraightSetRow';
 import {
   Segment,
   WorkoutExercise,
 } from '../../../../../../../../configs/models/AppInterfaces';
+import RestBetweenOptions from './components/RestBetweenOptions';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
+import { State } from '../../../../../../../../configs/redux/store';
 import {
   addSetToRoutineCopy,
   deleteSetFromRoutineCopy,
 } from '../../../../../../../../creators/new-workout/preview-workout';
-import ActionButton from './components/ActionButton';
-import EditAppBar from './components/EditAppBar';
-import RestBetweenOptions from './components/RestBetweenOptions';
+import StraightSetRow from '../../../../../shared/set-fields/StraightSetRow';
 import EditSupersetRow from '../../../../../shared/set-rows/EditSupersetRow';
+import ActiveExercise, {
+  Title,
+} from '../../../../../active-workout-screen/1-active-exercise/ActiveExercise';
 
 const useStyles = makeStyles(() =>
   createStyles({

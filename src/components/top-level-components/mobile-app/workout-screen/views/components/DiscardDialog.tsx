@@ -12,7 +12,7 @@ import { Divider, Grid, Link, Typography } from '@material-ui/core';
 import { toggleEditPreviewOptions } from '../../../../../../creators/new-workout/workout-selections';
 
 const Transition = React.forwardRef(function Transition(
-  props: TransitionProps & { children?: React.ReactElement<any, any> },
+  props: TransitionProps & { children?: React.ReactElement },
   ref: React.Ref<unknown>
 ) {
   return <Zoom in={true} ref={ref} {...props} />;
@@ -96,10 +96,6 @@ export interface DiscardDialogProps {
   discardClickHandler: () => void;
 }
 
-const mapStateToProps = (state: any): DiscardDialogProps => {
-  return {} as unknown as DiscardDialogProps;
-};
-
 const mapDispatchToProps = (dispatch: Dispatch): DiscardDialogProps =>
   ({
     discardClickHandler: () => {
@@ -107,4 +103,4 @@ const mapDispatchToProps = (dispatch: Dispatch): DiscardDialogProps =>
     },
   } as unknown as DiscardDialogProps);
 
-export default connect(mapStateToProps, mapDispatchToProps)(DiscardDialog);
+export default connect(null, mapDispatchToProps)(DiscardDialog);

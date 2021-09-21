@@ -1,7 +1,7 @@
 import React from 'react';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { Grid, InputAdornment, TextField, Typography } from '@material-ui/core';
 import { Segment } from '../../../../../../../../../configs/models/AppInterfaces';
 import { updateRestBetween } from '../../../../../../../../../creators/new-workout/update-workout';
@@ -10,7 +10,7 @@ import {
   validateForOnlyNumbers,
 } from '../../../../../../../../../utils/validator';
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     inputRoot: {
       fontSize: '5vh',
@@ -102,10 +102,6 @@ export interface RestBetweenOptionsProps {
   updateRestBetweenHandler: (type: 'set' | 'segment', value: string) => void;
 }
 
-const mapStateToProps = (state: any): RestBetweenOptionsProps => {
-  return {} as unknown as RestBetweenOptionsProps;
-};
-
 const mapDispatchToProps = (
   dispatch: Dispatch,
   ownProps: PassedInProps
@@ -119,4 +115,4 @@ const mapDispatchToProps = (
     },
   } as unknown as RestBetweenOptionsProps);
 
-export default connect(mapStateToProps, mapDispatchToProps)(RestBetweenOptions);
+export default connect(null, mapDispatchToProps)(RestBetweenOptions);

@@ -45,7 +45,7 @@ const EditSupersetRow = (
     (exercise) => (shouldDisable = exercise.sets.length === 1)
   );
 
-  Object.values(builtSets).map((setInfo: ActiveSetInfo[], index: number) => {
+  Object.values(builtSets).map((setInfo: ActiveSetInfo[]) => {
     supersets.push(
       <Grid container alignItems={'flex-start'} className={classes.root}>
         <Grid item xs={8} style={{ paddingRight: 4 }}>
