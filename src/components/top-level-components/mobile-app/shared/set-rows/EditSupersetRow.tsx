@@ -57,7 +57,11 @@ const EditSupersetRow = (
                   activeSet={false}
                   markedDone={false}
                   scrollToSetNumber={info.setNumber}
-                  extraStyles={index === 0 ? classes.topRow : classes.bottomRow}
+                  extraStyles={
+                    info.exerciseOrder === 1
+                      ? classes.topRow
+                      : classes.bottomRow
+                  }
                   info={{
                     setId: info.setId,
                     reps: info.reps,
