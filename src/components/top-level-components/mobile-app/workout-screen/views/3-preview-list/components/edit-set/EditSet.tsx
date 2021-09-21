@@ -124,13 +124,18 @@ export interface EditSetProps {
 
 const mapStateToProps = (state: State): EditSetProps => {
   const routineTemplate = state.workoutState.copyOfRoutineTemplate;
+  let foundSegment: Segment = {
+    id: '',
+    order: -1,
+    trainingSetTypeId: '',
+    exercises: [],
+  };
 
-  const foundSegment =
-    routineTemplate &&
+  routineTemplate &&
     routineTemplate.phases.map((phase) => {
       return phase.segments.find((segment) => {
         if (segment.id === state.workoutState.editSetSegmentId) {
-          return segment;
+          foundSegment = segment;
         }
       });
     });
@@ -139,22 +144,18 @@ const mapStateToProps = (state: State): EditSetProps => {
   let superset = false;
   let parameterTypeId = '';
 
-  if (foundSegment) {
-    foundSegment.map((segment) => {
-      if (segment) {
-        superset = isSuperset(segment.trainingSetTypeId);
-        segment.exercises.map((exercise) => {
-          const foundExercise = getExercise(
-            state.workoutState.configs.exercises,
-            exercise.exerciseId
-          );
-          if (foundExercise) {
-            titles.push({
-              title: foundExercise.name,
-            });
-            parameterTypeId = foundExercise.parameterTypeId;
-          }
+  if (foundSegment.order !== -1) {
+    superset = isSuperset(foundSegment.trainingSetTypeId);
+    foundSegment.exercises.map((exercise) => {
+      const foundExercise = getExercise(
+        state.workoutState.configs.exercises,
+        exercise.exerciseId
+      );
+      if (foundExercise) {
+        titles.push({
+          title: foundExercise.name,
         });
+        parameterTypeId = foundExercise.parameterTypeId;
       }
     });
   }
@@ -162,7 +163,7 @@ const mapStateToProps = (state: State): EditSetProps => {
   return {
     titles: titles || [],
     superset: superset,
-    segment: foundSegment && foundSegment[0],
+    segment: foundSegment,
     display: state.workoutState.displayEditSet,
     parameterTypeId: parameterTypeId,
   } as unknown as EditSetProps;
