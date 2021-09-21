@@ -144,7 +144,7 @@ export default {
               segment.exercises.map((exercise) => {
                 exercise.sets.map((set) => {
                   if (set.id === action.setId) {
-                    set[action.name] = Number(action.value);
+                    set[action.name] = action.value;
                   }
                 });
               });

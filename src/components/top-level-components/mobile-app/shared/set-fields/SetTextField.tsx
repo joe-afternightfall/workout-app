@@ -3,7 +3,11 @@ import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { Grid, InputAdornment, TextField } from '@material-ui/core';
-import { validateReps, validateWeight } from '../../../../../utils/validator';
+import {
+  trimLeadingZeros,
+  validateReps,
+  validateWeight,
+} from '../../../../../utils/validator';
 import { updateSetTextField } from '../../../../../creators/new-workout/update-workout';
 
 const useStyles = makeStyles(() =>
@@ -29,13 +33,14 @@ const SetTextField = (
   const classes = useStyles();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const trimmedValue = trimLeadingZeros(event.target.value);
     if (event.target.name === 'reps') {
-      if (validateReps(event.target.value)) {
-        return props.onChangeHandler(event.target.value);
+      if (validateReps(trimmedValue)) {
+        return props.onChangeHandler(trimmedValue);
       }
     } else if (event.target.name === 'weight') {
-      if (validateWeight(event.target.value)) {
-        return props.onChangeHandler(event.target.value);
+      if (validateWeight(trimmedValue)) {
+        return props.onChangeHandler(trimmedValue);
       }
     }
   };
