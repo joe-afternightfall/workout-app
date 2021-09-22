@@ -6,7 +6,7 @@ import { createStyles, makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme: AppTheme) =>
   createStyles({
     title: {
-      color: theme.palette.colors.active.highlight,
+      color: theme.palette.custom.active.highlight,
     },
   })
 );

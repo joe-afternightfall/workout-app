@@ -5,34 +5,23 @@ import { Grid } from '@material-ui/core';
 import SetTextField, { SetFieldInfoProps } from './SetTextField';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { isWeightsAndReps } from '../../../../../utils/active-workout';
+import { AppTheme } from '../../../../../configs/theme/app-theme';
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme: AppTheme) =>
   createStyles({
-    root: {},
     supersetRowWrapper: {
-      border: '1px solid',
-      borderColor: '#222323',
-      // borderRadius: 'inherit',
       height: '12.2vh',
-      // backgroundColor: '#222323',
+      border: '1px solid',
+      borderColor: theme.palette.custom.colors.componentBackground,
     },
     straightSetRowWrapper: {
-      borderRadius: '4px 0 0 4px',
       height: '100%',
       paddingRight: 4,
+      borderRadius: '4px 0 0 4px',
     },
-    activeOrange: {
-      backgroundColor: '#ED440B',
-    },
-    baseColor: {
-      borderColor: '#222323',
-      backgroundColor: '#222323',
-    },
-    done: {
-      borderColor: '#ED440B',
-      backgroundColor: '#ED440B',
-      opacity: 0.6,
-    },
+    active: theme.palette.custom.styles.active,
+    baseColor: theme.palette.custom.styles.base,
+    done: theme.palette.custom.styles.done,
   })
 );
 
@@ -59,7 +48,7 @@ export default function BaseSet(props: BaseSetProps): JSX.Element {
       className={clsx(
         baseClass,
         props.extraStyles,
-        activeSet ? classes.activeOrange : classes.baseColor,
+        activeSet ? classes.active : classes.baseColor,
         markedDone ? classes.done : undefined
       )}
     >
@@ -71,6 +60,7 @@ export default function BaseSet(props: BaseSetProps): JSX.Element {
             setType={'weight'}
             setId={info.setId}
             alternateSides={info.alternateSides}
+            activeSet={activeSet}
           />
 
           <SetDivider />
@@ -81,6 +71,7 @@ export default function BaseSet(props: BaseSetProps): JSX.Element {
             setType={'reps'}
             setId={info.setId}
             alternateSides={info.alternateSides}
+            activeSet={activeSet}
           />
         </>
       ) : (
@@ -90,6 +81,7 @@ export default function BaseSet(props: BaseSetProps): JSX.Element {
           setType={'reps'}
           setId={info.setId}
           alternateSides={info.alternateSides}
+          activeSet={activeSet}
         />
       )}
     </Grid>

@@ -1,14 +1,19 @@
 import React from 'react';
 import { Button } from '@material-ui/core';
+import { useTheme } from '@material-ui/core/styles';
+import { AppTheme } from '../../../../../../../../../configs/theme/app-theme';
 
 export default function ActionButton(props: ActionButtonProps): JSX.Element {
   const { icon, soloButton, disabled, clickHandler } = props;
+  const theme = useTheme<AppTheme>();
 
   return (
     <Button
       style={{
-        backgroundColor: '#222323',
-        color: disabled ? '#4F5050' : '#ED440B',
+        backgroundColor: theme.palette.custom.colors.componentBackground,
+        color: disabled
+          ? theme.palette.custom.colors.disabled
+          : theme.palette.custom.colors.active,
         width: '100%',
         height: '100%',
         borderRadius: soloButton ? 8 : '0 8px 8px 0',
