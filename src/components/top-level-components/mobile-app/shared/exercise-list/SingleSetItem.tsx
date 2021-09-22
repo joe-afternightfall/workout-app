@@ -8,8 +8,9 @@ import { State } from '../../../../../configs/redux/store';
 import { Grid, ListItemIcon, Typography } from '@material-ui/core';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { openEditSet } from '../../../../../creators/new-workout/workout-selections';
+import { AppTheme } from '../../../../../configs/theme/app-theme';
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme: AppTheme) =>
   createStyles({
     root: {
       padding: 0,
@@ -26,6 +27,7 @@ const useStyles = makeStyles(() =>
       fontSize: '1rem',
     },
     itemIconWrapper: {
+      // todo: come back and assign palette color
       backgroundColor: 'gray',
       padding: 4,
       width: '13vh',
@@ -38,7 +40,7 @@ const useStyles = makeStyles(() =>
       paddingTop: 4,
     },
     upNextHighlight: {
-      color: '#ED440B',
+      color: theme.palette.custom.colors.active,
     },
   })
 );
