@@ -1,5 +1,12 @@
 import React from 'react';
-import { Grid, Card, List, CardHeader, Avatar } from '@material-ui/core';
+import {
+  Grid,
+  Card,
+  List,
+  ListItem,
+  ListItemText,
+  ListItemIcon,
+} from '@material-ui/core';
 import { connect } from 'react-redux';
 import {
   Segment,
@@ -40,6 +47,16 @@ const useStyles = makeStyles((theme: AppTheme) =>
     highlight: {
       color: theme.palette.custom.colors.active,
     },
+    listItemText: {
+      paddingLeft: 12,
+    },
+    itemIconWrapper: {
+      // todo: come back and assign palette color
+      backgroundColor: 'gray',
+      padding: 4,
+      width: '13vh',
+      height: '13vh',
+    },
   })
 );
 
@@ -53,7 +70,31 @@ const UpNextCard = (props: UpNextCardProps & PassedInProps): JSX.Element => {
     nextSegment && isStraightSet(nextSegment.trainingSetTypeId);
   const circuitSet = nextSegment && isCircuitSet(nextSegment.trainingSetTypeId);
 
-  if (straightSet || circuitSet) {
+  if (props.lastSegment && props.lastExerciseOfWorkout) {
+    display = (
+      <ListItem>
+        <ListItemIcon className={classes.itemIconWrapper}>
+          <img src={confettiEmoji} alt={'confetti'} />
+        </ListItemIcon>
+        <ListItemText
+          className={classes.listItemText}
+          primary={'Done with Workout'}
+          secondary={'time to celebrate'}
+        />
+      </ListItem>
+    );
+  } else if (props.lastSegment) {
+    display = (
+      <ListItem>
+        <ListItemIcon className={classes.itemIconWrapper} />
+        <ListItemText
+          className={classes.listItemText}
+          primary={`Next Up: ${props.nextPhaseTitle}`}
+          secondary={`exercises: ${props.exercisesLength}`}
+        />
+      </ListItem>
+    );
+  } else if (straightSet || circuitSet) {
     workoutExercises.map((exercise: WorkoutExercise) => {
       display = (
         <SingleSetItem
@@ -88,21 +129,9 @@ const UpNextCard = (props: UpNextCardProps & PassedInProps): JSX.Element => {
         [classes.bottomMargin]: props.bottomMargin,
       })}
     >
-      {props.lastSegment ? (
-        <CardHeader
-          avatar={
-            <Avatar>
-              <img src={confettiEmoji} alt={'confetti'} />
-            </Avatar>
-          }
-          title={`Next Up: ${props.nextPhaseTitle}`}
-          subheader={`exercises: ${props.exercisesLength}`}
-        />
-      ) : (
-        <Grid item xs={12} container>
-          <List className={classes.list}>{display}</List>
-        </Grid>
-      )}
+      <Grid item xs={12} container>
+        <List className={classes.list}>{display}</List>
+      </Grid>
     </Card>
   );
 };
