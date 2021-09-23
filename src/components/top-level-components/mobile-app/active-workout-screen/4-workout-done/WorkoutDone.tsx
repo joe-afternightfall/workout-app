@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
@@ -7,6 +7,7 @@ import { AppTheme } from '../../../../../configs/theme/app-theme';
 import { State } from '../../../../../configs/redux/store';
 import InfoRow from './InfoRow';
 import InfoDivider from './InfoDivider';
+import ConfettiExplosion from '@reonomy/react-confetti-explosion';
 
 const useStyles = makeStyles((theme: AppTheme) =>
   createStyles({
@@ -23,9 +24,20 @@ const useStyles = makeStyles((theme: AppTheme) =>
 
 const WorkoutDone = (props: WorkoutDoneProps): JSX.Element => {
   const classes = useStyles();
+  const [display, setDisplay] = useState(true);
 
+  setTimeout(() => {
+    setDisplay(false);
+  }, 5000);
   return (
     <Grid container>
+      {display && (
+        <Grid item container justify={'center'}>
+          <Grid item>
+            <ConfettiExplosion />
+          </Grid>
+        </Grid>
+      )}
       <Grid item xs={12} className={classes.titleWrapper}>
         <Typography
           variant={'h4'}
