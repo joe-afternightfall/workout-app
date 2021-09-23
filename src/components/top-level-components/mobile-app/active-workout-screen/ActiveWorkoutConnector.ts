@@ -19,9 +19,16 @@ const mapStateToProps = (state: State): ActiveWorkoutProps => {
   );
 
   let builtSets: BuiltSets = {};
+  let lastSegment = false;
+  let lastExerciseOfWorkout = false;
 
   if (currentSegment) {
     builtSets = buildSetInfo(currentSegment, allExercises);
+    lastSegment = currentSegment.order === currentPhase.segments.length;
+    lastExerciseOfWorkout =
+      lastSegment &&
+      state.workoutState.activeWorkout.routine.phases.length ===
+        currentPhase.order;
   }
 
   return {
@@ -31,8 +38,8 @@ const mapStateToProps = (state: State): ActiveWorkoutProps => {
     straightSet:
       currentSegment && isStraightSet(currentSegment.trainingSetTypeId),
     superset: currentSegment && isSuperset(currentSegment.trainingSetTypeId),
-    lastSegment:
-      currentSegment && currentSegment.order === currentPhase.segments.length,
+    lastSegment: currentSegment && lastSegment,
+    lastExerciseOfWorkout: lastExerciseOfWorkout,
     builtSets: builtSets,
   } as unknown as ActiveWorkoutProps;
 };

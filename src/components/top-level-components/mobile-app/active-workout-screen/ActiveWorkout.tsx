@@ -23,10 +23,18 @@ const useStyles = makeStyles(() =>
   })
 );
 
-export default function ActiveWorkout(props: ActiveWorkoutProps): JSX.Element {
+export default function ActiveWorkout({
+  superset,
+  lastSegment,
+  straightSet,
+  builtSets,
+  allExercises,
+  currentSegment,
+  currentSetIndex,
+  lastExerciseOfWorkout,
+  crushedItClickHandler,
+}: ActiveWorkoutProps): JSX.Element {
   const classes = useStyles();
-  const { superset, lastSegment, straightSet, currentSegment, builtSets } =
-    props;
 
   const scrollToSection = (setNumber: number) => {
     scroller.scrollTo(`active-set-${setNumber}`, {
@@ -48,7 +56,7 @@ export default function ActiveWorkout(props: ActiveWorkoutProps): JSX.Element {
     } else {
       scrollToSection(setNumber + 1);
     }
-    props.crushedItClickHandler(segmentId, setNumber, lastSet, lastSegment);
+    crushedItClickHandler(segmentId, setNumber, lastSet, lastSegment);
   };
 
   return (
@@ -68,7 +76,7 @@ export default function ActiveWorkout(props: ActiveWorkoutProps): JSX.Element {
                       (exercise: WorkoutExercise) => {
                         return {
                           title: getExerciseName(
-                            props.allExercises,
+                            allExercises,
                             exercise.exerciseId
                           ),
                         };
@@ -83,7 +91,7 @@ export default function ActiveWorkout(props: ActiveWorkoutProps): JSX.Element {
             {superset && (
               <ActiveSuperset
                 lastSegment={lastSegment}
-                currentSetIndex={props.currentSetIndex}
+                currentSetIndex={currentSetIndex}
                 builtSets={builtSets}
                 didItClickHandler={didItClickHandler}
               />
@@ -91,21 +99,20 @@ export default function ActiveWorkout(props: ActiveWorkoutProps): JSX.Element {
             {straightSet && (
               <ActiveStraightSet
                 lastSegment={lastSegment}
-                currentSetIndex={props.currentSetIndex}
+                currentSetIndex={currentSetIndex}
                 builtSets={builtSets}
                 didItClickHandler={didItClickHandler}
               />
             )}
           </Grid>
 
-          {/*todo: add logic for displaying message when done with first phase and there is another phase after*/}
-          {lastSegment ? (
-            <React.Fragment />
-          ) : (
-            <Grid item xs={12} container alignItems={'flex-end'}>
-              <UpNextCard bottomMargin={superset} />
-            </Grid>
-          )}
+          <Grid item xs={12} container alignItems={'flex-end'}>
+            <UpNextCard
+              bottomMargin={superset}
+              lastSegment={lastSegment}
+              lastExerciseOfWorkout={lastExerciseOfWorkout}
+            />
+          </Grid>
         </Grid>
       </div>
     </Slide>
@@ -118,6 +125,7 @@ export interface ActiveWorkoutProps {
   superset: boolean;
   straightSet: boolean;
   lastSegment: boolean;
+  lastExerciseOfWorkout: boolean;
   currentSegment: Segment;
   builtSets: BuiltSets;
   crushedItClickHandler: (
