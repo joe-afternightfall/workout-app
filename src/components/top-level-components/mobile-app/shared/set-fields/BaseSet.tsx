@@ -61,6 +61,7 @@ export default function BaseSet(props: BaseSetProps): JSX.Element {
             setId={info.setId}
             alternateSides={info.alternateSides}
             activeSet={activeSet}
+            markedDone={markedDone}
           />
 
           <SetDivider />
@@ -72,6 +73,7 @@ export default function BaseSet(props: BaseSetProps): JSX.Element {
             setId={info.setId}
             alternateSides={info.alternateSides}
             activeSet={activeSet}
+            markedDone={markedDone}
           />
         </>
       ) : (
@@ -82,6 +84,7 @@ export default function BaseSet(props: BaseSetProps): JSX.Element {
           setId={info.setId}
           alternateSides={info.alternateSides}
           activeSet={activeSet}
+          markedDone={markedDone}
         />
       )}
     </Grid>
