@@ -1,6 +1,6 @@
 import React from 'react';
+import PerSideAdornment from './PerSideAdornment';
 import { InputAdornment, Typography } from '@material-ui/core';
-import PerSideAdornment from '../PerSideAdornment';
 
 export default function BaseSetAdornment({
   setType,
