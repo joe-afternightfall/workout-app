@@ -187,16 +187,14 @@ export default {
       }
       case WorkoutActionTypes.START_WORKOUT: {
         const template = newState.selectedRoutineTemplate;
+        const currentTimestamp = new Date();
 
         newState.activeWorkout = new WorkoutDAO(
           uuidv4(),
           '', // todo: come back to userId and implement from firebase
-          new Date().toLocaleDateString(),
-          {
-            currentTimeMs: 0,
-            currentTimeSec: 0,
-            currentTimeMin: 0,
-          },
+          currentTimestamp.toLocaleDateString(),
+          String(Date.now()),
+          '0',
           {
             id: template.id,
             name: template.name,
