@@ -22,3 +22,13 @@ export const markCurrentSetAsDone = (
     lastSegment: lastSegment,
   };
 };
+
+export interface WorkoutDoneAction {
+  type: WorkoutActionTypes.WORKOUT_DONE;
+}
+
+export const workoutDone = (): WorkoutDoneAction => {
+  return {
+    type: WorkoutActionTypes.WORKOUT_DONE,
+  };
+};

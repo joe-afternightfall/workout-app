@@ -10,7 +10,10 @@ import {
   CopyRoutineForEditAction,
   OpenEditPreviewOptionsAction,
 } from './new-workout/workout-selections';
-import { MarkCurrentSetAsDoneAction } from './new-workout/active-workout';
+import {
+  MarkCurrentSetAsDoneAction,
+  WorkoutDoneAction,
+} from './new-workout/active-workout';
 import {
   AddSetToRoutineCopyAction,
   DeleteSegmentFromRoutineCopyAction,
@@ -42,6 +45,7 @@ export enum WorkoutActionTypes {
   UPDATE_SET_TEXT_FIELD = 'UPDATE_SET_TEXT_FIELD',
   UPDATE_SEGMENT_ORDER = 'UPDATE_SEGMENT_ORDER',
   UPDATE_REST_BETWEEN = 'UPDATE_REST_BETWEEN',
+  WORKOUT_DONE = 'WORKOUT_DONE',
 }
 
 export type WorkoutActions =
@@ -62,4 +66,5 @@ export type WorkoutActions =
   | SaveEditedVersionOfRoutineAction
   | UpdateSetTextFieldAction
   | UpdateSegmentOrderAction
-  | UpdateRestBetweenAction;
+  | UpdateRestBetweenAction
+  | WorkoutDoneAction;

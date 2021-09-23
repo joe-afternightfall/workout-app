@@ -5,10 +5,15 @@ import {
   isStraightSet,
   buildSetInfo,
 } from '../../../../utils/active-workout';
+import { routerActions } from 'connected-react-router';
 import { State } from '../../../../configs/redux/store';
 import ActiveWorkout, { ActiveWorkoutProps } from './ActiveWorkout';
 import { Segment, BuiltSets } from '../../../../configs/models/AppInterfaces';
-import { markCurrentSetAsDone } from '../../../../creators/new-workout/active-workout';
+import {
+  markCurrentSetAsDone,
+  workoutDone,
+} from '../../../../creators/new-workout/active-workout';
+import { MOBILE_WORKOUT_DONE_PATH } from '../../../../configs/constants/app';
 
 const mapStateToProps = (state: State): ActiveWorkoutProps => {
   const allExercises = state.workoutState.configs.exercises;
@@ -50,11 +55,16 @@ const mapDispatchToProps = (dispatch: Dispatch): ActiveWorkoutProps =>
       segmentId: string,
       setNumber: number,
       lastSet: boolean,
-      lastSegment: boolean
+      lastSegment: boolean,
+      lastExerciseOfWorkout: boolean
     ) => {
       dispatch(
         markCurrentSetAsDone(segmentId, setNumber, lastSet, lastSegment)
       );
+      if (lastExerciseOfWorkout && lastSet) {
+        dispatch(workoutDone());
+        dispatch(routerActions.push(MOBILE_WORKOUT_DONE_PATH));
+      }
     },
   } as unknown as ActiveWorkoutProps);
 

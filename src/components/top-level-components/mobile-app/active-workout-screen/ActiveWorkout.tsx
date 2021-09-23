@@ -56,7 +56,13 @@ export default function ActiveWorkout({
     } else {
       scrollToSection(setNumber + 1);
     }
-    crushedItClickHandler(segmentId, setNumber, lastSet, lastSegment);
+    crushedItClickHandler(
+      segmentId,
+      setNumber,
+      lastSet,
+      lastSegment,
+      lastExerciseOfWorkout
+    );
   };
 
   return (
@@ -132,6 +138,7 @@ export interface ActiveWorkoutProps {
     segmentId: string,
     setNumber: number,
     lastSet: boolean,
-    lastSegment: boolean
+    lastSegment: boolean,
+    lastExerciseOfWorkout: boolean
   ) => void;
 }

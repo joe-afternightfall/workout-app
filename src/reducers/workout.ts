@@ -278,6 +278,9 @@ export default {
           }
         }
         break;
+      case WorkoutActionTypes.WORKOUT_DONE:
+        newState.activeWorkout.endTime = Date.now().toString();
+        break;
       default:
         break;
     }
