@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme: AppTheme) =>
       textAlign: 'center',
       width: '30%',
     },
-    textHighlight: {
+    highlight: {
       color: theme.palette.custom.colors.active,
     },
   })
@@ -21,7 +21,7 @@ export default function InfoRow({ stat, title }: InfoRowProps): JSX.Element {
   return (
     <Grid item container className={classes.root}>
       <Grid item xs={12}>
-        <Typography variant={'h4'} className={classes.textHighlight}>
+        <Typography variant={'h4'} className={classes.highlight}>
           {stat}
         </Typography>
       </Grid>
