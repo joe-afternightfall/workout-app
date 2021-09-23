@@ -186,7 +186,7 @@ export default {
         break;
       }
       case WorkoutActionTypes.START_WORKOUT: {
-        const template = newState.selectedRoutineTemplate;
+        const template = ramda.clone(newState.selectedRoutineTemplate);
         const currentTimestamp = new Date();
 
         newState.activeWorkout = new WorkoutDAO(
