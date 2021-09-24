@@ -50,8 +50,7 @@ export default function ActiveWorkout({
     lastSet: boolean,
     lastSegment: boolean
   ) => {
-    // todo: if last exercise/last segment/last phase call workout done
-    if (lastSet || lastSegment) {
+    if (lastSet) {
       scroll.scrollToTop();
     } else {
       scrollToSection(setNumber + 1);
