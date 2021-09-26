@@ -37,7 +37,12 @@ const useStyles = makeStyles((theme: AppTheme) =>
   })
 );
 
-const WorkoutDone = (props: WorkoutDoneProps): JSX.Element => {
+const WorkoutDone = ({
+  minutes,
+  totalRepsDone,
+  totalWeightLifted,
+  doneClickHandler,
+}: WorkoutDoneProps): JSX.Element => {
   const classes = useStyles();
 
   return (
@@ -60,11 +65,14 @@ const WorkoutDone = (props: WorkoutDoneProps): JSX.Element => {
         </Grid>
       </Grid>
       <Grid item xs={12} container justify={'center'}>
-        <InfoRow stat={'1:25'} title={'Duration (min)'} />
+        <InfoRow stat={minutes} title={'Duration (min)'} />
         <InfoDivider />
-        <InfoRow stat={'350'} title={'Weight Lifted (lb)'} />
+        <InfoRow
+          stat={String(totalWeightLifted)}
+          title={'Weight Lifted (lb)'}
+        />
         <InfoDivider />
-        <InfoRow stat={'501'} title={'Reps'} />
+        <InfoRow stat={String(totalRepsDone)} title={'Reps'} />
       </Grid>
       <Grid item xs={12} container>
         <img src={AngryGorilla} className={classes.animal} />
@@ -74,7 +82,7 @@ const WorkoutDone = (props: WorkoutDoneProps): JSX.Element => {
           <Button
             fullWidth
             className={classes.button}
-            onClick={props.doneClickHandler}
+            onClick={doneClickHandler}
           >
             {'Done'}
           </Button>
@@ -86,12 +94,38 @@ const WorkoutDone = (props: WorkoutDoneProps): JSX.Element => {
 
 export interface WorkoutDoneProps {
   doneClickHandler: () => void;
+  totalWeightLifted: number;
+  totalRepsDone: number;
+  minutes: string;
 }
 
 const mapStateToProps = (state: State): WorkoutDoneProps => {
   const activeWorkout = state.workoutState.activeWorkout;
+  let totalWeightLifted = 0;
+  let totalRepsDone = 0;
 
-  return {} as unknown as WorkoutDoneProps;
+  const endTimeDate = new Date(Number(activeWorkout.endTime)).getTime();
+  const startTimeDate = new Date(Number(activeWorkout.startTime)).getTime();
+  const totalTime = endTimeDate - startTimeDate;
+  const minutes = new Date(Number(totalTime)).getMinutes();
+
+  activeWorkout.routine.phases.map((phase) => {
+    phase.segments.map((segment) => {
+      segment.exercises.map((exercise) => {
+        exercise.sets.map((set) => {
+          if (set.markedDone) {
+            totalWeightLifted += set.weight;
+            totalRepsDone += set.reps;
+          }
+        });
+      });
+    });
+  });
+  return {
+    totalWeightLifted: totalWeightLifted,
+    totalRepsDone: totalRepsDone,
+    minutes: minutes,
+  } as unknown as WorkoutDoneProps;
 };
 
 const mapDispatchToProps = (dispatch: Dispatch): WorkoutDoneProps =>
