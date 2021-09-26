@@ -1,82 +1,25 @@
 import React from 'react';
-import { Dispatch } from 'redux';
-import { connect } from 'react-redux';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { Grid, InputAdornment, TextField, Typography } from '@material-ui/core';
+import RestBetweenField from './RestBetweenField';
+import { Grid, Typography } from '@material-ui/core';
 import { Segment } from '../../../../../../../../../configs/models/AppInterfaces';
-import { updateRestBetween } from '../../../../../../../../../creators/new-workout/update-workout';
-import {
-  trimLeadingZeros,
-  validateForOnlyNumbers,
-} from '../../../../../../../../../utils/validator';
 
-const useStyles = makeStyles(() =>
-  createStyles({
-    inputRoot: {
-      fontSize: '5vh',
-    },
-    notchedOutline: {
-      border: 0,
-    },
-    fieldWrapper: {
-      borderColor: '#222323',
-      backgroundColor: '#222323',
-      borderRadius: 8,
-    },
-  })
-);
-
-const RestBetweenOptions = ({
+export default function RestBetweenOptions({
   segment,
-  updateRestBetweenHandler,
-}: RestBetweenOptionsProps & PassedInProps): JSX.Element => {
-  const classes = useStyles();
-
+}: RestBetweenOptionsProps): JSX.Element {
   return (
     <>
       <Grid container spacing={2} justify={'center'}>
-        <Grid item xs={6}>
-          <div className={classes.fieldWrapper}>
-            <TextField
-              variant={'outlined'}
-              value={segment.secondsRestBetweenSets}
-              inputProps={{ style: { textAlign: 'center' } }}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position={'start'}>{'Sec'}</InputAdornment>
-                ),
-                classes: {
-                  root: classes.inputRoot,
-                  notchedOutline: classes.notchedOutline,
-                },
-              }}
-              onChange={(e) => {
-                updateRestBetweenHandler('set', e.target.value);
-              }}
-            />
-          </div>
-        </Grid>
-        <Grid item xs={6}>
-          <div className={classes.fieldWrapper}>
-            <TextField
-              variant={'outlined'}
-              value={segment.secondsRestBetweenNextSegment}
-              inputProps={{ style: { textAlign: 'center' } }}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position={'start'}>{'Sec'}</InputAdornment>
-                ),
-                classes: {
-                  root: classes.inputRoot,
-                  notchedOutline: classes.notchedOutline,
-                },
-              }}
-              onChange={(e) => {
-                updateRestBetweenHandler('segment', e.target.value);
-              }}
-            />
-          </div>
-        </Grid>
+        <RestBetweenField
+          type={'set'}
+          value={segment.secondsRestBetweenSets}
+          segmentId={segment.id}
+        />
+
+        <RestBetweenField
+          type={'segment'}
+          value={segment.secondsRestBetweenNextSegment}
+          segmentId={segment.id}
+        />
       </Grid>
       <Grid item xs={12} container>
         <Grid item xs={6} container justify={'center'}>
@@ -92,27 +35,8 @@ const RestBetweenOptions = ({
       </Grid>
     </>
   );
-};
+}
 
-interface PassedInProps {
+interface RestBetweenOptionsProps {
   segment: Segment;
 }
-
-export interface RestBetweenOptionsProps {
-  updateRestBetweenHandler: (type: 'set' | 'segment', value: string) => void;
-}
-
-const mapDispatchToProps = (
-  dispatch: Dispatch,
-  ownProps: PassedInProps
-): RestBetweenOptionsProps =>
-  ({
-    updateRestBetweenHandler: (type: 'set' | 'segment', value: string) => {
-      const trimmedValue = trimLeadingZeros(value);
-      if (validateForOnlyNumbers(trimmedValue)) {
-        dispatch(updateRestBetween(ownProps.segment.id, type, value));
-      }
-    },
-  } as unknown as RestBetweenOptionsProps);
-
-export default connect(null, mapDispatchToProps)(RestBetweenOptions);
