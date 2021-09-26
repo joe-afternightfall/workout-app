@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme: Theme) =>
       height: '5vh',
       width: '5vh',
       position: 'absolute',
-      transform: 'translate(0, 4vh)',
+      transform: 'translate(0, 5vh)',
     },
     deleteButton: {
       background: theme.palette.primary.main,
@@ -26,9 +26,6 @@ const useStyles = makeStyles((theme: Theme) =>
       right: 0,
     },
     superset: {
-      transform: 'translate(0, 10vh)',
-    },
-    firstSuperset: {
       transform: 'translate(0, 12vh)',
     },
   })
@@ -57,9 +54,7 @@ export default function EditOptions(props: EditOptionsProps): JSX.Element {
         <div>
           <IconButton
             className={clsx(classes.baseButton, classes.deleteButton, {
-              [classes.superset]: props.superset && props.orderNumber !== 1,
-              [classes.firstSuperset]:
-                props.superset && props.orderNumber === 1,
+              [classes.superset]: props.superset,
             })}
             aria-label={'delete'}
             onClick={openDrawer}
@@ -77,9 +72,7 @@ export default function EditOptions(props: EditOptionsProps): JSX.Element {
               classes.baseButton,
               classes.dragButton,
               {
-                [classes.superset]: props.superset && props.orderNumber !== 1,
-                [classes.firstSuperset]:
-                  props.superset && props.orderNumber === 1,
+                [classes.superset]: props.superset,
               }
             )}
             aria-label={'re-order'}

@@ -31,13 +31,14 @@ const useStyles = makeStyles((theme: Theme) =>
       zIndex: 2,
     },
     listWrapper: {
+      border: 'none',
       width: '100%',
       paddingTop: 0,
       paddingBottom: '6vh',
       backgroundColor: theme.palette.background.paper,
     },
     editingBackground: {
-      backgroundColor: '#313131',
+      backgroundColor: '#303030',
     },
     selectedRow: {
       zIndex: 1000,
@@ -57,7 +58,11 @@ const PreviewWorkoutList = (props: PreviewWorkoutListProps): JSX.Element => {
   return props.displayEditSet ? (
     <React.Fragment />
   ) : (
-    <Paper elevation={5} square className={classes.root}>
+    <Paper
+      square
+      className={classes.root}
+      elevation={props.displayEditOptions ? 0 : 5}
+    >
       {props.routinePhases.map((phase: Phase, index: number) => {
         return (
           <List

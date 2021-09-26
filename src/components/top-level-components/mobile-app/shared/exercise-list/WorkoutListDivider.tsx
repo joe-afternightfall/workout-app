@@ -1,8 +1,19 @@
 import React from 'react';
 import ListItem from '@material-ui/core/ListItem';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+
+const useStyles = makeStyles(() =>
+  createStyles({
+    root: {
+      padding: 4,
+      width: '100%',
+      backgroundColor: '#2c2c2c',
+      // backgroundColor: '#1B1B1B',
+    },
+  })
+);
 
 export default function WorkoutListDivider(): JSX.Element {
-  return (
-    <ListItem style={{ width: '100%', padding: 4, backgroundColor: 'black' }} />
-  );
+  const classes = useStyles();
+  return <ListItem className={classes.root} />;
 }
