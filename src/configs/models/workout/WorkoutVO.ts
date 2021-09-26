@@ -1,5 +1,5 @@
 import { WorkoutDAO } from './WorkoutDAO';
-import { Routine, WorkoutDuration } from '../AppInterfaces';
+import { Routine } from '../AppInterfaces';
 
 export class WorkoutVO extends WorkoutDAO {
   firebaseId: string;
@@ -9,10 +9,11 @@ export class WorkoutVO extends WorkoutDAO {
     id: string,
     userId: string,
     date: string,
-    duration: WorkoutDuration,
+    startTime: string,
+    endTime: string,
     routine: Routine
   ) {
-    super(id, userId, date, duration, routine);
+    super(id, userId, date, startTime, endTime, routine);
     this.firebaseId = firebaseId;
   }
 }

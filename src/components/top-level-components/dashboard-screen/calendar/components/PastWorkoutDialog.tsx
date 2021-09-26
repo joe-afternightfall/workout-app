@@ -113,8 +113,6 @@ export default function PastWorkoutDialog(
                     {circuit.exercises &&
                       circuit.exercises.map(
                         (circuitExercise: CircuitExercise) => {
-                          // todo: consider ripping out exerciseTypes.find into constructor method
-                          // todo: to avoid having to do this every time
                           const foundExercise = props.exerciseTypes.find(
                             (exercise: ExerciseTypeVO) =>
                               exercise.id === circuitExercise.exerciseId

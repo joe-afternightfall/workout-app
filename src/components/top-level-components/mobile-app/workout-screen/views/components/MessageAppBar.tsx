@@ -1,7 +1,9 @@
+import clsx from 'clsx';
 import React from 'react';
 import {
   Grid,
   AppBar,
+  Button,
   Toolbar,
   IconButton,
   Typography,
@@ -11,10 +13,15 @@ import { connect } from 'react-redux';
 import { routerActions } from 'connected-react-router';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
+import { openEditPreviewOptions } from '../../../../../../creators/new-workout/workout-selections';
+import { State } from '../../../../../../configs/redux/store';
+import DiscardDialog from './DiscardDialog';
+import { saveEditedVersionOfRoutine } from '../../../../../../creators/new-workout/preview-workout';
 
 const useStyles = makeStyles(() =>
   createStyles({
     toolbar: {
+      padding: '0 12px',
       height: '8vh',
     },
     menuButton: {
@@ -23,6 +30,9 @@ const useStyles = makeStyles(() =>
     },
     gridWrapper: {
       height: '100%',
+    },
+    hide: {
+      display: 'none',
     },
   })
 );
@@ -52,30 +62,52 @@ const MessageAppBar = (
     props.clickHandler();
   };
 
-  return (
+  return props.displayEditSet ? (
+    <React.Fragment />
+  ) : (
     <AppBar position={'absolute'} color={'transparent'} elevation={0}>
       <Toolbar className={classes.toolbar}>
         <Grid container className={classes.gridWrapper} alignItems={'flex-end'}>
           <Grid item xs={2}>
-            <IconButton
-              edge={'start'}
-              color={'inherit'}
-              onClick={
-                props.activeTab === 0 ? routeAndClick : props.clickHandler
-              }
-              className={classes.menuButton}
-            >
-              <ArrowBackIcon fontSize={'small'} />
-            </IconButton>
+            {props.displayEditOptions ? (
+              <DiscardDialog />
+            ) : (
+              <IconButton
+                color={'primary'}
+                onClick={
+                  props.activeTab === 0 ? routeAndClick : props.clickHandler
+                }
+                className={classes.menuButton}
+              >
+                <ArrowBackIcon fontSize={'small'} />
+              </IconButton>
+            )}
           </Grid>
 
           <Grid item xs={8} container justify={'center'} alignItems={'center'}>
             <Grid item>
-              <Typography variant={'overline'}>{appBarMessage}</Typography>
+              <Typography variant={'overline'}>
+                {props.displayEditOptions ? '' : appBarMessage}
+              </Typography>
             </Grid>
           </Grid>
 
-          <Grid item xs={2} />
+          <Grid item xs={2} container justify={'flex-end'}>
+            <Button
+              variant={'text'}
+              color={'primary'}
+              className={clsx({
+                [classes.hide]: appBarMessage !== 'Preview Workout',
+              })}
+              onClick={
+                props.displayEditOptions
+                  ? props.saveEditedVersionOfRoutine
+                  : props.editClickHandler
+              }
+            >
+              {props.displayEditOptions ? 'Save' : 'Edit'}
+            </Button>
+          </Grid>
         </Grid>
       </Toolbar>
     </AppBar>
@@ -89,16 +121,29 @@ interface PassedInProps {
 
 export interface MessageAppBarProps {
   routeClickHandler: () => void;
+  editClickHandler: () => void;
+  displayEditOptions: boolean;
+  displayEditSet: boolean;
+  saveEditedVersionOfRoutine: () => void;
 }
 
-const mapStateToProps = (): MessageAppBarProps => {
-  return {} as unknown as MessageAppBarProps;
+const mapStateToProps = (state: State): MessageAppBarProps => {
+  return {
+    displayEditOptions: state.workoutState.displayEditPreviewList,
+    displayEditSet: state.workoutState.displayEditSet,
+  } as unknown as MessageAppBarProps;
 };
 
 const mapDispatchToProps = (dispatch: Dispatch): MessageAppBarProps =>
   ({
     routeClickHandler: () => {
       dispatch(routerActions.goBack());
+    },
+    editClickHandler: () => {
+      dispatch(openEditPreviewOptions());
+    },
+    saveEditedVersionOfRoutine: () => {
+      dispatch(saveEditedVersionOfRoutine());
     },
   } as unknown as MessageAppBarProps);
 

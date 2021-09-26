@@ -13,13 +13,14 @@ import {
   GripWidth,
   ParameterType,
   Phase,
-  Segment,
+  Set,
   TrainingSetType,
   WorkoutExercise,
-  Set,
 } from '../configs/models/AppInterfaces';
 import { WorkoutDAO } from '../configs/models/workout/WorkoutDAO';
 import { v4 as uuidv4 } from 'uuid';
+import * as ramda from 'ramda';
+import { arrayMoveImmutable as arrayMove } from 'array-move';
 
 export default {
   reducer: (
@@ -41,43 +42,164 @@ export default {
       case WorkoutActionTypes.SELECTED_ROUTINE:
         newState.selectedRoutineTemplate = action.routine;
         break;
-      case WorkoutActionTypes.START_WORKOUT: {
-        const template = newState.selectedRoutineTemplate;
-        const phases: Phase[] = template.phases;
-
-        phases
-          .sort((a: Phase, b: Phase) => a.order - b.order)
-          .map((phase: Phase) => {
-            return phase.segments
-              .sort((c: Segment, d: Segment) => c.order - d.order)
-              .map((segment: Segment) => {
-                return segment.exercises
-                  .sort(
-                    (e: WorkoutExercise, f: WorkoutExercise) =>
-                      e.order - f.order
-                  )
-                  .map((exercise: WorkoutExercise) => {
-                    return exercise.sets.sort(
-                      (g: Set, h: Set) => g.setNumber - h.setNumber
-                    );
-                  });
+      case WorkoutActionTypes.TOGGLE_EDIT_PREVIEW_LIST:
+        newState.displayEditPreviewList = action.display;
+        break;
+      case WorkoutActionTypes.OPEN_EDIT_PREVIEW_OPTIONS: {
+        newState.copyOfRoutineTemplate = ramda.clone(
+          newState.selectedRoutineTemplate
+        );
+        newState.displayEditPreviewList = true;
+        break;
+      }
+      case WorkoutActionTypes.OPEN_EDIT_SET:
+        newState.displayEditSet = true;
+        newState.editSetSegmentId = action.segmentId;
+        break;
+      case WorkoutActionTypes.CLOSE_EDIT_SET:
+        newState.displayEditSet = false;
+        newState.editSetSegmentId = '';
+        break;
+      case WorkoutActionTypes.DELETE_SEGMENT_FROM_ROUTINE_COPY: {
+        const clonedPhases = ramda.clone(newState.copyOfRoutineTemplate.phases);
+        clonedPhases.map((phase) => {
+          phase.segments.map((segment) => {
+            if (segment.id === action.segmentId) {
+              const foundIndex = phase.segments.indexOf(segment);
+              phase.segments.splice(foundIndex, 1);
+              phase.segments.map((segment, index) => {
+                segment.order = index + 1;
               });
+            }
           });
+        });
+        newState.copyOfRoutineTemplate.phases = clonedPhases;
+        break;
+      }
+      case WorkoutActionTypes.ADD_SET_TO_ROUTINE_COPY: {
+        const clonedPhases = ramda.clone(newState.copyOfRoutineTemplate.phases);
+        clonedPhases.map((phase) => {
+          phase.segments.map((segment) => {
+            segment.exercises.map((exercise) => {
+              if (exercise.id === action.segmentExerciseId) {
+                const numberOfSets = exercise.sets.length;
+                const lastSet = exercise.sets[numberOfSets - 1];
+                exercise.sets.push({
+                  id: uuidv4(),
+                  setNumber: numberOfSets + 1,
+                  weight: lastSet ? lastSet.weight : 0,
+                  reps: lastSet ? lastSet.reps : 0,
+                  duration: {
+                    currentTimeMs: 0,
+                    currentTimeSec: 0,
+                    currentTimeMin: 0,
+                  },
+                  distance: {
+                    unit: '',
+                    value: 0,
+                  },
+                  markedDone: false,
+                });
+              }
+            });
+          });
+        });
+        newState.copyOfRoutineTemplate.phases = clonedPhases;
+        break;
+      }
+      case WorkoutActionTypes.DELETE_SET_FROM_ROUTINE_COPY: {
+        const clonedPhases = ramda.clone(newState.copyOfRoutineTemplate.phases);
+        clonedPhases.map((phase) => {
+          phase.segments.map((segment) => {
+            segment.exercises.map((exercise) => {
+              exercise.sets.map((set) => {
+                if (set.id === action.setId) {
+                  const foundIndex = exercise.sets.indexOf(set);
+                  exercise.sets.splice(foundIndex, 1);
+                  exercise.sets.map((set, index) => {
+                    set.setNumber = index + 1;
+                  });
+                }
+              });
+            });
+          });
+        });
+        newState.copyOfRoutineTemplate.phases = clonedPhases;
+        break;
+      }
+      case WorkoutActionTypes.SAVE_EDITED_VERSION_OF_ROUTINE: {
+        newState.selectedRoutineTemplate = ramda.clone(
+          newState.copyOfRoutineTemplate
+        );
+        newState.displayEditPreviewList = false;
+        break;
+      }
+      case WorkoutActionTypes.UPDATE_SET_TEXT_FIELD: {
+        if (newState.displayEditPreviewList) {
+          const clonedPhases = ramda.clone(
+            newState.copyOfRoutineTemplate.phases
+          );
+          clonedPhases.map((phase) => {
+            phase.segments.map((segment) => {
+              segment.exercises.map((exercise) => {
+                exercise.sets.map((set) => {
+                  if (set.id === action.setId) {
+                    set[action.name] = action.value;
+                  }
+                });
+              });
+            });
+          });
+          newState.copyOfRoutineTemplate.phases = clonedPhases;
+        }
+        break;
+      }
+      case WorkoutActionTypes.UPDATE_REST_BETWEEN: {
+        const clonedPhases = ramda.clone(newState.copyOfRoutineTemplate.phases);
+        clonedPhases.map((phase) => {
+          phase.segments.map((segment) => {
+            if (segment.id === action.segmentId) {
+              if (action.restType === 'set') {
+                segment.secondsRestBetweenSets = Number(action.value);
+              } else {
+                segment.secondsRestBetweenNextSegment = Number(action.value);
+              }
+            }
+          });
+        });
+        newState.copyOfRoutineTemplate.phases = clonedPhases;
+        break;
+      }
+      case WorkoutActionTypes.UPDATE_SEGMENT_ORDER: {
+        const clonedPhases = ramda.clone(newState.copyOfRoutineTemplate.phases);
+        const foundPhase = clonedPhases.find(
+          (phase) => phase.id === action.phaseId
+        );
+        if (foundPhase) {
+          arrayMove(foundPhase.segments, action.fromIndex, action.toIndex).map(
+            (segment, index) => {
+              segment.order = index + 1;
+            }
+          );
+        }
+        newState.copyOfRoutineTemplate.phases = clonedPhases;
+        break;
+      }
+      case WorkoutActionTypes.START_WORKOUT: {
+        const template = ramda.clone(newState.selectedRoutineTemplate);
+        const currentTimestamp = new Date();
 
         newState.activeWorkout = new WorkoutDAO(
           uuidv4(),
           '', // todo: come back to userId and implement from firebase
-          new Date().toLocaleDateString(),
-          {
-            currentTimeMs: 0,
-            currentTimeSec: 0,
-            currentTimeMin: 0,
-          },
+          currentTimestamp.toLocaleDateString(),
+          String(Date.now()),
+          '0',
           {
             id: template.id,
             name: template.name,
             workoutCategoryId: template.workoutCategoryId,
-            phases: phases,
+            phases: template.phases,
           }
         );
         newState.currentPhase = newState.activeWorkout.routine.phases[0];
@@ -156,6 +278,9 @@ export default {
           }
         }
         break;
+      case WorkoutActionTypes.WORKOUT_DONE:
+        newState.activeWorkout.endTime = Date.now().toString();
+        break;
       default:
         break;
     }
@@ -179,10 +304,14 @@ export interface WorkoutState {
   };
   selectedWorkoutCategory: WorkoutCategoryVO;
   selectedRoutineTemplate: RoutineTemplateVO;
+  copyOfRoutineTemplate: RoutineTemplateVO;
   activeWorkout: WorkoutDAO;
   currentPhase: Phase;
   currentSegmentIndex: number;
   currentSetIndex: number;
   totalSegments: number;
   lastSegment: number;
+  displayEditPreviewList: boolean;
+  displayEditSet: boolean;
+  editSetSegmentId: string;
 }

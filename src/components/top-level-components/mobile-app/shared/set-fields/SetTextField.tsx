@@ -1,0 +1,128 @@
+import React from 'react';
+import { Dispatch } from 'redux';
+import { connect } from 'react-redux';
+import {
+  validateWeight,
+  trimLeadingZeros,
+  validateForOnlyNumbers,
+} from '../../../../../utils/validator';
+import { Grid, TextField } from '@material-ui/core';
+import BaseSetAdornment from './adornments/BaseSetAdornment';
+import { AppTheme } from '../../../../../configs/theme/app-theme';
+import { createStyles, makeStyles, useTheme } from '@material-ui/core/styles';
+import { updateSetTextField } from '../../../../../creators/new-workout/update-workout';
+
+const useStyles = makeStyles(() =>
+  createStyles({
+    inputRoot: {
+      fontSize: '5vh',
+    },
+    fullLength: {
+      width: '100%',
+    },
+    halfLength: {
+      width: '50%',
+    },
+    notchedOutline: {
+      border: 0,
+    },
+  })
+);
+
+const SetTextField = ({
+  value,
+  setType,
+  activeSet,
+  fullLength,
+  markedDone,
+  alternateSides,
+  onChangeHandler,
+}: SetTextFieldProps & PassedInProps): JSX.Element => {
+  const classes = useStyles();
+  const theme = useTheme<AppTheme>();
+  let fontColor = theme.palette.custom.colors.idle;
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const trimmedValue = trimLeadingZeros(event.target.value);
+    if (event.target.name === 'reps') {
+      if (validateForOnlyNumbers(trimmedValue)) {
+        return onChangeHandler(trimmedValue);
+      }
+    } else if (event.target.name === 'weight') {
+      if (validateWeight(trimmedValue)) {
+        return onChangeHandler(trimmedValue);
+      }
+    }
+  };
+
+  if (activeSet) {
+    fontColor = theme.palette.custom.colors.activeText;
+  } else if (markedDone) {
+    fontColor = theme.palette.custom.colors.activeText;
+  }
+
+  return (
+    <Grid item className={fullLength ? classes.fullLength : classes.halfLength}>
+      <TextField
+        fullWidth
+        variant={'outlined'}
+        value={value}
+        name={setType}
+        inputProps={{
+          style: {
+            textAlign: fullLength ? 'center' : undefined,
+            color: fontColor,
+          },
+        }}
+        InputProps={{
+          endAdornment: (
+            <BaseSetAdornment
+              setType={setType}
+              fontColor={fontColor}
+              alternateSides={alternateSides}
+            />
+          ),
+          classes: {
+            root: classes.inputRoot,
+            notchedOutline: classes.notchedOutline,
+          },
+        }}
+        onChange={handleChange}
+      />
+    </Grid>
+  );
+};
+
+export interface SetFieldInfoProps {
+  setId: string;
+  reps: number;
+  weight?: number;
+  parameterTypeId: string;
+  alternateSides: boolean;
+}
+
+export interface PassedInProps {
+  value: number;
+  setId: string;
+  activeSet: boolean;
+  markedDone: boolean;
+  fullLength: boolean;
+  alternateSides: boolean;
+  setType: 'weight' | 'reps';
+}
+
+export interface SetTextFieldProps {
+  onChangeHandler: (value: string) => void;
+}
+
+const mapDispatchToProps = (
+  dispatch: Dispatch,
+  ownProps: PassedInProps
+): SetTextFieldProps =>
+  ({
+    onChangeHandler: (value: number) => {
+      dispatch(updateSetTextField(ownProps.setId, ownProps.setType, value));
+    },
+  } as unknown as SetTextFieldProps);
+
+export default connect(null, mapDispatchToProps)(SetTextField);

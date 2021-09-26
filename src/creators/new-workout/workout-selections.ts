@@ -38,3 +38,59 @@ export const startWorkout = (): StartWorkoutAction => {
     type: WorkoutActionTypes.START_WORKOUT,
   };
 };
+
+export interface ToggleEditPreviewOptionsAction {
+  type: WorkoutActionTypes.TOGGLE_EDIT_PREVIEW_LIST;
+  display: boolean;
+}
+
+export interface OpenEditPreviewOptionsAction {
+  type: WorkoutActionTypes.OPEN_EDIT_PREVIEW_OPTIONS;
+}
+
+export const openEditPreviewOptions = (): OpenEditPreviewOptionsAction => {
+  return {
+    type: WorkoutActionTypes.OPEN_EDIT_PREVIEW_OPTIONS,
+  };
+};
+
+export const toggleEditPreviewOptions = (
+  display: boolean
+): ToggleEditPreviewOptionsAction => {
+  return {
+    type: WorkoutActionTypes.TOGGLE_EDIT_PREVIEW_LIST,
+    display: display,
+  };
+};
+
+export interface OpenEditSetAction {
+  type: WorkoutActionTypes.OPEN_EDIT_SET;
+  segmentId: string;
+}
+
+export const openEditSet = (segmentId: string): OpenEditSetAction => {
+  return {
+    type: WorkoutActionTypes.OPEN_EDIT_SET,
+    segmentId: segmentId,
+  };
+};
+
+export interface CloseEditSetAction {
+  type: WorkoutActionTypes.CLOSE_EDIT_SET;
+}
+
+export const closeEditSet = (): CloseEditSetAction => {
+  return {
+    type: WorkoutActionTypes.CLOSE_EDIT_SET,
+  };
+};
+
+export interface CopyRoutineForEditAction {
+  type: WorkoutActionTypes.COPY_ROUTINE_FOR_EDIT;
+}
+
+export const copyRoutineForEdit = (): CopyRoutineForEditAction => {
+  return {
+    type: WorkoutActionTypes.COPY_ROUTINE_FOR_EDIT,
+  };
+};

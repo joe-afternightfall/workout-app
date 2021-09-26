@@ -15,8 +15,9 @@ import { State } from '../../../../../configs/redux/store';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { getPhaseName } from '../../../../../utils/workout-configs';
 import { DASHBOARD_SCREEN_PATH } from '../../../../../configs/constants/app';
+import { AppTheme } from '../../../../../configs/theme/app-theme';
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme: AppTheme) =>
   createStyles({
     toolbar: {
       padding: 0,
@@ -24,10 +25,10 @@ const useStyles = makeStyles(() =>
     },
     menuButton: {
       paddingBottom: 8,
-      color: '#ED440B',
+      color: theme.palette.custom.colors.active,
     },
     exitButton: {
-      color: '#ed440b',
+      color: theme.palette.custom.colors.active,
     },
     gridRoot: {
       height: '100%',

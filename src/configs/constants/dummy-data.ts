@@ -447,6 +447,8 @@ export const routineTemplates: RoutineTemplateVO[] = [
             id: '39de2419-1b50-445a-8e40-5b7b259e01ff',
             order: 3,
             trainingSetTypeId: '3fd3c30c-6c6a-4cfd-8e59-5b500e486374',
+            secondsRestBetweenSets: 45,
+            secondsRestBetweenNextSegment: 90,
             exercises: [
               {
                 id: '14047a9a-fa12-4e05-b4a0-8a0946eac6b1',
@@ -564,6 +566,8 @@ export const routineTemplates: RoutineTemplateVO[] = [
             id: '44f5eae0-236c-4f3c-8d3d-d70720aba12b',
             order: 5,
             trainingSetTypeId: '3fd3c30c-6c6a-4cfd-8e59-5b500e486374',
+            secondsRestBetweenSets: 30,
+            secondsRestBetweenNextSegment: 60,
             exercises: [
               {
                 id: '6b56f8e8-0c59-4c47-8043-cb355900e689',
@@ -681,6 +685,8 @@ export const routineTemplates: RoutineTemplateVO[] = [
             id: '48122537-73ac-4786-88c6-e807e7a3459e',
             order: 1,
             trainingSetTypeId: '3fd3c30c-6c6a-4cfd-8e59-5b500e486374',
+            secondsRestBetweenSets: 30,
+            secondsRestBetweenNextSegment: 60,
             exercises: [
               {
                 id: '29c8aab8-121e-45dd-9da0-1bb9d6f18fed',
@@ -798,6 +804,8 @@ export const routineTemplates: RoutineTemplateVO[] = [
             id: '947a0216-0b48-4209-8bcb-62e23dbd7644',
             order: 2,
             trainingSetTypeId: '3fd3c30c-6c6a-4cfd-8e59-5b500e486374',
+            secondsRestBetweenSets: 45,
+            secondsRestBetweenNextSegment: 90,
             exercises: [
               {
                 id: '29c8aab8-121e-45dd-9da0-1bb9d6f18fed',
@@ -915,6 +923,8 @@ export const routineTemplates: RoutineTemplateVO[] = [
             id: '6fced3ac-d802-4d21-9c93-11ce5c2eadc8',
             order: 4,
             trainingSetTypeId: '3fd3c30c-6c6a-4cfd-8e59-5b500e486374',
+            secondsRestBetweenSets: 30,
+            secondsRestBetweenNextSegment: 45,
             exercises: [
               {
                 id: '09a78b3c-dd43-4f8c-8747-b19449d26a4b',
@@ -1032,6 +1042,8 @@ export const routineTemplates: RoutineTemplateVO[] = [
             id: 'c86fbd21-70ae-43d4-a933-22f6187dfd05',
             order: 6,
             trainingSetTypeId: '3fd3c30c-6c6a-4cfd-8e59-5b500e486374',
+            secondsRestBetweenSets: 30,
+            secondsRestBetweenNextSegment: 45,
             exercises: [
               {
                 id: '12dd9134-f83d-4f1f-b1fe-251ee22d7a9a',
@@ -1156,6 +1168,8 @@ export const routineTemplates: RoutineTemplateVO[] = [
             id: 'ebca8f35-a12d-4ac4-83e0-fbbbff5d51ee',
             order: 6,
             trainingSetTypeId: '40ac0220-8032-4860-81dd-68943d786123',
+            secondsRestBetweenSets: 30,
+            secondsRestBetweenNextSegment: 60,
             exercises: [
               {
                 id: 'c8a4deae-9e96-4ff1-85f2-381a96f7f7e1',
@@ -1218,6 +1232,8 @@ export const routineTemplates: RoutineTemplateVO[] = [
             id: '5f52f98b-7d4c-4475-8dd7-176af3c855e2',
             order: 3,
             trainingSetTypeId: '3fd3c30c-6c6a-4cfd-8e59-5b500e486374',
+            secondsRestBetweenSets: 30,
+            secondsRestBetweenNextSegment: 45,
             exercises: [
               {
                 id: 'c9d3efc2-ae03-4c48-92d9-5501845d6b4a',
@@ -1335,6 +1351,8 @@ export const routineTemplates: RoutineTemplateVO[] = [
             id: '9b759c08-c3a0-4543-bf5a-fdaa8be70970',
             order: 1,
             trainingSetTypeId: '40ac0220-8032-4860-81dd-68943d786123',
+            secondsRestBetweenSets: 15,
+            secondsRestBetweenNextSegment: 60,
             exercises: [
               {
                 id: 'c39a4780-a2df-4ad9-8be2-54b8cd2f3685',
@@ -1397,6 +1415,8 @@ export const routineTemplates: RoutineTemplateVO[] = [
             id: 'd0ca74c0-d34a-4d36-82f5-1b5ec833da08',
             order: 5,
             trainingSetTypeId: '3fd3c30c-6c6a-4cfd-8e59-5b500e486374',
+            secondsRestBetweenSets: 30,
+            secondsRestBetweenNextSegment: 45,
             exercises: [
               {
                 id: '7478f052-1d5e-4d0e-b55e-4b6f1cc98503',
@@ -1514,6 +1534,8 @@ export const routineTemplates: RoutineTemplateVO[] = [
             id: '4efada31-ba64-4950-b16d-935a5134ba38',
             order: 2,
             trainingSetTypeId: '40ac0220-8032-4860-81dd-68943d786123',
+            secondsRestBetweenSets: 30,
+            secondsRestBetweenNextSegment: 45,
             exercises: [
               {
                 id: 'a512fd89-a16e-49fa-8f18-09495ee42735',
@@ -1576,6 +1598,8 @@ export const routineTemplates: RoutineTemplateVO[] = [
             id: '09475914-dbc3-405e-a967-1860f712709a',
             order: 4,
             trainingSetTypeId: '3fd3c30c-6c6a-4cfd-8e59-5b500e486374',
+            secondsRestBetweenSets: 30,
+            secondsRestBetweenNextSegment: 45,
             exercises: [
               {
                 id: '91aee288-2ea2-477c-805a-52021f25110f',

@@ -4,21 +4,49 @@ import createMuiTheme, {
 } from '@material-ui/core/styles/createMuiTheme';
 import { Palette } from '@material-ui/core/styles/createPalette';
 
+const ACTIVE_ORANGE = '#ED440B';
+const COMPONENT_BACKGROUND = '#222323';
+const ACTIVE_TEXT = '#313131';
+const DISABLED = '#4F5050';
+const IDLE = '#686868';
+
 interface CustomPalette extends Palette {
-  colors: {
+  custom: {
+    colors: {
+      active: string;
+      done: string;
+      idle: string;
+      disabled: string;
+      activeText: string;
+      componentBackground: string;
+    };
+    styles: {
+      done: {
+        borderColor: string;
+        backgroundColor: string;
+        opacity: number;
+        color: string;
+      };
+      base: {
+        borderColor: string;
+        backgroundColor: string;
+      };
+      active: {
+        backgroundColor: string;
+        color: string;
+      };
+    };
+    background: {
+      base: string;
+      active: string;
+      done: string;
+    };
     active: {
       highlight: string;
       hover: string;
       contrastColor: string;
     };
     offWhite: string;
-    accents: {
-      pink: string;
-      orange: string;
-      green: string;
-      blue: string;
-      purple: string;
-    };
   };
 }
 
@@ -32,8 +60,41 @@ interface AppThemeOptions extends ThemeOptions {
 
 export function getTheme(): Theme {
   return createMuiTheme({
+    overrides: {
+      MuiCssBaseline: {
+        '@global': {
+          '*::-webkit-scrollbar': {
+            display: 'none',
+          },
+        },
+      },
+    },
     palette: {
-      colors: {
+      custom: {
+        colors: {
+          active: ACTIVE_ORANGE,
+          done: ACTIVE_TEXT,
+          activeText: ACTIVE_TEXT,
+          idle: IDLE,
+          disabled: DISABLED,
+          componentBackground: COMPONENT_BACKGROUND,
+        },
+        styles: {
+          done: {
+            borderColor: ACTIVE_ORANGE,
+            backgroundColor: ACTIVE_ORANGE,
+            opacity: 0.6,
+            color: ACTIVE_TEXT,
+          },
+          base: {
+            borderColor: COMPONENT_BACKGROUND,
+            backgroundColor: COMPONENT_BACKGROUND,
+          },
+          active: {
+            backgroundColor: ACTIVE_ORANGE,
+            color: ACTIVE_TEXT,
+          },
+        },
         // background: '#f3f4f2',
         offWhite: '#F5F5F5',
         // headerHighlight: '#502df1',
@@ -44,17 +105,6 @@ export function getTheme(): Theme {
           contrastColor: '#6B8E9B',
           // contrastColor: '#708C9B', // text and icon colors
           // background: '#b5aaf5', // left border highlight
-        },
-        accents: {
-          pink: '#E43F78',
-          orange: '#EF8C0A',
-          green: '#77C74B',
-          blue: '#2C9DF0',
-          purple: '#725FE7',
-          // madMuscleBlack: '#151515',
-          // madMuscleOrange: '#ed440b',
-          // otherAppPurple: '#7137b5',
-          // otherAppOrange: '#cf6719',
         },
       },
       text: {

@@ -1,4 +1,66 @@
 import { ExerciseVO } from '../configs/models/configurations/ExerciseVO';
+import {
+  BuiltSets,
+  Phase,
+  Segment,
+  Set,
+  WorkoutExercise,
+} from '../configs/models/AppInterfaces';
+
+// TODO: rename this file
+
+export const sortWorkoutByOrder = (phases: Phase[]): Phase[] => {
+  const phasesCopy: Phase[] = phases;
+  phasesCopy
+    .sort((a: Phase, b: Phase) => a.order - b.order)
+    .map((phase: Phase) => {
+      phase.segments
+        .sort((c: Segment, d: Segment) => c.order - d.order)
+        .map((segment: Segment) => {
+          segment.exercises
+            .sort((e: WorkoutExercise, f: WorkoutExercise) => e.order - f.order)
+            .map((exercise: WorkoutExercise) => {
+              exercise.sets.sort((g: Set, h: Set) => g.setNumber - h.setNumber);
+            });
+        });
+    });
+
+  console.log('RETURNING_COPY_PHASES *********');
+  return phasesCopy;
+};
+
+export const buildSetInfo = (
+  segment: Segment,
+  allExercises: ExerciseVO[]
+): BuiltSets => {
+  const builtSets: BuiltSets = {};
+
+  segment.exercises.map((exercise: WorkoutExercise) => {
+    exercise.sets.map((set: Set) => {
+      const exerciseSet = {
+        setNumber: set.setNumber,
+        setId: set.id,
+        segmentId: segment.id,
+        exercise: getExercise(allExercises, exercise.exerciseId),
+        exerciseOrder: exercise.order,
+        weight: set.weight,
+        reps: set.reps,
+        duration: set.duration,
+        distance: set.distance,
+        markedDone: set.markedDone,
+      };
+
+      builtSets[set.setNumber]
+        ? (builtSets[set.setNumber] = [
+            ...builtSets[set.setNumber],
+            exerciseSet,
+          ])
+        : (builtSets[set.setNumber] = [exerciseSet]);
+    });
+  });
+
+  return builtSets;
+};
 
 export const getExerciseName = (
   allExercises: ExerciseVO[],

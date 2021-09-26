@@ -2,18 +2,18 @@ import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import {
   isSuperset,
-  getExercise,
   isStraightSet,
+  buildSetInfo,
 } from '../../../../utils/active-workout';
-import {
-  Set,
-  Segment,
-  BuiltSets,
-  WorkoutExercise,
-} from '../../../../configs/models/AppInterfaces';
+import { routerActions } from 'connected-react-router';
 import { State } from '../../../../configs/redux/store';
 import ActiveWorkout, { ActiveWorkoutProps } from './ActiveWorkout';
-import { markCurrentSetAsDone } from '../../../../creators/new-workout/active-workout';
+import { Segment, BuiltSets } from '../../../../configs/models/AppInterfaces';
+import {
+  markCurrentSetAsDone,
+  workoutDone,
+} from '../../../../creators/new-workout/active-workout';
+import { MOBILE_WORKOUT_DONE_PATH } from '../../../../configs/constants/app';
 
 const mapStateToProps = (state: State): ActiveWorkoutProps => {
   const allExercises = state.workoutState.configs.exercises;
@@ -23,32 +23,18 @@ const mapStateToProps = (state: State): ActiveWorkoutProps => {
       segment.order === state.workoutState.currentSegmentIndex
   );
 
-  const builtSets: BuiltSets = {};
+  let builtSets: BuiltSets = {};
+  let lastSegment = false;
+  let lastExerciseOfWorkout = false;
 
-  currentSegment &&
-    currentSegment.exercises.map((exercise: WorkoutExercise) => {
-      return exercise.sets.map((set: Set) => {
-        const exerciseSet = {
-          setNumber: set.setNumber,
-          setId: set.id,
-          segmentId: currentSegment && currentSegment.id,
-          exercise: getExercise(allExercises, exercise.exerciseId),
-          exerciseOrder: exercise.order,
-          weight: set.weight,
-          reps: set.reps,
-          duration: set.duration,
-          distance: set.distance,
-          markedDone: set.markedDone,
-        };
-
-        builtSets[set.setNumber]
-          ? (builtSets[set.setNumber] = [
-              ...builtSets[set.setNumber],
-              exerciseSet,
-            ])
-          : (builtSets[set.setNumber] = [exerciseSet]);
-      });
-    });
+  if (currentSegment) {
+    builtSets = buildSetInfo(currentSegment, allExercises);
+    lastSegment = currentSegment.order === currentPhase.segments.length;
+    lastExerciseOfWorkout =
+      lastSegment &&
+      state.workoutState.activeWorkout.routine.phases.length ===
+        currentPhase.order;
+  }
 
   return {
     allExercises: state.workoutState.configs.exercises,
@@ -57,8 +43,8 @@ const mapStateToProps = (state: State): ActiveWorkoutProps => {
     straightSet:
       currentSegment && isStraightSet(currentSegment.trainingSetTypeId),
     superset: currentSegment && isSuperset(currentSegment.trainingSetTypeId),
-    lastSegment:
-      currentSegment && currentSegment.order === currentPhase.segments.length,
+    lastSegment: currentSegment && lastSegment,
+    lastExerciseOfWorkout: lastExerciseOfWorkout,
     builtSets: builtSets,
   } as unknown as ActiveWorkoutProps;
 };
@@ -69,11 +55,16 @@ const mapDispatchToProps = (dispatch: Dispatch): ActiveWorkoutProps =>
       segmentId: string,
       setNumber: number,
       lastSet: boolean,
-      lastSegment: boolean
+      lastSegment: boolean,
+      lastExerciseOfWorkout: boolean
     ) => {
       dispatch(
         markCurrentSetAsDone(segmentId, setNumber, lastSet, lastSegment)
       );
+      if (lastExerciseOfWorkout && lastSet) {
+        dispatch(workoutDone());
+        dispatch(routerActions.push(MOBILE_WORKOUT_DONE_PATH));
+      }
     },
   } as unknown as ActiveWorkoutProps);
 
