@@ -31,20 +31,27 @@ export interface WorkoutExercise {
 }
 
 export interface Set {
-  // [key: number]: string | number;
   id: string;
   setNumber: number;
   weight: number;
   reps: number;
-  duration: WorkoutDuration;
-  distance: WorkoutDistance;
+  duration?: WorkoutDuration;
+  distance?: WorkoutDistance;
+  timer?: WorkoutTimer;
   markedDone: boolean;
 }
 
+export interface WorkoutTimer {
+  id: string;
+  order: number;
+  stepperTitle: string;
+  timerMessage: string;
+  seconds: number;
+}
+
 export interface WorkoutDuration {
-  currentTimeMs: number;
-  currentTimeSec: number;
-  currentTimeMin: number;
+  seconds: number;
+  minutes: number;
 }
 
 export interface WorkoutDistance {
@@ -91,7 +98,8 @@ export interface ActiveSetInfo {
   exerciseOrder: number;
   weight: number;
   reps: number;
-  duration: WorkoutDuration;
-  distance: WorkoutDistance;
+  duration?: WorkoutDuration;
+  distance?: WorkoutDistance;
+  timer?: WorkoutTimer;
   markedDone: boolean;
 }
