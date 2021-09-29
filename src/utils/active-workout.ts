@@ -25,7 +25,6 @@ export const sortWorkoutByOrder = (phases: Phase[]): Phase[] => {
         });
     });
 
-  console.log('RETURNING_COPY_PHASES *********');
   return phasesCopy;
 };
 
