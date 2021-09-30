@@ -3,13 +3,13 @@ import { WorkoutActionTypes } from '../actions-workout';
 export interface UpdateSetTextFieldAction {
   type: WorkoutActionTypes.UPDATE_SET_TEXT_FIELD;
   setId: string;
-  name: 'weight' | 'reps';
+  name: 'weight' | 'reps' | 'sec';
   value: number;
 }
 
 export const updateSetTextField = (
   setId: string,
-  name: 'weight' | 'reps',
+  name: 'weight' | 'reps' | 'sec',
   value: number
 ): UpdateSetTextFieldAction => {
   return {
