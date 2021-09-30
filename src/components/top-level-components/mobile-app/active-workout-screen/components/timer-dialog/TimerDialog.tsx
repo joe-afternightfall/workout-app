@@ -63,7 +63,11 @@ export default function TimerDialog({
 
   return (
     <>
-      <IconButton onClick={handleClickOpen} style={{ color: fontColor }}>
+      <IconButton
+        disabled={!activeSet}
+        onClick={handleClickOpen}
+        style={{ color: fontColor }}
+      >
         <TimerIcon />
       </IconButton>
       <Dialog onClose={handleClose} open={open} fullWidth maxWidth={'sm'}>
