@@ -47,7 +47,7 @@ export const buildSetInfo = (
         duration: set.duration,
         distance: set.distance,
         markedDone: set.markedDone,
-        timer: set.timer,
+        timers: set.timers,
       };
 
       builtSets[set.setNumber]
