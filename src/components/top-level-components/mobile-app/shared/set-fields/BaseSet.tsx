@@ -4,7 +4,11 @@ import SetDivider from './SetDivider';
 import { Grid } from '@material-ui/core';
 import SetTextField, { SetFieldInfoProps } from './SetTextField';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { isWeightsAndReps } from '../../../../../utils/active-workout';
+import {
+  isDuration,
+  isRepsOnly,
+  isWeightsAndReps,
+} from '../../../../../utils/active-workout';
 import { AppTheme } from '../../../../../configs/theme/app-theme';
 import TimerDialog from '../../active-workout-screen/components/timer-dialog/TimerDialog';
 
@@ -23,20 +27,110 @@ const useStyles = makeStyles((theme: AppTheme) =>
     active: theme.palette.custom.styles.active,
     baseColor: theme.palette.custom.styles.base,
     done: theme.palette.custom.styles.done,
+    timerWrapper: {
+      borderLeft: '4px solid',
+      borderColor: '#313131',
+    },
   })
 );
 
-// todo: need to handle isDuration param type
-
-export default function BaseSet(props: BaseSetProps): JSX.Element {
+export default function BaseSet({
+  info,
+  activeSet,
+  markedDone,
+  superset,
+  extraStyles,
+  scrollToSetNumber,
+}: BaseSetProps): JSX.Element {
   const classes = useStyles();
-  const { info, activeSet, markedDone, superset } = props;
   let baseClass = '';
+  let display = <div />;
 
   if (superset) {
     baseClass = classes.supersetRowWrapper;
   } else {
     baseClass = classes.straightSetRowWrapper;
+  }
+
+  if (isWeightsAndReps(info.parameterTypeId)) {
+    display = (
+      <>
+        <SetTextField
+          value={info.weight ? info.weight : 0}
+          fullLength={false}
+          setType={'weight'}
+          setId={info.setId}
+          alternateSides={info.alternateSides}
+          activeSet={activeSet}
+          markedDone={markedDone}
+        />
+
+        <SetDivider />
+
+        <SetTextField
+          value={info.reps ? info.reps : 0}
+          fullLength={false}
+          setType={'reps'}
+          setId={info.setId}
+          alternateSides={info.alternateSides}
+          activeSet={activeSet}
+          markedDone={markedDone}
+        />
+      </>
+    );
+  } else if (isRepsOnly(info.parameterTypeId)) {
+    display = (
+      <SetTextField
+        value={info.reps ? info.reps : 0}
+        fullLength={true}
+        setType={'reps'}
+        setId={info.setId}
+        alternateSides={info.alternateSides}
+        activeSet={activeSet}
+        markedDone={markedDone}
+      />
+    );
+  } else if (isDuration(info.parameterTypeId)) {
+    display =
+      info.timers && info.shouldDisplayTimer ? (
+        <Grid container>
+          <Grid item xs={8}>
+            <SetTextField
+              value={info.duration ? info.duration.seconds : 0}
+              fullLength={true}
+              setType={'sec'}
+              setId={info.setId}
+              alternateSides={info.alternateSides}
+              activeSet={activeSet}
+              markedDone={markedDone}
+            />
+          </Grid>
+          <Grid
+            item
+            xs={4}
+            container
+            align-items={'center'}
+            justify={'center'}
+            className={classes.timerWrapper}
+          >
+            <TimerDialog
+              activeSet={activeSet}
+              markedDone={markedDone}
+              timers={info.timers}
+            />
+          </Grid>
+        </Grid>
+      ) : (
+        <SetTextField
+          value={info.duration ? info.duration.seconds : 0}
+          fullLength={true}
+          setType={'sec'}
+          setId={info.setId}
+          alternateSides={info.alternateSides}
+          activeSet={activeSet}
+          markedDone={markedDone}
+        />
+      );
   }
 
   return (
@@ -45,66 +139,15 @@ export default function BaseSet(props: BaseSetProps): JSX.Element {
       xs={superset ? 12 : 8}
       container
       alignItems={'center'}
-      id={`active-set-${props.scrollToSetNumber}`}
+      id={`active-set-${scrollToSetNumber}`}
       className={clsx(
         baseClass,
-        props.extraStyles,
+        extraStyles,
         activeSet ? classes.active : classes.baseColor,
         markedDone ? classes.done : undefined
       )}
     >
-      {isWeightsAndReps(info.parameterTypeId) ? (
-        <>
-          <SetTextField
-            value={info.weight ? info.weight : 0}
-            fullLength={false}
-            setType={'weight'}
-            setId={info.setId}
-            alternateSides={info.alternateSides}
-            activeSet={activeSet}
-            markedDone={markedDone}
-          />
-
-          <SetDivider />
-
-          <SetTextField
-            value={info.reps ? info.reps : 0}
-            fullLength={false}
-            setType={'reps'}
-            setId={info.setId}
-            alternateSides={info.alternateSides}
-            activeSet={activeSet}
-            markedDone={markedDone}
-          />
-        </>
-      ) : info.timers ? (
-        <Grid container>
-          <Grid item xs={8}>
-            <SetTextField
-              value={info.reps ? info.reps : 0}
-              fullLength={true}
-              setType={'reps'}
-              setId={info.setId}
-              alternateSides={info.alternateSides}
-              activeSet={activeSet}
-              markedDone={markedDone}
-            />
-          </Grid>
-          <Grid item xs={4}>
-            <TimerDialog timers={info.timers} />
-          </Grid>
-        </Grid>
-      ) : (
-        <SetTextField
-          value={info.reps ? info.reps : 0}
-          fullLength={true}
-          setType={'reps'}
-          setId={info.setId}
-          alternateSides={info.alternateSides}
-          activeSet={activeSet}
-          markedDone={markedDone}
-        />
-      )}
+      {display}
     </Grid>
   );
 }
