@@ -5,15 +5,12 @@ import { Grid } from '@material-ui/core';
 import BaseSet from '../set-fields/BaseSet';
 import DeleteIcon from '@material-ui/icons/Delete';
 import {
-  Segment,
   ActiveSetInfo,
+  BuiltSets,
 } from '../../../../../configs/models/AppInterfaces';
-import { buildSetInfo } from '../../../../../utils/active-workout';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import ActionButton from '../../workout-screen/views/3-preview-list/components/edit-set/components/ActionButton';
 import { deleteSetFromRoutineCopy } from '../../../../../creators/new-workout/preview-workout';
-import { ExerciseVO } from '../../../../../configs/models/configurations/ExerciseVO';
-import { State } from '../../../../../configs/redux/store';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -28,6 +25,12 @@ const useStyles = makeStyles(() =>
     bottomRow: {
       borderRadius: '0 0 0 4px',
     },
+    fieldWrapper: {
+      paddingRight: 4,
+    },
+    actionWrapper: {
+      height: '100%',
+    },
   })
 );
 
@@ -35,21 +38,15 @@ const EditSupersetRow = (
   props: EditSupersetRowProps & PassedInProps
 ): JSX.Element => {
   const classes = useStyles();
-  const { segment, deleteClickHandler, allExercises } = props;
-
-  const builtSets = buildSetInfo(segment, allExercises);
-  let shouldDisable = false;
+  const { builtSets, deleteClickHandler } = props;
   const supersets: JSX.Element[] = [];
 
-  segment.exercises.map(
-    (exercise) => (shouldDisable = exercise.sets.length === 1)
-  );
-
   Object.values(builtSets).map((setInfo: ActiveSetInfo[]) => {
+    const shouldDisable = setInfo.length === 1;
     supersets.push(
       <Grid container alignItems={'flex-start'} className={classes.root}>
-        <Grid item xs={8} style={{ paddingRight: 4 }}>
-          {setInfo.map((info) => {
+        <Grid item xs={8} className={classes.fieldWrapper}>
+          {setInfo.map((info: ActiveSetInfo) => {
             if (info.exercise) {
               return (
                 <BaseSet
@@ -66,16 +63,18 @@ const EditSupersetRow = (
                     setId: info.setId,
                     reps: info.reps,
                     weight: info.weight,
+                    duration: info.duration,
                     parameterTypeId: info.exercise.parameterTypeId,
                     alternateSides: info.exercise.alternateSides,
                     timers: info.timers,
+                    shouldDisplayTimer: false,
                   }}
                 />
               );
             }
           })}
         </Grid>
-        <Grid item xs={4} style={{ height: '100%' }}>
+        <Grid item xs={4} className={classes.actionWrapper}>
           <ActionButton
             disabled={shouldDisable}
             clickHandler={() => {
@@ -92,19 +91,12 @@ const EditSupersetRow = (
 };
 
 interface PassedInProps {
-  segment: Segment;
+  builtSets: BuiltSets;
 }
 
 export interface EditSupersetRowProps {
-  allExercises: ExerciseVO[];
   deleteClickHandler: (setInfo: ActiveSetInfo[]) => void;
 }
-
-const mapStateToProps = (state: State): EditSupersetRowProps => {
-  return {
-    allExercises: state.workoutState.configs.exercises,
-  } as unknown as EditSupersetRowProps;
-};
 
 const mapDispatchToProps = (dispatch: Dispatch): EditSupersetRowProps =>
   ({
@@ -115,4 +107,4 @@ const mapDispatchToProps = (dispatch: Dispatch): EditSupersetRowProps =>
     },
   } as unknown as EditSupersetRowProps);
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditSupersetRow);
+export default connect(null, mapDispatchToProps)(EditSupersetRow);
