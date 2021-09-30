@@ -61,6 +61,8 @@ export default function TimerDialog({
     fontColor = theme.palette.custom.colors.activeText;
   }
 
+  timers.sort((a, b) => a.order - b.order);
+
   return (
     <>
       <IconButton

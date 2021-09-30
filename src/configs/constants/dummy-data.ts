@@ -882,15 +882,15 @@ export const routineTemplates: RoutineTemplateVO[] = [
                     },
                     timers: [
                       {
-                        id: '4a9af429-eabb-4eba-9bf8-0a771f8f06c5',
-                        order: 1,
-                        stepperTitle: 'Left Side',
-                        timerMessage: 'Plank #1',
-                        seconds: 30,
-                      },
-                      {
                         id: '7b989eb5-6008-415c-a55e-9491648db500',
                         order: 2,
+                        stepperTitle: 'Rest',
+                        timerMessage: 'take a break',
+                        seconds: 10,
+                      },
+                      {
+                        id: 'e659c9a9-efdf-4b0b-8ebe-5a6f86e62e25',
+                        order: 4,
                         stepperTitle: 'Rest',
                         timerMessage: 'take a break',
                         seconds: 10,
@@ -903,17 +903,17 @@ export const routineTemplates: RoutineTemplateVO[] = [
                         seconds: 30,
                       },
                       {
-                        id: 'e659c9a9-efdf-4b0b-8ebe-5a6f86e62e25',
-                        order: 4,
-                        stepperTitle: 'Rest',
-                        timerMessage: 'take a break',
-                        seconds: 10,
-                      },
-                      {
                         id: '93844437-caf8-4b56-ab94-aa875278aef5',
                         order: 5,
-                        stepperTitle: 'Left Side',
+                        stepperTitle: 'Right Side',
                         timerMessage: 'Plank #3',
+                        seconds: 30,
+                      },
+                      {
+                        id: '4a9af429-eabb-4eba-9bf8-0a771f8f06c5',
+                        order: 1,
+                        stepperTitle: 'Left Side',
+                        timerMessage: 'Plank #1',
                         seconds: 30,
                       },
                     ],
