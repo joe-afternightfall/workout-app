@@ -68,6 +68,7 @@ const EditSupersetRow = (
                     weight: info.weight,
                     parameterTypeId: info.exercise.parameterTypeId,
                     alternateSides: info.exercise.alternateSides,
+                    timers: info.timers,
                   }}
                 />
               );

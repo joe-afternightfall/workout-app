@@ -80,6 +80,7 @@ const EditSet = ({
                     weight: set.weight,
                     parameterTypeId: parameterTypeId,
                     alternateSides: alternateSides,
+                    timers: set.timers,
                   }}
                   actionButton={
                     <ActionButton

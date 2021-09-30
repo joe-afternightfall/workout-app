@@ -13,6 +13,8 @@ export default function BaseSetAdornment({
     display = <Typography style={{ color: fontColor }}>{'lb'}</Typography>;
   } else if (alternateSides) {
     display = <PerSideAdornment fontColor={fontColor} />;
+  } else if (setType === 'sec') {
+    display = <Typography style={{ color: fontColor }}>{'sec'}</Typography>;
   } else {
     display = <Typography style={{ color: fontColor }}>{'reps'}</Typography>;
   }
@@ -22,6 +24,6 @@ export default function BaseSetAdornment({
 
 export interface BaseSetAdornmentProps {
   alternateSides: boolean;
-  setType: 'weight' | 'reps';
+  setType: 'weight' | 'reps' | 'sec';
   fontColor: string;
 }

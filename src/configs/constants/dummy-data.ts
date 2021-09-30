@@ -877,7 +877,10 @@ export const routineTemplates: RoutineTemplateVO[] = [
                     weight: 0,
                     reps: 1,
                     markedDone: false,
-                    timer: [
+                    duration: {
+                      seconds: 30,
+                    },
+                    timers: [
                       {
                         id: '4a9af429-eabb-4eba-9bf8-0a771f8f06c5',
                         order: 1,
@@ -920,8 +923,11 @@ export const routineTemplates: RoutineTemplateVO[] = [
                     setNumber: 2,
                     weight: 0,
                     reps: 1,
+                    duration: {
+                      seconds: 30,
+                    },
                     markedDone: false,
-                    timer: [
+                    timers: [
                       {
                         id: '0f5b2cdf-ee91-4916-9033-f2eef14f81e9',
                         order: 1,
@@ -964,8 +970,11 @@ export const routineTemplates: RoutineTemplateVO[] = [
                     setNumber: 3,
                     weight: 0,
                     reps: 1,
+                    duration: {
+                      seconds: 30,
+                    },
                     markedDone: false,
-                    timer: [
+                    timers: [
                       {
                         id: 'e20fda96-4fd7-4839-b708-39a0cb7122fe',
                         order: 1,
@@ -1015,8 +1024,11 @@ export const routineTemplates: RoutineTemplateVO[] = [
                     setNumber: 1,
                     weight: 0,
                     reps: 1,
+                    duration: {
+                      seconds: 30,
+                    },
                     markedDone: false,
-                    timer: [
+                    timers: [
                       {
                         id: '6e1f6afd-4e4b-462d-a40d-0922df0298ba',
                         order: 1,
@@ -1031,8 +1043,11 @@ export const routineTemplates: RoutineTemplateVO[] = [
                     setNumber: 3,
                     weight: 0,
                     reps: 1,
+                    duration: {
+                      seconds: 45,
+                    },
                     markedDone: false,
-                    timer: [
+                    timers: [
                       {
                         id: 'a7057728-e931-4259-a133-6a2480df2d61',
                         order: 1,
@@ -1047,8 +1062,11 @@ export const routineTemplates: RoutineTemplateVO[] = [
                     setNumber: 2,
                     weight: 0,
                     reps: 1,
+                    duration: {
+                      seconds: 35,
+                    },
                     markedDone: false,
-                    timer: [
+                    timers: [
                       {
                         id: '2ad7b187-6929-40f2-8aac-52751019c53d',
                         order: 1,

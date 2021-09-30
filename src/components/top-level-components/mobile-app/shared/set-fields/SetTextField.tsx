@@ -110,7 +110,7 @@ export interface PassedInProps {
   markedDone: boolean;
   fullLength: boolean;
   alternateSides: boolean;
-  setType: 'weight' | 'reps';
+  setType: 'weight' | 'reps' | 'sec';
 }
 
 export interface SetTextFieldProps {
