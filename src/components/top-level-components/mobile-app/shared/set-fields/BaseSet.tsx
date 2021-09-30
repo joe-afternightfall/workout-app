@@ -6,6 +6,7 @@ import SetTextField, { SetFieldInfoProps } from './SetTextField';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { isWeightsAndReps } from '../../../../../utils/active-workout';
 import { AppTheme } from '../../../../../configs/theme/app-theme';
+import TimerDialog from '../../active-workout-screen/components/timer-dialog/TimerDialog';
 
 const useStyles = makeStyles((theme: AppTheme) =>
   createStyles({
@@ -76,6 +77,23 @@ export default function BaseSet(props: BaseSetProps): JSX.Element {
             markedDone={markedDone}
           />
         </>
+      ) : info.timers ? (
+        <Grid container>
+          <Grid item xs={8}>
+            <SetTextField
+              value={info.reps ? info.reps : 0}
+              fullLength={true}
+              setType={'reps'}
+              setId={info.setId}
+              alternateSides={info.alternateSides}
+              activeSet={activeSet}
+              markedDone={markedDone}
+            />
+          </Grid>
+          <Grid item xs={4}>
+            <TimerDialog timers={info.timers} />
+          </Grid>
+        </Grid>
       ) : (
         <SetTextField
           value={info.reps ? info.reps : 0}

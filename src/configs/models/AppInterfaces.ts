@@ -37,7 +37,7 @@ export interface Set {
   reps: number;
   duration?: WorkoutDuration;
   distance?: WorkoutDistance;
-  timer?: WorkoutTimer;
+  timer?: WorkoutTimer[];
   markedDone: boolean;
 }
 
@@ -100,6 +100,6 @@ export interface ActiveSetInfo {
   reps: number;
   duration?: WorkoutDuration;
   distance?: WorkoutDistance;
-  timer?: WorkoutTimer;
+  timer?: WorkoutTimer[];
   markedDone: boolean;
 }

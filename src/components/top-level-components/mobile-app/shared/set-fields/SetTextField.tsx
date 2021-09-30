@@ -11,6 +11,7 @@ import BaseSetAdornment from './adornments/BaseSetAdornment';
 import { AppTheme } from '../../../../../configs/theme/app-theme';
 import { createStyles, makeStyles, useTheme } from '@material-ui/core/styles';
 import { updateSetTextField } from '../../../../../creators/new-workout/update-workout';
+import { WorkoutTimer } from '../../../../../configs/models/AppInterfaces';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -99,6 +100,7 @@ export interface SetFieldInfoProps {
   weight?: number;
   parameterTypeId: string;
   alternateSides: boolean;
+  timers?: WorkoutTimer[];
 }
 
 export interface PassedInProps {

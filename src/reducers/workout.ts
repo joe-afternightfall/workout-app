@@ -89,15 +89,6 @@ export default {
                   setNumber: numberOfSets + 1,
                   weight: lastSet ? lastSet.weight : 0,
                   reps: lastSet ? lastSet.reps : 0,
-                  duration: {
-                    currentTimeMs: 0,
-                    currentTimeSec: 0,
-                    currentTimeMin: 0,
-                  },
-                  distance: {
-                    unit: '',
-                    value: 0,
-                  },
                   markedDone: false,
                 });
               }
