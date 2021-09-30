@@ -1,5 +1,5 @@
 import React from 'react';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
+import { createStyles, makeStyles, useTheme } from '@material-ui/core/styles';
 import {
   Dialog,
   DialogContent,
@@ -11,6 +11,7 @@ import TimerIcon from '@material-ui/icons/Timer';
 import { WorkoutTimer } from '../../../../../../configs/models/AppInterfaces';
 import CountdownTimer from './components/countdown-timer/CountdownTimer';
 import CustomStepper from './components/stepper/CustomStepper';
+import { AppTheme } from '../../../../../../configs/theme/app-theme';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -26,10 +27,17 @@ const useStyles = makeStyles(() =>
   })
 );
 
-export default function TimerDialog({ timers }: TimerDialogProps): JSX.Element {
+export default function TimerDialog({
+  timers,
+  activeSet,
+  markedDone,
+}: TimerDialogProps): JSX.Element {
   const classes = useStyles();
+  const theme = useTheme<AppTheme>();
   const [open, setOpen] = React.useState(false);
   const [activeStep, setActiveStep] = React.useState(0);
+
+  let fontColor = theme.palette.custom.colors.idle;
 
   const handleNextStep = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -47,9 +55,15 @@ export default function TimerDialog({ timers }: TimerDialogProps): JSX.Element {
     setOpen(false);
   };
 
+  if (activeSet) {
+    fontColor = theme.palette.custom.colors.activeText;
+  } else if (markedDone) {
+    fontColor = theme.palette.custom.colors.activeText;
+  }
+
   return (
     <>
-      <IconButton onClick={handleClickOpen}>
+      <IconButton onClick={handleClickOpen} style={{ color: fontColor }}>
         <TimerIcon />
       </IconButton>
       <Dialog onClose={handleClose} open={open} fullWidth maxWidth={'sm'}>
@@ -78,4 +92,6 @@ export default function TimerDialog({ timers }: TimerDialogProps): JSX.Element {
 
 export interface TimerDialogProps {
   timers: WorkoutTimer[];
+  activeSet: boolean;
+  markedDone: boolean;
 }
