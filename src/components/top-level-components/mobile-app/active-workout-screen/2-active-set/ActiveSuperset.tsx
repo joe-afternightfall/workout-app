@@ -8,6 +8,7 @@ import {
   ActiveSetInfo,
 } from '../../../../../configs/models/AppInterfaces';
 import BaseSet from '../../shared/set-fields/BaseSet';
+import { buildSetFieldInfo } from '../../../../../utils/info-builder';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -66,14 +67,12 @@ export default function ActiveSuperset({
                       extraStyles={
                         index === 0 ? classes.topRow : classes.bottomRow
                       }
-                      info={{
-                        setId: info.setId,
-                        reps: info.reps,
-                        weight: info.weight,
-                        parameterTypeId: info.exercise.parameterTypeId,
-                        alternateSides: info.exercise.alternateSides,
-                        timers: info.timers,
-                      }}
+                      info={buildSetFieldInfo(
+                        info,
+                        info.exercise.parameterTypeId,
+                        info.exercise.alternateSides,
+                        true
+                      )}
                     />
                   );
                 }

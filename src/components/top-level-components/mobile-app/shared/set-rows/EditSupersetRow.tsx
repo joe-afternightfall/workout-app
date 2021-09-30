@@ -11,6 +11,7 @@ import {
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import ActionButton from '../../workout-screen/views/3-preview-list/components/edit-set/components/ActionButton';
 import { deleteSetFromRoutineCopy } from '../../../../../creators/new-workout/preview-workout';
+import { buildSetFieldInfo } from '../../../../../utils/info-builder';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -59,16 +60,12 @@ const EditSupersetRow = (
                       ? classes.topRow
                       : classes.bottomRow
                   }
-                  info={{
-                    setId: info.setId,
-                    reps: info.reps,
-                    weight: info.weight,
-                    duration: info.duration,
-                    parameterTypeId: info.exercise.parameterTypeId,
-                    alternateSides: info.exercise.alternateSides,
-                    timers: info.timers,
-                    shouldDisplayTimer: false,
-                  }}
+                  info={buildSetFieldInfo(
+                    info,
+                    info.exercise.parameterTypeId,
+                    info.exercise.alternateSides,
+                    false
+                  )}
                 />
               );
             }

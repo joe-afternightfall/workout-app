@@ -12,6 +12,7 @@ import { AppTheme } from '../../../../../configs/theme/app-theme';
 import { createStyles, makeStyles, useTheme } from '@material-ui/core/styles';
 import { updateSetTextField } from '../../../../../creators/new-workout/update-workout';
 import {
+  WorkoutDistance,
   WorkoutDuration,
   WorkoutTimer,
 } from '../../../../../configs/models/AppInterfaces';
@@ -103,6 +104,7 @@ export interface SetFieldInfoProps {
   reps: number;
   weight?: number;
   duration?: WorkoutDuration;
+  distance?: WorkoutDistance;
   parameterTypeId: string;
   alternateSides: boolean;
   timers?: WorkoutTimer[];
