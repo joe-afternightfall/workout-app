@@ -1,7 +1,7 @@
 import React from 'react';
-import BaseSet from './BaseSet';
 import { Grid } from '@material-ui/core';
-import { SetFieldInfoProps } from './SetTextField';
+import BaseSet from '../set-fields/BaseSet';
+import { SetFieldInfoProps } from '../set-fields/SetTextField';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(() =>
