@@ -22,6 +22,29 @@ import { v4 as uuidv4 } from 'uuid';
 import * as ramda from 'ramda';
 import { arrayMoveImmutable as arrayMove } from 'array-move';
 
+function updateSet(
+  phase: Phase,
+  setId: string,
+  value: number,
+  name: 'sec' | 'reps' | 'weight'
+) {
+  phase.segments.map((segment) => {
+    segment.exercises.map((exercise) => {
+      exercise.sets.map((set) => {
+        if (set.id === setId) {
+          if (name === 'sec') {
+            if (set.duration) {
+              set.duration.seconds = value;
+            }
+          } else {
+            set[name] = value;
+          }
+        }
+      });
+    });
+  });
+}
+
 export default {
   reducer: (
     state: WorkoutState = {} as unknown as WorkoutState,
@@ -129,45 +152,21 @@ export default {
         break;
       }
       case WorkoutActionTypes.UPDATE_SET_TEXT_FIELD: {
-        let clonedPhases: Phase[] = [];
-
         if (newState.displayEditPreviewList) {
-          clonedPhases = ramda.clone(newState.copyOfRoutineTemplate.phases);
+          const clonedPhases = ramda.clone(
+            newState.copyOfRoutineTemplate.phases
+          );
           clonedPhases.map((phase) => {
-            phase.segments.map((segment) => {
-              segment.exercises.map((exercise) => {
-                exercise.sets.map((set) => {
-                  if (set.id === action.setId) {
-                    if (action.name === 'sec') {
-                      if (set.duration) {
-                        set.duration.seconds = action.value;
-                      }
-                    } else {
-                      set[action.name] = action.value;
-                    }
-                  }
-                });
-              });
-            });
+            updateSet(phase, action.setId, action.value, action.name);
           });
           newState.copyOfRoutineTemplate.phases = clonedPhases;
         } else {
-          clonedPhases = ramda.clone(newState.activeWorkout.routine.phases);
-          newState.currentPhase.segments.map((segment) => {
-            segment.exercises.map((exercise) => {
-              exercise.sets.map((set) => {
-                if (set.id === action.setId) {
-                  if (action.name === 'sec') {
-                    if (set.duration) {
-                      set.duration.seconds = action.value;
-                    }
-                  } else {
-                    set[action.name] = action.value;
-                  }
-                }
-              });
-            });
-          });
+          updateSet(
+            newState.currentPhase,
+            action.setId,
+            action.value,
+            action.name
+          );
         }
         break;
       }
