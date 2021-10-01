@@ -8,7 +8,7 @@ import {
 import { routerActions } from 'connected-react-router';
 import { State } from '../../../../configs/redux/store';
 import ActiveWorkout, { ActiveWorkoutProps } from './ActiveWorkout';
-import { Segment, BuiltSets } from '../../../../configs/models/AppInterfaces';
+import { Segment, BuiltSets } from 'workout-app-common-core';
 import {
   markCurrentSetAsDone,
   workoutDone,

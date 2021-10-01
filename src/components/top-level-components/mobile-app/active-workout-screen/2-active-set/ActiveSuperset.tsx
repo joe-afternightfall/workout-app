@@ -3,10 +3,7 @@ import { Grid } from '@material-ui/core';
 import Blinker from '../../shared/Blinker';
 import CrushedItButton from './components/CrushedItButton';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import {
-  BuiltSets,
-  ActiveSetInfo,
-} from '../../../../../configs/models/AppInterfaces';
+import { BuiltSets, ActiveSetInfo } from 'workout-app-common-core';
 import BaseSet from '../../shared/set-fields/BaseSet';
 import { buildSetFieldInfo } from '../../../../../utils/info-builder';
 

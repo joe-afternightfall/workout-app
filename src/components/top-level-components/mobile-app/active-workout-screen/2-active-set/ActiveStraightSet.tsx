@@ -1,10 +1,7 @@
 import React from 'react';
 import { Grid } from '@material-ui/core';
 import Blinker from '../../shared/Blinker';
-import {
-  BuiltSets,
-  ActiveSetInfo,
-} from '../../../../../configs/models/AppInterfaces';
+import { BuiltSets, ActiveSetInfo } from 'workout-app-common-core';
 import CrushedItButton from './components/CrushedItButton';
 import StraightSetRow from '../../shared/set-rows/StraightSetRow';
 import { buildSetFieldInfo } from '../../../../../utils/info-builder';
