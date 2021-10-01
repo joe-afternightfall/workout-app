@@ -7,10 +7,13 @@ import EditAppBar from './components/EditAppBar';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ActionButton from './components/ActionButton';
 import {
+  buildSetInfo,
   getExercise,
   isSuperset,
 } from '../../../../../../../../utils/active-workout';
 import {
+  ActiveSetInfo,
+  BuiltSets,
   Segment,
   WorkoutExercise,
 } from '../../../../../../../../configs/models/AppInterfaces';
@@ -21,11 +24,12 @@ import {
   addSetToRoutineCopy,
   deleteSetFromRoutineCopy,
 } from '../../../../../../../../creators/new-workout/preview-workout';
-import StraightSetRow from '../../../../../shared/set-fields/StraightSetRow';
+import StraightSetRow from '../../../../../shared/set-rows/StraightSetRow';
 import EditSupersetRow from '../../../../../shared/set-rows/EditSupersetRow';
 import ActiveExercise, {
   Title,
 } from '../../../../../active-workout-screen/1-active-exercise/ActiveExercise';
+import { buildSetFieldInfo } from '../../../../../../../../utils/info-builder';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -40,6 +44,7 @@ const useStyles = makeStyles(() =>
 const EditSet = ({
   superset,
   segment,
+  builtSets,
   display,
   titles,
   parameterTypeId,
@@ -63,35 +68,35 @@ const EditSet = ({
 
         <Grid item xs={12}>
           {superset ? (
-            <EditSupersetRow segment={segment} />
+            <EditSupersetRow builtSets={builtSets} />
           ) : (
-            segment &&
-            segment.exercises[0].sets.map((set, index) => {
-              const shouldDisable = segment.exercises[0].sets.length === 1;
-              return (
-                <StraightSetRow
-                  key={index}
-                  setNumber={-1}
-                  markedDone={false}
-                  activeSet={false}
-                  info={{
-                    setId: set.id,
-                    reps: set.reps,
-                    weight: set.weight,
-                    parameterTypeId: parameterTypeId,
-                    alternateSides: alternateSides,
-                  }}
-                  actionButton={
-                    <ActionButton
-                      disabled={shouldDisable}
-                      clickHandler={() => {
-                        deleteClickHandler(set.id);
-                      }}
-                      icon={<DeleteIcon fontSize={'large'} />}
-                    />
-                  }
-                />
-              );
+            Object.values(builtSets).map((setInfo: ActiveSetInfo[]) => {
+              const shouldDisable = Object.values(builtSets).length === 1;
+              return setInfo.map((info: ActiveSetInfo, index: number) => {
+                return (
+                  <StraightSetRow
+                    key={index}
+                    setNumber={-1}
+                    markedDone={false}
+                    activeSet={false}
+                    info={buildSetFieldInfo(
+                      info,
+                      parameterTypeId,
+                      alternateSides,
+                      false
+                    )}
+                    actionButton={
+                      <ActionButton
+                        disabled={shouldDisable}
+                        clickHandler={() => {
+                          deleteClickHandler(info.setId);
+                        }}
+                        icon={<DeleteIcon fontSize={'large'} />}
+                      />
+                    }
+                  />
+                );
+              });
             })
           )}
         </Grid>
@@ -119,6 +124,7 @@ const EditSet = ({
 
 export interface EditSetProps {
   segment: Segment;
+  builtSets: BuiltSets;
   superset: boolean;
   titles: Title[];
   alternateSides: boolean;
@@ -171,10 +177,16 @@ const mapStateToProps = (state: State): EditSetProps => {
     });
   }
 
+  const builtSets = buildSetInfo(
+    foundSegment,
+    state.workoutState.configs.exercises
+  );
+
   return {
     titles: titles || [],
     superset: superset,
     segment: foundSegment,
+    builtSets: builtSets,
     display: state.workoutState.displayEditSet,
     parameterTypeId: parameterTypeId,
     alternateSides: alternateSides,

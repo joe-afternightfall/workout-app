@@ -6,7 +6,8 @@ import {
   ActiveSetInfo,
 } from '../../../../../configs/models/AppInterfaces';
 import CrushedItButton from './components/CrushedItButton';
-import StraightSetRow from '../../shared/set-fields/StraightSetRow';
+import StraightSetRow from '../../shared/set-rows/StraightSetRow';
+import { buildSetFieldInfo } from '../../../../../utils/info-builder';
 
 export default function ActiveStraightSet(
   props: ActiveStraightSetProps
@@ -41,13 +42,12 @@ export default function ActiveStraightSet(
                     setNumber={info.setNumber}
                     markedDone={markedDone}
                     activeSet={activeSet}
-                    info={{
-                      setId: info.setId,
-                      reps: info.reps,
-                      weight: info.weight,
-                      parameterTypeId: info.exercise.parameterTypeId,
-                      alternateSides: info.exercise.alternateSides,
-                    }}
+                    info={buildSetFieldInfo(
+                      info,
+                      info.exercise.parameterTypeId,
+                      info.exercise.alternateSides,
+                      true
+                    )}
                     actionButton={
                       <CrushedItButton
                         activeSet={activeSet}

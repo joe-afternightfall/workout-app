@@ -89,15 +89,9 @@ export default {
                   setNumber: numberOfSets + 1,
                   weight: lastSet ? lastSet.weight : 0,
                   reps: lastSet ? lastSet.reps : 0,
-                  duration: {
-                    currentTimeMs: 0,
-                    currentTimeSec: 0,
-                    currentTimeMin: 0,
-                  },
-                  distance: {
-                    unit: '',
-                    value: 0,
-                  },
+                  duration: lastSet && lastSet.duration,
+                  timers: lastSet && lastSet.timers,
+                  distance: lastSet && lastSet.distance,
                   markedDone: false,
                 });
               }
@@ -144,7 +138,13 @@ export default {
               segment.exercises.map((exercise) => {
                 exercise.sets.map((set) => {
                   if (set.id === action.setId) {
-                    set[action.name] = action.value;
+                    if (action.name === 'sec') {
+                      if (set.duration) {
+                        set.duration.seconds = action.value;
+                      }
+                    } else {
+                      set[action.name] = action.value;
+                    }
                   }
                 });
               });

@@ -157,6 +157,32 @@ export const equipmentList: EquipmentVO[] = [
 
 export const exercises: ExerciseVO[] = [
   {
+    firebaseId: 'bf7188fe-1d77-411e-ba8b-0afd45cfb724',
+    id: 'b9009c1a-8302-4a57-8ae4-549662902bf0',
+    name: 'CLR Plank',
+    description: '',
+    equipmentId: '6a05efa2-b40c-4163-8aba-b495e25bc5b6',
+    muscleGroupIds: ['7'],
+    iconId: '',
+    gripTypeId: '',
+    gripWidthId: '',
+    parameterTypeId: '2dfbe410-5d1c-4449-a3e9-b29f6ebec693',
+    alternateSides: false,
+  },
+  {
+    firebaseId: '828883df-a5e2-43c5-a715-3f407b63d5ff',
+    id: 'beb09371-bad3-4707-b457-85dedfbeac91',
+    name: '6 inch leg lifts',
+    description: '',
+    equipmentId: '6a05efa2-b40c-4163-8aba-b495e25bc5b6',
+    muscleGroupIds: ['7'],
+    iconId: '',
+    gripTypeId: '',
+    gripWidthId: '',
+    parameterTypeId: '2dfbe410-5d1c-4449-a3e9-b29f6ebec693',
+    alternateSides: false,
+  },
+  {
     firebaseId: '3d1d5d4a-3376-4045-b9ba-cdd3c8463ae8',
     id: 'f32b6601-8bbc-4750-b46c-1c5969b3c8b9',
     name: 'Tea Cups',
@@ -460,15 +486,6 @@ export const routineTemplates: RoutineTemplateVO[] = [
                     setNumber: 2,
                     weight: 25,
                     reps: 12,
-                    duration: {
-                      currentTimeMs: 0,
-                      currentTimeSec: 0,
-                      currentTimeMin: 0,
-                    },
-                    distance: {
-                      unit: '',
-                      value: 0,
-                    },
                     markedDone: false,
                   },
                   {
@@ -476,15 +493,6 @@ export const routineTemplates: RoutineTemplateVO[] = [
                     setNumber: 1,
                     weight: 20,
                     reps: 12,
-                    duration: {
-                      currentTimeMs: 0,
-                      currentTimeSec: 0,
-                      currentTimeMin: 0,
-                    },
-                    distance: {
-                      unit: '',
-                      value: 0,
-                    },
                     markedDone: false,
                   },
                   {
@@ -492,15 +500,6 @@ export const routineTemplates: RoutineTemplateVO[] = [
                     setNumber: 3,
                     weight: 30,
                     reps: 12,
-                    duration: {
-                      currentTimeMs: 0,
-                      currentTimeSec: 0,
-                      currentTimeMin: 0,
-                    },
-                    distance: {
-                      unit: '',
-                      value: 0,
-                    },
                     markedDone: false,
                   },
                 ],
@@ -515,15 +514,6 @@ export const routineTemplates: RoutineTemplateVO[] = [
                     setNumber: 2,
                     weight: 15,
                     reps: 12,
-                    duration: {
-                      currentTimeMs: 0,
-                      currentTimeSec: 0,
-                      currentTimeMin: 0,
-                    },
-                    distance: {
-                      unit: '',
-                      value: 0,
-                    },
                     markedDone: false,
                   },
                   {
@@ -531,15 +521,6 @@ export const routineTemplates: RoutineTemplateVO[] = [
                     setNumber: 1,
                     weight: 10,
                     reps: 12,
-                    duration: {
-                      currentTimeMs: 0,
-                      currentTimeSec: 0,
-                      currentTimeMin: 0,
-                    },
-                    distance: {
-                      unit: '',
-                      value: 0,
-                    },
                     markedDone: false,
                   },
                   {
@@ -547,15 +528,6 @@ export const routineTemplates: RoutineTemplateVO[] = [
                     setNumber: 3,
                     weight: 20,
                     reps: 15,
-                    duration: {
-                      currentTimeMs: 0,
-                      currentTimeSec: 0,
-                      currentTimeMin: 0,
-                    },
-                    distance: {
-                      unit: '',
-                      value: 0,
-                    },
                     markedDone: false,
                   },
                 ],
@@ -579,15 +551,6 @@ export const routineTemplates: RoutineTemplateVO[] = [
                     setNumber: 2,
                     weight: 35,
                     reps: 12,
-                    duration: {
-                      currentTimeMs: 0,
-                      currentTimeSec: 0,
-                      currentTimeMin: 0,
-                    },
-                    distance: {
-                      unit: '',
-                      value: 0,
-                    },
                     markedDone: false,
                   },
                   {
@@ -595,15 +558,6 @@ export const routineTemplates: RoutineTemplateVO[] = [
                     setNumber: 3,
                     weight: 40,
                     reps: 12,
-                    duration: {
-                      currentTimeMs: 0,
-                      currentTimeSec: 0,
-                      currentTimeMin: 0,
-                    },
-                    distance: {
-                      unit: '',
-                      value: 0,
-                    },
                     markedDone: false,
                   },
                   {
@@ -611,15 +565,6 @@ export const routineTemplates: RoutineTemplateVO[] = [
                     setNumber: 1,
                     weight: 30,
                     reps: 12,
-                    duration: {
-                      currentTimeMs: 0,
-                      currentTimeSec: 0,
-                      currentTimeMin: 0,
-                    },
-                    distance: {
-                      unit: '',
-                      value: 0,
-                    },
                     markedDone: false,
                   },
                 ],
@@ -634,15 +579,6 @@ export const routineTemplates: RoutineTemplateVO[] = [
                     setNumber: 1,
                     weight: 20,
                     reps: 12,
-                    duration: {
-                      currentTimeMs: 0,
-                      currentTimeSec: 0,
-                      currentTimeMin: 0,
-                    },
-                    distance: {
-                      unit: '',
-                      value: 0,
-                    },
                     markedDone: false,
                   },
                   {
@@ -650,15 +586,6 @@ export const routineTemplates: RoutineTemplateVO[] = [
                     setNumber: 2,
                     weight: 25,
                     reps: 12,
-                    duration: {
-                      currentTimeMs: 0,
-                      currentTimeSec: 0,
-                      currentTimeMin: 0,
-                    },
-                    distance: {
-                      unit: '',
-                      value: 0,
-                    },
                     markedDone: false,
                   },
                   {
@@ -666,15 +593,6 @@ export const routineTemplates: RoutineTemplateVO[] = [
                     setNumber: 3,
                     weight: 30,
                     reps: 12,
-                    duration: {
-                      currentTimeMs: 0,
-                      currentTimeSec: 0,
-                      currentTimeMin: 0,
-                    },
-                    distance: {
-                      unit: '',
-                      value: 0,
-                    },
                     markedDone: false,
                   },
                 ],
@@ -683,7 +601,7 @@ export const routineTemplates: RoutineTemplateVO[] = [
           },
           {
             id: '48122537-73ac-4786-88c6-e807e7a3459e',
-            order: 1,
+            order: 7,
             trainingSetTypeId: '3fd3c30c-6c6a-4cfd-8e59-5b500e486374',
             secondsRestBetweenSets: 30,
             secondsRestBetweenNextSegment: 60,
@@ -698,15 +616,6 @@ export const routineTemplates: RoutineTemplateVO[] = [
                     setNumber: 1,
                     weight: 30,
                     reps: 12,
-                    duration: {
-                      currentTimeMs: 0,
-                      currentTimeSec: 0,
-                      currentTimeMin: 0,
-                    },
-                    distance: {
-                      unit: '',
-                      value: 0,
-                    },
                     markedDone: false,
                   },
                   {
@@ -714,15 +623,6 @@ export const routineTemplates: RoutineTemplateVO[] = [
                     setNumber: 2,
                     weight: 35,
                     reps: 12,
-                    duration: {
-                      currentTimeMs: 0,
-                      currentTimeSec: 0,
-                      currentTimeMin: 0,
-                    },
-                    distance: {
-                      unit: '',
-                      value: 0,
-                    },
                     markedDone: false,
                   },
                   {
@@ -730,15 +630,6 @@ export const routineTemplates: RoutineTemplateVO[] = [
                     setNumber: 3,
                     weight: 40,
                     reps: 12,
-                    duration: {
-                      currentTimeMs: 0,
-                      currentTimeSec: 0,
-                      currentTimeMin: 0,
-                    },
-                    distance: {
-                      unit: '',
-                      value: 0,
-                    },
                     markedDone: false,
                   },
                 ],
@@ -753,15 +644,6 @@ export const routineTemplates: RoutineTemplateVO[] = [
                     setNumber: 1,
                     weight: 35,
                     reps: 12,
-                    duration: {
-                      currentTimeMs: 0,
-                      currentTimeSec: 0,
-                      currentTimeMin: 0,
-                    },
-                    distance: {
-                      unit: '',
-                      value: 0,
-                    },
                     markedDone: false,
                   },
                   {
@@ -769,15 +651,6 @@ export const routineTemplates: RoutineTemplateVO[] = [
                     setNumber: 2,
                     weight: 40,
                     reps: 12,
-                    duration: {
-                      currentTimeMs: 0,
-                      currentTimeSec: 0,
-                      currentTimeMin: 0,
-                    },
-                    distance: {
-                      unit: '',
-                      value: 0,
-                    },
                     markedDone: false,
                   },
                   {
@@ -785,15 +658,6 @@ export const routineTemplates: RoutineTemplateVO[] = [
                     setNumber: 3,
                     weight: 45,
                     reps: 12,
-                    duration: {
-                      currentTimeMs: 0,
-                      currentTimeSec: 0,
-                      currentTimeMin: 0,
-                    },
-                    distance: {
-                      unit: '',
-                      value: 0,
-                    },
                     markedDone: false,
                   },
                 ],
@@ -817,15 +681,6 @@ export const routineTemplates: RoutineTemplateVO[] = [
                     setNumber: 1,
                     weight: 30,
                     reps: 12,
-                    duration: {
-                      currentTimeMs: 0,
-                      currentTimeSec: 0,
-                      currentTimeMin: 0,
-                    },
-                    distance: {
-                      unit: '',
-                      value: 0,
-                    },
                     markedDone: false,
                   },
                   {
@@ -833,15 +688,6 @@ export const routineTemplates: RoutineTemplateVO[] = [
                     setNumber: 2,
                     weight: 35,
                     reps: 12,
-                    duration: {
-                      currentTimeMs: 0,
-                      currentTimeSec: 0,
-                      currentTimeMin: 0,
-                    },
-                    distance: {
-                      unit: '',
-                      value: 0,
-                    },
                     markedDone: false,
                   },
                   {
@@ -849,15 +695,6 @@ export const routineTemplates: RoutineTemplateVO[] = [
                     setNumber: 3,
                     weight: 40,
                     reps: 12,
-                    duration: {
-                      currentTimeMs: 0,
-                      currentTimeSec: 0,
-                      currentTimeMin: 0,
-                    },
-                    distance: {
-                      unit: '',
-                      value: 0,
-                    },
                     markedDone: false,
                   },
                 ],
@@ -872,15 +709,6 @@ export const routineTemplates: RoutineTemplateVO[] = [
                     setNumber: 1,
                     weight: 12,
                     reps: 15,
-                    duration: {
-                      currentTimeMs: 0,
-                      currentTimeSec: 0,
-                      currentTimeMin: 0,
-                    },
-                    distance: {
-                      unit: '',
-                      value: 0,
-                    },
                     markedDone: false,
                   },
                   {
@@ -888,15 +716,6 @@ export const routineTemplates: RoutineTemplateVO[] = [
                     setNumber: 3,
                     weight: 20,
                     reps: 12,
-                    duration: {
-                      currentTimeMs: 0,
-                      currentTimeSec: 0,
-                      currentTimeMin: 0,
-                    },
-                    distance: {
-                      unit: '',
-                      value: 0,
-                    },
                     markedDone: false,
                   },
                   {
@@ -904,15 +723,6 @@ export const routineTemplates: RoutineTemplateVO[] = [
                     setNumber: 2,
                     weight: 15,
                     reps: 15,
-                    duration: {
-                      currentTimeMs: 0,
-                      currentTimeSec: 0,
-                      currentTimeMin: 0,
-                    },
-                    distance: {
-                      unit: '',
-                      value: 0,
-                    },
                     markedDone: false,
                   },
                 ],
@@ -936,15 +746,6 @@ export const routineTemplates: RoutineTemplateVO[] = [
                     setNumber: 1,
                     weight: 25,
                     reps: 12,
-                    duration: {
-                      currentTimeMs: 0,
-                      currentTimeSec: 0,
-                      currentTimeMin: 0,
-                    },
-                    distance: {
-                      unit: '',
-                      value: 0,
-                    },
                     markedDone: false,
                   },
                   {
@@ -952,15 +753,6 @@ export const routineTemplates: RoutineTemplateVO[] = [
                     setNumber: 2,
                     weight: 30,
                     reps: 12,
-                    duration: {
-                      currentTimeMs: 0,
-                      currentTimeSec: 0,
-                      currentTimeMin: 0,
-                    },
-                    distance: {
-                      unit: '',
-                      value: 0,
-                    },
                     markedDone: false,
                   },
                   {
@@ -968,15 +760,6 @@ export const routineTemplates: RoutineTemplateVO[] = [
                     setNumber: 3,
                     weight: 35,
                     reps: 12,
-                    duration: {
-                      currentTimeMs: 0,
-                      currentTimeSec: 0,
-                      currentTimeMin: 0,
-                    },
-                    distance: {
-                      unit: '',
-                      value: 0,
-                    },
                     markedDone: false,
                   },
                 ],
@@ -991,15 +774,6 @@ export const routineTemplates: RoutineTemplateVO[] = [
                     setNumber: 1,
                     weight: 20,
                     reps: 10,
-                    duration: {
-                      currentTimeMs: 0,
-                      currentTimeSec: 0,
-                      currentTimeMin: 0,
-                    },
-                    distance: {
-                      unit: '',
-                      value: 0,
-                    },
                     markedDone: false,
                   },
                   {
@@ -1007,15 +781,6 @@ export const routineTemplates: RoutineTemplateVO[] = [
                     setNumber: 3,
                     weight: 30,
                     reps: 10,
-                    duration: {
-                      currentTimeMs: 0,
-                      currentTimeSec: 0,
-                      currentTimeMin: 0,
-                    },
-                    distance: {
-                      unit: '',
-                      value: 0,
-                    },
                     markedDone: false,
                   },
                   {
@@ -1023,15 +788,6 @@ export const routineTemplates: RoutineTemplateVO[] = [
                     setNumber: 2,
                     weight: 25,
                     reps: 15,
-                    duration: {
-                      currentTimeMs: 0,
-                      currentTimeSec: 0,
-                      currentTimeMin: 0,
-                    },
-                    distance: {
-                      unit: '',
-                      value: 0,
-                    },
                     markedDone: false,
                   },
                 ],
@@ -1055,15 +811,6 @@ export const routineTemplates: RoutineTemplateVO[] = [
                     setNumber: 1,
                     weight: 30,
                     reps: 12,
-                    duration: {
-                      currentTimeMs: 0,
-                      currentTimeSec: 0,
-                      currentTimeMin: 0,
-                    },
-                    distance: {
-                      unit: '',
-                      value: 0,
-                    },
                     markedDone: false,
                   },
                   {
@@ -1071,15 +818,6 @@ export const routineTemplates: RoutineTemplateVO[] = [
                     setNumber: 2,
                     weight: 35,
                     reps: 12,
-                    duration: {
-                      currentTimeMs: 0,
-                      currentTimeSec: 0,
-                      currentTimeMin: 0,
-                    },
-                    distance: {
-                      unit: '',
-                      value: 0,
-                    },
                     markedDone: false,
                   },
                   {
@@ -1087,15 +825,6 @@ export const routineTemplates: RoutineTemplateVO[] = [
                     setNumber: 3,
                     weight: 40,
                     reps: 12,
-                    duration: {
-                      currentTimeMs: 0,
-                      currentTimeSec: 0,
-                      currentTimeMin: 0,
-                    },
-                    distance: {
-                      unit: '',
-                      value: 0,
-                    },
                     markedDone: false,
                   },
                 ],
@@ -1110,15 +839,6 @@ export const routineTemplates: RoutineTemplateVO[] = [
                     setNumber: 1,
                     weight: 12,
                     reps: 15,
-                    duration: {
-                      currentTimeMs: 0,
-                      currentTimeSec: 0,
-                      currentTimeMin: 0,
-                    },
-                    distance: {
-                      unit: '',
-                      value: 0,
-                    },
                     markedDone: false,
                   },
                   {
@@ -1126,15 +846,6 @@ export const routineTemplates: RoutineTemplateVO[] = [
                     setNumber: 3,
                     weight: 20,
                     reps: 12,
-                    duration: {
-                      currentTimeMs: 0,
-                      currentTimeSec: 0,
-                      currentTimeMin: 0,
-                    },
-                    distance: {
-                      unit: '',
-                      value: 0,
-                    },
                     markedDone: false,
                   },
                   {
@@ -1142,16 +853,228 @@ export const routineTemplates: RoutineTemplateVO[] = [
                     setNumber: 2,
                     weight: 15,
                     reps: 15,
+                    markedDone: false,
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            id: '537bdc00-f966-4f68-83a4-66147c692d52',
+            order: 1,
+            trainingSetTypeId: '3fd3c30c-6c6a-4cfd-8e59-5b500e486374',
+            secondsRestBetweenSets: 30,
+            secondsRestBetweenNextSegment: 45,
+            exercises: [
+              {
+                id: '0f20b867-d81f-4c76-a45d-bfb8cfe9212b',
+                order: 2,
+                exerciseId: 'b9009c1a-8302-4a57-8ae4-549662902bf0',
+                sets: [
+                  {
+                    id: '0eaeeec6-6796-4ab1-8bcc-c4783f797105',
+                    setNumber: 1,
+                    weight: 0,
+                    reps: 1,
+                    markedDone: false,
                     duration: {
-                      currentTimeMs: 0,
-                      currentTimeSec: 0,
-                      currentTimeMin: 0,
+                      seconds: 30,
                     },
-                    distance: {
-                      unit: '',
-                      value: 0,
+                    timers: [
+                      {
+                        id: '7b989eb5-6008-415c-a55e-9491648db500',
+                        order: 2,
+                        stepperTitle: 'Rest',
+                        timerMessage: 'take a break',
+                        seconds: 10,
+                      },
+                      {
+                        id: 'e659c9a9-efdf-4b0b-8ebe-5a6f86e62e25',
+                        order: 4,
+                        stepperTitle: 'Rest',
+                        timerMessage: 'take a break',
+                        seconds: 10,
+                      },
+                      {
+                        id: 'b454aa91-f4eb-40bc-af51-0ffeac362633',
+                        order: 3,
+                        stepperTitle: 'Center',
+                        timerMessage: 'Plank #2',
+                        seconds: 30,
+                      },
+                      {
+                        id: '93844437-caf8-4b56-ab94-aa875278aef5',
+                        order: 5,
+                        stepperTitle: 'Right Side',
+                        timerMessage: 'Plank #3',
+                        seconds: 30,
+                      },
+                      {
+                        id: '4a9af429-eabb-4eba-9bf8-0a771f8f06c5',
+                        order: 1,
+                        stepperTitle: 'Left Side',
+                        timerMessage: 'Plank #1',
+                        seconds: 30,
+                      },
+                    ],
+                  },
+                  {
+                    id: 'a05bfb62-4351-4877-806c-f5a8e81809af',
+                    setNumber: 2,
+                    weight: 0,
+                    reps: 1,
+                    duration: {
+                      seconds: 30,
                     },
                     markedDone: false,
+                    timers: [
+                      {
+                        id: '0f5b2cdf-ee91-4916-9033-f2eef14f81e9',
+                        order: 1,
+                        stepperTitle: 'Left Side',
+                        timerMessage: 'Plank #1',
+                        seconds: 7,
+                      },
+                      {
+                        id: '69a2984d-f40c-446f-9c52-ab70880cd8cf',
+                        order: 2,
+                        stepperTitle: 'Rest',
+                        timerMessage: 'take a break',
+                        seconds: 7,
+                      },
+                      {
+                        id: 'f83eb0f4-945e-49a6-b6da-b2421a9afee6',
+                        order: 3,
+                        stepperTitle: 'Center',
+                        timerMessage: 'Plank #2',
+                        seconds: 10,
+                      },
+                      {
+                        id: '6317fe08-9ac8-477c-960a-3df762fb899a',
+                        order: 4,
+                        stepperTitle: 'Rest',
+                        timerMessage: 'take a break',
+                        seconds: 15,
+                      },
+                      {
+                        id: '859c7dfe-58e1-46de-869c-6647f8332487',
+                        order: 5,
+                        stepperTitle: 'Right Side',
+                        timerMessage: 'Plank #3',
+                        seconds: 20,
+                      },
+                    ],
+                  },
+                  {
+                    id: 'ff0bf14c-a6e0-41d1-bbae-9a37e0784340',
+                    setNumber: 3,
+                    weight: 0,
+                    reps: 1,
+                    duration: {
+                      seconds: 30,
+                    },
+                    markedDone: false,
+                    timers: [
+                      {
+                        id: 'e20fda96-4fd7-4839-b708-39a0cb7122fe',
+                        order: 1,
+                        stepperTitle: 'Left Side',
+                        timerMessage: 'Plank #1',
+                        seconds: 7,
+                      },
+                      {
+                        id: '92b0972b-a70a-44c7-bf80-a8ab358f91f4',
+                        order: 2,
+                        stepperTitle: 'Rest',
+                        timerMessage: 'take a break',
+                        seconds: 7,
+                      },
+                      {
+                        id: 'eaf60656-2654-48a5-b644-2d73481e2027',
+                        order: 3,
+                        stepperTitle: 'Center',
+                        timerMessage: 'Plank #2',
+                        seconds: 10,
+                      },
+                      {
+                        id: 'e958201e-e7d6-4aa1-8a9d-fc1789ade1aa',
+                        order: 4,
+                        stepperTitle: 'Rest',
+                        timerMessage: 'take a break',
+                        seconds: 15,
+                      },
+                      {
+                        id: '3400a036-5e88-45d4-8099-0e0cf202c214',
+                        order: 5,
+                        stepperTitle: 'Right Side',
+                        timerMessage: 'Plank #3',
+                        seconds: 20,
+                      },
+                    ],
+                  },
+                ],
+              },
+              {
+                id: 'b0168a56-9b43-4bab-9e6d-09a9564a80b4',
+                order: 1,
+                exerciseId: 'beb09371-bad3-4707-b457-85dedfbeac91',
+                sets: [
+                  {
+                    id: 'b0009bd7-f32d-4b06-8a6c-51d2c90e756b',
+                    setNumber: 1,
+                    weight: 0,
+                    reps: 1,
+                    duration: {
+                      seconds: 30,
+                    },
+                    markedDone: false,
+                    timers: [
+                      {
+                        id: '6e1f6afd-4e4b-462d-a40d-0922df0298ba',
+                        order: 1,
+                        stepperTitle: '6" Lift',
+                        timerMessage: 'Leg Lift #1',
+                        seconds: 30,
+                      },
+                    ],
+                  },
+                  {
+                    id: 'ad00c1ca-04dc-4cb7-9887-6e4b8d0be214',
+                    setNumber: 3,
+                    weight: 0,
+                    reps: 1,
+                    duration: {
+                      seconds: 45,
+                    },
+                    markedDone: false,
+                    timers: [
+                      {
+                        id: 'a7057728-e931-4259-a133-6a2480df2d61',
+                        order: 1,
+                        stepperTitle: '6" Lift',
+                        timerMessage: 'Leg Lift #1',
+                        seconds: 35,
+                      },
+                    ],
+                  },
+                  {
+                    id: 'c1d467dc-a6ad-466a-93e7-9c2b1835b08f',
+                    setNumber: 2,
+                    weight: 0,
+                    reps: 1,
+                    duration: {
+                      seconds: 35,
+                    },
+                    markedDone: false,
+                    timers: [
+                      {
+                        id: '2ad7b187-6929-40f2-8aac-52751019c53d',
+                        order: 1,
+                        stepperTitle: '6" Lift',
+                        timerMessage: 'Leg Lift #1',
+                        seconds: 10,
+                      },
+                    ],
                   },
                 ],
               },
@@ -1181,15 +1104,6 @@ export const routineTemplates: RoutineTemplateVO[] = [
                     setNumber: 3,
                     weight: 35,
                     reps: 12,
-                    duration: {
-                      currentTimeMs: 0,
-                      currentTimeSec: 0,
-                      currentTimeMin: 0,
-                    },
-                    distance: {
-                      unit: '',
-                      value: 0,
-                    },
                     markedDone: false,
                   },
                   {
@@ -1197,15 +1111,6 @@ export const routineTemplates: RoutineTemplateVO[] = [
                     setNumber: 2,
                     weight: 30,
                     reps: 12,
-                    duration: {
-                      currentTimeMs: 0,
-                      currentTimeSec: 0,
-                      currentTimeMin: 0,
-                    },
-                    distance: {
-                      unit: '',
-                      value: 0,
-                    },
                     markedDone: false,
                   },
                   {
@@ -1213,15 +1118,6 @@ export const routineTemplates: RoutineTemplateVO[] = [
                     setNumber: 1,
                     weight: 25,
                     reps: 12,
-                    duration: {
-                      currentTimeMs: 0,
-                      currentTimeSec: 0,
-                      currentTimeMin: 0,
-                    },
-                    distance: {
-                      unit: '',
-                      value: 0,
-                    },
                     markedDone: false,
                   },
                 ],
@@ -1245,15 +1141,6 @@ export const routineTemplates: RoutineTemplateVO[] = [
                     setNumber: 2,
                     weight: 40,
                     reps: 12,
-                    duration: {
-                      currentTimeMs: 0,
-                      currentTimeSec: 0,
-                      currentTimeMin: 0,
-                    },
-                    distance: {
-                      unit: '',
-                      value: 0,
-                    },
                     markedDone: false,
                   },
                   {
@@ -1261,15 +1148,6 @@ export const routineTemplates: RoutineTemplateVO[] = [
                     setNumber: 3,
                     weight: 45,
                     reps: 12,
-                    duration: {
-                      currentTimeMs: 0,
-                      currentTimeSec: 0,
-                      currentTimeMin: 0,
-                    },
-                    distance: {
-                      unit: '',
-                      value: 0,
-                    },
                     markedDone: false,
                   },
                   {
@@ -1277,15 +1155,6 @@ export const routineTemplates: RoutineTemplateVO[] = [
                     setNumber: 1,
                     weight: 35,
                     reps: 12,
-                    duration: {
-                      currentTimeMs: 0,
-                      currentTimeSec: 0,
-                      currentTimeMin: 0,
-                    },
-                    distance: {
-                      unit: '',
-                      value: 0,
-                    },
                     markedDone: false,
                   },
                 ],
@@ -1300,15 +1169,6 @@ export const routineTemplates: RoutineTemplateVO[] = [
                     setNumber: 1,
                     weight: 15,
                     reps: 12,
-                    duration: {
-                      currentTimeMs: 0,
-                      currentTimeSec: 0,
-                      currentTimeMin: 0,
-                    },
-                    distance: {
-                      unit: '',
-                      value: 0,
-                    },
                     markedDone: false,
                   },
                   {
@@ -1316,15 +1176,6 @@ export const routineTemplates: RoutineTemplateVO[] = [
                     setNumber: 2,
                     weight: 20,
                     reps: 12,
-                    duration: {
-                      currentTimeMs: 0,
-                      currentTimeSec: 0,
-                      currentTimeMin: 0,
-                    },
-                    distance: {
-                      unit: '',
-                      value: 0,
-                    },
                     markedDone: false,
                   },
                   {
@@ -1332,15 +1183,6 @@ export const routineTemplates: RoutineTemplateVO[] = [
                     setNumber: 3,
                     weight: 25,
                     reps: 12,
-                    duration: {
-                      currentTimeMs: 0,
-                      currentTimeSec: 0,
-                      currentTimeMin: 0,
-                    },
-                    distance: {
-                      unit: '',
-                      value: 0,
-                    },
                     markedDone: false,
                   },
                 ],
@@ -1364,15 +1206,6 @@ export const routineTemplates: RoutineTemplateVO[] = [
                     setNumber: 2,
                     weight: 0,
                     reps: 8,
-                    duration: {
-                      currentTimeMs: 0,
-                      currentTimeSec: 0,
-                      currentTimeMin: 0,
-                    },
-                    distance: {
-                      unit: '',
-                      value: 0,
-                    },
                     markedDone: false,
                   },
                   {
@@ -1380,15 +1213,6 @@ export const routineTemplates: RoutineTemplateVO[] = [
                     setNumber: 1,
                     weight: 0,
                     reps: 5,
-                    duration: {
-                      currentTimeMs: 0,
-                      currentTimeSec: 0,
-                      currentTimeMin: 0,
-                    },
-                    distance: {
-                      unit: '',
-                      value: 0,
-                    },
                     markedDone: false,
                   },
                   {
@@ -1396,15 +1220,6 @@ export const routineTemplates: RoutineTemplateVO[] = [
                     setNumber: 3,
                     weight: 0,
                     reps: 12,
-                    duration: {
-                      currentTimeMs: 0,
-                      currentTimeSec: 0,
-                      currentTimeMin: 0,
-                    },
-                    distance: {
-                      unit: '',
-                      value: 0,
-                    },
                     markedDone: false,
                   },
                 ],
@@ -1428,15 +1243,6 @@ export const routineTemplates: RoutineTemplateVO[] = [
                     setNumber: 2,
                     weight: 30,
                     reps: 12,
-                    duration: {
-                      currentTimeMs: 0,
-                      currentTimeSec: 0,
-                      currentTimeMin: 0,
-                    },
-                    distance: {
-                      unit: '',
-                      value: 0,
-                    },
                     markedDone: false,
                   },
                   {
@@ -1444,15 +1250,6 @@ export const routineTemplates: RoutineTemplateVO[] = [
                     setNumber: 1,
                     weight: 25,
                     reps: 12,
-                    duration: {
-                      currentTimeMs: 0,
-                      currentTimeSec: 0,
-                      currentTimeMin: 0,
-                    },
-                    distance: {
-                      unit: '',
-                      value: 0,
-                    },
                     markedDone: false,
                   },
                   {
@@ -1460,15 +1257,6 @@ export const routineTemplates: RoutineTemplateVO[] = [
                     setNumber: 3,
                     weight: 35,
                     reps: 12,
-                    duration: {
-                      currentTimeMs: 0,
-                      currentTimeSec: 0,
-                      currentTimeMin: 0,
-                    },
-                    distance: {
-                      unit: '',
-                      value: 0,
-                    },
                     markedDone: false,
                   },
                 ],
@@ -1483,15 +1271,6 @@ export const routineTemplates: RoutineTemplateVO[] = [
                     setNumber: 1,
                     weight: 10,
                     reps: 12,
-                    duration: {
-                      currentTimeMs: 0,
-                      currentTimeSec: 0,
-                      currentTimeMin: 0,
-                    },
-                    distance: {
-                      unit: '',
-                      value: 0,
-                    },
                     markedDone: false,
                   },
                   {
@@ -1499,15 +1278,6 @@ export const routineTemplates: RoutineTemplateVO[] = [
                     setNumber: 2,
                     weight: 15,
                     reps: 12,
-                    duration: {
-                      currentTimeMs: 0,
-                      currentTimeSec: 0,
-                      currentTimeMin: 0,
-                    },
-                    distance: {
-                      unit: '',
-                      value: 0,
-                    },
                     markedDone: false,
                   },
                   {
@@ -1515,15 +1285,6 @@ export const routineTemplates: RoutineTemplateVO[] = [
                     setNumber: 3,
                     weight: 20,
                     reps: 12,
-                    duration: {
-                      currentTimeMs: 0,
-                      currentTimeSec: 0,
-                      currentTimeMin: 0,
-                    },
-                    distance: {
-                      unit: '',
-                      value: 0,
-                    },
                     markedDone: false,
                   },
                 ],
@@ -1547,15 +1308,6 @@ export const routineTemplates: RoutineTemplateVO[] = [
                     setNumber: 2,
                     weight: 0,
                     reps: 125,
-                    duration: {
-                      currentTimeMs: 0,
-                      currentTimeSec: 0,
-                      currentTimeMin: 0,
-                    },
-                    distance: {
-                      unit: '',
-                      value: 0,
-                    },
                     markedDone: false,
                   },
                   {
@@ -1563,15 +1315,6 @@ export const routineTemplates: RoutineTemplateVO[] = [
                     setNumber: 1,
                     weight: 0,
                     reps: 100,
-                    duration: {
-                      currentTimeMs: 0,
-                      currentTimeSec: 0,
-                      currentTimeMin: 0,
-                    },
-                    distance: {
-                      unit: '',
-                      value: 0,
-                    },
                     markedDone: false,
                   },
                   {
@@ -1579,15 +1322,6 @@ export const routineTemplates: RoutineTemplateVO[] = [
                     setNumber: 3,
                     weight: 0,
                     reps: 150,
-                    duration: {
-                      currentTimeMs: 0,
-                      currentTimeSec: 0,
-                      currentTimeMin: 0,
-                    },
-                    distance: {
-                      unit: '',
-                      value: 0,
-                    },
                     markedDone: false,
                   },
                 ],
@@ -1611,15 +1345,6 @@ export const routineTemplates: RoutineTemplateVO[] = [
                     setNumber: 2,
                     weight: 35,
                     reps: 12,
-                    duration: {
-                      currentTimeMs: 0,
-                      currentTimeSec: 0,
-                      currentTimeMin: 0,
-                    },
-                    distance: {
-                      unit: '',
-                      value: 0,
-                    },
                     markedDone: false,
                   },
                   {
@@ -1627,15 +1352,6 @@ export const routineTemplates: RoutineTemplateVO[] = [
                     setNumber: 3,
                     weight: 40,
                     reps: 12,
-                    duration: {
-                      currentTimeMs: 0,
-                      currentTimeSec: 0,
-                      currentTimeMin: 0,
-                    },
-                    distance: {
-                      unit: '',
-                      value: 0,
-                    },
                     markedDone: false,
                   },
                   {
@@ -1643,15 +1359,6 @@ export const routineTemplates: RoutineTemplateVO[] = [
                     setNumber: 1,
                     weight: 30,
                     reps: 12,
-                    duration: {
-                      currentTimeMs: 0,
-                      currentTimeSec: 0,
-                      currentTimeMin: 0,
-                    },
-                    distance: {
-                      unit: '',
-                      value: 0,
-                    },
                     markedDone: false,
                   },
                 ],
@@ -1666,15 +1373,6 @@ export const routineTemplates: RoutineTemplateVO[] = [
                     setNumber: 1,
                     weight: 0,
                     reps: 12,
-                    duration: {
-                      currentTimeMs: 0,
-                      currentTimeSec: 0,
-                      currentTimeMin: 0,
-                    },
-                    distance: {
-                      unit: '',
-                      value: 0,
-                    },
                     markedDone: false,
                   },
                   {
@@ -1682,15 +1380,6 @@ export const routineTemplates: RoutineTemplateVO[] = [
                     setNumber: 2,
                     weight: 0,
                     reps: 12,
-                    duration: {
-                      currentTimeMs: 0,
-                      currentTimeSec: 0,
-                      currentTimeMin: 0,
-                    },
-                    distance: {
-                      unit: '',
-                      value: 0,
-                    },
                     markedDone: false,
                   },
                   {
@@ -1698,15 +1387,6 @@ export const routineTemplates: RoutineTemplateVO[] = [
                     setNumber: 3,
                     weight: 0,
                     reps: 12,
-                    duration: {
-                      currentTimeMs: 0,
-                      currentTimeSec: 0,
-                      currentTimeMin: 0,
-                    },
-                    distance: {
-                      unit: '',
-                      value: 0,
-                    },
                     markedDone: false,
                   },
                 ],

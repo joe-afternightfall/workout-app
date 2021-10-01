@@ -25,7 +25,6 @@ export const sortWorkoutByOrder = (phases: Phase[]): Phase[] => {
         });
     });
 
-  console.log('RETURNING_COPY_PHASES *********');
   return phasesCopy;
 };
 
@@ -48,6 +47,7 @@ export const buildSetInfo = (
         duration: set.duration,
         distance: set.distance,
         markedDone: set.markedDone,
+        timers: set.timers,
       };
 
       builtSets[set.setNumber]

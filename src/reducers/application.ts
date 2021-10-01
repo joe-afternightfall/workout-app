@@ -5,7 +5,7 @@ import {
   UserProfileVO,
   ExerciseTypeVO,
   CircuitTemplateVO,
-} from 'workout-app-common-core/core/src';
+} from 'workout-app-common-core';
 import { LOCATION_CHANGE } from 'connected-react-router';
 import { getPageInfo } from '../utils/get-current-page-info';
 import { MobileRouteProp } from '../configs/constants/mobile-routes';

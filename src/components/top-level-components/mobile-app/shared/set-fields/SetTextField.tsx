@@ -11,6 +11,11 @@ import BaseSetAdornment from './adornments/BaseSetAdornment';
 import { AppTheme } from '../../../../../configs/theme/app-theme';
 import { createStyles, makeStyles, useTheme } from '@material-ui/core/styles';
 import { updateSetTextField } from '../../../../../creators/new-workout/update-workout';
+import {
+  WorkoutDistance,
+  WorkoutDuration,
+  WorkoutTimer,
+} from '../../../../../configs/models/AppInterfaces';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -44,11 +49,12 @@ const SetTextField = ({
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const trimmedValue = trimLeadingZeros(event.target.value);
-    if (event.target.name === 'reps') {
+    const name = event.target.name;
+    if (name === 'reps' || name === 'sec') {
       if (validateForOnlyNumbers(trimmedValue)) {
         return onChangeHandler(trimmedValue);
       }
-    } else if (event.target.name === 'weight') {
+    } else if (name === 'weight') {
       if (validateWeight(trimmedValue)) {
         return onChangeHandler(trimmedValue);
       }
@@ -97,8 +103,12 @@ export interface SetFieldInfoProps {
   setId: string;
   reps: number;
   weight?: number;
+  duration?: WorkoutDuration;
+  distance?: WorkoutDistance;
   parameterTypeId: string;
   alternateSides: boolean;
+  timers?: WorkoutTimer[];
+  shouldDisplayTimer: boolean;
 }
 
 export interface PassedInProps {
@@ -108,7 +118,7 @@ export interface PassedInProps {
   markedDone: boolean;
   fullLength: boolean;
   alternateSides: boolean;
-  setType: 'weight' | 'reps';
+  setType: 'weight' | 'reps' | 'sec';
 }
 
 export interface SetTextFieldProps {

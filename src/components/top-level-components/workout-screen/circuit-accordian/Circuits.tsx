@@ -29,7 +29,7 @@ import {
   updateDistanceSetField,
   UpdateDistanceSetFieldProps,
 } from '../../../../creators/workout';
-import { ExerciseTypeVO } from 'workout-app-common-core/core/src';
+import { ExerciseTypeVO } from 'workout-app-common-core';
 
 const Circuits = (props: CircuitProps): JSX.Element => {
   const handleChange =

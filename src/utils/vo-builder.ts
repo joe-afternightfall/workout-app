@@ -9,7 +9,7 @@ import {
   UserProfileVO,
   CircuitTemplateDAO,
   CircuitTemplateVO,
-} from 'workout-app-common-core/core/src';
+} from 'workout-app-common-core';
 
 export interface ExerciseTypeSnapshot {
   [key: string]: ExerciseTypeDAO;

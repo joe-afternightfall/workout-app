@@ -3,7 +3,7 @@ import TimeField from './TimeField';
 import DistanceField from './DistanceField';
 import { Grid, Typography } from '@material-ui/core';
 import { CircuitExerciseSet } from '../../../../workout-screen/WorkoutScreen';
-import { SetType } from 'workout-app-common-core/core/src';
+import { SetType } from 'workout-app-common-core';
 
 export default function Content(props: ContentProps): JSX.Element {
   const { set, setType } = props;

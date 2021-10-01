@@ -10,10 +10,7 @@ import { AnyAction, Dispatch } from 'redux';
 import { State } from '../configs/redux/store';
 import { userProfileSnapToVO } from '../utils/vo-builder';
 import { USER_PROFILES_ROUTE } from '../configs/constants/firebase-routes';
-import {
-  UserProfileVO,
-  UserProfileDAO,
-} from 'workout-app-common-core/core/src';
+import { UserProfileVO, UserProfileDAO } from 'workout-app-common-core';
 import { ProfileDialogState } from '../components/top-level-components/profile-screen/ProfileDialog';
 
 export const createNewUserProfile = async (
