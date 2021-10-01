@@ -45,11 +45,27 @@ export const createNewUserProfile = async (
   });
 };
 
-// export const saveWorkoutForUser =
-//   (): ThunkAction<void, State, void, AnyAction> =>
-//     async (dispatch: Dispatch, getState: () => State): Promise<void> => {
-//
-//     };
+export const saveWorkoutForUser =
+  (): ThunkAction<void, State, void, AnyAction> =>
+  async (dispatch: Dispatch, getState: () => State): Promise<void> => {
+    const userProfile = getState().applicationState.userProfile;
+    const profileFirebaseId = userProfile ? userProfile.firebaseId : '';
+    const activeWorkout = getState().workoutState.activeWorkout;
+    const profileRef = firebase
+      .database()
+      .ref(USER_PROFILES_ROUTE)
+      .child(`${profileFirebaseId}/workouts`);
+
+    await profileRef.push(activeWorkout, (error: Error | null) => {
+      if (error) {
+        console.log('error: ' + JSON.stringify(error));
+        return Promise.reject();
+      } else {
+        console.log('***** SAVED_WORKOUT_SUCCESS *****');
+        return Promise.resolve();
+      }
+    });
+  };
 
 export interface UpdateUserProfileProps {
   weightChange: boolean;
