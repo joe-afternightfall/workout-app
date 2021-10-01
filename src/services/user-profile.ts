@@ -32,7 +32,8 @@ export const createNewUserProfile = async (
     profile.height,
     [newWeight],
     profile.dateOfBirth,
-    new Date().toISOString()
+    new Date().toISOString(),
+    []
   );
 
   return await newRef.set(newUserProfile, (error: Error | null) => {
@@ -43,6 +44,12 @@ export const createNewUserProfile = async (
     }
   });
 };
+
+// export const saveWorkoutForUser =
+//   (): ThunkAction<void, State, void, AnyAction> =>
+//     async (dispatch: Dispatch, getState: () => State): Promise<void> => {
+//
+//     };
 
 export interface UpdateUserProfileProps {
   weightChange: boolean;

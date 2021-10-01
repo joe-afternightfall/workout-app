@@ -79,6 +79,7 @@ export const userProfileSnapToVO = (
       weights: snap[key].weights,
       dateOfBirth: snap[key].dateOfBirth,
       lastUpdatedOn: snap[key].lastUpdatedOn,
+      workouts: snap[key].workouts,
     };
   });
 };

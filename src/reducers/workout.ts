@@ -16,7 +16,7 @@ import {
   Set,
   TrainingSetType,
   WorkoutExercise,
-  MobileWorkoutDAO,
+  Workout,
 } from 'workout-app-common-core';
 import { v4 as uuidv4 } from 'uuid';
 import * as ramda from 'ramda';
@@ -189,19 +189,19 @@ export default {
         const template = ramda.clone(newState.selectedRoutineTemplate);
         const currentTimestamp = new Date();
 
-        newState.activeWorkout = new MobileWorkoutDAO(
-          uuidv4(),
-          '', // todo: come back to userId and implement from firebase
-          currentTimestamp.toLocaleDateString(),
-          String(Date.now()),
-          '0',
-          {
+        newState.activeWorkout = {
+          id: uuidv4(),
+          date: currentTimestamp.toLocaleDateString(),
+          startTime: String(Date.now()),
+          endTime: '0',
+          routine: {
             id: template.id,
             name: template.name,
             workoutCategoryId: template.workoutCategoryId,
             phases: template.phases,
-          }
-        );
+          },
+        };
+
         newState.currentPhase = newState.activeWorkout.routine.phases[0];
         newState.currentSegmentIndex = 1;
         newState.currentSetIndex = 1;
@@ -305,7 +305,7 @@ export interface WorkoutState {
   selectedWorkoutCategory: WorkoutCategoryVO;
   selectedRoutineTemplate: RoutineTemplateVO;
   copyOfRoutineTemplate: RoutineTemplateVO;
-  activeWorkout: MobileWorkoutDAO;
+  activeWorkout: Workout;
   currentPhase: Phase;
   currentSegmentIndex: number;
   currentSetIndex: number;

@@ -22,6 +22,7 @@ export const clearUserInfo = (): ClearUserInfoAction => {
       weights: [],
       dateOfBirth: '',
       lastUpdatedOn: '',
+      workouts: [],
     },
   };
 };
