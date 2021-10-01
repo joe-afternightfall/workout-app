@@ -67,12 +67,9 @@ const WorkoutDone = ({
       <Grid item xs={12} container justify={'center'}>
         <InfoRow stat={minutes} title={'Duration (min)'} />
         <InfoDivider />
-        <InfoRow
-          stat={String(totalWeightLifted)}
-          title={'Weight Lifted (lb)'}
-        />
+        <InfoRow stat={'---'} title={'Weight Lifted (lb)'} />
         <InfoDivider />
-        <InfoRow stat={String(totalRepsDone)} title={'Reps'} />
+        <InfoRow stat={'---'} title={'Reps'} />
       </Grid>
       <Grid item xs={12} container>
         <img src={AngryGorilla} className={classes.animal} />

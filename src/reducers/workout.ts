@@ -129,10 +129,10 @@ export default {
         break;
       }
       case WorkoutActionTypes.UPDATE_SET_TEXT_FIELD: {
+        let clonedPhases: Phase[] = [];
+
         if (newState.displayEditPreviewList) {
-          const clonedPhases = ramda.clone(
-            newState.copyOfRoutineTemplate.phases
-          );
+          clonedPhases = ramda.clone(newState.copyOfRoutineTemplate.phases);
           clonedPhases.map((phase) => {
             phase.segments.map((segment) => {
               segment.exercises.map((exercise) => {
@@ -151,6 +151,23 @@ export default {
             });
           });
           newState.copyOfRoutineTemplate.phases = clonedPhases;
+        } else {
+          clonedPhases = ramda.clone(newState.activeWorkout.routine.phases);
+          newState.currentPhase.segments.map((segment) => {
+            segment.exercises.map((exercise) => {
+              exercise.sets.map((set) => {
+                if (set.id === action.setId) {
+                  if (action.name === 'sec') {
+                    if (set.duration) {
+                      set.duration.seconds = action.value;
+                    }
+                  } else {
+                    set[action.name] = action.value;
+                  }
+                }
+              });
+            });
+          });
         }
         break;
       }
