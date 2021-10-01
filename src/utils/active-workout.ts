@@ -1,11 +1,11 @@
-import { ExerciseVO } from '../configs/models/configurations/ExerciseVO';
 import {
+  ExerciseVO,
   BuiltSets,
   Phase,
   Segment,
   Set,
   WorkoutExercise,
-} from '../configs/models/AppInterfaces';
+} from 'workout-app-common-core';
 
 // TODO: rename this file
 

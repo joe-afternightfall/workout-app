@@ -15,7 +15,7 @@ import {
   WorkoutDistance,
   WorkoutDuration,
   WorkoutTimer,
-} from '../../../../../configs/models/AppInterfaces';
+} from 'workout-app-common-core';
 
 const useStyles = makeStyles(() =>
   createStyles({

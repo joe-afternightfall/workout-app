@@ -1,10 +1,11 @@
 import React from 'react';
 import { Grid, Slide } from '@material-ui/core';
 import {
+  ExerciseVO,
   Segment,
   BuiltSets,
   WorkoutExercise,
-} from '../../../../configs/models/AppInterfaces';
+} from 'workout-app-common-core';
 import UpNextCard from './3-up-next-card/UpNextCard';
 import ActiveWorkoutAppBar from './components/AppBar';
 import ActiveSuperset from './2-active-set/ActiveSuperset';
@@ -13,7 +14,6 @@ import ActiveStraightSet from './2-active-set/ActiveStraightSet';
 import { scroller, animateScroll as scroll } from 'react-scroll';
 import { getExerciseName } from '../../../../utils/active-workout';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { ExerciseVO } from '../../../../configs/models/configurations/ExerciseVO';
 
 const useStyles = makeStyles(() =>
   createStyles({

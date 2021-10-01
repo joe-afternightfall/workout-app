@@ -1,5 +1,5 @@
 import { SetFieldInfoProps } from '../components/top-level-components/mobile-app/shared/set-fields/SetTextField';
-import { ActiveSetInfo } from '../configs/models/AppInterfaces';
+import { ActiveSetInfo } from 'workout-app-common-core';
 
 export const buildSetFieldInfo = (
   setInfo: ActiveSetInfo,

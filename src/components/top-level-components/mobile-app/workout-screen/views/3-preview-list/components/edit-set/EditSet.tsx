@@ -16,7 +16,7 @@ import {
   BuiltSets,
   Segment,
   WorkoutExercise,
-} from '../../../../../../../../configs/models/AppInterfaces';
+} from 'workout-app-common-core';
 import RestBetweenOptions from './components/RestBetweenOptions';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { State } from '../../../../../../../../configs/redux/store';

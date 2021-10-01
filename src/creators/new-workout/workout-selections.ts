@@ -1,6 +1,5 @@
 import { WorkoutActionTypes } from '../actions-workout';
-import { WorkoutCategoryVO } from '../../configs/models/configurations/WorkoutCategoryVO';
-import { RoutineTemplateVO } from '../../configs/models/workout/RoutineTemplateVO';
+import { WorkoutCategoryVO, RoutineTemplateVO } from 'workout-app-common-core';
 
 export interface SelectedWorkoutCategoryAction {
   type: WorkoutActionTypes.SELECTED_WORKOUT_CATEGORY;

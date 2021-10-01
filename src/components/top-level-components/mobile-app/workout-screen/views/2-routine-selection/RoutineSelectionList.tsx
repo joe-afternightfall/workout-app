@@ -6,7 +6,7 @@ import SelectionCard from '../components/SelectionCard';
 import { isOdd } from '../../../../../../utils/number-util';
 import { State } from '../../../../../../configs/redux/store';
 import { selectedRoutine } from '../../../../../../creators/new-workout/workout-selections';
-import { RoutineTemplateVO } from '../../../../../../configs/models/workout/RoutineTemplateVO';
+import { RoutineTemplateVO } from 'workout-app-common-core';
 
 const RoutineSelectionList = (
   props: RoutineSelectionListProps & PassedInProps

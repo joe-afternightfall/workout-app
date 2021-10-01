@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import CheckIcon from '@material-ui/icons/Check';
+import { WorkoutTimer } from 'workout-app-common-core';
 import { Button, Grid, Typography } from '@material-ui/core';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
-import { WorkoutTimer } from '../../../../../../../../configs/models/AppInterfaces';
 
 const useStyles = makeStyles(() =>
   createStyles({

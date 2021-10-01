@@ -1,11 +1,11 @@
-import { PhaseVO } from '../configs/models/configurations/PhaseVO';
 import {
   Set,
   Segment,
+  PhaseVO,
+  ExerciseVO,
   WorkoutExercise,
   TrainingSetType,
-} from '../configs/models/AppInterfaces';
-import { ExerciseVO } from '../configs/models/configurations/ExerciseVO';
+} from 'workout-app-common-core';
 
 export const getPhaseName = (allPhases: PhaseVO[], id: string): string => {
   const foundPhase = allPhases.find((phase: PhaseVO) => phase.id === id);
