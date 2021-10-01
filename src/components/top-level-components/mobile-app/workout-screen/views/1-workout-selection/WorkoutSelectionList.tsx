@@ -6,7 +6,7 @@ import SelectionCard from '../components/SelectionCard';
 import { isOdd } from '../../../../../../utils/number-util';
 import { State } from '../../../../../../configs/redux/store';
 import { selectedWorkoutCategory } from '../../../../../../creators/new-workout/workout-selections';
-import { WorkoutCategoryVO } from '../../../../../../configs/models/configurations/WorkoutCategoryVO';
+import { WorkoutCategoryVO } from 'workout-app-common-core';
 
 const WorkoutSelectionList = (
   props: WorkoutSelectionListProps & PassedInProps

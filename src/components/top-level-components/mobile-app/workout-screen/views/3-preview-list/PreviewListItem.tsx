@@ -14,8 +14,7 @@ import {
 import { State } from '../../../../../../configs/redux/store';
 import SuperSetItem from '../../../shared/exercise-list/SuperSetItem';
 import SingleSetItem from '../../../shared/exercise-list/SingleSetItem';
-import { Segment } from '../../../../../../configs/models/AppInterfaces';
-import { ExerciseVO } from '../../../../../../configs/models/configurations/ExerciseVO';
+import { Segment, ExerciseVO } from 'workout-app-common-core';
 import { Card } from '@material-ui/core';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { Draggable } from 'react-smooth-dnd';

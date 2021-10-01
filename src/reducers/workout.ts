@@ -3,12 +3,12 @@ import {
   WorkoutActions,
   WorkoutActionTypes,
 } from '../creators/actions-workout';
-import { PhaseVO } from '../configs/models/configurations/PhaseVO';
-import { WorkoutCategoryVO } from '../configs/models/configurations/WorkoutCategoryVO';
-import { EquipmentVO } from '../configs/models/configurations/EquipmentVO';
-import { ExerciseVO } from '../configs/models/configurations/ExerciseVO';
-import { RoutineTemplateVO } from '../configs/models/workout/RoutineTemplateVO';
 import {
+  EquipmentVO,
+  ExerciseVO,
+  RoutineTemplateVO,
+  WorkoutCategoryVO,
+  PhaseVO,
   GripType,
   GripWidth,
   ParameterType,
@@ -16,8 +16,8 @@ import {
   Set,
   TrainingSetType,
   WorkoutExercise,
-} from '../configs/models/AppInterfaces';
-import { WorkoutDAO } from '../configs/models/workout/WorkoutDAO';
+  MobileWorkoutDAO,
+} from 'workout-app-common-core';
 import { v4 as uuidv4 } from 'uuid';
 import * as ramda from 'ramda';
 import { arrayMoveImmutable as arrayMove } from 'array-move';
@@ -189,7 +189,7 @@ export default {
         const template = ramda.clone(newState.selectedRoutineTemplate);
         const currentTimestamp = new Date();
 
-        newState.activeWorkout = new WorkoutDAO(
+        newState.activeWorkout = new MobileWorkoutDAO(
           uuidv4(),
           '', // todo: come back to userId and implement from firebase
           currentTimestamp.toLocaleDateString(),
@@ -305,7 +305,7 @@ export interface WorkoutState {
   selectedWorkoutCategory: WorkoutCategoryVO;
   selectedRoutineTemplate: RoutineTemplateVO;
   copyOfRoutineTemplate: RoutineTemplateVO;
-  activeWorkout: WorkoutDAO;
+  activeWorkout: MobileWorkoutDAO;
   currentPhase: Phase;
   currentSegmentIndex: number;
   currentSetIndex: number;

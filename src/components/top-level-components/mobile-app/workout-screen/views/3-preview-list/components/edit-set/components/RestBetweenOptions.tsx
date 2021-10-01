@@ -1,7 +1,7 @@
 import React from 'react';
 import RestBetweenField from './RestBetweenField';
 import { Grid, Typography } from '@material-ui/core';
-import { Segment } from '../../../../../../../../../configs/models/AppInterfaces';
+import { Segment } from 'workout-app-common-core';
 
 export default function RestBetweenOptions({
   segment,

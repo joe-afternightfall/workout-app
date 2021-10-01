@@ -10,17 +10,17 @@ import {
   GripWidth,
   ParameterType,
   TrainingSetType,
-} from '../configs/models/AppInterfaces';
+  PhaseVO,
+  ExerciseVO,
+  EquipmentVO,
+  RoutineTemplateVO,
+  WorkoutCategoryVO,
+  gripTypes,
+  gripWidths,
+  parameterTypes,
+  trainingSetTypes,
+} from 'workout-app-common-core';
 import { WorkoutActionTypes } from './actions-workout';
-import { gripTypes } from '../configs/app-data/grip-types';
-import { gripWidths } from '../configs/app-data/grip-widths';
-import { PhaseVO } from '../configs/models/configurations/PhaseVO';
-import { parameterTypes } from '../configs/app-data/parameter-types';
-import { ExerciseVO } from '../configs/models/configurations/ExerciseVO';
-import { trainingSetTypes } from '../configs/app-data/training-set-types';
-import { EquipmentVO } from '../configs/models/configurations/EquipmentVO';
-import { RoutineTemplateVO } from '../configs/models/workout/RoutineTemplateVO';
-import { WorkoutCategoryVO } from '../configs/models/configurations/WorkoutCategoryVO';
 import { sortWorkoutByOrder } from '../utils/active-workout';
 
 export interface InitializeWorkoutConfigsAction {

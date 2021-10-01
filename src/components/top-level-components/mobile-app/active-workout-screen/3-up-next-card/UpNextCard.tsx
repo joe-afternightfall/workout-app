@@ -8,10 +8,7 @@ import {
   ListItemIcon,
 } from '@material-ui/core';
 import { connect } from 'react-redux';
-import {
-  Segment,
-  WorkoutExercise,
-} from '../../../../../configs/models/AppInterfaces';
+import { Segment, WorkoutExercise, ExerciseVO } from 'workout-app-common-core';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { State } from '../../../../../configs/redux/store';
 import {
@@ -26,7 +23,6 @@ import {
   getPhaseName,
 } from '../../../../../utils/workout-configs';
 import SuperSetItem from '../../shared/exercise-list/SuperSetItem';
-import { ExerciseVO } from '../../../../../configs/models/configurations/ExerciseVO';
 import clsx from 'clsx';
 import { AppTheme } from '../../../../../configs/theme/app-theme';
 import confettiEmoji from '../../../../../configs/icons/confetti-emoji.png';

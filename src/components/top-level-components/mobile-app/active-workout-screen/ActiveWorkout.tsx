@@ -1,6 +1,11 @@
 import React from 'react';
 import { Grid, Slide } from '@material-ui/core';
-import { ExerciseVO, Segment, BuiltSets, WorkoutExercise } from 'workout-app-common-core';
+import {
+  ExerciseVO,
+  Segment,
+  BuiltSets,
+  WorkoutExercise,
+} from 'workout-app-common-core';
 import UpNextCard from './3-up-next-card/UpNextCard';
 import ActiveWorkoutAppBar from './components/AppBar';
 import ActiveSuperset from './2-active-set/ActiveSuperset';

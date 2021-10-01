@@ -8,7 +8,7 @@ import {
   IconButton,
 } from '@material-ui/core';
 import TimerIcon from '@material-ui/icons/Timer';
-import { WorkoutTimer } from '../../../../../../configs/models/AppInterfaces';
+import { WorkoutTimer } from 'workout-app-common-core';
 import CountdownTimer from './components/countdown-timer/CountdownTimer';
 import CustomStepper from './components/stepper/CustomStepper';
 import { AppTheme } from '../../../../../../configs/theme/app-theme';

@@ -8,13 +8,12 @@ import { routerActions } from 'connected-react-router';
 import { ListSubheader, Paper } from '@material-ui/core';
 import { State } from '../../../../../../configs/redux/store';
 import WorkoutListDivider from '../../../shared/exercise-list/WorkoutListDivider';
-import { Phase, Segment } from '../../../../../../configs/models/AppInterfaces';
+import { PhaseVO, Phase, Segment } from 'workout-app-common-core';
 import { MOBILE_ACTIVE_WORKOUT_SCREEN_PATH } from '../../../../../../configs/constants/app';
 import {
   getPhaseName,
   sortPhaseSegments,
 } from '../../../../../../utils/workout-configs';
-import { PhaseVO } from '../../../../../../configs/models/configurations/PhaseVO';
 import PreviewListItem from './PreviewListItem';
 import { startWorkout } from '../../../../../../creators/new-workout/workout-selections';
 import BottomActionButtons from './components/edit-set/components/BottomActionButtons';
