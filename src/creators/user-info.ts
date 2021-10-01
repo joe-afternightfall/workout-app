@@ -1,5 +1,5 @@
 import { ActionTypes } from './actions';
-import { UserProfileVO, WorkoutVO } from 'workout-app-common-core/core/src';
+import { UserProfileVO, WorkoutVO } from 'workout-app-common-core';
 
 export interface ClearUserInfoAction {
   type: ActionTypes.CLEAR_USER_INFO;

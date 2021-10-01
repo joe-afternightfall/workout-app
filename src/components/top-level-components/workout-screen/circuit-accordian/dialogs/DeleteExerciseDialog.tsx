@@ -10,7 +10,7 @@ import { blue, red } from '@material-ui/core/colors';
 import DeleteIcon from '@material-ui/icons/HighlightOff';
 import BaseDialogContent from '../../../../app-shell/BaseDialogContent';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import { ExerciseTypeVO } from 'workout-app-common-core/core/src';
+import { ExerciseTypeVO } from 'workout-app-common-core';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

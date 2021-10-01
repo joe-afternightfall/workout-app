@@ -1,6 +1,6 @@
 import React from 'react';
 import { Grid, Typography } from '@material-ui/core';
-import { SetType } from 'workout-app-common-core/core/src';
+import { SetType } from 'workout-app-common-core';
 
 export default function SetColumnHeaders(props: SetTitleProps): JSX.Element {
   let displayComponent: JSX.Element;

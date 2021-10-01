@@ -1,15 +1,17 @@
 import React from 'react';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import { ExerciseTypeVO } from 'workout-app-common-core/core/src';
-import { MuscleGroup } from 'workout-app-common-core/core/src/models/workout-configurations/MuscleGroups';
 import SwipeableViews from 'react-swipeable-views';
 import { State } from '../../../../../../configs/redux/store';
 import TabPanel from '../../../../../shared/SwipeableViewTabPanel';
 import { addExerciseToCircuit } from '../../../../../../creators/workout';
 import { List, ListItem, Button, Typography, Grid } from '@material-ui/core';
 import { useTheme, makeStyles, createStyles } from '@material-ui/core/styles';
-import { muscleGroups } from 'workout-app-common-core/core/src/models/workout-configurations/MuscleGroups';
+import {
+  ExerciseTypeVO,
+  MuscleGroup,
+  muscleGroups,
+} from 'workout-app-common-core';
 
 const useStyles = makeStyles(() =>
   createStyles({

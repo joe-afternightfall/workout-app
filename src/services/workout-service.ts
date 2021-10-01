@@ -5,7 +5,7 @@ import { AnyAction, Dispatch } from 'redux';
 import { State } from '../configs/redux/store';
 import { routerActions } from 'react-router-redux';
 import { workoutsSnapToVO } from '../utils/vo-builder';
-import { WorkoutVO, WorkoutDAO } from 'workout-app-common-core/core/src';
+import { WorkoutVO, WorkoutDAO } from 'workout-app-common-core';
 import { clearWorkoutScreen } from '../creators/workout';
 import { DASHBOARD_SCREEN_PATH } from '../configs/constants/app';
 import { WORKOUTS_ROUTE } from '../configs/constants/firebase-routes';

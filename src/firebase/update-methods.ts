@@ -11,7 +11,7 @@ import {
   CircuitTemplateVO,
   CircuitTypeVO,
   ExerciseTypeVO,
-} from 'workout-app-common-core/core/src';
+} from 'workout-app-common-core';
 import { getCircuitTemplates } from '../services/circuit-template';
 import { loadCircuitTemplates } from '../creators/circuit-template';
 

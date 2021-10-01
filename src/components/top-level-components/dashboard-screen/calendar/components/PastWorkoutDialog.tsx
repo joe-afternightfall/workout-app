@@ -15,8 +15,7 @@ import {
   CircuitExerciseSet,
 } from '../../../workout-screen/WorkoutScreen';
 import CloseIcon from '@material-ui/icons/Close';
-import { WorkoutVO } from 'workout-app-common-core/core/src';
-import { ExerciseTypeVO } from 'workout-app-common-core/core/src';
+import { ExerciseTypeVO, WorkoutVO } from 'workout-app-common-core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import ExerciseTitle from '../../../../shared/workout-related/ExerciseTitle';
 import SetColumnHeaders from '../../../../shared/workout-related/SetColumnHeaders';

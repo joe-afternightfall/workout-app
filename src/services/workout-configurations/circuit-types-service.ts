@@ -1,7 +1,7 @@
 import firebase from 'firebase';
 import { circuitTypeSnapToVO } from '../../utils/vo-builder';
 import { CIRCUIT_TYPES_ROUTE } from '../../configs/constants/firebase-routes';
-import { CircuitTypeVO } from 'workout-app-common-core/core/src';
+import { CircuitTypeVO } from 'workout-app-common-core';
 
 export const getAllCircuitTypes = async (): Promise<CircuitTypeVO[]> => {
   return await firebase
