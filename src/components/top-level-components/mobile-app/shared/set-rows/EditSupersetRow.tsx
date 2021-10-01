@@ -4,10 +4,7 @@ import { connect } from 'react-redux';
 import { Grid } from '@material-ui/core';
 import BaseSet from '../set-fields/BaseSet';
 import DeleteIcon from '@material-ui/icons/Delete';
-import {
-  ActiveSetInfo,
-  BuiltSets,
-} from '../../../../../configs/models/AppInterfaces';
+import { ActiveSetInfo, BuiltSets } from 'workout-app-common-core';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import ActionButton from '../../workout-screen/views/3-preview-list/components/edit-set/components/ActionButton';
 import { deleteSetFromRoutineCopy } from '../../../../../creators/new-workout/preview-workout';

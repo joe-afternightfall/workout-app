@@ -5,7 +5,7 @@ import StepLabel from '@material-ui/core/StepLabel';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import Connector from './Connector';
 import Icon from './Icon';
-import { WorkoutTimer } from '../../../../../../../../configs/models/AppInterfaces';
+import { WorkoutTimer } from 'workout-app-common-core';
 
 const useStyles = makeStyles(() =>
   createStyles({

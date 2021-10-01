@@ -1,8 +1,10 @@
-import { PhaseVO } from '../models/configurations/PhaseVO';
-import { ExerciseVO } from '../models/configurations/ExerciseVO';
-import { EquipmentVO } from '../models/configurations/EquipmentVO';
-import { WorkoutCategoryVO } from '../models/configurations/WorkoutCategoryVO';
-import { RoutineTemplateVO } from '../models/workout/RoutineTemplateVO';
+import {
+  PhaseVO,
+  ExerciseVO,
+  EquipmentVO,
+  WorkoutCategoryVO,
+  RoutineTemplateVO,
+} from 'workout-app-common-core';
 
 export const phases: PhaseVO[] = [
   {
