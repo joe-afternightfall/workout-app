@@ -39,8 +39,6 @@ const useStyles = makeStyles((theme: AppTheme) =>
 
 const WorkoutDone = ({
   minutes,
-  totalRepsDone,
-  totalWeightLifted,
   doneClickHandler,
 }: WorkoutDoneProps): JSX.Element => {
   const classes = useStyles();
