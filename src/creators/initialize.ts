@@ -1,10 +1,4 @@
-import {
-  equipmentList,
-  exercises,
-  phases,
-  routineTemplates,
-  workoutCategories,
-} from '../configs/constants/dummy-data';
+import { exercises, routineTemplates } from '../configs/constants/dummy-data';
 import {
   GripType,
   GripWidth,
@@ -19,6 +13,9 @@ import {
   gripWidths,
   parameterTypes,
   trainingSetTypes,
+  phases,
+  workoutCategories,
+  equipmentList,
 } from 'workout-app-common-core';
 import { WorkoutActionTypes } from './actions-workout';
 import { sortWorkoutByOrder } from '../utils/active-workout';
