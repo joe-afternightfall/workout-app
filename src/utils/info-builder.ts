@@ -1,4 +1,4 @@
-import { SetFieldInfoProps } from '../components/top-level-components/mobile-app/shared/set-fields/SetTextField';
+import { SetTextFieldInfoProps } from '../components/top-level-components/mobile-app/shared/set-fields/SetTextField';
 import { ActiveSetInfo } from 'workout-app-common-core';
 
 export const buildSetFieldInfo = (
@@ -6,7 +6,7 @@ export const buildSetFieldInfo = (
   parameterTypeId: string,
   alternateSides: boolean,
   shouldDisplayTimer: boolean
-): SetFieldInfoProps => {
+): SetTextFieldInfoProps => {
   return {
     setId: setInfo.setId,
     reps: setInfo.reps,
