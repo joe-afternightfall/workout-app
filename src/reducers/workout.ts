@@ -16,11 +16,34 @@ import {
   Set,
   TrainingSetType,
   WorkoutExercise,
-  MobileWorkoutDAO,
+  Workout,
 } from 'workout-app-common-core';
 import { v4 as uuidv4 } from 'uuid';
 import * as ramda from 'ramda';
 import { arrayMoveImmutable as arrayMove } from 'array-move';
+
+function updateSet(
+  phase: Phase,
+  setId: string,
+  value: number,
+  name: 'sec' | 'reps' | 'weight'
+) {
+  phase.segments.map((segment) => {
+    segment.exercises.map((exercise) => {
+      exercise.sets.map((set) => {
+        if (set.id === setId) {
+          if (name === 'sec') {
+            if (set.duration) {
+              set.duration.seconds = value;
+            }
+          } else {
+            set[name] = value;
+          }
+        }
+      });
+    });
+  });
+}
 
 export default {
   reducer: (
@@ -134,23 +157,16 @@ export default {
             newState.copyOfRoutineTemplate.phases
           );
           clonedPhases.map((phase) => {
-            phase.segments.map((segment) => {
-              segment.exercises.map((exercise) => {
-                exercise.sets.map((set) => {
-                  if (set.id === action.setId) {
-                    if (action.name === 'sec') {
-                      if (set.duration) {
-                        set.duration.seconds = action.value;
-                      }
-                    } else {
-                      set[action.name] = action.value;
-                    }
-                  }
-                });
-              });
-            });
+            updateSet(phase, action.setId, action.value, action.name);
           });
           newState.copyOfRoutineTemplate.phases = clonedPhases;
+        } else {
+          updateSet(
+            newState.currentPhase,
+            action.setId,
+            action.value,
+            action.name
+          );
         }
         break;
       }
@@ -189,19 +205,19 @@ export default {
         const template = ramda.clone(newState.selectedRoutineTemplate);
         const currentTimestamp = new Date();
 
-        newState.activeWorkout = new MobileWorkoutDAO(
-          uuidv4(),
-          '', // todo: come back to userId and implement from firebase
-          currentTimestamp.toLocaleDateString(),
-          String(Date.now()),
-          '0',
-          {
+        newState.activeWorkout = {
+          id: uuidv4(),
+          date: currentTimestamp.toLocaleDateString(),
+          startTime: String(Date.now()),
+          endTime: '0',
+          routine: {
             id: template.id,
             name: template.name,
             workoutCategoryId: template.workoutCategoryId,
             phases: template.phases,
-          }
-        );
+          },
+        };
+
         newState.currentPhase = newState.activeWorkout.routine.phases[0];
         newState.currentSegmentIndex = 1;
         newState.currentSetIndex = 1;
@@ -305,7 +321,7 @@ export interface WorkoutState {
   selectedWorkoutCategory: WorkoutCategoryVO;
   selectedRoutineTemplate: RoutineTemplateVO;
   copyOfRoutineTemplate: RoutineTemplateVO;
-  activeWorkout: MobileWorkoutDAO;
+  activeWorkout: Workout;
   currentPhase: Phase;
   currentSegmentIndex: number;
   currentSetIndex: number;

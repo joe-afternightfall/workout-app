@@ -1,4 +1,4 @@
-import { Dispatch } from 'redux';
+import { AnyAction, Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import {
   isSuperset,
@@ -14,6 +14,8 @@ import {
   workoutDone,
 } from '../../../../creators/new-workout/active-workout';
 import { MOBILE_WORKOUT_DONE_PATH } from '../../../../configs/constants/app';
+import { saveWorkoutForUser } from '../../../../services/user-profile';
+import { ThunkDispatch } from 'redux-thunk';
 
 const mapStateToProps = (state: State): ActiveWorkoutProps => {
   const allExercises = state.workoutState.configs.exercises;
@@ -64,6 +66,9 @@ const mapDispatchToProps = (dispatch: Dispatch): ActiveWorkoutProps =>
       if (lastExerciseOfWorkout && lastSet) {
         dispatch(workoutDone());
         dispatch(routerActions.push(MOBILE_WORKOUT_DONE_PATH));
+        (dispatch as ThunkDispatch<State, void, AnyAction>)(
+          saveWorkoutForUser()
+        );
       }
     },
   } as unknown as ActiveWorkoutProps);
