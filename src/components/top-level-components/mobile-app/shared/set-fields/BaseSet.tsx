@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import React from 'react';
 import SetDivider from './SetDivider';
 import { Grid } from '@material-ui/core';
-import SetTextField, { SetFieldInfoProps } from './SetTextField';
+import SetTextField, { SetTextFieldInfoProps } from './SetTextField';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import {
   isDuration,
@@ -156,7 +156,7 @@ export interface BaseSetProps {
   superset: boolean;
   markedDone: boolean;
   activeSet: boolean;
-  info: SetFieldInfoProps;
+  info: SetTextFieldInfoProps;
   extraStyles?: string;
   scrollToSetNumber: number;
 }

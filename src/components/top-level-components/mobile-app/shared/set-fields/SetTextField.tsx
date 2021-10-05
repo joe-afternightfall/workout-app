@@ -99,7 +99,7 @@ const SetTextField = ({
   );
 };
 
-export interface SetFieldInfoProps {
+export interface SetTextFieldInfoProps {
   setId: string;
   reps: number;
   weight?: number;

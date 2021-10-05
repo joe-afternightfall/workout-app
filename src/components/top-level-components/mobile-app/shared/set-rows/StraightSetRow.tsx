@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid } from '@material-ui/core';
 import BaseSet from '../set-fields/BaseSet';
-import { SetFieldInfoProps } from '../set-fields/SetTextField';
+import { SetTextFieldInfoProps } from '../set-fields/SetTextField';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(() =>
@@ -50,6 +50,6 @@ export interface StraightSetRowProps {
   setNumber: number;
   markedDone: boolean;
   activeSet: boolean;
-  info: SetFieldInfoProps;
+  info: SetTextFieldInfoProps;
   actionButton: JSX.Element;
 }
