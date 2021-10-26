@@ -2,7 +2,7 @@ import Dot from './Dot';
 import React from 'react';
 import { Grid } from '@material-ui/core';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { WorkoutVO } from 'workout-app-common-core';
+import { WorkoutVO } from '../../../../../../configs/old-models/WorkoutVO';
 
 const useStyles = makeStyles(() =>
   createStyles({

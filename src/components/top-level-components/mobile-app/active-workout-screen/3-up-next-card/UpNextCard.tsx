@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import React from 'react';
 import {
   Grid,
@@ -7,24 +8,23 @@ import {
   ListItemText,
   ListItemIcon,
 } from '@material-ui/core';
-import { connect } from 'react-redux';
-import { Segment, WorkoutExercise, ExerciseVO } from 'workout-app-common-core';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { State } from '../../../../../configs/redux/store';
 import {
-  isCircuitSet,
-  isStraightSet,
+  Segment,
+  ExerciseVO,
   isSuperset,
-} from '../../../../../utils/active-workout';
-import SingleSetItem from '../../shared/exercise-list/SingleSetItem';
-import {
-  buildRepsAndSets,
-  getExerciseName,
+  isCircuitSet,
   getPhaseName,
-} from '../../../../../utils/workout-configs';
-import SuperSetItem from '../../shared/exercise-list/SuperSetItem';
-import clsx from 'clsx';
+  isStraightSet,
+  WorkoutExercise,
+  getExerciseName,
+  buildRepsAndSets,
+} from 'workout-app-common-core';
+import { connect } from 'react-redux';
+import { State } from '../../../../../configs/redux/store';
 import { AppTheme } from '../../../../../configs/theme/app-theme';
+import SuperSetItem from '../../shared/exercise-list/SuperSetItem';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
+import SingleSetItem from '../../shared/exercise-list/SingleSetItem';
 import confettiEmoji from '../../../../../configs/icons/confetti-emoji.png';
 
 const useStyles = makeStyles((theme: AppTheme) =>
@@ -163,10 +163,10 @@ const mapStateToProps = (
     );
 
     if (nextPhase) {
-      nextPhaseTitle = getPhaseName(
-        workoutState.configs.phases,
-        nextPhase.phaseId
-      );
+      const phaseName = getPhaseName(nextPhase.phaseId);
+      if (phaseName) {
+        nextPhaseTitle = phaseName;
+      }
       exercisesLength = nextPhase.segments.length;
     }
   }

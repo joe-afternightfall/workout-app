@@ -3,12 +3,10 @@ import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { Grid, InputAdornment, TextField } from '@material-ui/core';
-import {
-  trimLeadingZeros,
-  validateForOnlyNumbers,
-} from '../../../../../../../../../utils/validator';
+import { trimLeadingZeros } from '../../../../../../../../../utils/validator';
 import { updateRestBetween } from '../../../../../../../../../creators/new-workout/update-workout';
 import { AppTheme } from '../../../../../../../../../configs/theme/app-theme';
+import { validateForOnlyNumbers } from 'workout-app-common-core';
 
 const useStyles = makeStyles((theme: AppTheme) =>
   createStyles({

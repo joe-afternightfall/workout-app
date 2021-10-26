@@ -16,9 +16,9 @@ import {
   phases,
   workoutCategories,
   equipmentList,
+  sortEntireRoutine,
 } from 'workout-app-common-core';
 import { WorkoutActionTypes } from './actions-workout';
-import { sortWorkoutByOrder } from '../utils/active-workout';
 
 export interface InitializeWorkoutConfigsAction {
   type: WorkoutActionTypes.INITIALIZE;
@@ -38,7 +38,7 @@ export interface InitializeWorkoutConfigsAction {
 export const initializeWorkoutConfigs = (): InitializeWorkoutConfigsAction => {
   const routineTemplatesCopy = routineTemplates;
   routineTemplatesCopy.map((template) => {
-    template.phases = sortWorkoutByOrder(template.phases);
+    template.phases = sortEntireRoutine(template.phases);
   });
 
   return {

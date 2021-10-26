@@ -4,13 +4,13 @@ import SetDivider from './SetDivider';
 import { Grid } from '@material-ui/core';
 import SetTextField, { SetTextFieldInfoProps } from './SetTextField';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
+import { AppTheme } from '../../../../../configs/theme/app-theme';
+import TimerDialog from '../../active-workout-screen/components/timer-dialog/TimerDialog';
 import {
   isDuration,
   isRepsOnly,
   isWeightsAndReps,
-} from '../../../../../utils/active-workout';
-import { AppTheme } from '../../../../../configs/theme/app-theme';
-import TimerDialog from '../../active-workout-screen/components/timer-dialog/TimerDialog';
+} from 'workout-app-common-core';
 
 const useStyles = makeStyles((theme: AppTheme) =>
   createStyles({

@@ -1,5 +1,5 @@
 import { ActionTypes } from './actions';
-import { CircuitTemplateVO } from 'workout-app-common-core';
+import { CircuitTemplateVO } from '../configs/old-models/CircuitTemplateVO';
 
 export interface LoadCircuitTemplatesAction {
   type: ActionTypes.LOAD_CIRCUIT_TEMPLATES;

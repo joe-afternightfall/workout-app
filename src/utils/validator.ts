@@ -1,9 +1,4 @@
-const ONLY_NUMBERS_REGEX = new RegExp('^[0-9]*$');
 const WEIGHTS_REG_EX = new RegExp(/^\d*\.?\d*$/);
-
-export const validateForOnlyNumbers = (value: string): boolean => {
-  return ONLY_NUMBERS_REGEX.test(value);
-};
 
 export const validateWeight = (value: string): boolean => {
   return WEIGHTS_REG_EX.test(value);

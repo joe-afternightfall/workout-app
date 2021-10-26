@@ -1,11 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-import {
-  WorkoutVO,
-  CircuitTypeVO,
-  UserProfileVO,
-  ExerciseTypeVO,
-  CircuitTemplateVO,
-} from 'workout-app-common-core';
+import { UserProfileVO } from 'workout-app-common-core';
 import { LOCATION_CHANGE } from 'connected-react-router';
 import { getPageInfo } from '../utils/get-current-page-info';
 import { MobileRouteProp } from '../configs/constants/mobile-routes';
@@ -16,6 +10,10 @@ import {
   WorkoutCircuitProps,
 } from '../components/top-level-components/workout-screen/WorkoutScreen';
 import { StopwatchState } from '../components/top-level-components/workout-screen/stopwatch/Stopwatch';
+import { ExerciseTypeVO } from '../configs/old-models/ExerciseTypeVO';
+import { CircuitTypeVO } from '../configs/old-models/CircuitTypeVO';
+import { CircuitTemplateVO } from '../configs/old-models/CircuitTemplateVO';
+import { WorkoutVO } from '../configs/old-models/WorkoutVO';
 
 function findCircuit(
   state: ApplicationState,

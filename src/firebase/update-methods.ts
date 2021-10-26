@@ -7,13 +7,11 @@ import { loadUsersWorkouts } from '../creators/user-info';
 import { getWorkoutsForUser } from '../services/workout-service';
 import { getAllCircuitTypes } from '../services/workout-configurations/circuit-types-service';
 import { getAllExerciseTypes } from '../services/workout-configurations/exercise-types-service';
-import {
-  CircuitTemplateVO,
-  CircuitTypeVO,
-  ExerciseTypeVO,
-} from 'workout-app-common-core';
 import { getCircuitTemplates } from '../services/circuit-template';
 import { loadCircuitTemplates } from '../creators/circuit-template';
+import { CircuitTypeVO } from '../configs/old-models/CircuitTypeVO';
+import { ExerciseTypeVO } from '../configs/old-models/ExerciseTypeVO';
+import { CircuitTemplateVO } from '../configs/old-models/CircuitTemplateVO';
 
 export const updateCircuitTypes = async (store: Store): Promise<void> => {
   const circuits: CircuitTypeVO[] = await getAllCircuitTypes();

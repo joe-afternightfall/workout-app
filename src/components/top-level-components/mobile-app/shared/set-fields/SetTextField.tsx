@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import {
   validateWeight,
   trimLeadingZeros,
-  validateForOnlyNumbers,
 } from '../../../../../utils/validator';
 import { Grid, TextField } from '@material-ui/core';
 import BaseSetAdornment from './adornments/BaseSetAdornment';
@@ -12,6 +11,7 @@ import { AppTheme } from '../../../../../configs/theme/app-theme';
 import { createStyles, makeStyles, useTheme } from '@material-ui/core/styles';
 import { updateSetTextField } from '../../../../../creators/new-workout/update-workout';
 import {
+  validateForOnlyNumbers,
   WorkoutDistance,
   WorkoutDuration,
   WorkoutTimer,

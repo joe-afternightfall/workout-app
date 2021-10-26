@@ -1,14 +1,15 @@
 import { AnyAction, Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import {
-  isSuperset,
-  isStraightSet,
-  buildSetInfo,
-} from '../../../../utils/active-workout';
+import { buildSetInfo } from '../../../../utils/active-workout';
 import { routerActions } from 'connected-react-router';
 import { State } from '../../../../configs/redux/store';
 import ActiveWorkout, { ActiveWorkoutProps } from './ActiveWorkout';
-import { Segment, BuiltSets } from 'workout-app-common-core';
+import {
+  Segment,
+  BuiltSets,
+  isStraightSet,
+  isSuperset,
+} from 'workout-app-common-core';
 import {
   markCurrentSetAsDone,
   workoutDone,
