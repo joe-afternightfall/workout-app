@@ -64,8 +64,6 @@ export default {
         newState.configs.gripWidths = action.configs.gripWidths;
         newState.configs.gripTypes = action.configs.gripTypes;
         newState.configs.parameterTypes = action.configs.parameterTypes;
-        newState.configs.exercises = [];
-        newState.configs.routineTemplates = [];
         break;
       case WorkoutActionTypes.LOAD_EXERCISES:
         newState.configs.exercises = action.exercises;
