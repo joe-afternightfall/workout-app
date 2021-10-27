@@ -12,6 +12,14 @@ import { loadCircuitTemplates } from '../creators/circuit-template';
 import { CircuitTypeVO } from '../configs/old-models/CircuitTypeVO';
 import { ExerciseTypeVO } from '../configs/old-models/ExerciseTypeVO';
 import { CircuitTemplateVO } from '../configs/old-models/CircuitTemplateVO';
+import {
+  ExerciseVO,
+  getAllExercises,
+  getAllRoutineTemplates,
+  RoutineTemplateVO,
+} from 'workout-app-common-core';
+import { loadRoutineTemplates } from '../creators/new-workout/routine-template';
+import { loadExercises } from '../creators/new-workout/exercises';
 
 export const updateCircuitTypes = async (store: Store): Promise<void> => {
   const circuits: CircuitTypeVO[] = await getAllCircuitTypes();
@@ -40,4 +48,14 @@ export const updateUserWorkouts = async (store: Store): Promise<void> => {
 export const updateCircuitTemplates = async (store: Store): Promise<void> => {
   const templates: CircuitTemplateVO[] = await getCircuitTemplates();
   store.dispatch(loadCircuitTemplates(templates));
+};
+
+export const updateRoutineTemplates = async (store: Store): Promise<void> => {
+  const templates: RoutineTemplateVO[] = await getAllRoutineTemplates();
+  store.dispatch(loadRoutineTemplates(templates));
+};
+
+export const updateExercises = async (store: Store): Promise<void> => {
+  const exercises: ExerciseVO[] = await getAllExercises();
+  store.dispatch(loadExercises(exercises));
 };
