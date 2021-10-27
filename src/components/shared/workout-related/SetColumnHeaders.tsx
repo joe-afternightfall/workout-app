@@ -83,7 +83,7 @@ export default function SetColumnHeaders(props: SetTitleProps): JSX.Element {
   );
 }
 
-export interface SetTitleProps {
+interface SetTitleProps {
   setType: SetType;
   displayAction: boolean;
 }

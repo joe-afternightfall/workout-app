@@ -2,8 +2,8 @@ import React from 'react';
 import { blue, red } from '@material-ui/core/colors';
 import { WorkoutCircuitProps } from '../../WorkoutScreen';
 import { Typography, Button, Dialog, Grid } from '@material-ui/core';
-import BaseDialogContent from '../../../../app-shell/BaseDialogContent';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { NightfallDialogContent } from 'workout-app-common-core';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -41,7 +41,7 @@ export default function DeleteCircuitDialog(
       <Button onClick={handleClickOpen}>{'Delete Circuit'}</Button>
 
       <Dialog onClose={handleClose} open={open} fullWidth maxWidth={'xs'}>
-        <BaseDialogContent
+        <NightfallDialogContent
           title={'Delete Circuit'}
           closeClickHandler={handleClose}
           dialogContent={
@@ -76,7 +76,7 @@ export default function DeleteCircuitDialog(
   );
 }
 
-export interface DeleteCircuitDialogProps {
+interface DeleteCircuitDialogProps {
   circuit: WorkoutCircuitProps;
   deleteClickHandler: (id: string) => void;
 }

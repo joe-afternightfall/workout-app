@@ -8,9 +8,9 @@ import {
 } from '@material-ui/core';
 import { blue, red } from '@material-ui/core/colors';
 import DeleteIcon from '@material-ui/icons/HighlightOff';
-import BaseDialogContent from '../../../../app-shell/BaseDialogContent';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { ExerciseTypeVO } from '../../../../../configs/old-models/ExerciseTypeVO';
+import { NightfallDialogContent } from 'workout-app-common-core';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -50,7 +50,7 @@ export default function DeleteExerciseDialog(
       </IconButton>
 
       <Dialog onClose={handleClose} open={open} fullWidth maxWidth={'xs'}>
-        <BaseDialogContent
+        <NightfallDialogContent
           title={'Delete Circuit'}
           closeClickHandler={handleClose}
           dialogContent={
@@ -88,7 +88,7 @@ export default function DeleteExerciseDialog(
   );
 }
 
-export interface DeleteExerciseDialogProps {
+interface DeleteExerciseDialogProps {
   exercise: ExerciseTypeVO;
   circuitId: string;
   deleteExerciseHandler: (circuitId: string, exerciseId: string) => void;

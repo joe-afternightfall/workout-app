@@ -18,7 +18,7 @@ export default function TabPanel(props: TabPanelProps): JSX.Element {
   );
 }
 
-export interface TabPanelProps {
+interface TabPanelProps {
   children: React.ReactNode;
   index: number;
   value: number;

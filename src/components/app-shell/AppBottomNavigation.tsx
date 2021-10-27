@@ -80,7 +80,7 @@ const AppBottomNavigation = (props: AppBottomNavigationProps): JSX.Element => {
   );
 };
 
-export interface AppBottomNavigationProps {
+interface AppBottomNavigationProps {
   routeClickHandler: (path: string) => void;
   selectedNavTestId: string;
 }
