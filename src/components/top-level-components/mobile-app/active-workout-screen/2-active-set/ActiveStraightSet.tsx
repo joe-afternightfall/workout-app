@@ -1,7 +1,10 @@
 import React from 'react';
+import {
+  BuiltSets,
+  ActiveSetInfo,
+  NightfallBlinker,
+} from 'workout-app-common-core';
 import { Grid } from '@material-ui/core';
-import Blinker from '../../shared/Blinker';
-import { BuiltSets, ActiveSetInfo } from 'workout-app-common-core';
 import CrushedItButton from './components/CrushedItButton';
 import StraightSetRow from '../../shared/set-rows/StraightSetRow';
 import { buildSetFieldInfo } from '../../../../../utils/info-builder';
@@ -32,7 +35,7 @@ export default function ActiveStraightSet(
             markedDone = info.markedDone;
             lastSet = Object.keys(builtSets).length === info.setNumber;
             return (
-              <Blinker
+              <NightfallBlinker
                 shouldBlink={activeSet}
                 component={
                   <StraightSetRow
@@ -65,7 +68,7 @@ export default function ActiveStraightSet(
   return <Grid container>{straightSets.map((element) => element)}</Grid>;
 }
 
-export interface ActiveStraightSetProps {
+interface ActiveStraightSetProps {
   builtSets: BuiltSets;
   currentSetIndex: number;
   didItClickHandler: (
