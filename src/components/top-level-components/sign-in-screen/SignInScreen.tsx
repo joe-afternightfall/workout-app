@@ -1,17 +1,17 @@
 import React from 'react';
 import firebase from 'firebase';
-import { AnyAction, Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import SignInCard from './SignInCard';
 import { Grid } from '@material-ui/core';
-import { routerActions } from 'react-router-redux';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { DASHBOARD_SCREEN_PATH } from '../../../configs/constants/app';
 import { ThunkDispatch } from 'redux-thunk';
+import { AnyAction, Dispatch } from 'redux';
+import { routerActions } from 'react-router-redux';
 import { State } from '../../../configs/redux/store';
 import { getUserProfile } from '../../../services/user-profile';
-import { loadUsersWorkouts, validatedUser } from '../../../creators/user-info';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { getWorkoutsForUser } from '../../../services/workout-service';
+import { DASHBOARD_SCREEN_PATH } from '../../../configs/constants/app';
+import { loadUsersWorkouts, validatedUser } from '../../../creators/user-info';
 import { initializeWorkoutConfigs } from '../../../creators/initialize';
 
 const useStyles = makeStyles(() =>
