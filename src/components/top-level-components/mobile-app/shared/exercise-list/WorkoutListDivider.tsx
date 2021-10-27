@@ -8,7 +8,6 @@ const useStyles = makeStyles(() =>
       padding: 4,
       width: '100%',
       backgroundColor: '#2c2c2c',
-      // backgroundColor: '#1B1B1B',
     },
   })
 );

@@ -1,9 +1,12 @@
 import React from 'react';
 import { Grid } from '@material-ui/core';
-import Blinker from '../../shared/Blinker';
 import CrushedItButton from './components/CrushedItButton';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { BuiltSets, ActiveSetInfo } from 'workout-app-common-core';
+import {
+  NightfallBlinker,
+  BuiltSets,
+  ActiveSetInfo,
+} from 'workout-app-common-core';
 import BaseSet from '../../shared/set-fields/BaseSet';
 import { buildSetFieldInfo } from '../../../../../utils/info-builder';
 
@@ -43,7 +46,7 @@ export default function ActiveSuperset({
     };
 
     supersets.push(
-      <Blinker
+      <NightfallBlinker
         shouldBlink={currentSetIndex === index + 1}
         component={
           <Grid container alignItems={'center'} className={classes.root}>
@@ -91,7 +94,7 @@ export default function ActiveSuperset({
   return <div>{supersets.map((element) => element)}</div>;
 }
 
-export interface ActiveSupersetProps {
+interface ActiveSupersetProps {
   builtSets: BuiltSets;
   currentSetIndex: number;
   didItClickHandler: (

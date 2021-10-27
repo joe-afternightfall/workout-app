@@ -9,11 +9,11 @@ import ActionButton from './components/ActionButton';
 import {
   buildSetInfo,
   getExercise,
-  isSuperset,
 } from '../../../../../../../../utils/active-workout';
 import {
   ActiveSetInfo,
   BuiltSets,
+  isSuperset,
   Segment,
   WorkoutExercise,
 } from 'workout-app-common-core';

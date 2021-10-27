@@ -7,7 +7,8 @@ import { State } from '../../../../configs/redux/store';
 import CalendarHeader from './components/CalendarHeader';
 import CalendarControls from './components/CalendarControls';
 import PastWorkoutDialog from './components/PastWorkoutDialog';
-import { WorkoutVO, ExerciseTypeVO } from 'workout-app-common-core';
+import { WorkoutVO } from '../../../../configs/old-models/WorkoutVO';
+import { ExerciseTypeVO } from '../../../../configs/old-models/ExerciseTypeVO';
 
 const CalendarCard = (props: CalendarCardProps): JSX.Element => {
   const dateFormat = 'MMMM yyyy';

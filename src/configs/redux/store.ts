@@ -66,6 +66,17 @@ export const createStore = (history: History): Store => {
     workoutState: {
       displayEditPreviewList: false,
       displayEditSet: false,
+      configs: {
+        trainingSetTypes: [],
+        phases: [],
+        workoutCategories: [],
+        equipmentList: [],
+        gripWidths: [],
+        gripTypes: [],
+        parameterTypes: [],
+        exercises: [],
+        routineTemplates: [],
+      },
     } as unknown as WorkoutState,
   });
 };

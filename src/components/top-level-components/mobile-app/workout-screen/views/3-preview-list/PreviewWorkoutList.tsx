@@ -8,12 +8,14 @@ import { routerActions } from 'connected-react-router';
 import { ListSubheader, Paper } from '@material-ui/core';
 import { State } from '../../../../../../configs/redux/store';
 import WorkoutListDivider from '../../../shared/exercise-list/WorkoutListDivider';
-import { PhaseVO, Phase, Segment } from 'workout-app-common-core';
-import { MOBILE_ACTIVE_WORKOUT_SCREEN_PATH } from '../../../../../../configs/constants/app';
 import {
+  PhaseVO,
+  Phase,
+  Segment,
   getPhaseName,
   sortPhaseSegments,
-} from '../../../../../../utils/workout-configs';
+} from 'workout-app-common-core';
+import { MOBILE_ACTIVE_WORKOUT_SCREEN_PATH } from '../../../../../../configs/constants/app';
 import PreviewListItem from './PreviewListItem';
 import { startWorkout } from '../../../../../../creators/new-workout/workout-selections';
 import BottomActionButtons from './components/edit-set/components/BottomActionButtons';
@@ -71,7 +73,7 @@ const PreviewWorkoutList = (props: PreviewWorkoutListProps): JSX.Element => {
             })}
             subheader={
               <ListSubheader component={'div'} className={classes.subHeader}>
-                {getPhaseName(props.configPhases, phase.phaseId)}
+                {getPhaseName(phase.phaseId)}
               </ListSubheader>
             }
           >

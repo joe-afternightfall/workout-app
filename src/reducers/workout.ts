@@ -6,17 +6,17 @@ import {
 import {
   EquipmentVO,
   ExerciseVO,
-  RoutineTemplateVO,
-  WorkoutCategoryVO,
-  PhaseVO,
   GripType,
   GripWidth,
   ParameterType,
   Phase,
+  PhaseVO,
+  RoutineTemplateVO,
   Set,
   TrainingSetType,
-  WorkoutExercise,
   Workout,
+  WorkoutCategoryVO,
+  WorkoutExercise,
 } from 'workout-app-common-core';
 import { v4 as uuidv4 } from 'uuid';
 import * as ramda from 'ramda';
@@ -57,7 +57,19 @@ export default {
         newState.currentLocation = action.payload.location.pathname;
         break;
       case WorkoutActionTypes.INITIALIZE:
-        newState.configs = action.configs;
+        newState.configs.trainingSetTypes = action.configs.trainingSetTypes;
+        newState.configs.phases = action.configs.phases;
+        newState.configs.workoutCategories = action.configs.workoutCategories;
+        newState.configs.equipmentList = action.configs.equipmentList;
+        newState.configs.gripWidths = action.configs.gripWidths;
+        newState.configs.gripTypes = action.configs.gripTypes;
+        newState.configs.parameterTypes = action.configs.parameterTypes;
+        break;
+      case WorkoutActionTypes.LOAD_EXERCISES:
+        newState.configs.exercises = action.exercises;
+        break;
+      case WorkoutActionTypes.LOAD_ROUTINE_TEMPLATES:
+        newState.configs.routineTemplates = action.templates;
         break;
       case WorkoutActionTypes.SELECTED_WORKOUT_CATEGORY:
         newState.selectedWorkoutCategory = action.category;

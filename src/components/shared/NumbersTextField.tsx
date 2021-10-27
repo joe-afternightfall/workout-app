@@ -23,7 +23,7 @@ export default function NumbersTextField(
   );
 }
 
-export interface NumbersTextFieldProps {
+interface NumbersTextFieldProps {
   name: string;
   value: string;
   label?: string;

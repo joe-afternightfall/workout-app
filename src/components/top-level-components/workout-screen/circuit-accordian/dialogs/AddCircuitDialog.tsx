@@ -5,13 +5,15 @@ import { CircuitProps } from '../Circuits';
 import AddIcon from '@material-ui/icons/Add';
 import ListItem from '@material-ui/core/ListItem';
 import { WorkoutCircuitProps } from '../../WorkoutScreen';
-import AppTooltip from '../../../../app-shell/AppTooltip';
 import { State } from '../../../../../configs/redux/store';
+import {
+  NightfallTooltip,
+  NightfallDialogContent,
+} from 'workout-app-common-core';
 import { addCircuit } from '../../../../../creators/workout';
 import { Button, Dialog, IconButton, List } from '@material-ui/core';
-import BaseDialogContent from '../../../../app-shell/BaseDialogContent';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import { CircuitTypeVO } from 'workout-app-common-core';
+import { CircuitTypeVO } from '../../../../../configs/old-models/CircuitTypeVO';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -57,8 +59,8 @@ const AddCircuitDialog = (props: AddCircuitDialogProps): JSX.Element => {
 
   return (
     <>
-      <AppTooltip
-        element={
+      <NightfallTooltip
+        component={
           <IconButton
             color={'primary'}
             className={classes.addButton}
@@ -72,7 +74,7 @@ const AddCircuitDialog = (props: AddCircuitDialogProps): JSX.Element => {
       />
 
       <Dialog onClose={handleClose} open={open} fullWidth maxWidth={'xs'}>
-        <BaseDialogContent
+        <NightfallDialogContent
           title={'New Circuit'}
           closeClickHandler={handleClose}
           dialogContent={
@@ -105,7 +107,7 @@ const AddCircuitDialog = (props: AddCircuitDialogProps): JSX.Element => {
   );
 };
 
-export interface AddCircuitDialogProps {
+interface AddCircuitDialogProps {
   addCircuitHandler: (props: WorkoutCircuitProps) => void;
   circuits: WorkoutCircuitProps[];
   circuitTypes: CircuitTypeVO[];

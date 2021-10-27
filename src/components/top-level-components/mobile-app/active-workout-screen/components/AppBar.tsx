@@ -13,9 +13,9 @@ import ListIcon from '@material-ui/icons/List';
 import { routerActions } from 'connected-react-router';
 import { State } from '../../../../../configs/redux/store';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { getPhaseName } from '../../../../../utils/workout-configs';
 import { DASHBOARD_SCREEN_PATH } from '../../../../../configs/constants/app';
 import { AppTheme } from '../../../../../configs/theme/app-theme';
+import { getPhaseName } from 'workout-app-common-core';
 
 const useStyles = makeStyles((theme: AppTheme) =>
   createStyles({
@@ -112,10 +112,7 @@ const mapStateToProps = (state: State): ActiveWorkoutAppBarProps => {
   const currentSegmentIndex = state.workoutState.currentSegmentIndex;
 
   return {
-    phaseName: getPhaseName(
-      state.workoutState.configs.phases,
-      state.workoutState.currentPhase.phaseId
-    ),
+    phaseName: getPhaseName(state.workoutState.currentPhase.phaseId),
     currentSegmentCount: `${currentSegmentIndex}/${totalSegments}`,
   } as unknown as ActiveWorkoutAppBarProps;
 };

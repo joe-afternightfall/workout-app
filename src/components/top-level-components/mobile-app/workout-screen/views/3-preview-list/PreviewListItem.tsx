@@ -1,20 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import EditOptions from './components/edit-set/components/EditOptions';
-import {
-  isSuperset,
-  isCircuitSet,
-  isStraightSet,
-} from '../../../../../../utils/active-workout';
-import {
-  getExerciseName,
-  buildRepsAndSets,
-  sortSegmentExercises,
-} from '../../../../../../utils/workout-configs';
 import { State } from '../../../../../../configs/redux/store';
 import SuperSetItem from '../../../shared/exercise-list/SuperSetItem';
 import SingleSetItem from '../../../shared/exercise-list/SingleSetItem';
-import { Segment, ExerciseVO } from 'workout-app-common-core';
+import {
+  Segment,
+  ExerciseVO,
+  sortSegmentExercises,
+  isStraightSet,
+  isCircuitSet,
+  getExerciseName,
+  buildRepsAndSets,
+  isSuperset,
+} from 'workout-app-common-core';
 import { Card } from '@material-ui/core';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { Draggable } from 'react-smooth-dnd';

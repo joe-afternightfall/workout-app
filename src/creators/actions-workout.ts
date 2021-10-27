@@ -25,10 +25,14 @@ import {
   UpdateSegmentOrderAction,
   UpdateSetTextFieldAction,
 } from './new-workout/update-workout';
+import { LoadRoutineTemplatesAction } from './new-workout/routine-template';
+import { LoadExercisesAction } from './new-workout/exercises';
 
 export enum WorkoutActionTypes {
   // Workout Actions
   INITIALIZE = 'INITIALIZE',
+  LOAD_ROUTINE_TEMPLATES = 'LOAD_ROUTINE_TEMPLATES',
+  LOAD_EXERCISES = 'LOAD_EXERCISES',
   SELECTED_WORKOUT_CATEGORY = 'SELECTED_WORKOUT_CATEGORY',
   SELECTED_ROUTINE = 'SELECTED_ROUTINE',
   START_WORKOUT = 'START_WORKOUT',
@@ -67,4 +71,6 @@ export type WorkoutActions =
   | UpdateSetTextFieldAction
   | UpdateSegmentOrderAction
   | UpdateRestBetweenAction
-  | WorkoutDoneAction;
+  | WorkoutDoneAction
+  | LoadRoutineTemplatesAction
+  | LoadExercisesAction;

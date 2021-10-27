@@ -21,6 +21,6 @@ export default function ExerciseTitle(props: ExerciseTitleProps): JSX.Element {
   );
 }
 
-export interface ExerciseTitleProps {
+interface ExerciseTitleProps {
   title: string;
 }

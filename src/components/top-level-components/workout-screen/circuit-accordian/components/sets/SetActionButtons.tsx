@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Grid } from '@material-ui/core';
-import AppTooltip from '../../../../../app-shell/AppTooltip';
+import { NightfallTooltip } from 'workout-app-common-core';
 import CheckIcon from '@material-ui/icons/CheckCircleOutlined';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import RemoveIcon from '@material-ui/icons/RemoveCircleOutlineOutlined';
@@ -32,8 +32,8 @@ export default function SetActionButtons(
   return (
     <Grid container alignItems={'center'} justify={'center'} spacing={2}>
       <Grid item>
-        <AppTooltip
-          element={
+        <NightfallTooltip
+          component={
             <Button
               className={classes.deleteButton}
               onClick={() => {
@@ -49,8 +49,8 @@ export default function SetActionButtons(
       </Grid>
 
       <Grid item>
-        <AppTooltip
-          element={
+        <NightfallTooltip
+          component={
             <Button
               className={classes.confirmButton}
               onClick={props.toggleExerciseSetHandler}
@@ -66,7 +66,7 @@ export default function SetActionButtons(
   );
 }
 
-export interface SetActionButtonsProps {
+interface SetActionButtonsProps {
   deleteSetClickHandler: () => void;
   toggleExerciseSetHandler: () => void;
 }

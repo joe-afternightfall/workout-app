@@ -1,16 +1,18 @@
 import React from 'react';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import {
+  Grid,
   Button,
   Dialog,
-  Grid,
   IconButton,
   Typography,
 } from '@material-ui/core';
-import AppTooltip from '../../../../app-shell/AppTooltip';
-import BaseDialogContent from '../../../../app-shell/BaseDialogContent';
-import { blue, red, green } from '@material-ui/core/colors';
 import DoneIcon from '@material-ui/icons/Done';
+import { blue, red, green } from '@material-ui/core/colors';
+import {
+  NightfallTooltip,
+  NightfallDialogContent,
+} from 'workout-app-common-core';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -53,8 +55,8 @@ export default function WorkoutDoneDialog(
 
   return (
     <>
-      <AppTooltip
-        element={
+      <NightfallTooltip
+        component={
           <IconButton
             disabled={props.disabled}
             className={classes.saveButton}
@@ -68,7 +70,7 @@ export default function WorkoutDoneDialog(
       />
 
       <Dialog onClose={handleClose} open={open} fullWidth maxWidth={'xs'}>
-        <BaseDialogContent
+        <NightfallDialogContent
           title={'Save Workout'}
           closeClickHandler={handleClose}
           dialogContent={
@@ -104,7 +106,7 @@ export default function WorkoutDoneDialog(
   );
 }
 
-export interface WorkoutDoneDialogProps {
+interface WorkoutDoneDialogProps {
   disabled: boolean;
   saveWorkoutHandler: () => void;
 }

@@ -7,11 +7,8 @@ import TabPanel from '../../../../../shared/SwipeableViewTabPanel';
 import { addExerciseToCircuit } from '../../../../../../creators/workout';
 import { List, ListItem, Button, Typography, Grid } from '@material-ui/core';
 import { useTheme, makeStyles, createStyles } from '@material-ui/core/styles';
-import {
-  ExerciseTypeVO,
-  MuscleGroup,
-  muscleGroups,
-} from 'workout-app-common-core';
+import { MuscleGroup, muscleGroups } from 'workout-app-common-core';
+import { ExerciseTypeVO } from '../../../../../../configs/old-models/ExerciseTypeVO';
 
 const useStyles = makeStyles(() =>
   createStyles({

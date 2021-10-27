@@ -5,11 +5,12 @@ import { AnyAction, Dispatch } from 'redux';
 import { State } from '../configs/redux/store';
 import { routerActions } from 'react-router-redux';
 import { workoutsSnapToVO } from '../utils/vo-builder';
-import { WorkoutVO, WorkoutDAO } from 'workout-app-common-core';
 import { clearWorkoutScreen } from '../creators/workout';
 import { DASHBOARD_SCREEN_PATH } from '../configs/constants/app';
 import { WORKOUTS_ROUTE } from '../configs/constants/firebase-routes';
 import { stopStopwatch } from '../creators/stopwatch';
+import { WorkoutDAO } from '../configs/old-models/WorkoutDAO';
+import { WorkoutVO } from '../configs/old-models/WorkoutVO';
 
 export const saveWorkout =
   (): ThunkAction<void, State, void, AnyAction> =>

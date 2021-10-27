@@ -1,7 +1,7 @@
 import firebase from 'firebase';
 import { circuitTemplateSnapToVO } from '../utils/vo-builder';
-import { CircuitTemplateVO } from 'workout-app-common-core';
 import { CIRCUIT_TEMPLATES_ROUTE } from '../configs/constants/firebase-routes';
+import { CircuitTemplateVO } from '../configs/old-models/CircuitTemplateVO';
 
 export const getCircuitTemplates = async (): Promise<CircuitTemplateVO[]> => {
   return await firebase

@@ -44,7 +44,7 @@
     "safe-regex": "^2.1.1",
     "slick-carousel": "^1.8.1",
     "web-vitals": "1.1.2",
-    "workout-app-common-core": "0.0.15"
+    "workout-app-common-core": "0.0.45"
   },
   "devDependencies": {
     "@capacitor/cli": "^3.2.0",

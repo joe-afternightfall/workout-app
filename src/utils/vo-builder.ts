@@ -1,15 +1,12 @@
-import {
-  ExerciseTypeDAO,
-  ExerciseTypeVO,
-  CircuitTypeDAO,
-  CircuitTypeVO,
-  WorkoutDAO,
-  WorkoutVO,
-  UserProfileDAO,
-  UserProfileVO,
-  CircuitTemplateDAO,
-  CircuitTemplateVO,
-} from 'workout-app-common-core';
+import { UserProfileDAO, UserProfileVO } from 'workout-app-common-core';
+import { ExerciseTypeDAO } from '../configs/old-models/ExerciseTypeDAO';
+import { ExerciseTypeVO } from '../configs/old-models/ExerciseTypeVO';
+import { CircuitTypeDAO } from '../configs/old-models/CircuitTypeDAO';
+import { CircuitTypeVO } from '../configs/old-models/CircuitTypeVO';
+import { WorkoutDAO } from '../configs/old-models/WorkoutDAO';
+import { WorkoutVO } from '../configs/old-models/WorkoutVO';
+import { CircuitTemplateDAO } from '../configs/old-models/CircuitTemplateDAO';
+import { CircuitTemplateVO } from '../configs/old-models/CircuitTemplateVO';
 
 export interface ExerciseTypeSnapshot {
   [key: string]: ExerciseTypeDAO;

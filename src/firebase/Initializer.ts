@@ -11,7 +11,13 @@ import {
   updateCircuitTypes,
   updateUserWorkouts,
   updateCircuitTemplates,
+  updateRoutineTemplates,
+  updateExercises,
 } from './update-methods';
+import {
+  FIREBASE_DB_EXERCISES_ROUTE,
+  FIREBASE_DB_ROUTINE_TEMPLATES_ROUTE,
+} from 'workout-app-common-core';
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
@@ -21,8 +27,8 @@ const firebaseConfig = {
   projectId: 'workout-app-d4f5d',
   storageBucket: 'workout-app-d4f5d.appspot.com',
   messagingSenderId: '1035531799240',
-  appId: '1:1035531799240:web:b5b4e899d2b94eb06eb3fd',
-  measurementId: 'G-3NZ08YGD2N',
+  appId: '1:1035531799240:web:4dc51e62371cc2786eb3fd',
+  measurementId: 'G-BC1XM8ERB0',
 };
 
 export class Initializer {
@@ -40,6 +46,10 @@ export class Initializer {
     const circuitTypes = firebase.database().ref(CIRCUIT_TYPES_ROUTE);
     const workouts = firebase.database().ref(WORKOUTS_ROUTE);
     const circuitTemplates = firebase.database().ref(CIRCUIT_TEMPLATES_ROUTE);
+    const routineTemplates = firebase
+      .database()
+      .ref(FIREBASE_DB_ROUTINE_TEMPLATES_ROUTE);
+    const exercises = firebase.database().ref(FIREBASE_DB_EXERCISES_ROUTE);
 
     exerciseTypes.on('child_added', async () => {
       await updateExerciseTypes(this.store);
@@ -87,6 +97,30 @@ export class Initializer {
 
     circuitTemplates.on('child_removed', async () => {
       await updateCircuitTemplates(this.store);
+    });
+
+    routineTemplates.on('child_added', async () => {
+      await updateRoutineTemplates(this.store);
+    });
+
+    routineTemplates.on('child_changed', async () => {
+      await updateRoutineTemplates(this.store);
+    });
+
+    routineTemplates.on('child_removed', async () => {
+      await updateRoutineTemplates(this.store);
+    });
+
+    exercises.on('child_added', async () => {
+      await updateExercises(this.store);
+    });
+
+    exercises.on('child_changed', async () => {
+      await updateExercises(this.store);
+    });
+
+    exercises.on('child_removed', async () => {
+      await updateExercises(this.store);
     });
   }
 }
