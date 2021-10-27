@@ -1,5 +1,5 @@
 import { WorkoutActionTypes } from '../actions-workout';
-import { RoutineTemplateVO } from 'workout-app-common-core';
+import { RoutineTemplateVO, sortEntireRoutine } from 'workout-app-common-core';
 
 export interface LoadRoutineTemplatesAction {
   type: WorkoutActionTypes.LOAD_ROUTINE_TEMPLATES;
@@ -9,7 +9,9 @@ export interface LoadRoutineTemplatesAction {
 export const loadRoutineTemplates = (
   templates: RoutineTemplateVO[]
 ): LoadRoutineTemplatesAction => {
-  console.log('CREATOR_TEMPLATES: ' + JSON.stringify(templates));
+  templates.map((template) => {
+    template.phases = sortEntireRoutine(template.phases);
+  });
   return {
     type: WorkoutActionTypes.LOAD_ROUTINE_TEMPLATES,
     templates: templates,
