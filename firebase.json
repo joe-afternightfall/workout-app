@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site": "the-dojo-workout-app",
     "public": "build",
     "ignore": [
       "firebase.json",
