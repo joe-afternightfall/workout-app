@@ -1,31 +1,20 @@
 import React from 'react';
-import {
-  Grid,
-  AppBar,
-  Button,
-  Toolbar,
-  Typography,
-  IconButton,
-} from '@material-ui/core';
+import { Grid, AppBar, Button, Toolbar, Typography } from '@material-ui/core';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import ListIcon from '@material-ui/icons/List';
 import { routerActions } from 'connected-react-router';
 import { State } from '../../../../../configs/redux/store';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { DASHBOARD_SCREEN_PATH } from '../../../../../configs/constants/app';
 import { AppTheme } from '../../../../../configs/theme/app-theme';
 import { getPhaseName } from 'workout-app-common-core';
+import PreviewDialog from './app-bar/PreviewDialog';
 
 const useStyles = makeStyles((theme: AppTheme) =>
   createStyles({
     toolbar: {
       padding: 0,
       height: '8vh',
-    },
-    menuButton: {
-      paddingBottom: 8,
-      color: theme.palette.custom.colors.active,
     },
     exitButton: {
       color: theme.palette.custom.colors.active,
@@ -91,9 +80,7 @@ const ActiveWorkoutAppBar = (props: ActiveWorkoutAppBarProps): JSX.Element => {
             justify={'flex-end'}
             alignItems={'flex-end'}
           >
-            <IconButton className={classes.menuButton} color={'inherit'}>
-              <ListIcon />
-            </IconButton>
+            <PreviewDialog />
           </Grid>
         </Grid>
       </Toolbar>

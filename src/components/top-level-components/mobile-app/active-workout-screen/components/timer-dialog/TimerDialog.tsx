@@ -8,9 +8,11 @@ import {
   IconButton,
 } from '@material-ui/core';
 import TimerIcon from '@material-ui/icons/Timer';
-import { WorkoutTimer } from 'workout-app-common-core';
-import CountdownTimer from './components/countdown-timer/CountdownTimer';
-import CustomStepper from './components/stepper/CustomStepper';
+import {
+  WorkoutTimer,
+  NightfallCountdownTimer,
+  NightfallStepper,
+} from 'workout-app-common-core';
 import { AppTheme } from '../../../../../../configs/theme/app-theme';
 
 const useStyles = makeStyles(() =>
@@ -74,7 +76,7 @@ export default function TimerDialog({
       </IconButton>
       <Dialog onClose={handleClose} open={open} fullWidth maxWidth={'sm'}>
         <DialogTitle disableTypography className={classes.dialogTitle}>
-          <CustomStepper activeStep={activeStep} timers={timers} />
+          <NightfallStepper activeStep={activeStep} timers={timers} />
         </DialogTitle>
         <DialogContent>
           <Grid
@@ -83,7 +85,7 @@ export default function TimerDialog({
             justify={'center'}
             className={classes.contentWrapper}
           >
-            <CountdownTimer
+            <NightfallCountdownTimer
               timers={timers}
               nextStepHandler={handleNextStep}
               closeHandler={handleClose}
