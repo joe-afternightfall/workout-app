@@ -8,7 +8,7 @@ import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { DASHBOARD_SCREEN_PATH } from '../../../../../configs/constants/app';
 import { AppTheme } from '../../../../../configs/theme/app-theme';
 import { getPhaseName } from 'workout-app-common-core';
-import PreviewDialog from './app-bar/PreviewDialog';
+import ExerciseListDrawer from './app-bar/ExerciseListDrawer';
 
 const useStyles = makeStyles((theme: AppTheme) =>
   createStyles({
@@ -80,7 +80,7 @@ const ActiveWorkoutAppBar = (props: ActiveWorkoutAppBarProps): JSX.Element => {
             justify={'flex-end'}
             alignItems={'flex-end'}
           >
-            <PreviewDialog />
+            <ExerciseListDrawer />
           </Grid>
         </Grid>
       </Toolbar>

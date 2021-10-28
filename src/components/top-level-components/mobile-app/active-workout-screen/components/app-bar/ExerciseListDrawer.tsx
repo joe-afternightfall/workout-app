@@ -19,6 +19,8 @@ import { State } from '../../../../../../configs/redux/store';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { AppTheme } from '../../../../../../configs/theme/app-theme';
 import PreviewListItem from '../../../workout-screen/views/3-preview-list/PreviewListItem';
+import CategoryHeader from './exercise-list-drawer/CategoryHeader';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForwardIos';
 
 const useStyles = makeStyles((theme: AppTheme) =>
   createStyles({
@@ -61,7 +63,7 @@ const listDivider = () => {
   );
 };
 
-const PreviewDialog = (props: PreviewDialogProps): JSX.Element => {
+const ExerciseListDrawer = (props: ExerciseListDrawerProps): JSX.Element => {
   const classes = useStyles();
   const { currentSegment, doneSegments, nextSegments } = props;
   const [open, setOpen] = useState(false);
@@ -83,101 +85,89 @@ const PreviewDialog = (props: PreviewDialogProps): JSX.Element => {
         <ListIcon />
       </IconButton>
       <Drawer open={open} anchor={'bottom'} onClose={closeDialog}>
-        <AppBar
-          position={'sticky'}
-          style={{ width: '100%' }}
-          className={classes.appBar}
-          color={'inherit'}
-        >
-          <Toolbar>
-            <Grid container alignItems={'center'}>
-              <Grid item xs={2} />
+        <div>
+          <AppBar
+            elevation={0}
+            position={'sticky'}
+            style={{ width: '100%' }}
+            className={classes.appBar}
+            color={'inherit'}
+          >
+            <Toolbar>
+              <Grid container alignItems={'center'}>
+                <Grid item xs={2} />
 
-              <Grid item xs={8} container justify={'center'}>
-                <Typography variant={'body1'} noWrap>
-                  {'Exercise List'}
-                </Typography>
-              </Grid>
-              <Grid item xs={2}>
-                <Button>{'close'}</Button>
-              </Grid>
-            </Grid>
-          </Toolbar>
-        </AppBar>
-        <List className={clsx(classes.list, classes.fullList)}>
-          {doneSegments.length > 0 && (
-            <>
-              <ListItem style={{ padding: 0 }}>
-                <ListItemText
-                  disableTypography
-                  primary={
-                    <Grid container justify={'center'}>
-                      <Grid item>
-                        <Typography>{'Done'}</Typography>
-                      </Grid>
-                    </Grid>
-                  }
-                />
-              </ListItem>
-              {doneSegments.map((segment, index) => {
-                return (
-                  <>
-                    <PreviewListItem key={index} segment={segment} />
-                    {listDivider()}
-                  </>
-                );
-              })}
-            </>
-          )}
-          <ListItem style={{ padding: 0 }}>
-            <ListItemText
-              disableTypography
-              primary={
-                <Grid container justify={'center'}>
-                  <Grid item>
-                    <Typography>{'Current'}</Typography>
-                  </Grid>
+                <Grid item xs={8} container justify={'center'}>
+                  <Typography variant={'body1'} noWrap>
+                    {'Exercise List'}
+                  </Typography>
                 </Grid>
-              }
-            />
-          </ListItem>
-
-          <PreviewListItem segment={currentSegment} />
-
-          {listDivider()}
-          <ListItem style={{ padding: 0 }}>
-            <ListItemText
-              disableTypography
-              primary={
-                <Grid container justify={'center'}>
-                  <Grid item>
-                    <Typography>{'Next'}</Typography>
-                  </Grid>
+                <Grid item xs={2}>
+                  <Button>{'close'}</Button>
                 </Grid>
-              }
-            />
-          </ListItem>
-          {nextSegments.map((segment, index) => {
-            return (
+              </Grid>
+            </Toolbar>
+          </AppBar>
+          <List className={clsx(classes.list, classes.fullList)}>
+            {doneSegments.length > 0 && (
               <>
-                <PreviewListItem key={index} segment={segment} />
-                {listDivider()}
+                <CategoryHeader title={'Done'} />
+                {doneSegments.map((segment, index) => {
+                  const displayDivider = doneSegments.length !== index + 1;
+                  return (
+                    <>
+                      <PreviewListItem key={index} segment={segment} />
+                      {displayDivider && listDivider()}
+                    </>
+                  );
+                })}
               </>
-            );
-          })}
-        </List>
+            )}
+            <CategoryHeader title={'Current'} />
+
+            <PreviewListItem segment={currentSegment} />
+
+            <CategoryHeader title={'Next'} />
+
+            {nextSegments.map((segment, index) => {
+              const displayDivider = nextSegments.length !== index + 1;
+              return (
+                <>
+                  <Grid container>
+                    <Grid item xs={10}>
+                      <PreviewListItem key={index} segment={segment} />
+                    </Grid>
+                    <Grid
+                      item
+                      xs={2}
+                      container
+                      alignItems={'center'}
+                      justify={'center'}
+                      onClick={() => alert('grid clicked')}
+                    >
+                      <IconButton>
+                        <ArrowForwardIcon />
+                      </IconButton>
+                    </Grid>
+                  </Grid>
+                  {displayDivider && listDivider()}
+                </>
+              );
+            })}
+          </List>
+        </div>
       </Drawer>
     </div>
   );
 };
 
-interface PreviewDialogProps {
+interface ExerciseListDrawerProps {
   nextSegments: Segment[];
   doneSegments: Segment[];
   currentSegment: Segment;
 }
 
-const mapStateToProps = (state: State): PreviewDialogProps => {
+const mapStateToProps = (state: State): ExerciseListDrawerProps => {
   const doneSegments: Segment[] = [];
 
   state.workoutState.activeWorkout.routine.phases.map((phase) => {
@@ -222,10 +212,10 @@ const mapStateToProps = (state: State): PreviewDialogProps => {
     doneSegments: doneSegments,
     currentSegment: currentSegment,
     nextSegments: nextSegments,
-  } as unknown as PreviewDialogProps;
+  } as unknown as ExerciseListDrawerProps;
 };
 
-const mapDispatchToProps = (): PreviewDialogProps =>
-  ({} as unknown as PreviewDialogProps);
+const mapDispatchToProps = (): ExerciseListDrawerProps =>
+  ({} as unknown as ExerciseListDrawerProps);
 
-export default connect(mapStateToProps, mapDispatchToProps)(PreviewDialog);
+export default connect(mapStateToProps, mapDispatchToProps)(ExerciseListDrawer);
