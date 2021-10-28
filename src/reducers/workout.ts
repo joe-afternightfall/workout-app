@@ -4,19 +4,19 @@ import {
   WorkoutActionTypes,
 } from '../creators/actions-workout';
 import {
-  EquipmentVO,
-  ExerciseVO,
+  Set,
+  Phase,
+  Workout,
+  PhaseVO,
   GripType,
   GripWidth,
+  ExerciseVO,
+  EquipmentVO,
   ParameterType,
-  Phase,
-  PhaseVO,
-  RoutineTemplateVO,
-  Set,
-  TrainingSetType,
-  Workout,
-  WorkoutCategoryVO,
   WorkoutExercise,
+  TrainingSetType,
+  WorkoutCategoryVO,
+  RoutineTemplateVO,
 } from 'workout-app-common-core';
 import { v4 as uuidv4 } from 'uuid';
 import * as ramda from 'ramda';
