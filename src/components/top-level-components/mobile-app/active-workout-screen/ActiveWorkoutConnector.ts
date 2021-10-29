@@ -40,7 +40,6 @@ const mapStateToProps = (state: State): ActiveWorkoutProps => {
   }
 
   return {
-    allExercises: state.workoutState.configs.exercises,
     currentSetIndex: state.workoutState.currentSetIndex,
     currentSegment: currentSegment,
     straightSet:

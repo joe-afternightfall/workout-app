@@ -1,33 +1,59 @@
 import React from 'react';
-import ExerciseDivider from './components/ExerciseDivider';
+import {
+  Segment,
+  isSuperset,
+  ExerciseVO,
+  getExerciseName,
+} from 'workout-app-common-core';
+import { connect } from 'react-redux';
 import ExerciseItem from './components/ExerciseItem';
+import ExerciseDivider from './components/ExerciseDivider';
+import { State } from '../../../../../configs/redux/store';
 
-export default function ActiveExercise(
-  props: ActiveExerciseProps
-): JSX.Element {
+const ActiveExercise = (
+  props: ActiveExerciseProps & PassedInProps
+): JSX.Element => {
+  const { segment, allExercises } = props;
   // todo: implement circuit set, pyramid, giant, drop
-  const exerciseTitles = props.exerciseTitles;
-  const superset = props.superset;
+  const superset = isSuperset(segment.trainingSetTypeId);
+  const titles: string[] = [];
+
+  segment.exercises.map((workoutExercise) => {
+    const exerciseName = getExerciseName(
+      allExercises,
+      workoutExercise.exerciseId
+    );
+    if (exerciseName) {
+      titles.push(exerciseName);
+    }
+  });
 
   return (
     <div style={{ height: superset ? '34vh' : '20vh' }}>
-      <ExerciseItem bottom={false} title={exerciseTitles[0].title} />
+      <ExerciseItem bottom={false} title={titles[0]} />
 
       {superset && (
         <>
           <ExerciseDivider />
-          <ExerciseItem bottom={true} title={exerciseTitles[1].title} />
+          <ExerciseItem bottom={true} title={titles[1]} />
         </>
       )}
     </div>
   );
+};
+
+interface ActiveExerciseProps {
+  allExercises: ExerciseVO[];
 }
 
-export interface Title {
-  title: string;
+interface PassedInProps {
+  segment: Segment;
 }
 
-export interface ActiveExerciseProps {
-  exerciseTitles: Title[];
-  superset: boolean;
-}
+const mapStateToProps = (state: State): ActiveExerciseProps => {
+  return {
+    allExercises: state.workoutState.configs.exercises,
+  } as unknown as ActiveExerciseProps;
+};
+
+export default connect(mapStateToProps)(ActiveExercise);

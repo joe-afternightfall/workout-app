@@ -21,6 +21,10 @@ import { AppTheme } from '../../../../../../configs/theme/app-theme';
 import PreviewListItem from '../../../workout-screen/views/3-preview-list/PreviewListItem';
 import CategoryHeader from './exercise-list-drawer/CategoryHeader';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForwardIos';
+import { Dispatch } from 'redux';
+import { openEditSet } from '../../../../../../creators/new-workout/workout-selections';
+import EditSet from '../../../workout-screen/views/3-preview-list/components/edit-set/EditSet';
+import ExerciseListAppBar from './exercise-list-drawer/ExerciseListAppBar';
 
 const useStyles = makeStyles((theme: AppTheme) =>
   createStyles({
@@ -65,7 +69,7 @@ const listDivider = () => {
 
 const ExerciseListDrawer = (props: ExerciseListDrawerProps): JSX.Element => {
   const classes = useStyles();
-  const { currentSegment, doneSegments, nextSegments } = props;
+  const { currentSegment, doneSegments, displayEditSet, nextSegments } = props;
   const [open, setOpen] = useState(false);
 
   const openDialog = () => {
@@ -85,29 +89,9 @@ const ExerciseListDrawer = (props: ExerciseListDrawerProps): JSX.Element => {
         <ListIcon />
       </IconButton>
       <Drawer open={open} anchor={'bottom'} onClose={closeDialog}>
+        {displayEditSet && <EditSet />}
         <div>
-          <AppBar
-            elevation={0}
-            position={'sticky'}
-            style={{ width: '100%' }}
-            className={classes.appBar}
-            color={'inherit'}
-          >
-            <Toolbar>
-              <Grid container alignItems={'center'}>
-                <Grid item xs={2} />
-
-                <Grid item xs={8} container justify={'center'}>
-                  <Typography variant={'body1'} noWrap>
-                    {'Exercise List'}
-                  </Typography>
-                </Grid>
-                <Grid item xs={2}>
-                  <Button>{'close'}</Button>
-                </Grid>
-              </Grid>
-            </Toolbar>
-          </AppBar>
+          <ExerciseListAppBar closeClickHandler={closeDialog} />
           <List className={clsx(classes.list, classes.fullList)}>
             {doneSegments.length > 0 && (
               <>
@@ -143,11 +127,9 @@ const ExerciseListDrawer = (props: ExerciseListDrawerProps): JSX.Element => {
                       container
                       alignItems={'center'}
                       justify={'center'}
-                      onClick={() => alert('grid clicked')}
+                      onClick={() => props.openEditSetHandler(segment.id)}
                     >
-                      <IconButton>
-                        <ArrowForwardIcon />
-                      </IconButton>
+                      <ArrowForwardIcon />
                     </Grid>
                   </Grid>
                   {displayDivider && listDivider()}
@@ -162,9 +144,11 @@ const ExerciseListDrawer = (props: ExerciseListDrawerProps): JSX.Element => {
 };
 
 interface ExerciseListDrawerProps {
+  displayEditSet: boolean;
   nextSegments: Segment[];
   doneSegments: Segment[];
   currentSegment: Segment;
+  openEditSetHandler: (segmentId: string) => void;
 }
 
 const mapStateToProps = (state: State): ExerciseListDrawerProps => {
@@ -212,10 +196,15 @@ const mapStateToProps = (state: State): ExerciseListDrawerProps => {
     doneSegments: doneSegments,
     currentSegment: currentSegment,
     nextSegments: nextSegments,
+    displayEditSet: state.workoutState.displayEditSet,
   } as unknown as ExerciseListDrawerProps;
 };
 
-const mapDispatchToProps = (): ExerciseListDrawerProps =>
-  ({} as unknown as ExerciseListDrawerProps);
+const mapDispatchToProps = (dispatch: Dispatch): ExerciseListDrawerProps =>
+  ({
+    openEditSetHandler: (segmentId: string) => {
+      dispatch(openEditSet(segmentId));
+    },
+  } as unknown as ExerciseListDrawerProps);
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExerciseListDrawer);
