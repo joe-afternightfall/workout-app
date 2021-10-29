@@ -53,9 +53,16 @@ const ExerciseListDrawer = (props: ExerciseListDrawerProps): JSX.Element => {
     setOpen(false);
   };
 
-  const toggleSelectedExercise = (segment: Segment | null) => {
-    setOpenSelectedExercise(true);
+  const toggleSelectedExercise = (open: boolean, segment: Segment | null) => {
+    setOpenSelectedExercise(open);
     setSelectedSegment(segment);
+  };
+
+  const closeAndReset = () => {
+    closeDialog();
+    setTimeout(() => {
+      toggleSelectedExercise(false, null);
+    }, 500);
   };
 
   return (
@@ -67,9 +74,15 @@ const ExerciseListDrawer = (props: ExerciseListDrawerProps): JSX.Element => {
       >
         <ListIcon />
       </IconButton>
-      <Drawer open={open} anchor={'bottom'} onClose={closeDialog}>
+      <Drawer open={open} anchor={'bottom'} onClose={closeAndReset}>
         <div className={classes.drawerContainer}>
-          <ExerciseListAppBar closeClickHandler={closeDialog} />
+          <ExerciseListAppBar
+            selectedSegment={openSelectedExercise}
+            closeClickHandler={closeAndReset}
+            goBackClickHandler={() => {
+              toggleSelectedExercise(false, null);
+            }}
+          />
           {openSelectedExercise && selectedSegment ? (
             <SelectedExercise segment={selectedSegment} />
           ) : (
@@ -108,7 +121,7 @@ const ExerciseListDrawer = (props: ExerciseListDrawerProps): JSX.Element => {
                         container
                         alignItems={'center'}
                         justify={'center'}
-                        onClick={() => toggleSelectedExercise(segment)}
+                        onClick={() => toggleSelectedExercise(true, segment)}
                       >
                         <ArrowForwardIcon />
                       </Grid>
