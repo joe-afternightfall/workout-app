@@ -5,7 +5,7 @@ import {
   Typography,
   IconButton,
 } from '@material-ui/core';
-import React, { useState } from 'react';
+import React from 'react';
 import ArrowBack from '@material-ui/icons/ArrowBackIos';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 

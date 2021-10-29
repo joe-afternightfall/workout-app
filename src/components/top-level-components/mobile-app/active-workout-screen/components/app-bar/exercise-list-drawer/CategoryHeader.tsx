@@ -1,20 +1,11 @@
-import React, { useState } from 'react';
-import CheckIcon from '@material-ui/icons/Check';
-import { WorkoutTimer } from 'workout-app-common-core';
-import {
-  Button,
-  Grid,
-  ListItem,
-  ListItemText,
-  Typography,
-} from '@material-ui/core';
+import React from 'react';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
+import { Grid, ListItem, ListItemText, Typography } from '@material-ui/core';
 
 const useStyles = makeStyles(() =>
   createStyles({
     root: {
       background: '#222222',
-      // padding: 0,
     },
   })
 );

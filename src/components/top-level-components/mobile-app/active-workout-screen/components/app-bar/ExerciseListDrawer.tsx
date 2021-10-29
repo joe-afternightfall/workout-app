@@ -1,4 +1,3 @@
-import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import React, { useState } from 'react';
 import ListIcon from '@material-ui/icons/List';
@@ -206,7 +205,4 @@ const mapStateToProps = (state: State): ExerciseListDrawerProps => {
   } as unknown as ExerciseListDrawerProps;
 };
 
-const mapDispatchToProps = (dispatch: Dispatch): ExerciseListDrawerProps =>
-  ({} as unknown as ExerciseListDrawerProps);
-
-export default connect(mapStateToProps, mapDispatchToProps)(ExerciseListDrawer);
+export default connect(mapStateToProps)(ExerciseListDrawer);

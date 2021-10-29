@@ -13,7 +13,6 @@ import {
   PhaseVO,
   RoutineTemplateVO,
   Set,
-  sortEntireRoutine,
   TrainingSetType,
   Workout,
   WorkoutCategoryVO,

@@ -6,10 +6,9 @@ import { Segment, ExerciseVO } from 'workout-app-common-core';
 import ActiveExercise from '../../../1-active-exercise/ActiveExercise';
 import { State } from '../../../../../../../configs/redux/store';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { AppTheme } from '../../../../../../../configs/theme/app-theme';
 import { startSelectedSegment } from '../../../../../../../creators/new-workout/active-workout';
 
-const useStyles = makeStyles((theme: AppTheme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     buttonWrapper: {
       height: '20vh',
