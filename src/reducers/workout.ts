@@ -4,19 +4,20 @@ import {
   WorkoutActionTypes,
 } from '../creators/actions-workout';
 import {
-  Set,
-  Phase,
-  Workout,
-  PhaseVO,
+  EquipmentVO,
+  ExerciseVO,
   GripType,
   GripWidth,
-  ExerciseVO,
-  EquipmentVO,
   ParameterType,
-  WorkoutExercise,
-  TrainingSetType,
-  WorkoutCategoryVO,
+  Phase,
+  PhaseVO,
   RoutineTemplateVO,
+  Set,
+  sortEntireRoutine,
+  TrainingSetType,
+  Workout,
+  WorkoutCategoryVO,
+  WorkoutExercise,
 } from 'workout-app-common-core';
 import { v4 as uuidv4 } from 'uuid';
 import * as ramda from 'ramda';
@@ -309,6 +310,23 @@ export default {
       case WorkoutActionTypes.WORKOUT_DONE:
         newState.activeWorkout.endTime = Date.now().toString();
         break;
+      case WorkoutActionTypes.START_SELECTED_SEGMENT: {
+        const currentSegmentIndex = newState.currentSegmentIndex;
+        const clonedCurrentPhase = ramda.clone(newState.currentPhase);
+        const selectedSegment = clonedCurrentPhase.segments.find(
+          (segment) => segment.id === action.segmentId
+        );
+        const currentSegment = clonedCurrentPhase.segments.find(
+          (segment) => segment.order === currentSegmentIndex
+        );
+        if (selectedSegment && currentSegment) {
+          currentSegment.order = selectedSegment.order;
+          selectedSegment.order = currentSegmentIndex;
+        }
+
+        newState.currentPhase = clonedCurrentPhase;
+        break;
+      }
       default:
         break;
     }

@@ -12,6 +12,7 @@ import {
 } from './new-workout/workout-selections';
 import {
   MarkCurrentSetAsDoneAction,
+  StartSelectedSegmentAction,
   WorkoutDoneAction,
 } from './new-workout/active-workout';
 import {
@@ -50,6 +51,7 @@ export enum WorkoutActionTypes {
   UPDATE_SEGMENT_ORDER = 'UPDATE_SEGMENT_ORDER',
   UPDATE_REST_BETWEEN = 'UPDATE_REST_BETWEEN',
   WORKOUT_DONE = 'WORKOUT_DONE',
+  START_SELECTED_SEGMENT = 'START_SELECTED_SEGMENT',
 }
 
 export type WorkoutActions =
@@ -73,4 +75,5 @@ export type WorkoutActions =
   | UpdateRestBetweenAction
   | WorkoutDoneAction
   | LoadRoutineTemplatesAction
-  | LoadExercisesAction;
+  | LoadExercisesAction
+  | StartSelectedSegmentAction;

@@ -84,7 +84,10 @@ const ExerciseListDrawer = (props: ExerciseListDrawerProps): JSX.Element => {
             }}
           />
           {openSelectedExercise && selectedSegment ? (
-            <SelectedExercise segment={selectedSegment} />
+            <SelectedExercise
+              segment={selectedSegment}
+              closeHandler={closeAndReset}
+            />
           ) : (
             <List>
               {doneSegments.length > 0 && (
@@ -147,28 +150,27 @@ interface ExerciseListDrawerProps {
 const mapStateToProps = (state: State): ExerciseListDrawerProps => {
   const doneSegments: Segment[] = [];
 
-  state.workoutState.activeWorkout.routine.phases.map((phase) => {
-    phase.segments.map((segment) => {
-      let numberOfExercisesDone = 0;
-      segment.exercises.map((exercise) => {
-        const numberOfSets = exercise.sets.length;
-        let markedDoneSets = 0;
-        exercise.sets.map((set) => {
-          if (set.markedDone) {
-            markedDoneSets++;
-          }
-        });
-        if (numberOfSets === markedDoneSets) {
-          numberOfExercisesDone++;
+  const currentPhase = state.workoutState.currentPhase;
+
+  currentPhase.segments.map((segment) => {
+    let numberOfExercisesDone = 0;
+    segment.exercises.map((exercise) => {
+      const numberOfSets = exercise.sets.length;
+      let markedDoneSets = 0;
+      exercise.sets.map((set) => {
+        if (set.markedDone) {
+          markedDoneSets++;
         }
       });
-      if (numberOfExercisesDone === segment.exercises.length) {
-        doneSegments.push(segment);
+      if (numberOfSets === markedDoneSets) {
+        numberOfExercisesDone++;
       }
     });
+    if (numberOfExercisesDone === segment.exercises.length) {
+      doneSegments.push(segment);
+    }
   });
 
-  const currentPhase = state.workoutState.currentPhase;
   const currentSegment = currentPhase.segments.find(
     (segment: Segment) =>
       segment.order === state.workoutState.currentSegmentIndex
@@ -176,13 +178,11 @@ const mapStateToProps = (state: State): ExerciseListDrawerProps => {
 
   const nextSegments: Segment[] = [];
 
-  state.workoutState.activeWorkout.routine.phases.map((phase) => {
-    phase.segments.map((segment) => {
-      const foundIndex = doneSegments.indexOf(segment);
-      if (foundIndex === -1 && segment !== currentSegment) {
-        nextSegments.push(segment);
-      }
-    });
+  currentPhase.segments.map((segment) => {
+    const foundIndex = doneSegments.indexOf(segment);
+    if (foundIndex === -1 && segment !== currentSegment) {
+      nextSegments.push(segment);
+    }
   });
 
   return {
