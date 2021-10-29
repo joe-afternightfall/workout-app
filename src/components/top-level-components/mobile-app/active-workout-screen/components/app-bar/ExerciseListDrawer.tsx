@@ -12,6 +12,7 @@ import SelectedExercise from './exercise-list-drawer/SelectedExercise';
 import ExerciseListAppBar from './exercise-list-drawer/ExerciseListAppBar';
 import { Grid, List, Drawer, ListItem, IconButton } from '@material-ui/core';
 import PreviewListItem from '../../../workout-screen/views/3-preview-list/PreviewListItem';
+import CheckIcon from '@material-ui/icons/Check';
 
 const useStyles = makeStyles((theme: AppTheme) =>
   createStyles({
@@ -20,6 +21,18 @@ const useStyles = makeStyles((theme: AppTheme) =>
     },
     menuButton: {
       color: theme.palette.custom.colors.active,
+    },
+    checkedIcon: {
+      zIndex: 1,
+      position: 'absolute',
+      width: '13vh',
+      height: '7vh',
+      top: '50%',
+      transform: 'translateY(-50%)',
+    },
+    doneWrapper: {
+      opacity: '0.4',
+      position: 'relative',
     },
   })
 );
@@ -96,10 +109,11 @@ const ExerciseListDrawer = (props: ExerciseListDrawerProps): JSX.Element => {
                   {doneSegments.map((segment, index) => {
                     const displayDivider = doneSegments.length !== index + 1;
                     return (
-                      <>
-                        <PreviewListItem key={index} segment={segment} />
+                      <div key={index} className={classes.doneWrapper}>
+                        <CheckIcon className={classes.checkedIcon} />
+                        <PreviewListItem segment={segment} />
                         {displayDivider && listDivider()}
-                      </>
+                      </div>
                     );
                   })}
                 </>
