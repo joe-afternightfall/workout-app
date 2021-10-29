@@ -26,10 +26,8 @@ import {
 } from '../../../../../../../../creators/new-workout/preview-workout';
 import StraightSetRow from '../../../../../shared/set-rows/StraightSetRow';
 import EditSupersetRow from '../../../../../shared/set-rows/EditSupersetRow';
-import ActiveExercise, {
-  Title,
-} from '../../../../../active-workout-screen/1-active-exercise/ActiveExercise';
 import { buildSetFieldInfo } from '../../../../../../../../utils/info-builder';
+import ActiveExercise from '../../../../../active-workout-screen/1-active-exercise/ActiveExercise';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -46,7 +44,6 @@ const EditSet = ({
   segment,
   builtSets,
   display,
-  titles,
   parameterTypeId,
   deleteClickHandler,
   addSetClickHandler,
@@ -61,9 +58,7 @@ const EditSet = ({
 
       <Grid container>
         <Grid item xs={12}>
-          {display && (
-            <ActiveExercise superset={superset} exerciseTitles={titles} />
-          )}
+          {display && <ActiveExercise segment={segment} />}
         </Grid>
 
         <Grid item xs={12}>
@@ -122,11 +117,10 @@ const EditSet = ({
   );
 };
 
-export interface EditSetProps {
+interface EditSetProps {
   segment: Segment;
   builtSets: BuiltSets;
   superset: boolean;
-  titles: Title[];
   alternateSides: boolean;
   display: boolean;
   segmentId: string;
@@ -155,7 +149,6 @@ const mapStateToProps = (state: State): EditSetProps => {
       });
     });
 
-  const titles: Title[] = [];
   let superset = false;
   let parameterTypeId = '';
   let alternateSides = false;
@@ -168,9 +161,6 @@ const mapStateToProps = (state: State): EditSetProps => {
         exercise.exerciseId
       );
       if (foundExercise) {
-        titles.push({
-          title: foundExercise.name,
-        });
         parameterTypeId = foundExercise.parameterTypeId;
         alternateSides = foundExercise.alternateSides;
       }
@@ -183,7 +173,6 @@ const mapStateToProps = (state: State): EditSetProps => {
   );
 
   return {
-    titles: titles || [],
     superset: superset,
     segment: foundSegment,
     builtSets: builtSets,

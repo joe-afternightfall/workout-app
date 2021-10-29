@@ -1,12 +1,6 @@
 import React from 'react';
 import { Grid, Slide } from '@material-ui/core';
-import {
-  ExerciseVO,
-  Segment,
-  BuiltSets,
-  WorkoutExercise,
-  getExerciseName,
-} from 'workout-app-common-core';
+import { Segment, BuiltSets } from 'workout-app-common-core';
 import UpNextCard from './3-up-next-card/UpNextCard';
 import ActiveWorkoutAppBar from './components/AppBar';
 import ActiveSuperset from './2-active-set/ActiveSuperset';
@@ -28,7 +22,6 @@ export default function ActiveWorkout({
   lastSegment,
   straightSet,
   builtSets,
-  allExercises,
   currentSegment,
   currentSetIndex,
   lastExerciseOfWorkout,
@@ -73,23 +66,7 @@ export default function ActiveWorkout({
 
         <Grid container style={{ height: '87vh' }}>
           <Grid item xs={12}>
-            <ActiveExercise
-              superset={superset}
-              exerciseTitles={
-                currentSegment
-                  ? currentSegment.exercises.map(
-                      (exercise: WorkoutExercise) => {
-                        return {
-                          title: getExerciseName(
-                            allExercises,
-                            exercise.exerciseId
-                          ),
-                        };
-                      }
-                    )
-                  : []
-              }
-            />
+            <ActiveExercise segment={currentSegment} />
           </Grid>
 
           <Grid item xs={12}>
@@ -125,7 +102,6 @@ export default function ActiveWorkout({
 }
 
 export interface ActiveWorkoutProps {
-  allExercises: ExerciseVO[];
   currentSetIndex: number;
   superset: boolean;
   straightSet: boolean;

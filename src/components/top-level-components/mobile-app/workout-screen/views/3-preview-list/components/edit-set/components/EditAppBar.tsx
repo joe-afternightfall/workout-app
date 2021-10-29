@@ -78,7 +78,7 @@ const EditAppBar = (props: EditAppBarProps): JSX.Element => {
   );
 };
 
-export interface EditAppBarProps {
+interface EditAppBarProps {
   closeClickHandler: () => void;
 }
 

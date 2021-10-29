@@ -34,6 +34,38 @@ const useStyles = makeStyles((theme: AppTheme) =>
   })
 );
 
+const buildField = (
+  info: SetTextFieldInfoProps,
+  activeSet: boolean,
+  markedDone: boolean,
+  type: 'reps' | 'weight' | 'sec',
+  fullLength: boolean
+) => {
+  let value = 0;
+  switch (type) {
+    case 'reps':
+      value = info.reps ? info.reps : 0;
+      break;
+    case 'weight':
+      value = info.weight ? info.weight : 0;
+      break;
+    case 'sec':
+      value = info.duration ? info.duration.seconds : 0;
+      break;
+  }
+  return (
+    <SetTextField
+      value={value}
+      fullLength={fullLength}
+      setType={type}
+      setId={info.setId}
+      alternateSides={info.alternateSides}
+      activeSet={activeSet}
+      markedDone={markedDone}
+    />
+  );
+};
+
 export default function BaseSet({
   info,
   activeSet,
@@ -55,55 +87,21 @@ export default function BaseSet({
   if (isWeightsAndReps(info.parameterTypeId)) {
     display = (
       <>
-        <SetTextField
-          value={info.weight ? info.weight : 0}
-          fullLength={false}
-          setType={'weight'}
-          setId={info.setId}
-          alternateSides={info.alternateSides}
-          activeSet={activeSet}
-          markedDone={markedDone}
-        />
+        {buildField(info, activeSet, markedDone, 'weight', false)}
 
         <SetDivider />
 
-        <SetTextField
-          value={info.reps ? info.reps : 0}
-          fullLength={false}
-          setType={'reps'}
-          setId={info.setId}
-          alternateSides={info.alternateSides}
-          activeSet={activeSet}
-          markedDone={markedDone}
-        />
+        {buildField(info, activeSet, markedDone, 'reps', false)}
       </>
     );
   } else if (isRepsOnly(info.parameterTypeId)) {
-    display = (
-      <SetTextField
-        value={info.reps ? info.reps : 0}
-        fullLength={true}
-        setType={'reps'}
-        setId={info.setId}
-        alternateSides={info.alternateSides}
-        activeSet={activeSet}
-        markedDone={markedDone}
-      />
-    );
+    display = buildField(info, activeSet, markedDone, 'reps', true);
   } else if (isDuration(info.parameterTypeId)) {
     display =
       info.timers && info.shouldDisplayTimer ? (
         <Grid container>
           <Grid item xs={8}>
-            <SetTextField
-              value={info.duration ? info.duration.seconds : 0}
-              fullLength={true}
-              setType={'sec'}
-              setId={info.setId}
-              alternateSides={info.alternateSides}
-              activeSet={activeSet}
-              markedDone={markedDone}
-            />
+            {buildField(info, activeSet, markedDone, 'sec', true)}
           </Grid>
           <Grid
             item
@@ -121,15 +119,7 @@ export default function BaseSet({
           </Grid>
         </Grid>
       ) : (
-        <SetTextField
-          value={info.duration ? info.duration.seconds : 0}
-          fullLength={true}
-          setType={'sec'}
-          setId={info.setId}
-          alternateSides={info.alternateSides}
-          activeSet={activeSet}
-          markedDone={markedDone}
-        />
+        buildField(info, activeSet, markedDone, 'sec', true)
       );
   }
 

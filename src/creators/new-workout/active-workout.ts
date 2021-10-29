@@ -32,3 +32,17 @@ export const workoutDone = (): WorkoutDoneAction => {
     type: WorkoutActionTypes.WORKOUT_DONE,
   };
 };
+
+export interface StartSelectedSegmentAction {
+  type: WorkoutActionTypes.START_SELECTED_SEGMENT;
+  segmentId: string;
+}
+
+export const startSelectedSegment = (
+  segmentId: string
+): StartSelectedSegmentAction => {
+  return {
+    type: WorkoutActionTypes.START_SELECTED_SEGMENT,
+    segmentId: segmentId,
+  };
+};

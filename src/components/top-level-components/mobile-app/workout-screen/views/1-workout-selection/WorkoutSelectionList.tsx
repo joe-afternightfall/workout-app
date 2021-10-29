@@ -38,7 +38,7 @@ interface PassedInProps {
   goForwardHandler: () => void;
 }
 
-export interface WorkoutSelectionListProps {
+interface WorkoutSelectionListProps {
   workoutCategories: WorkoutCategoryVO[];
   selectWorkoutCategoryHandler: (category: WorkoutCategoryVO) => void;
 }

@@ -37,25 +37,7 @@ const PreviewListItem = (
     isStraightSet(props.segment.trainingSetTypeId) ||
     isCircuitSet(props.segment.trainingSetTypeId)
   ) {
-    return props.displayEditOptions ? (
-      <Draggable key={props.segment.id}>
-        <EditOptions
-          segmentId={props.segment.id}
-          orderNumber={props.segment.order}
-        />
-
-        <Card className={classes.editingCard}>
-          <SingleSetItem
-            segmentId={props.segment.id}
-            exerciseTitle={getExerciseName(
-              props.exercises,
-              sortedExercises[0].exerciseId
-            )}
-            repsAndSets={buildRepsAndSets(sortedExercises[0].sets)}
-          />
-        </Card>
-      </Draggable>
-    ) : (
+    const singleSetItem = (
       <SingleSetItem
         segmentId={props.segment.id}
         exerciseTitle={getExerciseName(
@@ -65,35 +47,20 @@ const PreviewListItem = (
         repsAndSets={buildRepsAndSets(sortedExercises[0].sets)}
       />
     );
-  } else if (isSuperset(props.segment.trainingSetTypeId)) {
     return props.displayEditOptions ? (
       <Draggable key={props.segment.id}>
         <EditOptions
-          superset
           segmentId={props.segment.id}
           orderNumber={props.segment.order}
         />
 
-        <Card className={classes.editingCard}>
-          <SuperSetItem
-            segmentId={props.segment.id}
-            displayEditOptions={props.displayEditOptions}
-            firstExerciseTitle={getExerciseName(
-              props.exercises,
-              sortedExercises[0].exerciseId
-            )}
-            firstExerciseRepsAndSets={buildRepsAndSets(sortedExercises[0].sets)}
-            secondExerciseTitle={getExerciseName(
-              props.exercises,
-              sortedExercises[1].exerciseId
-            )}
-            secondExerciseRepsAndSets={buildRepsAndSets(
-              sortedExercises[1].sets
-            )}
-          />
-        </Card>
+        <Card className={classes.editingCard}>{singleSetItem}</Card>
       </Draggable>
     ) : (
+      singleSetItem
+    );
+  } else if (isSuperset(props.segment.trainingSetTypeId)) {
+    const superSetItem = (
       <SuperSetItem
         segmentId={props.segment.id}
         displayEditOptions={props.displayEditOptions}
@@ -108,6 +75,18 @@ const PreviewListItem = (
         )}
         secondExerciseRepsAndSets={buildRepsAndSets(sortedExercises[1].sets)}
       />
+    );
+    return props.displayEditOptions ? (
+      <Draggable key={props.segment.id}>
+        <EditOptions
+          superset
+          segmentId={props.segment.id}
+          orderNumber={props.segment.order}
+        />
+        <Card className={classes.editingCard}>{superSetItem}</Card>
+      </Draggable>
+    ) : (
+      superSetItem
     );
   } else {
     return <React.Fragment />;

@@ -309,6 +309,23 @@ export default {
       case WorkoutActionTypes.WORKOUT_DONE:
         newState.activeWorkout.endTime = Date.now().toString();
         break;
+      case WorkoutActionTypes.START_SELECTED_SEGMENT: {
+        const currentSegmentIndex = newState.currentSegmentIndex;
+        const clonedCurrentPhase = ramda.clone(newState.currentPhase);
+        const selectedSegment = clonedCurrentPhase.segments.find(
+          (segment) => segment.id === action.segmentId
+        );
+        const currentSegment = clonedCurrentPhase.segments.find(
+          (segment) => segment.order === currentSegmentIndex
+        );
+        if (selectedSegment && currentSegment) {
+          currentSegment.order = selectedSegment.order;
+          selectedSegment.order = currentSegmentIndex;
+        }
+
+        newState.currentPhase = clonedCurrentPhase;
+        break;
+      }
       default:
         break;
     }
