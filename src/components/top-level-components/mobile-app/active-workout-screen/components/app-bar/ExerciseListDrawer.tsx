@@ -1,54 +1,25 @@
-import clsx from 'clsx';
-import {
-  Grid,
-  List,
-  AppBar,
-  Button,
-  Drawer,
-  Toolbar,
-  ListItem,
-  Typography,
-  IconButton,
-  ListItemText,
-} from '@material-ui/core';
+import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import React, { useState } from 'react';
 import ListIcon from '@material-ui/icons/List';
 import { Segment } from 'workout-app-common-core';
 import { State } from '../../../../../../configs/redux/store';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForwardIos';
+import CategoryHeader from './exercise-list-drawer/CategoryHeader';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { AppTheme } from '../../../../../../configs/theme/app-theme';
-import PreviewListItem from '../../../workout-screen/views/3-preview-list/PreviewListItem';
-import CategoryHeader from './exercise-list-drawer/CategoryHeader';
-import ArrowForwardIcon from '@material-ui/icons/ArrowForwardIos';
-import { Dispatch } from 'redux';
-import { openEditSet } from '../../../../../../creators/new-workout/workout-selections';
-import EditSet from '../../../workout-screen/views/3-preview-list/components/edit-set/EditSet';
+import SelectedExercise from './exercise-list-drawer/SelectedExercise';
 import ExerciseListAppBar from './exercise-list-drawer/ExerciseListAppBar';
+import { Grid, List, Drawer, ListItem, IconButton } from '@material-ui/core';
+import PreviewListItem from '../../../workout-screen/views/3-preview-list/PreviewListItem';
 
 const useStyles = makeStyles((theme: AppTheme) =>
   createStyles({
-    list: {
-      width: 250,
-      height: '75vh',
-    },
-    fullList: {
-      width: 'auto',
+    drawerContainer: {
+      height: '90vh',
     },
     menuButton: {
       color: theme.palette.custom.colors.active,
-    },
-    subHeader: {
-      zIndex: 2,
-      textAlign: 'center',
-    },
-    stripe: {
-      color: 'white',
-      background:
-        'repeating-linear-gradient(-55deg, #222, #222 10px, #333 10px, #333 20px)',
-    },
-    appBar: {
-      width: '100%',
     },
   })
 );
@@ -69,8 +40,10 @@ const listDivider = () => {
 
 const ExerciseListDrawer = (props: ExerciseListDrawerProps): JSX.Element => {
   const classes = useStyles();
-  const { currentSegment, doneSegments, displayEditSet, nextSegments } = props;
+  const { currentSegment, doneSegments, nextSegments } = props;
   const [open, setOpen] = useState(false);
+  const [openSelectedExercise, setOpenSelectedExercise] = useState(false);
+  const [selectedSegment, setSelectedSegment] = useState<Segment | null>(null);
 
   const openDialog = () => {
     setOpen(true);
@@ -79,6 +52,12 @@ const ExerciseListDrawer = (props: ExerciseListDrawerProps): JSX.Element => {
   const closeDialog = () => {
     setOpen(false);
   };
+
+  const toggleSelectedExercise = (segment: Segment | null) => {
+    setOpenSelectedExercise(true);
+    setSelectedSegment(segment);
+  };
+
   return (
     <div>
       <IconButton
@@ -89,54 +68,57 @@ const ExerciseListDrawer = (props: ExerciseListDrawerProps): JSX.Element => {
         <ListIcon />
       </IconButton>
       <Drawer open={open} anchor={'bottom'} onClose={closeDialog}>
-        {displayEditSet && <EditSet />}
-        <div>
+        <div className={classes.drawerContainer}>
           <ExerciseListAppBar closeClickHandler={closeDialog} />
-          <List className={clsx(classes.list, classes.fullList)}>
-            {doneSegments.length > 0 && (
-              <>
-                <CategoryHeader title={'Done'} />
-                {doneSegments.map((segment, index) => {
-                  const displayDivider = doneSegments.length !== index + 1;
-                  return (
-                    <>
-                      <PreviewListItem key={index} segment={segment} />
-                      {displayDivider && listDivider()}
-                    </>
-                  );
-                })}
-              </>
-            )}
-            <CategoryHeader title={'Current'} />
-
-            <PreviewListItem segment={currentSegment} />
-
-            <CategoryHeader title={'Next'} />
-
-            {nextSegments.map((segment, index) => {
-              const displayDivider = nextSegments.length !== index + 1;
-              return (
+          {openSelectedExercise && selectedSegment ? (
+            <SelectedExercise segment={selectedSegment} />
+          ) : (
+            <List>
+              {doneSegments.length > 0 && (
                 <>
-                  <Grid container>
-                    <Grid item xs={10}>
-                      <PreviewListItem key={index} segment={segment} />
-                    </Grid>
-                    <Grid
-                      item
-                      xs={2}
-                      container
-                      alignItems={'center'}
-                      justify={'center'}
-                      onClick={() => props.openEditSetHandler(segment.id)}
-                    >
-                      <ArrowForwardIcon />
-                    </Grid>
-                  </Grid>
-                  {displayDivider && listDivider()}
+                  <CategoryHeader title={'Done'} />
+                  {doneSegments.map((segment, index) => {
+                    const displayDivider = doneSegments.length !== index + 1;
+                    return (
+                      <>
+                        <PreviewListItem key={index} segment={segment} />
+                        {displayDivider && listDivider()}
+                      </>
+                    );
+                  })}
                 </>
-              );
-            })}
-          </List>
+              )}
+              <CategoryHeader title={'Current'} />
+
+              <PreviewListItem segment={currentSegment} />
+
+              <CategoryHeader title={'Next'} />
+
+              {nextSegments.map((segment, index) => {
+                const displayDivider = nextSegments.length !== index + 1;
+                return (
+                  <>
+                    <Grid container>
+                      <Grid item xs={10}>
+                        <PreviewListItem key={index} segment={segment} />
+                      </Grid>
+                      <Grid
+                        item
+                        xs={2}
+                        container
+                        alignItems={'center'}
+                        justify={'center'}
+                        onClick={() => toggleSelectedExercise(segment)}
+                      >
+                        <ArrowForwardIcon />
+                      </Grid>
+                    </Grid>
+                    {displayDivider && listDivider()}
+                  </>
+                );
+              })}
+            </List>
+          )}
         </div>
       </Drawer>
     </div>
@@ -144,11 +126,9 @@ const ExerciseListDrawer = (props: ExerciseListDrawerProps): JSX.Element => {
 };
 
 interface ExerciseListDrawerProps {
-  displayEditSet: boolean;
   nextSegments: Segment[];
   doneSegments: Segment[];
   currentSegment: Segment;
-  openEditSetHandler: (segmentId: string) => void;
 }
 
 const mapStateToProps = (state: State): ExerciseListDrawerProps => {
@@ -196,15 +176,10 @@ const mapStateToProps = (state: State): ExerciseListDrawerProps => {
     doneSegments: doneSegments,
     currentSegment: currentSegment,
     nextSegments: nextSegments,
-    displayEditSet: state.workoutState.displayEditSet,
   } as unknown as ExerciseListDrawerProps;
 };
 
 const mapDispatchToProps = (dispatch: Dispatch): ExerciseListDrawerProps =>
-  ({
-    openEditSetHandler: (segmentId: string) => {
-      dispatch(openEditSet(segmentId));
-    },
-  } as unknown as ExerciseListDrawerProps);
+  ({} as unknown as ExerciseListDrawerProps);
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExerciseListDrawer);
