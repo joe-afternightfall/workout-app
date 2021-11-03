@@ -69,11 +69,11 @@ const mapStateToProps = (
 
   const exercisesForId: ExerciseVO[] = [];
 
-  allExercises.map((exercise) => {
-    if (exercise.muscleGroupIds.includes(ownProps.selectedMuscleId)) {
-      exercisesForId.push(exercise);
-    }
-  });
+  // allExercises.map((exercise) => {
+  //   if (exercise.muscleGroupIds.includes(ownProps.selectedMuscleId)) {
+  //     exercisesForId.push(exercise);
+  //   }
+  // });
 
   return {
     exercisesForId: exercisesForId,

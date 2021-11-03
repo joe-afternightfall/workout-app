@@ -4,18 +4,21 @@ import {
   WorkoutActionTypes,
 } from '../creators/actions-workout';
 import {
-  EquipmentVO,
   ExerciseVO,
-  GripType,
-  GripWidth,
-  ParameterType,
+  GripTypeVO,
+  GripWidthVO,
+  ManikinMuscleGroupVO,
+  MuscleTargetTypeVO,
+  MuscleVO,
+  ParameterTypeVO,
   Phase,
   PhaseVO,
   RoutineTemplateVO,
   Set,
-  TrainingSetType,
+  TrainingSetTypeVO,
   Workout,
   WorkoutCategoryVO,
+  WorkoutEquipmentVO,
   WorkoutExercise,
 } from 'workout-app-common-core';
 import { v4 as uuidv4 } from 'uuid';
@@ -56,20 +59,41 @@ export default {
       case LOCATION_CHANGE:
         newState.currentLocation = action.payload.location.pathname;
         break;
-      case WorkoutActionTypes.INITIALIZE:
-        newState.configs.trainingSetTypes = action.configs.trainingSetTypes;
-        newState.configs.phases = action.configs.phases;
-        newState.configs.workoutCategories = action.configs.workoutCategories;
-        newState.configs.equipmentList = action.configs.equipmentList;
-        newState.configs.gripWidths = action.configs.gripWidths;
-        newState.configs.gripTypes = action.configs.gripTypes;
-        newState.configs.parameterTypes = action.configs.parameterTypes;
-        break;
       case WorkoutActionTypes.LOAD_EXERCISES:
         newState.configs.exercises = action.exercises;
         break;
       case WorkoutActionTypes.LOAD_ROUTINE_TEMPLATES:
         newState.configs.routineTemplates = action.templates;
+        break;
+      case WorkoutActionTypes.LOAD_GRIP_TYPES:
+        newState.configs.gripTypes = action.gripTypes;
+        break;
+      case WorkoutActionTypes.LOAD_GRIP_WIDTHS:
+        newState.configs.gripWidths = action.gripWidths;
+        break;
+      case WorkoutActionTypes.LOAD_MANIKIN_MUSCLE_GROUP:
+        newState.configs.manikinMuscleGroups = action.manikinMuscleGroups;
+        break;
+      case WorkoutActionTypes.LOAD_MUSCLES:
+        newState.configs.muscles = action.muscles;
+        break;
+      case WorkoutActionTypes.LOAD_MUSCLE_TARGET_TYPES:
+        newState.configs.muscleTargetTypes = action.muscleTargetTypes;
+        break;
+      case WorkoutActionTypes.LOAD_PARAMETER_TYPES:
+        newState.configs.parameterTypes = action.parameterTypes;
+        break;
+      case WorkoutActionTypes.LOAD_PHASES:
+        newState.configs.phases = action.phases;
+        break;
+      case WorkoutActionTypes.LOAD_TRAINING_SET_TYPES:
+        newState.configs.trainingSetTypes = action.trainingSetTypes;
+        break;
+      case WorkoutActionTypes.LOAD_WORKOUT_CATEGORIES:
+        newState.configs.workoutCategories = action.workoutCategories;
+        break;
+      case WorkoutActionTypes.LOAD_WORKOUT_EQUIPMENT:
+        newState.configs.workoutEquipment = action.workoutEquipment;
         break;
       case WorkoutActionTypes.SELECTED_WORKOUT_CATEGORY:
         newState.selectedWorkoutCategory = action.category;
@@ -337,15 +361,18 @@ export default {
 export interface WorkoutState {
   currentLocation: string;
   configs: {
-    trainingSetTypes: TrainingSetType[];
-    phases: PhaseVO[];
-    workoutCategories: WorkoutCategoryVO[];
-    equipmentList: EquipmentVO[];
-    gripWidths: GripWidth[];
-    gripTypes: GripType[];
-    parameterTypes: ParameterType[];
     exercises: ExerciseVO[];
     routineTemplates: RoutineTemplateVO[];
+    gripTypes: GripTypeVO[];
+    gripWidths: GripWidthVO[];
+    trainingSetTypes: TrainingSetTypeVO[];
+    phases: PhaseVO[];
+    workoutCategories: WorkoutCategoryVO[];
+    manikinMuscleGroups: ManikinMuscleGroupVO[];
+    muscles: MuscleVO[];
+    muscleTargetTypes: MuscleTargetTypeVO[];
+    parameterTypes: ParameterTypeVO[];
+    workoutEquipment: WorkoutEquipmentVO[];
   };
   selectedWorkoutCategory: WorkoutCategoryVO;
   selectedRoutineTemplate: RoutineTemplateVO;

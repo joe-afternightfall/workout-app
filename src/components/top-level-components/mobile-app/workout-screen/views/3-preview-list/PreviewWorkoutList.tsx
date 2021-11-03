@@ -12,7 +12,6 @@ import {
   PhaseVO,
   Phase,
   Segment,
-  getPhaseName,
   sortPhaseSegments,
 } from 'workout-app-common-core';
 import { MOBILE_ACTIVE_WORKOUT_SCREEN_PATH } from '../../../../../../configs/constants/app';
@@ -21,6 +20,7 @@ import { startWorkout } from '../../../../../../creators/new-workout/workout-sel
 import BottomActionButtons from './components/edit-set/components/BottomActionButtons';
 import { Container, DropResult } from 'react-smooth-dnd';
 import { updateSegmentOrder } from '../../../../../../creators/new-workout/update-workout';
+import { getPhaseName } from '../../../../../../utils/get-name';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -73,7 +73,7 @@ const PreviewWorkoutList = (props: PreviewWorkoutListProps): JSX.Element => {
             })}
             subheader={
               <ListSubheader component={'div'} className={classes.subHeader}>
-                {getPhaseName(phase.phaseId)}
+                {getPhaseName(props.configPhases, phase.phaseId)}
               </ListSubheader>
             }
           >

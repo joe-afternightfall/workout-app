@@ -12,7 +12,6 @@ import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { getWorkoutsForUser } from '../../../services/workout-service';
 import { DASHBOARD_SCREEN_PATH } from '../../../configs/constants/app';
 import { loadUsersWorkouts, validatedUser } from '../../../creators/user-info';
-import { initializeWorkoutConfigs } from '../../../creators/initialize';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -89,7 +88,6 @@ const mapDispatchToProps = (dispatch: Dispatch): SignInScreenProps =>
       );
       const workouts = await getWorkoutsForUser(email);
       dispatch(loadUsersWorkouts(workouts));
-      dispatch(initializeWorkoutConfigs());
     },
   } as unknown as SignInScreenProps);
 

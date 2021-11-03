@@ -14,12 +14,34 @@ import { ExerciseTypeVO } from '../configs/old-models/ExerciseTypeVO';
 import { CircuitTemplateVO } from '../configs/old-models/CircuitTemplateVO';
 import {
   ExerciseVO,
+  RoutineTemplateVO,
+  getAllActiveGripTypes,
+  getAllActiveGripWidths,
+  getAllActiveManikinMuscleGroups,
+  getAllActiveMuscles,
+  getAllActiveMuscleTargetTypes,
+  getAllActiveParameterTypes,
+  getAllActivePhases,
+  getAllActiveTrainingSetTypes,
+  getAllActiveWorkoutCategories,
+  getAllActiveWorkoutEquipment,
   getAllExercises,
   getAllRoutineTemplates,
-  RoutineTemplateVO,
 } from 'workout-app-common-core';
-import { loadRoutineTemplates } from '../creators/new-workout/routine-template';
-import { loadExercises } from '../creators/new-workout/exercises';
+import {
+  loadExercises,
+  loadGripTypes,
+  loadGripWidths,
+  loadManikinMuscleGroups,
+  loadMuscles,
+  loadMuscleTargetTypes,
+  loadParameterTypes,
+  loadPhases,
+  loadRoutineTemplates,
+  loadTrainingSetTypes,
+  loadWorkoutCategories,
+  loadWorkoutEquipment,
+} from '../creators/new-workout/load-workout-configs';
 
 export const updateCircuitTypes = async (store: Store): Promise<void> => {
   const circuits: CircuitTypeVO[] = await getAllCircuitTypes();
@@ -58,4 +80,56 @@ export const updateRoutineTemplates = async (store: Store): Promise<void> => {
 export const updateExercises = async (store: Store): Promise<void> => {
   const exercises: ExerciseVO[] = await getAllExercises();
   store.dispatch(loadExercises(exercises));
+};
+
+export const updateGripTypes = async (store: Store): Promise<void> => {
+  const activeGripTypes = await getAllActiveGripTypes();
+  store.dispatch(loadGripTypes(activeGripTypes));
+};
+
+export const updateGripWidths = async (store: Store): Promise<void> => {
+  const activeGripWidths = await getAllActiveGripWidths();
+  store.dispatch(loadGripWidths(activeGripWidths));
+};
+
+export const updateManikinMuscleGroups = async (
+  store: Store
+): Promise<void> => {
+  const activeManikinMuscleGroups = await getAllActiveManikinMuscleGroups();
+  store.dispatch(loadManikinMuscleGroups(activeManikinMuscleGroups));
+};
+
+export const updateMuscles = async (store: Store): Promise<void> => {
+  const activeMuscles = await getAllActiveMuscles();
+  store.dispatch(loadMuscles(activeMuscles));
+};
+
+export const updateMuscleTargetTypes = async (store: Store): Promise<void> => {
+  const activeMuscleTargetTypes = await getAllActiveMuscleTargetTypes();
+  store.dispatch(loadMuscleTargetTypes(activeMuscleTargetTypes));
+};
+
+export const updateParameterTypes = async (store: Store): Promise<void> => {
+  const activeParameterTypes = await getAllActiveParameterTypes();
+  store.dispatch(loadParameterTypes(activeParameterTypes));
+};
+
+export const updatePhases = async (store: Store): Promise<void> => {
+  const activePhases = await getAllActivePhases();
+  store.dispatch(loadPhases(activePhases));
+};
+
+export const updateTrainingSetTypes = async (store: Store): Promise<void> => {
+  const activeTrainingSetTypes = await getAllActiveTrainingSetTypes();
+  store.dispatch(loadTrainingSetTypes(activeTrainingSetTypes));
+};
+
+export const updateWorkoutCategories = async (store: Store): Promise<void> => {
+  const activeWorkoutCategories = await getAllActiveWorkoutCategories();
+  store.dispatch(loadWorkoutCategories(activeWorkoutCategories));
+};
+
+export const updateWorkoutEquipment = async (store: Store): Promise<void> => {
+  const activeWorkoutEquipment = await getAllActiveWorkoutEquipment();
+  store.dispatch(loadWorkoutEquipment(activeWorkoutEquipment));
 };

@@ -7,8 +7,8 @@ import { State } from '../../../../../configs/redux/store';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { DASHBOARD_SCREEN_PATH } from '../../../../../configs/constants/app';
 import { AppTheme } from '../../../../../configs/theme/app-theme';
-import { getPhaseName } from 'workout-app-common-core';
 import ExerciseListDrawer from './app-bar/ExerciseListDrawer';
+import { getPhaseName } from '../../../../../utils/get-name';
 
 const useStyles = makeStyles((theme: AppTheme) =>
   createStyles({
@@ -98,8 +98,12 @@ const mapStateToProps = (state: State): ActiveWorkoutAppBarProps => {
   const totalSegments = state.workoutState.currentPhase.segments.length;
   const currentSegmentIndex = state.workoutState.currentSegmentIndex;
 
+  const phaseName = getPhaseName(
+    state.workoutState.configs.phases,
+    state.workoutState.currentPhase.phaseId
+  );
   return {
-    phaseName: getPhaseName(state.workoutState.currentPhase.phaseId),
+    phaseName: phaseName,
     currentSegmentCount: `${currentSegmentIndex}/${totalSegments}`,
   } as unknown as ActiveWorkoutAppBarProps;
 };
