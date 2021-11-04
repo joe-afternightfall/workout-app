@@ -8,7 +8,7 @@ import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { DASHBOARD_SCREEN_PATH } from '../../../../../configs/constants/app';
 import { AppTheme } from '../../../../../configs/theme/app-theme';
 import ExerciseListDrawer from './app-bar/ExerciseListDrawer';
-import { getPhaseName } from '../../../../../utils/get-name';
+import { getPhaseName } from '../../../../../utils/name-finder';
 
 const useStyles = makeStyles((theme: AppTheme) =>
   createStyles({

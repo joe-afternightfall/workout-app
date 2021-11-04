@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import ExerciseItem from './components/ExerciseItem';
 import ExerciseDivider from './components/ExerciseDivider';
 import { State } from '../../../../../configs/redux/store';
-import { getExerciseName } from '../../../../../utils/get-name';
+import { getExerciseName } from '../../../../../utils/name-finder';
 
 const ActiveExercise = (
   props: ActiveExerciseProps & PassedInProps
