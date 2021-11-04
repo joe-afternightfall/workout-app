@@ -38,7 +38,7 @@ interface PassedInProps {
   goForwardHandler: () => void;
 }
 
-export interface RoutineSelectionListProps {
+interface RoutineSelectionListProps {
   routinesForCategory: RoutineTemplateVO[];
   selectRoutineHandler: (routine: RoutineTemplateVO) => void;
 }
