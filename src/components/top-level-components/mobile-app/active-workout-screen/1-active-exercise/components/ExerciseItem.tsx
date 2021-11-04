@@ -1,9 +1,12 @@
-import React from 'react';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { ListItemIcon, Typography } from '@material-ui/core';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItem from '@material-ui/core/ListItem';
 import clsx from 'clsx';
+import React from 'react';
+import {
+  ListItem,
+  Typography,
+  ListItemText,
+  ListItemIcon,
+} from '@material-ui/core';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -15,7 +18,6 @@ const useStyles = makeStyles(() =>
     },
     exerciseIcon: {
       height: '15vh',
-      margin: 'auto',
     },
     title: {
       fontSize: '1.225rem',
@@ -23,12 +25,6 @@ const useStyles = makeStyles(() =>
     },
     textWrapper: {
       paddingLeft: 12,
-    },
-    iconWrapper: {
-      backgroundColor: 'gray',
-      padding: 4,
-      width: '15vh',
-      height: '15vh',
     },
   })
 );
@@ -42,12 +38,12 @@ export default function ExerciseItem(props: ExerciseItemProps): JSX.Element {
         [classes.bottom]: props.bottom,
       })}
     >
-      <ListItemIcon className={classes.iconWrapper}>
-        {/*<img*/}
-        {/*  alt={'exercise-icon'}*/}
-        {/*  src={inclinePressDumbBells}*/}
-        {/*  className={classes.exerciseIcon}*/}
-        {/*/>*/}
+      <ListItemIcon>
+        <img
+          alt={'exercise-icon'}
+          src={'images/barbell-upright-row.gif'}
+          className={classes.exerciseIcon}
+        />
       </ListItemIcon>
       <ListItemText
         className={classes.textWrapper}

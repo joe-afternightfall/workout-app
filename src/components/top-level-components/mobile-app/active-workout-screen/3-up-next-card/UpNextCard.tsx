@@ -13,10 +13,8 @@ import {
   ExerciseVO,
   isSuperset,
   isCircuitSet,
-  getPhaseName,
   isStraightSet,
   WorkoutExercise,
-  getExerciseName,
   buildRepsAndSets,
 } from 'workout-app-common-core';
 import { connect } from 'react-redux';
@@ -26,6 +24,10 @@ import SuperSetItem from '../../shared/exercise-list/SuperSetItem';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import SingleSetItem from '../../shared/exercise-list/SingleSetItem';
 import confettiEmoji from '../../../../../configs/icons/confetti-emoji.png';
+import {
+  getExerciseName,
+  getPhaseName,
+} from '../../../../../utils/name-finder';
 
 const useStyles = makeStyles((theme: AppTheme) =>
   createStyles({
@@ -92,28 +94,34 @@ const UpNextCard = (props: UpNextCardProps & PassedInProps): JSX.Element => {
     );
   } else if (straightSet || circuitSet) {
     workoutExercises.map((exercise: WorkoutExercise) => {
+      const exerciseName = getExerciseName(
+        props.exercises,
+        exercise.exerciseId
+      );
       display = (
         <SingleSetItem
           displayUpNextTitle
           key={exercise.id}
-          exerciseTitle={getExerciseName(props.exercises, exercise.exerciseId)}
+          exerciseTitle={exerciseName ? exerciseName : ''}
           repsAndSets={buildRepsAndSets(exercise.sets)}
         />
       );
     });
   } else if (nextSegment && isSuperset(nextSegment.trainingSetTypeId)) {
+    const firstExerciseName = getExerciseName(
+      props.exercises,
+      workoutExercises[0].exerciseId
+    );
+    const secondExerciseName = getExerciseName(
+      props.exercises,
+      workoutExercises[1].exerciseId
+    );
     display = (
       <SuperSetItem
         displayUpNextTitle
-        firstExerciseTitle={getExerciseName(
-          props.exercises,
-          workoutExercises[0].exerciseId
-        )}
+        firstExerciseTitle={firstExerciseName ? firstExerciseName : ''}
         firstExerciseRepsAndSets={buildRepsAndSets(workoutExercises[0].sets)}
-        secondExerciseTitle={getExerciseName(
-          props.exercises,
-          workoutExercises[1].exerciseId
-        )}
+        secondExerciseTitle={secondExerciseName ? secondExerciseName : ''}
         secondExerciseRepsAndSets={buildRepsAndSets(workoutExercises[1].sets)}
       />
     );
@@ -150,6 +158,7 @@ const mapStateToProps = (
   ownProps: PassedInProps
 ): UpNextCardProps => {
   const workoutState = state.workoutState;
+  const configPhases = state.workoutState.configs.phases;
   const foundSegment = workoutState.currentPhase.segments.find(
     (segment) => segment.order === workoutState.currentSegmentIndex + 1
   );
@@ -163,7 +172,7 @@ const mapStateToProps = (
     );
 
     if (nextPhase) {
-      const phaseName = getPhaseName(nextPhase.phaseId);
+      const phaseName = getPhaseName(configPhases, nextPhase.phaseId);
       if (phaseName) {
         nextPhaseTitle = phaseName;
       }

@@ -10,13 +10,13 @@ import {
   sortSegmentExercises,
   isStraightSet,
   isCircuitSet,
-  getExerciseName,
   buildRepsAndSets,
   isSuperset,
 } from 'workout-app-common-core';
 import { Card } from '@material-ui/core';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { Draggable } from 'react-smooth-dnd';
+import { getExerciseName } from '../../../../../../utils/name-finder';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -37,13 +37,14 @@ const PreviewListItem = (
     isStraightSet(props.segment.trainingSetTypeId) ||
     isCircuitSet(props.segment.trainingSetTypeId)
   ) {
+    const exerciseName = getExerciseName(
+      props.exercises,
+      sortedExercises[0].exerciseId
+    );
     const singleSetItem = (
       <SingleSetItem
         segmentId={props.segment.id}
-        exerciseTitle={getExerciseName(
-          props.exercises,
-          sortedExercises[0].exerciseId
-        )}
+        exerciseTitle={exerciseName ? exerciseName : ''}
         repsAndSets={buildRepsAndSets(sortedExercises[0].sets)}
       />
     );
@@ -60,19 +61,21 @@ const PreviewListItem = (
       singleSetItem
     );
   } else if (isSuperset(props.segment.trainingSetTypeId)) {
+    const firstExerciseTitle = getExerciseName(
+      props.exercises,
+      sortedExercises[0].exerciseId
+    );
+    const secondExerciseTitle = getExerciseName(
+      props.exercises,
+      sortedExercises[1].exerciseId
+    );
     const superSetItem = (
       <SuperSetItem
         segmentId={props.segment.id}
         displayEditOptions={props.displayEditOptions}
-        firstExerciseTitle={getExerciseName(
-          props.exercises,
-          sortedExercises[0].exerciseId
-        )}
+        firstExerciseTitle={firstExerciseTitle ? firstExerciseTitle : ''}
         firstExerciseRepsAndSets={buildRepsAndSets(sortedExercises[0].sets)}
-        secondExerciseTitle={getExerciseName(
-          props.exercises,
-          sortedExercises[1].exerciseId
-        )}
+        secondExerciseTitle={secondExerciseTitle ? secondExerciseTitle : ''}
         secondExerciseRepsAndSets={buildRepsAndSets(sortedExercises[1].sets)}
       />
     );

@@ -1,14 +1,10 @@
 import React from 'react';
-import {
-  Segment,
-  isSuperset,
-  ExerciseVO,
-  getExerciseName,
-} from 'workout-app-common-core';
+import { Segment, isSuperset, ExerciseVO } from 'workout-app-common-core';
 import { connect } from 'react-redux';
 import ExerciseItem from './components/ExerciseItem';
 import ExerciseDivider from './components/ExerciseDivider';
 import { State } from '../../../../../configs/redux/store';
+import { getExerciseName } from '../../../../../utils/name-finder';
 
 const ActiveExercise = (
   props: ActiveExerciseProps & PassedInProps
