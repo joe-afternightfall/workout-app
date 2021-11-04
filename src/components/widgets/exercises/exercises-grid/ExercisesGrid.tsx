@@ -1,9 +1,9 @@
 import React from 'react';
 import {
   Grid,
-  Typography,
   Card,
   CardMedia,
+  Typography,
   CardActions,
 } from '@material-ui/core';
 import { Dispatch } from 'redux';
@@ -27,7 +27,7 @@ const ExercisesGrid = (
   props: ExercisesGridProps & PassedInProps
 ): JSX.Element => {
   const classes = useStyles();
-  const { exercisesForId } = props;
+  const { exercisesForId, exerciseInfoClickHandler } = props;
 
   return (
     <Grid container>
@@ -35,11 +35,11 @@ const ExercisesGrid = (
         return (
           <Grid item xs={6} key={index} className={classes.gridItem}>
             <Card>
-              <CardMedia>
+              <CardMedia onClick={() => exerciseInfoClickHandler(exercise)}>
                 <img
-                  src={'images/barbell-upright-row.gif'}
                   alt={'barbell'}
                   className={classes.exerciseImage}
+                  src={`images/exercises/${exercise.iconId}/${exercise.iconId}-preview.jpg`}
                 />
               </CardMedia>
               <CardActions style={{ height: '7vh' }}>
@@ -55,6 +55,7 @@ const ExercisesGrid = (
 
 interface PassedInProps {
   selectedMuscleId: string;
+  exerciseInfoClickHandler: (exercise: ExerciseVO) => void;
 }
 
 interface ExercisesGridProps {
@@ -69,11 +70,11 @@ const mapStateToProps = (
 
   const exercisesForId: ExerciseVO[] = [];
 
-  // allExercises.map((exercise) => {
-  //   if (exercise.muscleGroupIds.includes(ownProps.selectedMuscleId)) {
-  //     exercisesForId.push(exercise);
-  //   }
-  // });
+  allExercises.map((exercise) => {
+    if (exercise.manikinMuscleGroupIds.includes(ownProps.selectedMuscleId)) {
+      exercisesForId.push(exercise);
+    }
+  });
 
   return {
     exercisesForId: exercisesForId,
