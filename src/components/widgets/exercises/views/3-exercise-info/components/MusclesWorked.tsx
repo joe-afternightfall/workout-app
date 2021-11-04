@@ -85,11 +85,13 @@ const MusclesWorkedCard = (
                 const foundMuscle = findMuscle(muscles, secondary.muscleId);
                 return (
                   foundMuscle && (
-                    <Chip
-                      key={index}
-                      label={foundMuscle.name}
-                      className={classes.secondaryChip}
-                    />
+                    <Grid item xs={12}>
+                      <Chip
+                        key={index}
+                        label={foundMuscle.name}
+                        className={classes.secondaryChip}
+                      />
+                    </Grid>
                   )
                 );
               })}

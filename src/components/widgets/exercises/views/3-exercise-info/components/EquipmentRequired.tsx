@@ -11,6 +11,7 @@ const useStyles = makeStyles(() =>
     chip: {
       background: '#D95BD8',
       color: '#313131',
+      marginBottom: 8,
     },
   })
 );
