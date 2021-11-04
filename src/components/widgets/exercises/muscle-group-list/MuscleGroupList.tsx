@@ -1,5 +1,7 @@
 import React from 'react';
-import { muscleGroups } from 'workout-app-common-core';
+import { connect } from 'react-redux';
+import { State } from '../../../../configs/redux/store';
+import { ManikinMuscleGroupVO } from 'workout-app-common-core';
 import { List, ListItem, ListItemText } from '@material-ui/core';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 
@@ -11,14 +13,14 @@ const useStyles = makeStyles(() =>
   })
 );
 
-export default function MuscleGroupList(
-  props: MuscleGroupListProps
-): JSX.Element {
+const MuscleGroupList = (
+  props: MuscleGroupListProps & PassedInProps
+): JSX.Element => {
   const classes = useStyles();
-  const { selectMuscleHandler } = props;
+  const { selectMuscleHandler, manikinMuscleGroups } = props;
   return (
     <List className={classes.root}>
-      {muscleGroups.map((group, index) => {
+      {manikinMuscleGroups.map((group, index) => {
         return (
           <ListItem
             key={index}
@@ -33,8 +35,20 @@ export default function MuscleGroupList(
       })}
     </List>
   );
+};
+
+interface PassedInProps {
+  selectMuscleHandler: (id: string) => void;
 }
 
 interface MuscleGroupListProps {
-  selectMuscleHandler: (id: string) => void;
+  manikinMuscleGroups: ManikinMuscleGroupVO[];
 }
+
+const mapStateToProps = (state: State): MuscleGroupListProps => {
+  return {
+    manikinMuscleGroups: state.workoutState.configs.manikinMuscleGroups,
+  } as unknown as MuscleGroupListProps;
+};
+
+export default connect(mapStateToProps)(MuscleGroupList);
