@@ -11,9 +11,7 @@ import MuscleGroupList from './views/1-muscle-group-list/MuscleGroupList';
 const useStyles = makeStyles(() =>
   createStyles({
     swipeableViews: {
-      height: '100%',
-    },
-    viewWrapper: {
+      height: '82vh',
       marginTop: '7vh',
       marginBottom: '8vh',
     },
@@ -64,26 +62,25 @@ export default function ExercisesWidget(): JSX.Element {
         selectedMuscleId={selectedMuscleId}
         selectedExercise={selectedExercise}
       />
-      <div className={classes.viewWrapper}>
-        <SwipeableViews
-          index={activeTab}
-          onChangeIndex={handleViewChange}
-          className={classes.swipeableViews}
-        >
-          <Grid item xs={12}>
-            <MuscleGroupList selectMuscleHandler={selectMuscleHandler} />
-          </Grid>
-          <Grid item xs={12}>
-            <ExercisesGrid
-              exerciseInfoClickHandler={selectExerciseClickHandler}
-              selectedMuscleId={selectedMuscleId}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <ExerciseInfo exercise={selectedExercise} />
-          </Grid>
-        </SwipeableViews>
-      </div>
+      <SwipeableViews
+        index={activeTab}
+        onChangeIndex={handleViewChange}
+        className={classes.swipeableViews}
+        containerStyle={{ height: '100%' }}
+      >
+        <Grid item xs={12}>
+          <MuscleGroupList selectMuscleHandler={selectMuscleHandler} />
+        </Grid>
+        <Grid item xs={12}>
+          <ExercisesGrid
+            exerciseInfoClickHandler={selectExerciseClickHandler}
+            selectedMuscleId={selectedMuscleId}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <ExerciseInfo exercise={selectedExercise} />
+        </Grid>
+      </SwipeableViews>
     </Grid>
   );
 }
