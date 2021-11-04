@@ -9,7 +9,7 @@ import {
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { ExerciseVO } from 'workout-app-common-core';
-import { State } from '../../../../configs/redux/store';
+import { State } from '../../../../../configs/redux/store';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(() =>
@@ -30,14 +30,14 @@ const ExercisesGrid = (
   const { exercisesForId, exerciseInfoClickHandler } = props;
 
   return (
-    <Grid container>
+    <Grid container item xs={12}>
       {exercisesForId.map((exercise, index) => {
         return (
           <Grid item xs={6} key={index} className={classes.gridItem}>
             <Card>
               <CardMedia onClick={() => exerciseInfoClickHandler(exercise)}>
                 <img
-                  alt={'barbell'}
+                  alt={exercise.iconId}
                   className={classes.exerciseImage}
                   src={`images/exercises/${exercise.iconId}/${exercise.iconId}-preview.jpg`}
                 />

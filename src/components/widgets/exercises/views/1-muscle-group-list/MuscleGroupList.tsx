@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { State } from '../../../../configs/redux/store';
+import { State } from '../../../../../configs/redux/store';
 import { ManikinMuscleGroupVO } from 'workout-app-common-core';
 import { List, ListItem, ListItemText } from '@material-ui/core';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
