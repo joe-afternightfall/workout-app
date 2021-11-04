@@ -6,7 +6,6 @@ import {
   Typography,
   CardActions,
 } from '@material-ui/core';
-import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { ExerciseVO } from 'workout-app-common-core';
 import { State } from '../../../../../configs/redux/store';
@@ -81,7 +80,4 @@ const mapStateToProps = (
   } as unknown as ExercisesGridProps;
 };
 
-const mapDispatchToProps = (dispatch: Dispatch): ExercisesGridProps =>
-  ({} as unknown as ExercisesGridProps);
-
-export default connect(mapStateToProps, mapDispatchToProps)(ExercisesGrid);
+export default connect(mapStateToProps)(ExercisesGrid);
