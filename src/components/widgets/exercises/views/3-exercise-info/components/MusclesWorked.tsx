@@ -22,14 +22,16 @@ const useStyles = makeStyles(() =>
     primaryChip: {
       background: '#A59AFB',
       marginBottom: 8,
+      color: '#313131',
     },
     secondaryChip: {
       // background: '#D95BD8',
       // background: '#beb8fa',
       background: '#E08BE0',
       marginBottom: 8,
+      color: '#313131',
     },
-    cardMedia: {
+    centerAlign: {
       textAlign: 'center',
     },
   })
@@ -46,7 +48,7 @@ const MusclesWorkedCard = (
       <CardContent>
         <Typography variant={'h6'}>{'Muscles Worked'}</Typography>
       </CardContent>
-      <CardMedia className={classes.cardMedia}>
+      <CardMedia className={classes.centerAlign}>
         <img
           className={classes.musclesWorkedImage}
           alt={`${iconId}-muscles-worked`}
@@ -55,7 +57,7 @@ const MusclesWorkedCard = (
       </CardMedia>
       <CardContent>
         <Grid container>
-          <Grid item xs={6} style={{ textAlign: 'center' }}>
+          <Grid item xs={6} className={classes.centerAlign}>
             <Grid item xs={12}>
               <Typography variant={'body1'}>{'Primary'}</Typography>
             </Grid>
@@ -74,7 +76,7 @@ const MusclesWorkedCard = (
               })}
             </Grid>
           </Grid>
-          <Grid item xs={6} style={{ textAlign: 'center' }}>
+          <Grid item xs={6} className={classes.centerAlign}>
             <Grid item xs={12}>
               <Typography variant={'body1'}>{'Secondary'}</Typography>
             </Grid>

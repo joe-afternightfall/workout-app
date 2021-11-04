@@ -2,12 +2,23 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { WorkoutEquipmentVO } from 'workout-app-common-core';
 import { State } from '../../../../../../configs/redux/store';
-import { Card, CardContent, Grid, Typography } from '@material-ui/core';
+import { Card, CardContent, Chip, Grid, Typography } from '@material-ui/core';
 import { findWorkoutEquipment } from '../../../../../../utils/object-finder';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles(() =>
+  createStyles({
+    chip: {
+      background: '#D95BD8',
+      color: '#313131',
+    },
+  })
+);
 
 const EquipmentRequired = (
   props: EquipmentRequiredProps & PassedInProps
 ): JSX.Element => {
+  const classes = useStyles();
   const { workoutEquipmentIds, workoutEquipmentList } = props;
 
   return (
@@ -25,9 +36,11 @@ const EquipmentRequired = (
               );
               return (
                 <Grid item xs={12} key={index}>
-                  <Typography variant={'body1'}>
-                    {foundEquipment && foundEquipment.name}
-                  </Typography>
+                  <Chip
+                    key={index}
+                    label={foundEquipment && foundEquipment.name}
+                    className={classes.chip}
+                  />
                 </Grid>
               );
             })}
