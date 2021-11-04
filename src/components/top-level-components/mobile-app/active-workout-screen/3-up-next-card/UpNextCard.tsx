@@ -24,7 +24,10 @@ import SuperSetItem from '../../shared/exercise-list/SuperSetItem';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import SingleSetItem from '../../shared/exercise-list/SingleSetItem';
 import confettiEmoji from '../../../../../configs/icons/confetti-emoji.png';
-import { getExerciseName, getPhaseName } from '../../../../../utils/get-name';
+import {
+  getExerciseName,
+  getPhaseName,
+} from '../../../../../utils/name-finder';
 
 const useStyles = makeStyles((theme: AppTheme) =>
   createStyles({

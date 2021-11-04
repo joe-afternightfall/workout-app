@@ -16,7 +16,7 @@ import {
 import { Card } from '@material-ui/core';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { Draggable } from 'react-smooth-dnd';
-import { getExerciseName } from '../../../../../../utils/get-name';
+import { getExerciseName } from '../../../../../../utils/name-finder';
 
 const useStyles = makeStyles(() =>
   createStyles({

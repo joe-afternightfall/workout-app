@@ -20,7 +20,7 @@ import { startWorkout } from '../../../../../../creators/new-workout/workout-sel
 import BottomActionButtons from './components/edit-set/components/BottomActionButtons';
 import { Container, DropResult } from 'react-smooth-dnd';
 import { updateSegmentOrder } from '../../../../../../creators/new-workout/update-workout';
-import { getPhaseName } from '../../../../../../utils/get-name';
+import { getPhaseName } from '../../../../../../utils/name-finder';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
