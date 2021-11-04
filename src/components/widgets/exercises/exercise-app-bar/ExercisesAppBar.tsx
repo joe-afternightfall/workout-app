@@ -6,8 +6,10 @@ import {
   Typography,
   IconButton,
 } from '@material-ui/core';
-import { muscleGroups } from 'workout-app-common-core';
+import { ExerciseVO, ManikinMuscleGroupVO } from 'workout-app-common-core';
+import { connect } from 'react-redux';
 import ArrowBack from '@material-ui/icons/ArrowBackIos';
+import { State } from '../../../../configs/redux/store';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(() =>
@@ -18,21 +20,34 @@ const useStyles = makeStyles(() =>
   })
 );
 
-export default function ExercisesAppBar(
-  props: ExercisesAppBarProps
-): JSX.Element {
+const ExercisesAppBar = (
+  props: ExercisesAppBarProps & PassedInProps
+): JSX.Element => {
   const classes = useStyles();
-  const { activeTab, selectedMuscleId, goBackHandler } = props;
+
+  const {
+    activeTab,
+    manikinMuscleGroups,
+    selectedMuscleId,
+    selectedExercise,
+    goBackHandler,
+  } = props;
+
   let title = '';
+  let displayBackButton = false;
 
   if (activeTab === 0) {
     title = 'Muscle Groups';
-  } else {
-    muscleGroups.map((group) => {
+  } else if (activeTab === 1) {
+    displayBackButton = true;
+    manikinMuscleGroups.map((group) => {
       if (group.id === selectedMuscleId) {
         title = `${group.name} Exercises`;
       }
     });
+  } else if (activeTab === 2 && selectedExercise) {
+    displayBackButton = true;
+    title = selectedExercise.name;
   }
 
   return (
@@ -45,7 +60,7 @@ export default function ExercisesAppBar(
       <Toolbar>
         <Grid container alignItems={'center'}>
           <Grid item xs={2}>
-            {activeTab === 1 && (
+            {displayBackButton && (
               <IconButton onClick={goBackHandler}>
                 <ArrowBack />
               </IconButton>
@@ -57,23 +72,27 @@ export default function ExercisesAppBar(
               {title}
             </Typography>
           </Grid>
-          {/*<Grid*/}
-          {/*  item*/}
-          {/*  xs={2}*/}
-          {/*  onClick={closeClickHandler}*/}
-          {/*  container*/}
-          {/*  justify={'center'}*/}
-          {/*>*/}
-          {/*  <Typography variant={'body1'}>{'close'}</Typography>*/}
-          {/*</Grid>*/}
         </Grid>
       </Toolbar>
     </AppBar>
   );
-}
+};
 
-interface ExercisesAppBarProps {
+interface PassedInProps {
   activeTab: number;
   selectedMuscleId: string;
   goBackHandler: () => void;
+  selectedExercise: ExerciseVO | null;
 }
+
+interface ExercisesAppBarProps {
+  manikinMuscleGroups: ManikinMuscleGroupVO[];
+}
+
+const mapStateToProps = (state: State): ExercisesAppBarProps => {
+  return {
+    manikinMuscleGroups: state.workoutState.configs.manikinMuscleGroups,
+  } as unknown as ExercisesAppBarProps;
+};
+
+export default connect(mapStateToProps)(ExercisesAppBar);
