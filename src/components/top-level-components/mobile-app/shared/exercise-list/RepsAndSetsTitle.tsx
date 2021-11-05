@@ -21,6 +21,5 @@ export default function RepsAndSetsTitle(
 }
 
 interface RepsAndSetsTitleProps {
-  // repsAndSets: string | undefined;
   sets: Set[];
 }
