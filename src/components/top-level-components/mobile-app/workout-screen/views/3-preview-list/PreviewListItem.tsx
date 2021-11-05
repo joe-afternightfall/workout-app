@@ -56,8 +56,8 @@ const PreviewListItem = (
   } else if (isSuperset(props.segment.trainingSetTypeId)) {
     const superSetItem = (
       <SuperSetItem
+        upNextCard={false}
         segmentId={props.segment.id}
-        displayEditOptions={props.displayEditOptions}
         firstExercise={sortedExercises[0]}
         secondExercise={sortedExercises[1]}
       />

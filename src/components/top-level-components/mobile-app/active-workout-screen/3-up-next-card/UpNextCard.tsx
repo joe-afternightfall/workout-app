@@ -101,6 +101,7 @@ const UpNextCard = (props: UpNextCardProps & PassedInProps): JSX.Element => {
   } else if (nextSegment && isSuperset(nextSegment.trainingSetTypeId)) {
     display = (
       <SuperSetItem
+        upNextCard={true}
         displayUpNextTitle
         firstExercise={workoutExercises[0]}
         secondExercise={workoutExercises[1]}

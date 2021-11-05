@@ -16,6 +16,7 @@ import { Grid, ListItemIcon, Typography } from '@material-ui/core';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { openEditSet } from '../../../../../creators/new-workout/workout-selections';
 import { getExercise } from '../../../../../utils/active-workout';
+import SetTitle from './SetTitle';
 
 const useStyles = makeStyles((theme: AppTheme) =>
   createStyles({
@@ -53,17 +54,23 @@ const SingleSetItem = (
   props: SingleSetItemProps & PassedInProps
 ): JSX.Element => {
   const classes = useStyles();
+  const {
+    upNextCard,
+    bottomListItem,
+    segmentId,
+    workoutExercise,
+    allExercises,
+    displayUpNextTitle,
+  } = props;
 
   const openEditSet = () => {
-    if (props.segmentId) {
-      props.editSetHandler(props.segmentId);
+    if (segmentId) {
+      props.editSetHandler(segmentId);
     }
   };
   const foundExercise =
-    props.workoutExercise &&
-    getExercise(props.allExercises, props.workoutExercise.exerciseId);
-  const repsAndSets =
-    props.workoutExercise && buildRepsAndSets(props.workoutExercise.sets);
+    workoutExercise && getExercise(allExercises, workoutExercise.exerciseId);
+  const repsAndSets = workoutExercise && buildRepsAndSets(workoutExercise.sets);
   const exerciseName = foundExercise && foundExercise.name;
   const exerciseIcon = foundExercise && foundExercise.iconId;
 
@@ -81,51 +88,17 @@ const SingleSetItem = (
         className={classes.textWrapper}
         disableTypography
         primary={
-          props.displayUpNextTitle ? (
-            <Grid item xs={12} container alignItems={'center'}>
-              <Grid item xs={12}>
-                <Typography
-                  variant={'body1'}
-                  color={'textPrimary'}
-                  className={classes.upNextHighlight}
-                >
-                  {'Up Next'}
-                </Typography>
-              </Grid>
-              <Grid item xs={12}>
-                <Typography
-                  variant={'body1'}
-                  color={'textPrimary'}
-                  className={classes.upNextTitle}
-                >
-                  {exerciseName}
-                </Typography>
-              </Grid>
-            </Grid>
-          ) : (
-            <Typography
-              variant={'body1'}
-              color={'textPrimary'}
-              className={
-                props.bottomListItem && props.upNextCard
-                  ? classes.upNextTitle
-                  : classes.title
-              }
-            >
-              {exerciseName}
-            </Typography>
-          )
+          <SetTitle
+            displayUpNextTitle={displayUpNextTitle}
+            upNextCard={upNextCard}
+            exerciseName={exerciseName}
+            bottomListItem={bottomListItem}
+          />
         }
         secondary={
           <Grid item xs={12} container alignItems={'center'}>
             <Grid item xs={12}>
-              <Typography
-                variant={'body2'}
-                color={'textSecondary'}
-                className={clsx({
-                  [classes.secondaryTitle]: !props.workoutExercise,
-                })}
-              >
+              <Typography variant={'body2'} color={'textSecondary'}>
                 {repsAndSets}
               </Typography>
             </Grid>
@@ -152,8 +125,6 @@ const SingleSetItem = (
   );
 };
 
-// todo: if displayEditOptions = true then preview
-// todo: if displayUpNextTitle = true then preview
 interface PassedInProps {
   displayUpNextTitle?: boolean;
   bottomListItem?: boolean;

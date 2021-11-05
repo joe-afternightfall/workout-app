@@ -4,21 +4,29 @@ import SingleSetItem from './SingleSetItem';
 import { WorkoutExercise } from 'workout-app-common-core';
 
 export default function SuperSetItem(props: SuperSetItemProps): JSX.Element {
+  const {
+    upNextCard,
+    segmentId,
+    displayUpNextTitle,
+    firstExercise,
+    secondExercise,
+  } = props;
+
   return (
     <>
       <SingleSetItem
-        segmentId={props.segmentId}
-        displayUpNextTitle={props.displayUpNextTitle}
-        workoutExercise={props.firstExercise}
+        segmentId={segmentId}
+        displayUpNextTitle={displayUpNextTitle}
+        workoutExercise={firstExercise}
       />
 
-      <SuperSetDivider shrink={props.displayEditOptions} />
+      <SuperSetDivider />
 
       <SingleSetItem
-        upNextCard
+        upNextCard={upNextCard}
         bottomListItem
-        segmentId={props.segmentId}
-        workoutExercise={props.secondExercise}
+        segmentId={segmentId}
+        workoutExercise={secondExercise}
       />
     </>
   );
@@ -27,7 +35,7 @@ export default function SuperSetItem(props: SuperSetItemProps): JSX.Element {
 interface SuperSetItemProps {
   segmentId?: string;
   displayUpNextTitle?: boolean;
-  displayEditOptions?: boolean;
+  upNextCard: boolean;
   firstExercise?: WorkoutExercise;
   secondExercise?: WorkoutExercise;
 }
