@@ -1,5 +1,6 @@
 import { Store } from 'redux';
-import firebase from 'firebase';
+import firebase from 'firebase/app';
+import 'firebase/analytics';
 import {
   EXERCISE_TYPES_ROUTE,
   CIRCUIT_TYPES_ROUTE,
