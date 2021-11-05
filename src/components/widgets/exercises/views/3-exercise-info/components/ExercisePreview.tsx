@@ -1,29 +1,16 @@
 import React from 'react';
 import { Card, CardMedia } from '@material-ui/core';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
-
-const useStyles = makeStyles(() =>
-  createStyles({
-    exercisePreview: {
-      width: '100%',
-    },
-  })
-);
+import ExerciseImage from '../../../../../top-level-components/mobile-app/shared/exercise-list/ExerciseImage';
 
 export default function ExercisePreview(
   props: ExercisePreviewProps
 ): JSX.Element {
-  const classes = useStyles();
   const { iconId } = props;
 
   return (
     <Card>
       <CardMedia>
-        <img
-          alt={`${iconId}-exercise`}
-          className={classes.exercisePreview}
-          src={`images/exercises/${iconId}/${iconId}-exercise.gif`}
-        />
+        <ExerciseImage folder={iconId} image={`${iconId}-exercise.gif`} />
       </CardMedia>
     </Card>
   );
