@@ -1,4 +1,3 @@
-import clsx from 'clsx';
 import React from 'react';
 import {
   ExerciseVO,
@@ -6,19 +5,18 @@ import {
   buildRepsAndSets,
 } from 'workout-app-common-core';
 import { Dispatch } from 'redux';
+import SetTitle from './SetTitle';
 import { connect } from 'react-redux';
 import ExerciseImage from './ExerciseImage';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import { State } from '../../../../../configs/redux/store';
-import { AppTheme } from '../../../../../configs/theme/app-theme';
+import { getExercise } from '../../../../../utils/active-workout';
 import { Grid, ListItemIcon, Typography } from '@material-ui/core';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { openEditSet } from '../../../../../creators/new-workout/workout-selections';
-import { getExercise } from '../../../../../utils/active-workout';
-import SetTitle from './SetTitle';
 
-const useStyles = makeStyles((theme: AppTheme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     root: {
       padding: 0,
@@ -27,25 +25,12 @@ const useStyles = makeStyles((theme: AppTheme) =>
       padding: 0,
       marginTop: -16,
     },
-    title: {
-      fontSize: '1.125rem',
-      paddingBottom: '1vh',
-    },
-    upNextTitle: {
-      fontSize: '1rem',
-    },
     itemIconWrapper: {
       width: '13vh',
       height: '13vh',
     },
     textWrapper: {
       paddingLeft: 12,
-    },
-    secondaryTitle: {
-      paddingTop: 4,
-    },
-    upNextHighlight: {
-      color: theme.palette.custom.colors.active,
     },
   })
 );
