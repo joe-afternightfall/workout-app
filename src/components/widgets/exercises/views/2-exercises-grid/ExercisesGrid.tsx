@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import { ExerciseVO } from 'workout-app-common-core';
 import { State } from '../../../../../configs/redux/store';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
+import ExerciseImage from '../../../../top-level-components/mobile-app/shared/exercise-list/ExerciseImage';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -35,10 +36,9 @@ const ExercisesGrid = (
           <Grid item xs={6} key={index} className={classes.gridItem}>
             <Card>
               <CardMedia onClick={() => exerciseInfoClickHandler(exercise)}>
-                <img
-                  alt={exercise.iconId}
-                  className={classes.exerciseImage}
-                  src={`images/exercises/${exercise.iconId}/${exercise.iconId}-preview.jpg`}
+                <ExerciseImage
+                  folder={exercise.iconId}
+                  image={`${exercise.iconId}-preview.jpg`}
                 />
               </CardMedia>
               <CardActions style={{ height: '7vh' }}>
