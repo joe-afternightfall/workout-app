@@ -142,7 +142,7 @@ export default function BaseSet({
   );
 }
 
-export interface BaseSetProps {
+interface BaseSetProps {
   superset: boolean;
   markedDone: boolean;
   activeSet: boolean;

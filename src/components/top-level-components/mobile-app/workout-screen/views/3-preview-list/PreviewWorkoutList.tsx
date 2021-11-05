@@ -104,7 +104,7 @@ const PreviewWorkoutList = (props: PreviewWorkoutListProps): JSX.Element => {
   );
 };
 
-export interface PreviewWorkoutListProps {
+interface PreviewWorkoutListProps {
   startClickHandler: () => void;
   routinePhases: Phase[];
   configPhases: PhaseVO[];

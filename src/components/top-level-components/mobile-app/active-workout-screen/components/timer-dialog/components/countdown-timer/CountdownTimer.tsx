@@ -123,7 +123,7 @@ export default function CountdownTimer({
   );
 }
 
-export interface CountdownTimerProps {
+interface CountdownTimerProps {
   timers: WorkoutTimer[];
   closeHandler: () => void;
   nextStepHandler: () => void;

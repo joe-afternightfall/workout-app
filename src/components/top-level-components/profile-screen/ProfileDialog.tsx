@@ -298,7 +298,7 @@ const ProfileDialog = (props: ProfileDialogProps): JSX.Element => {
   );
 };
 
-export interface ProfileDialogProps {
+interface ProfileDialogProps {
   userEmail: string;
   open: boolean;
   closeHandler: () => void;

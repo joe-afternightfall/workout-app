@@ -20,7 +20,7 @@ export default function TimeAndRepsSet(
   );
 }
 
-export interface TimeAndRepsSetProps {
+interface TimeAndRepsSetProps {
   set: CircuitExerciseSet;
   changeHandler: (e: ChangeEvent<HTMLInputElement>) => void;
   timeChangeHandler: (e: ChangeEvent<HTMLInputElement>) => void;

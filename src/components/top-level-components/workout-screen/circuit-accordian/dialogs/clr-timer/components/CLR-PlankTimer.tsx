@@ -120,7 +120,7 @@ export default function PlankTimer(props: PlankTimerProps): JSX.Element {
   );
 }
 
-export interface PlankTimerProps {
+interface PlankTimerProps {
   closeHandler: () => void;
   nextStepHandler: () => void;
   resetStepperHandler: () => void;

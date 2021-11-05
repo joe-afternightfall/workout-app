@@ -146,7 +146,7 @@ export default function Set(props: SetProps): JSX.Element {
   );
 }
 
-export interface SetProps {
+interface SetProps {
   circuitId: string;
   exerciseId: string;
   exercise: ExerciseTypeVO;

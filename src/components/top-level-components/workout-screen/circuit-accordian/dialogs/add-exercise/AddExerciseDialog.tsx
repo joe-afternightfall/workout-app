@@ -54,6 +54,6 @@ export default function AddExerciseDialog(
   );
 }
 
-export interface AddExerciseDialogProps {
+interface AddExerciseDialogProps {
   circuitId: string;
 }

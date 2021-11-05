@@ -87,7 +87,7 @@ const WorkoutDone = ({
   );
 };
 
-export interface WorkoutDoneProps {
+interface WorkoutDoneProps {
   doneClickHandler: () => void;
   totalWeightLifted: number;
   totalRepsDone: number;

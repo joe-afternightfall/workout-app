@@ -46,7 +46,7 @@ export default function StraightSetRow(
   );
 }
 
-export interface StraightSetRowProps {
+interface StraightSetRowProps {
   setNumber: number;
   markedDone: boolean;
   activeSet: boolean;

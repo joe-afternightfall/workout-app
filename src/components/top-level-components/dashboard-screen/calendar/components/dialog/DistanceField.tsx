@@ -20,7 +20,7 @@ export default function DistanceField(props: DistanceFieldProps): JSX.Element {
   );
 }
 
-export interface DistanceFieldProps {
+interface DistanceFieldProps {
   distance: {
     unit: string;
     value: string;

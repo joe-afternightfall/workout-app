@@ -58,6 +58,6 @@ export default function CalendarHeader(
   );
 }
 
-export interface CalendarHeaderProps {
+interface CalendarHeaderProps {
   currentMonth: Date;
 }

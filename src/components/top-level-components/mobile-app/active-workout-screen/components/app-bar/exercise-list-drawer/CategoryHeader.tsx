@@ -31,6 +31,6 @@ export default function CategoryHeader({
   );
 }
 
-export interface CategoryHeaderProps {
+interface CategoryHeaderProps {
   title: string;
 }

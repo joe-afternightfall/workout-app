@@ -56,7 +56,7 @@ const SuperSetDivider = (props: SuperSetDividerProps): JSX.Element => {
   );
 };
 
-export interface SuperSetDividerProps {
+interface SuperSetDividerProps {
   shrink: boolean;
 }
 

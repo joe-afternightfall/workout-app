@@ -88,7 +88,7 @@ interface PassedInProps {
   builtSets: BuiltSets;
 }
 
-export interface EditSupersetRowProps {
+interface EditSupersetRowProps {
   deleteClickHandler: (setInfo: ActiveSetInfo[]) => void;
 }
 

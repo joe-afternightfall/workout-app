@@ -69,7 +69,7 @@ export default function Content(props: ContentProps): JSX.Element {
   return displayComp;
 }
 
-export interface ContentProps {
+interface ContentProps {
   setType: SetType;
   set: CircuitExerciseSet;
 }

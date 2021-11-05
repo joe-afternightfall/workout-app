@@ -111,7 +111,7 @@ export interface SetTextFieldInfoProps {
   shouldDisplayTimer: boolean;
 }
 
-export interface PassedInProps {
+interface PassedInProps {
   value: number;
   setId: string;
   activeSet: boolean;
@@ -121,7 +121,7 @@ export interface PassedInProps {
   setType: 'weight' | 'reps' | 'sec';
 }
 
-export interface SetTextFieldProps {
+interface SetTextFieldProps {
   onChangeHandler: (value: string) => void;
 }
 

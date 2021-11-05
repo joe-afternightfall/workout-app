@@ -18,7 +18,7 @@ export function WeightsSet(props: WeightsSetProps): JSX.Element {
   );
 }
 
-export interface WeightsSetProps {
+interface WeightsSetProps {
   set: CircuitExerciseSet;
   changeHandler: (e: ChangeEvent<HTMLInputElement>) => void;
 }

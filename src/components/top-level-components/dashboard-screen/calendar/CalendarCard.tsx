@@ -64,7 +64,7 @@ const CalendarCard = (props: CalendarCardProps): JSX.Element => {
   );
 };
 
-export interface CalendarCardProps {
+interface CalendarCardProps {
   userWorkouts: WorkoutVO[];
   exerciseTypes: ExerciseTypeVO[];
 }

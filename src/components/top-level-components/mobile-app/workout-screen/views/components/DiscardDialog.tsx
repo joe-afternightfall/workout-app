@@ -92,7 +92,7 @@ const DiscardDialog = (props: DiscardDialogProps): JSX.Element => {
   );
 };
 
-export interface DiscardDialogProps {
+interface DiscardDialogProps {
   discardClickHandler: () => void;
 }
 

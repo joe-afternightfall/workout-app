@@ -29,7 +29,7 @@ export default function TimeField(props: TimeFieldProps): JSX.Element {
   );
 }
 
-export interface TimeFieldProps {
+interface TimeFieldProps {
   time: {
     hours: string;
     minutes: string;

@@ -30,7 +30,7 @@ export default function ActionButton(props: ActionButtonProps): JSX.Element {
   );
 }
 
-export interface ActionButtonProps {
+interface ActionButtonProps {
   icon: JSX.Element;
   disabled: boolean;
   soloButton?: boolean;

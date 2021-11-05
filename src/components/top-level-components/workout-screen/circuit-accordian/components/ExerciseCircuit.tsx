@@ -113,7 +113,7 @@ class ExerciseCircuit extends Component<ExerciseCircuitProps> {
   }
 }
 
-export interface ExerciseCircuitProps extends WithStyles<typeof styles> {
+interface ExerciseCircuitProps extends WithStyles<typeof styles> {
   exercise: ExerciseTypeVO;
   circuitId: string;
   sets: CircuitExerciseSet[];

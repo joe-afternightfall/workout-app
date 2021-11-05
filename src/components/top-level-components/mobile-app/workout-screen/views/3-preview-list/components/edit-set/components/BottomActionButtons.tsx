@@ -96,7 +96,7 @@ const BottomActionButtons = (props: BottomActionButtonsProps): JSX.Element => {
   }
 };
 
-export interface BottomActionButtonsProps {
+interface BottomActionButtonsProps {
   displayEditOptions: boolean;
   startClickHandler: () => void;
 }

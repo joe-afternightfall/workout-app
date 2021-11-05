@@ -64,7 +64,7 @@ export default function DistanceField(props: DistanceFieldProps): JSX.Element {
   );
 }
 
-export interface DistanceFieldProps {
+interface DistanceFieldProps {
   set: CircuitExerciseSet;
   changeHandler: (name: string, value: string) => void;
 }

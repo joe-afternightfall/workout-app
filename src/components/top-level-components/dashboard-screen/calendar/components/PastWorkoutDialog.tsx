@@ -161,7 +161,7 @@ export default function PastWorkoutDialog(
   );
 }
 
-export interface PastWorkoutDialogProps {
+interface PastWorkoutDialogProps {
   open: boolean;
   workout: WorkoutVO | undefined;
   closeClickHandler: () => void;

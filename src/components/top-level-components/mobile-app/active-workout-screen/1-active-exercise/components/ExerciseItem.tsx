@@ -63,7 +63,7 @@ export default function ExerciseItem(props: ExerciseItemProps): JSX.Element {
   );
 }
 
-export interface ExerciseItemProps {
+interface ExerciseItemProps {
   bottom: boolean;
   info: {
     title: string;

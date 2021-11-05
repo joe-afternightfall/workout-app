@@ -51,7 +51,7 @@ export default function SelectionCard(props: SelectionCardProps): JSX.Element {
   );
 }
 
-export interface SelectionCardProps {
+interface SelectionCardProps {
   title: string;
   addTopMargin: boolean;
   clickHandler: () => void;

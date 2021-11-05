@@ -49,7 +49,7 @@ export default function CalendarControls(
   );
 }
 
-export interface CalendarControlsProps {
+interface CalendarControlsProps {
   currentMonth: string;
   prevMonthClickHandler: () => void;
   nextMonthClickHandler: () => void;
