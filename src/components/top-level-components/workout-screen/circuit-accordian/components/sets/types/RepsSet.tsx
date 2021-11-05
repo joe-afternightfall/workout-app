@@ -15,7 +15,7 @@ export default function RepsSet(props: RepsSetProps): JSX.Element {
   );
 }
 
-export interface RepsSetProps {
+interface RepsSetProps {
   set: CircuitExerciseSet;
   changeHandler: (e: ChangeEvent<HTMLInputElement>) => void;
 }

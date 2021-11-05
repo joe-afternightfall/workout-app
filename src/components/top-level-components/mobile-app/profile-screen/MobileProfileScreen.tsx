@@ -21,7 +21,7 @@ class MobileProfileScreen extends Component<MobileProfileScreenProps> {
   }
 }
 
-export interface MobileProfileScreenProps extends WithStyles<typeof styles> {
+interface MobileProfileScreenProps extends WithStyles<typeof styles> {
   DELETE_ME?: undefined;
 }
 

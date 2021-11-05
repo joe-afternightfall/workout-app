@@ -54,7 +54,7 @@ export default function TimeField(props: TimeFieldProps): JSX.Element {
   );
 }
 
-export interface TimeFieldProps {
+interface TimeFieldProps {
   set: CircuitExerciseSet;
   changeHandler: (e: ChangeEvent<HTMLInputElement>) => void;
 }

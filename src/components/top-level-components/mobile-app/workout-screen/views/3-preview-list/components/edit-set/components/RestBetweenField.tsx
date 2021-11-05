@@ -62,7 +62,7 @@ interface PassedInProps {
   type: 'set' | 'segment';
 }
 
-export interface RestBetweenFieldProps {
+interface RestBetweenFieldProps {
   updateRestBetweenHandler: (value: string) => void;
 }
 

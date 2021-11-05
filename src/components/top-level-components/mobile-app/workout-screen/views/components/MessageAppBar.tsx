@@ -119,7 +119,7 @@ interface PassedInProps {
   clickHandler: () => void;
 }
 
-export interface MessageAppBarProps {
+interface MessageAppBarProps {
   routeClickHandler: () => void;
   editClickHandler: () => void;
   displayEditOptions: boolean;

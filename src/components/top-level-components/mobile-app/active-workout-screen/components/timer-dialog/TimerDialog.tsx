@@ -98,7 +98,7 @@ export default function TimerDialog({
   );
 }
 
-export interface TimerDialogProps {
+interface TimerDialogProps {
   timers: WorkoutTimer[];
   activeSet: boolean;
   markedDone: boolean;

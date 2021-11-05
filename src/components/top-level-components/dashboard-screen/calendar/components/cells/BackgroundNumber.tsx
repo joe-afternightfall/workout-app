@@ -43,7 +43,7 @@ export default function BackgroundNumber(
   );
 }
 
-export interface BackgroundNumberProps {
+interface BackgroundNumberProps {
   date: string;
   isSameDay: boolean;
 }

@@ -14,7 +14,7 @@ export default function RepsField(props: RepsFieldProps): JSX.Element {
   );
 }
 
-export interface RepsFieldProps {
+interface RepsFieldProps {
   set: CircuitExerciseSet;
   changeHandler: (e: ChangeEvent<HTMLInputElement>) => void;
 }

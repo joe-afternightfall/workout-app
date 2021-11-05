@@ -125,7 +125,7 @@ const ProfileCard = (props: ProfileCardProps): JSX.Element => {
   );
 };
 
-export interface ProfileCardProps {
+interface ProfileCardProps {
   email: string;
   userProfile: UserProfileVO;
   openDialogHandler: (userProfile: UserProfileVO) => void;

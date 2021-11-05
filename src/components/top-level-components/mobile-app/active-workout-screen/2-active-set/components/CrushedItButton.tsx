@@ -38,7 +38,7 @@ export default function CrushedItButton(
   );
 }
 
-export interface CrushedItButtonProps {
+interface CrushedItButtonProps {
   activeSet: boolean;
   markedDone: boolean;
   crushedItClickHandler: () => void;

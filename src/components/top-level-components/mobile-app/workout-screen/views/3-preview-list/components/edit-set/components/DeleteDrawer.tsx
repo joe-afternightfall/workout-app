@@ -97,7 +97,7 @@ interface PassedInProps {
   closeHandler: () => void;
 }
 
-export interface DeleteDrawerProps {
+interface DeleteDrawerProps {
   deleteSegmentHandler: () => void;
 }
 

@@ -31,7 +31,7 @@ const DateInfo = (props: DateInfoProps): JSX.Element => {
   );
 };
 
-export interface DateInfoProps {
+interface DateInfoProps {
   workoutDate: Date;
   dateChangeHandler: (date: Date) => void;
 }

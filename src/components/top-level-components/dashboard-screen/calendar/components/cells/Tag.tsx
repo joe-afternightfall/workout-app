@@ -59,6 +59,6 @@ export default function Tag(props: TagProps): JSX.Element {
   );
 }
 
-export interface TagProps {
+interface TagProps {
   workout: WorkoutVO;
 }

@@ -61,7 +61,7 @@ export default function MuscleGroupsList(
   );
 }
 
-export interface MuscleGroupsListProps {
+interface MuscleGroupsListProps {
   clickHandler: (index: number) => void;
   activeTab: number;
 }

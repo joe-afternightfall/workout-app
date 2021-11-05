@@ -14,7 +14,7 @@ export default function WeightsField(props: WeightsFieldProps): JSX.Element {
   );
 }
 
-export interface WeightsFieldProps {
+interface WeightsFieldProps {
   set: CircuitExerciseSet;
   changeHandler: (e: ChangeEvent<HTMLInputElement>) => void;
 }

@@ -22,7 +22,7 @@ export default function BaseSetAdornment({
   return <InputAdornment position={'end'}>{display}</InputAdornment>;
 }
 
-export interface BaseSetAdornmentProps {
+interface BaseSetAdornmentProps {
   alternateSides: boolean;
   setType: 'weight' | 'reps' | 'sec';
   fontColor: string;

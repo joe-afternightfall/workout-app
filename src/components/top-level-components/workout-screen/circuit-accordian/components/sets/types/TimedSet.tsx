@@ -11,7 +11,7 @@ export default function TimedSet(props: TimedSetProps): JSX.Element {
   );
 }
 
-export interface TimedSetProps {
+interface TimedSetProps {
   set: CircuitExerciseSet;
   changeHandler: (e: ChangeEvent<HTMLInputElement>) => void;
   timeChangeHandler: (e: ChangeEvent<HTMLInputElement>) => void;

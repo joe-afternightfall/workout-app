@@ -120,7 +120,7 @@ export default function CalendarCells(props: CalendarCellsProps): JSX.Element {
   return <Grid>{rows}</Grid>;
 }
 
-export interface CalendarCellsProps {
+interface CalendarCellsProps {
   currentMonth: Date;
   selectedDate: Date;
   userWorkouts: WorkoutVO[];

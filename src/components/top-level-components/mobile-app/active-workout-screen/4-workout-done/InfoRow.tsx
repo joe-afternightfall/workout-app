@@ -34,7 +34,7 @@ export default function InfoRow({ stat, title }: InfoRowProps): JSX.Element {
   );
 }
 
-export interface InfoRowProps {
+interface InfoRowProps {
   stat: string;
   title: string;
 }

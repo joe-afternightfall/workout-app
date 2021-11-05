@@ -21,7 +21,7 @@ const useStyles = makeStyles(() =>
 );
 
 const ExerciseSwipeableView = (
-  props: ExerciseSwipeableViewProps & PassedInExerciseSwipeableViewProps
+  props: ExerciseSwipeableViewProps & PassedInProps
 ): JSX.Element => {
   const classes = useStyles();
   const theme = useTheme();
@@ -84,12 +84,12 @@ const ExerciseSwipeableView = (
   );
 };
 
-export interface ExerciseSwipeableViewProps {
+interface ExerciseSwipeableViewProps {
   exerciseTypes: ExerciseTypeVO[];
   addExerciseHandler: (circuitId: string, exerciseId: string) => void;
 }
 
-export interface PassedInExerciseSwipeableViewProps {
+interface PassedInProps {
   closeClickHandler: () => void;
   workoutCircuitId: string;
   selectedIndex: number;

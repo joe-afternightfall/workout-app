@@ -33,11 +33,9 @@ export default function StopwatchDisplay(
   );
 }
 
-export interface StopwatchDisplayProps {
-  // hour: string;
+interface StopwatchDisplayProps {
   minutes: number;
   seconds: number;
-  // currentTimeMs: number;
   variant: ThemeVariant;
   displayText: boolean;
 }

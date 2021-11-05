@@ -46,9 +46,7 @@ const useStyles = makeStyles(() =>
   })
 );
 
-const Selector = (
-  props: SelectorControlProps & SelectorControlsPassedInProps
-): JSX.Element => {
+const Selector = (props: SelectorControlProps & PassedInProps): JSX.Element => {
   const classes = useStyles();
   const foundMuscle = muscleGroups.find(
     (group: MuscleGroup) => group.name === props.muscleName
@@ -111,7 +109,7 @@ const Selector = (
   );
 };
 
-export interface SelectorControlProps {
+interface SelectorControlProps {
   hoveringOverGroup: string;
   selectedMuscleGroupIds: string[];
   selectHandler: (muscleGroupCheckboxId: string) => void;
@@ -119,7 +117,7 @@ export interface SelectorControlProps {
   mouseOutHandler: () => void;
 }
 
-export interface SelectorControlsPassedInProps {
+interface PassedInProps {
   muscleName: string;
   title: string;
 }

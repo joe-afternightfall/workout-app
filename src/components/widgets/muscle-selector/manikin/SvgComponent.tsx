@@ -33,7 +33,7 @@ const useStyles = makeStyles(() =>
 );
 
 const SvgComponent = (
-  props: SvgComponentProps & PassedInSvgComponentProps
+  props: SvgComponentProps & PassedInProps
 ): JSX.Element => {
   const classes = useStyles();
   const foundMuscle = muscleGroups.find(
@@ -106,7 +106,7 @@ const SvgComponent = (
   );
 };
 
-export interface SvgComponentProps {
+interface SvgComponentProps {
   hoveringOverGroup: string;
   selectedMuscleGroupIds: string[];
   selectHandler: (muscleGroupCheckboxId: string) => void;
@@ -114,7 +114,7 @@ export interface SvgComponentProps {
   mouseOutHandler: () => void;
 }
 
-export interface PassedInSvgComponentProps {
+interface PassedInProps {
   paths: string[];
   muscleName: string;
   fill: string;

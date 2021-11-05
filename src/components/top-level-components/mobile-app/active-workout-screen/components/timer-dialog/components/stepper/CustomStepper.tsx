@@ -38,7 +38,7 @@ export default function CustomStepper({
   );
 }
 
-export interface CustomStepperProps {
+interface CustomStepperProps {
   timers: WorkoutTimer[];
   activeStep: number;
 }

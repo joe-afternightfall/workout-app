@@ -36,7 +36,7 @@ export default function TransitionTab(
   );
 }
 
-export interface FramerMotionTabProps {
+interface FramerMotionTabProps {
   framerKey: number;
   direction: 1 | -1;
   isVisible: boolean;

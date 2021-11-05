@@ -20,6 +20,6 @@ export default function CornerNumber(props: CornerNumberProps): JSX.Element {
   return <span className={classes.number}>{props.date}</span>;
 }
 
-export interface CornerNumberProps {
+interface CornerNumberProps {
   date: string;
 }

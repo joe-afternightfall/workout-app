@@ -128,7 +128,7 @@ interface PassedInProps {
   lastExerciseOfWorkout: boolean;
 }
 
-export interface UpNextCardProps {
+interface UpNextCardProps {
   nextSegment: Segment | undefined;
   exercises: ExerciseVO[];
   nextPhaseTitle: string;

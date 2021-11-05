@@ -58,7 +58,7 @@ const MobileWorkoutScreen = (props: MobileWorkoutScreenProps): JSX.Element => {
   );
 };
 
-export interface MobileWorkoutScreenProps {
+interface MobileWorkoutScreenProps {
   displayEditSet: boolean;
 }
 

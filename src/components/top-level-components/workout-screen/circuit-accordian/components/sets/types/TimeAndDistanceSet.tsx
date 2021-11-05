@@ -23,7 +23,7 @@ export default function TimeAndDistanceSet(
   );
 }
 
-export interface TimeAndDistanceSetProps {
+interface TimeAndDistanceSetProps {
   set: CircuitExerciseSet;
   changeHandler: (e: ChangeEvent<HTMLInputElement>) => void;
   timeChangeHandler: (e: ChangeEvent<HTMLInputElement>) => void;
