@@ -1,42 +1,41 @@
 import React from 'react';
 import SuperSetDivider from './SuperSetDivider';
 import SingleSetItem from './SingleSetItem';
+import { WorkoutExercise } from 'workout-app-common-core';
 
 export default function SuperSetItem(props: SuperSetItemProps): JSX.Element {
+  const {
+    upNextCard,
+    segmentId,
+    displayUpNextTitle,
+    firstExercise,
+    secondExercise,
+  } = props;
+
   return (
     <>
       <SingleSetItem
-        segmentId={props.segmentId}
-        displayUpNextTitle={props.displayUpNextTitle}
-        exerciseTitle={props.firstExerciseTitle}
-        repsAndSets={props.firstExerciseRepsAndSets}
-        equipmentIcon={props.firstEquipmentIcon}
+        segmentId={segmentId}
+        displayUpNextTitle={displayUpNextTitle}
+        workoutExercise={firstExercise}
       />
 
-      <SuperSetDivider shrink={props.displayEditOptions} />
+      <SuperSetDivider />
 
       <SingleSetItem
-        segmentId={props.segmentId}
-        upNextCard
+        upNextCard={upNextCard}
         bottomListItem
-        exerciseTitle={props.secondExerciseTitle}
-        repsAndSets={props.secondExerciseRepsAndSets}
-        equipmentIcon={props.secondEquipmentIcon}
+        segmentId={segmentId}
+        workoutExercise={secondExercise}
       />
     </>
   );
 }
 
-export interface SuperSetItemProps {
-  displayUpNextTitle?: boolean;
-  displayEditOptions?: boolean;
-  firstExerciseTitle: string;
-  firstExerciseRepsAndSets: string;
-  firstEquipmentIcon?: JSX.Element;
-  firstExerciseIcon?: JSX.Element;
-  secondExerciseTitle: string;
-  secondExerciseRepsAndSets: string;
-  secondEquipmentIcon?: JSX.Element;
-  secondExerciseIcon?: JSX.Element;
+interface SuperSetItemProps {
   segmentId?: string;
+  displayUpNextTitle?: boolean;
+  upNextCard: boolean;
+  firstExercise?: WorkoutExercise;
+  secondExercise?: WorkoutExercise;
 }

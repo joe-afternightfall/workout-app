@@ -1,16 +1,17 @@
-import clsx from 'clsx';
 import React from 'react';
 import { Dispatch } from 'redux';
+import SetTitle from './SetTitle';
 import { connect } from 'react-redux';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
+import ExerciseImage from './ExerciseImage';
+import RepsAndSetsTitle from './RepsAndSetsTitle';
 import { State } from '../../../../../configs/redux/store';
-import { Grid, ListItemIcon, Typography } from '@material-ui/core';
+import { getExercise } from '../../../../../utils/active-workout';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
+import { ExerciseVO, WorkoutExercise } from 'workout-app-common-core';
+import { ListItemIcon, ListItem, ListItemText } from '@material-ui/core';
 import { openEditSet } from '../../../../../creators/new-workout/workout-selections';
-import { AppTheme } from '../../../../../configs/theme/app-theme';
 
-const useStyles = makeStyles((theme: AppTheme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     root: {
       padding: 0,
@@ -19,28 +20,12 @@ const useStyles = makeStyles((theme: AppTheme) =>
       padding: 0,
       marginTop: -16,
     },
-    title: {
-      fontSize: '1.125rem',
-      paddingBottom: '1vh',
-    },
-    upNextTitle: {
-      fontSize: '1rem',
-    },
     itemIconWrapper: {
-      // todo: come back and assign palette color
-      backgroundColor: 'gray',
-      padding: 4,
       width: '13vh',
       height: '13vh',
     },
     textWrapper: {
       paddingLeft: 12,
-    },
-    secondaryTitle: {
-      paddingTop: 4,
-    },
-    upNextHighlight: {
-      color: theme.palette.custom.colors.active,
     },
   })
 );
@@ -49,74 +34,50 @@ const SingleSetItem = (
   props: SingleSetItemProps & PassedInProps
 ): JSX.Element => {
   const classes = useStyles();
+  const {
+    upNextCard,
+    bottomListItem,
+    segmentId,
+    workoutExercise,
+    allExercises,
+    displayUpNextTitle,
+  } = props;
 
   const openEditSet = () => {
-    if (props.segmentId) {
-      props.editSetHandler(props.segmentId);
+    if (segmentId) {
+      props.editSetHandler(segmentId);
     }
   };
+  const foundExercise =
+    workoutExercise && getExercise(allExercises, workoutExercise.exerciseId);
+  const exerciseName = foundExercise && foundExercise.name;
+  const exerciseIcon = foundExercise && foundExercise.iconId;
 
   const display = (
     <>
       <ListItemIcon className={classes.itemIconWrapper}>
-        {props.exerciseIcon}
+        {exerciseIcon && (
+          <ExerciseImage
+            folder={exerciseIcon}
+            image={`${exerciseIcon}-preview.jpg`}
+          />
+        )}
       </ListItemIcon>
       <ListItemText
         className={classes.textWrapper}
         disableTypography
         primary={
-          props.displayUpNextTitle ? (
-            <Grid item xs={12} container alignItems={'center'}>
-              <Grid item xs={12}>
-                <Typography
-                  variant={'body1'}
-                  color={'textPrimary'}
-                  className={classes.upNextHighlight}
-                >
-                  {'Up Next'}
-                </Typography>
-              </Grid>
-              <Grid item xs={12}>
-                <Typography
-                  variant={'body1'}
-                  color={'textPrimary'}
-                  className={classes.upNextTitle}
-                >
-                  {props.exerciseTitle}
-                </Typography>
-              </Grid>
-            </Grid>
-          ) : (
-            <Typography
-              variant={'body1'}
-              color={'textPrimary'}
-              className={
-                props.bottomListItem && props.upNextCard
-                  ? classes.upNextTitle
-                  : classes.title
-              }
-            >
-              {props.exerciseTitle}
-            </Typography>
-          )
+          <SetTitle
+            displayUpNextTitle={displayUpNextTitle}
+            upNextCard={upNextCard}
+            exerciseName={exerciseName}
+            bottomListItem={bottomListItem}
+          />
         }
         secondary={
-          <Grid item xs={12} container alignItems={'center'}>
-            <Grid item container alignItems={'center'}>
-              <Grid item>{props.equipmentIcon}</Grid>
-            </Grid>
-            <Grid item xs={12}>
-              <Typography
-                variant={'body2'}
-                color={'textSecondary'}
-                className={clsx({
-                  [classes.secondaryTitle]: !props.equipmentIcon,
-                })}
-              >
-                {props.repsAndSets}
-              </Typography>
-            </Grid>
-          </Grid>
+          <RepsAndSetsTitle
+            sets={workoutExercise ? workoutExercise.sets : []}
+          />
         }
       />
     </>
@@ -143,14 +104,12 @@ interface PassedInProps {
   displayUpNextTitle?: boolean;
   bottomListItem?: boolean;
   upNextCard?: boolean;
-  exerciseTitle: string;
-  repsAndSets: string;
-  equipmentIcon?: JSX.Element;
-  exerciseIcon?: JSX.Element;
   segmentId?: string;
+  workoutExercise?: WorkoutExercise;
 }
 
-export interface SingleSetItemProps {
+interface SingleSetItemProps {
+  allExercises: ExerciseVO[];
   displayEditOptions: boolean;
   editSetHandler: (segmentId: string) => void;
 }
@@ -158,6 +117,7 @@ export interface SingleSetItemProps {
 const mapStateToProps = (state: State): SingleSetItemProps => {
   return {
     displayEditOptions: state.workoutState.displayEditPreviewList,
+    allExercises: state.workoutState.configs.exercises,
   } as unknown as SingleSetItemProps;
 };
 

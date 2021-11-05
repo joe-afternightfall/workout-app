@@ -1,22 +1,20 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import EditOptions from './components/edit-set/components/EditOptions';
-import { State } from '../../../../../../configs/redux/store';
-import SuperSetItem from '../../../shared/exercise-list/SuperSetItem';
-import SingleSetItem from '../../../shared/exercise-list/SingleSetItem';
 import {
   Segment,
-  ExerciseVO,
-  sortSegmentExercises,
-  isStraightSet,
-  isCircuitSet,
-  buildRepsAndSets,
   isSuperset,
+  ExerciseVO,
+  isCircuitSet,
+  isStraightSet,
+  sortSegmentExercises,
 } from 'workout-app-common-core';
+import { connect } from 'react-redux';
 import { Card } from '@material-ui/core';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { Draggable } from 'react-smooth-dnd';
-import { getExerciseName } from '../../../../../../utils/name-finder';
+import { State } from '../../../../../../configs/redux/store';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
+import SuperSetItem from '../../../shared/exercise-list/SuperSetItem';
+import EditOptions from './components/edit-set/components/EditOptions';
+import SingleSetItem from '../../../shared/exercise-list/SingleSetItem';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -37,15 +35,10 @@ const PreviewListItem = (
     isStraightSet(props.segment.trainingSetTypeId) ||
     isCircuitSet(props.segment.trainingSetTypeId)
   ) {
-    const exerciseName = getExerciseName(
-      props.exercises,
-      sortedExercises[0].exerciseId
-    );
     const singleSetItem = (
       <SingleSetItem
         segmentId={props.segment.id}
-        exerciseTitle={exerciseName ? exerciseName : ''}
-        repsAndSets={buildRepsAndSets(sortedExercises[0].sets)}
+        workoutExercise={sortedExercises[0]}
       />
     );
     return props.displayEditOptions ? (
@@ -61,22 +54,12 @@ const PreviewListItem = (
       singleSetItem
     );
   } else if (isSuperset(props.segment.trainingSetTypeId)) {
-    const firstExerciseTitle = getExerciseName(
-      props.exercises,
-      sortedExercises[0].exerciseId
-    );
-    const secondExerciseTitle = getExerciseName(
-      props.exercises,
-      sortedExercises[1].exerciseId
-    );
     const superSetItem = (
       <SuperSetItem
+        upNextCard={false}
         segmentId={props.segment.id}
-        displayEditOptions={props.displayEditOptions}
-        firstExerciseTitle={firstExerciseTitle ? firstExerciseTitle : ''}
-        firstExerciseRepsAndSets={buildRepsAndSets(sortedExercises[0].sets)}
-        secondExerciseTitle={secondExerciseTitle ? secondExerciseTitle : ''}
-        secondExerciseRepsAndSets={buildRepsAndSets(sortedExercises[1].sets)}
+        firstExercise={sortedExercises[0]}
+        secondExercise={sortedExercises[1]}
       />
     );
     return props.displayEditOptions ? (
@@ -112,7 +95,4 @@ const mapStateToProps = (state: State): PreviewListItemProps => {
   } as unknown as PreviewListItemProps;
 };
 
-const mapDispatchToProps = (): PreviewListItemProps =>
-  ({} as unknown as PreviewListItemProps);
-
-export default connect(mapStateToProps, mapDispatchToProps)(PreviewListItem);
+export default connect(mapStateToProps)(PreviewListItem);

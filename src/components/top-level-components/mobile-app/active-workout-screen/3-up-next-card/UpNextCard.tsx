@@ -15,19 +15,15 @@ import {
   isCircuitSet,
   isStraightSet,
   WorkoutExercise,
-  buildRepsAndSets,
 } from 'workout-app-common-core';
 import { connect } from 'react-redux';
 import { State } from '../../../../../configs/redux/store';
+import { getPhaseName } from '../../../../../utils/name-finder';
 import { AppTheme } from '../../../../../configs/theme/app-theme';
 import SuperSetItem from '../../shared/exercise-list/SuperSetItem';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import SingleSetItem from '../../shared/exercise-list/SingleSetItem';
 import confettiEmoji from '../../../../../configs/icons/confetti-emoji.png';
-import {
-  getExerciseName,
-  getPhaseName,
-} from '../../../../../utils/name-finder';
 
 const useStyles = makeStyles((theme: AppTheme) =>
   createStyles({
@@ -94,35 +90,21 @@ const UpNextCard = (props: UpNextCardProps & PassedInProps): JSX.Element => {
     );
   } else if (straightSet || circuitSet) {
     workoutExercises.map((exercise: WorkoutExercise) => {
-      const exerciseName = getExerciseName(
-        props.exercises,
-        exercise.exerciseId
-      );
       display = (
         <SingleSetItem
           displayUpNextTitle
           key={exercise.id}
-          exerciseTitle={exerciseName ? exerciseName : ''}
-          repsAndSets={buildRepsAndSets(exercise.sets)}
+          workoutExercise={exercise}
         />
       );
     });
   } else if (nextSegment && isSuperset(nextSegment.trainingSetTypeId)) {
-    const firstExerciseName = getExerciseName(
-      props.exercises,
-      workoutExercises[0].exerciseId
-    );
-    const secondExerciseName = getExerciseName(
-      props.exercises,
-      workoutExercises[1].exerciseId
-    );
     display = (
       <SuperSetItem
+        upNextCard={true}
         displayUpNextTitle
-        firstExerciseTitle={firstExerciseName ? firstExerciseName : ''}
-        firstExerciseRepsAndSets={buildRepsAndSets(workoutExercises[0].sets)}
-        secondExerciseTitle={secondExerciseName ? secondExerciseName : ''}
-        secondExerciseRepsAndSets={buildRepsAndSets(workoutExercises[1].sets)}
+        firstExercise={workoutExercises[0]}
+        secondExercise={workoutExercises[1]}
       />
     );
   }

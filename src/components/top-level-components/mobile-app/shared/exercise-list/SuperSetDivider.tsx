@@ -8,6 +8,8 @@ import {
 } from '@material-ui/core';
 import LinkIcon from '@material-ui/icons/Link';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
+import { State } from '../../../../../configs/redux/store';
+import { connect } from 'react-redux';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -29,10 +31,9 @@ const useStyles = makeStyles(() =>
   })
 );
 
-export default function SuperSetDivider(
-  props: SuperSetDividerProps
-): JSX.Element {
+const SuperSetDivider = (props: SuperSetDividerProps): JSX.Element => {
   const classes = useStyles();
+  const { shrink } = props;
 
   return (
     <ListItem className={classes.root}>
@@ -41,7 +42,7 @@ export default function SuperSetDivider(
         disableTypography
         className={classes.dividerWrapper}
         primary={
-          <Grid item xs={props.shrink ? 8 : 12} container alignItems={'center'}>
+          <Grid item xs={shrink ? 8 : 12} container alignItems={'center'}>
             <Grid item xs={10}>
               <Divider variant={'fullWidth'} />
             </Grid>
@@ -53,8 +54,16 @@ export default function SuperSetDivider(
       />
     </ListItem>
   );
-}
+};
 
 export interface SuperSetDividerProps {
-  shrink?: boolean;
+  shrink: boolean;
 }
+
+const mapStateToProps = (state: State): SuperSetDividerProps => {
+  return {
+    shrink: state.workoutState.displayEditPreviewList,
+  } as unknown as SuperSetDividerProps;
+};
+
+export default connect(mapStateToProps)(SuperSetDivider);
