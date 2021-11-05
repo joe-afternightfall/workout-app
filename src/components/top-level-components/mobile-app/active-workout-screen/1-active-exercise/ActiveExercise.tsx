@@ -1,10 +1,10 @@
 import React from 'react';
-import { Segment, isSuperset, ExerciseVO } from 'workout-app-common-core';
 import { connect } from 'react-redux';
 import ExerciseItem from './components/ExerciseItem';
 import ExerciseDivider from './components/ExerciseDivider';
 import { State } from '../../../../../configs/redux/store';
-import { getExerciseName } from '../../../../../utils/name-finder';
+import { getExercise } from '../../../../../utils/active-workout';
+import { Segment, isSuperset, ExerciseVO } from 'workout-app-common-core';
 
 const ActiveExercise = (
   props: ActiveExerciseProps & PassedInProps
@@ -12,26 +12,29 @@ const ActiveExercise = (
   const { segment, allExercises } = props;
   // todo: implement circuit set, pyramid, giant, drop
   const superset = isSuperset(segment.trainingSetTypeId);
-  const titles: string[] = [];
+  const info: {
+    title: string;
+    exerciseIcon: string;
+  }[] = [];
 
   segment.exercises.map((workoutExercise) => {
-    const exerciseName = getExerciseName(
-      allExercises,
-      workoutExercise.exerciseId
-    );
-    if (exerciseName) {
-      titles.push(exerciseName);
+    const foundExercise = getExercise(allExercises, workoutExercise.exerciseId);
+    if (foundExercise) {
+      info.push({
+        title: foundExercise.name,
+        exerciseIcon: foundExercise.iconId,
+      });
     }
   });
 
   return (
     <div style={{ height: superset ? '34vh' : '20vh' }}>
-      <ExerciseItem bottom={false} title={titles[0]} />
+      <ExerciseItem bottom={false} info={info[0]} />
 
       {superset && (
         <>
           <ExerciseDivider />
-          <ExerciseItem bottom={true} title={titles[1]} />
+          <ExerciseItem bottom={true} info={info[1]} />
         </>
       )}
     </div>

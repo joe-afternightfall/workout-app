@@ -1,14 +1,21 @@
 import clsx from 'clsx';
 import React from 'react';
+import {
+  ExerciseVO,
+  WorkoutExercise,
+  buildRepsAndSets,
+} from 'workout-app-common-core';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
+import ExerciseImage from './ExerciseImage';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import { State } from '../../../../../configs/redux/store';
+import { AppTheme } from '../../../../../configs/theme/app-theme';
 import { Grid, ListItemIcon, Typography } from '@material-ui/core';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { openEditSet } from '../../../../../creators/new-workout/workout-selections';
-import { AppTheme } from '../../../../../configs/theme/app-theme';
+import { getExercise } from '../../../../../utils/active-workout';
 
 const useStyles = makeStyles((theme: AppTheme) =>
   createStyles({
@@ -27,9 +34,6 @@ const useStyles = makeStyles((theme: AppTheme) =>
       fontSize: '1rem',
     },
     itemIconWrapper: {
-      // todo: come back and assign palette color
-      backgroundColor: 'gray',
-      padding: 4,
       width: '13vh',
       height: '13vh',
     },
@@ -55,11 +59,23 @@ const SingleSetItem = (
       props.editSetHandler(props.segmentId);
     }
   };
+  const foundExercise =
+    props.workoutExercise &&
+    getExercise(props.allExercises, props.workoutExercise.exerciseId);
+  const repsAndSets =
+    props.workoutExercise && buildRepsAndSets(props.workoutExercise.sets);
+  const exerciseName = foundExercise && foundExercise.name;
+  const exerciseIcon = foundExercise && foundExercise.iconId;
 
   const display = (
     <>
       <ListItemIcon className={classes.itemIconWrapper}>
-        {props.exerciseIcon}
+        {exerciseIcon && (
+          <ExerciseImage
+            folder={exerciseIcon}
+            image={`${exerciseIcon}-preview.jpg`}
+          />
+        )}
       </ListItemIcon>
       <ListItemText
         className={classes.textWrapper}
@@ -82,7 +98,7 @@ const SingleSetItem = (
                   color={'textPrimary'}
                   className={classes.upNextTitle}
                 >
-                  {props.exerciseTitle}
+                  {exerciseName}
                 </Typography>
               </Grid>
             </Grid>
@@ -96,24 +112,21 @@ const SingleSetItem = (
                   : classes.title
               }
             >
-              {props.exerciseTitle}
+              {exerciseName}
             </Typography>
           )
         }
         secondary={
           <Grid item xs={12} container alignItems={'center'}>
-            <Grid item container alignItems={'center'}>
-              <Grid item>{props.equipmentIcon}</Grid>
-            </Grid>
             <Grid item xs={12}>
               <Typography
                 variant={'body2'}
                 color={'textSecondary'}
                 className={clsx({
-                  [classes.secondaryTitle]: !props.equipmentIcon,
+                  [classes.secondaryTitle]: !props.workoutExercise,
                 })}
               >
-                {props.repsAndSets}
+                {repsAndSets}
               </Typography>
             </Grid>
           </Grid>
@@ -139,18 +152,18 @@ const SingleSetItem = (
   );
 };
 
+// todo: if displayEditOptions = true then preview
+// todo: if displayUpNextTitle = true then preview
 interface PassedInProps {
   displayUpNextTitle?: boolean;
   bottomListItem?: boolean;
   upNextCard?: boolean;
-  exerciseTitle: string;
-  repsAndSets: string;
-  equipmentIcon?: JSX.Element;
-  exerciseIcon?: JSX.Element;
   segmentId?: string;
+  workoutExercise?: WorkoutExercise;
 }
 
-export interface SingleSetItemProps {
+interface SingleSetItemProps {
+  allExercises: ExerciseVO[];
   displayEditOptions: boolean;
   editSetHandler: (segmentId: string) => void;
 }
@@ -158,6 +171,7 @@ export interface SingleSetItemProps {
 const mapStateToProps = (state: State): SingleSetItemProps => {
   return {
     displayEditOptions: state.workoutState.displayEditPreviewList,
+    allExercises: state.workoutState.configs.exercises,
   } as unknown as SingleSetItemProps;
 };
 

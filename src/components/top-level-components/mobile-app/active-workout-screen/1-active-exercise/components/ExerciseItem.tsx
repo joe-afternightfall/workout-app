@@ -7,6 +7,7 @@ import {
   ListItemIcon,
 } from '@material-ui/core';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
+import ExerciseImage from '../../../shared/exercise-list/ExerciseImage';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -17,7 +18,7 @@ const useStyles = makeStyles(() =>
       marginTop: -16,
     },
     exerciseIcon: {
-      height: '15vh',
+      width: '15vh',
     },
     title: {
       fontSize: '1.225rem',
@@ -31,18 +32,18 @@ const useStyles = makeStyles(() =>
 
 export default function ExerciseItem(props: ExerciseItemProps): JSX.Element {
   const classes = useStyles();
+  const { bottom, info } = props;
 
   return (
     <ListItem
       className={clsx(classes.root, {
-        [classes.bottom]: props.bottom,
+        [classes.bottom]: bottom,
       })}
     >
-      <ListItemIcon>
-        <img
-          alt={'exercise-icon'}
-          src={'images/barbell-upright-row.gif'}
-          className={classes.exerciseIcon}
+      <ListItemIcon className={classes.exerciseIcon}>
+        <ExerciseImage
+          folder={info.exerciseIcon}
+          image={`${info.exerciseIcon}-exercise.gif`}
         />
       </ListItemIcon>
       <ListItemText
@@ -54,7 +55,7 @@ export default function ExerciseItem(props: ExerciseItemProps): JSX.Element {
             color={'textPrimary'}
             className={classes.title}
           >
-            {props.title}
+            {info.title}
           </Typography>
         }
       />
@@ -63,6 +64,9 @@ export default function ExerciseItem(props: ExerciseItemProps): JSX.Element {
 }
 
 export interface ExerciseItemProps {
-  title: string;
   bottom: boolean;
+  info: {
+    title: string;
+    exerciseIcon: string;
+  };
 }
