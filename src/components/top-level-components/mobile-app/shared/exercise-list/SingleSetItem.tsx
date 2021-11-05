@@ -1,19 +1,14 @@
 import React from 'react';
-import {
-  ExerciseVO,
-  WorkoutExercise,
-  buildRepsAndSets,
-} from 'workout-app-common-core';
 import { Dispatch } from 'redux';
 import SetTitle from './SetTitle';
 import { connect } from 'react-redux';
 import ExerciseImage from './ExerciseImage';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
+import RepsAndSetsTitle from './RepsAndSetsTitle';
 import { State } from '../../../../../configs/redux/store';
 import { getExercise } from '../../../../../utils/active-workout';
-import { Grid, ListItemIcon, Typography } from '@material-ui/core';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
+import { ExerciseVO, WorkoutExercise } from 'workout-app-common-core';
+import { ListItemIcon, ListItem, ListItemText } from '@material-ui/core';
 import { openEditSet } from '../../../../../creators/new-workout/workout-selections';
 
 const useStyles = makeStyles(() =>
@@ -55,7 +50,6 @@ const SingleSetItem = (
   };
   const foundExercise =
     workoutExercise && getExercise(allExercises, workoutExercise.exerciseId);
-  const repsAndSets = workoutExercise && buildRepsAndSets(workoutExercise.sets);
   const exerciseName = foundExercise && foundExercise.name;
   const exerciseIcon = foundExercise && foundExercise.iconId;
 
@@ -81,13 +75,9 @@ const SingleSetItem = (
           />
         }
         secondary={
-          <Grid item xs={12} container alignItems={'center'}>
-            <Grid item xs={12}>
-              <Typography variant={'body2'} color={'textSecondary'}>
-                {repsAndSets}
-              </Typography>
-            </Grid>
-          </Grid>
+          <RepsAndSetsTitle
+            sets={workoutExercise ? workoutExercise.sets : []}
+          />
         }
       />
     </>
