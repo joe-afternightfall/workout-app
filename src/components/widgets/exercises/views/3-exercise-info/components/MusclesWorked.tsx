@@ -12,6 +12,7 @@ import { State } from '../../../../../../configs/redux/store';
 import { MusclesWorked, MuscleVO } from 'workout-app-common-core';
 import { findMuscle } from '../../../../../../utils/object-finder';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
+import ExerciseImage from '../../../../../top-level-components/mobile-app/shared/exercise-list/ExerciseImage';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -49,11 +50,7 @@ const MusclesWorkedCard = (
         <Typography variant={'h6'}>{'Muscles Worked'}</Typography>
       </CardContent>
       <CardMedia className={classes.centerAlign}>
-        <img
-          className={classes.musclesWorkedImage}
-          alt={`${iconId}-muscles-worked`}
-          src={`images/exercises/${iconId}/${iconId}-muscles-worked.png`}
-        />
+        <ExerciseImage folder={iconId} image={`${iconId}-muscles-worked.png`} />
       </CardMedia>
       <CardContent>
         <Grid container>
