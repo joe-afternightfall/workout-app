@@ -1,12 +1,11 @@
 import React from 'react';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
+import { Segment } from 'workout-app-common-core';
 import { Button, List, ListItem, Slide } from '@material-ui/core';
-import { Segment, ExerciseVO } from 'workout-app-common-core';
-import ActiveExercise from '../../../1-active-exercise/ActiveExercise';
-import { State } from '../../../../../../../configs/redux/store';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { startSelectedSegment } from '../../../../../../../creators/new-workout/active-workout';
+import ActiveExercise from '../../../../../../1-active-exercise/ActiveExercise';
+import { startSelectedSegment } from '../../../../../../../../../../creators/new-workout/active-workout';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -22,8 +21,8 @@ const useStyles = makeStyles(() =>
   })
 );
 
-const SelectedExercise = (
-  props: SelectedExerciseProps & PassedInProps
+const SelectedExerciseOverlay = (
+  props: SelectedExerciseOverlayProps & PassedInProps
 ): JSX.Element => {
   const classes = useStyles();
   const { segment, startExerciseHandler, closeHandler } = props;
@@ -52,8 +51,7 @@ const SelectedExercise = (
   );
 };
 
-interface SelectedExerciseProps {
-  allExercises: ExerciseVO[];
+interface SelectedExerciseOverlayProps {
   startExerciseHandler: () => void;
 }
 
@@ -62,20 +60,14 @@ interface PassedInProps {
   closeHandler: () => void;
 }
 
-const mapStateToProps = (state: State): SelectedExerciseProps => {
-  return {
-    allExercises: state.workoutState.configs.exercises,
-  } as unknown as SelectedExerciseProps;
-};
-
 const mapDispatchToProps = (
   dispatch: Dispatch,
   ownProps: PassedInProps
-): SelectedExerciseProps =>
+): SelectedExerciseOverlayProps =>
   ({
     startExerciseHandler: () => {
       dispatch(startSelectedSegment(ownProps.segment.id));
     },
-  } as unknown as SelectedExerciseProps);
+  } as unknown as SelectedExerciseOverlayProps);
 
-export default connect(mapStateToProps, mapDispatchToProps)(SelectedExercise);
+export default connect(null, mapDispatchToProps)(SelectedExerciseOverlay);
