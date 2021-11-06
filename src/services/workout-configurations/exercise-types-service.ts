@@ -1,4 +1,5 @@
-import firebase from 'firebase';
+import firebase from 'firebase/app';
+import 'firebase/database';
 import { exerciseTypeSnapToVO } from '../../utils/vo-builder';
 import { EXERCISE_TYPES_ROUTE } from '../../configs/constants/firebase-routes';
 import { ExerciseTypeVO } from '../../configs/old-models/ExerciseTypeVO';

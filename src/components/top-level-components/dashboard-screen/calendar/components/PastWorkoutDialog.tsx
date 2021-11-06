@@ -45,8 +45,6 @@ export default function PastWorkoutDialog(
 ): JSX.Element {
   const classes = useStyles();
 
-  console.log('props.workout: ' + JSON.stringify(props.workout));
-
   return (
     <Dialog
       fullWidth

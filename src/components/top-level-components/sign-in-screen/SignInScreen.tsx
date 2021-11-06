@@ -1,5 +1,6 @@
 import React from 'react';
-import firebase from 'firebase';
+import firebase from 'firebase/app';
+import 'firebase/auth';
 import { connect } from 'react-redux';
 import SignInCard from './SignInCard';
 import { Grid } from '@material-ui/core';

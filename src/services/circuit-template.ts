@@ -1,4 +1,5 @@
-import firebase from 'firebase';
+import firebase from 'firebase/app';
+import 'firebase/database';
 import { circuitTemplateSnapToVO } from '../utils/vo-builder';
 import { CIRCUIT_TEMPLATES_ROUTE } from '../configs/constants/firebase-routes';
 import { CircuitTemplateVO } from '../configs/old-models/CircuitTemplateVO';
