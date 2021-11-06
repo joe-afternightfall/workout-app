@@ -1,5 +1,4 @@
 import React from 'react';
-import CheckIcon from '@material-ui/icons/Check';
 import { Segment } from 'workout-app-common-core';
 import CategoryHeader from '../../shared/CategoryHeader';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
