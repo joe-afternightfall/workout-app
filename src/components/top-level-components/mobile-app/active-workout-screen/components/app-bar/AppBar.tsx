@@ -2,21 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import ExitDialog from './exit-dialog/ExitDialog';
 import { State } from '../../../../../../configs/redux/store';
-import ExerciseListDrawer from './active-exercise-list-drawer/ActiveExerciseListDrawer';
 import { getPhaseName } from '../../../../../../utils/name-finder';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { Grid, AppBar, Toolbar, Typography } from '@material-ui/core';
-
-const useStyles = makeStyles(() =>
-  createStyles({
-    gridRoot: {
-      height: '100%',
-    },
-  })
-);
+import ExerciseListDrawer from './active-exercise-list-drawer/ActiveExerciseListDrawer';
 
 const ActiveWorkoutAppBar = (props: ActiveWorkoutAppBarProps): JSX.Element => {
-  const classes = useStyles();
   const { phaseName, currentSegmentCount } = props;
 
   return (
