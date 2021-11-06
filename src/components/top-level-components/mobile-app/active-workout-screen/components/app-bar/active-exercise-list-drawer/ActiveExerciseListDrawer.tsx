@@ -2,24 +2,20 @@ import { connect } from 'react-redux';
 import React, { useState } from 'react';
 import ListIcon from '@material-ui/icons/List';
 import { Segment } from 'workout-app-common-core';
-import { State } from '../../../../../../configs/redux/store';
+import { State } from '../../../../../../../configs/redux/store';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForwardIos';
-import CategoryHeader from './exercise-list-drawer/CategoryHeader';
+import CategoryHeader from './components/shared/CategoryHeader';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { AppTheme } from '../../../../../../configs/theme/app-theme';
-import SelectedExercise from './exercise-list-drawer/SelectedExercise';
-import ExerciseListAppBar from './exercise-list-drawer/ExerciseListAppBar';
+import SelectedExercise from './components/list/components/SelectedExerciseSection';
+import ActiveExerciseListAppBar from './components/ActiveExerciseListAppBar';
 import { Grid, List, Drawer, ListItem, IconButton } from '@material-ui/core';
-import PreviewListItem from '../../../workout-screen/views/3-preview-list/PreviewListItem';
+import PreviewListItem from '../../../../shared/exercise-list/PreviewListItem';
 import CheckIcon from '@material-ui/icons/Check';
 
-const useStyles = makeStyles((theme: AppTheme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     drawerContainer: {
       height: '90vh',
-    },
-    menuButton: {
-      color: theme.palette.custom.colors.active,
     },
     checkedIcon: {
       zIndex: 1,
@@ -50,7 +46,9 @@ const listDivider = () => {
   );
 };
 
-const ExerciseListDrawer = (props: ExerciseListDrawerProps): JSX.Element => {
+const ActiveExerciseListDrawer = (
+  props: ActiveExerciseListDrawerProps
+): JSX.Element => {
   const classes = useStyles();
   const { currentSegment, doneSegments, nextSegments } = props;
   const [open, setOpen] = useState(false);
@@ -78,17 +76,13 @@ const ExerciseListDrawer = (props: ExerciseListDrawerProps): JSX.Element => {
   };
 
   return (
-    <div>
-      <IconButton
-        color={'inherit'}
-        onClick={openDialog}
-        className={classes.menuButton}
-      >
+    <>
+      <IconButton color={'primary'} onClick={openDialog}>
         <ListIcon />
       </IconButton>
       <Drawer open={open} anchor={'bottom'} onClose={closeAndReset}>
         <div className={classes.drawerContainer}>
-          <ExerciseListAppBar
+          <ActiveExerciseListAppBar
             selectedSegment={openSelectedExercise}
             closeClickHandler={closeAndReset}
             goBackClickHandler={() => {
@@ -150,17 +144,17 @@ const ExerciseListDrawer = (props: ExerciseListDrawerProps): JSX.Element => {
           )}
         </div>
       </Drawer>
-    </div>
+    </>
   );
 };
 
-interface ExerciseListDrawerProps {
+interface ActiveExerciseListDrawerProps {
   nextSegments: Segment[];
   doneSegments: Segment[];
   currentSegment: Segment;
 }
 
-const mapStateToProps = (state: State): ExerciseListDrawerProps => {
+const mapStateToProps = (state: State): ActiveExerciseListDrawerProps => {
   const doneSegments: Segment[] = [];
 
   const currentPhase = state.workoutState.currentPhase;
@@ -202,7 +196,7 @@ const mapStateToProps = (state: State): ExerciseListDrawerProps => {
     doneSegments: doneSegments,
     currentSegment: currentSegment,
     nextSegments: nextSegments,
-  } as unknown as ExerciseListDrawerProps;
+  } as unknown as ActiveExerciseListDrawerProps;
 };
 
-export default connect(mapStateToProps)(ExerciseListDrawer);
+export default connect(mapStateToProps)(ActiveExerciseListDrawer);
