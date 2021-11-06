@@ -17,20 +17,18 @@ const useStyles = makeStyles(() =>
   })
 );
 
-export default function ExerciseListAppBar({
-  selectedSegment,
-  closeClickHandler,
-  goBackClickHandler,
-}: ExerciseListAppBarProps): JSX.Element {
+export default function ActiveExerciseListAppBar(
+  props: ActiveExerciseListAppBarProps
+): JSX.Element {
   const classes = useStyles();
+  const { selectedSegment, closeClickHandler, goBackClickHandler } = props;
 
   return (
     <AppBar
       elevation={0}
-      position={'sticky'}
-      style={{ width: '100%' }}
-      className={classes.appBar}
       color={'inherit'}
+      position={'sticky'}
+      className={classes.appBar}
     >
       <Toolbar>
         <Grid container alignItems={'center'}>
@@ -62,7 +60,7 @@ export default function ExerciseListAppBar({
   );
 }
 
-interface ExerciseListAppBarProps {
+interface ActiveExerciseListAppBarProps {
   selectedSegment: boolean;
   closeClickHandler: () => void;
   goBackClickHandler: () => void;

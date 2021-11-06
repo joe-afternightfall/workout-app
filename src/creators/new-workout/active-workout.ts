@@ -1,4 +1,5 @@
 import { WorkoutActionTypes } from '../actions-workout';
+import { Workout } from 'workout-app-common-core';
 
 export interface MarkCurrentSetAsDoneAction {
   type: WorkoutActionTypes.MARK_CURRENT_SET_AS_DONE;
@@ -30,6 +31,29 @@ export interface WorkoutDoneAction {
 export const workoutDone = (): WorkoutDoneAction => {
   return {
     type: WorkoutActionTypes.WORKOUT_DONE,
+  };
+};
+
+export interface ClearActiveWorkoutAction {
+  type: WorkoutActionTypes.CLEAR_ACTIVE_WORKOUT;
+  workout: Workout;
+}
+
+export const clearActiveWorkout = (): ClearActiveWorkoutAction => {
+  return {
+    type: WorkoutActionTypes.CLEAR_ACTIVE_WORKOUT,
+    workout: {
+      id: '',
+      date: '',
+      startTime: '',
+      endTime: '',
+      routine: {
+        id: '',
+        name: '',
+        workoutCategoryId: '',
+        phases: [],
+      },
+    },
   };
 };
 

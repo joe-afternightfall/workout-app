@@ -9,12 +9,12 @@ import {
 } from 'workout-app-common-core';
 import { connect } from 'react-redux';
 import { Card } from '@material-ui/core';
+import SuperSetItem from './SuperSetItem';
+import SingleSetItem from './SingleSetItem';
 import { Draggable } from 'react-smooth-dnd';
-import { State } from '../../../../../../configs/redux/store';
+import { State } from '../../../../../configs/redux/store';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import SuperSetItem from '../../../shared/exercise-list/SuperSetItem';
-import EditOptions from './components/edit-set/components/EditOptions';
-import SingleSetItem from '../../../shared/exercise-list/SingleSetItem';
+import EditOptions from '../../workout-screen/views/3-preview-list/components/edit-set/components/EditOptions';
 
 const useStyles = makeStyles(() =>
   createStyles({

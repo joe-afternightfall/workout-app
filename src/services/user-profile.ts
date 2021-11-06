@@ -13,6 +13,11 @@ import { userProfileSnapToVO } from '../utils/vo-builder';
 import { USER_PROFILES_ROUTE } from '../configs/constants/firebase-routes';
 import { UserProfileVO, UserProfileDAO } from 'workout-app-common-core';
 import { ProfileDialogState } from '../components/top-level-components/profile-screen/ProfileDialog';
+import {
+  clearActiveWorkout,
+  workoutDone,
+} from '../creators/new-workout/active-workout';
+import { routerActions } from 'connected-react-router';
 
 export const createNewUserProfile = async (
   profile: ProfileDialogState
@@ -47,8 +52,9 @@ export const createNewUserProfile = async (
 };
 
 export const saveWorkoutForUser =
-  (): ThunkAction<void, State, void, AnyAction> =>
+  (successRouterAction: string): ThunkAction<void, State, void, AnyAction> =>
   async (dispatch: Dispatch, getState: () => State): Promise<void> => {
+    dispatch(workoutDone());
     const userProfile = getState().applicationState.userProfile;
     const profileFirebaseId = userProfile ? userProfile.firebaseId : '';
     const activeWorkout = getState().workoutState.activeWorkout;
@@ -63,7 +69,8 @@ export const saveWorkoutForUser =
         return Promise.reject();
       } else {
         console.log('***** SAVED_WORKOUT_SUCCESS *****');
-        return Promise.resolve();
+        dispatch(routerActions.push(successRouterAction));
+        dispatch(clearActiveWorkout());
       }
     });
   };

@@ -15,7 +15,7 @@ import {
   sortPhaseSegments,
 } from 'workout-app-common-core';
 import { MOBILE_ACTIVE_WORKOUT_SCREEN_PATH } from '../../../../../../configs/constants/app';
-import PreviewListItem from './PreviewListItem';
+import PreviewListItem from '../../../shared/exercise-list/PreviewListItem';
 import { startWorkout } from '../../../../../../creators/new-workout/workout-selections';
 import BottomActionButtons from './components/edit-set/components/BottomActionButtons';
 import { Container, DropResult } from 'react-smooth-dnd';

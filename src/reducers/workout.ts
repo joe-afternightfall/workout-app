@@ -350,6 +350,9 @@ export default {
         newState.currentPhase = clonedCurrentPhase;
         break;
       }
+      case WorkoutActionTypes.CLEAR_ACTIVE_WORKOUT:
+        newState.activeWorkout = action.workout;
+        break;
       default:
         break;
     }

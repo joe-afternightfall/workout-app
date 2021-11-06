@@ -17,6 +17,7 @@ import { openEditPreviewOptions } from '../../../../../../creators/new-workout/w
 import { State } from '../../../../../../configs/redux/store';
 import DiscardDialog from './DiscardDialog';
 import { saveEditedVersionOfRoutine } from '../../../../../../creators/new-workout/preview-workout';
+import { DASHBOARD_SCREEN_PATH } from '../../../../../../configs/constants/app';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -57,11 +58,6 @@ const MessageAppBar = (
       break;
   }
 
-  const routeAndClick = () => {
-    props.routeClickHandler();
-    props.clickHandler();
-  };
-
   return props.displayEditSet ? (
     <React.Fragment />
   ) : (
@@ -75,7 +71,9 @@ const MessageAppBar = (
               <IconButton
                 color={'primary'}
                 onClick={
-                  props.activeTab === 0 ? routeAndClick : props.clickHandler
+                  props.activeTab === 0
+                    ? props.routeToDashboardClickHandler
+                    : props.clickHandler
                 }
                 className={classes.menuButton}
               >
@@ -120,7 +118,7 @@ interface PassedInProps {
 }
 
 interface MessageAppBarProps {
-  routeClickHandler: () => void;
+  routeToDashboardClickHandler: () => void;
   editClickHandler: () => void;
   displayEditOptions: boolean;
   displayEditSet: boolean;
@@ -136,8 +134,8 @@ const mapStateToProps = (state: State): MessageAppBarProps => {
 
 const mapDispatchToProps = (dispatch: Dispatch): MessageAppBarProps =>
   ({
-    routeClickHandler: () => {
-      dispatch(routerActions.goBack());
+    routeToDashboardClickHandler: () => {
+      dispatch(routerActions.push(DASHBOARD_SCREEN_PATH));
     },
     editClickHandler: () => {
       dispatch(openEditPreviewOptions());

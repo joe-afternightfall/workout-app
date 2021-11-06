@@ -10,6 +10,7 @@ import {
   OpenEditPreviewOptionsAction,
 } from './new-workout/workout-selections';
 import {
+  ClearActiveWorkoutAction,
   MarkCurrentSetAsDoneAction,
   StartSelectedSegmentAction,
   WorkoutDoneAction,
@@ -72,6 +73,7 @@ export enum WorkoutActionTypes {
   UPDATE_SEGMENT_ORDER = 'UPDATE_SEGMENT_ORDER',
   UPDATE_REST_BETWEEN = 'UPDATE_REST_BETWEEN',
   WORKOUT_DONE = 'WORKOUT_DONE',
+  CLEAR_ACTIVE_WORKOUT = 'CLEAR_ACTIVE_WORKOUT',
   START_SELECTED_SEGMENT = 'START_SELECTED_SEGMENT',
 }
 
@@ -106,4 +108,5 @@ export type WorkoutActions =
   | LoadPhasesAction
   | LoadTrainingSetTypesAction
   | LoadWorkoutCategoriesAction
-  | LoadWorkoutEquipmentAction;
+  | LoadWorkoutEquipmentAction
+  | ClearActiveWorkoutAction;

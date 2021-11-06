@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid, Slide } from '@material-ui/core';
 import { Segment, BuiltSets } from 'workout-app-common-core';
 import UpNextCard from './3-up-next-card/UpNextCard';
-import ActiveWorkoutAppBar from './components/AppBar';
+import ActiveWorkoutAppBar from './components/app-bar/AppBar';
 import ActiveSuperset from './2-active-set/ActiveSuperset';
 import ActiveExercise from './1-active-exercise/ActiveExercise';
 import ActiveStraightSet from './2-active-set/ActiveStraightSet';
