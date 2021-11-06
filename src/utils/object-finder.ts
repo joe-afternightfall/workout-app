@@ -1,4 +1,8 @@
-import { MuscleVO, WorkoutEquipmentVO } from 'workout-app-common-core';
+import {
+  ExerciseVO,
+  MuscleVO,
+  WorkoutEquipmentVO,
+} from 'workout-app-common-core';
 
 export const findMuscle = (
   muscles: MuscleVO[],
@@ -12,4 +16,11 @@ export const findWorkoutEquipment = (
   id: string
 ): WorkoutEquipmentVO | undefined => {
   return equipmentList.find((equipment) => equipment.id === id);
+};
+
+export const findExercise = (
+  allExercises: ExerciseVO[],
+  id: string
+): ExerciseVO | undefined => {
+  return allExercises.find((exercise) => exercise.id === id);
 };
