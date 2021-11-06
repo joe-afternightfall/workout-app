@@ -6,10 +6,7 @@ import AddIcon from '@material-ui/icons/Add';
 import EditAppBar from './components/EditAppBar';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ActionButton from './components/ActionButton';
-import {
-  buildSetInfo,
-  getExercise,
-} from '../../../../../../../../utils/active-workout';
+import { buildSetInfo } from '../../../../../../../../utils/active-workout';
 import {
   ActiveSetInfo,
   BuiltSets,
@@ -28,6 +25,7 @@ import StraightSetRow from '../../../../../shared/set-rows/StraightSetRow';
 import EditSupersetRow from '../../../../../shared/set-rows/EditSupersetRow';
 import { buildSetFieldInfo } from '../../../../../../../../utils/info-builder';
 import ActiveExercise from '../../../../../active-workout-screen/1-active-exercise/ActiveExercise';
+import { findExercise } from '../../../../../../../../utils/object-finder';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -156,7 +154,7 @@ const mapStateToProps = (state: State): EditSetProps => {
   if (foundSegment.order !== -1) {
     superset = isSuperset(foundSegment.trainingSetTypeId);
     foundSegment.exercises.map((exercise) => {
-      const foundExercise = getExercise(
+      const foundExercise = findExercise(
         state.workoutState.configs.exercises,
         exercise.exerciseId
       );
