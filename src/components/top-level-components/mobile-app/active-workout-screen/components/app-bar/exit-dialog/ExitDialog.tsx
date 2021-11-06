@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Dispatch } from 'redux';
+import { AnyAction, Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import {
   Button,
@@ -9,15 +9,16 @@ import {
   Link,
   Typography,
 } from '@material-ui/core';
-import { Segment, ExerciseVO } from 'workout-app-common-core';
+import { ExerciseVO } from 'workout-app-common-core';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import DeleteIcon from '@material-ui/icons/Delete';
 import SaveIcon from '@material-ui/icons/Save';
 import { State } from '../../../../../../../configs/redux/store';
-import { AppTheme } from '../../../../../../../configs/theme/app-theme';
-import clsx from 'clsx';
+import { ThunkDispatch } from 'redux-thunk';
+import { saveWorkoutForUser } from '../../../../../../../services/user-profile';
+import { MOBILE_WORKOUT_SCREEN_PATH } from '../../../../../../../configs/constants/app';
 
-const useStyles = makeStyles((theme: AppTheme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     button: {
       margin: 8,
@@ -92,6 +93,7 @@ const ExitDialog = (props: ExitDialogProps): JSX.Element => {
                 size={'large'}
                 className={classes.baseButton}
                 startIcon={<SaveIcon />}
+                onClick={props.saveAndExitHandler}
               >
                 {'Save and Exit'}
               </Button>
@@ -123,6 +125,8 @@ const ExitDialog = (props: ExitDialogProps): JSX.Element => {
 
 interface ExitDialogProps {
   allExercises: ExerciseVO[];
+  saveAndExitHandler: () => void;
+  // exitWithoutSavingHandler: () => void;
 }
 
 const mapStateToProps = (state: State): ExitDialogProps => {
@@ -133,8 +137,10 @@ const mapStateToProps = (state: State): ExitDialogProps => {
 
 const mapDispatchToProps = (dispatch: Dispatch): ExitDialogProps =>
   ({
-    exitWithoutSavingHandler: () => {
-      // dispatch();
+    saveAndExitHandler: () => {
+      (dispatch as ThunkDispatch<State, void, AnyAction>)(
+        saveWorkoutForUser(MOBILE_WORKOUT_SCREEN_PATH)
+      );
     },
   } as unknown as ExitDialogProps);
 
