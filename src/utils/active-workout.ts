@@ -5,6 +5,7 @@ import {
   Set,
   WorkoutExercise,
 } from 'workout-app-common-core';
+import { findExercise } from './object-finder';
 
 // TODO: rename this file
 
@@ -20,7 +21,7 @@ export const buildSetInfo = (
         setNumber: set.setNumber,
         setId: set.id,
         segmentId: segment.id,
-        exercise: getExercise(allExercises, exercise.exerciseId),
+        exercise: findExercise(allExercises, exercise.exerciseId),
         exerciseOrder: exercise.order,
         weight: set.weight,
         reps: set.reps,
@@ -40,11 +41,4 @@ export const buildSetInfo = (
   });
 
   return builtSets;
-};
-
-export const getExercise = (
-  allExercises: ExerciseVO[],
-  id: string
-): ExerciseVO | undefined => {
-  return allExercises.find((exercise: ExerciseVO) => exercise.id === id);
 };
