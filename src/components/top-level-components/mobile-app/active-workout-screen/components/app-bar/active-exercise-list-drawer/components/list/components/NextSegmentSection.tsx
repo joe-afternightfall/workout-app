@@ -21,7 +21,7 @@ export default function NextSegmentSection(
           container
           alignItems={'center'}
           justify={'center'}
-          onClick={toggleSelectedExerciseHandler}
+          onClick={() => toggleSelectedExerciseHandler(true, segment)}
         >
           <ArrowForwardIcon />
         </Grid>
@@ -34,5 +34,8 @@ export default function NextSegmentSection(
 interface NextSegmentSectionProps {
   segment: Segment;
   displayDivider: boolean;
-  toggleSelectedExerciseHandler: () => void;
+  toggleSelectedExerciseHandler: (
+    open: boolean,
+    segment: Segment | null
+  ) => void;
 }

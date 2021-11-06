@@ -2,49 +2,20 @@ import { connect } from 'react-redux';
 import React, { useState } from 'react';
 import ListIcon from '@material-ui/icons/List';
 import { Segment } from 'workout-app-common-core';
+import { Drawer, IconButton } from '@material-ui/core';
 import { State } from '../../../../../../../configs/redux/store';
-import ArrowForwardIcon from '@material-ui/icons/ArrowForwardIos';
-import CategoryHeader from './components/shared/CategoryHeader';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import SelectedExercise from './components/list/components/SelectedExerciseSection';
+import ActiveExerciseList from './components/list/ActiveExerciseList';
+import SelectedExerciseOverlay from './components/SelectedExerciseOverlay';
 import ActiveExerciseListAppBar from './components/ActiveExerciseListAppBar';
-import { Grid, List, Drawer, ListItem, IconButton } from '@material-ui/core';
-import PreviewListItem from '../../../../shared/exercise-list/PreviewListItem';
-import CheckIcon from '@material-ui/icons/Check';
 
 const useStyles = makeStyles(() =>
   createStyles({
     drawerContainer: {
       height: '90vh',
     },
-    checkedIcon: {
-      zIndex: 1,
-      position: 'absolute',
-      width: '13vh',
-      height: '7vh',
-      top: '50%',
-      transform: 'translateY(-50%)',
-    },
-    doneWrapper: {
-      opacity: '0.4',
-      position: 'relative',
-    },
   })
 );
-
-const listDivider = () => {
-  return (
-    <ListItem
-      style={{
-        height: '2vh',
-        padding: 0,
-        color: 'white',
-        background:
-          'repeating-linear-gradient(-55deg, #222, #222 5px, #333 5px, #333 10px)',
-      }}
-    />
-  );
-};
 
 const ActiveExerciseListDrawer = (
   props: ActiveExerciseListDrawerProps
@@ -90,57 +61,17 @@ const ActiveExerciseListDrawer = (
             }}
           />
           {openSelectedExercise && selectedSegment ? (
-            <SelectedExercise
+            <SelectedExerciseOverlay
               segment={selectedSegment}
               closeHandler={closeAndReset}
             />
           ) : (
-            <List>
-              {doneSegments.length > 0 && (
-                <>
-                  <CategoryHeader title={'Done'} />
-                  {doneSegments.map((segment, index) => {
-                    const displayDivider = doneSegments.length !== index + 1;
-                    return (
-                      <div key={index} className={classes.doneWrapper}>
-                        <CheckIcon className={classes.checkedIcon} />
-                        <PreviewListItem segment={segment} />
-                        {displayDivider && listDivider()}
-                      </div>
-                    );
-                  })}
-                </>
-              )}
-              <CategoryHeader title={'Current'} />
-
-              <PreviewListItem segment={currentSegment} />
-
-              <CategoryHeader title={'Next'} />
-
-              {nextSegments.map((segment, index) => {
-                const displayDivider = nextSegments.length !== index + 1;
-                return (
-                  <>
-                    <Grid container>
-                      <Grid item xs={10}>
-                        <PreviewListItem key={index} segment={segment} />
-                      </Grid>
-                      <Grid
-                        item
-                        xs={2}
-                        container
-                        alignItems={'center'}
-                        justify={'center'}
-                        onClick={() => toggleSelectedExercise(true, segment)}
-                      >
-                        <ArrowForwardIcon />
-                      </Grid>
-                    </Grid>
-                    {displayDivider && listDivider()}
-                  </>
-                );
-              })}
-            </List>
+            <ActiveExerciseList
+              nextSegments={nextSegments}
+              doneSegments={doneSegments}
+              currentSegment={currentSegment}
+              toggleSelectedExerciseHandler={toggleSelectedExercise}
+            />
           )}
         </div>
       </Drawer>
@@ -156,7 +87,7 @@ interface ActiveExerciseListDrawerProps {
 
 const mapStateToProps = (state: State): ActiveExerciseListDrawerProps => {
   const doneSegments: Segment[] = [];
-
+  const nextSegments: Segment[] = [];
   const currentPhase = state.workoutState.currentPhase;
 
   currentPhase.segments.map((segment) => {
@@ -182,8 +113,6 @@ const mapStateToProps = (state: State): ActiveExerciseListDrawerProps => {
     (segment: Segment) =>
       segment.order === state.workoutState.currentSegmentIndex
   );
-
-  const nextSegments: Segment[] = [];
 
   currentPhase.segments.map((segment) => {
     const foundIndex = doneSegments.indexOf(segment);

@@ -45,5 +45,8 @@ interface ActiveExerciseListProps {
   nextSegments: Segment[];
   doneSegments: Segment[];
   currentSegment: Segment;
-  toggleSelectedExerciseHandler: () => void;
+  toggleSelectedExerciseHandler: (
+    open: boolean,
+    segment: Segment | null
+  ) => void;
 }

@@ -64,6 +64,7 @@ const mapDispatchToProps = (dispatch: Dispatch): ActiveWorkoutProps =>
         markCurrentSetAsDone(segmentId, setNumber, lastSet, lastSegment)
       );
       if (lastExerciseOfWorkout && lastSet) {
+        // todo: dispatch one action to save/deem workout done/then clear active routine/then route to directed path
         dispatch(workoutDone());
         dispatch(routerActions.push(MOBILE_WORKOUT_DONE_PATH));
         (dispatch as ThunkDispatch<State, void, AnyAction>)(
