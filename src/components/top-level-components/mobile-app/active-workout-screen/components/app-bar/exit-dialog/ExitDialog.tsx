@@ -9,6 +9,7 @@ import {
   Link,
   Typography,
 } from '@material-ui/core';
+import { routerActions } from 'connected-react-router';
 import { ExerciseVO } from 'workout-app-common-core';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -17,6 +18,7 @@ import { State } from '../../../../../../../configs/redux/store';
 import { ThunkDispatch } from 'redux-thunk';
 import { saveWorkoutForUser } from '../../../../../../../services/user-profile';
 import { MOBILE_WORKOUT_SCREEN_PATH } from '../../../../../../../configs/constants/app';
+import { clearActiveWorkout } from '../../../../../../../creators/new-workout/active-workout';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -105,6 +107,7 @@ const ExitDialog = (props: ExitDialogProps): JSX.Element => {
                 size={'large'}
                 className={classes.baseButton}
                 startIcon={<DeleteIcon />}
+                onClick={props.exitWithoutSavingHandler}
               >
                 {'Exit Without Saving'}
               </Button>
@@ -126,7 +129,7 @@ const ExitDialog = (props: ExitDialogProps): JSX.Element => {
 interface ExitDialogProps {
   allExercises: ExerciseVO[];
   saveAndExitHandler: () => void;
-  // exitWithoutSavingHandler: () => void;
+  exitWithoutSavingHandler: () => void;
 }
 
 const mapStateToProps = (state: State): ExitDialogProps => {
@@ -141,6 +144,10 @@ const mapDispatchToProps = (dispatch: Dispatch): ExitDialogProps =>
       (dispatch as ThunkDispatch<State, void, AnyAction>)(
         saveWorkoutForUser(MOBILE_WORKOUT_SCREEN_PATH)
       );
+    },
+    exitWithoutSavingHandler: () => {
+      dispatch(routerActions.push(MOBILE_WORKOUT_SCREEN_PATH));
+      dispatch(clearActiveWorkout());
     },
   } as unknown as ExitDialogProps);
 
