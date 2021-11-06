@@ -50,4 +50,4 @@ const mapDispatchToProps = (dispatch: Dispatch): ExitWithoutSavingButtonProps =>
     },
   } as unknown as ExitWithoutSavingButtonProps);
 
-export default connect(mapDispatchToProps)(ExitWithoutSavingButton);
+export default connect(null, mapDispatchToProps)(ExitWithoutSavingButton);
