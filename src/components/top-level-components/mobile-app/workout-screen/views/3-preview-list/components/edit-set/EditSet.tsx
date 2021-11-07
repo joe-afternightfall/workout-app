@@ -6,7 +6,7 @@ import AddIcon from '@material-ui/icons/Add';
 import EditAppBar from './components/EditAppBar';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ActionButton from './components/ActionButton';
-import { buildSetInfo } from '../../../../../../../../utils/active-workout';
+import { buildSetInfo } from '../../../../../../../../utils/set-info-builder';
 import {
   ActiveSetInfo,
   BuiltSets,
@@ -132,6 +132,7 @@ const mapStateToProps = (state: State): EditSetProps => {
   let foundSegment: Segment = {
     id: '',
     order: -1,
+    laps: -1,
     trainingSetTypeId: '',
     secondsRestBetweenSets: -1,
     secondsRestBetweenNextSegment: -1,

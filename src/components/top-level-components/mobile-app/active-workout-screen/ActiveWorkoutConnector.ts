@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import { AnyAction, Dispatch } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
 import { State } from '../../../../configs/redux/store';
-import { buildSetInfo } from '../../../../utils/active-workout';
+import { buildSetInfo } from '../../../../utils/set-info-builder';
 import ActiveWorkout, { ActiveWorkoutProps } from './ActiveWorkout';
 import { saveWorkoutForUser } from '../../../../services/user-profile';
 import { MOBILE_WORKOUT_DONE_PATH } from '../../../../configs/constants/app';
