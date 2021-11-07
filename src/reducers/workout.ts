@@ -24,6 +24,7 @@ import {
 import { v4 as uuidv4 } from 'uuid';
 import * as ramda from 'ramda';
 import { arrayMoveImmutable as arrayMove } from 'array-move';
+import { ExerciseImage } from '../creators/new-workout/exercises';
 
 function updateSet(
   phase: Phase,
@@ -353,6 +354,9 @@ export default {
       case WorkoutActionTypes.CLEAR_ACTIVE_WORKOUT:
         newState.activeWorkout = action.workout;
         break;
+      case WorkoutActionTypes.LOAD_EXERCISE_IMAGES:
+        newState.exerciseImages.push(action.images);
+        break;
       default:
         break;
     }
@@ -363,6 +367,7 @@ export default {
 
 export interface WorkoutState {
   currentLocation: string;
+  exerciseImages: ExerciseImage[];
   configs: {
     exercises: ExerciseVO[];
     routineTemplates: RoutineTemplateVO[];
