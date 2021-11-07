@@ -4,10 +4,9 @@ import {
   Segment,
   Set,
   WorkoutExercise,
+  ActiveSetInfo,
 } from 'workout-app-common-core';
 import { findExercise } from './object-finder';
-
-// TODO: rename this file
 
 export const buildSetInfo = (
   segment: Segment,
@@ -17,7 +16,7 @@ export const buildSetInfo = (
 
   segment.exercises.map((exercise: WorkoutExercise) => {
     exercise.sets.map((set: Set) => {
-      const exerciseSet = {
+      const exerciseSet: ActiveSetInfo = {
         setNumber: set.setNumber,
         setId: set.id,
         segmentId: segment.id,
@@ -25,6 +24,7 @@ export const buildSetInfo = (
         exerciseOrder: exercise.order,
         weight: set.weight,
         reps: set.reps,
+        laps: segment.laps,
         duration: set.duration,
         distance: set.distance,
         markedDone: set.markedDone,
