@@ -66,6 +66,7 @@ export const createStore = (history: History): Store => {
     workoutState: {
       displayEditPreviewList: false,
       displayEditSet: false,
+      exerciseImages: [],
       configs: {
         trainingSetTypes: [],
         phases: [],
