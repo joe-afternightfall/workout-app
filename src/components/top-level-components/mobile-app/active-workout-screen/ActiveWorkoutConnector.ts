@@ -3,7 +3,6 @@ import {
   BuiltSets,
   isSuperset,
   isStraightSet,
-  isCircuitSet,
 } from 'workout-app-common-core';
 import { connect } from 'react-redux';
 import { AnyAction, Dispatch } from 'redux';
@@ -42,8 +41,6 @@ const mapStateToProps = (state: State): ActiveWorkoutProps => {
     straightSet:
       currentSegment && isStraightSet(currentSegment.trainingSetTypeId),
     superset: currentSegment && isSuperset(currentSegment.trainingSetTypeId),
-    circuitSet:
-      currentSegment && isCircuitSet(currentSegment.trainingSetTypeId),
     lastSegment: currentSegment && lastSegment,
     lastExerciseOfWorkout: lastExerciseOfWorkout,
     builtSets: builtSets,
@@ -59,7 +56,6 @@ const mapDispatchToProps = (dispatch: Dispatch): ActiveWorkoutProps =>
       lastSegment: boolean,
       lastExerciseOfWorkout: boolean
     ) => {
-      // todo: try using ownProps here and not have to pass in lastSegment or lastExercise
       dispatch(
         markCurrentSetAsDone(segmentId, setNumber, lastSet, lastSegment)
       );
