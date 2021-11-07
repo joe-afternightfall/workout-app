@@ -5,11 +5,11 @@ import { connect } from 'react-redux';
 import ExerciseImage from './ExerciseImage';
 import RepsAndSetsTitle from './RepsAndSetsTitle';
 import { State } from '../../../../../configs/redux/store';
-import { getExercise } from '../../../../../utils/active-workout';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { ExerciseVO, WorkoutExercise } from 'workout-app-common-core';
 import { ListItemIcon, ListItem, ListItemText } from '@material-ui/core';
 import { openEditSet } from '../../../../../creators/new-workout/workout-selections';
+import { findExercise } from '../../../../../utils/object-finder';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -49,7 +49,7 @@ const SingleSetItem = (
     }
   };
   const foundExercise =
-    workoutExercise && getExercise(allExercises, workoutExercise.exerciseId);
+    workoutExercise && findExercise(allExercises, workoutExercise.exerciseId);
   const exerciseName = foundExercise && foundExercise.name;
   const exerciseIcon = foundExercise && foundExercise.iconId;
 

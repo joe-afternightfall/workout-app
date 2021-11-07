@@ -45,7 +45,7 @@
     "slick-carousel": "^1.8.1",
     "source-map-explorer": "^2.5.2",
     "web-vitals": "1.1.2",
-    "workout-app-common-core": "0.0.57"
+    "workout-app-common-core": "0.0.60"
   },
   "devDependencies": {
     "@capacitor/cli": "^3.2.0",

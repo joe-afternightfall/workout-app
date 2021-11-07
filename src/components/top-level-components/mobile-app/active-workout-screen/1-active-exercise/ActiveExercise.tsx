@@ -3,14 +3,14 @@ import { connect } from 'react-redux';
 import ExerciseItem from './components/ExerciseItem';
 import ExerciseDivider from './components/ExerciseDivider';
 import { State } from '../../../../../configs/redux/store';
-import { getExercise } from '../../../../../utils/active-workout';
 import { Segment, isSuperset, ExerciseVO } from 'workout-app-common-core';
+import { findExercise } from '../../../../../utils/object-finder';
 
 const ActiveExercise = (
   props: ActiveExerciseProps & PassedInProps
 ): JSX.Element => {
   const { segment, allExercises } = props;
-  // todo: implement circuit set, pyramid, giant, drop
+  // todo: implement pyramid, giant, drop
   const superset = isSuperset(segment.trainingSetTypeId);
   const info: {
     title: string;
@@ -18,7 +18,10 @@ const ActiveExercise = (
   }[] = [];
 
   segment.exercises.map((workoutExercise) => {
-    const foundExercise = getExercise(allExercises, workoutExercise.exerciseId);
+    const foundExercise = findExercise(
+      allExercises,
+      workoutExercise.exerciseId
+    );
     if (foundExercise) {
       info.push({
         title: foundExercise.name,

@@ -4,9 +4,9 @@ import {
   Segment,
   Set,
   WorkoutExercise,
+  ActiveSetInfo,
 } from 'workout-app-common-core';
-
-// TODO: rename this file
+import { findExercise } from './object-finder';
 
 export const buildSetInfo = (
   segment: Segment,
@@ -16,11 +16,11 @@ export const buildSetInfo = (
 
   segment.exercises.map((exercise: WorkoutExercise) => {
     exercise.sets.map((set: Set) => {
-      const exerciseSet = {
+      const exerciseSet: ActiveSetInfo = {
         setNumber: set.setNumber,
         setId: set.id,
         segmentId: segment.id,
-        exercise: getExercise(allExercises, exercise.exerciseId),
+        exercise: findExercise(allExercises, exercise.exerciseId),
         exerciseOrder: exercise.order,
         weight: set.weight,
         reps: set.reps,
@@ -40,11 +40,4 @@ export const buildSetInfo = (
   });
 
   return builtSets;
-};
-
-export const getExercise = (
-  allExercises: ExerciseVO[],
-  id: string
-): ExerciseVO | undefined => {
-  return allExercises.find((exercise: ExerciseVO) => exercise.id === id);
 };
