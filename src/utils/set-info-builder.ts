@@ -24,7 +24,6 @@ export const buildSetInfo = (
         exerciseOrder: exercise.order,
         weight: set.weight,
         reps: set.reps,
-        laps: segment.laps,
         duration: set.duration,
         distance: set.distance,
         markedDone: set.markedDone,

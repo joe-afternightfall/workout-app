@@ -132,7 +132,6 @@ const mapStateToProps = (state: State): EditSetProps => {
   let foundSegment: Segment = {
     id: '',
     order: -1,
-    laps: -1,
     trainingSetTypeId: '',
     secondsRestBetweenSets: -1,
     secondsRestBetweenNextSegment: -1,
