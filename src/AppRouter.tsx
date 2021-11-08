@@ -3,8 +3,8 @@ import React from 'react';
 import { Route } from 'react-router';
 import { connect } from 'react-redux';
 import { State } from './configs/redux/store';
-import { mobileRoutes } from './configs/constants/mobile-routes';
 import {
+  appRoutes,
   MOBILE_ACTIVE_WORKOUT_SCREEN_PATH,
   MOBILE_WORKOUT_DONE_PATH,
 } from './configs/constants/app';
@@ -16,13 +16,13 @@ const AppRouter = (props: AppRouterProps): JSX.Element => {
   return props.isValidated ? (
     <App>
       <div className={'route'}>
-        {Object.keys(mobileRoutes).map((value: string, index: number) => {
+        {Object.keys(appRoutes).map((value: string, index: number) => {
           return (
             <Route
               key={index}
               exact
-              path={mobileRoutes[value].path}
-              component={mobileRoutes[value].routerComponent}
+              path={appRoutes[value].path}
+              component={appRoutes[value].routerComponent}
             />
           );
         })}

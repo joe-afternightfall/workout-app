@@ -11,8 +11,8 @@ import {
 } from '@material-ui/core';
 import { routerActions } from 'connected-react-router';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { mobileRoutes } from '../../configs/constants/mobile-routes';
 import { State } from '../../configs/redux/store';
+import { appRoutes } from '../../configs/constants/app';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -59,8 +59,8 @@ const AppBottomNavigation = (props: AppBottomNavigationProps): JSX.Element => {
             className={classes.navRoot}
             value={props.selectedNavTestId}
           >
-            {Object.keys(mobileRoutes).map((route: string, index: number) => {
-              const currentRoute = mobileRoutes[route];
+            {Object.keys(appRoutes).map((route: string, index: number) => {
+              const currentRoute = appRoutes[route];
               return (
                 <BottomNavigationAction
                   key={index}
