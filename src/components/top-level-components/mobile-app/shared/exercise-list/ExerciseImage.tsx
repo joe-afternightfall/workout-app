@@ -35,9 +35,10 @@ const mapStateToProps = (
   ownProps: PassedInProps
 ): ExerciseImageProps => {
   let imageUrl = '';
-  const foundImages = state.workoutState.exerciseImages.find(
-    (images) => images.name === ownProps.folder
-  );
+  const foundImages =
+    state.applicationState.workoutConfigurations.exerciseImages.find(
+      (images) => images.name === ownProps.folder
+    );
 
   if (foundImages) {
     const foundUrl = foundImages.downloadUrls.find((url) =>

@@ -15,7 +15,7 @@ import { MOBILE_WORKOUT_DONE_PATH } from '../../../../configs/constants/app';
 import { markCurrentSetAsDone } from '../../../../creators/new-workout/active-workout';
 
 const mapStateToProps = (state: State): ActiveWorkoutProps => {
-  const allExercises = state.workoutState.configs.exercises;
+  const allExercises = state.applicationState.workoutConfigurations.exercises;
   const currentPhase = state.workoutState.currentPhase;
   const currentSegment = currentPhase.segments.find(
     (segment: Segment) =>

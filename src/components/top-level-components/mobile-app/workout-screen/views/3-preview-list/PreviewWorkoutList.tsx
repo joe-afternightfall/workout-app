@@ -124,7 +124,7 @@ const mapStateToProps = (state: State): PreviewWorkoutListProps => {
     : workoutState.selectedRoutineTemplate;
   return {
     routinePhases: selectedRoutine.phases,
-    configPhases: workoutState.configs.phases,
+    configPhases: state.applicationState.workoutConfigurations.phases,
     displayEditSet: workoutState.displayEditSet,
     displayEditOptions: state.workoutState.displayEditPreviewList,
   } as unknown as PreviewWorkoutListProps;

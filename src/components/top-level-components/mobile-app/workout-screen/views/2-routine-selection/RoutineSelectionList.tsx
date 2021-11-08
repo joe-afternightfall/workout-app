@@ -47,7 +47,7 @@ const mapStateToProps = (state: State): RoutineSelectionListProps => {
   const selectedWorkoutCategory = state.workoutState.selectedWorkoutCategory;
 
   const routinesForCategory: RoutineTemplateVO[] =
-    state.workoutState.configs.routineTemplates.filter(
+    state.applicationState.workoutConfigurations.routineTemplates.filter(
       (template: RoutineTemplateVO) =>
         template.workoutCategoryId === selectedWorkoutCategory.id
     );

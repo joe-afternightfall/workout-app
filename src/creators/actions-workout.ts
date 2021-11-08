@@ -26,37 +26,10 @@ import {
   UpdateSegmentOrderAction,
   UpdateSetTextFieldAction,
 } from './new-workout/update-workout';
-import {
-  LoadExercisesAction,
-  LoadGripTypesAction,
-  LoadGripWidthsAction,
-  LoadManikinMuscleGroupsAction,
-  LoadMusclesAction,
-  LoadMuscleTargetTypesAction,
-  LoadParameterTypesAction,
-  LoadPhasesAction,
-  LoadRoutineTemplatesAction,
-  LoadTrainingSetTypesAction,
-  LoadWorkoutCategoriesAction,
-  LoadWorkoutEquipmentAction,
-} from './new-workout/load-workout-configs';
-import { LoadExerciseImagesAction } from './new-workout/exercises';
 
 export enum WorkoutActionTypes {
   // Workout Actions
   INITIALIZE = 'INITIALIZE',
-  LOAD_ROUTINE_TEMPLATES = 'LOAD_ROUTINE_TEMPLATES',
-  LOAD_EXERCISES = 'LOAD_EXERCISES',
-  LOAD_GRIP_TYPES = 'LOAD_GRIP_TYPES',
-  LOAD_GRIP_WIDTHS = 'LOAD_GRIP_WIDTHS',
-  LOAD_MANIKIN_MUSCLE_GROUP = 'LOAD_MANIKIN_MUSCLE_GROUP',
-  LOAD_MUSCLES = 'LOAD_MUSCLES',
-  LOAD_MUSCLE_TARGET_TYPES = 'LOAD_MUSCLE_TARGET_TYPES',
-  LOAD_PARAMETER_TYPES = 'LOAD_PARAMETER_TYPES',
-  LOAD_PHASES = 'LOAD_PHASES',
-  LOAD_TRAINING_SET_TYPES = 'LOAD_TRAINING_SET_TYPES',
-  LOAD_WORKOUT_CATEGORIES = 'LOAD_WORKOUT_CATEGORIES',
-  LOAD_WORKOUT_EQUIPMENT = 'LOAD_WORKOUT_EQUIPMENT',
   SELECTED_WORKOUT_CATEGORY = 'SELECTED_WORKOUT_CATEGORY',
   SELECTED_ROUTINE = 'SELECTED_ROUTINE',
   START_WORKOUT = 'START_WORKOUT',
@@ -76,7 +49,6 @@ export enum WorkoutActionTypes {
   WORKOUT_DONE = 'WORKOUT_DONE',
   CLEAR_ACTIVE_WORKOUT = 'CLEAR_ACTIVE_WORKOUT',
   START_SELECTED_SEGMENT = 'START_SELECTED_SEGMENT',
-  LOAD_EXERCISE_IMAGES = 'LOAD_EXERCISE_IMAGES',
 }
 
 export type WorkoutActions =
@@ -98,18 +70,5 @@ export type WorkoutActions =
   | UpdateSegmentOrderAction
   | UpdateRestBetweenAction
   | WorkoutDoneAction
-  | LoadRoutineTemplatesAction
-  | LoadExercisesAction
   | StartSelectedSegmentAction
-  | LoadGripTypesAction
-  | LoadGripWidthsAction
-  | LoadManikinMuscleGroupsAction
-  | LoadMusclesAction
-  | LoadMuscleTargetTypesAction
-  | LoadParameterTypesAction
-  | LoadPhasesAction
-  | LoadTrainingSetTypesAction
-  | LoadWorkoutCategoriesAction
-  | LoadWorkoutEquipmentAction
-  | ClearActiveWorkoutAction
-  | LoadExerciseImagesAction;
+  | ClearActiveWorkoutAction;

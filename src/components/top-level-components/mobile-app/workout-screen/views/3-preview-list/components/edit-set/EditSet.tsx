@@ -155,7 +155,7 @@ const mapStateToProps = (state: State): EditSetProps => {
     superset = isSuperset(foundSegment.trainingSetTypeId);
     foundSegment.exercises.map((exercise) => {
       const foundExercise = findExercise(
-        state.workoutState.configs.exercises,
+        state.applicationState.workoutConfigurations.exercises,
         exercise.exerciseId
       );
       if (foundExercise) {
@@ -167,7 +167,7 @@ const mapStateToProps = (state: State): EditSetProps => {
 
   const builtSets = buildSetInfo(
     foundSegment,
-    state.workoutState.configs.exercises
+    state.applicationState.workoutConfigurations.exercises
   );
 
   return {

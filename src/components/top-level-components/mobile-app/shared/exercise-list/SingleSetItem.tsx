@@ -117,7 +117,7 @@ interface SingleSetItemProps {
 const mapStateToProps = (state: State): SingleSetItemProps => {
   return {
     displayEditOptions: state.workoutState.displayEditPreviewList,
-    allExercises: state.workoutState.configs.exercises,
+    allExercises: state.applicationState.workoutConfigurations.exercises,
   } as unknown as SingleSetItemProps;
 };
 

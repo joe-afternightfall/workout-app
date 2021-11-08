@@ -140,7 +140,8 @@ const mapStateToProps = (
   ownProps: PassedInProps
 ): UpNextCardProps => {
   const workoutState = state.workoutState;
-  const configPhases = state.workoutState.configs.phases;
+  const workoutConfigurations = state.applicationState.workoutConfigurations;
+  const configPhases = workoutConfigurations.phases;
   const foundSegment = workoutState.currentPhase.segments.find(
     (segment) => segment.order === workoutState.currentSegmentIndex + 1
   );
@@ -164,7 +165,7 @@ const mapStateToProps = (
 
   return {
     nextSegment: foundSegment,
-    exercises: workoutState.configs.exercises,
+    exercises: workoutConfigurations.exercises,
     nextPhaseTitle: nextPhaseTitle,
     exercisesLength: exercisesLength,
   } as unknown as UpNextCardProps;

@@ -47,7 +47,8 @@ interface MuscleGroupListProps {
 
 const mapStateToProps = (state: State): MuscleGroupListProps => {
   return {
-    manikinMuscleGroups: state.workoutState.configs.manikinMuscleGroups,
+    manikinMuscleGroups:
+      state.applicationState.workoutConfigurations.manikinMuscleGroups,
   } as unknown as MuscleGroupListProps;
 };
 

@@ -54,7 +54,7 @@ interface PassedInProps {
 
 const mapStateToProps = (state: State): ActiveExerciseProps => {
   return {
-    allExercises: state.workoutState.configs.exercises,
+    allExercises: state.applicationState.workoutConfigurations.exercises,
   } as unknown as ActiveExerciseProps;
 };
 

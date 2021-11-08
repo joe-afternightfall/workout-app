@@ -45,7 +45,8 @@ interface WorkoutSelectionListProps {
 
 const mapStateToProps = (state: State): WorkoutSelectionListProps => {
   return {
-    workoutCategories: state.workoutState.configs.workoutCategories,
+    workoutCategories:
+      state.applicationState.workoutConfigurations.workoutCategories,
   } as unknown as WorkoutSelectionListProps;
 };
 

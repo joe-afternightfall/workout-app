@@ -41,12 +41,7 @@ export const createStore = (history: History): Store => {
         lastUpdatedOn: '',
       },
       setupNewUser: false,
-    } as unknown as ApplicationState,
-    workoutState: {
-      displayEditPreviewList: false,
-      displayEditSet: false,
-      exerciseImages: [],
-      configs: {
+      workoutConfigurations: {
         trainingSetTypes: [],
         phases: [],
         workoutCategories: [],
@@ -56,7 +51,12 @@ export const createStore = (history: History): Store => {
         parameterTypes: [],
         exercises: [],
         routineTemplates: [],
+        exerciseImages: [],
       },
+    } as unknown as ApplicationState,
+    workoutState: {
+      displayEditPreviewList: false,
+      displayEditSet: false,
     } as unknown as WorkoutState,
   });
 };
