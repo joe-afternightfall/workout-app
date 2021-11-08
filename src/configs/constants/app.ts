@@ -8,8 +8,8 @@ import { StyledComponentProps } from '@material-ui/core/styles';
 import AccessibilityIcon from '@material-ui/icons/Accessibility';
 import ProfileScreen from '../../components/top-level-components/profile-screen/ProfileScreen';
 import DashboardScreen from '../../components/top-level-components/dashboard-screen/DashboardScreen';
-import MobileExercisesScreen from '../../components/top-level-components/exercises-screen/MobileExercisesScreen';
-import MobileWorkoutScreen from '../../components/top-level-components/workout-screen/MobileWorkoutScreen';
+import ExercisesScreen from '../../components/top-level-components/exercises-screen/ExercisesScreen';
+import WorkoutScreen from '../../components/top-level-components/workout-screen/WorkoutScreen';
 
 export const DASHBOARD_SCREEN_PATH = '/dashboard';
 export const EXERCISES_SCREEN_PATH = '/exercises';
@@ -32,17 +32,17 @@ export interface ApplicationRouteProp {
   >;
 }
 
-export type MobileRoutesMap = {
+export type AppRoutesMap = {
   [key: string]: ApplicationRouteProp;
 };
 
-export const appRoutes: MobileRoutesMap = {
+export const appRoutes: AppRoutesMap = {
   DASHBOARD: {
     path: DASHBOARD_SCREEN_PATH,
     drawerTitle: 'Dashboard',
     headerTitle: 'Dashboard',
     icon: DashboardIcon,
-    testId: 'mobile-dashboard-nav',
+    testId: 'dashboard-nav',
     routerComponent: DashboardScreen,
   },
   EXERCISES: {
@@ -50,16 +50,16 @@ export const appRoutes: MobileRoutesMap = {
     drawerTitle: 'Exercises',
     headerTitle: 'Exercises',
     icon: AccessibilityIcon,
-    testId: 'mobile-exercises-nav',
-    routerComponent: MobileExercisesScreen,
+    testId: 'exercises-nav',
+    routerComponent: ExercisesScreen,
   },
   WORKOUT: {
     path: WORKOUT_SCREEN_PATH,
     drawerTitle: 'Workout',
     headerTitle: 'Workout',
     icon: FitnessCenterIcon,
-    testId: 'mobile-workout-nav',
-    routerComponent: MobileWorkoutScreen,
+    testId: 'workout-nav',
+    routerComponent: WorkoutScreen,
   },
   PROFILE: {
     path: PROFILE_PATH,

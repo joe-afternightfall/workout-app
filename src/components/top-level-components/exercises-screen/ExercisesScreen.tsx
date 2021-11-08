@@ -11,7 +11,7 @@ import ExercisesWidget from '../../widgets/exercises/ExercisesWidget';
 
 const styles: Styles<Theme, StyledComponentProps> = () => ({});
 
-class MobileExercisesScreen extends Component<MobileExercisesScreenProps> {
+class ExercisesScreen extends Component<ExercisesScreenProps> {
   render(): JSX.Element {
     return (
       <Grid container item xs={12}>
@@ -21,6 +21,6 @@ class MobileExercisesScreen extends Component<MobileExercisesScreenProps> {
   }
 }
 
-export type MobileExercisesScreenProps = WithStyles<typeof styles>;
+export type ExercisesScreenProps = WithStyles<typeof styles>;
 
-export default withStyles(styles, { withTheme: true })(MobileExercisesScreen);
+export default withStyles(styles, { withTheme: true })(ExercisesScreen);

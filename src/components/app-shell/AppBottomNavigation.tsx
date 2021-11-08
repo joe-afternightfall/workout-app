@@ -39,11 +39,11 @@ const AppBottomNavigation = (props: AppBottomNavigationProps): JSX.Element => {
   const classes = useStyles();
   let shouldDisplay = true;
 
-  if (props.selectedNavTestId === 'mobile-workout-nav') {
+  if (props.selectedNavTestId === 'workout-nav') {
     shouldDisplay = false;
   }
 
-  if (props.selectedNavTestId === 'mobile-profile-nav') {
+  if (props.selectedNavTestId === 'profile-nav') {
     shouldDisplay = false;
   }
   return (
@@ -51,7 +51,7 @@ const AppBottomNavigation = (props: AppBottomNavigationProps): JSX.Element => {
       <AppBar
         position={'fixed'}
         className={clsx(classes.root, {
-          [classes.hide]: props.selectedNavTestId === 'mobile-workout-nav',
+          [classes.hide]: props.selectedNavTestId === 'workout-nav',
         })}
       >
         <Toolbar className={classes.toolbar}>

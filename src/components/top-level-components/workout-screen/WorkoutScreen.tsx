@@ -17,7 +17,8 @@ const useStyles = makeStyles(() =>
   })
 );
 
-const MobileWorkoutScreen = (props: MobileWorkoutScreenProps): JSX.Element => {
+// todo: rename RoutinesScreen
+const WorkoutScreen = (props: WorkoutScreenProps): JSX.Element => {
   const classes = useStyles();
   const [activeIndex, setActiveIndex] = React.useState<number>(0);
 
@@ -55,14 +56,14 @@ const MobileWorkoutScreen = (props: MobileWorkoutScreenProps): JSX.Element => {
   );
 };
 
-interface MobileWorkoutScreenProps {
+interface WorkoutScreenProps {
   displayEditSet: boolean;
 }
 
-const mapStateToProps = (state: State): MobileWorkoutScreenProps => {
+const mapStateToProps = (state: State): WorkoutScreenProps => {
   return {
     displayEditSet: state.workoutState.displayEditSet,
-  } as unknown as MobileWorkoutScreenProps;
+  } as unknown as WorkoutScreenProps;
 };
 
-export default connect(mapStateToProps)(MobileWorkoutScreen);
+export default connect(mapStateToProps)(WorkoutScreen);
