@@ -40,6 +40,7 @@ import {
   LoadWorkoutCategoriesAction,
   LoadWorkoutEquipmentAction,
 } from './new-workout/load-workout-configs';
+import { LoadExerciseImagesAction } from './new-workout/exercises';
 
 export enum WorkoutActionTypes {
   // Workout Actions
@@ -75,6 +76,7 @@ export enum WorkoutActionTypes {
   WORKOUT_DONE = 'WORKOUT_DONE',
   CLEAR_ACTIVE_WORKOUT = 'CLEAR_ACTIVE_WORKOUT',
   START_SELECTED_SEGMENT = 'START_SELECTED_SEGMENT',
+  LOAD_EXERCISE_IMAGES = 'LOAD_EXERCISE_IMAGES',
 }
 
 export type WorkoutActions =
@@ -109,4 +111,5 @@ export type WorkoutActions =
   | LoadTrainingSetTypesAction
   | LoadWorkoutCategoriesAction
   | LoadWorkoutEquipmentAction
-  | ClearActiveWorkoutAction;
+  | ClearActiveWorkoutAction
+  | LoadExerciseImagesAction;
