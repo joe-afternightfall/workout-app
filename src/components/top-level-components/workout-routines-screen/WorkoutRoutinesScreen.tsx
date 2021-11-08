@@ -6,7 +6,7 @@ import MessageAppBar from './views/components/MessageAppBar';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import EditSet from './views/3-preview-list/components/edit-set/EditSet';
 import PreviewWorkoutList from './views/3-preview-list/PreviewWorkoutList';
-import WorkoutSelectionList from './views/1-workout-selection/WorkoutSelectionList';
+import WorkoutSelectionList from './views/1-category-selection/WorkoutSelectionList';
 import RoutineSelectionList from './views/2-routine-selection/RoutineSelectionList';
 
 const useStyles = makeStyles(() =>
@@ -17,8 +17,9 @@ const useStyles = makeStyles(() =>
   })
 );
 
-// todo: rename RoutinesScreen
-const WorkoutScreen = (props: WorkoutScreenProps): JSX.Element => {
+const WorkoutRoutinesScreen = (
+  props: WorkoutRoutinesScreenProps
+): JSX.Element => {
   const classes = useStyles();
   const [activeIndex, setActiveIndex] = React.useState<number>(0);
 
@@ -56,14 +57,14 @@ const WorkoutScreen = (props: WorkoutScreenProps): JSX.Element => {
   );
 };
 
-interface WorkoutScreenProps {
+interface WorkoutRoutinesScreenProps {
   displayEditSet: boolean;
 }
 
-const mapStateToProps = (state: State): WorkoutScreenProps => {
+const mapStateToProps = (state: State): WorkoutRoutinesScreenProps => {
   return {
     displayEditSet: state.workoutState.displayEditSet,
-  } as unknown as WorkoutScreenProps;
+  } as unknown as WorkoutRoutinesScreenProps;
 };
 
-export default connect(mapStateToProps)(WorkoutScreen);
+export default connect(mapStateToProps)(WorkoutRoutinesScreen);

@@ -9,7 +9,7 @@ import AccessibilityIcon from '@material-ui/icons/Accessibility';
 import ProfileScreen from '../../components/top-level-components/profile-screen/ProfileScreen';
 import DashboardScreen from '../../components/top-level-components/dashboard-screen/DashboardScreen';
 import ExercisesScreen from '../../components/top-level-components/exercises-screen/ExercisesScreen';
-import WorkoutScreen from '../../components/top-level-components/workout-screen/WorkoutScreen';
+import WorkoutScreen from '../../components/top-level-components/workout-routines-screen/WorkoutRoutinesScreen';
 
 export const DASHBOARD_SCREEN_PATH = '/dashboard';
 export const EXERCISES_SCREEN_PATH = '/exercises';

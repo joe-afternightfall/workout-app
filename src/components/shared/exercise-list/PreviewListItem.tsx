@@ -14,7 +14,7 @@ import SingleSetItem from './SingleSetItem';
 import { Draggable } from 'react-smooth-dnd';
 import { State } from '../../../configs/redux/store';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import EditOptions from '../../top-level-components/workout-screen/views/3-preview-list/components/edit-set/components/EditOptions';
+import EditOptions from '../../top-level-components/workout-routines-screen/views/3-preview-list/components/edit-set/components/EditOptions';
 
 const useStyles = makeStyles(() =>
   createStyles({
