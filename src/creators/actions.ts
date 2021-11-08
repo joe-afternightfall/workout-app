@@ -6,6 +6,21 @@ import {
   ToggleUserProfileDialogAction,
   ValidatedUserAction,
 } from './user-info';
+import {
+  LoadExercisesAction,
+  LoadGripTypesAction,
+  LoadGripWidthsAction,
+  LoadManikinMuscleGroupsAction,
+  LoadMusclesAction,
+  LoadMuscleTargetTypesAction,
+  LoadParameterTypesAction,
+  LoadPhasesAction,
+  LoadRoutineTemplatesAction,
+  LoadTrainingSetTypesAction,
+  LoadWorkoutCategoriesAction,
+  LoadWorkoutEquipmentAction,
+} from './load-workout-configs';
+import { LoadExerciseImagesAction } from './load-workout-configs';
 
 export enum ActionTypes {
   // Application Actions
@@ -16,6 +31,20 @@ export enum ActionTypes {
   LOAD_USER_INFO = 'LOAD_USER_INFO',
   VALIDATED_USER = 'VALIDATED_USER',
   SETUP_NEW_USER = 'SETUP_NEW_USER',
+
+  LOAD_ROUTINE_TEMPLATES = 'LOAD_ROUTINE_TEMPLATES',
+  LOAD_EXERCISES = 'LOAD_EXERCISES',
+  LOAD_GRIP_TYPES = 'LOAD_GRIP_TYPES',
+  LOAD_GRIP_WIDTHS = 'LOAD_GRIP_WIDTHS',
+  LOAD_MANIKIN_MUSCLE_GROUP = 'LOAD_MANIKIN_MUSCLE_GROUP',
+  LOAD_MUSCLES = 'LOAD_MUSCLES',
+  LOAD_MUSCLE_TARGET_TYPES = 'LOAD_MUSCLE_TARGET_TYPES',
+  LOAD_PARAMETER_TYPES = 'LOAD_PARAMETER_TYPES',
+  LOAD_PHASES = 'LOAD_PHASES',
+  LOAD_TRAINING_SET_TYPES = 'LOAD_TRAINING_SET_TYPES',
+  LOAD_WORKOUT_CATEGORIES = 'LOAD_WORKOUT_CATEGORIES',
+  LOAD_WORKOUT_EQUIPMENT = 'LOAD_WORKOUT_EQUIPMENT',
+  LOAD_EXERCISE_IMAGES = 'LOAD_EXERCISE_IMAGES',
 }
 
 export type ApplicationActions =
@@ -24,4 +53,17 @@ export type ApplicationActions =
   | ToggleUserProfileDialogAction
   | LoadUserInfoAction
   | ValidatedUserAction
-  | SetupNewUserAction;
+  | SetupNewUserAction
+  | LoadExercisesAction
+  | LoadGripTypesAction
+  | LoadGripWidthsAction
+  | LoadManikinMuscleGroupsAction
+  | LoadMusclesAction
+  | LoadMuscleTargetTypesAction
+  | LoadParameterTypesAction
+  | LoadPhasesAction
+  | LoadRoutineTemplatesAction
+  | LoadTrainingSetTypesAction
+  | LoadWorkoutCategoriesAction
+  | LoadWorkoutEquipmentAction
+  | LoadExerciseImagesAction;

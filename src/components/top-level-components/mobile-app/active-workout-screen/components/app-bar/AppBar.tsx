@@ -53,7 +53,7 @@ const mapStateToProps = (state: State): ActiveWorkoutAppBarProps => {
 
   return {
     phaseName: getPhaseName(
-      state.workoutState.configs.phases,
+      state.applicationState.workoutConfigurations.phases,
       state.workoutState.currentPhase.phaseId
     ),
     currentSegmentCount: `${currentSegmentIndex} of ${totalSegments}`,

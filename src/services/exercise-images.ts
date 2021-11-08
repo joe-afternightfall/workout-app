@@ -3,7 +3,7 @@ import 'firebase/storage';
 import { ThunkAction } from 'redux-thunk';
 import { State } from '../configs/redux/store';
 import { AnyAction, Dispatch } from 'redux';
-import { loadExerciseImages } from '../creators/new-workout/exercises';
+import { loadExerciseImages } from '../creators/load-workout-configs';
 import { ExerciseVO } from 'workout-app-common-core';
 
 let exerciseCounter = 0;
@@ -11,7 +11,8 @@ let exerciseCounter = 0;
 export const getExerciseImages =
   (selectedMuscleId: string): ThunkAction<void, State, void, AnyAction> =>
   async (dispatch: Dispatch, getState: () => State): Promise<void> => {
-    const allExercises = getState().workoutState.configs.exercises;
+    const allExercises =
+      getState().applicationState.workoutConfigurations.exercises;
     const exercisesForId: ExerciseVO[] = [];
 
     allExercises.map((exercise) => {

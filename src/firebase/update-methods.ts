@@ -28,7 +28,7 @@ import {
   loadTrainingSetTypes,
   loadWorkoutCategories,
   loadWorkoutEquipment,
-} from '../creators/new-workout/load-workout-configs';
+} from '../creators/load-workout-configs';
 
 export const updateRoutineTemplates = async (store: Store): Promise<void> => {
   const templates: RoutineTemplateVO[] = await getAllRoutineTemplates();

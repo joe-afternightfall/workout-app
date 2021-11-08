@@ -20,7 +20,7 @@ import { State } from '../../../../../../../../configs/redux/store';
 import {
   addSetToRoutineCopy,
   deleteSetFromRoutineCopy,
-} from '../../../../../../../../creators/new-workout/preview-workout';
+} from '../../../../../../../../creators/workout/preview-workout';
 import StraightSetRow from '../../../../../shared/set-rows/StraightSetRow';
 import EditSupersetRow from '../../../../../shared/set-rows/EditSupersetRow';
 import { buildSetFieldInfo } from '../../../../../../../../utils/info-builder';
@@ -155,7 +155,7 @@ const mapStateToProps = (state: State): EditSetProps => {
     superset = isSuperset(foundSegment.trainingSetTypeId);
     foundSegment.exercises.map((exercise) => {
       const foundExercise = findExercise(
-        state.workoutState.configs.exercises,
+        state.applicationState.workoutConfigurations.exercises,
         exercise.exerciseId
       );
       if (foundExercise) {
@@ -167,7 +167,7 @@ const mapStateToProps = (state: State): EditSetProps => {
 
   const builtSets = buildSetInfo(
     foundSegment,
-    state.workoutState.configs.exercises
+    state.applicationState.workoutConfigurations.exercises
   );
 
   return {

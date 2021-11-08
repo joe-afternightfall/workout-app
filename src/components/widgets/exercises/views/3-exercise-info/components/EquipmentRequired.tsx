@@ -62,7 +62,8 @@ interface EquipmentRequiredProps {
 
 const mapStateToProps = (state: State): EquipmentRequiredProps => {
   return {
-    workoutEquipmentList: state.workoutState.configs.workoutEquipment,
+    workoutEquipmentList:
+      state.applicationState.workoutConfigurations.workoutEquipment,
   } as unknown as EquipmentRequiredProps;
 };
 

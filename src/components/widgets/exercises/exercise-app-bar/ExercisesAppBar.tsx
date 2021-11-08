@@ -91,7 +91,8 @@ interface ExercisesAppBarProps {
 
 const mapStateToProps = (state: State): ExercisesAppBarProps => {
   return {
-    manikinMuscleGroups: state.workoutState.configs.manikinMuscleGroups,
+    manikinMuscleGroups:
+      state.applicationState.workoutConfigurations.manikinMuscleGroups,
   } as unknown as ExercisesAppBarProps;
 };
 

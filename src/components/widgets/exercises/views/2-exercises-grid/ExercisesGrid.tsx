@@ -73,7 +73,7 @@ const mapStateToProps = (
   state: State,
   ownProps: PassedInProps
 ): ExercisesGridProps => {
-  const allExercises = state.workoutState.configs.exercises;
+  const allExercises = state.applicationState.workoutConfigurations.exercises;
 
   const exercisesForId: ExerciseVO[] = [];
 

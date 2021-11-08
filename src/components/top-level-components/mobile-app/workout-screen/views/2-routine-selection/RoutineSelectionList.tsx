@@ -5,7 +5,7 @@ import { Grid } from '@material-ui/core';
 import SelectionCard from '../components/SelectionCard';
 import { isOdd } from '../../../../../../utils/number-util';
 import { State } from '../../../../../../configs/redux/store';
-import { selectedRoutine } from '../../../../../../creators/new-workout/workout-selections';
+import { selectedRoutine } from '../../../../../../creators/workout/workout-selections';
 import { RoutineTemplateVO } from 'workout-app-common-core';
 
 const RoutineSelectionList = (
@@ -47,7 +47,7 @@ const mapStateToProps = (state: State): RoutineSelectionListProps => {
   const selectedWorkoutCategory = state.workoutState.selectedWorkoutCategory;
 
   const routinesForCategory: RoutineTemplateVO[] =
-    state.workoutState.configs.routineTemplates.filter(
+    state.applicationState.workoutConfigurations.routineTemplates.filter(
       (template: RoutineTemplateVO) =>
         template.workoutCategoryId === selectedWorkoutCategory.id
     );

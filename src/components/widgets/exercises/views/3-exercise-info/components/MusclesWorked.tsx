@@ -111,7 +111,7 @@ interface MusclesWorkedCardProps {
 
 const mapStateToProps = (state: State): MusclesWorkedCardProps => {
   return {
-    muscles: state.workoutState.configs.muscles,
+    muscles: state.applicationState.workoutConfigurations.muscles,
   } as unknown as MusclesWorkedCardProps;
 };
 
