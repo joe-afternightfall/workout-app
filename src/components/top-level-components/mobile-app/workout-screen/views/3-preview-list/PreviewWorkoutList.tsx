@@ -14,7 +14,7 @@ import {
   Segment,
   sortPhaseSegments,
 } from 'workout-app-common-core';
-import { MOBILE_ACTIVE_WORKOUT_SCREEN_PATH } from '../../../../../../configs/constants/app';
+import { ACTIVE_WORKOUT_SCREEN_PATH } from '../../../../../../configs/constants/app';
 import PreviewListItem from '../../../shared/exercise-list/PreviewListItem';
 import { startWorkout } from '../../../../../../creators/workout/workout-selections';
 import BottomActionButtons from './components/edit-set/components/BottomActionButtons';
@@ -134,7 +134,7 @@ const mapDispatchToProps = (dispatch: Dispatch): PreviewWorkoutListProps =>
   ({
     startClickHandler: () => {
       dispatch(startWorkout());
-      dispatch(routerActions.push(MOBILE_ACTIVE_WORKOUT_SCREEN_PATH));
+      dispatch(routerActions.push(ACTIVE_WORKOUT_SCREEN_PATH));
     },
     updateSegmentOrderHandler: (
       phaseId: string,

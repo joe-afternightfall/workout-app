@@ -8,7 +8,7 @@ import { State } from '../../../../../../../../../configs/redux/store';
 import { Button, Grid, Slide, Typography } from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { startWorkout } from '../../../../../../../../../creators/workout/workout-selections';
-import { MOBILE_ACTIVE_WORKOUT_SCREEN_PATH } from '../../../../../../../../../configs/constants/app';
+import { ACTIVE_WORKOUT_SCREEN_PATH } from '../../../../../../../../../configs/constants/app';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -111,7 +111,7 @@ const mapDispatchToProps = (dispatch: Dispatch): BottomActionButtonsProps =>
   ({
     startClickHandler: () => {
       dispatch(startWorkout());
-      dispatch(routerActions.push(MOBILE_ACTIVE_WORKOUT_SCREEN_PATH));
+      dispatch(routerActions.push(ACTIVE_WORKOUT_SCREEN_PATH));
     },
   } as unknown as BottomActionButtonsProps);
 

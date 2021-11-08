@@ -11,7 +11,7 @@ import { State } from '../../../../configs/redux/store';
 import { buildSetInfo } from '../../../../utils/set-info-builder';
 import ActiveWorkout, { ActiveWorkoutProps } from './ActiveWorkout';
 import { saveWorkoutForUser } from '../../../../services/user-profile';
-import { MOBILE_WORKOUT_DONE_PATH } from '../../../../configs/constants/app';
+import { WORKOUT_DONE_PATH } from '../../../../configs/constants/app';
 import { markCurrentSetAsDone } from '../../../../creators/workout/active-workout';
 
 const mapStateToProps = (state: State): ActiveWorkoutProps => {
@@ -61,7 +61,7 @@ const mapDispatchToProps = (dispatch: Dispatch): ActiveWorkoutProps =>
       );
       if (lastExerciseOfWorkout && lastSet) {
         (dispatch as ThunkDispatch<State, void, AnyAction>)(
-          saveWorkoutForUser(MOBILE_WORKOUT_DONE_PATH)
+          saveWorkoutForUser(WORKOUT_DONE_PATH)
         );
       }
     },

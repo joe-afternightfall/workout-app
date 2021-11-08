@@ -5,7 +5,7 @@ import { Grid, Button } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { routerActions } from 'connected-react-router';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { MOBILE_WORKOUT_SCREEN_PATH } from '../../../../../../../../configs/constants/app';
+import { WORKOUT_SCREEN_PATH } from '../../../../../../../../configs/constants/app';
 import { clearActiveWorkout } from '../../../../../../../../creators/workout/active-workout';
 
 const useStyles = makeStyles(() =>
@@ -45,7 +45,7 @@ interface ExitWithoutSavingButtonProps {
 const mapDispatchToProps = (dispatch: Dispatch): ExitWithoutSavingButtonProps =>
   ({
     exitWithoutSavingHandler: () => {
-      dispatch(routerActions.push(MOBILE_WORKOUT_SCREEN_PATH));
+      dispatch(routerActions.push(WORKOUT_SCREEN_PATH));
       dispatch(clearActiveWorkout());
     },
   } as unknown as ExitWithoutSavingButtonProps);

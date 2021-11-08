@@ -7,7 +7,7 @@ import { Grid, Button } from '@material-ui/core';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { State } from '../../../../../../../../configs/redux/store';
 import { saveWorkoutForUser } from '../../../../../../../../services/user-profile';
-import { MOBILE_WORKOUT_SCREEN_PATH } from '../../../../../../../../configs/constants/app';
+import { WORKOUT_SCREEN_PATH } from '../../../../../../../../configs/constants/app';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -45,7 +45,7 @@ const mapDispatchToProps = (dispatch: Dispatch): SaveAndExitButtonProps =>
   ({
     saveAndExitHandler: () => {
       (dispatch as ThunkDispatch<State, void, AnyAction>)(
-        saveWorkoutForUser(MOBILE_WORKOUT_SCREEN_PATH)
+        saveWorkoutForUser(WORKOUT_SCREEN_PATH)
       );
     },
   } as unknown as SaveAndExitButtonProps);
