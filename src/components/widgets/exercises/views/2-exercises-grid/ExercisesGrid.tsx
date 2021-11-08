@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Grid,
   Card,
@@ -11,6 +11,9 @@ import { ExerciseVO } from 'workout-app-common-core';
 import { State } from '../../../../../configs/redux/store';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import ExerciseImage from '../../../../top-level-components/mobile-app/shared/exercise-list/ExerciseImage';
+import { AnyAction, Dispatch } from 'redux';
+import { ThunkDispatch } from 'redux-thunk';
+import { getExerciseImages } from '../../../../../services/exercise-images';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -28,6 +31,10 @@ const ExercisesGrid = (
 ): JSX.Element => {
   const classes = useStyles();
   const { exercisesForId, exerciseInfoClickHandler } = props;
+
+  useEffect(() => {
+    props.fetchImagesFor();
+  }, [props.selectedMuscleId]);
 
   return (
     <Grid container item xs={12}>
@@ -59,6 +66,7 @@ interface PassedInProps {
 
 interface ExercisesGridProps {
   exercisesForId: ExerciseVO[];
+  fetchImagesFor: () => void;
 }
 
 const mapStateToProps = (
@@ -80,4 +88,16 @@ const mapStateToProps = (
   } as unknown as ExercisesGridProps;
 };
 
-export default connect(mapStateToProps)(ExercisesGrid);
+const mapDispatchToProps = (
+  dispatch: Dispatch,
+  ownProps: PassedInProps
+): ExercisesGridProps =>
+  ({
+    fetchImagesFor: () => {
+      (dispatch as ThunkDispatch<State, void, AnyAction>)(
+        getExerciseImages(ownProps.selectedMuscleId)
+      );
+    },
+  } as unknown as ExercisesGridProps);
+
+export default connect(mapStateToProps, mapDispatchToProps)(ExercisesGrid);
