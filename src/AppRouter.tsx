@@ -9,8 +9,8 @@ import {
   WORKOUT_DONE_PATH,
 } from './configs/constants/app';
 import SignInScreen from './components/top-level-components/sign-in-screen/SignInScreen';
-import ActiveWorkout from './components/top-level-components/mobile-app/active-workout-screen/ActiveWorkoutConnector';
-import WorkoutDone from './components/top-level-components/mobile-app/active-workout-screen/4-workout-done/WorkoutDone';
+import ActiveWorkout from './components/top-level-components/active-workout-screen/ActiveWorkoutConnector';
+import WorkoutDone from './components/top-level-components/active-workout-screen/4-workout-done/WorkoutDone';
 
 const AppRouter = (props: AppRouterProps): JSX.Element => {
   return props.isValidated ? (

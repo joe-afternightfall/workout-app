@@ -8,8 +8,8 @@ import { StyledComponentProps } from '@material-ui/core/styles';
 import AccessibilityIcon from '@material-ui/icons/Accessibility';
 import ProfileScreen from '../../components/top-level-components/profile-screen/ProfileScreen';
 import DashboardScreen from '../../components/top-level-components/dashboard-screen/DashboardScreen';
-import MobileExercisesScreen from '../../components/top-level-components/mobile-app/exercises-screen/MobileExercisesScreen';
-import MobileWorkoutScreen from '../../components/top-level-components/mobile-app/workout-screen/MobileWorkoutScreen';
+import MobileExercisesScreen from '../../components/top-level-components/exercises-screen/MobileExercisesScreen';
+import MobileWorkoutScreen from '../../components/top-level-components/workout-screen/MobileWorkoutScreen';
 
 export const DASHBOARD_SCREEN_PATH = '/dashboard';
 export const EXERCISES_SCREEN_PATH = '/exercises';
