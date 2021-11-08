@@ -25,17 +25,6 @@ export const createStore = (history: History): Store => {
 
   return createStoreFunc(allReducers, {
     applicationState: {
-      workoutConfigurations: {
-        exerciseTypes: [],
-        categoryTypes: [],
-        circuitTypes: [],
-      },
-      workout: {
-        date: new Date(),
-        circuits: [],
-        time: '',
-      },
-      expandedAccordion: '',
       openUserProfileDialog: false,
       userProfile: {
         firebaseId: '',
@@ -52,16 +41,6 @@ export const createStore = (history: History): Store => {
         lastUpdatedOn: '',
       },
       setupNewUser: false,
-      stopwatch: {
-        running: false,
-        currentTimeMs: 0,
-        currentTimeSec: 0,
-        currentTimeMin: 0,
-        watch: 0,
-      },
-      selectedMuscleGroupIds: [],
-      applyHoverStylesToMuscleGroup: '',
-      circuitTemplates: [],
     } as unknown as ApplicationState,
     workoutState: {
       displayEditPreviewList: false,

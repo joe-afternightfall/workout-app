@@ -1,9 +1,8 @@
 import {
-  // MOBILE_PROFILE_PATH,
   MOBILE_WORKOUT_SCREEN_PATH,
   MOBILE_EXERCISES_SCREEN_PATH,
   DASHBOARD_SCREEN_PATH,
-  WORKOUT_SCREEN_PATH,
+  MOBILE_PROFILE_PATH,
 } from './app';
 import { ComponentType } from 'react';
 import { SvgIconTypeMap } from '@material-ui/core';
@@ -13,11 +12,10 @@ import { StyledComponentProps } from '@material-ui/core/styles';
 import AccessibilityIcon from '@material-ui/icons/Accessibility';
 import FitnessCenterIcon from '@material-ui/icons/FitnessCenter';
 import { OverridableComponent } from '@material-ui/core/OverridableComponent';
+import DashboardScreen from '../../components/top-level-components/dashboard-screen/DashboardScreen';
 import MobileWorkoutScreen from '../../components/top-level-components/mobile-app/workout-screen/MobileWorkoutScreen';
 import MobileExercisesScreen from '../../components/top-level-components/mobile-app/exercises-screen/MobileExercisesScreen';
-// import MobileProfileScreen from '../../components/top-level-components/mobile-app/profile-screen/MobileProfileScreen';
-import DashboardScreen from '../../components/top-level-components/dashboard-screen/DashboardScreen';
-import WorkoutScreen from '../../components/top-level-components/workout-screen/WorkoutScreenConnector';
+import ProfileScreen from '../../components/top-level-components/profile-screen/ProfileScreen';
 
 export interface MobileRouteProp {
   path: string;
@@ -60,11 +58,11 @@ export const mobileRoutes: MobileRoutesMap = {
     routerComponent: MobileWorkoutScreen,
   },
   MOBILE_PROFILE: {
-    path: WORKOUT_SCREEN_PATH,
+    path: MOBILE_PROFILE_PATH,
     drawerTitle: 'Profile',
     headerTitle: 'Profile',
     icon: PersonIcon,
-    testId: 'mobile-profile-nav',
-    routerComponent: WorkoutScreen,
+    testId: 'profile-nav',
+    routerComponent: ProfileScreen,
   },
 };

@@ -1,62 +1,4 @@
 import { UserProfileDAO, UserProfileVO } from 'workout-app-common-core';
-import { ExerciseTypeDAO } from '../configs/old-models/ExerciseTypeDAO';
-import { ExerciseTypeVO } from '../configs/old-models/ExerciseTypeVO';
-import { CircuitTypeDAO } from '../configs/old-models/CircuitTypeDAO';
-import { CircuitTypeVO } from '../configs/old-models/CircuitTypeVO';
-import { WorkoutDAO } from '../configs/old-models/WorkoutDAO';
-import { WorkoutVO } from '../configs/old-models/WorkoutVO';
-import { CircuitTemplateDAO } from '../configs/old-models/CircuitTemplateDAO';
-import { CircuitTemplateVO } from '../configs/old-models/CircuitTemplateVO';
-
-export interface ExerciseTypeSnapshot {
-  [key: string]: ExerciseTypeDAO;
-}
-export const exerciseTypeSnapToVO = (
-  snap: ExerciseTypeSnapshot
-): ExerciseTypeVO[] => {
-  return Object.keys(snap).map((key: string): ExerciseTypeVO => {
-    return {
-      firebaseId: key,
-      id: snap[key].id,
-      name: snap[key].name,
-      muscleGroupIds: snap[key].muscleGroupIds,
-      setType: snap[key].setType,
-    };
-  });
-};
-
-export interface CircuitTypeSnapshot {
-  [key: string]: CircuitTypeDAO;
-}
-
-export const circuitTypeSnapToVO = (
-  snap: CircuitTypeSnapshot
-): CircuitTypeVO[] => {
-  return Object.keys(snap).map((key: string) => {
-    return {
-      firebaseId: key,
-      id: snap[key].id,
-      name: snap[key].name,
-    };
-  });
-};
-
-export interface WorkoutsSnapshot {
-  [key: string]: WorkoutDAO;
-}
-
-export const workoutsSnapToVO = (snap: WorkoutsSnapshot): WorkoutVO[] => {
-  return Object.keys(snap).map((key: string) => {
-    return {
-      firebaseId: key,
-      id: snap[key].id,
-      email: snap[key].email,
-      circuits: snap[key].circuits,
-      date: snap[key].date,
-      time: snap[key].time,
-    };
-  });
-};
 
 export interface UserProfileSnapshot {
   [key: string]: UserProfileDAO;
@@ -77,24 +19,6 @@ export const userProfileSnapToVO = (
       dateOfBirth: snap[key].dateOfBirth,
       lastUpdatedOn: snap[key].lastUpdatedOn,
       workouts: snap[key].workouts,
-    };
-  });
-};
-
-export interface CircuitTemplateSnapshot {
-  [key: string]: CircuitTemplateDAO;
-}
-
-export const circuitTemplateSnapToVO = (
-  snap: CircuitTemplateSnapshot
-): CircuitTemplateVO[] => {
-  return Object.keys(snap).map((key: string) => {
-    return {
-      firebaseId: key,
-      id: snap[key].id,
-      circuitId: snap[key].circuitId,
-      circuitNickname: snap[key].circuitNickname,
-      exercises: snap[key].exercises,
     };
   });
 };

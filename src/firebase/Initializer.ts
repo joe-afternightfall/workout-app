@@ -2,16 +2,6 @@ import { Store } from 'redux';
 import firebase from 'firebase/app';
 import 'firebase/analytics';
 import {
-  EXERCISE_TYPES_ROUTE,
-  CIRCUIT_TYPES_ROUTE,
-  WORKOUTS_ROUTE,
-  CIRCUIT_TEMPLATES_ROUTE,
-} from '../configs/constants/firebase-routes';
-import {
-  updateExerciseTypes,
-  updateCircuitTypes,
-  updateUserWorkouts,
-  updateCircuitTemplates,
   updateRoutineTemplates,
   updateExercises,
   updateGripTypes,
@@ -65,28 +55,12 @@ export class Initializer {
 
     const refArray = [
       {
-        ref: firebase.database().ref(EXERCISE_TYPES_ROUTE),
-        updateMethod: () => updateExerciseTypes(this.store),
-      },
-      {
         ref: firebase.database().ref(FIREBASE_DB_EXERCISES_ROUTE),
         updateMethod: () => updateExercises(this.store),
       },
       {
         ref: firebase.database().ref(FIREBASE_DB_ROUTINE_TEMPLATES_ROUTE),
         updateMethod: () => updateRoutineTemplates(this.store),
-      },
-      {
-        ref: firebase.database().ref(CIRCUIT_TYPES_ROUTE),
-        updateMethod: () => updateCircuitTypes(this.store),
-      },
-      {
-        ref: firebase.database().ref(WORKOUTS_ROUTE),
-        updateMethod: () => updateUserWorkouts(this.store),
-      },
-      {
-        ref: firebase.database().ref(CIRCUIT_TEMPLATES_ROUTE),
-        updateMethod: () => updateCircuitTemplates(this.store),
       },
       {
         ref: firebase.database().ref(FIREBASE_DB_EXERCISES_ROUTE),
