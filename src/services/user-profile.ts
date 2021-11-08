@@ -16,7 +16,7 @@ import { ProfileDialogState } from '../components/top-level-components/profile-s
 import {
   clearActiveWorkout,
   workoutDone,
-} from '../creators/new-workout/active-workout';
+} from '../creators/workout/active-workout';
 import { routerActions } from 'connected-react-router';
 
 export const createNewUserProfile = async (

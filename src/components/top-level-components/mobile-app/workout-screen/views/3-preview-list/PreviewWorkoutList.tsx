@@ -16,10 +16,10 @@ import {
 } from 'workout-app-common-core';
 import { MOBILE_ACTIVE_WORKOUT_SCREEN_PATH } from '../../../../../../configs/constants/app';
 import PreviewListItem from '../../../shared/exercise-list/PreviewListItem';
-import { startWorkout } from '../../../../../../creators/new-workout/workout-selections';
+import { startWorkout } from '../../../../../../creators/workout/workout-selections';
 import BottomActionButtons from './components/edit-set/components/BottomActionButtons';
 import { Container, DropResult } from 'react-smooth-dnd';
-import { updateSegmentOrder } from '../../../../../../creators/new-workout/update-workout';
+import { updateSegmentOrder } from '../../../../../../creators/workout/update-workout';
 import { getPhaseName } from '../../../../../../utils/name-finder';
 
 const useStyles = makeStyles((theme: Theme) =>

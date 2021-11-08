@@ -20,7 +20,7 @@ import { State } from '../../../../../../../../configs/redux/store';
 import {
   addSetToRoutineCopy,
   deleteSetFromRoutineCopy,
-} from '../../../../../../../../creators/new-workout/preview-workout';
+} from '../../../../../../../../creators/workout/preview-workout';
 import StraightSetRow from '../../../../../shared/set-rows/StraightSetRow';
 import EditSupersetRow from '../../../../../shared/set-rows/EditSupersetRow';
 import { buildSetFieldInfo } from '../../../../../../../../utils/info-builder';

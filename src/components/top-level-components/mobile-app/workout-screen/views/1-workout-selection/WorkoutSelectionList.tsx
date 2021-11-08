@@ -5,7 +5,7 @@ import { Grid } from '@material-ui/core';
 import SelectionCard from '../components/SelectionCard';
 import { isOdd } from '../../../../../../utils/number-util';
 import { State } from '../../../../../../configs/redux/store';
-import { selectedWorkoutCategory } from '../../../../../../creators/new-workout/workout-selections';
+import { selectedWorkoutCategory } from '../../../../../../creators/workout/workout-selections';
 import { WorkoutCategoryVO } from 'workout-app-common-core';
 
 const WorkoutSelectionList = (

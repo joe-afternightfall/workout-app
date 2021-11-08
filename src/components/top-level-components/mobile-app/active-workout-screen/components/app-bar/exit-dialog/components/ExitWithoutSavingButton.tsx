@@ -6,7 +6,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import { routerActions } from 'connected-react-router';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { MOBILE_WORKOUT_SCREEN_PATH } from '../../../../../../../../configs/constants/app';
-import { clearActiveWorkout } from '../../../../../../../../creators/new-workout/active-workout';
+import { clearActiveWorkout } from '../../../../../../../../creators/workout/active-workout';
 
 const useStyles = makeStyles(() =>
   createStyles({

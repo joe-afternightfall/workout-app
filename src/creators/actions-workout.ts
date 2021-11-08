@@ -8,24 +8,24 @@ import {
   CloseEditSetAction,
   CopyRoutineForEditAction,
   OpenEditPreviewOptionsAction,
-} from './new-workout/workout-selections';
+} from './workout/workout-selections';
 import {
   ClearActiveWorkoutAction,
   MarkCurrentSetAsDoneAction,
   StartSelectedSegmentAction,
   WorkoutDoneAction,
-} from './new-workout/active-workout';
+} from './workout/active-workout';
 import {
   AddSetToRoutineCopyAction,
   DeleteSegmentFromRoutineCopyAction,
   DeleteSetFromRoutineCopyAction,
   SaveEditedVersionOfRoutineAction,
-} from './new-workout/preview-workout';
+} from './workout/preview-workout';
 import {
   UpdateRestBetweenAction,
   UpdateSegmentOrderAction,
   UpdateSetTextFieldAction,
-} from './new-workout/update-workout';
+} from './workout/update-workout';
 
 export enum WorkoutActionTypes {
   // Workout Actions

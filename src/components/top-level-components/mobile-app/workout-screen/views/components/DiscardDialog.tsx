@@ -9,7 +9,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import { TransitionProps } from '@material-ui/core/transitions';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { Divider, Grid, Link, Typography } from '@material-ui/core';
-import { toggleEditPreviewOptions } from '../../../../../../creators/new-workout/workout-selections';
+import { toggleEditPreviewOptions } from '../../../../../../creators/workout/workout-selections';
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & { children?: React.ReactElement },

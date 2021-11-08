@@ -5,7 +5,7 @@ import { Segment } from 'workout-app-common-core';
 import { Button, List, ListItem, Slide } from '@material-ui/core';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import ActiveExercise from '../../../../1-active-exercise/ActiveExercise';
-import { startSelectedSegment } from '../../../../../../../../creators/new-workout/active-workout';
+import { startSelectedSegment } from '../../../../../../../../creators/workout/active-workout';
 
 const useStyles = makeStyles(() =>
   createStyles({
