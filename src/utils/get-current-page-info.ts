@@ -1,16 +1,15 @@
-import {
-  mobileRoutes,
-  MobileRouteProp,
-} from '../configs/constants/mobile-routes';
+import { ApplicationRouteProp, appRoutes } from '../configs/constants/app';
 
-export const getPageInfo = (location: string): MobileRouteProp | undefined => {
-  const found = Object.keys(mobileRoutes).find((route) => {
-    if (mobileRoutes[route].path === location) {
-      return mobileRoutes[route];
+export const getPageInfo = (
+  location: string
+): ApplicationRouteProp | undefined => {
+  const found = Object.keys(appRoutes).find((route) => {
+    if (appRoutes[route].path === location) {
+      return appRoutes[route];
     }
   });
 
   if (found !== undefined) {
-    return mobileRoutes[found];
+    return appRoutes[found];
   }
 };

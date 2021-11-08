@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, CardMedia } from '@material-ui/core';
-import ExerciseImage from '../../../../../top-level-components/mobile-app/shared/exercise-list/ExerciseImage';
+import ExerciseImage from '../../../../../shared/exercise-list/ExerciseImage';
 
 export default function ExercisePreview(
   props: ExercisePreviewProps

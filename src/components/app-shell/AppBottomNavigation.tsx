@@ -11,8 +11,8 @@ import {
 } from '@material-ui/core';
 import { routerActions } from 'connected-react-router';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { mobileRoutes } from '../../configs/constants/mobile-routes';
 import { State } from '../../configs/redux/store';
+import { appRoutes } from '../../configs/constants/app';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -39,11 +39,11 @@ const AppBottomNavigation = (props: AppBottomNavigationProps): JSX.Element => {
   const classes = useStyles();
   let shouldDisplay = true;
 
-  if (props.selectedNavTestId === 'mobile-workout-nav') {
+  if (props.selectedNavTestId === 'workout-nav') {
     shouldDisplay = false;
   }
 
-  if (props.selectedNavTestId === 'mobile-profile-nav') {
+  if (props.selectedNavTestId === 'profile-nav') {
     shouldDisplay = false;
   }
   return (
@@ -51,7 +51,7 @@ const AppBottomNavigation = (props: AppBottomNavigationProps): JSX.Element => {
       <AppBar
         position={'fixed'}
         className={clsx(classes.root, {
-          [classes.hide]: props.selectedNavTestId === 'mobile-workout-nav',
+          [classes.hide]: props.selectedNavTestId === 'workout-nav',
         })}
       >
         <Toolbar className={classes.toolbar}>
@@ -59,8 +59,8 @@ const AppBottomNavigation = (props: AppBottomNavigationProps): JSX.Element => {
             className={classes.navRoot}
             value={props.selectedNavTestId}
           >
-            {Object.keys(mobileRoutes).map((route: string, index: number) => {
-              const currentRoute = mobileRoutes[route];
+            {Object.keys(appRoutes).map((route: string, index: number) => {
+              const currentRoute = appRoutes[route];
               return (
                 <BottomNavigationAction
                   key={index}

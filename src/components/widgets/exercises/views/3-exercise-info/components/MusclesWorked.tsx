@@ -12,7 +12,7 @@ import { State } from '../../../../../../configs/redux/store';
 import { MusclesWorked, MuscleVO } from 'workout-app-common-core';
 import { findMuscle } from '../../../../../../utils/object-finder';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import ExerciseImage from '../../../../../top-level-components/mobile-app/shared/exercise-list/ExerciseImage';
+import ExerciseImage from '../../../../../shared/exercise-list/ExerciseImage';
 
 const useStyles = makeStyles(() =>
   createStyles({

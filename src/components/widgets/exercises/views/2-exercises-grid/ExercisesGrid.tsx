@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 import { ExerciseVO } from 'workout-app-common-core';
 import { State } from '../../../../../configs/redux/store';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import ExerciseImage from '../../../../top-level-components/mobile-app/shared/exercise-list/ExerciseImage';
+import ExerciseImage from '../../../../shared/exercise-list/ExerciseImage';
 import { AnyAction, Dispatch } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
 import { getExerciseImages } from '../../../../../services/exercise-images';

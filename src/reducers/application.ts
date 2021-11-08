@@ -16,7 +16,7 @@ import {
 import { LOCATION_CHANGE } from 'connected-react-router';
 import { getPageInfo } from '../utils/get-current-page-info';
 import { ExerciseImage } from '../creators/load-workout-configs';
-import { MobileRouteProp } from '../configs/constants/mobile-routes';
+import { ApplicationRouteProp } from '../configs/constants/app';
 import { ActionTypes, ApplicationActions } from '../creators/actions';
 
 export default {
@@ -110,7 +110,7 @@ export default {
 
 export interface ApplicationState {
   currentLocation: string;
-  activePage: MobileRouteProp | undefined;
+  activePage: ApplicationRouteProp | undefined;
   userIsValidated: boolean;
   userEmail: string;
   setupNewUser: boolean;
