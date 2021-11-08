@@ -41,12 +41,6 @@ reportWebVitals();
 // todo: add application snackbar and use when updating/modifying table info
 // todo: create profile page to select icon and fill out info
 // todo: cool down dialog in between workouts
-// todo: allow user to add new category while adding exercise
-// todo: display loader while waiting for user profile to not show dashboard
-// todo: don't allow work out date after today to be selected
 // todo: allow user to make their own "daily checklist"
 // todo: add application to log rocket
-// todo: create "on-hover" tooltips for side drawer when showing icons
-// todo: add "timer" option to set types
-// todo: make a dynamic timer that can take in params
 // todo: show "last workout" weight and date when on workout screen
