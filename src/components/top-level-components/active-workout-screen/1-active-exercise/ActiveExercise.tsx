@@ -4,7 +4,7 @@ import ExerciseItem from './components/ExerciseItem';
 import ExerciseDivider from './components/ExerciseDivider';
 import { State } from '../../../../configs/redux/store';
 import { Segment, isSuperset, ExerciseVO } from 'workout-app-common-core';
-import { findExercise } from '../../../../utils/object-finder';
+import { findExercise } from 'workout-app-common-core';
 
 const ActiveExercise = (
   props: ActiveExerciseProps & PassedInProps

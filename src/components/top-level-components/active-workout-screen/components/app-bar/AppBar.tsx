@@ -2,10 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import ExitDialog from './exit-dialog/ExitDialog';
 import { State } from '../../../../../configs/redux/store';
-import { getPhaseName } from '../../../../../utils/name-finder';
 import { Grid, AppBar, Toolbar, Typography } from '@material-ui/core';
 import ExerciseListDrawer from './active-exercise-list-drawer/ActiveExerciseListDrawer';
 import { Variant } from '@material-ui/core/styles/createTypography';
+import { getPhaseName } from 'workout-app-common-core';
 
 const endSection = (element: JSX.Element) => {
   return (
