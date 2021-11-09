@@ -10,7 +10,7 @@ import {
 import { connect } from 'react-redux';
 import { State } from '../../../../../../configs/redux/store';
 import { MusclesWorked, MuscleVO } from 'workout-app-common-core';
-import { findMuscle } from '../../../../../../utils/object-finder';
+import { findMuscle } from 'workout-app-common-core';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import ExerciseImage from '../../../../../shared/exercise-list/ExerciseImage';
 

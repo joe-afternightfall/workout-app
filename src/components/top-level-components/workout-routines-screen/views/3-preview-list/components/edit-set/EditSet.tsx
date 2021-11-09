@@ -10,6 +10,7 @@ import { buildSetInfo } from '../../../../../../../utils/set-info-builder';
 import {
   ActiveSetInfo,
   BuiltSets,
+  findExercise,
   isSuperset,
   Segment,
   WorkoutExercise,
@@ -25,7 +26,6 @@ import StraightSetRow from '../../../../../../shared/set-rows/StraightSetRow';
 import EditSupersetRow from '../../../../../../shared/set-rows/EditSupersetRow';
 import { buildSetFieldInfo } from '../../../../../../../utils/info-builder';
 import ActiveExercise from '../../../../../active-workout-screen/1-active-exercise/ActiveExercise';
-import { findExercise } from '../../../../../../../utils/object-finder';
 
 const useStyles = makeStyles(() =>
   createStyles({

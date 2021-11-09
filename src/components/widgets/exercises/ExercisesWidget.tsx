@@ -11,6 +11,7 @@ import MuscleGroupList from './views/1-muscle-group-list/MuscleGroupList';
 const useStyles = makeStyles(() =>
   createStyles({
     swipeableViews: {
+      width: '100%',
       height: '82vh',
       marginTop: '7vh',
       marginBottom: '8vh',

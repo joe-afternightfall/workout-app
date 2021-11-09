@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { WorkoutEquipmentVO } from 'workout-app-common-core';
 import { State } from '../../../../../../configs/redux/store';
 import { Card, CardContent, Chip, Grid, Typography } from '@material-ui/core';
-import { findWorkoutEquipment } from '../../../../../../utils/object-finder';
+import { findWorkoutEquipment } from 'workout-app-common-core';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(() =>
