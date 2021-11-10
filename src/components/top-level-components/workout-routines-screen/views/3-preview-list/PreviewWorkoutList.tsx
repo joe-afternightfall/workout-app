@@ -28,6 +28,9 @@ const useStyles = makeStyles((theme: Theme) =>
       height: '87vh',
       overflow: 'scroll',
     },
+    darkBackground: {
+      background: '#303030',
+    },
     subHeader: {
       zIndex: 2,
     },
@@ -61,7 +64,9 @@ const PreviewWorkoutList = (props: PreviewWorkoutListProps): JSX.Element => {
   ) : (
     <Paper
       square
-      className={classes.root}
+      className={
+        props.displayEditOptions ? classes.darkBackground : classes.root
+      }
       elevation={props.displayEditOptions ? 0 : 5}
     >
       {props.routinePhases.map((phase: Phase, index: number) => {
