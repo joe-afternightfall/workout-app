@@ -28,7 +28,9 @@ export default function ExerciseInfo({
           </Grid>
           <Grid item xs={12} className={classes.itemWrapper}>
             <EquipmentRequired
-              workoutEquipmentIds={exercise.workoutEquipmentIds}
+              workoutEquipmentIds={
+                exercise.workoutEquipmentIds ? exercise.workoutEquipmentIds : []
+              }
             />
           </Grid>
           <Grid item xs={12} className={classes.itemWrapper}>
