@@ -9,6 +9,9 @@ import ExercisesAppBar from './exercise-app-bar/ExercisesAppBar';
 import ExercisesGrid from './views/2-exercises-grid/ExercisesGrid';
 import MuscleGroupList from './views/1-muscle-group-list/MuscleGroupList';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
+import { Dispatch } from 'redux';
+import { filterExercisesForSearchValue } from '../../../creators/workout/exercises';
+import { connect } from 'react-redux';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -26,7 +29,7 @@ const useStyles = makeStyles(() =>
   })
 );
 
-export default function ExercisesWidget(): JSX.Element {
+const ExercisesWidget = (props: ExercisesWidgetProps): JSX.Element => {
   const classes = useStyles();
   const [selectedMuscleId, setSelectedMuscleId] = useState<string>('');
   const [expandSearchField, setExpandSearchField] = useState(false);
@@ -42,11 +45,13 @@ export default function ExercisesWidget(): JSX.Element {
 
   const selectExerciseClickHandler = (exercise: ExerciseVO) => {
     setSelectedExercise(exercise);
+    props.clearSearchHandler();
     handleChangeIndex(2);
   };
 
   const goBack = () => {
     setExpandSearchField(false);
+    props.clearSearchHandler();
     handleChangeIndex(activeTab - 1);
   };
 
@@ -122,4 +127,17 @@ export default function ExercisesWidget(): JSX.Element {
       </SwipeableViews>
     </Grid>
   );
+};
+
+interface ExercisesWidgetProps {
+  clearSearchHandler: () => void;
 }
+
+const mapDispatchToProps = (dispatch: Dispatch): ExercisesWidgetProps =>
+  ({
+    clearSearchHandler: () => {
+      dispatch(filterExercisesForSearchValue(''));
+    },
+  } as unknown as ExercisesWidgetProps);
+
+export default connect(null, mapDispatchToProps)(ExercisesWidget);
