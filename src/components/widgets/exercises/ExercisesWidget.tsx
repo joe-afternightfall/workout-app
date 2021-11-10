@@ -8,9 +8,9 @@ import ExerciseInfo from './views/3-exercise-info/ExerciseInfo';
 import ExercisesAppBar from './exercise-app-bar/ExercisesAppBar';
 import ExercisesGrid from './views/2-exercises-grid/ExercisesGrid';
 import MuscleGroupList from './views/1-muscle-group-list/MuscleGroupList';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     swipeableViews: {
       width: '100%',
