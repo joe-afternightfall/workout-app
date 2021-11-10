@@ -59,7 +59,7 @@ const MusclesWorkedCard = (
               <Typography variant={'body1'}>{'Primary'}</Typography>
             </Grid>
             <Grid item xs={12}>
-              {musclesWorked.primary.map((primary, index) => {
+              {musclesWorked?.primary?.map((primary, index) => {
                 const foundMuscle = findMuscle(muscles, primary.muscleId);
                 return (
                   foundMuscle && (
@@ -78,7 +78,7 @@ const MusclesWorkedCard = (
               <Typography variant={'body1'}>{'Secondary'}</Typography>
             </Grid>
             <Grid item xs={12}>
-              {musclesWorked.secondary.map((secondary, index) => {
+              {musclesWorked?.secondary?.map((secondary, index) => {
                 const foundMuscle = findMuscle(muscles, secondary.muscleId);
                 return (
                   foundMuscle && (
