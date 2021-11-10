@@ -12,7 +12,6 @@ import {
   WorkoutActionTypes,
 } from '../creators/actions-workout';
 import { v4 as uuidv4 } from 'uuid';
-import { LOCATION_CHANGE } from 'connected-react-router';
 import { arrayMoveImmutable as arrayMove } from 'array-move';
 
 function updateSet(
@@ -46,9 +45,6 @@ export default {
     const newState = Object.assign({}, state);
 
     switch (action.type) {
-      case LOCATION_CHANGE:
-        newState.currentLocation = action.payload.location.pathname;
-        break;
       case WorkoutActionTypes.SELECTED_WORKOUT_CATEGORY:
         newState.selectedWorkoutCategory = action.category;
         break;
@@ -103,7 +99,6 @@ export default {
                   weight: lastSet ? lastSet.weight : 0,
                   reps: lastSet ? lastSet.reps : 0,
                   duration: lastSet && lastSet.duration,
-                  timers: lastSet && lastSet.timers,
                   distance: lastSet && lastSet.distance,
                   markedDone: false,
                 });

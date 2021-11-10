@@ -70,7 +70,7 @@ export default function TimerDialog({
       <IconButton
         disabled={!activeSet}
         onClick={handleClickOpen}
-        style={{ color: fontColor }}
+        style={{ color: fontColor, height: '100%', width: '40%' }}
       >
         <TimerIcon />
       </IconButton>
