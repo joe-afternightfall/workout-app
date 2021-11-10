@@ -15,10 +15,10 @@ import {
   isCircuitSet,
   isStraightSet,
   WorkoutExercise,
+  getPhaseName,
 } from 'workout-app-common-core';
 import { connect } from 'react-redux';
 import { State } from '../../../../configs/redux/store';
-import { getPhaseName } from '../../../../utils/name-finder';
 import { AppTheme } from '../../../../configs/theme/app-theme';
 import SuperSetItem from '../../../shared/exercise-list/SuperSetItem';
 import { createStyles, makeStyles } from '@material-ui/core/styles';

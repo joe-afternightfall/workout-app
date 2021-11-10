@@ -43,9 +43,6 @@ const AppBottomNavigation = (props: AppBottomNavigationProps): JSX.Element => {
     shouldDisplay = false;
   }
 
-  if (props.selectedNavTestId === 'profile-nav') {
-    shouldDisplay = false;
-  }
   return (
     <Slide mountOnEnter unmountOnExit direction={'up'} in={shouldDisplay}>
       <AppBar

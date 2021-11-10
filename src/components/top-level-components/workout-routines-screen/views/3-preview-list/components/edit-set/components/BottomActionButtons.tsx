@@ -9,6 +9,7 @@ import { Button, Grid, Slide, Typography } from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { startWorkout } from '../../../../../../../../creators/workout/workout-selections';
 import { ACTIVE_WORKOUT_SCREEN_PATH } from '../../../../../../../../configs/constants/app';
+import clsx from 'clsx';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -40,6 +41,12 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: '1.5vh',
       lineHeight: '0.75vh',
     },
+    leftButton: {
+      borderRight: '6px solid #313131',
+    },
+    rightButton: {
+      borderLeft: '6px solid #313131',
+    },
   })
 );
 
@@ -51,7 +58,10 @@ const BottomActionButtons = (props: BottomActionButtonsProps): JSX.Element => {
       <Slide mountOnEnter unmountOnExit direction={'up'} in={true}>
         <Grid container className={classes.root}>
           <Grid item xs={6} className={classes.buttonWrapper}>
-            <Button fullWidth className={classes.button}>
+            <Button
+              fullWidth
+              className={clsx(classes.button, classes.leftButton)}
+            >
               <Grid container>
                 <Grid item xs={12}>
                   <FitnessCenterIcon className={classes.icon} />
@@ -65,7 +75,10 @@ const BottomActionButtons = (props: BottomActionButtonsProps): JSX.Element => {
             </Button>
           </Grid>
           <Grid item xs={6} className={classes.buttonWrapper}>
-            <Button fullWidth className={classes.button}>
+            <Button
+              fullWidth
+              className={clsx(classes.button, classes.rightButton)}
+            >
               <Grid container>
                 <Grid item xs={12}>
                   <LinkIcon className={classes.icon} />

@@ -9,7 +9,7 @@ import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { ExerciseVO, WorkoutExercise } from 'workout-app-common-core';
 import { ListItemIcon, ListItem, ListItemText } from '@material-ui/core';
 import { openEditSet } from '../../../creators/workout/workout-selections';
-import { findExercise } from '../../../utils/object-finder';
+import { findExercise } from 'workout-app-common-core';
 
 const useStyles = makeStyles(() =>
   createStyles({

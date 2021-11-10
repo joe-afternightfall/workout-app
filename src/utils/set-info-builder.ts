@@ -5,8 +5,8 @@ import {
   Set,
   WorkoutExercise,
   ActiveSetInfo,
+  findExercise,
 } from 'workout-app-common-core';
-import { findExercise } from './object-finder';
 
 export const buildSetInfo = (
   segment: Segment,
