@@ -74,17 +74,29 @@ const mapStateToProps = (
   ownProps: PassedInProps
 ): ExercisesGridProps => {
   const allExercises = state.applicationState.workoutConfigurations.exercises;
-
   const exercisesForId: ExerciseVO[] = [];
 
-  allExercises.map((exercise) => {
-    if (exercise.manikinMuscleGroupIds.includes(ownProps.selectedMuscleId)) {
+  if (ownProps.selectedMuscleId === '') {
+    allExercises.map((exercise) => {
       exercisesForId.push(exercise);
-    }
-  });
+    });
+  } else {
+    allExercises.map((exercise) => {
+      if (exercise.manikinMuscleGroupIds.includes(ownProps.selectedMuscleId)) {
+        exercisesForId.push(exercise);
+      }
+    });
+  }
+
+  const listToDisplay = exercisesForId.filter(
+    (exercise) =>
+      exercise.name
+        .toLowerCase()
+        .search(state.applicationState.exerciseSearchValue) != -1
+  );
 
   return {
-    exercisesForId: exercisesForId,
+    exercisesForId: listToDisplay,
   } as unknown as ExercisesGridProps;
 };
 

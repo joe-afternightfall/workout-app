@@ -100,6 +100,9 @@ export default {
       case ActionTypes.LOAD_EXERCISE_IMAGES:
         newState.workoutConfigurations.exerciseImages.push(action.images);
         break;
+      case ActionTypes.FILTER_EXERCISES_FOR_SEARCH_VALUE:
+        newState.exerciseSearchValue = action.searchValue;
+        break;
       default:
         newState = state;
     }
@@ -117,6 +120,7 @@ export interface ApplicationState {
   userProfile: UserProfileVO | null;
   openUserProfileDialog: boolean;
   selectedNavTestId: string;
+  exerciseSearchValue: string;
   workoutConfigurations: {
     exercises: ExerciseVO[];
     exerciseImages: ExerciseImage[];

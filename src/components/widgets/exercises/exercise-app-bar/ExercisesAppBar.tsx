@@ -40,11 +40,15 @@ const ExercisesAppBar = (
     title = 'Muscle Groups';
   } else if (activeTab === 1) {
     displayBackButton = true;
-    manikinMuscleGroups.map((group) => {
-      if (group.id === selectedMuscleId) {
-        title = `${group.name} Exercises`;
-      }
-    });
+    if (selectedMuscleId === '') {
+      title = 'All Exercises';
+    } else {
+      manikinMuscleGroups.map((group) => {
+        if (group.id === selectedMuscleId) {
+          title = `${group.name} Exercises`;
+        }
+      });
+    }
   } else if (activeTab === 2 && selectedExercise) {
     displayBackButton = true;
     title = selectedExercise.name;
