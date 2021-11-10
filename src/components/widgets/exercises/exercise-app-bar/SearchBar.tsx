@@ -9,11 +9,21 @@ import { filterExercisesForSearchValue } from '../../../../creators/workout/exer
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      position: 'relative',
+      position: 'fixed',
       marginTop: '7vh',
+      zIndex: 1,
+    },
+    closedButton: {
+      backgroundColor: '#505050',
+      '&:hover': {
+        backgroundColor: '#646464',
+      },
+    },
+    expandedButton: {
+      color: 'inherit',
+      zIndex: 1,
     },
     iconWrapper: {
-      zIndex: 2,
       position: 'absolute',
     },
     hide: {
@@ -31,25 +41,20 @@ const useStyles = makeStyles((theme: Theme) =>
       // vertical padding + font size from searchIcon
       paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
       transition: theme.transitions.create('width'),
-      width: '30ch',
+      width: '37ch',
     },
   })
 );
 
-const SearchBar = (props: SearchBarProps): JSX.Element => {
+const SearchBar = (props: SearchBarProps & PassedInProps): JSX.Element => {
   const classes = useStyles();
-  const [expand, setExpand] = useState(false);
-
-  const toggleTextField = () => {
-    setExpand(!expand);
-  };
-
+  const { expanded, clickHandler } = props;
   return (
     <Grid item xs={12} className={classes.root} container>
       <div className={classes.iconWrapper}>
         <IconButton
-          onClick={toggleTextField}
-          style={{ backgroundColor: '#505050' }}
+          onClick={clickHandler}
+          className={expanded ? classes.expandedButton : classes.closedButton}
         >
           <SearchIcon />
         </IconButton>
@@ -57,7 +62,7 @@ const SearchBar = (props: SearchBarProps): JSX.Element => {
       <InputBase
         placeholder={'Search…'}
         classes={{
-          input: expand ? classes.inputOverride : classes.hide,
+          input: expanded ? classes.inputOverride : classes.hide,
         }}
         inputProps={{ 'aria-label': 'search' }}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
@@ -68,6 +73,10 @@ const SearchBar = (props: SearchBarProps): JSX.Element => {
   );
 };
 
+interface PassedInProps {
+  clickHandler: () => void;
+  expanded: boolean;
+}
 interface SearchBarProps {
   searchHandler: (value: string) => void;
 }
