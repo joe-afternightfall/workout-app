@@ -12,7 +12,6 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       position: 'fixed',
-      marginTop: '7vh',
       zIndex: 1,
     },
     closedButton: {
