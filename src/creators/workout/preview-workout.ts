@@ -51,3 +51,20 @@ export const saveEditedVersionOfRoutine =
       type: WorkoutActionTypes.SAVE_EDITED_VERSION_OF_ROUTINE,
     };
   };
+
+export interface AddSegmentWithExerciseAction {
+  type: WorkoutActionTypes.ADD_SEGMENT_WITH_EXERCISE;
+  segmentType: 'straight' | 'super';
+  exerciseId: string;
+}
+
+export const addSegmentWithExercise = (
+  type: 'straight' | 'super',
+  exerciseId: string
+): AddSegmentWithExerciseAction => {
+  return {
+    type: WorkoutActionTypes.ADD_SEGMENT_WITH_EXERCISE,
+    segmentType: type,
+    exerciseId: exerciseId,
+  };
+};
