@@ -16,6 +16,7 @@ import {
   WorkoutDoneAction,
 } from './workout/active-workout';
 import {
+  AddSegmentWithExerciseAction,
   AddSetToRoutineCopyAction,
   DeleteSegmentFromRoutineCopyAction,
   DeleteSetFromRoutineCopyAction,
@@ -49,6 +50,7 @@ export enum WorkoutActionTypes {
   WORKOUT_DONE = 'WORKOUT_DONE',
   CLEAR_ACTIVE_WORKOUT = 'CLEAR_ACTIVE_WORKOUT',
   START_SELECTED_SEGMENT = 'START_SELECTED_SEGMENT',
+  ADD_SEGMENT_WITH_EXERCISE = 'ADD_SEGMENT_WITH_EXERCISE',
 }
 
 export type WorkoutActions =
@@ -71,4 +73,5 @@ export type WorkoutActions =
   | UpdateRestBetweenAction
   | WorkoutDoneAction
   | StartSelectedSegmentAction
-  | ClearActiveWorkoutAction;
+  | ClearActiveWorkoutAction
+  | AddSegmentWithExerciseAction;
