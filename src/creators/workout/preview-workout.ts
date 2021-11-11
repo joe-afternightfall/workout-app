@@ -52,19 +52,33 @@ export const saveEditedVersionOfRoutine =
     };
   };
 
-export interface AddSegmentWithExerciseAction {
-  type: WorkoutActionTypes.ADD_SEGMENT_WITH_EXERCISE;
-  segmentType: 'straight' | 'super';
+export interface AddExerciseToNewSuperSetAction {
+  type: WorkoutActionTypes.ADD_EXERCISE_TO_NEW_SUPER_SET;
+  exerciseId: string;
+  callbackHandler: () => void;
+}
+
+export const addExerciseToNewSuperSet = (
+  exerciseId: string,
+  callbackHandler: () => void
+): AddExerciseToNewSuperSetAction => {
+  return {
+    type: WorkoutActionTypes.ADD_EXERCISE_TO_NEW_SUPER_SET,
+    exerciseId: exerciseId,
+    callbackHandler: callbackHandler,
+  };
+};
+
+export interface AddExerciseToNewStraightSetAction {
+  type: WorkoutActionTypes.ADD_EXERCISE_TO_NEW_STRAIGHT_SET;
   exerciseId: string;
 }
 
-export const addSegmentWithExercise = (
-  type: 'straight' | 'super',
+export const addExerciseToNewStraightSet = (
   exerciseId: string
-): AddSegmentWithExerciseAction => {
+): AddExerciseToNewStraightSetAction => {
   return {
-    type: WorkoutActionTypes.ADD_SEGMENT_WITH_EXERCISE,
-    segmentType: type,
+    type: WorkoutActionTypes.ADD_EXERCISE_TO_NEW_STRAIGHT_SET,
     exerciseId: exerciseId,
   };
 };

@@ -12,7 +12,10 @@ import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { Dispatch } from 'redux';
 import { filterExercisesForSearchValue } from '../../../creators/workout/exercises';
 import { connect } from 'react-redux';
-import { addSegmentWithExercise } from '../../../creators/workout/preview-workout';
+import {
+  addExerciseToNewSuperSet,
+  addExerciseToNewStraightSet,
+} from '../../../creators/workout/preview-workout';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -48,11 +51,11 @@ const ExercisesWidget = (
   };
 
   const selectExerciseClickHandler = (exercise: ExerciseVO) => {
-    setSelectedExercise(exercise);
     props.clearSearchHandler();
     if (routineTemplate) {
-      props.addSegmentHandler(exercise.id);
+      props.addSegmentHandler(exercise.id, () => setActiveTab(0));
     } else {
+      setSelectedExercise(exercise);
       handleChangeIndex(2);
     }
   };
@@ -159,7 +162,7 @@ interface PassedInProps {
 
 interface ExercisesWidgetProps {
   clearSearchHandler: () => void;
-  addSegmentHandler: (exerciseId: string) => void;
+  addSegmentHandler: (exerciseId: string, callback: () => void) => void;
 }
 
 const mapDispatchToProps = (
@@ -170,9 +173,11 @@ const mapDispatchToProps = (
     clearSearchHandler: () => {
       dispatch(filterExercisesForSearchValue(''));
     },
-    addSegmentHandler: (exerciseId: string) => {
-      if (ownProps.segmentType) {
-        dispatch(addSegmentWithExercise(ownProps.segmentType, exerciseId));
+    addSegmentHandler: (exerciseId: string, callback: () => void) => {
+      if (ownProps.segmentType === 'straight') {
+        dispatch(addExerciseToNewStraightSet(exerciseId));
+      } else if (ownProps.segmentType === 'super') {
+        dispatch(addExerciseToNewSuperSet(exerciseId, callback));
       }
     },
   } as unknown as ExercisesWidgetProps);
