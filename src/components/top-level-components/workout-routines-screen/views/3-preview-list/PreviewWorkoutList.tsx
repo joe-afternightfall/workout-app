@@ -19,6 +19,7 @@ import PreviewListItem from '../../../../shared/exercise-list/PreviewListItem';
 import {
   toggleExerciseWidgetOnRoutinePreviewPage,
   startWorkout,
+  checkIfPhaseSelectionRequired,
 } from '../../../../../creators/workout/workout-selections';
 import BottomActionButtons from './components/edit-set/components/BottomActionButtons';
 import { Container, DropResult } from 'react-smooth-dnd';
@@ -78,6 +79,7 @@ const PreviewWorkoutList = (props: PreviewWorkoutListProps): JSX.Element => {
   const openExerciseWidget = (type: 'straight' | 'super') => {
     setSegmentType(type);
     props.toggleExerciseWidgetHandler(true);
+    props.phaseSelectionRequiredHandler();
   };
 
   const hideExerciseWidget = () => {
@@ -160,6 +162,7 @@ interface PreviewWorkoutListProps {
     toIndex: number
   ) => void;
   toggleExerciseWidgetHandler: (open: boolean) => void;
+  phaseSelectionRequiredHandler: () => void;
 }
 
 const mapStateToProps = (state: State): PreviewWorkoutListProps => {
@@ -192,6 +195,9 @@ const mapDispatchToProps = (dispatch: Dispatch): PreviewWorkoutListProps =>
     },
     toggleExerciseWidgetHandler: (open: boolean) => {
       dispatch(toggleExerciseWidgetOnRoutinePreviewPage(open));
+    },
+    phaseSelectionRequiredHandler: () => {
+      dispatch(checkIfPhaseSelectionRequired('editing'));
     },
   } as unknown as PreviewWorkoutListProps);
 
