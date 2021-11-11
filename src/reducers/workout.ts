@@ -359,9 +359,13 @@ export default {
           newState.copyOfRoutineTemplate.phases = clonedPhases;
           newState.displayEditSet = true;
           newState.editSetSegmentId = segmentId;
+          newState.displayDoneButtonInEditSetAppBar = true;
         } else {
           newState.displayWhichPhaseDialog = true;
         }
+        break;
+      case WorkoutActionTypes.TOGGLE_EXERCISE_WIDGET_ON_ROUTINE_PREVIEW_PAGE:
+        newState.displayExerciseWidgetOnRoutinePreviewPage = action.open;
         break;
       default:
         break;
@@ -386,4 +390,6 @@ export interface WorkoutState {
   displayEditSet: boolean;
   editSetSegmentId: string;
   displayWhichPhaseDialog: boolean;
+  displayExerciseWidgetOnRoutinePreviewPage: boolean;
+  displayDoneButtonInEditSetAppBar: boolean;
 }
