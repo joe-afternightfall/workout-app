@@ -88,7 +88,13 @@ const BottomActionButtons = (
             xs={6}
             className={clsx(classes.buttonWrapper, classes.rightWrapper)}
           >
-            <Button fullWidth className={classes.button}>
+            <Button
+              fullWidth
+              className={classes.button}
+              onClick={() => {
+                props.addClickHandler('super');
+              }}
+            >
               <Grid container>
                 <Grid item xs={12}>
                   <LinkIcon className={classes.icon} />
