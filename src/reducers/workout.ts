@@ -321,20 +321,9 @@ export default {
       case WorkoutActionTypes.CLEAR_ACTIVE_WORKOUT:
         newState.activeWorkout = action.workout;
         break;
-      case WorkoutActionTypes.ADD_SEGMENT_WITH_EXERCISE:
+      case WorkoutActionTypes.ADD_EXERCISE_TO_NEW_STRAIGHT_SET:
         if (newState.selectedRoutineTemplate.phases.length === 1) {
           newState.displayWhichPhaseDialog = false;
-          let trainingSetTypeId = '';
-          switch (action.segmentType) {
-            case 'straight':
-              trainingSetTypeId = STRAIGHT_SET_ID;
-              break;
-            case 'super':
-              trainingSetTypeId = SUPER_SET_ID;
-              break;
-            default:
-              break;
-          }
           const clonedPhases = ramda.clone(
             newState.copyOfRoutineTemplate.phases
           );
@@ -343,7 +332,7 @@ export default {
             phase.segments.push({
               id: segmentId,
               order: phase.segments.length + 1,
-              trainingSetTypeId: trainingSetTypeId,
+              trainingSetTypeId: STRAIGHT_SET_ID,
               secondsRestBetweenSets: 30,
               secondsRestBetweenNextSegment: 60,
               exercises: [
@@ -360,6 +349,47 @@ export default {
           newState.displayEditSet = true;
           newState.editSetSegmentId = segmentId;
           newState.displayDoneButtonInEditSetAppBar = true;
+        } else {
+          newState.displayWhichPhaseDialog = true;
+        }
+        break;
+      case WorkoutActionTypes.ADD_EXERCISE_TO_NEW_SUPER_SET:
+        if (newState.selectedRoutineTemplate.phases.length === 1) {
+          newState.displayWhichPhaseDialog = false;
+          newState.newSuperSetExerciseIdsForRoutine.push(action.exerciseId);
+
+          if (newState.newSuperSetExerciseIdsForRoutine.length === 2) {
+            const clonedPhases = ramda.clone(
+              newState.copyOfRoutineTemplate.phases
+            );
+            const newExercises: WorkoutExercise[] =
+              newState.newSuperSetExerciseIdsForRoutine.map((id, index) => {
+                return {
+                  id: uuidv4(),
+                  order: index + 1,
+                  exerciseId: id,
+                  sets: buildBaseSets(3),
+                };
+              });
+            const segmentId = uuidv4();
+            clonedPhases.map((phase) => {
+              phase.segments.push({
+                id: segmentId,
+                order: phase.segments.length + 1,
+                trainingSetTypeId: SUPER_SET_ID,
+                secondsRestBetweenSets: 30,
+                secondsRestBetweenNextSegment: 60,
+                exercises: newExercises,
+              });
+            });
+            newState.copyOfRoutineTemplate.phases = clonedPhases;
+            newState.displayEditSet = true;
+            newState.editSetSegmentId = segmentId;
+            newState.displayDoneButtonInEditSetAppBar = true;
+            newState.newSuperSetExerciseIdsForRoutine = [];
+          } else if (newState.newSuperSetExerciseIdsForRoutine.length === 1) {
+            action.callbackHandler();
+          }
         } else {
           newState.displayWhichPhaseDialog = true;
         }
@@ -382,6 +412,7 @@ export interface WorkoutState {
   copyOfRoutineTemplate: RoutineTemplateVO;
   activeWorkout: Workout;
   currentPhase: Phase;
+  newSuperSetExerciseIdsForRoutine: string[];
   currentSegmentIndex: number;
   currentSetIndex: number;
   totalSegments: number;
