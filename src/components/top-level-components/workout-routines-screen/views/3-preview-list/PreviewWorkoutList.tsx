@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import clsx from 'clsx';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
@@ -21,6 +21,7 @@ import BottomActionButtons from './components/edit-set/components/BottomActionBu
 import { Container, DropResult } from 'react-smooth-dnd';
 import { updateSegmentOrder } from '../../../../../creators/workout/update-workout';
 import { getPhaseName } from 'workout-app-common-core';
+import ExercisesWidget from '../../../../widgets/exercises/ExercisesWidget';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -52,6 +53,12 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const PreviewWorkoutList = (props: PreviewWorkoutListProps): JSX.Element => {
   const classes = useStyles();
+  const [displayWidget, setDisplayWidget] = useState(false);
+  const [segmentType, setSegmentType] = useState<'straight' | 'super'>(
+    'straight'
+  );
+  let display = <React.Fragment />;
+
   const orderAndUpdate = (phase: Phase, dropProps: DropResult) => {
     const { removedIndex, addedIndex } = dropProps;
     if (removedIndex !== null && addedIndex !== null) {
@@ -59,54 +66,78 @@ const PreviewWorkoutList = (props: PreviewWorkoutListProps): JSX.Element => {
     }
   };
 
-  return props.displayEditSet ? (
-    <React.Fragment />
-  ) : (
-    <Paper
-      square
-      className={
-        props.displayEditOptions ? classes.darkBackground : classes.root
-      }
-      elevation={props.displayEditOptions ? 0 : 5}
-    >
-      {props.routinePhases.map((phase: Phase, index: number) => {
-        return (
-          <List
-            key={index}
-            className={clsx(classes.listWrapper, {
-              [classes.editingBackground]: props.displayEditOptions,
-            })}
-            subheader={
-              <ListSubheader component={'div'} className={classes.subHeader}>
-                {getPhaseName(props.configPhases, phase.phaseId)}
-              </ListSubheader>
-            }
-          >
-            <Container
-              dragClass={classes.selectedRow}
-              dragHandleSelector={'.drag-handle'}
-              onDrop={(e: DropResult) => {
-                orderAndUpdate(phase, e);
-              }}
-            >
-              {sortPhaseSegments(phase.segments).map((segment: Segment) => {
-                return props.displayEditOptions ? (
-                  <PreviewListItem key={segment.id} segment={segment} />
-                ) : (
-                  <div key={segment.id}>
-                    <PreviewListItem segment={segment} />
-                    <WorkoutListDivider />
-                  </div>
-                );
-              })}
-            </Container>
-          </List>
-        );
-      })}
+  const displayExerciseWidget = (type: 'straight' | 'super') => {
+    setDisplayWidget(true);
+    setSegmentType(type);
+  };
 
-      <BottomActionButtons />
-    </Paper>
-  );
+  const hideExerciseWidget = () => {
+    setDisplayWidget(false);
+  };
+
+  if (!props.displayEditSet) {
+    if (displayWidget) {
+      display = (
+        <ExercisesWidget
+          routineTemplate
+          segmentType={segmentType}
+          backToRoutineHandler={hideExerciseWidget}
+        />
+      );
+    } else {
+      display = (
+        <Paper
+          square
+          className={
+            props.displayEditOptions ? classes.darkBackground : classes.root
+          }
+          elevation={props.displayEditOptions ? 0 : 5}
+        >
+          {props.routinePhases.map((phase: Phase, index: number) => {
+            return (
+              <List
+                key={index}
+                className={clsx(classes.listWrapper, {
+                  [classes.editingBackground]: props.displayEditOptions,
+                })}
+                subheader={
+                  <ListSubheader
+                    component={'div'}
+                    className={classes.subHeader}
+                  >
+                    {getPhaseName(props.configPhases, phase.phaseId)}
+                  </ListSubheader>
+                }
+              >
+                <Container
+                  dragClass={classes.selectedRow}
+                  dragHandleSelector={'.drag-handle'}
+                  onDrop={(e: DropResult) => {
+                    orderAndUpdate(phase, e);
+                  }}
+                >
+                  {sortPhaseSegments(phase.segments).map((segment: Segment) => {
+                    return props.displayEditOptions ? (
+                      <PreviewListItem key={segment.id} segment={segment} />
+                    ) : (
+                      <div key={segment.id}>
+                        <PreviewListItem segment={segment} />
+                        <WorkoutListDivider />
+                      </div>
+                    );
+                  })}
+                </Container>
+              </List>
+            );
+          })}
+
+          <BottomActionButtons addClickHandler={displayExerciseWidget} />
+        </Paper>
+      );
+    }
+  }
+
+  return display;
 };
 
 interface PreviewWorkoutListProps {
