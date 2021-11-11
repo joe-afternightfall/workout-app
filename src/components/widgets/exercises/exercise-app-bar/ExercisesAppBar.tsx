@@ -31,6 +31,7 @@ const ExercisesAppBar = (
     selectedMuscleId,
     selectedExercise,
     goBackHandler,
+    alwaysDisplayBackButton,
   } = props;
 
   let title = '';
@@ -38,6 +39,9 @@ const ExercisesAppBar = (
 
   if (activeTab === 0) {
     title = 'Muscle Groups';
+    if (alwaysDisplayBackButton) {
+      displayBackButton = true;
+    }
   } else if (activeTab === 1) {
     displayBackButton = true;
     if (selectedMuscleId === '') {
@@ -84,6 +88,7 @@ const ExercisesAppBar = (
 
 interface PassedInProps {
   activeTab: number;
+  alwaysDisplayBackButton?: boolean;
   selectedMuscleId: string;
   goBackHandler: () => void;
   selectedExercise: ExerciseVO | null;
