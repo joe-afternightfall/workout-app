@@ -11,13 +11,9 @@ import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { State } from '../../configs/redux/store';
 import { getPhaseName, Phase } from 'workout-app-common-core';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { closeAndUpdatePhaseIdToAddNewSegment } from '../../creators/workout/workout-selections';
 
-const useStyles = makeStyles(() => createStyles({}));
-
 const WhichPhaseDialog = (props: WhichPhaseDialogProps): JSX.Element => {
-  const classes = useStyles();
   const { open, buttonOptions } = props;
 
   return (
