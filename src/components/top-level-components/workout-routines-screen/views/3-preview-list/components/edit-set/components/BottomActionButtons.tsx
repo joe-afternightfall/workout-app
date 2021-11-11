@@ -1,15 +1,13 @@
 import React from 'react';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import LinkIcon from '@material-ui/icons/Link';
 import { routerActions } from 'connected-react-router';
-import FitnessCenterIcon from '@material-ui/icons/FitnessCenter';
+import { Button, Grid, Slide } from '@material-ui/core';
 import { State } from '../../../../../../../../configs/redux/store';
-import { Button, Grid, Slide, Typography } from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { startWorkout } from '../../../../../../../../creators/workout/workout-selections';
 import { ACTIVE_WORKOUT_SCREEN_PATH } from '../../../../../../../../configs/constants/app';
-import clsx from 'clsx';
+import NewSegmentBottomActionButtons from '../../../../../../../shared/bottom-action-buttons/NewSegmentBottomActionButtons';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -30,23 +28,6 @@ const useStyles = makeStyles((theme: Theme) =>
       },
       color: '#303030',
     },
-    buttonWrapper: {
-      height: '100%',
-    },
-    icon: {
-      height: '2.75vh',
-      marginTop: -12,
-    },
-    text: {
-      fontSize: '1.5vh',
-      lineHeight: '0.75vh',
-    },
-    rightWrapper: {
-      paddingLeft: '4px',
-    },
-    leftWrapper: {
-      paddingRight: '4px',
-    },
   })
 );
 
@@ -58,56 +39,16 @@ const BottomActionButtons = (
   if (props.displayEditOptions) {
     return (
       <Slide mountOnEnter unmountOnExit direction={'up'} in={true}>
-        <Grid container className={classes.root}>
-          <Grid
-            item
-            xs={6}
-            className={clsx(classes.buttonWrapper, classes.leftWrapper)}
-          >
-            <Button
-              fullWidth
-              className={classes.button}
-              onClick={() => {
-                props.addClickHandler('straight');
-              }}
-            >
-              <Grid container>
-                <Grid item xs={12}>
-                  <FitnessCenterIcon className={classes.icon} />
-                </Grid>
-                <Grid item xs={12}>
-                  <Typography className={classes.text}>
-                    {'+ Exercise'}
-                  </Typography>
-                </Grid>
-              </Grid>
-            </Button>
-          </Grid>
-          <Grid
-            item
-            xs={6}
-            className={clsx(classes.buttonWrapper, classes.rightWrapper)}
-          >
-            <Button
-              fullWidth
-              className={classes.button}
-              onClick={() => {
-                props.addClickHandler('super');
-              }}
-            >
-              <Grid container>
-                <Grid item xs={12}>
-                  <LinkIcon className={classes.icon} />
-                </Grid>
-                <Grid item xs={12}>
-                  <Typography className={classes.text}>
-                    {'+ Superset'}
-                  </Typography>
-                </Grid>
-              </Grid>
-            </Button>
-          </Grid>
-        </Grid>
+        <div>
+          <NewSegmentBottomActionButtons
+            straightSetClickHandler={() => {
+              props.addClickHandler('straight');
+            }}
+            superSetClickHandler={() => {
+              props.addClickHandler('super');
+            }}
+          />
+        </div>
       </Slide>
     );
   } else {
