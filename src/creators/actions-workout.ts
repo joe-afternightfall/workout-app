@@ -17,7 +17,8 @@ import {
   WorkoutDoneAction,
 } from './workout/active-workout';
 import {
-  AddSegmentWithExerciseAction,
+  AddExerciseToNewStraightSetAction,
+  AddExerciseToNewSuperSetAction,
   AddSetToRoutineCopyAction,
   DeleteSegmentFromRoutineCopyAction,
   DeleteSetFromRoutineCopyAction,
@@ -51,8 +52,9 @@ export enum WorkoutActionTypes {
   WORKOUT_DONE = 'WORKOUT_DONE',
   CLEAR_ACTIVE_WORKOUT = 'CLEAR_ACTIVE_WORKOUT',
   START_SELECTED_SEGMENT = 'START_SELECTED_SEGMENT',
-  ADD_SEGMENT_WITH_EXERCISE = 'ADD_SEGMENT_WITH_EXERCISE',
   TOGGLE_EXERCISE_WIDGET_ON_ROUTINE_PREVIEW_PAGE = 'TOGGLE_EXERCISE_WIDGET_ON_ROUTINE_PREVIEW_PAGE',
+  ADD_EXERCISE_TO_NEW_SUPER_SET = 'ADD_EXERCISE_TO_NEW_SUPER_SET',
+  ADD_EXERCISE_TO_NEW_STRAIGHT_SET = 'ADD_EXERCISE_TO_NEW_STRAIGHT_SET',
 }
 
 export type WorkoutActions =
@@ -76,5 +78,6 @@ export type WorkoutActions =
   | WorkoutDoneAction
   | StartSelectedSegmentAction
   | ClearActiveWorkoutAction
-  | AddSegmentWithExerciseAction
+  | AddExerciseToNewStraightSetAction
+  | AddExerciseToNewSuperSetAction
   | ToggleExerciseWidgetOnRoutinePreviewPageAction;
