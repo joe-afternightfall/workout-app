@@ -57,6 +57,7 @@ export const createStore = (history: History): Store => {
     workoutState: {
       displayEditPreviewList: false,
       displayEditSet: false,
+      displayWhichPhaseDialog: false,
     } as unknown as WorkoutState,
   });
 };
