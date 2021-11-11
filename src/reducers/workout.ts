@@ -321,14 +321,11 @@ export default {
       case WorkoutActionTypes.CLEAR_ACTIVE_WORKOUT:
         newState.activeWorkout = action.workout;
         break;
-      case WorkoutActionTypes.ADD_EXERCISE_TO_NEW_STRAIGHT_SET:
-        if (newState.selectedRoutineTemplate.phases.length === 1) {
-          newState.displayWhichPhaseDialog = false;
-          const clonedPhases = ramda.clone(
-            newState.copyOfRoutineTemplate.phases
-          );
-          const segmentId = uuidv4();
-          clonedPhases.map((phase) => {
+      case WorkoutActionTypes.ADD_EXERCISE_TO_NEW_STRAIGHT_SET: {
+        const clonedPhases = ramda.clone(newState.copyOfRoutineTemplate.phases);
+        const segmentId = uuidv4();
+        clonedPhases.map((phase) => {
+          if (phase.id === newState.phaseIdToAddNewSegment) {
             phase.segments.push({
               id: segmentId,
               order: phase.segments.length + 1,
@@ -344,35 +341,33 @@ export default {
                 },
               ],
             });
-          });
-          newState.copyOfRoutineTemplate.phases = clonedPhases;
-          newState.displayEditSet = true;
-          newState.editSetSegmentId = segmentId;
-          newState.displayDoneButtonInEditSetAppBar = true;
-        } else {
-          newState.displayWhichPhaseDialog = true;
-        }
+          }
+        });
+        newState.copyOfRoutineTemplate.phases = clonedPhases;
+        newState.displayEditSet = true;
+        newState.editSetSegmentId = segmentId;
+        newState.displayDoneButtonInEditSetAppBar = true;
         break;
-      case WorkoutActionTypes.ADD_EXERCISE_TO_NEW_SUPER_SET:
-        if (newState.selectedRoutineTemplate.phases.length === 1) {
-          newState.displayWhichPhaseDialog = false;
-          newState.newSuperSetExerciseIdsForRoutine.push(action.exerciseId);
+      }
+      case WorkoutActionTypes.ADD_EXERCISE_TO_NEW_SUPER_SET: {
+        newState.newSuperSetExerciseIdsForRoutine.push(action.exerciseId);
 
-          if (newState.newSuperSetExerciseIdsForRoutine.length === 2) {
-            const clonedPhases = ramda.clone(
-              newState.copyOfRoutineTemplate.phases
-            );
-            const newExercises: WorkoutExercise[] =
-              newState.newSuperSetExerciseIdsForRoutine.map((id, index) => {
-                return {
-                  id: uuidv4(),
-                  order: index + 1,
-                  exerciseId: id,
-                  sets: buildBaseSets(3),
-                };
-              });
-            const segmentId = uuidv4();
-            clonedPhases.map((phase) => {
+        if (newState.newSuperSetExerciseIdsForRoutine.length === 2) {
+          const clonedPhases = ramda.clone(
+            newState.copyOfRoutineTemplate.phases
+          );
+          const newExercises: WorkoutExercise[] =
+            newState.newSuperSetExerciseIdsForRoutine.map((id, index) => {
+              return {
+                id: uuidv4(),
+                order: index + 1,
+                exerciseId: id,
+                sets: buildBaseSets(3),
+              };
+            });
+          const segmentId = uuidv4();
+          clonedPhases.map((phase) => {
+            if (phase.id === newState.phaseIdToAddNewSegment) {
               phase.segments.push({
                 id: segmentId,
                 order: phase.segments.length + 1,
@@ -381,21 +376,45 @@ export default {
                 secondsRestBetweenNextSegment: 60,
                 exercises: newExercises,
               });
-            });
+            }
             newState.copyOfRoutineTemplate.phases = clonedPhases;
             newState.displayEditSet = true;
             newState.editSetSegmentId = segmentId;
             newState.displayDoneButtonInEditSetAppBar = true;
             newState.newSuperSetExerciseIdsForRoutine = [];
-          } else if (newState.newSuperSetExerciseIdsForRoutine.length === 1) {
-            action.callbackHandler();
-          }
-        } else {
-          newState.displayWhichPhaseDialog = true;
+          });
+        } else if (newState.newSuperSetExerciseIdsForRoutine.length === 1) {
+          action.callbackHandler();
         }
         break;
+      }
       case WorkoutActionTypes.TOGGLE_EXERCISE_WIDGET_ON_ROUTINE_PREVIEW_PAGE:
         newState.displayExerciseWidgetOnRoutinePreviewPage = action.open;
+        break;
+      case WorkoutActionTypes.CHECK_IF_PHASE_SELECTION_REQUIRED:
+        if (newState.selectedRoutineTemplate.phases.length === 1) {
+          newState.phaseIdToAddNewSegment =
+            newState.copyOfRoutineTemplate.phases[0].id;
+        } else {
+          if (action.phaseType === 'editing') {
+            newState.displayWhichPhaseDialog = {
+              open: newState.copyOfRoutineTemplate.phases.length !== 1,
+              phaseType: 'editing',
+            };
+          } else if (action.phaseType === 'activeWorkout') {
+            newState.displayWhichPhaseDialog = {
+              open: newState.activeWorkout.routine.phases.length !== 1,
+              phaseType: 'activeWorkout',
+            };
+          }
+        }
+        break;
+      case WorkoutActionTypes.CLOSE_AND_UPDATE_PHASE_ID_TO_ADD_NEW_SEGMENT:
+        newState.phaseIdToAddNewSegment = action.phaseId;
+        newState.displayWhichPhaseDialog = {
+          open: false,
+          phaseType: '',
+        };
         break;
       default:
         break;
@@ -420,7 +439,11 @@ export interface WorkoutState {
   displayEditPreviewList: boolean;
   displayEditSet: boolean;
   editSetSegmentId: string;
-  displayWhichPhaseDialog: boolean;
+  displayWhichPhaseDialog: {
+    open: boolean;
+    phaseType: 'editing' | 'activeWorkout' | '';
+  };
+  phaseIdToAddNewSegment: string;
   displayExerciseWidgetOnRoutinePreviewPage: boolean;
   displayDoneButtonInEditSetAppBar: boolean;
 }
