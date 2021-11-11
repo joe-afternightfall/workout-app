@@ -37,7 +37,7 @@ const ExercisesWidget = (
   props: ExercisesWidgetProps & PassedInProps
 ): JSX.Element => {
   const classes = useStyles();
-  const { routineTemplate, backToRoutineHandler } = props;
+  const { addToSegment, backToRoutineHandler } = props;
   const [selectedMuscleId, setSelectedMuscleId] = useState<string>('');
   const [expandSearchField, setExpandSearchField] = useState(false);
   const [selectedExercise, setSelectedExercise] = useState<ExerciseVO | null>(
@@ -52,7 +52,7 @@ const ExercisesWidget = (
 
   const selectExerciseClickHandler = (exercise: ExerciseVO) => {
     props.clearSearchHandler();
-    if (routineTemplate) {
+    if (addToSegment) {
       props.addSegmentHandler(exercise.id, () => setActiveTab(0));
     } else {
       setSelectedExercise(exercise);
@@ -111,11 +111,7 @@ const ExercisesWidget = (
         selectedMuscleId={selectedMuscleId}
         selectedExercise={selectedExercise}
       />
-      {routineTemplate ? (
-        <React.Fragment />
-      ) : (
-        <div className={classes.toolbar} />
-      )}
+      {addToSegment ? <React.Fragment /> : <div className={classes.toolbar} />}
       <Grid container>
         {activeTab !== 2 && (
           <SearchBar
@@ -155,7 +151,7 @@ const ExercisesWidget = (
 };
 
 interface PassedInProps {
-  routineTemplate?: boolean;
+  addToSegment?: boolean;
   segmentType?: 'straight' | 'super';
   backToRoutineHandler?: () => void;
 }
