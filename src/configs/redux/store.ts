@@ -58,6 +58,8 @@ export const createStore = (history: History): Store => {
       displayEditPreviewList: false,
       displayEditSet: false,
       displayWhichPhaseDialog: false,
+      displayExerciseWidgetOnRoutinePreviewPage: false,
+      displayDoneButtonInEditSetAppBar: false,
     } as unknown as WorkoutState,
   });
 };
