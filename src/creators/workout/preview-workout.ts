@@ -51,3 +51,34 @@ export const saveEditedVersionOfRoutine =
       type: WorkoutActionTypes.SAVE_EDITED_VERSION_OF_ROUTINE,
     };
   };
+
+export interface AddExerciseToNewSuperSetAction {
+  type: WorkoutActionTypes.ADD_EXERCISE_TO_NEW_SUPER_SET;
+  exerciseId: string;
+  callbackHandler: () => void;
+}
+
+export const addExerciseToNewSuperSet = (
+  exerciseId: string,
+  callbackHandler: () => void
+): AddExerciseToNewSuperSetAction => {
+  return {
+    type: WorkoutActionTypes.ADD_EXERCISE_TO_NEW_SUPER_SET,
+    exerciseId: exerciseId,
+    callbackHandler: callbackHandler,
+  };
+};
+
+export interface AddExerciseToNewStraightSetAction {
+  type: WorkoutActionTypes.ADD_EXERCISE_TO_NEW_STRAIGHT_SET;
+  exerciseId: string;
+}
+
+export const addExerciseToNewStraightSet = (
+  exerciseId: string
+): AddExerciseToNewStraightSetAction => {
+  return {
+    type: WorkoutActionTypes.ADD_EXERCISE_TO_NEW_STRAIGHT_SET,
+    exerciseId: exerciseId,
+  };
+};

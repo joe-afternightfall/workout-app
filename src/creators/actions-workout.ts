@@ -8,6 +8,9 @@ import {
   CloseEditSetAction,
   CopyRoutineForEditAction,
   OpenEditPreviewOptionsAction,
+  ToggleExerciseWidgetOnRoutinePreviewPageAction,
+  CheckIfPhaseSelectionRequiredAction,
+  CloseUpdatePhaseIdToAddNewSegmentAction,
 } from './workout/workout-selections';
 import {
   ClearActiveWorkoutAction,
@@ -16,6 +19,8 @@ import {
   WorkoutDoneAction,
 } from './workout/active-workout';
 import {
+  AddExerciseToNewStraightSetAction,
+  AddExerciseToNewSuperSetAction,
   AddSetToRoutineCopyAction,
   DeleteSegmentFromRoutineCopyAction,
   DeleteSetFromRoutineCopyAction,
@@ -49,6 +54,11 @@ export enum WorkoutActionTypes {
   WORKOUT_DONE = 'WORKOUT_DONE',
   CLEAR_ACTIVE_WORKOUT = 'CLEAR_ACTIVE_WORKOUT',
   START_SELECTED_SEGMENT = 'START_SELECTED_SEGMENT',
+  TOGGLE_EXERCISE_WIDGET_ON_ROUTINE_PREVIEW_PAGE = 'TOGGLE_EXERCISE_WIDGET_ON_ROUTINE_PREVIEW_PAGE',
+  ADD_EXERCISE_TO_NEW_SUPER_SET = 'ADD_EXERCISE_TO_NEW_SUPER_SET',
+  ADD_EXERCISE_TO_NEW_STRAIGHT_SET = 'ADD_EXERCISE_TO_NEW_STRAIGHT_SET',
+  CHECK_IF_PHASE_SELECTION_REQUIRED = 'CHECK_IF_PHASE_SELECTION_REQUIRED',
+  CLOSE_AND_UPDATE_PHASE_ID_TO_ADD_NEW_SEGMENT = 'CLOSE_AND_UPDATE_PHASE_ID_TO_ADD_NEW_SEGMENT',
 }
 
 export type WorkoutActions =
@@ -71,4 +81,9 @@ export type WorkoutActions =
   | UpdateRestBetweenAction
   | WorkoutDoneAction
   | StartSelectedSegmentAction
-  | ClearActiveWorkoutAction;
+  | ClearActiveWorkoutAction
+  | AddExerciseToNewStraightSetAction
+  | AddExerciseToNewSuperSetAction
+  | ToggleExerciseWidgetOnRoutinePreviewPageAction
+  | CheckIfPhaseSelectionRequiredAction
+  | CloseUpdatePhaseIdToAddNewSegmentAction;

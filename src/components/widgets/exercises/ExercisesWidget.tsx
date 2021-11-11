@@ -12,6 +12,10 @@ import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { Dispatch } from 'redux';
 import { filterExercisesForSearchValue } from '../../../creators/workout/exercises';
 import { connect } from 'react-redux';
+import {
+  addExerciseToNewSuperSet,
+  addExerciseToNewStraightSet,
+} from '../../../creators/workout/preview-workout';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -21,16 +25,19 @@ const useStyles = makeStyles(() =>
       marginBottom: '8vh',
     },
     expandedMargin: {
-      marginTop: '15vh',
-    },
-    closedMargin: {
       marginTop: '7vh',
+    },
+    toolbar: {
+      height: '7vh',
     },
   })
 );
 
-const ExercisesWidget = (props: ExercisesWidgetProps): JSX.Element => {
+const ExercisesWidget = (
+  props: ExercisesWidgetProps & PassedInProps
+): JSX.Element => {
   const classes = useStyles();
+  const { routineTemplate, backToRoutineHandler } = props;
   const [selectedMuscleId, setSelectedMuscleId] = useState<string>('');
   const [expandSearchField, setExpandSearchField] = useState(false);
   const [selectedExercise, setSelectedExercise] = useState<ExerciseVO | null>(
@@ -44,9 +51,13 @@ const ExercisesWidget = (props: ExercisesWidgetProps): JSX.Element => {
   };
 
   const selectExerciseClickHandler = (exercise: ExerciseVO) => {
-    setSelectedExercise(exercise);
     props.clearSearchHandler();
-    handleChangeIndex(2);
+    if (routineTemplate) {
+      props.addSegmentHandler(exercise.id, () => setActiveTab(0));
+    } else {
+      setSelectedExercise(exercise);
+      handleChangeIndex(2);
+    }
   };
 
   const goBack = () => {
@@ -75,68 +86,99 @@ const ExercisesWidget = (props: ExercisesWidgetProps): JSX.Element => {
 
   let viewClass = '';
 
-  if (activeTab === 2) {
-    viewClass = classes.closedMargin;
-  } else if (expandSearchField || activeTab === 0) {
+  if (expandSearchField || activeTab === 0) {
     viewClass = classes.expandedMargin;
   } else if (activeTab === 1) {
-    viewClass = expandSearchField
-      ? classes.expandedMargin
-      : classes.closedMargin;
+    viewClass = expandSearchField ? classes.expandedMargin : '';
   }
 
   return (
-    <Grid container item xs={12}>
+    <div>
       <ExercisesAppBar
         activeTab={activeTab}
-        goBackHandler={goBack}
+        alwaysDisplayBackButton
+        goBackHandler={() => {
+          if (backToRoutineHandler) {
+            if (activeTab === 0) {
+              backToRoutineHandler();
+            } else {
+              goBack();
+            }
+          } else {
+            goBack();
+          }
+        }}
         selectedMuscleId={selectedMuscleId}
         selectedExercise={selectedExercise}
       />
-      {activeTab !== 2 && (
-        <SearchBar
-          expanded={expandSearchField}
-          clickHandler={() => {
-            if (activeTab === 0) {
-              selectMuscleHandler('');
-              toggleSearchFieldHandler();
-            } else if (activeTab === 1) {
-              toggleSearchFieldHandler();
-            }
-          }}
-        />
+      {routineTemplate ? (
+        <React.Fragment />
+      ) : (
+        <div className={classes.toolbar} />
       )}
-      <SwipeableViews
-        index={activeTab}
-        onChangeIndex={handleViewChange}
-        className={clsx(classes.swipeableViews, viewClass)}
-        containerStyle={{ height: '100%' }}
-      >
-        <Grid item xs={12}>
-          <MuscleGroupList selectMuscleHandler={selectMuscleHandler} />
-        </Grid>
-        <Grid item xs={12}>
-          <ExercisesGrid
-            exerciseInfoClickHandler={selectExerciseClickHandler}
-            selectedMuscleId={selectedMuscleId}
+      <Grid container>
+        {activeTab !== 2 && (
+          <SearchBar
+            expanded={expandSearchField}
+            clickHandler={() => {
+              if (activeTab === 0) {
+                selectMuscleHandler('');
+                toggleSearchFieldHandler();
+              } else if (activeTab === 1) {
+                toggleSearchFieldHandler();
+              }
+            }}
           />
-        </Grid>
-        <Grid item xs={12}>
-          <ExerciseInfo exercise={selectedExercise} />
-        </Grid>
-      </SwipeableViews>
-    </Grid>
+        )}
+        <SwipeableViews
+          index={activeTab}
+          onChangeIndex={handleViewChange}
+          className={clsx(classes.swipeableViews, viewClass)}
+          containerStyle={{ height: '100%' }}
+        >
+          <Grid item xs={12}>
+            <MuscleGroupList selectMuscleHandler={selectMuscleHandler} />
+          </Grid>
+          <Grid item xs={12}>
+            <ExercisesGrid
+              exerciseInfoClickHandler={selectExerciseClickHandler}
+              selectedMuscleId={selectedMuscleId}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <ExerciseInfo exercise={selectedExercise} />
+          </Grid>
+        </SwipeableViews>
+      </Grid>
+    </div>
   );
 };
 
-interface ExercisesWidgetProps {
-  clearSearchHandler: () => void;
+interface PassedInProps {
+  routineTemplate?: boolean;
+  segmentType?: 'straight' | 'super';
+  backToRoutineHandler?: () => void;
 }
 
-const mapDispatchToProps = (dispatch: Dispatch): ExercisesWidgetProps =>
+interface ExercisesWidgetProps {
+  clearSearchHandler: () => void;
+  addSegmentHandler: (exerciseId: string, callback: () => void) => void;
+}
+
+const mapDispatchToProps = (
+  dispatch: Dispatch,
+  ownProps: PassedInProps
+): ExercisesWidgetProps =>
   ({
     clearSearchHandler: () => {
       dispatch(filterExercisesForSearchValue(''));
+    },
+    addSegmentHandler: (exerciseId: string, callback: () => void) => {
+      if (ownProps.segmentType === 'straight') {
+        dispatch(addExerciseToNewStraightSet(exerciseId));
+      } else if (ownProps.segmentType === 'super') {
+        dispatch(addExerciseToNewSuperSet(exerciseId, callback));
+      }
     },
   } as unknown as ExercisesWidgetProps);
 

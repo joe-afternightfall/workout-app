@@ -93,3 +93,45 @@ export const copyRoutineForEdit = (): CopyRoutineForEditAction => {
     type: WorkoutActionTypes.COPY_ROUTINE_FOR_EDIT,
   };
 };
+
+export interface ToggleExerciseWidgetOnRoutinePreviewPageAction {
+  type: WorkoutActionTypes.TOGGLE_EXERCISE_WIDGET_ON_ROUTINE_PREVIEW_PAGE;
+  open: boolean;
+}
+
+export const toggleExerciseWidgetOnRoutinePreviewPage = (
+  open: boolean
+): ToggleExerciseWidgetOnRoutinePreviewPageAction => {
+  return {
+    type: WorkoutActionTypes.TOGGLE_EXERCISE_WIDGET_ON_ROUTINE_PREVIEW_PAGE,
+    open: open,
+  };
+};
+
+export interface CheckIfPhaseSelectionRequiredAction {
+  type: WorkoutActionTypes.CHECK_IF_PHASE_SELECTION_REQUIRED;
+  phaseType: 'editing' | 'activeWorkout';
+}
+
+export const checkIfPhaseSelectionRequired = (
+  phaseType: 'editing' | 'activeWorkout'
+): CheckIfPhaseSelectionRequiredAction => {
+  return {
+    type: WorkoutActionTypes.CHECK_IF_PHASE_SELECTION_REQUIRED,
+    phaseType: phaseType,
+  };
+};
+
+export interface CloseUpdatePhaseIdToAddNewSegmentAction {
+  type: WorkoutActionTypes.CLOSE_AND_UPDATE_PHASE_ID_TO_ADD_NEW_SEGMENT;
+  phaseId: string;
+}
+
+export const closeAndUpdatePhaseIdToAddNewSegment = (
+  phaseId: string
+): CloseUpdatePhaseIdToAddNewSegmentAction => {
+  return {
+    type: WorkoutActionTypes.CLOSE_AND_UPDATE_PHASE_ID_TO_ADD_NEW_SEGMENT,
+    phaseId: phaseId,
+  };
+};

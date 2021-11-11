@@ -14,8 +14,10 @@ const styles: Styles<Theme, StyledComponentProps> = () => ({});
 class ExercisesScreen extends Component<ExercisesScreenProps> {
   render(): JSX.Element {
     return (
-      <Grid container item xs={12}>
-        <ExercisesWidget />
+      <Grid container justify={'center'}>
+        <Grid item xs={12}>
+          <ExercisesWidget />
+        </Grid>
       </Grid>
     );
   }

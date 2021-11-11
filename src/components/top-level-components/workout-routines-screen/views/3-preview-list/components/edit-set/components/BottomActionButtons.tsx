@@ -20,15 +20,15 @@ const useStyles = makeStyles((theme: Theme) =>
       position: 'fixed',
       bottom: 0,
       left: 0,
-      background: theme.palette.primary.main,
     },
     button: {
       borderRadius: 0,
+      background: theme.palette.primary.main,
       height: '100%',
-      // background: theme.palette.primary.main,
       '&:hover': {
         background: theme.palette.primary.dark,
       },
+      color: '#303030',
     },
     buttonWrapper: {
       height: '100%',
@@ -41,26 +41,35 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: '1.5vh',
       lineHeight: '0.75vh',
     },
-    leftButton: {
-      borderRight: '6px solid #313131',
+    rightWrapper: {
+      paddingLeft: '4px',
     },
-    rightButton: {
-      borderLeft: '6px solid #313131',
+    leftWrapper: {
+      paddingRight: '4px',
     },
   })
 );
 
-const BottomActionButtons = (props: BottomActionButtonsProps): JSX.Element => {
+const BottomActionButtons = (
+  props: BottomActionButtonsProps & PassedInProps
+): JSX.Element => {
   const classes = useStyles();
 
   if (props.displayEditOptions) {
     return (
       <Slide mountOnEnter unmountOnExit direction={'up'} in={true}>
         <Grid container className={classes.root}>
-          <Grid item xs={6} className={classes.buttonWrapper}>
+          <Grid
+            item
+            xs={6}
+            className={clsx(classes.buttonWrapper, classes.leftWrapper)}
+          >
             <Button
               fullWidth
-              className={clsx(classes.button, classes.leftButton)}
+              className={classes.button}
+              onClick={() => {
+                props.addClickHandler('straight');
+              }}
             >
               <Grid container>
                 <Grid item xs={12}>
@@ -74,10 +83,17 @@ const BottomActionButtons = (props: BottomActionButtonsProps): JSX.Element => {
               </Grid>
             </Button>
           </Grid>
-          <Grid item xs={6} className={classes.buttonWrapper}>
+          <Grid
+            item
+            xs={6}
+            className={clsx(classes.buttonWrapper, classes.rightWrapper)}
+          >
             <Button
               fullWidth
-              className={clsx(classes.button, classes.rightButton)}
+              className={classes.button}
+              onClick={() => {
+                props.addClickHandler('super');
+              }}
             >
               <Grid container>
                 <Grid item xs={12}>
@@ -108,6 +124,10 @@ const BottomActionButtons = (props: BottomActionButtonsProps): JSX.Element => {
     );
   }
 };
+
+interface PassedInProps {
+  addClickHandler: (type: 'straight' | 'super') => void;
+}
 
 interface BottomActionButtonsProps {
   displayEditOptions: boolean;

@@ -1,11 +1,13 @@
 import * as ramda from 'ramda';
 import {
   Phase,
-  Set,
-  Workout,
-  WorkoutExercise,
   RoutineTemplateVO,
+  Set,
+  STRAIGHT_SET_ID,
+  SUPER_SET_ID,
+  Workout,
   WorkoutCategoryVO,
+  WorkoutExercise,
 } from 'workout-app-common-core';
 import {
   WorkoutActions,
@@ -35,6 +37,23 @@ function updateSet(
       });
     });
   });
+}
+
+function buildBaseSets(amount: number): Set[] {
+  let i = 0;
+  const baseSets: Set[] = [];
+
+  while (amount > i) {
+    i++;
+    baseSets.push({
+      id: uuidv4(),
+      setNumber: i,
+      weight: 0,
+      reps: 0,
+      markedDone: false,
+    });
+  }
+  return baseSets;
 }
 
 export default {
@@ -302,6 +321,101 @@ export default {
       case WorkoutActionTypes.CLEAR_ACTIVE_WORKOUT:
         newState.activeWorkout = action.workout;
         break;
+      case WorkoutActionTypes.ADD_EXERCISE_TO_NEW_STRAIGHT_SET: {
+        const clonedPhases = ramda.clone(newState.copyOfRoutineTemplate.phases);
+        const segmentId = uuidv4();
+        clonedPhases.map((phase) => {
+          if (phase.id === newState.phaseIdToAddNewSegment) {
+            phase.segments.push({
+              id: segmentId,
+              order: phase.segments.length + 1,
+              trainingSetTypeId: STRAIGHT_SET_ID,
+              secondsRestBetweenSets: 30,
+              secondsRestBetweenNextSegment: 60,
+              exercises: [
+                {
+                  id: uuidv4(),
+                  order: 1,
+                  exerciseId: action.exerciseId,
+                  sets: buildBaseSets(3),
+                },
+              ],
+            });
+          }
+        });
+        newState.copyOfRoutineTemplate.phases = clonedPhases;
+        newState.displayEditSet = true;
+        newState.editSetSegmentId = segmentId;
+        newState.displayDoneButtonInEditSetAppBar = true;
+        break;
+      }
+      case WorkoutActionTypes.ADD_EXERCISE_TO_NEW_SUPER_SET: {
+        newState.newSuperSetExerciseIdsForRoutine.push(action.exerciseId);
+
+        if (newState.newSuperSetExerciseIdsForRoutine.length === 2) {
+          const clonedPhases = ramda.clone(
+            newState.copyOfRoutineTemplate.phases
+          );
+          const newExercises: WorkoutExercise[] =
+            newState.newSuperSetExerciseIdsForRoutine.map((id, index) => {
+              return {
+                id: uuidv4(),
+                order: index + 1,
+                exerciseId: id,
+                sets: buildBaseSets(3),
+              };
+            });
+          const segmentId = uuidv4();
+          clonedPhases.map((phase) => {
+            if (phase.id === newState.phaseIdToAddNewSegment) {
+              phase.segments.push({
+                id: segmentId,
+                order: phase.segments.length + 1,
+                trainingSetTypeId: SUPER_SET_ID,
+                secondsRestBetweenSets: 30,
+                secondsRestBetweenNextSegment: 60,
+                exercises: newExercises,
+              });
+            }
+            newState.copyOfRoutineTemplate.phases = clonedPhases;
+            newState.displayEditSet = true;
+            newState.editSetSegmentId = segmentId;
+            newState.displayDoneButtonInEditSetAppBar = true;
+            newState.newSuperSetExerciseIdsForRoutine = [];
+          });
+        } else if (newState.newSuperSetExerciseIdsForRoutine.length === 1) {
+          action.callbackHandler();
+        }
+        break;
+      }
+      case WorkoutActionTypes.TOGGLE_EXERCISE_WIDGET_ON_ROUTINE_PREVIEW_PAGE:
+        newState.displayExerciseWidgetOnRoutinePreviewPage = action.open;
+        break;
+      case WorkoutActionTypes.CHECK_IF_PHASE_SELECTION_REQUIRED:
+        if (newState.selectedRoutineTemplate.phases.length === 1) {
+          newState.phaseIdToAddNewSegment =
+            newState.copyOfRoutineTemplate.phases[0].id;
+        } else {
+          if (action.phaseType === 'editing') {
+            newState.displayWhichPhaseDialog = {
+              open: newState.copyOfRoutineTemplate.phases.length !== 1,
+              phaseType: 'editing',
+            };
+          } else if (action.phaseType === 'activeWorkout') {
+            newState.displayWhichPhaseDialog = {
+              open: newState.activeWorkout.routine.phases.length !== 1,
+              phaseType: 'activeWorkout',
+            };
+          }
+        }
+        break;
+      case WorkoutActionTypes.CLOSE_AND_UPDATE_PHASE_ID_TO_ADD_NEW_SEGMENT:
+        newState.phaseIdToAddNewSegment = action.phaseId;
+        newState.displayWhichPhaseDialog = {
+          open: false,
+          phaseType: '',
+        };
+        break;
       default:
         break;
     }
@@ -317,6 +431,7 @@ export interface WorkoutState {
   copyOfRoutineTemplate: RoutineTemplateVO;
   activeWorkout: Workout;
   currentPhase: Phase;
+  newSuperSetExerciseIdsForRoutine: string[];
   currentSegmentIndex: number;
   currentSetIndex: number;
   totalSegments: number;
@@ -324,4 +439,11 @@ export interface WorkoutState {
   displayEditPreviewList: boolean;
   displayEditSet: boolean;
   editSetSegmentId: string;
+  displayWhichPhaseDialog: {
+    open: boolean;
+    phaseType: 'editing' | 'activeWorkout' | '';
+  };
+  phaseIdToAddNewSegment: string;
+  displayExerciseWidgetOnRoutinePreviewPage: boolean;
+  displayDoneButtonInEditSetAppBar: boolean;
 }

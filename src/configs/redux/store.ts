@@ -57,6 +57,13 @@ export const createStore = (history: History): Store => {
     workoutState: {
       displayEditPreviewList: false,
       displayEditSet: false,
+      displayWhichPhaseDialog: {
+        open: false,
+        phaseType: '',
+      },
+      displayExerciseWidgetOnRoutinePreviewPage: false,
+      displayDoneButtonInEditSetAppBar: false,
+      newSuperSetExerciseIdsForRoutine: [],
     } as unknown as WorkoutState,
   });
 };

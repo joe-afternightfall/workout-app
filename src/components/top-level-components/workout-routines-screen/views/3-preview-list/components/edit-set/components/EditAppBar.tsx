@@ -1,25 +1,26 @@
 import React from 'react';
-import { Dispatch } from 'redux';
-import { connect } from 'react-redux';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
 import {
   AppBar,
   Grid,
   Toolbar,
   Typography,
   IconButton,
+  Button,
 } from '@material-ui/core';
+import { Dispatch } from 'redux';
+import { connect } from 'react-redux';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import { closeEditSet } from '../../../../../../../../creators/workout/workout-selections';
+import { State } from '../../../../../../../../configs/redux/store';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
+import {
+  closeEditSet,
+  toggleExerciseWidgetOnRoutinePreviewPage,
+} from '../../../../../../../../creators/workout/workout-selections';
 
 const useStyles = makeStyles(() =>
   createStyles({
-    toolbar: {
-      position: 'fixed',
-      top: -24,
-      padding: '0 12px',
+    appBar: {
       height: '8vh',
-      width: '100%',
     },
     gridWrapper: {
       height: '100%',
@@ -36,25 +37,31 @@ const useStyles = makeStyles(() =>
 
 const EditAppBar = (props: EditAppBarProps): JSX.Element => {
   const classes = useStyles();
+  const { displayDoneButton } = props;
 
   return (
     <>
-      <AppBar color={'transparent'} elevation={0}>
-        <Toolbar className={classes.toolbar}>
-          <Grid
-            container
-            className={classes.gridWrapper}
-            alignItems={'flex-end'}
-          >
-            <Grid item xs={2}>
-              <IconButton
-                color={'primary'}
-                className={classes.menuButton}
-                onClick={props.closeClickHandler}
-              >
-                <ArrowBackIcon fontSize={'small'} />
-              </IconButton>
-            </Grid>
+      <AppBar
+        color={'transparent'}
+        elevation={0}
+        position={'fixed'}
+        className={classes.appBar}
+      >
+        <Toolbar>
+          <Grid container className={classes.gridWrapper} alignItems={'center'}>
+            {displayDoneButton ? (
+              <Grid item xs={2} />
+            ) : (
+              <Grid item xs={2}>
+                <IconButton
+                  color={'primary'}
+                  className={classes.menuButton}
+                  onClick={props.closeClickHandler}
+                >
+                  <ArrowBackIcon fontSize={'small'} />
+                </IconButton>
+              </Grid>
+            )}
 
             <Grid
               item
@@ -64,11 +71,23 @@ const EditAppBar = (props: EditAppBarProps): JSX.Element => {
               alignItems={'center'}
             >
               <Grid item>
-                <Typography variant={'overline'}>{'Edit'}</Typography>
+                <Typography variant={'body1'}>{'Edit'}</Typography>
               </Grid>
             </Grid>
 
-            <Grid item xs={2} />
+            {displayDoneButton ? (
+              <Grid item xs={2} container justify={'flex-end'}>
+                <Button
+                  variant={'text'}
+                  color={'primary'}
+                  onClick={props.doneClickHandler}
+                >
+                  {'Done'}
+                </Button>
+              </Grid>
+            ) : (
+              <Grid item xs={2} />
+            )}
           </Grid>
         </Toolbar>
       </AppBar>
@@ -79,14 +98,26 @@ const EditAppBar = (props: EditAppBarProps): JSX.Element => {
 };
 
 interface EditAppBarProps {
+  displayDoneButton: boolean;
   closeClickHandler: () => void;
+  doneClickHandler: () => void;
 }
+
+const mapStateToProps = (state: State): EditAppBarProps => {
+  return {
+    displayDoneButton: state.workoutState.displayDoneButtonInEditSetAppBar,
+  } as unknown as EditAppBarProps;
+};
 
 const mapDispatchToProps = (dispatch: Dispatch): EditAppBarProps =>
   ({
     closeClickHandler: () => {
       dispatch(closeEditSet());
     },
+    doneClickHandler: () => {
+      dispatch(closeEditSet());
+      dispatch(toggleExerciseWidgetOnRoutinePreviewPage(false));
+    },
   } as unknown as EditAppBarProps);
 
-export default connect(null, mapDispatchToProps)(EditAppBar);
+export default connect(mapStateToProps, mapDispatchToProps)(EditAppBar);
