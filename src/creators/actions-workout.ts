@@ -8,6 +8,7 @@ import {
   CloseEditSetAction,
   CopyRoutineForEditAction,
   OpenEditPreviewOptionsAction,
+  ToggleExerciseWidgetOnRoutinePreviewPageAction,
 } from './workout/workout-selections';
 import {
   ClearActiveWorkoutAction,
@@ -51,6 +52,7 @@ export enum WorkoutActionTypes {
   CLEAR_ACTIVE_WORKOUT = 'CLEAR_ACTIVE_WORKOUT',
   START_SELECTED_SEGMENT = 'START_SELECTED_SEGMENT',
   ADD_SEGMENT_WITH_EXERCISE = 'ADD_SEGMENT_WITH_EXERCISE',
+  TOGGLE_EXERCISE_WIDGET_ON_ROUTINE_PREVIEW_PAGE = 'TOGGLE_EXERCISE_WIDGET_ON_ROUTINE_PREVIEW_PAGE',
 }
 
 export type WorkoutActions =
@@ -74,4 +76,5 @@ export type WorkoutActions =
   | WorkoutDoneAction
   | StartSelectedSegmentAction
   | ClearActiveWorkoutAction
-  | AddSegmentWithExerciseAction;
+  | AddSegmentWithExerciseAction
+  | ToggleExerciseWidgetOnRoutinePreviewPageAction;
