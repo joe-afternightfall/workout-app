@@ -1,11 +1,13 @@
 import * as ramda from 'ramda';
 import {
   Phase,
-  Set,
-  Workout,
-  WorkoutExercise,
   RoutineTemplateVO,
+  Set,
+  STRAIGHT_SET_ID,
+  SUPER_SET_ID,
+  Workout,
   WorkoutCategoryVO,
+  WorkoutExercise,
 } from 'workout-app-common-core';
 import {
   WorkoutActions,
@@ -35,6 +37,23 @@ function updateSet(
       });
     });
   });
+}
+
+function buildBaseSets(amount: number): Set[] {
+  let i = 0;
+  const baseSets: Set[] = [];
+
+  while (amount > i) {
+    i++;
+    baseSets.push({
+      id: uuidv4(),
+      setNumber: i,
+      weight: 0,
+      reps: 0,
+      markedDone: false,
+    });
+  }
+  return baseSets;
 }
 
 export default {
@@ -302,6 +321,48 @@ export default {
       case WorkoutActionTypes.CLEAR_ACTIVE_WORKOUT:
         newState.activeWorkout = action.workout;
         break;
+      case WorkoutActionTypes.ADD_SEGMENT_WITH_EXERCISE:
+        if (newState.selectedRoutineTemplate.phases.length === 1) {
+          newState.displayWhichPhaseDialog = false;
+          let trainingSetTypeId = '';
+          switch (action.segmentType) {
+            case 'straight':
+              trainingSetTypeId = STRAIGHT_SET_ID;
+              break;
+            case 'super':
+              trainingSetTypeId = SUPER_SET_ID;
+              break;
+            default:
+              break;
+          }
+          const clonedPhases = ramda.clone(
+            newState.copyOfRoutineTemplate.phases
+          );
+          const segmentId = uuidv4();
+          clonedPhases.map((phase) => {
+            phase.segments.push({
+              id: segmentId,
+              order: phase.segments.length + 1,
+              trainingSetTypeId: trainingSetTypeId,
+              secondsRestBetweenSets: 30,
+              secondsRestBetweenNextSegment: 60,
+              exercises: [
+                {
+                  id: uuidv4(),
+                  order: 1,
+                  exerciseId: action.exerciseId,
+                  sets: buildBaseSets(3),
+                },
+              ],
+            });
+          });
+          newState.copyOfRoutineTemplate.phases = clonedPhases;
+          newState.displayEditSet = true;
+          newState.editSetSegmentId = segmentId;
+        } else {
+          newState.displayWhichPhaseDialog = true;
+        }
+        break;
       default:
         break;
     }
@@ -324,4 +385,5 @@ export interface WorkoutState {
   displayEditPreviewList: boolean;
   displayEditSet: boolean;
   editSetSegmentId: string;
+  displayWhichPhaseDialog: boolean;
 }
