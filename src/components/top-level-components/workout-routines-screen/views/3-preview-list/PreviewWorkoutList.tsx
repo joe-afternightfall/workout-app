@@ -16,7 +16,10 @@ import {
 } from 'workout-app-common-core';
 import { ACTIVE_WORKOUT_SCREEN_PATH } from '../../../../../configs/constants/app';
 import PreviewListItem from '../../../../shared/exercise-list/PreviewListItem';
-import { startWorkout } from '../../../../../creators/workout/workout-selections';
+import {
+  toggleExerciseWidgetOnRoutinePreviewPage,
+  startWorkout,
+} from '../../../../../creators/workout/workout-selections';
 import BottomActionButtons from './components/edit-set/components/BottomActionButtons';
 import { Container, DropResult } from 'react-smooth-dnd';
 import { updateSegmentOrder } from '../../../../../creators/workout/update-workout';
@@ -53,7 +56,13 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const PreviewWorkoutList = (props: PreviewWorkoutListProps): JSX.Element => {
   const classes = useStyles();
-  const [displayWidget, setDisplayWidget] = useState(false);
+  const {
+    displayEditSet,
+    configPhases,
+    routinePhases,
+    displayEditOptions,
+    displayExerciseWidget,
+  } = props;
   const [segmentType, setSegmentType] = useState<'straight' | 'super'>(
     'straight'
   );
@@ -66,17 +75,17 @@ const PreviewWorkoutList = (props: PreviewWorkoutListProps): JSX.Element => {
     }
   };
 
-  const displayExerciseWidget = (type: 'straight' | 'super') => {
-    setDisplayWidget(true);
+  const openExerciseWidget = (type: 'straight' | 'super') => {
     setSegmentType(type);
+    props.toggleExerciseWidgetHandler(true);
   };
 
   const hideExerciseWidget = () => {
-    setDisplayWidget(false);
+    props.toggleExerciseWidgetHandler(false);
   };
 
-  if (!props.displayEditSet) {
-    if (displayWidget) {
+  if (!displayEditSet) {
+    if (displayExerciseWidget) {
       display = (
         <ExercisesWidget
           routineTemplate
@@ -88,24 +97,22 @@ const PreviewWorkoutList = (props: PreviewWorkoutListProps): JSX.Element => {
       display = (
         <Paper
           square
-          className={
-            props.displayEditOptions ? classes.darkBackground : classes.root
-          }
-          elevation={props.displayEditOptions ? 0 : 5}
+          className={displayEditOptions ? classes.darkBackground : classes.root}
+          elevation={displayEditOptions ? 0 : 5}
         >
-          {props.routinePhases.map((phase: Phase, index: number) => {
+          {routinePhases.map((phase: Phase, index: number) => {
             return (
               <List
                 key={index}
                 className={clsx(classes.listWrapper, {
-                  [classes.editingBackground]: props.displayEditOptions,
+                  [classes.editingBackground]: displayEditOptions,
                 })}
                 subheader={
                   <ListSubheader
                     component={'div'}
                     className={classes.subHeader}
                   >
-                    {getPhaseName(props.configPhases, phase.phaseId)}
+                    {getPhaseName(configPhases, phase.phaseId)}
                   </ListSubheader>
                 }
               >
@@ -117,7 +124,7 @@ const PreviewWorkoutList = (props: PreviewWorkoutListProps): JSX.Element => {
                   }}
                 >
                   {sortPhaseSegments(phase.segments).map((segment: Segment) => {
-                    return props.displayEditOptions ? (
+                    return displayEditOptions ? (
                       <PreviewListItem key={segment.id} segment={segment} />
                     ) : (
                       <div key={segment.id}>
@@ -131,7 +138,7 @@ const PreviewWorkoutList = (props: PreviewWorkoutListProps): JSX.Element => {
             );
           })}
 
-          <BottomActionButtons addClickHandler={displayExerciseWidget} />
+          <BottomActionButtons addClickHandler={openExerciseWidget} />
         </Paper>
       );
     }
@@ -146,11 +153,13 @@ interface PreviewWorkoutListProps {
   configPhases: PhaseVO[];
   displayEditSet: boolean;
   displayEditOptions: boolean;
+  displayExerciseWidget: boolean;
   updateSegmentOrderHandler: (
     phaseId: string,
     fromIndex: number,
     toIndex: number
   ) => void;
+  toggleExerciseWidgetHandler: (open: boolean) => void;
 }
 
 const mapStateToProps = (state: State): PreviewWorkoutListProps => {
@@ -163,6 +172,8 @@ const mapStateToProps = (state: State): PreviewWorkoutListProps => {
     configPhases: state.applicationState.workoutConfigurations.phases,
     displayEditSet: workoutState.displayEditSet,
     displayEditOptions: state.workoutState.displayEditPreviewList,
+    displayExerciseWidget:
+      state.workoutState.displayExerciseWidgetOnRoutinePreviewPage,
   } as unknown as PreviewWorkoutListProps;
 };
 
@@ -178,6 +189,9 @@ const mapDispatchToProps = (dispatch: Dispatch): PreviewWorkoutListProps =>
       toIndex: number
     ) => {
       dispatch(updateSegmentOrder(phaseId, fromIndex, toIndex));
+    },
+    toggleExerciseWidgetHandler: (open: boolean) => {
+      dispatch(toggleExerciseWidgetOnRoutinePreviewPage(open));
     },
   } as unknown as PreviewWorkoutListProps);
 
