@@ -50,7 +50,9 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const BottomActionButtons = (props: BottomActionButtonsProps): JSX.Element => {
+const BottomActionButtons = (
+  props: BottomActionButtonsProps & PassedInProps
+): JSX.Element => {
   const classes = useStyles();
 
   if (props.displayEditOptions) {
@@ -62,7 +64,13 @@ const BottomActionButtons = (props: BottomActionButtonsProps): JSX.Element => {
             xs={6}
             className={clsx(classes.buttonWrapper, classes.leftWrapper)}
           >
-            <Button fullWidth className={classes.button}>
+            <Button
+              fullWidth
+              className={classes.button}
+              onClick={() => {
+                props.addClickHandler('straight');
+              }}
+            >
               <Grid container>
                 <Grid item xs={12}>
                   <FitnessCenterIcon className={classes.icon} />
@@ -110,6 +118,10 @@ const BottomActionButtons = (props: BottomActionButtonsProps): JSX.Element => {
     );
   }
 };
+
+interface PassedInProps {
+  addClickHandler: (type: 'straight' | 'super') => void;
+}
 
 interface BottomActionButtonsProps {
   displayEditOptions: boolean;
