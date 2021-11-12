@@ -13,23 +13,12 @@ import SuperSetItem from './SuperSetItem';
 import SingleSetItem from './SingleSetItem';
 import { Draggable } from 'react-smooth-dnd';
 import { State } from '../../../configs/redux/store';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
-import EditOptions from '../../top-level-components/workout-routines-screen/views/3-preview-list/components/edit-set/components/EditOptions';
 import { PhaseTypeEditingSegment } from '../../../configs/types';
-
-const useStyles = makeStyles(() =>
-  createStyles({
-    editingCard: {
-      margin: '12px 0',
-    },
-  })
-);
+import EditOptions from '../../top-level-components/workout-routines-screen/views/3-preview-list/components/edit-set/components/EditOptions';
 
 const PreviewListItem = (
   props: PreviewListItemProps & PassedInProps
 ): JSX.Element => {
-  const classes = useStyles();
-
   const sortedExercises = sortSegmentExercises(props.segment.exercises);
 
   if (
@@ -50,7 +39,7 @@ const PreviewListItem = (
           phaseType={props.phaseType}
         />
 
-        <Card className={classes.editingCard}>{singleSetItem}</Card>
+        <Card>{singleSetItem}</Card>
       </Draggable>
     ) : (
       singleSetItem
@@ -72,7 +61,7 @@ const PreviewListItem = (
           orderNumber={props.segment.order}
           phaseType={props.phaseType}
         />
-        <Card className={classes.editingCard}>{superSetItem}</Card>
+        <Card>{superSetItem}</Card>
       </Draggable>
     ) : (
       superSetItem
