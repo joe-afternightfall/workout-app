@@ -1,30 +1,28 @@
 import React from 'react';
 import { Grid } from '@material-ui/core';
 import { Segment } from 'workout-app-common-core';
-import ArrowForwardIcon from '@material-ui/icons/ArrowForwardIos';
+import CategoryHeader from '../../shared/CategoryHeader';
 import CheckeredListDivider from '../../shared/CheckeredListDivider';
 import PreviewListItem from '../../../../../../../../shared/exercise-list/PreviewListItem';
 
 export default function NextSegmentSection(
   props: NextSegmentSectionProps
 ): JSX.Element {
-  const { segment, displayDivider, toggleSelectedExerciseHandler } = props;
+  const {
+    segment,
+    displayDivider,
+    displayEditOptions,
+    toggleSelectedExerciseHandler,
+  } = props;
   return (
     <>
-      <Grid container>
-        <Grid item xs={10}>
-          <PreviewListItem segment={segment} />
-        </Grid>
-        <Grid
-          item
-          xs={2}
-          container
-          alignItems={'center'}
-          justify={'center'}
-          onClick={() => toggleSelectedExerciseHandler(true, segment)}
-        >
-          <ArrowForwardIcon />
-        </Grid>
+      <CategoryHeader title={'Next'} />
+      <Grid
+        onClick={() =>
+          !displayEditOptions && toggleSelectedExerciseHandler(true, segment)
+        }
+      >
+        <PreviewListItem segment={segment} phaseType={'activeWorkout'} />
       </Grid>
       {displayDivider && <CheckeredListDivider />}
     </>
@@ -34,6 +32,7 @@ export default function NextSegmentSection(
 interface NextSegmentSectionProps {
   segment: Segment;
   displayDivider: boolean;
+  displayEditOptions: boolean;
   toggleSelectedExerciseHandler: (
     open: boolean,
     segment: Segment | null

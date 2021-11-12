@@ -9,7 +9,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import { TransitionProps } from '@material-ui/core/transitions';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { Divider, Grid, Link, Typography } from '@material-ui/core';
-import { toggleEditPreviewOptions } from '../../../../../creators/workout/workout-selections';
+import { toggleEditOptionButtons } from '../../../../../creators/workout/workout-selections';
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & { children?: React.ReactElement },
@@ -99,7 +99,12 @@ interface DiscardDialogProps {
 const mapDispatchToProps = (dispatch: Dispatch): DiscardDialogProps =>
   ({
     discardClickHandler: () => {
-      dispatch(toggleEditPreviewOptions(false));
+      dispatch(
+        toggleEditOptionButtons({
+          open: false,
+          onlyDisplayDelete: false,
+        })
+      );
     },
   } as unknown as DiscardDialogProps);
 

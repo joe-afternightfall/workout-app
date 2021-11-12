@@ -3,7 +3,6 @@ import {
   Segment,
   isSuperset,
   ExerciseVO,
-  isCircuitSet,
   isStraightSet,
   sortSegmentExercises,
 } from 'workout-app-common-core';
@@ -13,48 +12,26 @@ import SuperSetItem from './SuperSetItem';
 import SingleSetItem from './SingleSetItem';
 import { Draggable } from 'react-smooth-dnd';
 import { State } from '../../../configs/redux/store';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
+import { PhaseTypeEditingSegment } from '../../../configs/types';
 import EditOptions from '../../top-level-components/workout-routines-screen/views/3-preview-list/components/edit-set/components/EditOptions';
-
-const useStyles = makeStyles(() =>
-  createStyles({
-    editingCard: {
-      margin: '12px 0',
-    },
-  })
-);
 
 const PreviewListItem = (
   props: PreviewListItemProps & PassedInProps
 ): JSX.Element => {
-  const classes = useStyles();
-
   const sortedExercises = sortSegmentExercises(props.segment.exercises);
+  const { editOptions } = props;
+  let displayItem = <div />;
+  const isSuperSetItem = isSuperset(props.segment.trainingSetTypeId);
 
-  if (
-    isStraightSet(props.segment.trainingSetTypeId) ||
-    isCircuitSet(props.segment.trainingSetTypeId)
-  ) {
-    const singleSetItem = (
+  if (isStraightSet(props.segment.trainingSetTypeId)) {
+    displayItem = (
       <SingleSetItem
         segmentId={props.segment.id}
         workoutExercise={sortedExercises[0]}
       />
     );
-    return props.displayEditOptions ? (
-      <Draggable key={props.segment.id}>
-        <EditOptions
-          segmentId={props.segment.id}
-          orderNumber={props.segment.order}
-        />
-
-        <Card className={classes.editingCard}>{singleSetItem}</Card>
-      </Draggable>
-    ) : (
-      singleSetItem
-    );
-  } else if (isSuperset(props.segment.trainingSetTypeId)) {
-    const superSetItem = (
+  } else if (isSuperSetItem) {
+    displayItem = (
       <SuperSetItem
         upNextCard={false}
         segmentId={props.segment.id}
@@ -62,36 +39,42 @@ const PreviewListItem = (
         secondExercise={sortedExercises[1]}
       />
     );
-    return props.displayEditOptions ? (
-      <Draggable key={props.segment.id}>
-        <EditOptions
-          superset
-          segmentId={props.segment.id}
-          orderNumber={props.segment.order}
-        />
-        <Card className={classes.editingCard}>{superSetItem}</Card>
-      </Draggable>
-    ) : (
-      superSetItem
-    );
-  } else {
-    return <React.Fragment />;
   }
+
+  return editOptions.open ? (
+    <Draggable key={props.segment.id}>
+      <div style={{ margin: '12px 0' }}>
+        <EditOptions
+          superset={isSuperSetItem}
+          segmentId={props.segment.id}
+          phaseType={props.phaseType}
+          onlyDisplayDelete={editOptions.onlyDisplayDelete}
+        />
+        <Card>{displayItem}</Card>
+      </div>
+    </Draggable>
+  ) : (
+    displayItem
+  );
 };
 
 interface PassedInProps {
   segment: Segment;
+  phaseType: PhaseTypeEditingSegment;
 }
 
 interface PreviewListItemProps {
   exercises: ExerciseVO[];
-  displayEditOptions: boolean;
+  editOptions: {
+    open: boolean;
+    onlyDisplayDelete: boolean;
+  };
 }
 
 const mapStateToProps = (state: State): PreviewListItemProps => {
   return {
     exercises: state.applicationState.workoutConfigurations.exercises,
-    displayEditOptions: state.workoutState.displayEditPreviewList,
+    editOptions: state.workoutState.editOptions,
   } as unknown as PreviewListItemProps;
 };
 

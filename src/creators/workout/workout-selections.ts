@@ -1,5 +1,6 @@
 import { WorkoutActionTypes } from '../actions-workout';
 import { WorkoutCategoryVO, RoutineTemplateVO } from 'workout-app-common-core';
+import { PhaseTypeEditingSegment } from '../../configs/types';
 
 export interface SelectedWorkoutCategoryAction {
   type: WorkoutActionTypes.SELECTED_WORKOUT_CATEGORY;
@@ -38,11 +39,6 @@ export const startWorkout = (): StartWorkoutAction => {
   };
 };
 
-export interface ToggleEditPreviewOptionsAction {
-  type: WorkoutActionTypes.TOGGLE_EDIT_PREVIEW_LIST;
-  display: boolean;
-}
-
 export interface OpenEditPreviewOptionsAction {
   type: WorkoutActionTypes.OPEN_EDIT_PREVIEW_OPTIONS;
 }
@@ -53,12 +49,21 @@ export const openEditPreviewOptions = (): OpenEditPreviewOptionsAction => {
   };
 };
 
-export const toggleEditPreviewOptions = (
-  display: boolean
-): ToggleEditPreviewOptionsAction => {
+export interface ToggleEditOptionButtonsAction {
+  type: WorkoutActionTypes.TOGGLE_EDIT_OPTION_BUTTONS;
+  props: {
+    open: boolean;
+    onlyDisplayDelete: boolean;
+  };
+}
+
+export const toggleEditOptionButtons = (props: {
+  open: boolean;
+  onlyDisplayDelete: boolean;
+}): ToggleEditOptionButtonsAction => {
   return {
-    type: WorkoutActionTypes.TOGGLE_EDIT_PREVIEW_LIST,
-    display: display,
+    type: WorkoutActionTypes.TOGGLE_EDIT_OPTION_BUTTONS,
+    props: props,
   };
 };
 
@@ -110,11 +115,11 @@ export const toggleExerciseWidgetOnRoutinePreviewPage = (
 
 export interface CheckIfPhaseSelectionRequiredAction {
   type: WorkoutActionTypes.CHECK_IF_PHASE_SELECTION_REQUIRED;
-  phaseType: 'editing' | 'activeWorkout';
+  phaseType: PhaseTypeEditingSegment;
 }
 
 export const checkIfPhaseSelectionRequired = (
-  phaseType: 'editing' | 'activeWorkout'
+  phaseType: PhaseTypeEditingSegment
 ): CheckIfPhaseSelectionRequiredAction => {
   return {
     type: WorkoutActionTypes.CHECK_IF_PHASE_SELECTION_REQUIRED,

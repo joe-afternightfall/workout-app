@@ -55,12 +55,21 @@ export const createStore = (history: History): Store => {
       },
     } as unknown as ApplicationState,
     workoutState: {
-      displayEditPreviewList: false,
+      workoutStarted: false,
+      editOptions: {
+        open: false,
+        onlyDisplayDelete: false,
+      },
       displayEditSet: false,
       displayWhichPhaseDialog: false,
-      displayExerciseWidgetOnRoutinePreviewPage: false,
+      displayExerciseWidget: false,
       displayDoneButtonInEditSetAppBar: false,
       newSuperSetExerciseIdsForRoutine: [],
+      deleteExerciseDrawerProps: {
+        open: false,
+        segmentId: '',
+        phaseType: '',
+      },
     } as unknown as WorkoutState,
   });
 };

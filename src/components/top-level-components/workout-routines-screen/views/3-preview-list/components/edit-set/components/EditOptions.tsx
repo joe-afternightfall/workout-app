@@ -1,20 +1,23 @@
 import clsx from 'clsx';
-import React, { useState } from 'react';
-import DeleteDrawer from './DeleteDrawer';
+import React from 'react';
+import { Dispatch } from 'redux';
+import { connect } from 'react-redux';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ReorderIcon from '@material-ui/icons/Reorder';
 import { IconButton, Slide } from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { toggleDeleteExerciseDrawer } from '../../../../../../../../creators/workout/delete-exercise-drawer';
+import { PhaseTypeEditingSegment } from '../../../../../../../../configs/types';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     baseButton: {
       zIndex: 1,
-      borderRadius: 0,
-      height: '5vh',
-      width: '5vh',
+      borderRadius: '0 4px 4px 0',
+      height: '6vh',
+      width: '6vh',
       position: 'absolute',
-      transform: 'translate(0, 5vh)',
+      transform: 'translate(0, 3vh)',
     },
     deleteButton: {
       background: theme.palette.primary.main,
@@ -26,67 +29,79 @@ const useStyles = makeStyles((theme: Theme) =>
       right: 0,
     },
     superset: {
-      transform: 'translate(0, 12vh)',
+      transform: 'translate(0, 9.5vh)',
     },
   })
 );
 
-export default function EditOptions(props: EditOptionsProps): JSX.Element {
+const EditOptions = (props: EditOptionsProps & PassedInProps): JSX.Element => {
   const classes = useStyles();
-  const [open, setOpen] = useState(false);
-
-  const openDrawer = () => {
-    setOpen(true);
-  };
-
-  const closeDrawer = () => {
-    setOpen(false);
-  };
+  const { superset, onlyDisplayDelete } = props;
 
   return (
     <>
-      <DeleteDrawer
-        open={open}
-        segmentId={props.segmentId}
-        closeHandler={closeDrawer}
-      />
       <Slide mountOnEnter unmountOnExit direction={'right'} in={true}>
         <div>
           <IconButton
             className={clsx(classes.baseButton, classes.deleteButton, {
-              [classes.superset]: props.superset,
+              [classes.superset]: superset,
             })}
             aria-label={'delete'}
-            onClick={openDrawer}
+            onClick={props.openDrawerHandler}
           >
             <DeleteIcon />
           </IconButton>
         </div>
       </Slide>
 
-      <Slide mountOnEnter unmountOnExit direction={'left'} in={true}>
-        <div>
-          <IconButton
-            className={clsx(
-              'drag-handle',
-              classes.baseButton,
-              classes.dragButton,
-              {
-                [classes.superset]: props.superset,
-              }
-            )}
-            aria-label={'re-order'}
-          >
-            <ReorderIcon />
-          </IconButton>
-        </div>
-      </Slide>
+      {!onlyDisplayDelete && (
+        <Slide mountOnEnter unmountOnExit direction={'left'} in={true}>
+          <div>
+            <IconButton
+              className={clsx(
+                'drag-handle',
+                classes.baseButton,
+                classes.dragButton,
+                {
+                  [classes.superset]: superset,
+                }
+              )}
+              aria-label={'re-order'}
+            >
+              <ReorderIcon />
+            </IconButton>
+          </div>
+        </Slide>
+      )}
     </>
   );
+};
+
+interface PassedInProps {
+  superset?: boolean;
+  segmentId: string;
+  phaseType: PhaseTypeEditingSegment;
+  onlyDisplayDelete: boolean;
 }
 
 interface EditOptionsProps {
-  superset?: boolean;
-  segmentId: string;
-  orderNumber: number;
+  openDrawerHandler: () => void;
 }
+
+const mapDispatchToProps = (
+  dispatch: Dispatch,
+  ownProps: PassedInProps
+): EditOptionsProps =>
+  ({
+    openDrawerHandler: () => {
+      dispatch(
+        toggleDeleteExerciseDrawer({
+          open: true,
+          segmentId: ownProps.segmentId,
+          phaseType: ownProps.phaseType,
+        })
+      );
+    },
+  } as unknown as EditOptionsProps);
+
+export default connect(null, mapDispatchToProps)(EditOptions);

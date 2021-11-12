@@ -1,9 +1,13 @@
 import React from 'react';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
+import { State } from '../../configs/redux/store';
 import { Button, Drawer, Grid } from '@material-ui/core';
+import {
+  toggleDeleteExerciseDrawer,
+  deleteSelectedSegmentFromRoutine,
+} from '../../creators/workout/delete-exercise-drawer';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import { deleteSegmentFromRoutineCopy } from '../../../../../../../../creators/workout/preview-workout';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -42,15 +46,16 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const DeleteDrawer = (
-  props: DeleteDrawerProps & PassedInProps
+const DeleteExerciseDrawer = (
+  props: DeleteExerciseDrawerProps
 ): JSX.Element => {
   const classes = useStyles();
+  const { open, segmentId } = props;
 
   return (
     <Drawer
       anchor={'bottom'}
-      open={props.open}
+      open={open}
       onClose={props.closeHandler}
       classes={{ paper: classes.root }}
     >
@@ -66,7 +71,7 @@ const DeleteDrawer = (
               variant={'contained'}
               className={classes.removeButton}
               onClick={() => {
-                props.deleteSegmentHandler();
+                props.deleteSegmentHandler(segmentId);
                 props.closeHandler();
               }}
             >
@@ -91,24 +96,39 @@ const DeleteDrawer = (
   );
 };
 
-interface PassedInProps {
+interface DeleteExerciseDrawerProps {
   open: boolean;
   segmentId: string;
   closeHandler: () => void;
+  deleteSegmentHandler: (segmentId: string) => void;
 }
 
-interface DeleteDrawerProps {
-  deleteSegmentHandler: () => void;
-}
+const mapStateToProps = (state: State): DeleteExerciseDrawerProps => {
+  const props = state.workoutState.deleteExerciseDrawerProps;
 
-const mapDispatchToProps = (
-  dispatch: Dispatch,
-  ownProps: PassedInProps
-): DeleteDrawerProps =>
+  return {
+    open: props.open,
+    segmentId: props.segmentId,
+  } as unknown as DeleteExerciseDrawerProps;
+};
+
+const mapDispatchToProps = (dispatch: Dispatch): DeleteExerciseDrawerProps =>
   ({
-    deleteSegmentHandler: () => {
-      dispatch(deleteSegmentFromRoutineCopy(ownProps.segmentId));
+    deleteSegmentHandler: (segmentId: string) => {
+      dispatch(deleteSelectedSegmentFromRoutine(segmentId));
     },
-  } as unknown as DeleteDrawerProps);
+    closeHandler: () => {
+      dispatch(
+        toggleDeleteExerciseDrawer({
+          open: false,
+          segmentId: '',
+          phaseType: '',
+        })
+      );
+    },
+  } as unknown as DeleteExerciseDrawerProps);
 
-export default connect(null, mapDispatchToProps)(DeleteDrawer);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(DeleteExerciseDrawer);

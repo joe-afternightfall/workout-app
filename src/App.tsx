@@ -12,6 +12,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBottomNavigation from './components/app-shell/AppBottomNavigation';
 import ProfileDialog from './components/top-level-components/profile-screen/ProfileDialog';
 import WhichPhaseDialog from './components/app-shell/WhichPhaseDialog';
+import DeleteExerciseDrawer from './components/app-shell/DeleteExerciseDrawer';
 
 const styles: Styles<Theme, StyledComponentProps> = () => ({
   root: {
@@ -29,6 +30,7 @@ class App extends Component<AppProps> {
           <CssBaseline />
           <ProfileDialog />
           <WhichPhaseDialog />
+          <DeleteExerciseDrawer />
 
           <main>
             <div>{this.props.children}</div>

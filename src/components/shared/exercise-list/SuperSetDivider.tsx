@@ -62,7 +62,7 @@ interface SuperSetDividerProps {
 
 const mapStateToProps = (state: State): SuperSetDividerProps => {
   return {
-    shrink: state.workoutState.displayEditPreviewList,
+    shrink: state.workoutState.editOptions.open,
   } as unknown as SuperSetDividerProps;
 };
 

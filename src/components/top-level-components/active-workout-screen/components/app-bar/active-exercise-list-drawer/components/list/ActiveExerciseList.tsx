@@ -5,7 +5,7 @@ import DoneSection from './components/DoneSection';
 import CategoryHeader from '../shared/CategoryHeader';
 import NextSegmentSection from './components/NextSegmentSection';
 import PreviewListItem from '../../../../../../../shared/exercise-list/PreviewListItem';
-import NewSegmentBottomActionButtons from '../../../../../../../shared/bottom-action-buttons/NewSegmentBottomActionButtons';
+import NewSegmentBottomActionButtons from '../../../../../../../shared/action-buttons/new-segment-bottom-action-buttons/NewSegmentBottomActionButtons';
 import { Dispatch } from 'redux';
 import {
   checkIfPhaseSelectionRequired,
@@ -19,10 +19,12 @@ const ActiveExerciseList = (
   props: ActiveExerciseListProps & PassedInProps
 ): JSX.Element => {
   const {
+    displayEditOptions,
     nextSegments,
     doneSegments,
     currentSegment,
     displayExerciseWidget,
+    displayBottomActionButtons,
     toggleSelectedExerciseHandler,
   } = props;
   let display;
@@ -55,9 +57,7 @@ const ActiveExerciseList = (
 
         <CategoryHeader title={'Current'} />
 
-        <PreviewListItem segment={currentSegment} />
-
-        <CategoryHeader title={'Next'} />
+        <PreviewListItem segment={currentSegment} phaseType={'activeWorkout'} />
 
         {nextSegments.map((segment, index) => {
           const displayDivider = nextSegments.length !== index + 1;
@@ -65,20 +65,23 @@ const ActiveExerciseList = (
             <NextSegmentSection
               key={index}
               segment={segment}
+              displayEditOptions={displayEditOptions}
               displayDivider={displayDivider}
               toggleSelectedExerciseHandler={toggleSelectedExerciseHandler}
             />
           );
         })}
 
-        <NewSegmentBottomActionButtons
-          straightSetClickHandler={() => {
-            openExerciseWidget('straight');
-          }}
-          superSetClickHandler={() => {
-            openExerciseWidget('super');
-          }}
-        />
+        {displayBottomActionButtons && (
+          <NewSegmentBottomActionButtons
+            straightSetClickHandler={() => {
+              openExerciseWidget('straight');
+            }}
+            superSetClickHandler={() => {
+              openExerciseWidget('super');
+            }}
+          />
+        )}
       </List>
     );
   }
@@ -93,6 +96,7 @@ interface ActiveExerciseListProps {
   toggleExerciseWidgetHandler: (open: boolean) => void;
   phaseSelectionRequiredHandler: () => void;
   displayExerciseWidget: boolean;
+  displayEditOptions: boolean;
 }
 
 interface PassedInProps {
@@ -100,6 +104,7 @@ interface PassedInProps {
     open: boolean,
     segment: Segment | null
   ) => void;
+  displayBottomActionButtons: boolean;
 }
 
 const mapStateToProps = (state: State): ActiveExerciseListProps => {
@@ -142,8 +147,8 @@ const mapStateToProps = (state: State): ActiveExerciseListProps => {
     doneSegments: doneSegments,
     currentSegment: currentSegment,
     nextSegments: nextSegments,
-    displayExerciseWidget:
-      state.workoutState.displayExerciseWidgetOnRoutinePreviewPage,
+    displayExerciseWidget: state.workoutState.displayExerciseWidget,
+    displayEditOptions: state.workoutState.editOptions.open,
   } as unknown as ActiveExerciseListProps;
 };
 

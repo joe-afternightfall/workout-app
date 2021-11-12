@@ -4,6 +4,7 @@ import {
   Toolbar,
   Typography,
   IconButton,
+  Button,
 } from '@material-ui/core';
 import React from 'react';
 import ArrowBack from '@material-ui/icons/ArrowBackIos';
@@ -21,7 +22,13 @@ export default function ActiveExerciseListAppBar(
   props: ActiveExerciseListAppBarProps
 ): JSX.Element {
   const classes = useStyles();
-  const { selectedSegment, closeClickHandler, goBackClickHandler } = props;
+  const {
+    isEditing,
+    selectedSegment,
+    closeClickHandler,
+    toggleEditHandler,
+    goBackClickHandler,
+  } = props;
 
   return (
     <AppBar
@@ -33,10 +40,16 @@ export default function ActiveExerciseListAppBar(
       <Toolbar>
         <Grid container alignItems={'center'}>
           <Grid item xs={2}>
-            {selectedSegment && (
+            {selectedSegment ? (
               <IconButton onClick={goBackClickHandler}>
                 <ArrowBack />
               </IconButton>
+            ) : (
+              !isEditing && (
+                <Button color={'primary'} onClick={toggleEditHandler}>
+                  {'Edit'}
+                </Button>
+              )
             )}
           </Grid>
 
@@ -45,14 +58,16 @@ export default function ActiveExerciseListAppBar(
               {'Exercise List'}
             </Typography>
           </Grid>
-          <Grid
-            item
-            xs={2}
-            onClick={closeClickHandler}
-            container
-            justify={'center'}
-          >
-            <Typography variant={'body1'}>{'close'}</Typography>
+          <Grid item xs={2} container justify={'center'}>
+            {isEditing ? (
+              <Button color={'primary'} onClick={toggleEditHandler}>
+                {'Save'}
+              </Button>
+            ) : (
+              <Button color={'primary'} onClick={closeClickHandler}>
+                {'Close'}
+              </Button>
+            )}
           </Grid>
         </Grid>
       </Toolbar>
@@ -61,7 +76,9 @@ export default function ActiveExerciseListAppBar(
 }
 
 interface ActiveExerciseListAppBarProps {
+  isEditing: boolean;
   selectedSegment: boolean;
+  toggleEditHandler: () => void;
   closeClickHandler: () => void;
   goBackClickHandler: () => void;
 }
