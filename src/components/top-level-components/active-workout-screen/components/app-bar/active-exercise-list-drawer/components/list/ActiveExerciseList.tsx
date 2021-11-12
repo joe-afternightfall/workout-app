@@ -5,7 +5,7 @@ import DoneSection from './components/DoneSection';
 import CategoryHeader from '../shared/CategoryHeader';
 import NextSegmentSection from './components/NextSegmentSection';
 import PreviewListItem from '../../../../../../../shared/exercise-list/PreviewListItem';
-import NewSegmentBottomActionButtons from '../../../../../../../shared/bottom-action-buttons/NewSegmentBottomActionButtons';
+import NewSegmentBottomActionButtons from '../../../../../../../shared/action-buttons/new-segment-bottom-action-buttons/NewSegmentBottomActionButtons';
 import { Dispatch } from 'redux';
 import {
   checkIfPhaseSelectionRequired,
@@ -23,6 +23,7 @@ const ActiveExerciseList = (
     doneSegments,
     currentSegment,
     displayExerciseWidget,
+    displayBottomActionButtons,
     toggleSelectedExerciseHandler,
   } = props;
   let display;
@@ -71,14 +72,16 @@ const ActiveExerciseList = (
           );
         })}
 
-        <NewSegmentBottomActionButtons
-          straightSetClickHandler={() => {
-            openExerciseWidget('straight');
-          }}
-          superSetClickHandler={() => {
-            openExerciseWidget('super');
-          }}
-        />
+        {displayBottomActionButtons && (
+          <NewSegmentBottomActionButtons
+            straightSetClickHandler={() => {
+              openExerciseWidget('straight');
+            }}
+            superSetClickHandler={() => {
+              openExerciseWidget('super');
+            }}
+          />
+        )}
       </List>
     );
   }
@@ -100,6 +103,7 @@ interface PassedInProps {
     open: boolean,
     segment: Segment | null
   ) => void;
+  displayBottomActionButtons: boolean;
 }
 
 const mapStateToProps = (state: State): ActiveExerciseListProps => {
