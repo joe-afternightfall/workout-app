@@ -9,7 +9,7 @@ import ActiveExerciseListAppBar from './components/ActiveExerciseListAppBar';
 import { State } from '../../../../../../configs/redux/store';
 import { connect } from 'react-redux';
 import EditSet from '../../../../workout-routines-screen/views/3-preview-list/components/edit-set/EditSet';
-import { toggleEditPreviewOptions } from '../../../../../../creators/workout/workout-selections';
+import { toggleEditOptionButtons } from '../../../../../../creators/workout/workout-selections';
 import { Dispatch } from 'redux';
 
 const useStyles = makeStyles(() =>
@@ -107,8 +107,7 @@ interface ActiveExerciseListDrawerProps {
 const mapStateToProps = (state: State): ActiveExerciseListDrawerProps => {
   return {
     displayEditSet: state.workoutState.displayEditSet,
-    displayExerciseWidget:
-      state.workoutState.displayExerciseWidgetOnRoutinePreviewPage,
+    displayExerciseWidget: state.workoutState.displayExerciseWidget,
   } as unknown as ActiveExerciseListDrawerProps;
 };
 
@@ -117,7 +116,11 @@ const mapDispatchToProps = (
 ): ActiveExerciseListDrawerProps =>
   ({
     toggleEditHandler: (open: boolean) => {
-      dispatch(toggleEditPreviewOptions(open));
+      const props = {
+        open: open,
+        onlyDisplayDelete: open,
+      };
+      dispatch(toggleEditOptionButtons(props));
     },
   } as unknown as ActiveExerciseListDrawerProps);
 

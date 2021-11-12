@@ -76,14 +76,14 @@ export default {
       case WorkoutActionTypes.SELECTED_ROUTINE:
         newState.selectedRoutineTemplate = action.routine;
         break;
-      case WorkoutActionTypes.TOGGLE_EDIT_PREVIEW_LIST:
-        newState.displayEditOptions = action.display;
+      case WorkoutActionTypes.TOGGLE_EDIT_OPTION_BUTTONS:
+        newState.editOptions = action.props;
         break;
       case WorkoutActionTypes.OPEN_EDIT_PREVIEW_OPTIONS: {
         newState.copyOfRoutineTemplate = ramda.clone(
           newState.selectedRoutineTemplate
         );
-        newState.displayEditOptions = true;
+        newState.editOptions.open = true;
         break;
       }
       case WorkoutActionTypes.OPEN_EDIT_SET:
@@ -167,11 +167,11 @@ export default {
         newState.selectedRoutineTemplate = ramda.clone(
           newState.copyOfRoutineTemplate
         );
-        newState.displayEditOptions = false;
+        newState.editOptions.open = false;
         break;
       }
       case WorkoutActionTypes.UPDATE_SET_TEXT_FIELD: {
-        if (newState.displayEditOptions) {
+        if (newState.editOptions.open) {
           const clonedPhases = ramda.clone(
             newState.copyOfRoutineTemplate.phases
           );
@@ -442,7 +442,7 @@ export default {
         break;
       }
       case WorkoutActionTypes.TOGGLE_EXERCISE_WIDGET_ON_ROUTINE_PREVIEW_PAGE:
-        newState.displayExerciseWidgetOnRoutinePreviewPage = action.open;
+        newState.displayExerciseWidget = action.open;
         break;
       case WorkoutActionTypes.CHECK_IF_PHASE_SELECTION_REQUIRED:
         newState.phaseTypeAddingSegment = action.phaseType;
@@ -486,13 +486,16 @@ export interface WorkoutState {
   currentSetIndex: number;
   totalSegments: number;
   lastSegment: number;
-  displayEditOptions: boolean;
+  editOptions: {
+    open: boolean;
+    onlyDisplayDelete: boolean;
+  };
   displayEditSet: boolean;
   editSetSegmentId: string;
   displayWhichPhaseDialog: boolean;
   phaseTypeAddingSegment: PhaseTypeEditingSegment;
   phaseIdToAddNewSegment: string;
-  displayExerciseWidgetOnRoutinePreviewPage: boolean;
+  displayExerciseWidget: boolean;
   displayDoneButtonInEditSetAppBar: boolean;
   deleteExerciseDrawerProps: DeleteExerciseDrawerActionProps;
 }

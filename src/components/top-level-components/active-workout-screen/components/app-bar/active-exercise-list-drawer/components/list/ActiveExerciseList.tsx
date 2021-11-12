@@ -19,6 +19,7 @@ const ActiveExerciseList = (
   props: ActiveExerciseListProps & PassedInProps
 ): JSX.Element => {
   const {
+    displayEditOptions,
     nextSegments,
     doneSegments,
     currentSegment,
@@ -64,6 +65,7 @@ const ActiveExerciseList = (
             <NextSegmentSection
               key={index}
               segment={segment}
+              displayEditOptions={displayEditOptions}
               displayDivider={displayDivider}
               toggleSelectedExerciseHandler={toggleSelectedExerciseHandler}
             />
@@ -94,6 +96,7 @@ interface ActiveExerciseListProps {
   toggleExerciseWidgetHandler: (open: boolean) => void;
   phaseSelectionRequiredHandler: () => void;
   displayExerciseWidget: boolean;
+  displayEditOptions: boolean;
 }
 
 interface PassedInProps {
@@ -144,8 +147,8 @@ const mapStateToProps = (state: State): ActiveExerciseListProps => {
     doneSegments: doneSegments,
     currentSegment: currentSegment,
     nextSegments: nextSegments,
-    displayExerciseWidget:
-      state.workoutState.displayExerciseWidgetOnRoutinePreviewPage,
+    displayExerciseWidget: state.workoutState.displayExerciseWidget,
+    displayEditOptions: state.workoutState.editOptions.open,
   } as unknown as ActiveExerciseListProps;
 };
 

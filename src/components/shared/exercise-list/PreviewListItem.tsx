@@ -19,7 +19,7 @@ const PreviewListItem = (
   props: PreviewListItemProps & PassedInProps
 ): JSX.Element => {
   const sortedExercises = sortSegmentExercises(props.segment.exercises);
-  const { displayEditOptions } = props;
+  const { editOptions } = props;
   let displayItem = <div />;
   const isSuperSetItem = isSuperset(props.segment.trainingSetTypeId);
 
@@ -41,15 +41,17 @@ const PreviewListItem = (
     );
   }
 
-  return displayEditOptions ? (
+  return editOptions.open ? (
     <Draggable key={props.segment.id}>
-      <EditOptions
-        superset={isSuperSetItem}
-        segmentId={props.segment.id}
-        orderNumber={props.segment.order}
-        phaseType={props.phaseType}
-      />
-      <Card>{displayItem}</Card>
+      <div style={{ margin: '12px 0' }}>
+        <EditOptions
+          superset={isSuperSetItem}
+          segmentId={props.segment.id}
+          phaseType={props.phaseType}
+          onlyDisplayDelete={editOptions.onlyDisplayDelete}
+        />
+        <Card>{displayItem}</Card>
+      </div>
     </Draggable>
   ) : (
     displayItem
@@ -63,13 +65,16 @@ interface PassedInProps {
 
 interface PreviewListItemProps {
   exercises: ExerciseVO[];
-  displayEditOptions: boolean;
+  editOptions: {
+    open: boolean;
+    onlyDisplayDelete: boolean;
+  };
 }
 
 const mapStateToProps = (state: State): PreviewListItemProps => {
   return {
     exercises: state.applicationState.workoutConfigurations.exercises,
-    displayEditOptions: state.workoutState.displayEditOptions,
+    editOptions: state.workoutState.editOptions,
   } as unknown as PreviewListItemProps;
 };
 

@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const EditOptions = (props: EditOptionsProps & PassedInProps): JSX.Element => {
   const classes = useStyles();
-  const { superset } = props;
+  const { superset, onlyDisplayDelete } = props;
 
   return (
     <>
@@ -54,23 +54,25 @@ const EditOptions = (props: EditOptionsProps & PassedInProps): JSX.Element => {
         </div>
       </Slide>
 
-      <Slide mountOnEnter unmountOnExit direction={'left'} in={true}>
-        <div>
-          <IconButton
-            className={clsx(
-              'drag-handle',
-              classes.baseButton,
-              classes.dragButton,
-              {
-                [classes.superset]: superset,
-              }
-            )}
-            aria-label={'re-order'}
-          >
-            <ReorderIcon />
-          </IconButton>
-        </div>
-      </Slide>
+      {!onlyDisplayDelete && (
+        <Slide mountOnEnter unmountOnExit direction={'left'} in={true}>
+          <div>
+            <IconButton
+              className={clsx(
+                'drag-handle',
+                classes.baseButton,
+                classes.dragButton,
+                {
+                  [classes.superset]: superset,
+                }
+              )}
+              aria-label={'re-order'}
+            >
+              <ReorderIcon />
+            </IconButton>
+          </div>
+        </Slide>
+      )}
     </>
   );
 };
@@ -78,8 +80,8 @@ const EditOptions = (props: EditOptionsProps & PassedInProps): JSX.Element => {
 interface PassedInProps {
   superset?: boolean;
   segmentId: string;
-  orderNumber: number;
   phaseType: PhaseTypeEditingSegment;
+  onlyDisplayDelete: boolean;
 }
 
 interface EditOptionsProps {

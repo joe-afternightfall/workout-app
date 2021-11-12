@@ -3,7 +3,7 @@ import {
   SelectedRoutineAction,
   SelectedWorkoutCategoryAction,
   StartWorkoutAction,
-  ToggleEditPreviewOptionsAction,
+  ToggleEditOptionButtonsAction,
   OpenEditSetAction,
   CloseEditSetAction,
   CopyRoutineForEditAction,
@@ -42,7 +42,7 @@ export enum WorkoutActionTypes {
   SELECTED_ROUTINE = 'SELECTED_ROUTINE',
   START_WORKOUT = 'START_WORKOUT',
   MARK_CURRENT_SET_AS_DONE = 'MARK_CURRENT_SET_AS_DONE',
-  TOGGLE_EDIT_PREVIEW_LIST = 'TOGGLE_EDIT_PREVIEW_LIST',
+  TOGGLE_EDIT_OPTION_BUTTONS = 'TOGGLE_EDIT_OPTION_BUTTONS',
   OPEN_EDIT_PREVIEW_OPTIONS = 'OPEN_EDIT_PREVIEW_OPTIONS',
   OPEN_EDIT_SET = 'OPEN_EDIT_SET',
   CLOSE_EDIT_SET = 'CLOSE_EDIT_SET',
@@ -71,7 +71,7 @@ export type WorkoutActions =
   | SelectedRoutineAction
   | StartWorkoutAction
   | MarkCurrentSetAsDoneAction
-  | ToggleEditPreviewOptionsAction
+  | ToggleEditOptionButtonsAction
   | OpenEditSetAction
   | CloseEditSetAction
   | CopyRoutineForEditAction

@@ -52,9 +52,6 @@ const useStyles = makeStyles((theme: Theme) =>
     selectedRow: {
       zIndex: 1000,
     },
-    editingMargin: {
-      margin: '12px 0',
-    },
   })
 );
 
@@ -128,20 +125,23 @@ const PreviewWorkoutList = (props: PreviewWorkoutListProps): JSX.Element => {
                     orderAndUpdate(phase, e);
                   }}
                 >
-                  {sortPhaseSegments(phase.segments).map((segment: Segment) => (
-                    <div
-                      key={segment.id}
-                      className={clsx({
-                        [classes.editingMargin]: displayEditOptions,
-                      })}
-                    >
+                  {sortPhaseSegments(phase.segments).map((segment: Segment) => {
+                    return displayEditOptions ? (
                       <PreviewListItem
+                        key={segment.id}
                         segment={segment}
                         phaseType={'editing'}
                       />
-                      {!displayEditOptions && <WorkoutListDivider />}
-                    </div>
-                  ))}
+                    ) : (
+                      <div key={segment.id}>
+                        <PreviewListItem
+                          segment={segment}
+                          phaseType={'editing'}
+                        />
+                        <WorkoutListDivider />
+                      </div>
+                    );
+                  })}
                 </Container>
               </List>
             );
@@ -174,16 +174,15 @@ interface PreviewWorkoutListProps {
 
 const mapStateToProps = (state: State): PreviewWorkoutListProps => {
   const workoutState = state.workoutState;
-  const selectedRoutine = workoutState.displayEditOptions
+  const selectedRoutine = workoutState.editOptions.open
     ? workoutState.copyOfRoutineTemplate
     : workoutState.selectedRoutineTemplate;
   return {
     routinePhases: selectedRoutine.phases,
     configPhases: state.applicationState.workoutConfigurations.phases,
     displayEditSet: workoutState.displayEditSet,
-    displayEditOptions: state.workoutState.displayEditOptions,
-    displayExerciseWidget:
-      state.workoutState.displayExerciseWidgetOnRoutinePreviewPage,
+    displayEditOptions: state.workoutState.editOptions.open,
+    displayExerciseWidget: state.workoutState.displayExerciseWidget,
   } as unknown as PreviewWorkoutListProps;
 };
 

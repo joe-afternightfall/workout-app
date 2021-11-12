@@ -40,6 +40,8 @@ const SingleSetItem = (
     segmentId,
     workoutExercise,
     allExercises,
+    onlyDisplayDelete,
+    displayEditOptions,
     displayUpNextTitle,
   } = props;
 
@@ -83,7 +85,7 @@ const SingleSetItem = (
     </>
   );
 
-  return props.displayEditOptions ? (
+  return displayEditOptions && !onlyDisplayDelete ? (
     <ListItem
       button
       className={props.bottomListItem ? classes.bottomRoot : classes.root}
@@ -111,12 +113,14 @@ interface PassedInProps {
 interface SingleSetItemProps {
   allExercises: ExerciseVO[];
   displayEditOptions: boolean;
+  onlyDisplayDelete: boolean;
   editSetHandler: (segmentId: string) => void;
 }
 
 const mapStateToProps = (state: State): SingleSetItemProps => {
   return {
-    displayEditOptions: state.workoutState.displayEditOptions,
+    displayEditOptions: state.workoutState.editOptions.open,
+    onlyDisplayDelete: state.workoutState.editOptions.onlyDisplayDelete,
     allExercises: state.applicationState.workoutConfigurations.exercises,
   } as unknown as SingleSetItemProps;
 };

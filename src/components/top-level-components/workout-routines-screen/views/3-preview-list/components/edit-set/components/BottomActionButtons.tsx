@@ -77,7 +77,7 @@ interface BottomActionButtonsProps {
 
 const mapStateToProps = (state: State): BottomActionButtonsProps => {
   return {
-    displayEditOptions: state.workoutState.displayEditOptions,
+    displayEditOptions: state.workoutState.editOptions.open,
   } as unknown as BottomActionButtonsProps;
 };
 

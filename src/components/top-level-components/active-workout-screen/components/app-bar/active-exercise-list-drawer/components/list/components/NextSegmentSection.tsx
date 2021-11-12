@@ -8,11 +8,20 @@ import PreviewListItem from '../../../../../../../../shared/exercise-list/Previe
 export default function NextSegmentSection(
   props: NextSegmentSectionProps
 ): JSX.Element {
-  const { segment, displayDivider, toggleSelectedExerciseHandler } = props;
+  const {
+    segment,
+    displayDivider,
+    displayEditOptions,
+    toggleSelectedExerciseHandler,
+  } = props;
   return (
     <>
       <CategoryHeader title={'Next'} />
-      <Grid onClick={() => toggleSelectedExerciseHandler(true, segment)}>
+      <Grid
+        onClick={() =>
+          !displayEditOptions && toggleSelectedExerciseHandler(true, segment)
+        }
+      >
         <PreviewListItem segment={segment} phaseType={'activeWorkout'} />
       </Grid>
       {displayDivider && <CheckeredListDivider />}
@@ -23,6 +32,7 @@ export default function NextSegmentSection(
 interface NextSegmentSectionProps {
   segment: Segment;
   displayDivider: boolean;
+  displayEditOptions: boolean;
   toggleSelectedExerciseHandler: (
     open: boolean,
     segment: Segment | null
