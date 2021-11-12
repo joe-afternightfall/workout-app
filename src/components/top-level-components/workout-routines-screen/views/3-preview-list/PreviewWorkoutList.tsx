@@ -52,6 +52,9 @@ const useStyles = makeStyles((theme: Theme) =>
     selectedRow: {
       zIndex: 1000,
     },
+    editingMargin: {
+      margin: '12px 0',
+    },
   })
 );
 
@@ -125,23 +128,20 @@ const PreviewWorkoutList = (props: PreviewWorkoutListProps): JSX.Element => {
                     orderAndUpdate(phase, e);
                   }}
                 >
-                  {sortPhaseSegments(phase.segments).map((segment: Segment) => {
-                    return displayEditOptions ? (
+                  {sortPhaseSegments(phase.segments).map((segment: Segment) => (
+                    <div
+                      key={segment.id}
+                      className={clsx({
+                        [classes.editingMargin]: displayEditOptions,
+                      })}
+                    >
                       <PreviewListItem
-                        key={segment.id}
                         segment={segment}
                         phaseType={'editing'}
                       />
-                    ) : (
-                      <div key={segment.id}>
-                        <PreviewListItem
-                          segment={segment}
-                          phaseType={'editing'}
-                        />
-                        <WorkoutListDivider />
-                      </div>
-                    );
-                  })}
+                      {!displayEditOptions && <WorkoutListDivider />}
+                    </div>
+                  ))}
                 </Container>
               </List>
             );
