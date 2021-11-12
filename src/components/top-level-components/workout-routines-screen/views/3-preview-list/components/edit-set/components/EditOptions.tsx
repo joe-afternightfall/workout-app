@@ -1,10 +1,12 @@
 import clsx from 'clsx';
-import React, { useState } from 'react';
-import DeleteDrawer from './DeleteDrawer';
+import React from 'react';
+import { Dispatch } from 'redux';
+import { connect } from 'react-redux';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ReorderIcon from '@material-ui/icons/Reorder';
 import { IconButton, Slide } from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { toggleDeleteExerciseDrawer } from '../../../../../../../../creators/workout/delete-exercise-drawer';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -31,33 +33,20 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export default function EditOptions(props: EditOptionsProps): JSX.Element {
+const EditOptions = (props: EditOptionsProps & PassedInProps): JSX.Element => {
   const classes = useStyles();
-  const [open, setOpen] = useState(false);
-
-  const openDrawer = () => {
-    setOpen(true);
-  };
-
-  const closeDrawer = () => {
-    setOpen(false);
-  };
+  const { superset } = props;
 
   return (
     <>
-      <DeleteDrawer
-        open={open}
-        segmentId={props.segmentId}
-        closeHandler={closeDrawer}
-      />
       <Slide mountOnEnter unmountOnExit direction={'right'} in={true}>
         <div>
           <IconButton
             className={clsx(classes.baseButton, classes.deleteButton, {
-              [classes.superset]: props.superset,
+              [classes.superset]: superset,
             })}
             aria-label={'delete'}
-            onClick={openDrawer}
+            onClick={props.openDrawerHandler}
           >
             <DeleteIcon />
           </IconButton>
@@ -72,7 +61,7 @@ export default function EditOptions(props: EditOptionsProps): JSX.Element {
               classes.baseButton,
               classes.dragButton,
               {
-                [classes.superset]: props.superset,
+                [classes.superset]: superset,
               }
             )}
             aria-label={'re-order'}
@@ -83,10 +72,32 @@ export default function EditOptions(props: EditOptionsProps): JSX.Element {
       </Slide>
     </>
   );
-}
+};
 
-interface EditOptionsProps {
+interface PassedInProps {
   superset?: boolean;
   segmentId: string;
   orderNumber: number;
 }
+
+interface EditOptionsProps {
+  openDrawerHandler: () => void;
+}
+
+const mapDispatchToProps = (
+  dispatch: Dispatch,
+  ownProps: PassedInProps
+): EditOptionsProps =>
+  ({
+    openDrawerHandler: () => {
+      dispatch(
+        toggleDeleteExerciseDrawer({
+          open: true,
+          segmentId: ownProps.segmentId,
+          phaseType: 'editing',
+        })
+      );
+    },
+  } as unknown as EditOptionsProps);
+
+export default connect(null, mapDispatchToProps)(EditOptions);
