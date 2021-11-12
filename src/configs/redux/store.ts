@@ -61,6 +61,11 @@ export const createStore = (history: History): Store => {
       displayExerciseWidgetOnRoutinePreviewPage: false,
       displayDoneButtonInEditSetAppBar: false,
       newSuperSetExerciseIdsForRoutine: [],
+      deleteExerciseDrawerProps: {
+        open: false,
+        segmentId: '',
+        phaseType: '',
+      },
     } as unknown as WorkoutState,
   });
 };
