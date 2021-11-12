@@ -4,6 +4,7 @@ import {
   Toolbar,
   Typography,
   IconButton,
+  Button,
 } from '@material-ui/core';
 import React from 'react';
 import ArrowBack from '@material-ui/icons/ArrowBackIos';
@@ -21,7 +22,12 @@ export default function ActiveExerciseListAppBar(
   props: ActiveExerciseListAppBarProps
 ): JSX.Element {
   const classes = useStyles();
-  const { selectedSegment, closeClickHandler, goBackClickHandler } = props;
+  const {
+    selectedSegment,
+    closeClickHandler,
+    editRoutineHandler,
+    goBackClickHandler,
+  } = props;
 
   return (
     <AppBar
@@ -33,10 +39,14 @@ export default function ActiveExerciseListAppBar(
       <Toolbar>
         <Grid container alignItems={'center'}>
           <Grid item xs={2}>
-            {selectedSegment && (
+            {selectedSegment ? (
               <IconButton onClick={goBackClickHandler}>
                 <ArrowBack />
               </IconButton>
+            ) : (
+              <Button color={'primary'} onClick={editRoutineHandler}>
+                {'Edit'}
+              </Button>
             )}
           </Grid>
 
@@ -45,14 +55,10 @@ export default function ActiveExerciseListAppBar(
               {'Exercise List'}
             </Typography>
           </Grid>
-          <Grid
-            item
-            xs={2}
-            onClick={closeClickHandler}
-            container
-            justify={'center'}
-          >
-            <Typography variant={'body1'}>{'close'}</Typography>
+          <Grid item xs={2} container justify={'center'}>
+            <Button color={'primary'} onClick={closeClickHandler}>
+              {'Close'}
+            </Button>
           </Grid>
         </Grid>
       </Toolbar>
@@ -62,6 +68,7 @@ export default function ActiveExerciseListAppBar(
 
 interface ActiveExerciseListAppBarProps {
   selectedSegment: boolean;
+  editRoutineHandler: () => void;
   closeClickHandler: () => void;
   goBackClickHandler: () => void;
 }
