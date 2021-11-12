@@ -1,14 +1,13 @@
 import React from 'react';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
+import { State } from '../../configs/redux/store';
 import { Button, Drawer, Grid } from '@material-ui/core';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import { State } from '../../../../configs/redux/store';
 import {
-  deleteSelectedSegmentFromRoutine,
   toggleDeleteExerciseDrawer,
-} from '../../../../creators/workout/delete-exercise-drawer';
-import { PhaseTypeEditingSegment } from '../../../../configs/types';
+  deleteSelectedSegmentFromRoutine,
+} from '../../creators/workout/delete-exercise-drawer';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

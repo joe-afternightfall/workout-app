@@ -3,7 +3,6 @@ import {
   Segment,
   isSuperset,
   ExerciseVO,
-  isCircuitSet,
   isStraightSet,
   sortSegmentExercises,
 } from 'workout-app-common-core';
@@ -20,32 +19,19 @@ const PreviewListItem = (
   props: PreviewListItemProps & PassedInProps
 ): JSX.Element => {
   const sortedExercises = sortSegmentExercises(props.segment.exercises);
+  const { displayEditOptions } = props;
+  let displayItem = <div />;
+  const isSuperSetItem = isSuperset(props.segment.trainingSetTypeId);
 
-  if (
-    isStraightSet(props.segment.trainingSetTypeId) ||
-    isCircuitSet(props.segment.trainingSetTypeId)
-  ) {
-    const singleSetItem = (
+  if (isStraightSet(props.segment.trainingSetTypeId)) {
+    displayItem = (
       <SingleSetItem
         segmentId={props.segment.id}
         workoutExercise={sortedExercises[0]}
       />
     );
-    return props.displayEditOptions ? (
-      <Draggable key={props.segment.id}>
-        <EditOptions
-          segmentId={props.segment.id}
-          orderNumber={props.segment.order}
-          phaseType={props.phaseType}
-        />
-
-        <Card>{singleSetItem}</Card>
-      </Draggable>
-    ) : (
-      singleSetItem
-    );
-  } else if (isSuperset(props.segment.trainingSetTypeId)) {
-    const superSetItem = (
+  } else if (isSuperSetItem) {
+    displayItem = (
       <SuperSetItem
         upNextCard={false}
         segmentId={props.segment.id}
@@ -53,22 +39,21 @@ const PreviewListItem = (
         secondExercise={sortedExercises[1]}
       />
     );
-    return props.displayEditOptions ? (
-      <Draggable key={props.segment.id}>
-        <EditOptions
-          superset
-          segmentId={props.segment.id}
-          orderNumber={props.segment.order}
-          phaseType={props.phaseType}
-        />
-        <Card>{superSetItem}</Card>
-      </Draggable>
-    ) : (
-      superSetItem
-    );
-  } else {
-    return <React.Fragment />;
   }
+
+  return displayEditOptions ? (
+    <Draggable key={props.segment.id}>
+      <EditOptions
+        superset={isSuperSetItem}
+        segmentId={props.segment.id}
+        orderNumber={props.segment.order}
+        phaseType={props.phaseType}
+      />
+      <Card>{displayItem}</Card>
+    </Draggable>
+  ) : (
+    displayItem
+  );
 };
 
 interface PassedInProps {

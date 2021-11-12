@@ -21,7 +21,6 @@ const ActiveExerciseList = (
   const {
     nextSegments,
     doneSegments,
-    isEditing,
     currentSegment,
     displayExerciseWidget,
     displayBottomActionButtons,
@@ -95,7 +94,6 @@ interface ActiveExerciseListProps {
   toggleExerciseWidgetHandler: (open: boolean) => void;
   phaseSelectionRequiredHandler: () => void;
   displayExerciseWidget: boolean;
-  isEditing: boolean;
 }
 
 interface PassedInProps {
@@ -148,7 +146,6 @@ const mapStateToProps = (state: State): ActiveExerciseListProps => {
     nextSegments: nextSegments,
     displayExerciseWidget:
       state.workoutState.displayExerciseWidgetOnRoutinePreviewPage,
-    isEditing: state.workoutState.displayEditOptions,
   } as unknown as ActiveExerciseListProps;
 };
 
