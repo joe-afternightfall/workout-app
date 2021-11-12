@@ -28,19 +28,6 @@ export const addSetToRoutineCopy = (
   };
 };
 
-export interface DeleteSegmentFromRoutineCopyAction {
-  type: WorkoutActionTypes.DELETE_SEGMENT_FROM_ROUTINE_COPY;
-  segmentId: string;
-}
-export const deleteSegmentFromRoutineCopy = (
-  segmentId: string
-): DeleteSegmentFromRoutineCopyAction => {
-  return {
-    type: WorkoutActionTypes.DELETE_SEGMENT_FROM_ROUTINE_COPY,
-    segmentId: segmentId,
-  };
-};
-
 export interface SaveEditedVersionOfRoutineAction {
   type: WorkoutActionTypes.SAVE_EDITED_VERSION_OF_ROUTINE;
 }
