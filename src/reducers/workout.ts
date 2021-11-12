@@ -171,7 +171,28 @@ export default {
         break;
       }
       case WorkoutActionTypes.UPDATE_SET_TEXT_FIELD: {
-        if (newState.editOptions.open) {
+        if (newState.workoutStarted) {
+          const clonedPhases = ramda.clone(
+            newState.activeWorkout.routine.phases
+          );
+          clonedPhases.map((phase) => {
+            phase.segments.map((segment) => {
+              segment.exercises.map((exercise) => {
+                exercise.sets.map((set) => {
+                  if (set.id === action.setId) {
+                    updateSet(phase, action.setId, action.value, action.name);
+                  }
+                });
+              });
+            });
+          });
+          newState.activeWorkout.routine.phases = clonedPhases;
+          clonedPhases.map((phase) => {
+            if (phase.id === newState.currentPhase.id) {
+              newState.currentPhase = phase;
+            }
+          });
+        } else {
           const clonedPhases = ramda.clone(
             newState.copyOfRoutineTemplate.phases
           );
@@ -179,20 +200,6 @@ export default {
             updateSet(phase, action.setId, action.value, action.name);
           });
           newState.copyOfRoutineTemplate.phases = clonedPhases;
-        } else {
-          let foundPhase: Phase | undefined;
-          newState.activeWorkout.routine.phases.map((phase) => {
-            phase.segments.map((segment) => {
-              segment.exercises.map((exercise) => {
-                exercise.sets.map((set) => {
-                  if (set.id === action.setId) {
-                    foundPhase = phase;
-                  }
-                });
-              });
-            });
-          });
-          updateSet(foundPhase, action.setId, action.value, action.name);
         }
         break;
       }
@@ -247,6 +254,7 @@ export default {
         newState.currentPhase = newState.activeWorkout.routine.phases[0];
         newState.currentSegmentIndex = 1;
         newState.currentSetIndex = 1;
+        newState.workoutStarted = true;
         break;
       }
       case WorkoutActionTypes.MARK_CURRENT_SET_AS_DONE:
@@ -322,6 +330,7 @@ export default {
         break;
       case WorkoutActionTypes.WORKOUT_DONE:
         newState.activeWorkout.endTime = Date.now().toString();
+        newState.workoutStarted = false;
         break;
       case WorkoutActionTypes.START_SELECTED_SEGMENT: {
         const currentSegmentIndex = newState.currentSegmentIndex;
@@ -342,6 +351,7 @@ export default {
       }
       case WorkoutActionTypes.CLEAR_ACTIVE_WORKOUT:
         newState.activeWorkout = action.workout;
+        newState.workoutStarted = false;
         break;
       case WorkoutActionTypes.ADD_EXERCISE_TO_NEW_STRAIGHT_SET: {
         let clonedPhases: Phase[] = [];
@@ -476,6 +486,7 @@ export default {
 
 export interface WorkoutState {
   currentLocation: string;
+  workoutStarted: boolean;
   selectedWorkoutCategory: WorkoutCategoryVO;
   selectedRoutineTemplate: RoutineTemplateVO;
   copyOfRoutineTemplate: RoutineTemplateVO;

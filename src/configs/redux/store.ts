@@ -55,6 +55,7 @@ export const createStore = (history: History): Store => {
       },
     } as unknown as ApplicationState,
     workoutState: {
+      workoutStarted: false,
       editOptions: {
         open: false,
         onlyDisplayDelete: false,
