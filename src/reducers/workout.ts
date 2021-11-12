@@ -17,26 +17,27 @@ import { v4 as uuidv4 } from 'uuid';
 import { arrayMoveImmutable as arrayMove } from 'array-move';
 
 function updateSet(
-  phase: Phase,
+  phase: Phase | undefined,
   setId: string,
   value: number,
   name: 'sec' | 'reps' | 'weight'
 ) {
-  phase.segments.map((segment) => {
-    segment.exercises.map((exercise) => {
-      exercise.sets.map((set) => {
-        if (set.id === setId) {
-          if (name === 'sec') {
-            if (set.duration) {
-              set.duration.seconds = value;
+  phase &&
+    phase.segments.map((segment) => {
+      segment.exercises.map((exercise) => {
+        exercise.sets.map((set) => {
+          if (set.id === setId) {
+            if (name === 'sec') {
+              if (set.duration) {
+                set.duration.seconds = value;
+              }
+            } else {
+              set[name] = value;
             }
-          } else {
-            set[name] = value;
           }
-        }
+        });
       });
     });
-  });
 }
 
 function buildBaseSets(amount: number): Set[] {
@@ -165,12 +166,19 @@ export default {
           });
           newState.copyOfRoutineTemplate.phases = clonedPhases;
         } else {
-          updateSet(
-            newState.currentPhase,
-            action.setId,
-            action.value,
-            action.name
-          );
+          let foundPhase: Phase | undefined;
+          newState.activeWorkout.routine.phases.map((phase) => {
+            phase.segments.map((segment) => {
+              segment.exercises.map((exercise) => {
+                exercise.sets.map((set) => {
+                  if (set.id === action.setId) {
+                    foundPhase = phase;
+                  }
+                });
+              });
+            });
+          });
+          updateSet(foundPhase, action.setId, action.value, action.name);
         }
         break;
       }
@@ -322,7 +330,13 @@ export default {
         newState.activeWorkout = action.workout;
         break;
       case WorkoutActionTypes.ADD_EXERCISE_TO_NEW_STRAIGHT_SET: {
-        const clonedPhases = ramda.clone(newState.copyOfRoutineTemplate.phases);
+        let clonedPhases: Phase[] = [];
+        if (newState.phaseTypeAddingSegment === 'editing') {
+          clonedPhases = ramda.clone(newState.copyOfRoutineTemplate.phases);
+        } else if (newState.phaseTypeAddingSegment === 'activeWorkout') {
+          clonedPhases = ramda.clone(newState.activeWorkout.routine.phases);
+        }
+
         const segmentId = uuidv4();
         clonedPhases.map((phase) => {
           if (phase.id === newState.phaseIdToAddNewSegment) {
@@ -343,7 +357,16 @@ export default {
             });
           }
         });
-        newState.copyOfRoutineTemplate.phases = clonedPhases;
+        if (newState.phaseTypeAddingSegment === 'editing') {
+          newState.copyOfRoutineTemplate.phases = clonedPhases;
+        } else if (newState.phaseTypeAddingSegment === 'activeWorkout') {
+          newState.activeWorkout.routine.phases = clonedPhases;
+          clonedPhases.map((phase) => {
+            if (phase.id === newState.currentPhase.id) {
+              newState.currentPhase = phase;
+            }
+          });
+        }
         newState.displayEditSet = true;
         newState.editSetSegmentId = segmentId;
         newState.displayDoneButtonInEditSetAppBar = true;
@@ -353,9 +376,16 @@ export default {
         newState.newSuperSetExerciseIdsForRoutine.push(action.exerciseId);
 
         if (newState.newSuperSetExerciseIdsForRoutine.length === 2) {
-          const clonedPhases = ramda.clone(
-            newState.copyOfRoutineTemplate.phases
-          );
+          const phaseIdToAddNewSegment = newState.phaseIdToAddNewSegment;
+          let phases: Phase[] = [];
+          if (phaseIdToAddNewSegment !== '') {
+            if (newState.phaseTypeAddingSegment === 'editing') {
+              phases = newState.copyOfRoutineTemplate.phases;
+            } else if (newState.phaseTypeAddingSegment === 'activeWorkout') {
+              phases = newState.activeWorkout.routine.phases;
+            }
+          }
+          const clonedPhases = ramda.clone(phases);
           const newExercises: WorkoutExercise[] =
             newState.newSuperSetExerciseIdsForRoutine.map((id, index) => {
               return {
@@ -392,29 +422,26 @@ export default {
         newState.displayExerciseWidgetOnRoutinePreviewPage = action.open;
         break;
       case WorkoutActionTypes.CHECK_IF_PHASE_SELECTION_REQUIRED:
-        if (newState.selectedRoutineTemplate.phases.length === 1) {
-          newState.phaseIdToAddNewSegment =
-            newState.copyOfRoutineTemplate.phases[0].id;
-        } else {
-          if (action.phaseType === 'editing') {
-            newState.displayWhichPhaseDialog = {
-              open: newState.copyOfRoutineTemplate.phases.length !== 1,
-              phaseType: 'editing',
-            };
-          } else if (action.phaseType === 'activeWorkout') {
-            newState.displayWhichPhaseDialog = {
-              open: newState.activeWorkout.routine.phases.length !== 1,
-              phaseType: 'activeWorkout',
-            };
+        newState.phaseTypeAddingSegment = action.phaseType;
+        if (action.phaseType === 'editing') {
+          if (newState.copyOfRoutineTemplate.phases.length === 1) {
+            newState.phaseIdToAddNewSegment =
+              newState.copyOfRoutineTemplate.phases[0].id;
+          } else {
+            newState.displayWhichPhaseDialog = true;
+          }
+        } else if (action.phaseType === 'activeWorkout') {
+          if (newState.activeWorkout.routine.phases.length === 1) {
+            newState.phaseIdToAddNewSegment =
+              newState.activeWorkout.routine.phases[0].id;
+          } else {
+            newState.displayWhichPhaseDialog = true;
           }
         }
         break;
       case WorkoutActionTypes.CLOSE_AND_UPDATE_PHASE_ID_TO_ADD_NEW_SEGMENT:
         newState.phaseIdToAddNewSegment = action.phaseId;
-        newState.displayWhichPhaseDialog = {
-          open: false,
-          phaseType: '',
-        };
+        newState.displayWhichPhaseDialog = false;
         break;
       default:
         break;
@@ -439,10 +466,8 @@ export interface WorkoutState {
   displayEditPreviewList: boolean;
   displayEditSet: boolean;
   editSetSegmentId: string;
-  displayWhichPhaseDialog: {
-    open: boolean;
-    phaseType: 'editing' | 'activeWorkout' | '';
-  };
+  displayWhichPhaseDialog: boolean;
+  phaseTypeAddingSegment: 'editing' | 'activeWorkout' | '';
   phaseIdToAddNewSegment: string;
   displayExerciseWidgetOnRoutinePreviewPage: boolean;
   displayDoneButtonInEditSetAppBar: boolean;

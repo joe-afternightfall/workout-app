@@ -42,7 +42,7 @@ const EditAppBar = (props: EditAppBarProps): JSX.Element => {
   return (
     <>
       <AppBar
-        color={'transparent'}
+        color={'inherit'}
         elevation={0}
         position={'fixed'}
         className={classes.appBar}

@@ -12,6 +12,7 @@ import {
   BuiltSets,
   findExercise,
   isSuperset,
+  Phase,
   Segment,
   WorkoutExercise,
 } from 'workout-app-common-core';
@@ -137,15 +138,21 @@ const mapStateToProps = (state: State): EditSetProps => {
     secondsRestBetweenNextSegment: -1,
     exercises: [],
   };
+  let phases: Phase[] = [];
 
-  routineTemplate &&
-    routineTemplate.phases.map((phase) => {
-      return phase.segments.find((segment) => {
-        if (segment.id === state.workoutState.editSetSegmentId) {
-          foundSegment = segment;
-        }
-      });
+  if (state.workoutState.phaseTypeAddingSegment === 'activeWorkout') {
+    phases = state.workoutState.activeWorkout.routine.phases;
+  } else if (routineTemplate) {
+    phases = routineTemplate.phases;
+  }
+
+  phases.map((phase) => {
+    return phase.segments.find((segment) => {
+      if (segment.id === state.workoutState.editSetSegmentId) {
+        foundSegment = segment;
+      }
     });
+  });
 
   let superset = false;
   let parameterTypeId = '';

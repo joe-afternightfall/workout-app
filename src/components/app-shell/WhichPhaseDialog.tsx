@@ -50,8 +50,8 @@ interface WhichPhaseDialogProps {
 }
 
 const mapStateToProps = (state: State): WhichPhaseDialogProps => {
-  const open = state.workoutState.displayWhichPhaseDialog.open;
-  const phaseType = state.workoutState.displayWhichPhaseDialog.phaseType;
+  const open = state.workoutState.displayWhichPhaseDialog;
+  const phaseType = state.workoutState.phaseTypeAddingSegment;
   const allPhases = state.applicationState.workoutConfigurations.phases;
   const buttonOptions: { name: string; id: string }[] = [];
   let phases: Phase[] = [];
@@ -69,7 +69,6 @@ const mapStateToProps = (state: State): WhichPhaseDialogProps => {
         id: phase.id,
       });
   });
-
   return {
     open: open,
     buttonOptions: buttonOptions,

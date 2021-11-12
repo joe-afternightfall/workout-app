@@ -90,7 +90,7 @@ const PreviewWorkoutList = (props: PreviewWorkoutListProps): JSX.Element => {
     if (displayExerciseWidget) {
       display = (
         <ExercisesWidget
-          routineTemplate
+          addToSegment
           segmentType={segmentType}
           backToRoutineHandler={hideExerciseWidget}
         />
