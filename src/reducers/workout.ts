@@ -407,7 +407,16 @@ export default {
                 exercises: newExercises,
               });
             }
-            newState.copyOfRoutineTemplate.phases = clonedPhases;
+            if (newState.phaseTypeAddingSegment === 'editing') {
+              newState.copyOfRoutineTemplate.phases = clonedPhases;
+            } else if (newState.phaseTypeAddingSegment === 'activeWorkout') {
+              newState.activeWorkout.routine.phases = clonedPhases;
+              clonedPhases.map((phase) => {
+                if (phase.id === newState.currentPhase.id) {
+                  newState.currentPhase = phase;
+                }
+              });
+            }
             newState.displayEditSet = true;
             newState.editSetSegmentId = segmentId;
             newState.displayDoneButtonInEditSetAppBar = true;
