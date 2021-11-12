@@ -15,6 +15,11 @@ import {
 } from '../creators/actions-workout';
 import { v4 as uuidv4 } from 'uuid';
 import { arrayMoveImmutable as arrayMove } from 'array-move';
+import {
+  DeleteExerciseDrawerActionProps,
+  PhaseTypeAddingSegment,
+} from '../configs/types';
+import { deleteSegmentFromPhase } from '../utils/edit-object-util';
 
 function updateSet(
   phase: Phase | undefined,
@@ -89,22 +94,31 @@ export default {
         newState.displayEditSet = false;
         newState.editSetSegmentId = '';
         break;
-      case WorkoutActionTypes.DELETE_SEGMENT_FROM_ROUTINE_COPY: {
-        const clonedPhases = ramda.clone(newState.copyOfRoutineTemplate.phases);
-        clonedPhases.map((phase) => {
-          phase.segments.map((segment) => {
-            if (segment.id === action.segmentId) {
-              const foundIndex = phase.segments.indexOf(segment);
-              phase.segments.splice(foundIndex, 1);
-              phase.segments.map((segment, index) => {
-                segment.order = index + 1;
-              });
+      case WorkoutActionTypes.DELETE_SELECTED_SEGMENT_FROM_ROUTINE: {
+        const phaseType = newState.deleteExerciseDrawerProps.phaseType;
+
+        if (phaseType === 'editing') {
+          newState.copyOfRoutineTemplate.phases = deleteSegmentFromPhase(
+            newState.copyOfRoutineTemplate.phases,
+            action.segmentId
+          );
+        } else if (phaseType === 'activeWorkout') {
+          const updatedPhases = deleteSegmentFromPhase(
+            newState.activeWorkout.routine.phases,
+            action.segmentId
+          );
+          newState.activeWorkout.routine.phases = updatedPhases;
+          updatedPhases.map((phase) => {
+            if (phase.id === newState.currentPhase.id) {
+              newState.currentPhase = phase;
             }
           });
-        });
-        newState.copyOfRoutineTemplate.phases = clonedPhases;
+        }
         break;
       }
+      case WorkoutActionTypes.TOGGLE_DELETE_EXERCISE_DRAWER:
+        newState.deleteExerciseDrawerProps = action.props;
+        break;
       case WorkoutActionTypes.ADD_SET_TO_ROUTINE_COPY: {
         const clonedPhases = ramda.clone(newState.copyOfRoutineTemplate.phases);
         clonedPhases.map((phase) => {
@@ -476,8 +490,9 @@ export interface WorkoutState {
   displayEditSet: boolean;
   editSetSegmentId: string;
   displayWhichPhaseDialog: boolean;
-  phaseTypeAddingSegment: 'editing' | 'activeWorkout' | '';
+  phaseTypeAddingSegment: PhaseTypeAddingSegment;
   phaseIdToAddNewSegment: string;
   displayExerciseWidgetOnRoutinePreviewPage: boolean;
   displayDoneButtonInEditSetAppBar: boolean;
+  deleteExerciseDrawerProps: DeleteExerciseDrawerActionProps;
 }
