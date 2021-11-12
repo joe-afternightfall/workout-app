@@ -22,7 +22,6 @@ import {
   AddExerciseToNewStraightSetAction,
   AddExerciseToNewSuperSetAction,
   AddSetToRoutineCopyAction,
-  DeleteSegmentFromRoutineCopyAction,
   DeleteSetFromRoutineCopyAction,
   SaveEditedVersionOfRoutineAction,
 } from './workout/preview-workout';
@@ -31,6 +30,10 @@ import {
   UpdateSegmentOrderAction,
   UpdateSetTextFieldAction,
 } from './workout/update-workout';
+import {
+  DeleteSelectedSegmentFromRoutineAction,
+  ToggleDeleteExerciseDrawerAction,
+} from './workout/delete-exercise-drawer';
 
 export enum WorkoutActionTypes {
   // Workout Actions
@@ -46,7 +49,6 @@ export enum WorkoutActionTypes {
   COPY_ROUTINE_FOR_EDIT = 'COPY_ROUTINE_FOR_EDIT',
   DELETE_SET_FROM_ROUTINE_COPY = 'DELETE_SET_FROM_ROUTINE_COPY',
   ADD_SET_TO_ROUTINE_COPY = 'ADD_SET_TO_ROUTINE_COPY',
-  DELETE_SEGMENT_FROM_ROUTINE_COPY = 'DELETE_SEGMENT_FROM_ROUTINE_COPY',
   SAVE_EDITED_VERSION_OF_ROUTINE = 'SAVE_EDITED_VERSION_OF_ROUTINE',
   UPDATE_SET_TEXT_FIELD = 'UPDATE_SET_TEXT_FIELD',
   UPDATE_SEGMENT_ORDER = 'UPDATE_SEGMENT_ORDER',
@@ -59,6 +61,8 @@ export enum WorkoutActionTypes {
   ADD_EXERCISE_TO_NEW_STRAIGHT_SET = 'ADD_EXERCISE_TO_NEW_STRAIGHT_SET',
   CHECK_IF_PHASE_SELECTION_REQUIRED = 'CHECK_IF_PHASE_SELECTION_REQUIRED',
   CLOSE_AND_UPDATE_PHASE_ID_TO_ADD_NEW_SEGMENT = 'CLOSE_AND_UPDATE_PHASE_ID_TO_ADD_NEW_SEGMENT',
+  DELETE_SELECTED_SEGMENT_FROM_ROUTINE = 'DELETE_SELECTED_SEGMENT_FROM_ROUTINE',
+  TOGGLE_DELETE_EXERCISE_DRAWER = 'TOGGLE_DELETE_EXERCISE_DRAWER',
 }
 
 export type WorkoutActions =
@@ -74,7 +78,6 @@ export type WorkoutActions =
   | DeleteSetFromRoutineCopyAction
   | OpenEditPreviewOptionsAction
   | AddSetToRoutineCopyAction
-  | DeleteSegmentFromRoutineCopyAction
   | SaveEditedVersionOfRoutineAction
   | UpdateSetTextFieldAction
   | UpdateSegmentOrderAction
@@ -86,4 +89,6 @@ export type WorkoutActions =
   | AddExerciseToNewSuperSetAction
   | ToggleExerciseWidgetOnRoutinePreviewPageAction
   | CheckIfPhaseSelectionRequiredAction
-  | CloseUpdatePhaseIdToAddNewSegmentAction;
+  | CloseUpdatePhaseIdToAddNewSegmentAction
+  | DeleteSelectedSegmentFromRoutineAction
+  | ToggleDeleteExerciseDrawerAction;
