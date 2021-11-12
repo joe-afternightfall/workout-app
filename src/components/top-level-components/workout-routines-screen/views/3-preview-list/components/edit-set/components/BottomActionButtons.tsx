@@ -7,7 +7,7 @@ import { State } from '../../../../../../../../configs/redux/store';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { startWorkout } from '../../../../../../../../creators/workout/workout-selections';
 import { ACTIVE_WORKOUT_SCREEN_PATH } from '../../../../../../../../configs/constants/app';
-import NewSegmentBottomActionButtons from '../../../../../../../shared/bottom-action-buttons/NewSegmentBottomActionButtons';
+import NewSegmentBottomActionButtons from '../../../../../../../shared/action-buttons/new-segment-bottom-action-buttons/NewSegmentBottomActionButtons';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
