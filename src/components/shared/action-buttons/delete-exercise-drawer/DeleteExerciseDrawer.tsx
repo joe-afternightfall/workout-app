@@ -8,7 +8,7 @@ import {
   deleteSelectedSegmentFromRoutine,
   toggleDeleteExerciseDrawer,
 } from '../../../../creators/workout/delete-exercise-drawer';
-import { PhaseTypeAddingSegment } from '../../../../configs/types';
+import { PhaseTypeEditingSegment } from '../../../../configs/types';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

@@ -9,6 +9,8 @@ import ActiveExerciseListAppBar from './components/ActiveExerciseListAppBar';
 import { State } from '../../../../../../configs/redux/store';
 import { connect } from 'react-redux';
 import EditSet from '../../../../workout-routines-screen/views/3-preview-list/components/edit-set/EditSet';
+import { toggleEditPreviewOptions } from '../../../../../../creators/workout/workout-selections';
+import { Dispatch } from 'redux';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -24,6 +26,7 @@ const ActiveExerciseListDrawer = (
   const classes = useStyles();
   const { displayExerciseWidget, displayEditSet } = props;
   const [open, setOpen] = useState(false);
+  const [editRoutine, setEditRoutine] = useState(false);
   const [openSelectedExercise, setOpenSelectedExercise] = useState(false);
   const [selectedSegment, setSelectedSegment] = useState<Segment | null>(null);
 
@@ -38,6 +41,11 @@ const ActiveExerciseListDrawer = (
   const toggleSelectedExercise = (open: boolean, segment: Segment | null) => {
     setOpenSelectedExercise(open);
     setSelectedSegment(segment);
+  };
+
+  const toggleEditRoutine = () => {
+    setEditRoutine(!editRoutine);
+    props.toggleEditHandler(!editRoutine);
   };
 
   const closeAndReset = () => {
@@ -62,8 +70,10 @@ const ActiveExerciseListDrawer = (
                 <React.Fragment />
               ) : (
                 <ActiveExerciseListAppBar
+                  isEditing={editRoutine}
                   selectedSegment={openSelectedExercise}
                   closeClickHandler={closeAndReset}
+                  toggleEditHandler={toggleEditRoutine}
                   goBackClickHandler={() => {
                     toggleSelectedExercise(false, null);
                   }}
@@ -76,6 +86,7 @@ const ActiveExerciseListDrawer = (
                 />
               ) : (
                 <ActiveExerciseList
+                  displayBottomActionButtons={editRoutine}
                   toggleSelectedExerciseHandler={toggleSelectedExercise}
                 />
               )}
@@ -90,6 +101,7 @@ const ActiveExerciseListDrawer = (
 interface ActiveExerciseListDrawerProps {
   displayExerciseWidget: boolean;
   displayEditSet: boolean;
+  toggleEditHandler: (open: boolean) => void;
 }
 
 const mapStateToProps = (state: State): ActiveExerciseListDrawerProps => {
@@ -100,4 +112,16 @@ const mapStateToProps = (state: State): ActiveExerciseListDrawerProps => {
   } as unknown as ActiveExerciseListDrawerProps;
 };
 
-export default connect(mapStateToProps)(ActiveExerciseListDrawer);
+const mapDispatchToProps = (
+  dispatch: Dispatch
+): ActiveExerciseListDrawerProps =>
+  ({
+    toggleEditHandler: (open: boolean) => {
+      dispatch(toggleEditPreviewOptions(open));
+    },
+  } as unknown as ActiveExerciseListDrawerProps);
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ActiveExerciseListDrawer);

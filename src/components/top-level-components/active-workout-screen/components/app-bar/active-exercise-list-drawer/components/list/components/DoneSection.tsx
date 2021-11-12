@@ -25,7 +25,7 @@ export default function DoneSection(props: DoneSectionProps): JSX.Element {
         const displayDivider = doneSegments.length !== index + 1;
         return (
           <div key={index} className={classes.doneWrapper}>
-            <PreviewListItem segment={segment} />
+            <PreviewListItem segment={segment} phaseType={'activeWorkout'} />
             {displayDivider && <CheckeredListDivider />}
           </div>
         );

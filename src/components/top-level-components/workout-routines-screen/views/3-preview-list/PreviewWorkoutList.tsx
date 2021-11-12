@@ -127,10 +127,17 @@ const PreviewWorkoutList = (props: PreviewWorkoutListProps): JSX.Element => {
                 >
                   {sortPhaseSegments(phase.segments).map((segment: Segment) => {
                     return displayEditOptions ? (
-                      <PreviewListItem key={segment.id} segment={segment} />
+                      <PreviewListItem
+                        key={segment.id}
+                        segment={segment}
+                        phaseType={'editing'}
+                      />
                     ) : (
                       <div key={segment.id}>
-                        <PreviewListItem segment={segment} />
+                        <PreviewListItem
+                          segment={segment}
+                          phaseType={'editing'}
+                        />
                         <WorkoutListDivider />
                       </div>
                     );
@@ -167,14 +174,14 @@ interface PreviewWorkoutListProps {
 
 const mapStateToProps = (state: State): PreviewWorkoutListProps => {
   const workoutState = state.workoutState;
-  const selectedRoutine = workoutState.displayEditPreviewList
+  const selectedRoutine = workoutState.displayEditOptions
     ? workoutState.copyOfRoutineTemplate
     : workoutState.selectedRoutineTemplate;
   return {
     routinePhases: selectedRoutine.phases,
     configPhases: state.applicationState.workoutConfigurations.phases,
     displayEditSet: workoutState.displayEditSet,
-    displayEditOptions: state.workoutState.displayEditPreviewList,
+    displayEditOptions: state.workoutState.displayEditOptions,
     displayExerciseWidget:
       state.workoutState.displayExerciseWidgetOnRoutinePreviewPage,
   } as unknown as PreviewWorkoutListProps;

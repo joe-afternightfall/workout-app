@@ -7,16 +7,17 @@ import ReorderIcon from '@material-ui/icons/Reorder';
 import { IconButton, Slide } from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { toggleDeleteExerciseDrawer } from '../../../../../../../../creators/workout/delete-exercise-drawer';
+import { PhaseTypeEditingSegment } from '../../../../../../../../configs/types';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     baseButton: {
       zIndex: 1,
-      borderRadius: 0,
-      height: '5vh',
-      width: '5vh',
+      borderRadius: '0 4px 4px 0',
+      height: '6vh',
+      width: '6vh',
       position: 'absolute',
-      transform: 'translate(0, 5vh)',
+      transform: 'translate(0, 3vh)',
     },
     deleteButton: {
       background: theme.palette.primary.main,
@@ -28,7 +29,7 @@ const useStyles = makeStyles((theme: Theme) =>
       right: 0,
     },
     superset: {
-      transform: 'translate(0, 12vh)',
+      transform: 'translate(0, 9.5vh)',
     },
   })
 );
@@ -78,6 +79,7 @@ interface PassedInProps {
   superset?: boolean;
   segmentId: string;
   orderNumber: number;
+  phaseType: PhaseTypeEditingSegment;
 }
 
 interface EditOptionsProps {
@@ -94,7 +96,7 @@ const mapDispatchToProps = (
         toggleDeleteExerciseDrawer({
           open: true,
           segmentId: ownProps.segmentId,
-          phaseType: 'editing',
+          phaseType: ownProps.phaseType,
         })
       );
     },

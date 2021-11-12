@@ -15,6 +15,7 @@ import { Draggable } from 'react-smooth-dnd';
 import { State } from '../../../configs/redux/store';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import EditOptions from '../../top-level-components/workout-routines-screen/views/3-preview-list/components/edit-set/components/EditOptions';
+import { PhaseTypeEditingSegment } from '../../../configs/types';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -46,6 +47,7 @@ const PreviewListItem = (
         <EditOptions
           segmentId={props.segment.id}
           orderNumber={props.segment.order}
+          phaseType={props.phaseType}
         />
 
         <Card className={classes.editingCard}>{singleSetItem}</Card>
@@ -68,6 +70,7 @@ const PreviewListItem = (
           superset
           segmentId={props.segment.id}
           orderNumber={props.segment.order}
+          phaseType={props.phaseType}
         />
         <Card className={classes.editingCard}>{superSetItem}</Card>
       </Draggable>
@@ -81,6 +84,7 @@ const PreviewListItem = (
 
 interface PassedInProps {
   segment: Segment;
+  phaseType: PhaseTypeEditingSegment;
 }
 
 interface PreviewListItemProps {
@@ -91,7 +95,7 @@ interface PreviewListItemProps {
 const mapStateToProps = (state: State): PreviewListItemProps => {
   return {
     exercises: state.applicationState.workoutConfigurations.exercises,
-    displayEditOptions: state.workoutState.displayEditPreviewList,
+    displayEditOptions: state.workoutState.displayEditOptions,
   } as unknown as PreviewListItemProps;
 };
 

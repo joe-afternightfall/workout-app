@@ -1,7 +1,7 @@
-export type PhaseTypeAddingSegment = 'editing' | 'activeWorkout' | '';
+export type PhaseTypeEditingSegment = 'editing' | 'activeWorkout' | '';
 
 export type DeleteExerciseDrawerActionProps = {
   open: boolean;
   segmentId: string;
-  phaseType: PhaseTypeAddingSegment;
+  phaseType: PhaseTypeEditingSegment;
 };

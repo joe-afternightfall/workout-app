@@ -1,6 +1,6 @@
 import { WorkoutActionTypes } from '../actions-workout';
 import { WorkoutCategoryVO, RoutineTemplateVO } from 'workout-app-common-core';
-import { PhaseTypeAddingSegment } from '../../configs/types';
+import { PhaseTypeEditingSegment } from '../../configs/types';
 
 export interface SelectedWorkoutCategoryAction {
   type: WorkoutActionTypes.SELECTED_WORKOUT_CATEGORY;
@@ -111,11 +111,11 @@ export const toggleExerciseWidgetOnRoutinePreviewPage = (
 
 export interface CheckIfPhaseSelectionRequiredAction {
   type: WorkoutActionTypes.CHECK_IF_PHASE_SELECTION_REQUIRED;
-  phaseType: PhaseTypeAddingSegment;
+  phaseType: PhaseTypeEditingSegment;
 }
 
 export const checkIfPhaseSelectionRequired = (
-  phaseType: PhaseTypeAddingSegment
+  phaseType: PhaseTypeEditingSegment
 ): CheckIfPhaseSelectionRequiredAction => {
   return {
     type: WorkoutActionTypes.CHECK_IF_PHASE_SELECTION_REQUIRED,

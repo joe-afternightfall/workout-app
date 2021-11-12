@@ -23,9 +23,10 @@ export default function ActiveExerciseListAppBar(
 ): JSX.Element {
   const classes = useStyles();
   const {
+    isEditing,
     selectedSegment,
     closeClickHandler,
-    editRoutineHandler,
+    toggleEditHandler,
     goBackClickHandler,
   } = props;
 
@@ -44,9 +45,11 @@ export default function ActiveExerciseListAppBar(
                 <ArrowBack />
               </IconButton>
             ) : (
-              <Button color={'primary'} onClick={editRoutineHandler}>
-                {'Edit'}
-              </Button>
+              !isEditing && (
+                <Button color={'primary'} onClick={toggleEditHandler}>
+                  {'Edit'}
+                </Button>
+              )
             )}
           </Grid>
 
@@ -56,9 +59,15 @@ export default function ActiveExerciseListAppBar(
             </Typography>
           </Grid>
           <Grid item xs={2} container justify={'center'}>
-            <Button color={'primary'} onClick={closeClickHandler}>
-              {'Close'}
-            </Button>
+            {isEditing ? (
+              <Button color={'primary'} onClick={toggleEditHandler}>
+                {'Save'}
+              </Button>
+            ) : (
+              <Button color={'primary'} onClick={closeClickHandler}>
+                {'Close'}
+              </Button>
+            )}
           </Grid>
         </Grid>
       </Toolbar>
@@ -67,8 +76,9 @@ export default function ActiveExerciseListAppBar(
 }
 
 interface ActiveExerciseListAppBarProps {
+  isEditing: boolean;
   selectedSegment: boolean;
-  editRoutineHandler: () => void;
+  toggleEditHandler: () => void;
   closeClickHandler: () => void;
   goBackClickHandler: () => void;
 }

@@ -17,7 +17,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { arrayMoveImmutable as arrayMove } from 'array-move';
 import {
   DeleteExerciseDrawerActionProps,
-  PhaseTypeAddingSegment,
+  PhaseTypeEditingSegment,
 } from '../configs/types';
 import { deleteSegmentFromPhase } from '../utils/edit-object-util';
 
@@ -77,13 +77,13 @@ export default {
         newState.selectedRoutineTemplate = action.routine;
         break;
       case WorkoutActionTypes.TOGGLE_EDIT_PREVIEW_LIST:
-        newState.displayEditPreviewList = action.display;
+        newState.displayEditOptions = action.display;
         break;
       case WorkoutActionTypes.OPEN_EDIT_PREVIEW_OPTIONS: {
         newState.copyOfRoutineTemplate = ramda.clone(
           newState.selectedRoutineTemplate
         );
-        newState.displayEditPreviewList = true;
+        newState.displayEditOptions = true;
         break;
       }
       case WorkoutActionTypes.OPEN_EDIT_SET:
@@ -167,11 +167,11 @@ export default {
         newState.selectedRoutineTemplate = ramda.clone(
           newState.copyOfRoutineTemplate
         );
-        newState.displayEditPreviewList = false;
+        newState.displayEditOptions = false;
         break;
       }
       case WorkoutActionTypes.UPDATE_SET_TEXT_FIELD: {
-        if (newState.displayEditPreviewList) {
+        if (newState.displayEditOptions) {
           const clonedPhases = ramda.clone(
             newState.copyOfRoutineTemplate.phases
           );
@@ -486,11 +486,11 @@ export interface WorkoutState {
   currentSetIndex: number;
   totalSegments: number;
   lastSegment: number;
-  displayEditPreviewList: boolean;
+  displayEditOptions: boolean;
   displayEditSet: boolean;
   editSetSegmentId: string;
   displayWhichPhaseDialog: boolean;
-  phaseTypeAddingSegment: PhaseTypeAddingSegment;
+  phaseTypeAddingSegment: PhaseTypeEditingSegment;
   phaseIdToAddNewSegment: string;
   displayExerciseWidgetOnRoutinePreviewPage: boolean;
   displayDoneButtonInEditSetAppBar: boolean;

@@ -127,7 +127,7 @@ interface MessageAppBarProps {
 
 const mapStateToProps = (state: State): MessageAppBarProps => {
   return {
-    displayEditOptions: state.workoutState.displayEditPreviewList,
+    displayEditOptions: state.workoutState.displayEditOptions,
     displayEditSet: state.workoutState.displayEditSet,
   } as unknown as MessageAppBarProps;
 };
