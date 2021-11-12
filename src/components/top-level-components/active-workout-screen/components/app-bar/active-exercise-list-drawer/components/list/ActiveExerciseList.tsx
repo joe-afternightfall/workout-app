@@ -59,8 +59,6 @@ const ActiveExerciseList = (
 
         <PreviewListItem segment={currentSegment} phaseType={'activeWorkout'} />
 
-        <CategoryHeader title={'Next'} />
-
         {nextSegments.map((segment, index) => {
           const displayDivider = nextSegments.length !== index + 1;
           return (
