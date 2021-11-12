@@ -64,7 +64,6 @@ const ActiveExerciseList = (
           return (
             <NextSegmentSection
               key={index}
-              isEditing={isEditing}
               segment={segment}
               displayDivider={displayDivider}
               toggleSelectedExerciseHandler={toggleSelectedExerciseHandler}
