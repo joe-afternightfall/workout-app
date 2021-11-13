@@ -39,15 +39,21 @@ const EditSupersetRow = (
   const { builtSets, deleteClickHandler } = props;
   const supersets: JSX.Element[] = [];
 
-  Object.values(builtSets).map((setInfo: ActiveSetInfo[]) => {
+  Object.values(builtSets).map((setInfo: ActiveSetInfo[], index: number) => {
     const shouldDisable = setInfo.length === 1;
     supersets.push(
-      <Grid container alignItems={'flex-start'} className={classes.root}>
+      <Grid
+        container
+        alignItems={'flex-start'}
+        className={classes.root}
+        key={index}
+      >
         <Grid item xs={8} className={classes.fieldWrapper}>
           {setInfo.map((info: ActiveSetInfo) => {
             if (info.exercise) {
               return (
                 <BaseSet
+                  key={info.setId}
                   superset={true}
                   activeSet={false}
                   markedDone={false}

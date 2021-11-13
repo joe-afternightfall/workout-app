@@ -24,7 +24,6 @@ export const getExerciseImagesForMuscleId =
         exercisesForId.push(exercise);
       }
     });
-    console.log('exercisesForId: ' + JSON.stringify(exercisesForId));
     exercisesForId.map((exercise) => {
       exerciseCounter++;
       console.log(

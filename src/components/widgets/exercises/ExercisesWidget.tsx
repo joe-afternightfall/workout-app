@@ -25,7 +25,7 @@ const useStyles = makeStyles(() =>
       marginBottom: '8vh',
     },
     expandedMargin: {
-      marginTop: '7vh',
+      marginTop: '8vh',
     },
     toolbar: {
       height: '7vh',
