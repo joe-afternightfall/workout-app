@@ -177,7 +177,9 @@ describe('workout reducer', () => {
   });
 
   it('should return WORKOUT_DONE action', () => {
-    const activeWorkout = buildMockActiveWorkout(2, 5);
+    const workoutDate = '-1';
+    console.log('workoutDate: ' + workoutDate);
+    const activeWorkout = buildMockActiveWorkout(2, 5, workoutDate);
     const state = workout.reducer(
       {
         activeWorkout: activeWorkout,
@@ -187,7 +189,7 @@ describe('workout reducer', () => {
       }
     );
 
-    expect(state.activeWorkout.endTime).toEqual(Date.now().toString());
+    expect(state.activeWorkout.endTime).not.toEqual(workoutDate);
   });
 
   it('should return CLEAR_ACTIVE_WORKOUT action', () => {
@@ -204,5 +206,82 @@ describe('workout reducer', () => {
 
     expect(state.activeWorkout).toEqual(mockWorkout);
     expect(state.workoutStarted).toEqual(false);
+  });
+
+  it('should return CHECK_IF_PHASE_SELECTION_REQUIRED editing action when 1 phase', () => {
+    const copyOfRoutineTemplate = buildMockRoutineTemplateVO(1, 4);
+    const state = workout.reducer(
+      {
+        copyOfRoutineTemplate: copyOfRoutineTemplate,
+      } as unknown as WorkoutState,
+      {
+        type: WorkoutActionTypes.CHECK_IF_PHASE_SELECTION_REQUIRED,
+        phaseType: 'editing',
+      }
+    );
+    expect(state.phaseTypeAddingSegment).toEqual('editing');
+    expect(state.phaseIdToAddNewSegment).toEqual(
+      copyOfRoutineTemplate.phases[0].id
+    );
+  });
+
+  it('should return CHECK_IF_PHASE_SELECTION_REQUIRED activeWorkout action when 1 phase', () => {
+    const mockWorkout = buildMockActiveWorkout(1, 4);
+    const state = workout.reducer(
+      {
+        activeWorkout: mockWorkout,
+      } as unknown as WorkoutState,
+      {
+        type: WorkoutActionTypes.CHECK_IF_PHASE_SELECTION_REQUIRED,
+        phaseType: 'activeWorkout',
+      }
+    );
+    expect(state.phaseTypeAddingSegment).toEqual('activeWorkout');
+    expect(state.phaseIdToAddNewSegment).toEqual(
+      mockWorkout.routine.phases[0].id
+    );
+  });
+
+  it('should return CHECK_IF_PHASE_SELECTION_REQUIRED editing action when multiple phases', () => {
+    const copyOfRoutineTemplate = buildMockRoutineTemplateVO(3, 4);
+    const state = workout.reducer(
+      {
+        copyOfRoutineTemplate: copyOfRoutineTemplate,
+      } as unknown as WorkoutState,
+      {
+        type: WorkoutActionTypes.CHECK_IF_PHASE_SELECTION_REQUIRED,
+        phaseType: 'editing',
+      }
+    );
+    expect(state.phaseTypeAddingSegment).toEqual('editing');
+    expect(state.phaseIdToAddNewSegment).toBeUndefined();
+    expect(state.displayWhichPhaseDialog).toEqual(true);
+  });
+
+  it('should return CHECK_IF_PHASE_SELECTION_REQUIRED activeWorkout action when multiple phases', () => {
+    const mockWorkout = buildMockActiveWorkout(3, 4);
+    const state = workout.reducer(
+      {
+        activeWorkout: mockWorkout,
+      } as unknown as WorkoutState,
+      {
+        type: WorkoutActionTypes.CHECK_IF_PHASE_SELECTION_REQUIRED,
+        phaseType: 'activeWorkout',
+      }
+    );
+    expect(state.phaseTypeAddingSegment).toEqual('activeWorkout');
+    expect(state.phaseIdToAddNewSegment).toBeUndefined();
+    expect(state.displayWhichPhaseDialog).toEqual(true);
+  });
+
+  it('should return CLOSE_AND_UPDATE_PHASE_ID_TO_ADD_NEW_SEGMENT action', () => {
+    const phaseId = chance.string();
+    const state = workout.reducer({} as unknown as WorkoutState, {
+      type: WorkoutActionTypes.CLOSE_AND_UPDATE_PHASE_ID_TO_ADD_NEW_SEGMENT,
+      phaseId: phaseId,
+    });
+
+    expect(state.displayWhichPhaseDialog).toEqual(false);
+    expect(state.phaseIdToAddNewSegment).toEqual(phaseId);
   });
 });

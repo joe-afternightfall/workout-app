@@ -1,6 +1,7 @@
 import {
   Set,
   Phase,
+  Workout,
   Segment,
   WorkoutExercise,
   RoutineTemplateVO,
@@ -20,7 +21,28 @@ import { chance } from 'jest-chance';
 //   };
 // };
 
-export const buildWorkoutEquipment = (amount: number): WorkoutEquipmentVO[] => {
+export const buildMockActiveWorkout = (
+  phases: number,
+  segments: number,
+  date?: string
+): Workout => {
+  return {
+    id: chance.string(),
+    date: date ? date : chance.date().toDateString(),
+    startTime: chance.timestamp().toString(),
+    endTime: chance.timestamp().toString(),
+    routine: {
+      id: chance.string(),
+      name: chance.string(),
+      workoutCategoryId: chance.string(),
+      phases: buildMultipleMockPhases(phases, segments),
+    },
+  };
+};
+
+export const buildMockWorkoutEquipment = (
+  amount: number
+): WorkoutEquipmentVO[] => {
   let i = 0;
   const equipmentList: WorkoutEquipmentVO[] = [];
   while (amount > i) {
@@ -38,7 +60,7 @@ export const buildWorkoutEquipment = (amount: number): WorkoutEquipmentVO[] => {
   return equipmentList;
 };
 
-export const buildRoutineTemplateVO = (
+export const buildMockRoutineTemplateVO = (
   phases: number,
   segments: number
 ): RoutineTemplateVO => {
@@ -47,12 +69,12 @@ export const buildRoutineTemplateVO = (
     chance.string(),
     chance.string(),
     chance.string(),
-    buildMultiplePhases(phases, segments),
+    buildMultipleMockPhases(phases, segments),
     chance.bool()
   );
 };
 
-export const buildWorkoutCategoryVO = (): WorkoutCategoryVO => {
+export const buildMockWorkoutCategoryVO = (): WorkoutCategoryVO => {
   return new WorkoutCategoryVO(
     chance.string(),
     chance.string(),
@@ -63,76 +85,81 @@ export const buildWorkoutCategoryVO = (): WorkoutCategoryVO => {
   );
 };
 
-export const buildMultiplePhases = (n: number, segments: number): Phase[] => {
+export const buildMultipleMockPhases = (
+  n: number,
+  segments: number
+): Phase[] => {
   let i = 0;
   const phases: Phase[] = [];
   while (n > i) {
     i++;
-    phases.push(buildPhase(segments));
+    phases.push(buildMockPhase(segments));
   }
   return phases;
 };
 
-export const buildPhase = (segments: number): Phase => {
+export const buildMockPhase = (segments: number): Phase => {
   return {
     id: chance.string(),
     phaseId: chance.string(),
     order: chance.integer({ min: 1, max: 5 }),
-    segments: buildMultipleSegments(segments),
+    segments: buildMultipleMockSegments(segments),
   };
 };
 
-export const buildMultipleSegments = (n: number): Segment[] => {
+export const buildMultipleMockSegments = (n: number): Segment[] => {
   let i = 0;
   const segments: Segment[] = [];
   while (n > i) {
     i++;
-    segments.push(buildSegment());
+    segments.push(buildMockSegment());
   }
   return segments;
 };
 
-export const buildSegment = (): Segment => {
+export const buildMockSegment = (): Segment => {
   return {
     id: chance.string(),
     order: chance.d4(),
     trainingSetTypeId: chance.string(),
     secondsRestBetweenSets: chance.integer({ min: 15, max: 120 }),
     secondsRestBetweenNextSegment: chance.integer({ min: 60, max: 240 }),
-    exercises: buildMultipleWorkoutExercises(2),
+    exercises: buildMultipleMockWorkoutExercises(2),
   };
 };
 
-export const buildMultipleWorkoutExercises = (n: number): WorkoutExercise[] => {
+export const buildMultipleMockWorkoutExercises = (
+  n: number
+): WorkoutExercise[] => {
   let i = 0;
   const exercises: WorkoutExercise[] = [];
   while (n > i) {
     i++;
-    exercises.push(buildWorkoutExercise());
+    exercises.push(buildMockWorkoutExercise());
   }
   return exercises;
 };
 
-export const buildWorkoutExercise = (): WorkoutExercise => {
+export const buildMockWorkoutExercise = (): WorkoutExercise => {
   return {
     id: chance.string(),
     order: chance.integer({ min: 1, max: 5 }),
     exerciseId: chance.string(),
-    sets: buildMultipleExerciseSets(4),
+    sets: buildMultipleMockExerciseSets(4),
   };
 };
 
-export const buildMultipleExerciseSets = (n: number): Set[] => {
+export const buildMultipleMockExerciseSets = (n: number): Set[] => {
   let i = 0;
   const exerciseSets: Set[] = [];
   while (n > i) {
     i++;
-    exerciseSets.push(buildExerciseSet());
+    exerciseSets.push(buildMockExerciseSet());
   }
   return exerciseSets;
 };
 
-export const buildExerciseSet = (): Set => {
+export const buildMockExerciseSet = (): Set => {
   return {
     id: chance.string(),
     setNumber: chance.integer({ min: 1, max: 5 }),
