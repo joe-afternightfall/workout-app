@@ -1,5 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 import {
+  Phase,
   RoutineTemplateVO,
   WorkoutCategoryVO,
   WorkoutEquipmentVO,
@@ -55,4 +56,23 @@ export const buildWorkoutCategoryVO = (): WorkoutCategoryVO => {
     [chance.string(), chance.string()],
     chance.bool()
   );
+};
+
+export const buildPhase = (): Phase => {
+  return {
+    id: chance.string(),
+    phaseId: chance.string(),
+    order: chance.d4(),
+    segments: [],
+  };
+};
+
+export const buildMultiplePhases = (n: number): Phase[] => {
+  let i = 0;
+  const phases: Phase[] = [];
+  while (n > i) {
+    i++;
+    phases.push(buildPhase());
+  }
+  return phases;
 };
