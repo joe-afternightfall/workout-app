@@ -1,5 +1,10 @@
 import { v4 as uuidv4 } from 'uuid';
-import { UserProfileVO, WorkoutEquipmentVO } from 'workout-app-common-core';
+import {
+  RoutineTemplateVO,
+  WorkoutCategoryVO,
+  WorkoutEquipmentVO,
+} from 'workout-app-common-core';
+import { chance } from 'jest-chance';
 
 // export const buildUserProfile = (): UserProfileVO => {
 //   return {
@@ -28,4 +33,26 @@ export const buildWorkoutEquipment = (amount: number): WorkoutEquipmentVO[] => {
   }
 
   return equipmentList;
+};
+
+export const buildRoutineTemplateVO = (): RoutineTemplateVO => {
+  return new RoutineTemplateVO(
+    chance.string(),
+    chance.string(),
+    chance.string(),
+    chance.string(),
+    [],
+    chance.bool()
+  );
+};
+
+export const buildWorkoutCategoryVO = (): WorkoutCategoryVO => {
+  return new WorkoutCategoryVO(
+    chance.string(),
+    chance.string(),
+    chance.string(),
+    chance.string(),
+    [chance.string(), chance.string()],
+    chance.bool()
+  );
 };
