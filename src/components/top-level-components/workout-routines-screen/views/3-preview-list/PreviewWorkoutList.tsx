@@ -39,9 +39,11 @@ const useStyles = makeStyles((theme: Theme) =>
     listWrapper: {
       border: 'none',
       width: '100%',
-      paddingTop: 0,
-      paddingBottom: '6vh',
+      // paddingTop: 0,
       backgroundColor: theme.palette.background.paper,
+    },
+    bottomPadding: {
+      paddingBottom: '6vh',
     },
     editingBackground: {
       backgroundColor: '#303030',
@@ -106,6 +108,7 @@ const PreviewWorkoutList = (props: PreviewWorkoutListProps): JSX.Element => {
                 key={index}
                 className={clsx(classes.listWrapper, {
                   [classes.editingBackground]: displayEditOptions,
+                  [classes.bottomPadding]: index !== 0,
                 })}
                 subheader={
                   <ListSubheader
