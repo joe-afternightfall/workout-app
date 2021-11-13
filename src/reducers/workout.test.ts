@@ -1,10 +1,12 @@
 import { chance } from 'jest-chance';
 import {
-  buildRoutineTemplateVO,
-  buildWorkoutCategoryVO,
+  buildMockActiveWorkout,
+  buildMockRoutineTemplateVO,
+  buildMockWorkoutCategoryVO,
 } from '../configs/test-utils/test-vo-builder';
 import workout, { WorkoutState } from './workout';
 import { WorkoutActionTypes } from '../creators/actions-workout';
+import { PhaseTypeEditingSegment } from '../configs/types';
 
 jest.mock('array-move', () => ({
   arrayMoveImmutable: jest.fn(),
@@ -23,7 +25,7 @@ jest.mock('array-move', () => ({
 
 describe('workout reducer', () => {
   it('should return SELECTED_WORKOUT_CATEGORY action', () => {
-    const workoutCategoryVO = buildWorkoutCategoryVO();
+    const workoutCategoryVO = buildMockWorkoutCategoryVO();
 
     const state = workout.reducer({} as unknown as WorkoutState, {
       type: WorkoutActionTypes.SELECTED_WORKOUT_CATEGORY,
@@ -34,7 +36,7 @@ describe('workout reducer', () => {
   });
 
   it('should return SELECTED_ROUTINE action', () => {
-    const routineTemplateVO = buildRoutineTemplateVO(2, 4);
+    const routineTemplateVO = buildMockRoutineTemplateVO(2, 4);
     const state = workout.reducer({} as unknown as WorkoutState, {
       type: WorkoutActionTypes.SELECTED_ROUTINE,
       routine: routineTemplateVO,
@@ -57,7 +59,7 @@ describe('workout reducer', () => {
   });
 
   it('should return OPEN_EDIT_PREVIEW_OPTIONS action', () => {
-    const routineTemplateVO = buildRoutineTemplateVO(2, 4);
+    const routineTemplateVO = buildMockRoutineTemplateVO(2, 4);
     const state = workout.reducer(
       {
         editOptions: { open: false, onlyDisplayDelete: false },
@@ -94,7 +96,7 @@ describe('workout reducer', () => {
 
   it('should return DELETE_SELECTED_SEGMENT_FROM_ROUTINE action with copyOfRoutineTemplate', () => {
     const segmentId = chance.string();
-    const copyOfRoutineTemplate = buildRoutineTemplateVO(3, 4);
+    const copyOfRoutineTemplate = buildMockRoutineTemplateVO(3, 4);
     const state = workout.reducer(
       {
         deleteExerciseDrawerProps: {
@@ -112,5 +114,95 @@ describe('workout reducer', () => {
 
     expect(state.copyOfRoutineTemplate.phases.length).toEqual(3);
     expect(state.copyOfRoutineTemplate.phases[0].segments.length).toEqual(3);
+  });
+
+  it('should return DELETE_SELECTED_SEGMENT_FROM_ROUTINE action with activeWorkout', () => {
+    const segmentId = chance.string();
+    const activeWorkout = buildMockActiveWorkout(2, 5);
+    const state = workout.reducer(
+      {
+        deleteExerciseDrawerProps: {
+          open: false,
+          phaseType: 'activeWorkout',
+          segmentId: segmentId,
+        },
+        activeWorkout: activeWorkout,
+        currentPhase: activeWorkout.routine.phases[0],
+      } as unknown as WorkoutState,
+      {
+        type: WorkoutActionTypes.DELETE_SELECTED_SEGMENT_FROM_ROUTINE,
+        segmentId: activeWorkout.routine.phases[0].segments[0].id,
+      }
+    );
+
+    const firstPhase = state.activeWorkout.routine.phases[0];
+
+    expect(state.activeWorkout.routine.phases.length).toEqual(2);
+    expect(firstPhase.segments.length).toEqual(4);
+    expect(state.currentPhase).toEqual(firstPhase);
+  });
+
+  it('should return TOGGLE_DELETE_EXERCISE_DRAWER action', () => {
+    const state = workout.reducer({} as unknown as WorkoutState, {
+      type: WorkoutActionTypes.TOGGLE_DELETE_EXERCISE_DRAWER,
+      props: {
+        open: true,
+        segmentId: 'chance.string()',
+        phaseType: 'editing',
+      },
+    });
+
+    expect(state.deleteExerciseDrawerProps).toEqual({
+      open: true,
+      segmentId: 'chance.string()',
+      phaseType: 'editing',
+    });
+  });
+
+  it('should return SAVE_EDITED_VERSION_OF_ROUTINE action', () => {
+    const copyOfRoutineTemplate = buildMockRoutineTemplateVO(3, 4);
+
+    const state = workout.reducer(
+      {
+        editOptions: { open: true, onlyDisplayDelete: false },
+        copyOfRoutineTemplate: copyOfRoutineTemplate,
+      } as unknown as WorkoutState,
+      {
+        type: WorkoutActionTypes.SAVE_EDITED_VERSION_OF_ROUTINE,
+      }
+    );
+
+    expect(state.editOptions.open).toEqual(false);
+    expect(state.selectedRoutineTemplate).toEqual(copyOfRoutineTemplate);
+  });
+
+  it('should return WORKOUT_DONE action', () => {
+    const activeWorkout = buildMockActiveWorkout(2, 5);
+    const state = workout.reducer(
+      {
+        activeWorkout: activeWorkout,
+      } as unknown as WorkoutState,
+      {
+        type: WorkoutActionTypes.WORKOUT_DONE,
+      }
+    );
+
+    expect(state.activeWorkout.endTime).toEqual(Date.now().toString());
+  });
+
+  it('should return CLEAR_ACTIVE_WORKOUT action', () => {
+    const mockWorkout = buildMockActiveWorkout(2, 5);
+    const state = workout.reducer(
+      {
+        activeWorkout: mockWorkout,
+      } as unknown as WorkoutState,
+      {
+        type: WorkoutActionTypes.CLEAR_ACTIVE_WORKOUT,
+        workout: mockWorkout,
+      }
+    );
+
+    expect(state.activeWorkout).toEqual(mockWorkout);
+    expect(state.workoutStarted).toEqual(false);
   });
 });
