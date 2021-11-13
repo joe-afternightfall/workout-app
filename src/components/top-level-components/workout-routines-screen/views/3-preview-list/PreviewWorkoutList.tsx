@@ -4,7 +4,6 @@ import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
-import { routerActions } from 'connected-react-router';
 import { ListSubheader, Paper } from '@material-ui/core';
 import { State } from '../../../../../configs/redux/store';
 import WorkoutListDivider from '../../../../shared/exercise-list/WorkoutListDivider';
@@ -14,12 +13,10 @@ import {
   Segment,
   sortPhaseSegments,
 } from 'workout-app-common-core';
-import { ACTIVE_WORKOUT_SCREEN_PATH } from '../../../../../configs/constants/app';
 import PreviewListItem from '../../../../shared/exercise-list/PreviewListItem';
 import {
-  toggleExerciseWidgetOnRoutinePreviewPage,
-  startWorkout,
   checkIfPhaseSelectionRequired,
+  toggleExerciseWidgetOnRoutinePreviewPage,
 } from '../../../../../creators/workout/workout-selections';
 import BottomActionButtons from './components/edit-set/components/BottomActionButtons';
 import { Container, DropResult } from 'react-smooth-dnd';
@@ -158,7 +155,6 @@ const PreviewWorkoutList = (props: PreviewWorkoutListProps): JSX.Element => {
 };
 
 interface PreviewWorkoutListProps {
-  startClickHandler: () => void;
   routinePhases: Phase[];
   configPhases: PhaseVO[];
   displayEditSet: boolean;
@@ -189,10 +185,6 @@ const mapStateToProps = (state: State): PreviewWorkoutListProps => {
 
 const mapDispatchToProps = (dispatch: Dispatch): PreviewWorkoutListProps =>
   ({
-    startClickHandler: () => {
-      dispatch(startWorkout());
-      dispatch(routerActions.push(ACTIVE_WORKOUT_SCREEN_PATH));
-    },
     updateSegmentOrderHandler: (
       phaseId: string,
       fromIndex: number,
