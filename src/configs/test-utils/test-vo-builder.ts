@@ -1,5 +1,14 @@
-import { v4 as uuidv4 } from 'uuid';
-import { UserProfileVO, WorkoutEquipmentVO } from 'workout-app-common-core';
+import {
+  Set,
+  Phase,
+  Workout,
+  Segment,
+  WorkoutExercise,
+  RoutineTemplateVO,
+  WorkoutCategoryVO,
+  WorkoutEquipmentVO,
+} from 'workout-app-common-core';
+import { chance } from 'jest-chance';
 
 // export const buildUserProfile = (): UserProfileVO => {
 //   return {
@@ -12,20 +21,150 @@ import { UserProfileVO, WorkoutEquipmentVO } from 'workout-app-common-core';
 //   };
 // };
 
-export const buildWorkoutEquipment = (amount: number): WorkoutEquipmentVO[] => {
+export const buildMockActiveWorkout = (
+  phases: number,
+  segments: number,
+  date?: string
+): Workout => {
+  return {
+    id: chance.string(),
+    date: date ? date : chance.date().toDateString(),
+    startTime: chance.timestamp().toString(),
+    endTime: chance.timestamp().toString(),
+    routine: {
+      id: chance.string(),
+      name: chance.string(),
+      workoutCategoryId: chance.string(),
+      phases: buildMultipleMockPhases(phases, segments),
+    },
+  };
+};
+
+export const buildMockWorkoutEquipment = (
+  amount: number
+): WorkoutEquipmentVO[] => {
   let i = 0;
   const equipmentList: WorkoutEquipmentVO[] = [];
   while (amount > i) {
     i++;
     equipmentList.push({
-      firebaseId: uuidv4(),
-      id: uuidv4(),
-      name: uuidv4(),
-      description: uuidv4(),
-      iconId: uuidv4(),
-      active: true,
+      firebaseId: chance.string(),
+      id: chance.string(),
+      name: chance.string(),
+      description: chance.string(),
+      iconId: chance.string(),
+      active: chance.bool(),
     });
   }
 
   return equipmentList;
+};
+
+export const buildMockRoutineTemplateVO = (
+  phases: number,
+  segments: number
+): RoutineTemplateVO => {
+  return new RoutineTemplateVO(
+    chance.string(),
+    chance.string(),
+    chance.string(),
+    chance.string(),
+    buildMultipleMockPhases(phases, segments),
+    chance.bool()
+  );
+};
+
+export const buildMockWorkoutCategoryVO = (): WorkoutCategoryVO => {
+  return new WorkoutCategoryVO(
+    chance.string(),
+    chance.string(),
+    chance.string(),
+    chance.string(),
+    [chance.string(), chance.string()],
+    chance.bool()
+  );
+};
+
+export const buildMultipleMockPhases = (
+  n: number,
+  segments: number
+): Phase[] => {
+  let i = 0;
+  const phases: Phase[] = [];
+  while (n > i) {
+    i++;
+    phases.push(buildMockPhase(segments));
+  }
+  return phases;
+};
+
+export const buildMockPhase = (segments: number): Phase => {
+  return {
+    id: chance.string(),
+    phaseId: chance.string(),
+    order: chance.integer({ min: 1, max: 5 }),
+    segments: buildMultipleMockSegments(segments),
+  };
+};
+
+export const buildMultipleMockSegments = (n: number): Segment[] => {
+  let i = 0;
+  const segments: Segment[] = [];
+  while (n > i) {
+    i++;
+    segments.push(buildMockSegment());
+  }
+  return segments;
+};
+
+export const buildMockSegment = (): Segment => {
+  return {
+    id: chance.string(),
+    order: chance.d4(),
+    trainingSetTypeId: chance.string(),
+    secondsRestBetweenSets: chance.integer({ min: 15, max: 120 }),
+    secondsRestBetweenNextSegment: chance.integer({ min: 60, max: 240 }),
+    exercises: buildMultipleMockWorkoutExercises(2),
+  };
+};
+
+export const buildMultipleMockWorkoutExercises = (
+  n: number
+): WorkoutExercise[] => {
+  let i = 0;
+  const exercises: WorkoutExercise[] = [];
+  while (n > i) {
+    i++;
+    exercises.push(buildMockWorkoutExercise());
+  }
+  return exercises;
+};
+
+export const buildMockWorkoutExercise = (): WorkoutExercise => {
+  return {
+    id: chance.string(),
+    order: chance.integer({ min: 1, max: 5 }),
+    exerciseId: chance.string(),
+    sets: buildMultipleMockExerciseSets(4),
+  };
+};
+
+export const buildMultipleMockExerciseSets = (n: number): Set[] => {
+  let i = 0;
+  const exerciseSets: Set[] = [];
+  while (n > i) {
+    i++;
+    exerciseSets.push(buildMockExerciseSet());
+  }
+  return exerciseSets;
+};
+
+export const buildMockExerciseSet = (): Set => {
+  return {
+    id: chance.string(),
+    setNumber: chance.integer({ min: 1, max: 5 }),
+    weight: chance.integer({ min: 150, max: 250 }),
+    reps: chance.integer({ min: 1, max: 5 }),
+    markedDone: chance.bool(),
+  };
 };

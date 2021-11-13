@@ -1,5 +1,5 @@
-import { SetTextFieldInfoProps } from '../components/shared/set-fields/SetTextField';
 import { ActiveSetInfo } from 'workout-app-common-core';
+import { SetTextFieldInfoProps } from '../configs/types';
 
 export const buildSetFieldInfo = (
   setInfo: ActiveSetInfo,

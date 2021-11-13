@@ -47,6 +47,7 @@ export default function ActiveSuperset({
 
     supersets.push(
       <NightfallBlinker
+        key={index}
         shouldBlink={currentSetIndex === index + 1}
         component={
           <Grid container alignItems={'center'} className={classes.root}>
@@ -60,6 +61,7 @@ export default function ActiveSuperset({
                   lastSet = Object.keys(builtSets).length === info.setNumber;
                   return (
                     <BaseSet
+                      key={info.setId}
                       superset={true}
                       activeSet={activeSet}
                       markedDone={markedDone}

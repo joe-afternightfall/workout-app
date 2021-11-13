@@ -25,7 +25,7 @@ const useStyles = makeStyles(() =>
       marginBottom: '8vh',
     },
     expandedMargin: {
-      marginTop: '7vh',
+      marginTop: '8vh',
     },
     toolbar: {
       height: '7vh',
@@ -37,7 +37,7 @@ const ExercisesWidget = (
   props: ExercisesWidgetProps & PassedInProps
 ): JSX.Element => {
   const classes = useStyles();
-  const { addToSegment, backToRoutineHandler } = props;
+  const { addToSegment, backToRoutineHandler, alwaysDisplayBackButton } = props;
   const [selectedMuscleId, setSelectedMuscleId] = useState<string>('');
   const [expandSearchField, setExpandSearchField] = useState(false);
   const [selectedExercise, setSelectedExercise] = useState<ExerciseVO | null>(
@@ -57,6 +57,9 @@ const ExercisesWidget = (
     } else {
       setSelectedExercise(exercise);
       handleChangeIndex(2);
+    }
+    if (expandSearchField) {
+      setExpandSearchField(false);
     }
   };
 
@@ -96,7 +99,7 @@ const ExercisesWidget = (
     <div>
       <ExercisesAppBar
         activeTab={activeTab}
-        alwaysDisplayBackButton
+        alwaysDisplayBackButton={alwaysDisplayBackButton}
         goBackHandler={() => {
           if (backToRoutineHandler) {
             if (activeTab === 0) {
@@ -116,6 +119,7 @@ const ExercisesWidget = (
         {activeTab !== 2 && (
           <SearchBar
             expanded={expandSearchField}
+            color={activeTab === 0 ? '#313131' : 'transparent'}
             clickHandler={() => {
               if (activeTab === 0) {
                 selectMuscleHandler('');
@@ -154,6 +158,7 @@ interface PassedInProps {
   addToSegment?: boolean;
   segmentType?: 'straight' | 'super';
   backToRoutineHandler?: () => void;
+  alwaysDisplayBackButton: boolean;
 }
 
 interface ExercisesWidgetProps {

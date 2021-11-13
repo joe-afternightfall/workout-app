@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import React from 'react';
 import SetDivider from './SetDivider';
 import { Grid } from '@material-ui/core';
-import SetTextField, { SetTextFieldInfoProps } from './SetTextField';
+import SetTextField from './SetTextField';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { AppTheme } from '../../../configs/theme/app-theme';
 import TimerDialog from '../../top-level-components/active-workout-screen/components/timer-dialog/TimerDialog';
@@ -11,6 +11,10 @@ import {
   isRepsOnly,
   isWeightsAndReps,
 } from 'workout-app-common-core';
+import {
+  SetTextFieldInfoProps,
+  SetTextFieldTypes,
+} from '../../../configs/types';
 
 const useStyles = makeStyles((theme: AppTheme) =>
   createStyles({
@@ -38,7 +42,7 @@ const buildField = (
   info: SetTextFieldInfoProps,
   activeSet: boolean,
   markedDone: boolean,
-  type: 'reps' | 'weight' | 'sec',
+  type: SetTextFieldTypes,
   fullLength: boolean
 ) => {
   let value = 0;
@@ -49,7 +53,7 @@ const buildField = (
     case 'weight':
       value = info.weight ? info.weight : 0;
       break;
-    case 'sec':
+    case 'duration':
       value = info.duration ? info.duration.seconds : 0;
       break;
   }
@@ -101,7 +105,7 @@ export default function BaseSet({
       info.timers && info.shouldDisplayTimer ? (
         <Grid container>
           <Grid item xs={8}>
-            {buildField(info, activeSet, markedDone, 'sec', true)}
+            {buildField(info, activeSet, markedDone, 'duration', true)}
           </Grid>
           <Grid
             item
@@ -119,7 +123,7 @@ export default function BaseSet({
           </Grid>
         </Grid>
       ) : (
-        buildField(info, activeSet, markedDone, 'sec', true)
+        buildField(info, activeSet, markedDone, 'duration', true)
       );
   }
 

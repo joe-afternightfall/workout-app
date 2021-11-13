@@ -16,7 +16,7 @@ class ExercisesScreen extends Component<ExercisesScreenProps> {
     return (
       <Grid container justify={'center'}>
         <Grid item xs={12}>
-          <ExercisesWidget />
+          <ExercisesWidget alwaysDisplayBackButton={false} />
         </Grid>
       </Grid>
     );

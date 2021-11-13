@@ -4,15 +4,27 @@ import { connect } from 'react-redux';
 import { Close } from '@material-ui/icons';
 import SearchIcon from '@material-ui/icons/Search';
 import { State } from '../../../../configs/redux/store';
-import { Grid, IconButton, InputBase } from '@material-ui/core';
+import {
+  AppBar,
+  Grid,
+  IconButton,
+  InputBase,
+  Toolbar,
+} from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { filterExercisesForSearchValue } from '../../../../creators/workout/exercises';
+import clsx from 'clsx';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       position: 'fixed',
+      top: '8vh',
+      paddingTop: 8,
+    },
+    searchButton: {
       zIndex: 1,
+      position: 'absolute',
     },
     closedButton: {
       backgroundColor: '#505050',
@@ -22,10 +34,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     expandedButton: {
       color: 'inherit',
-      zIndex: 1,
-    },
-    iconWrapper: {
-      position: 'absolute',
     },
     hide: {
       width: '0ch',
@@ -42,29 +50,39 @@ const useStyles = makeStyles((theme: Theme) =>
       // vertical padding + font size from searchIcon
       paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
       transition: theme.transitions.create('width'),
-      width: '37ch',
+    },
+    closeButton: {
+      position: 'absolute',
+      right: 16,
+    },
+    displayNone: {
+      display: 'none',
     },
   })
 );
 
 const SearchBar = (props: SearchBarProps & PassedInProps): JSX.Element => {
   const classes = useStyles();
-  const { expanded, clickHandler, searchValue } = props;
+  const { expanded, clickHandler, searchValue, color } = props;
   return (
-    <Grid item xs={12} className={classes.root}>
-      <Grid container>
-        <Grid item xs={10}>
-          <div className={classes.iconWrapper}>
-            <IconButton
-              onClick={clickHandler}
-              className={
-                expanded ? classes.expandedButton : classes.closedButton
-              }
-            >
-              <SearchIcon />
-            </IconButton>
-          </div>
+    <AppBar
+      elevation={0}
+      className={classes.root}
+      style={{ background: color }}
+    >
+      <Toolbar>
+        <Grid item xs={12}>
+          <IconButton
+            onClick={clickHandler}
+            className={clsx(classes.searchButton, {
+              [classes.expandedButton]: expanded,
+              [classes.closedButton]: !expanded,
+            })}
+          >
+            <SearchIcon />
+          </IconButton>
           <InputBase
+            fullWidth
             placeholder={'Search…'}
             value={searchValue}
             classes={{
@@ -75,27 +93,29 @@ const SearchBar = (props: SearchBarProps & PassedInProps): JSX.Element => {
               props.searchHandler(e.target.value);
             }}
           />
-        </Grid>
-        <Grid item xs={2}>
-          {expanded && (
+          {expanded ? (
             <IconButton
               onClick={() => {
                 props.searchHandler('');
               }}
               disabled={searchValue === ''}
+              className={classes.closeButton}
             >
               <Close />
             </IconButton>
+          ) : (
+            <React.Fragment />
           )}
         </Grid>
-      </Grid>
-    </Grid>
+      </Toolbar>
+    </AppBar>
   );
 };
 
 interface PassedInProps {
   clickHandler: () => void;
   expanded: boolean;
+  color: '#313131' | 'transparent';
 }
 
 interface SearchBarProps {

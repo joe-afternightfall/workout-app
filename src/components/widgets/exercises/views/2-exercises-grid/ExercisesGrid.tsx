@@ -13,7 +13,7 @@ import { createStyles, makeStyles } from '@material-ui/core/styles';
 import ExerciseImage from '../../../../shared/exercise-list/ExerciseImage';
 import { AnyAction, Dispatch } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
-import { getExerciseImages } from '../../../../../services/exercise-images';
+import { getExerciseImagesForMuscleId } from '../../../../../services/exercise-images';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -107,7 +107,7 @@ const mapDispatchToProps = (
   ({
     fetchImagesFor: () => {
       (dispatch as ThunkDispatch<State, void, AnyAction>)(
-        getExerciseImages(ownProps.selectedMuscleId)
+        getExerciseImagesForMuscleId(ownProps.selectedMuscleId)
       );
     },
   } as unknown as ExercisesGridProps);

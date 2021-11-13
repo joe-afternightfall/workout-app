@@ -16,14 +16,14 @@ export default function ActiveStraightSet(
   const straightSets: JSX.Element[] = [];
   let segmentId = '';
 
-  Object.values(builtSets).map((setInfo: ActiveSetInfo[]) => {
+  Object.values(builtSets).map((setInfo: ActiveSetInfo[], index: number) => {
     let activeSet = false;
     let setNumber = -1;
     let markedDone = false;
     let lastSet = false;
 
     straightSets.push(
-      <>
+      <div key={index}>
         {setInfo.map((info: ActiveSetInfo) => {
           segmentId = info.segmentId;
           setNumber = info.setNumber;
@@ -36,6 +36,7 @@ export default function ActiveStraightSet(
             lastSet = Object.keys(builtSets).length === info.setNumber;
             return (
               <NightfallBlinker
+                key={info.setId}
                 shouldBlink={activeSet}
                 component={
                   <StraightSetRow
@@ -61,7 +62,7 @@ export default function ActiveStraightSet(
             );
           }
         })}
-      </>
+      </div>
     );
   });
 

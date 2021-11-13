@@ -7,6 +7,7 @@ import { trimLeadingZeros } from '../../../../../../../../utils/validator';
 import { updateRestBetween } from '../../../../../../../../creators/workout/update-workout';
 import { AppTheme } from '../../../../../../../../configs/theme/app-theme';
 import { validateForOnlyNumbers } from 'workout-app-common-core';
+import { RestBetweenType } from '../../../../../../../../configs/types';
 
 const useStyles = makeStyles((theme: AppTheme) =>
   createStyles({
@@ -59,7 +60,7 @@ const RestBetweenField = ({
 interface PassedInProps {
   value: number;
   segmentId: string;
-  type: 'set' | 'segment';
+  type: RestBetweenType;
 }
 
 interface RestBetweenFieldProps {

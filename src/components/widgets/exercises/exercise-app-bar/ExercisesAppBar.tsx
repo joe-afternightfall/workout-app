@@ -88,7 +88,7 @@ const ExercisesAppBar = (
 
 interface PassedInProps {
   activeTab: number;
-  alwaysDisplayBackButton?: boolean;
+  alwaysDisplayBackButton: boolean;
   selectedMuscleId: string;
   goBackHandler: () => void;
   selectedExercise: ExerciseVO | null;

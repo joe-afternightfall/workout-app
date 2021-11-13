@@ -1,15 +1,16 @@
 import { WorkoutActionTypes } from '../actions-workout';
+import { RestBetweenType, SetTextFieldTypes } from '../../configs/types';
 
 export interface UpdateSetTextFieldAction {
   type: WorkoutActionTypes.UPDATE_SET_TEXT_FIELD;
   setId: string;
-  name: 'weight' | 'reps' | 'sec';
+  name: SetTextFieldTypes;
   value: number;
 }
 
 export const updateSetTextField = (
   setId: string,
-  name: 'weight' | 'reps' | 'sec',
+  name: SetTextFieldTypes,
   value: number
 ): UpdateSetTextFieldAction => {
   return {
@@ -43,13 +44,13 @@ export const updateSegmentOrder = (
 export interface UpdateRestBetweenAction {
   type: WorkoutActionTypes.UPDATE_REST_BETWEEN;
   segmentId: string;
-  restType: 'set' | 'segment';
+  restType: RestBetweenType;
   value: string;
 }
 
 export const updateRestBetween = (
   segmentId: string,
-  type: 'set' | 'segment',
+  type: RestBetweenType,
   value: string
 ): UpdateRestBetweenAction => {
   return {

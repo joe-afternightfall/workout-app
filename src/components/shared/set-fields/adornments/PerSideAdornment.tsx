@@ -1,13 +1,17 @@
 import React from 'react';
 import { Grid, Typography } from '@material-ui/core';
+import { SetTextFieldTypes } from '../../../../configs/types';
 
 export default function PerSideAdornment({
   fontColor,
+  setType,
 }: PerSideAdornmentProps): JSX.Element {
   return (
     <Grid container style={{ width: 40, color: fontColor }}>
       <Grid item xs={12} container alignItems={'flex-end'}>
-        <Typography variant={'caption'}>{'reps'}</Typography>
+        <Typography variant={'caption'}>
+          {setType === 'duration' ? 'sec' : 'reps'}
+        </Typography>
       </Grid>
       <Grid
         item
@@ -29,4 +33,5 @@ export default function PerSideAdornment({
 
 interface PerSideAdornmentProps {
   fontColor: string;
+  setType: SetTextFieldTypes;
 }

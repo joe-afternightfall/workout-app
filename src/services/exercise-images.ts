@@ -1,14 +1,18 @@
-import firebase from 'firebase/app';
 import 'firebase/storage';
+import {
+  ExerciseVO,
+  findExercise,
+  RoutineTemplateVO,
+} from 'workout-app-common-core';
+import firebase from 'firebase/app';
 import { ThunkAction } from 'redux-thunk';
-import { State } from '../configs/redux/store';
 import { AnyAction, Dispatch } from 'redux';
+import { State } from '../configs/redux/store';
 import { loadExerciseImages } from '../creators/load-workout-configs';
-import { ExerciseVO } from 'workout-app-common-core';
 
 let exerciseCounter = 0;
 
-export const getExerciseImages =
+export const getExerciseImagesForMuscleId =
   (selectedMuscleId: string): ThunkAction<void, State, void, AnyAction> =>
   async (dispatch: Dispatch, getState: () => State): Promise<void> => {
     const allExercises =
@@ -20,7 +24,6 @@ export const getExerciseImages =
         exercisesForId.push(exercise);
       }
     });
-    console.log('exercisesForId: ' + JSON.stringify(exercisesForId));
     exercisesForId.map((exercise) => {
       exerciseCounter++;
       console.log(
@@ -33,6 +36,27 @@ export const getExerciseImages =
       // todo: if exercise not found then make firebase call
       getImages(dispatch, exercise.iconId);
     });
+  };
+
+export const getExerciseImagesForRoutine =
+  (routine: RoutineTemplateVO): ThunkAction<void, State, void, AnyAction> =>
+  async (dispatch: Dispatch, getState: () => State): Promise<void> => {
+    const allExercises =
+      getState().applicationState.workoutConfigurations.exercises;
+    const folderNames: string[] = [];
+
+    routine.phases.map((phase) => {
+      phase.segments.map((segment) => {
+        segment.exercises.map((exercise) => {
+          const foundExercise = findExercise(allExercises, exercise.exerciseId);
+          if (foundExercise) {
+            folderNames.push(foundExercise.iconId);
+          }
+        });
+      });
+    });
+
+    folderNames.map((name) => getImages(dispatch, name));
   };
 
 const getImages = async (dispatch: Dispatch, folderName: string) => {

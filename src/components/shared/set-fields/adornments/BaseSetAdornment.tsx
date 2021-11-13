@@ -1,6 +1,7 @@
 import React from 'react';
 import PerSideAdornment from './PerSideAdornment';
 import { InputAdornment, Typography } from '@material-ui/core';
+import { SetTextFieldTypes } from '../../../../configs/types';
 
 export default function BaseSetAdornment({
   setType,
@@ -9,11 +10,13 @@ export default function BaseSetAdornment({
 }: BaseSetAdornmentProps): JSX.Element {
   let display: JSX.Element;
 
+  // todo: come back and handle distance
+  // todo: make this switch statement handing back title
   if (setType === 'weight') {
     display = <Typography style={{ color: fontColor }}>{'lb'}</Typography>;
   } else if (alternateSides) {
-    display = <PerSideAdornment fontColor={fontColor} />;
-  } else if (setType === 'sec') {
+    display = <PerSideAdornment setType={setType} fontColor={fontColor} />;
+  } else if (setType === 'duration') {
     display = <Typography style={{ color: fontColor }}>{'sec'}</Typography>;
   } else {
     display = <Typography style={{ color: fontColor }}>{'reps'}</Typography>;
@@ -24,6 +27,6 @@ export default function BaseSetAdornment({
 
 interface BaseSetAdornmentProps {
   alternateSides: boolean;
-  setType: 'weight' | 'reps' | 'sec';
+  setType: SetTextFieldTypes;
   fontColor: string;
 }
