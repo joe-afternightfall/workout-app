@@ -1,12 +1,14 @@
 import React from 'react';
-import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { Grid } from '@material-ui/core';
+import { ThunkDispatch } from 'redux-thunk';
+import { AnyAction, Dispatch } from 'redux';
 import SelectionCard from '../components/SelectionCard';
 import { isOdd } from '../../../../../utils/number-util';
 import { State } from '../../../../../configs/redux/store';
-import { selectedRoutine } from '../../../../../creators/workout/workout-selections';
 import { RoutineTemplateVO } from 'workout-app-common-core';
+import { selectedRoutine } from '../../../../../creators/workout/workout-selections';
+import { getExerciseImagesForRoutine } from '../../../../../services/exercise-images';
 
 const RoutineSelectionList = (
   props: RoutineSelectionListProps & PassedInProps
@@ -59,6 +61,9 @@ const mapStateToProps = (state: State): RoutineSelectionListProps => {
 const mapDispatchToProps = (dispatch: Dispatch): RoutineSelectionListProps =>
   ({
     selectRoutineHandler: (routine: RoutineTemplateVO) => {
+      (dispatch as ThunkDispatch<State, void, AnyAction>)(
+        getExerciseImagesForRoutine(routine)
+      );
       dispatch(selectedRoutine(routine));
     },
   } as unknown as RoutineSelectionListProps);
