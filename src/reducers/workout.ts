@@ -35,6 +35,10 @@ function updateSet(
             if (name === 'sec') {
               if (set.duration) {
                 set.duration.seconds = value;
+              } else {
+                set.duration = {
+                  seconds: value,
+                };
               }
             } else {
               set[name] = value;
