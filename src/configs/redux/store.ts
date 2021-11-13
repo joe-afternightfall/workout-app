@@ -42,6 +42,7 @@ export const createStore = (history: History): Store => {
       },
       setupNewUser: false,
       equipmentIdFilterList: [],
+      exerciseSearchValue: '',
       workoutConfigurations: {
         trainingSetTypes: [],
         phases: [],

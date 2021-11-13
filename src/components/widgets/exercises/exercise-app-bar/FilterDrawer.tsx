@@ -50,8 +50,6 @@ const FilterDrawer = (props: FilterDrawerProps): JSX.Element => {
   };
 
   const handleToggle = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log('event.target.name: ' + event.target.name);
-    console.log('event.target.checked: ' + event.target.checked);
     props.filterEquipmentHandler(event.target.name, event.target.checked);
   };
 
