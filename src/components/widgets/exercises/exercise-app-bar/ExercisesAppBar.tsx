@@ -11,6 +11,7 @@ import { connect } from 'react-redux';
 import ArrowBack from '@material-ui/icons/ArrowBackIos';
 import { State } from '../../../../configs/redux/store';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
+import FilterDrawer from './FilterDrawer';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -36,6 +37,7 @@ const ExercisesAppBar = (
 
   let title = '';
   let displayBackButton = false;
+  let displayFilterButton = false;
 
   if (activeTab === 0) {
     title = 'Muscle Groups';
@@ -44,6 +46,7 @@ const ExercisesAppBar = (
     }
   } else if (activeTab === 1) {
     displayBackButton = true;
+    displayFilterButton = true;
     if (selectedMuscleId === '') {
       title = 'All Exercises';
     } else {
@@ -79,6 +82,9 @@ const ExercisesAppBar = (
             <Typography variant={'body1'} noWrap>
               {title}
             </Typography>
+          </Grid>
+          <Grid item xs={2} container justify={'flex-end'}>
+            {displayFilterButton && <FilterDrawer />}
           </Grid>
         </Grid>
       </Toolbar>

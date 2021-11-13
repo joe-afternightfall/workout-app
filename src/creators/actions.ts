@@ -21,7 +21,10 @@ import {
   LoadWorkoutEquipmentAction,
 } from './load-workout-configs';
 import { LoadExerciseImagesAction } from './load-workout-configs';
-import { FilterExercisesForSearchValueAction } from './workout/exercises';
+import {
+  FilterExercisesForEquipmentIdAction,
+  FilterExercisesForSearchValueAction,
+} from './workout/exercises';
 
 export enum ActionTypes {
   // Application Actions
@@ -47,6 +50,7 @@ export enum ActionTypes {
   LOAD_WORKOUT_EQUIPMENT = 'LOAD_WORKOUT_EQUIPMENT',
   LOAD_EXERCISE_IMAGES = 'LOAD_EXERCISE_IMAGES',
   FILTER_EXERCISES_FOR_SEARCH_VALUE = 'FILTER_EXERCISES_FOR_SEARCH_VALUE',
+  FILTER_EXERCISES_FOR_EQUIPMENT_ID = 'FILTER_EXERCISES_FOR_EQUIPMENT_ID',
 }
 
 export type ApplicationActions =
@@ -69,4 +73,5 @@ export type ApplicationActions =
   | LoadWorkoutCategoriesAction
   | LoadWorkoutEquipmentAction
   | LoadExerciseImagesAction
-  | FilterExercisesForSearchValueAction;
+  | FilterExercisesForSearchValueAction
+  | FilterExercisesForEquipmentIdAction;

@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react';
 import {
   Grid,
   Card,
@@ -7,12 +6,13 @@ import {
   CardActions,
 } from '@material-ui/core';
 import { connect } from 'react-redux';
+import React, { useEffect } from 'react';
+import { AnyAction, Dispatch } from 'redux';
+import { ThunkDispatch } from 'redux-thunk';
 import { ExerciseVO } from 'workout-app-common-core';
 import { State } from '../../../../../configs/redux/store';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import ExerciseImage from '../../../../shared/exercise-list/ExerciseImage';
-import { AnyAction, Dispatch } from 'redux';
-import { ThunkDispatch } from 'redux-thunk';
 import { getExerciseImagesForMuscleId } from '../../../../../services/exercise-images';
 
 const useStyles = makeStyles(() =>
@@ -88,15 +88,36 @@ const mapStateToProps = (
     });
   }
 
-  const listToDisplay = exercisesForId.filter(
-    (exercise) =>
+  const filteredExerciseList: ExerciseVO[] = [];
+  const equipmentIdFilterList = state.applicationState.equipmentIdFilterList;
+
+  exercisesForId.map((exercise) => {
+    if (
       exercise.name
         .toLowerCase()
-        .search(state.applicationState.exerciseSearchValue) != -1
-  );
+        .search(state.applicationState.exerciseSearchValue.toLowerCase()) != -1
+    ) {
+      if (equipmentIdFilterList.length > 0) {
+        const foundIds: boolean[] = [];
+        equipmentIdFilterList.map((id) => {
+          exercise.workoutEquipmentIds &&
+            exercise.workoutEquipmentIds.find((equipmentId) => {
+              if (equipmentId === id) {
+                foundIds.push(true);
+              }
+            });
+          if (foundIds.length === equipmentIdFilterList.length) {
+            filteredExerciseList.push(exercise);
+          }
+        });
+      } else {
+        filteredExerciseList.push(exercise);
+      }
+    }
+  });
 
   return {
-    exercisesForId: listToDisplay,
+    exercisesForId: filteredExerciseList,
   } as unknown as ExercisesGridProps;
 };
 

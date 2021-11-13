@@ -13,6 +13,7 @@ import {
   WorkoutCategoryVO,
   WorkoutEquipmentVO,
 } from 'workout-app-common-core';
+import * as ramda from 'ramda';
 import { LOCATION_CHANGE } from 'connected-react-router';
 import { getPageInfo } from '../utils/get-current-page-info';
 import { ExerciseImage } from '../creators/load-workout-configs';
@@ -103,6 +104,19 @@ export default {
       case ActionTypes.FILTER_EXERCISES_FOR_SEARCH_VALUE:
         newState.exerciseSearchValue = action.searchValue;
         break;
+      case ActionTypes.FILTER_EXERCISES_FOR_EQUIPMENT_ID: {
+        const clonedEquipmentList = ramda.clone(newState.equipmentIdFilterList);
+        if (action.actionType === 'add') {
+          clonedEquipmentList.push(action.id);
+        } else if (action.actionType === 'remove') {
+          const foundIndex = clonedEquipmentList.indexOf(action.id);
+          if (foundIndex !== -1) {
+            clonedEquipmentList.splice(foundIndex, 1);
+          }
+        }
+        newState.equipmentIdFilterList = clonedEquipmentList;
+        break;
+      }
       default:
         newState = state;
     }
@@ -121,6 +135,7 @@ export interface ApplicationState {
   openUserProfileDialog: boolean;
   selectedNavTestId: string;
   exerciseSearchValue: string;
+  equipmentIdFilterList: string[];
   workoutConfigurations: {
     exercises: ExerciseVO[];
     exerciseImages: ExerciseImage[];
