@@ -1,14 +1,17 @@
 import React from 'react';
+import {
+  Grid,
+  Link,
+  Zoom,
+  Button,
+  Dialog,
+  Typography,
+  DialogContent,
+} from '@material-ui/core';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import Zoom from '@material-ui/core/Zoom';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogContent from '@material-ui/core/DialogContent';
 import { TransitionProps } from '@material-ui/core/transitions';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import { Divider, Grid, Link, Typography } from '@material-ui/core';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { toggleEditOptionButtons } from '../../../../../creators/workout/workout-selections';
 
 const Transition = React.forwardRef(function Transition(
@@ -18,16 +21,21 @@ const Transition = React.forwardRef(function Transition(
   return <Zoom in={true} ref={ref} {...props} />;
 });
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     root: {},
     discardButton: {
-      background: '#CC0000',
-      borderRadius: 0,
+      background: '#C90A3C',
       padding: '16px 52px',
     },
     link: {
-      color: theme.palette.info.light,
+      color: '#FFF',
+      textDecoration: 'underline',
+      fontWeight: 600,
+    },
+    title: {
+      color: '#C90A3C',
+      fontWeight: 600,
     },
   })
 );
@@ -56,17 +64,16 @@ const DiscardDialog = (props: DiscardDialogProps): JSX.Element => {
         {'Discard'}
       </Button>
       <Dialog open={open} keepMounted TransitionComponent={Transition}>
-        <DialogTitle style={{ fontWeight: 'bold', textAlign: 'center' }}>
-          {'Discard Changes?'}
-          <Grid item xs={12}>
-            <Divider variant={'fullWidth'} />
-          </Grid>
-        </DialogTitle>
         <DialogContent>
           <Grid container spacing={3}>
             <Grid item xs={12} container justify={'center'}>
-              <Typography color={'textSecondary'} variant={'body1'}>
-                {'Your changes will be lost'}
+              <Typography variant={'h5'} className={classes.title}>
+                {'Discard Changes?'}
+              </Typography>
+            </Grid>
+            <Grid item xs={12} container justify={'center'}>
+              <Typography variant={'body1'}>
+                {'Your changes will not be saved'}
               </Typography>
             </Grid>
             <Grid item xs={12} container justify={'center'}>
