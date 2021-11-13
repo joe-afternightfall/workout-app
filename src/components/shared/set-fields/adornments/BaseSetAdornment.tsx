@@ -12,7 +12,7 @@ export default function BaseSetAdornment({
   if (setType === 'weight') {
     display = <Typography style={{ color: fontColor }}>{'lb'}</Typography>;
   } else if (alternateSides) {
-    display = <PerSideAdornment fontColor={fontColor} />;
+    display = <PerSideAdornment setType={setType} fontColor={fontColor} />;
   } else if (setType === 'sec') {
     display = <Typography style={{ color: fontColor }}>{'sec'}</Typography>;
   } else {
