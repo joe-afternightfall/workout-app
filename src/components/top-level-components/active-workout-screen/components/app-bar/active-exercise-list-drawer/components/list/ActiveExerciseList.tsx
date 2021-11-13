@@ -46,6 +46,7 @@ const ActiveExerciseList = (
     display = (
       <ExercisesWidget
         addToSegment
+        alwaysDisplayBackButton={true}
         segmentType={segmentType}
         backToRoutineHandler={hideExerciseWidget}
       />

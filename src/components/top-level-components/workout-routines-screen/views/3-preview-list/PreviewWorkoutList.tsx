@@ -91,6 +91,7 @@ const PreviewWorkoutList = (props: PreviewWorkoutListProps): JSX.Element => {
       display = (
         <ExercisesWidget
           addToSegment
+          alwaysDisplayBackButton={true}
           segmentType={segmentType}
           backToRoutineHandler={hideExerciseWidget}
         />
