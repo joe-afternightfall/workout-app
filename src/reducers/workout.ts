@@ -18,6 +18,7 @@ import { arrayMoveImmutable as arrayMove } from 'array-move';
 import {
   DeleteExerciseDrawerActionProps,
   PhaseTypeEditingSegment,
+  SetTextFieldTypes,
 } from '../configs/types';
 import { deleteSegmentFromPhase } from '../utils/edit-object-util';
 
@@ -25,20 +26,27 @@ function updateSet(
   phase: Phase | undefined,
   setId: string,
   value: number,
-  name: 'sec' | 'reps' | 'weight'
+  name: SetTextFieldTypes
 ) {
   phase &&
     phase.segments.map((segment) => {
       segment.exercises.map((exercise) => {
         exercise.sets.map((set) => {
           if (set.id === setId) {
-            if (name === 'sec') {
+            if (name === 'duration') {
               if (set.duration) {
                 set.duration.seconds = value;
               } else {
                 set.duration = {
                   seconds: value,
                 };
+              }
+            } else if (name === 'distance') {
+              if (set.distance) {
+                set.distance.value = value;
+                // todo: come back and start to pass in or retrieve distance unit
+                // todo: get this value from ExerciseVO itself, start to ask for unit type in admin center
+                set.distance.unit = 'miles';
               }
             } else {
               set[name] = value;

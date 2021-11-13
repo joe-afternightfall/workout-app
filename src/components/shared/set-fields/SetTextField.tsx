@@ -7,12 +7,8 @@ import BaseSetAdornment from './adornments/BaseSetAdornment';
 import { AppTheme } from '../../../configs/theme/app-theme';
 import { createStyles, makeStyles, useTheme } from '@material-ui/core/styles';
 import { updateSetTextField } from '../../../creators/workout/update-workout';
-import {
-  validateForOnlyNumbers,
-  WorkoutDistance,
-  WorkoutDuration,
-  WorkoutTimer,
-} from 'workout-app-common-core';
+import { validateForOnlyNumbers } from 'workout-app-common-core';
+import { SetTextFieldTypes } from '../../../configs/types';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -96,18 +92,6 @@ const SetTextField = ({
   );
 };
 
-export interface SetTextFieldInfoProps {
-  setId: string;
-  reps: number;
-  weight?: number;
-  duration?: WorkoutDuration;
-  distance?: WorkoutDistance;
-  parameterTypeId: string;
-  alternateSides: boolean;
-  timers?: WorkoutTimer[];
-  shouldDisplayTimer: boolean;
-}
-
 interface PassedInProps {
   value: number;
   setId: string;
@@ -115,7 +99,7 @@ interface PassedInProps {
   markedDone: boolean;
   fullLength: boolean;
   alternateSides: boolean;
-  setType: 'weight' | 'reps' | 'sec';
+  setType: SetTextFieldTypes;
 }
 
 interface SetTextFieldProps {

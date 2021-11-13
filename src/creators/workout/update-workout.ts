@@ -1,16 +1,16 @@
 import { WorkoutActionTypes } from '../actions-workout';
-import { RestBetweenType } from '../../configs/types';
+import { RestBetweenType, SetTextFieldTypes } from '../../configs/types';
 
 export interface UpdateSetTextFieldAction {
   type: WorkoutActionTypes.UPDATE_SET_TEXT_FIELD;
   setId: string;
-  name: 'weight' | 'reps' | 'sec';
+  name: SetTextFieldTypes;
   value: number;
 }
 
 export const updateSetTextField = (
   setId: string,
-  name: 'weight' | 'reps' | 'sec',
+  name: SetTextFieldTypes,
   value: number
 ): UpdateSetTextFieldAction => {
   return {
