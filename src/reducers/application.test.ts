@@ -1,6 +1,6 @@
 import application, { ApplicationState } from './application';
 import { ActionTypes } from '../creators/actions';
-import { buildWorkoutEquipment } from '../configs/test-utils/test-vo-builder';
+import { buildMockWorkoutEquipment } from '../configs/test-utils/test-vo-builder';
 
 describe('Application Reducer', () => {
   // it('should update current location', () => {
@@ -60,7 +60,7 @@ describe('Application Reducer', () => {
       } as unknown as ApplicationState,
       {
         type: ActionTypes.LOAD_WORKOUT_EQUIPMENT,
-        workoutEquipment: buildWorkoutEquipment(3),
+        workoutEquipment: buildMockWorkoutEquipment(3),
       }
     );
 
