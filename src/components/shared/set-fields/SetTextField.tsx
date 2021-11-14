@@ -42,8 +42,8 @@ const SetTextField = ({
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const trimmedValue = trimLeadingZeros(event.target.value);
-    const name = event.target.name;
-    if (name === 'reps' || name === 'sec') {
+    const name = event.target.name as unknown as SetTextFieldTypes;
+    if (name === 'reps' || name === 'duration') {
       if (validateForOnlyNumbers(trimmedValue)) {
         return onChangeHandler(trimmedValue);
       }
