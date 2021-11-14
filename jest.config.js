@@ -14,7 +14,7 @@ module.exports = {
   coveragePathIgnorePatterns: [
     '<rootDir>/coverage/',
     '<rootDir>/cypress/',
-    '<rootDir>/src/configs',
+    '<rootDir>/src/configs/',
     '<rootDir>/src/App.tsx',
     '<rootDir>/src/index.tsx',
     '<rootDir>/node_modules/',

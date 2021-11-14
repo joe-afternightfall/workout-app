@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme: AppTheme) =>
     baseColor: theme.palette.custom.styles.base,
     done: theme.palette.custom.styles.done,
     timerWrapper: {
-      borderLeft: '4px solid',
+      borderLeft: '2px solid',
       borderColor: '#313131',
     },
   })
@@ -93,7 +93,7 @@ export default function BaseSet({
       <>
         {buildField(info, activeSet, markedDone, 'weight', false)}
 
-        <SetDivider />
+        <SetDivider activeSet={activeSet} markedDone={markedDone} />
 
         {buildField(info, activeSet, markedDone, 'reps', false)}
       </>

@@ -1,12 +1,11 @@
 import { chance } from 'jest-chance';
 import {
-  buildMockActiveWorkout,
+  buildMockWorkout,
   buildMockRoutineTemplateVO,
   buildMockWorkoutCategoryVO,
 } from '../configs/test-utils/test-vo-builder';
 import workout, { WorkoutState } from './workout';
 import { WorkoutActionTypes } from '../creators/actions-workout';
-import { PhaseTypeEditingSegment } from '../configs/types';
 
 jest.mock('array-move', () => ({
   arrayMoveImmutable: jest.fn(),
@@ -118,7 +117,7 @@ describe('workout reducer', () => {
 
   it('should return DELETE_SELECTED_SEGMENT_FROM_ROUTINE action with activeWorkout', () => {
     const segmentId = chance.string();
-    const activeWorkout = buildMockActiveWorkout(2, 5);
+    const activeWorkout = buildMockWorkout(2, 5);
     const state = workout.reducer(
       {
         deleteExerciseDrawerProps: {
@@ -176,10 +175,61 @@ describe('workout reducer', () => {
     expect(state.selectedRoutineTemplate).toEqual(copyOfRoutineTemplate);
   });
 
+  it('should return UPDATE_SET_TEXT_FIELD action when workoutStarted', () => {
+    const activeWorkout = buildMockWorkout(2, 5);
+    const setId =
+      activeWorkout.routine.phases[0].segments[0].exercises[0].sets[0].id;
+    const weightValue = chance.integer({ min: 1, max: 50 });
+    const state = workout.reducer(
+      {
+        activeWorkout: activeWorkout,
+        workoutStarted: true,
+        currentPhase: activeWorkout.routine.phases[0],
+      } as unknown as WorkoutState,
+      {
+        type: WorkoutActionTypes.UPDATE_SET_TEXT_FIELD,
+        setId: setId,
+        value: weightValue,
+        name: 'weight',
+      }
+    );
+
+    expect(state.currentPhase).toEqual(activeWorkout.routine.phases[0]);
+    expect(
+      activeWorkout.routine.phases[0].segments[0].exercises[0].sets[0].weight
+    ).toEqual(weightValue);
+  });
+
+  it('should return UPDATE_SET_TEXT_FIELD action for copyOfRoutineTemplate', () => {
+    const copyOfRoutineTemplate = buildMockRoutineTemplateVO(1, 4);
+    const setId =
+      copyOfRoutineTemplate.phases[0].segments[0].exercises[0].sets[0].id;
+    const weightValue = chance.integer({ min: 1, max: 50 });
+    const state = workout.reducer(
+      {
+        copyOfRoutineTemplate: copyOfRoutineTemplate,
+        workoutStarted: false,
+      } as unknown as WorkoutState,
+      {
+        type: WorkoutActionTypes.UPDATE_SET_TEXT_FIELD,
+        setId: setId,
+        value: weightValue,
+        name: 'weight',
+      }
+    );
+
+    expect(state.copyOfRoutineTemplate.phases).toEqual(
+      copyOfRoutineTemplate.phases
+    );
+    expect(
+      state.copyOfRoutineTemplate.phases[0].segments[0].exercises[0].sets[0]
+        .weight
+    ).toEqual(weightValue);
+  });
+
   it('should return WORKOUT_DONE action', () => {
     const workoutDate = '-1';
-    console.log('workoutDate: ' + workoutDate);
-    const activeWorkout = buildMockActiveWorkout(2, 5, workoutDate);
+    const activeWorkout = buildMockWorkout(2, 5, workoutDate);
     const state = workout.reducer(
       {
         activeWorkout: activeWorkout,
@@ -193,7 +243,7 @@ describe('workout reducer', () => {
   });
 
   it('should return CLEAR_ACTIVE_WORKOUT action', () => {
-    const mockWorkout = buildMockActiveWorkout(2, 5);
+    const mockWorkout = buildMockWorkout(2, 5);
     const state = workout.reducer(
       {
         activeWorkout: mockWorkout,
@@ -226,7 +276,7 @@ describe('workout reducer', () => {
   });
 
   it('should return CHECK_IF_PHASE_SELECTION_REQUIRED activeWorkout action when 1 phase', () => {
-    const mockWorkout = buildMockActiveWorkout(1, 4);
+    const mockWorkout = buildMockWorkout(1, 4);
     const state = workout.reducer(
       {
         activeWorkout: mockWorkout,
@@ -259,7 +309,7 @@ describe('workout reducer', () => {
   });
 
   it('should return CHECK_IF_PHASE_SELECTION_REQUIRED activeWorkout action when multiple phases', () => {
-    const mockWorkout = buildMockActiveWorkout(3, 4);
+    const mockWorkout = buildMockWorkout(3, 4);
     const state = workout.reducer(
       {
         activeWorkout: mockWorkout,

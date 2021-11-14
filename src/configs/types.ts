@@ -1,6 +1,7 @@
 import {
   WorkoutDistance,
   WorkoutDuration,
+  WorkoutExercise,
   WorkoutTimer,
 } from 'workout-app-common-core';
 
@@ -26,4 +27,9 @@ export type SetTextFieldInfoProps = {
   alternateSides: boolean;
   timers?: WorkoutTimer[];
   shouldDisplayTimer: boolean;
+};
+
+export type LatestExercise = {
+  date: string;
+  exercise: WorkoutExercise;
 };

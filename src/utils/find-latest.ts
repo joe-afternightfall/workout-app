@@ -1,4 +1,5 @@
-import { UserWeight } from 'workout-app-common-core';
+import { UserWeight, Workout, WorkoutExercise } from 'workout-app-common-core';
+import { LatestExercise } from '../configs/types';
 
 export const findLatestWeight = (
   weights: UserWeight[]
@@ -11,3 +12,33 @@ export const findLatestWeight = (
   }
   return undefined;
 };
+
+export const findLatestStatsForExercise = (
+  currentExercise: WorkoutExercise,
+  pastWorkouts: Workout[]
+): LatestExercise | undefined => {
+  const pastExercises: LatestExercise[] = [];
+
+  pastWorkouts.map((workout) => {
+    workout.routine.phases.map((phase) => {
+      phase.segments.map((segment) => {
+        segment.exercises.map((exercise) => {
+          if (currentExercise.exerciseId === exercise.exerciseId) {
+            pastExercises.push({
+              date: workout.date,
+              exercise: exercise,
+            });
+          }
+        });
+      });
+    });
+  });
+
+  if (pastExercises.length > 0) {
+    return pastExercises.reduce((accum, current, index) =>
+      current.date > accum.date && index ? current : accum
+    );
+  }
+};
+
+// export const findHighestWeight = () => {}

@@ -119,7 +119,6 @@ const ExercisesWidget = (
         {activeTab !== 2 && (
           <SearchBar
             expanded={expandSearchField}
-            color={activeTab === 0 ? '#313131' : 'transparent'}
             clickHandler={() => {
               if (activeTab === 0) {
                 selectMuscleHandler('');
