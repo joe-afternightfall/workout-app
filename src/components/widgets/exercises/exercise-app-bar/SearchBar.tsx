@@ -63,13 +63,9 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const SearchBar = (props: SearchBarProps & PassedInProps): JSX.Element => {
   const classes = useStyles();
-  const { expanded, clickHandler, searchValue, color } = props;
+  const { expanded, clickHandler, searchValue } = props;
   return (
-    <AppBar
-      elevation={0}
-      className={classes.root}
-      style={{ background: color }}
-    >
+    <AppBar elevation={0} className={classes.root} color={'transparent'}>
       <Toolbar>
         <Grid item xs={12}>
           <IconButton
@@ -115,7 +111,6 @@ const SearchBar = (props: SearchBarProps & PassedInProps): JSX.Element => {
 interface PassedInProps {
   clickHandler: () => void;
   expanded: boolean;
-  color: '#313131' | 'transparent';
 }
 
 interface SearchBarProps {
