@@ -10,8 +10,6 @@ import {
   WorkoutExercise,
 } from 'workout-app-common-core';
 import { findExercise } from 'workout-app-common-core';
-import { IconButton } from '@material-ui/core';
-import TodayIcon from '@material-ui/icons/Today';
 import LastExerciseDialog from './components/LastExerciseDialog';
 
 const ActiveExercise = (
