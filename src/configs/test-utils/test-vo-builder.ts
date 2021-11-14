@@ -7,6 +7,7 @@ import {
   RoutineTemplateVO,
   WorkoutCategoryVO,
   WorkoutEquipmentVO,
+  UserWeight,
 } from 'workout-app-common-core';
 import { chance } from 'jest-chance';
 
@@ -21,14 +22,47 @@ import { chance } from 'jest-chance';
 //   };
 // };
 
-export const buildMockActiveWorkout = (
+export const buildMultipleMockUserWeights = (n: number): UserWeight[] => {
+  let i = 0;
+  const mockUserWeights: UserWeight[] = [];
+  while (n > i) {
+    i++;
+    mockUserWeights.push(buildMockUserWeight());
+  }
+  return mockUserWeights;
+};
+
+export const buildMockUserWeight = (): UserWeight => {
+  return {
+    id: chance.string(),
+    weight: chance.integer({ min: 150, max: 250 }).toString(),
+    lastUpdatedOn: chance.date().toLocaleDateString(),
+  };
+};
+
+export const buildMultipleMockWorkouts = (n: number): Workout[] => {
+  let i = 0;
+  const mockWorkouts: Workout[] = [];
+  while (n > i) {
+    i++;
+    mockWorkouts.push(
+      buildMockWorkout(
+        chance.integer({ min: 1, max: 5 }),
+        chance.integer({ min: 3, max: 7 })
+      )
+    );
+  }
+  return mockWorkouts;
+};
+
+export const buildMockWorkout = (
   phases: number,
   segments: number,
   date?: string
 ): Workout => {
   return {
     id: chance.string(),
-    date: date ? date : chance.date().toDateString(),
+    date: date ? date : chance.date().toLocaleDateString(),
     startTime: chance.timestamp().toString(),
     endTime: chance.timestamp().toString(),
     routine: {
@@ -120,7 +154,7 @@ export const buildMultipleMockSegments = (n: number): Segment[] => {
 export const buildMockSegment = (): Segment => {
   return {
     id: chance.string(),
-    order: chance.d4(),
+    order: chance.integer({ min: 1, max: 10 }),
     trainingSetTypeId: chance.string(),
     secondsRestBetweenSets: chance.integer({ min: 15, max: 120 }),
     secondsRestBetweenNextSegment: chance.integer({ min: 60, max: 240 }),
