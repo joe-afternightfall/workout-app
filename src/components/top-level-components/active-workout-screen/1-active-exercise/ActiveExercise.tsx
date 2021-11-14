@@ -3,8 +3,16 @@ import { connect } from 'react-redux';
 import ExerciseItem from './components/ExerciseItem';
 import ExerciseDivider from './components/ExerciseDivider';
 import { State } from '../../../../configs/redux/store';
-import { Segment, isSuperset, ExerciseVO } from 'workout-app-common-core';
+import {
+  Segment,
+  isSuperset,
+  ExerciseVO,
+  WorkoutExercise,
+} from 'workout-app-common-core';
 import { findExercise } from 'workout-app-common-core';
+import { IconButton } from '@material-ui/core';
+import TodayIcon from '@material-ui/icons/Today';
+import LastExerciseDialog from './components/LastExerciseDialog';
 
 const ActiveExercise = (
   props: ActiveExerciseProps & PassedInProps
@@ -15,7 +23,9 @@ const ActiveExercise = (
   const info: {
     title: string;
     exerciseIcon: string;
+    workoutExercise: WorkoutExercise;
   }[] = [];
+  const lastExerciseStats: WorkoutExercise[] = [];
 
   segment.exercises.map((workoutExercise) => {
     const foundExercise = findExercise(
@@ -26,13 +36,17 @@ const ActiveExercise = (
       info.push({
         title: foundExercise.name,
         exerciseIcon: foundExercise.iconId,
+        workoutExercise: workoutExercise,
       });
     }
   });
 
+  info.map((stats) => lastExerciseStats.push(stats.workoutExercise));
+
   return (
     <div style={{ height: superset ? '34vh' : '20vh' }}>
       <ExerciseItem bottom={false} info={info[0]} />
+      <LastExerciseDialog exercises={lastExerciseStats} />
 
       {superset && (
         <>
