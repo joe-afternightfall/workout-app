@@ -73,9 +73,11 @@ const LastExerciseDialog = (
 
   return (
     <>
-      <IconButton className={classes.iconButton} onClick={openDialog}>
-        <TodayIcon />
-      </IconButton>
+      {pastExercises.length > 0 && (
+        <IconButton className={classes.iconButton} onClick={openDialog}>
+          <TodayIcon />
+        </IconButton>
+      )}
       <Dialog open={open} fullWidth maxWidth={'md'} onClose={closeDialog}>
         <DialogTitle disableTypography>{'Most Recent Stats'}</DialogTitle>
         <DialogContent>
