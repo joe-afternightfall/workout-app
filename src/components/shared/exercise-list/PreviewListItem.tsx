@@ -13,7 +13,7 @@ import SingleSetItem from './SingleSetItem';
 import { Draggable } from 'react-smooth-dnd';
 import { State } from '../../../configs/redux/store';
 import { PhaseTypeEditingSegment } from '../../../configs/types';
-import EditOptions from '../../top-level-components/workout-routines-screen/views/3-preview-list/components/edit-set/components/EditOptions';
+import EditOptions from '../../top-level-components/workout-screens/3-preview-workout/components/edit-set/components/EditOptions';
 
 const PreviewListItem = (
   props: PreviewListItemProps & PassedInProps

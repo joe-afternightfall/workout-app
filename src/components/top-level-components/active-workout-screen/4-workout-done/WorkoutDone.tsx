@@ -8,7 +8,7 @@ import { State } from '../../../../configs/redux/store';
 import InfoRow from './InfoRow';
 import InfoDivider from './InfoDivider';
 import AngryGorilla from '../../../../configs/icons/angry-gorilla.svg';
-import { DASHBOARD_SCREEN_PATH } from '../../../../configs/constants/app';
+import { DASHBOARD_SCREEN_PATH } from '../../../../configs/constants/app-routing';
 import { routerActions } from 'connected-react-router';
 import Confetti from 'react-confetti';
 

@@ -11,13 +11,13 @@ import { State } from '../../../configs/redux/store';
 import { validatedUser } from '../../../creators/user-info';
 import { getUserProfile } from '../../../services/user-profile';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { DASHBOARD_SCREEN_PATH } from '../../../configs/constants/app';
+import { DASHBOARD_SCREEN_PATH } from '../../../configs/constants/app-routing';
 
 const useStyles = makeStyles(() =>
   createStyles({
     root: {
       height: '100vh',
-      backgroundColor: '#1A2474',
+      backgroundColor: '#222222',
     },
   })
 );

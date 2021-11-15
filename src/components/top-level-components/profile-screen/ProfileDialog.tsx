@@ -17,7 +17,7 @@ import {
 import {
   NUMBERS_ONLY_REGEX,
   DISPLAY_NAME_REGEX,
-} from '../../../configs/constants/app';
+} from '../../../configs/constants/app-routing';
 import {
   getUserProfile,
   updateUserProfile,
