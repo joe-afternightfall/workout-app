@@ -1,8 +1,8 @@
 import React from 'react';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
+import { IconButton, Button } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import { Grid, IconButton, Button } from '@material-ui/core';
 import TopAppBar from '../../../../../../app-shell/TopAppBar';
 import { State } from '../../../../../../../configs/redux/store';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
@@ -40,15 +40,13 @@ const EditAppBar = (props: EditAppBarProps): JSX.Element => {
       }
       rightButton={
         displayDoneButton ? (
-          <Grid item xs={2} container justify={'flex-end'}>
-            <Button
-              variant={'text'}
-              color={'primary'}
-              onClick={props.doneClickHandler}
-            >
-              {'Done'}
-            </Button>
-          </Grid>
+          <Button
+            variant={'text'}
+            color={'primary'}
+            onClick={props.doneClickHandler}
+          >
+            {'Done'}
+          </Button>
         ) : undefined
       }
     />
