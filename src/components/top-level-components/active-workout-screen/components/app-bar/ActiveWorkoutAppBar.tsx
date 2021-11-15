@@ -17,7 +17,7 @@ const headerTitle = (text: string, variant: Variant) => {
 };
 
 const ActiveWorkoutAppBar = (props: ActiveWorkoutAppBarProps): JSX.Element => {
-  const { phaseName, currentSegmentCount } = props;
+  const { phaseName, displayEditSet, currentSegmentCount } = props;
 
   return (
     <TopAppBar
@@ -27,6 +27,7 @@ const ActiveWorkoutAppBar = (props: ActiveWorkoutAppBarProps): JSX.Element => {
           {headerTitle(currentSegmentCount, 'subtitle1')}
         </>
       }
+      hideToolbarMixin={displayEditSet}
       disableGutters
       position={'absolute'}
       color={'transparent'}
@@ -38,6 +39,7 @@ const ActiveWorkoutAppBar = (props: ActiveWorkoutAppBarProps): JSX.Element => {
 
 interface ActiveWorkoutAppBarProps {
   phaseName: string;
+  displayEditSet: boolean;
   currentSegmentCount: string;
 }
 
@@ -51,6 +53,7 @@ const mapStateToProps = (state: State): ActiveWorkoutAppBarProps => {
       state.workoutState.currentPhase.phaseId
     ),
     currentSegmentCount: `${currentSegmentIndex} of ${totalSegments}`,
+    displayEditSet: state.workoutState.displayEditSet,
   } as unknown as ActiveWorkoutAppBarProps;
 };
 

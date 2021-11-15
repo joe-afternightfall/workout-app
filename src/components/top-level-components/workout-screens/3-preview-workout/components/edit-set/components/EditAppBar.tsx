@@ -20,13 +20,14 @@ const useStyles = makeStyles(() =>
   })
 );
 
-const EditAppBar = (props: EditAppBarProps): JSX.Element => {
+const EditAppBar = (props: EditAppBarProps & PassedInProps): JSX.Element => {
   const classes = useStyles();
-  const { displayDoneButton } = props;
+  const { displayDoneButton, hideToolbarMixin } = props;
 
   return (
     <TopAppBar
       title={'Edit'}
+      hideToolbarMixin={hideToolbarMixin}
       leftButton={
         displayDoneButton ? undefined : (
           <IconButton
@@ -52,6 +53,10 @@ const EditAppBar = (props: EditAppBarProps): JSX.Element => {
     />
   );
 };
+
+interface PassedInProps {
+  hideToolbarMixin?: boolean;
+}
 
 interface EditAppBarProps {
   displayDoneButton: boolean;

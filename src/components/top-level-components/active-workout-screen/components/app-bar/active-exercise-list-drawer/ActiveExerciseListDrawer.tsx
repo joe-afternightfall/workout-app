@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import ListIcon from '@material-ui/icons/List';
 import { Segment } from 'workout-app-common-core';
-import { Drawer, IconButton } from '@material-ui/core';
+import { Drawer, Grid, IconButton } from '@material-ui/core';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import ActiveExerciseList from './components/list/ActiveExerciseList';
 import SelectedExerciseOverlay from './components/SelectedExerciseOverlay';
@@ -60,10 +60,19 @@ const ActiveExerciseListDrawer = (
       <IconButton color={'primary'} onClick={openDialog}>
         <ListIcon />
       </IconButton>
-      <Drawer open={open} anchor={'bottom'} onClose={closeAndReset}>
+      <Drawer
+        open={open}
+        anchor={'bottom'}
+        onClose={closeAndReset}
+        PaperProps={{
+          style: { padding: displayEditSet ? 8 : 0 },
+        }}
+      >
         <div className={classes.drawerContainer}>
           {displayEditSet ? (
-            <EditSet />
+            <Grid item xs={12}>
+              <EditSet hideToolbarMixin />
+            </Grid>
           ) : (
             <>
               {displayExerciseWidget ? (
