@@ -8,7 +8,7 @@ import SelectedExerciseOverlay from './components/SelectedExerciseOverlay';
 import ActiveExerciseListAppBar from './components/ActiveExerciseListAppBar';
 import { State } from '../../../../../../configs/redux/store';
 import { connect } from 'react-redux';
-import EditSet from '../../../../workout-routines-screen/views/3-preview-list/components/edit-set/EditSet';
+import EditSet from '../../../../workout-screens/3-preview-workout/components/edit-set/EditSet';
 import { toggleEditOptionButtons } from '../../../../../../creators/workout/workout-selections';
 import { Dispatch } from 'redux';
 
