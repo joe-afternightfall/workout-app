@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
-import { AppTheme } from '../../../../../../../../configs/theme/app-theme';
+import { AppTheme } from '../../../../../../../configs/theme/app-theme';
 
 export default function ActionButton(props: ActionButtonProps): JSX.Element {
   const { icon, soloButton, disabled, clickHandler } = props;
