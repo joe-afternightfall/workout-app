@@ -17,7 +17,7 @@ import * as ramda from 'ramda';
 import { LOCATION_CHANGE } from 'connected-react-router';
 import { getPageInfo } from '../utils/get-current-page-info';
 import { ExerciseImage } from '../creators/load-workout-configs';
-import { ApplicationRouteProp } from '../configs/constants/app';
+import { ApplicationRouteProp } from '../configs/constants/app-routing';
 import { ActionTypes, ApplicationActions } from '../creators/actions';
 
 export default {
@@ -33,7 +33,7 @@ export default {
         const activePage = getPageInfo(newState.currentLocation);
         newState.activePage = activePage;
         if (activePage) {
-          newState.selectedNavTestId = activePage.testId;
+          newState.selectedNavTestId = activePage.id;
         }
         break;
       }
