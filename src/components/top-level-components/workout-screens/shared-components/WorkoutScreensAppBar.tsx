@@ -10,14 +10,14 @@ import {
 } from '@material-ui/core';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
+import DiscardDialog from './DiscardDialog';
 import { routerActions } from 'connected-react-router';
+import { State } from '../../../../configs/redux/store';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { openEditPreviewOptions } from '../../../../creators/workout/workout-selections';
-import { State } from '../../../../configs/redux/store';
-import DiscardDialog from './DiscardDialog';
-import { saveEditedVersionOfRoutine } from '../../../../creators/workout/preview-workout';
 import { DASHBOARD_SCREEN_PATH } from '../../../../configs/constants/app-routing';
+import { openEditPreviewOptions } from '../../../../creators/workout/workout-selections';
+import { saveEditedVersionOfRoutine } from '../../../../creators/workout/preview-workout';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -38,8 +38,8 @@ const useStyles = makeStyles(() =>
   })
 );
 
-const MessageAppBar = (
-  props: MessageAppBarProps & PassedInProps
+const WorkoutScreensAppBar = (
+  props: WorkoutScreensAppBarProps & PassedInProps
 ): JSX.Element => {
   const classes = useStyles();
   let appBarMessage = '';
@@ -117,7 +117,7 @@ interface PassedInProps {
   clickHandler: () => void;
 }
 
-interface MessageAppBarProps {
+interface WorkoutScreensAppBarProps {
   routeToDashboardClickHandler: () => void;
   editClickHandler: () => void;
   displayEditOptions: boolean;
@@ -125,14 +125,14 @@ interface MessageAppBarProps {
   saveEditedVersionOfRoutine: () => void;
 }
 
-const mapStateToProps = (state: State): MessageAppBarProps => {
+const mapStateToProps = (state: State): WorkoutScreensAppBarProps => {
   return {
     displayEditOptions: state.workoutState.editOptions.open,
     displayEditSet: state.workoutState.displayEditSet,
-  } as unknown as MessageAppBarProps;
+  } as unknown as WorkoutScreensAppBarProps;
 };
 
-const mapDispatchToProps = (dispatch: Dispatch): MessageAppBarProps =>
+const mapDispatchToProps = (dispatch: Dispatch): WorkoutScreensAppBarProps =>
   ({
     routeToDashboardClickHandler: () => {
       dispatch(routerActions.push(DASHBOARD_SCREEN_PATH));
@@ -143,6 +143,9 @@ const mapDispatchToProps = (dispatch: Dispatch): MessageAppBarProps =>
     saveEditedVersionOfRoutine: () => {
       dispatch(saveEditedVersionOfRoutine());
     },
-  } as unknown as MessageAppBarProps);
+  } as unknown as WorkoutScreensAppBarProps);
 
-export default connect(mapStateToProps, mapDispatchToProps)(MessageAppBar);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(WorkoutScreensAppBar);
