@@ -10,12 +10,12 @@ import {
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import { State } from '../../../../../../../../configs/redux/store';
+import { State } from '../../../../../../../configs/redux/store';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import {
   closeEditSet,
   toggleExerciseWidgetOnRoutinePreviewPage,
-} from '../../../../../../../../creators/workout/workout-selections';
+} from '../../../../../../../creators/workout/workout-selections';
 
 const useStyles = makeStyles(() =>
   createStyles({
