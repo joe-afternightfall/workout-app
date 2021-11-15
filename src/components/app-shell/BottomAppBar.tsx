@@ -35,7 +35,7 @@ const useStyles = makeStyles(() =>
   })
 );
 
-const AppBottomNavigation = (props: AppBottomNavigationProps): JSX.Element => {
+const BottomAppBar = (props: BottomAppBarProps): JSX.Element => {
   const classes = useStyles();
 
   return (
@@ -79,25 +79,22 @@ const AppBottomNavigation = (props: AppBottomNavigationProps): JSX.Element => {
   );
 };
 
-interface AppBottomNavigationProps {
+interface BottomAppBarProps {
   routeClickHandler: (path: string) => void;
   selectedNavTestId: string;
 }
 
-const mapStateToProps = (state: State): AppBottomNavigationProps => {
+const mapStateToProps = (state: State): BottomAppBarProps => {
   return {
     selectedNavTestId: state.applicationState.selectedNavTestId,
-  } as unknown as AppBottomNavigationProps;
+  } as unknown as BottomAppBarProps;
 };
 
-const mapDispatchToProps = (dispatch: Dispatch): AppBottomNavigationProps =>
+const mapDispatchToProps = (dispatch: Dispatch): BottomAppBarProps =>
   ({
     routeClickHandler: (path: string) => {
       dispatch(routerActions.push(path));
     },
-  } as unknown as AppBottomNavigationProps);
+  } as unknown as BottomAppBarProps);
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(AppBottomNavigation);
+export default connect(mapStateToProps, mapDispatchToProps)(BottomAppBar);
