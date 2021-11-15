@@ -1,15 +1,9 @@
 import React from 'react';
-import {
-  AppBar,
-  Grid,
-  Toolbar,
-  Typography,
-  IconButton,
-  Button,
-} from '@material-ui/core';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import { Grid, IconButton, Button } from '@material-ui/core';
+import TopAppBar from '../../../../../../app-shell/TopAppBar';
 import { State } from '../../../../../../../configs/redux/store';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import {
@@ -19,18 +13,9 @@ import {
 
 const useStyles = makeStyles(() =>
   createStyles({
-    appBar: {
-      height: '8vh',
-    },
-    gridWrapper: {
-      height: '100%',
-    },
     menuButton: {
       paddingTop: 8,
       paddingBottom: 8,
-    },
-    toolbarMixin: {
-      height: '7vh',
     },
   })
 );
@@ -40,60 +25,33 @@ const EditAppBar = (props: EditAppBarProps): JSX.Element => {
   const { displayDoneButton } = props;
 
   return (
-    <>
-      <AppBar
-        color={'inherit'}
-        elevation={0}
-        position={'fixed'}
-        className={classes.appBar}
-      >
-        <Toolbar>
-          <Grid container className={classes.gridWrapper} alignItems={'center'}>
-            {displayDoneButton ? (
-              <Grid item xs={2} />
-            ) : (
-              <Grid item xs={2}>
-                <IconButton
-                  color={'primary'}
-                  className={classes.menuButton}
-                  onClick={props.closeClickHandler}
-                >
-                  <ArrowBackIcon fontSize={'small'} />
-                </IconButton>
-              </Grid>
-            )}
-
-            <Grid
-              item
-              xs={8}
-              container
-              justify={'center'}
-              alignItems={'center'}
+    <TopAppBar
+      title={'Edit'}
+      leftButton={
+        displayDoneButton ? undefined : (
+          <IconButton
+            color={'primary'}
+            className={classes.menuButton}
+            onClick={props.closeClickHandler}
+          >
+            <ArrowBackIcon fontSize={'small'} />
+          </IconButton>
+        )
+      }
+      rightButton={
+        displayDoneButton ? (
+          <Grid item xs={2} container justify={'flex-end'}>
+            <Button
+              variant={'text'}
+              color={'primary'}
+              onClick={props.doneClickHandler}
             >
-              <Grid item>
-                <Typography variant={'body1'}>{'Edit'}</Typography>
-              </Grid>
-            </Grid>
-
-            {displayDoneButton ? (
-              <Grid item xs={2} container justify={'flex-end'}>
-                <Button
-                  variant={'text'}
-                  color={'primary'}
-                  onClick={props.doneClickHandler}
-                >
-                  {'Done'}
-                </Button>
-              </Grid>
-            ) : (
-              <Grid item xs={2} />
-            )}
+              {'Done'}
+            </Button>
           </Grid>
-        </Toolbar>
-      </AppBar>
-
-      <div className={classes.toolbarMixin} />
-    </>
+        ) : undefined
+      }
+    />
   );
 };
 
