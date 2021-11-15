@@ -1,35 +1,20 @@
 import React from 'react';
-import {
-  Grid,
-  AppBar,
-  Toolbar,
-  Typography,
-  IconButton,
-} from '@material-ui/core';
-import { ExerciseVO, ManikinMuscleGroupVO } from 'workout-app-common-core';
 import { connect } from 'react-redux';
+import FilterDrawer from './FilterDrawer';
+import { IconButton } from '@material-ui/core';
+import TopAppBar from '../../../app-shell/TopAppBar';
 import ArrowBack from '@material-ui/icons/ArrowBackIos';
 import { State } from '../../../../configs/redux/store';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
-import FilterDrawer from './FilterDrawer';
-
-const useStyles = makeStyles(() =>
-  createStyles({
-    appBar: {
-      height: '8vh',
-    },
-  })
-);
+import { ExerciseVO, ManikinMuscleGroupVO } from 'workout-app-common-core';
 
 const ExercisesAppBar = (
   props: ExercisesAppBarProps & PassedInProps
 ): JSX.Element => {
-  const classes = useStyles();
-
   const {
     activeTab,
     manikinMuscleGroups,
     selectedMuscleId,
+    hideToolbarMixin,
     selectedExercise,
     goBackHandler,
     alwaysDisplayBackButton,
@@ -62,33 +47,18 @@ const ExercisesAppBar = (
   }
 
   return (
-    <AppBar
-      elevation={0}
-      position={'fixed'}
-      color={'inherit'}
-      className={classes.appBar}
-    >
-      <Toolbar>
-        <Grid container alignItems={'center'}>
-          <Grid item xs={2}>
-            {displayBackButton && (
-              <IconButton onClick={goBackHandler}>
-                <ArrowBack />
-              </IconButton>
-            )}
-          </Grid>
-
-          <Grid item xs={8} container justify={'center'}>
-            <Typography variant={'body1'} noWrap>
-              {title}
-            </Typography>
-          </Grid>
-          <Grid item xs={2} container justify={'flex-end'}>
-            {displayFilterButton && <FilterDrawer />}
-          </Grid>
-        </Grid>
-      </Toolbar>
-    </AppBar>
+    <TopAppBar
+      title={title}
+      leftButton={
+        displayBackButton ? (
+          <IconButton onClick={goBackHandler}>
+            <ArrowBack />
+          </IconButton>
+        ) : undefined
+      }
+      rightButton={displayFilterButton ? <FilterDrawer /> : undefined}
+      hideToolbarMixin={hideToolbarMixin}
+    />
   );
 };
 
@@ -97,6 +67,7 @@ interface PassedInProps {
   alwaysDisplayBackButton: boolean;
   selectedMuscleId: string;
   goBackHandler: () => void;
+  hideToolbarMixin?: boolean;
   selectedExercise: ExerciseVO | null;
 }
 
