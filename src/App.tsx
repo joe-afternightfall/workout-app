@@ -9,7 +9,7 @@ import React, { Component } from 'react';
 import { Styles } from '@material-ui/styles';
 import { getTheme } from './configs/theme/app-theme';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import AppBottomNavigation from './components/app-shell/AppBottomNavigation';
+import BottomAppBar from './components/app-shell/BottomAppBar';
 import ProfileDialog from './components/top-level-components/profile-screen/ProfileDialog';
 import WhichPhaseDialog from './components/app-shell/WhichPhaseDialog';
 import DeleteExerciseDrawer from './components/app-shell/DeleteExerciseDrawer';
@@ -36,7 +36,7 @@ class App extends Component<AppProps> {
             <div>{this.props.children}</div>
           </main>
 
-          <AppBottomNavigation />
+          <BottomAppBar />
         </div>
       </MuiThemeProvider>
     );
