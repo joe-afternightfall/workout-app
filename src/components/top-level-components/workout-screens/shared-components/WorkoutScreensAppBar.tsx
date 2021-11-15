@@ -39,24 +39,25 @@ const useStyles = makeStyles(() =>
 );
 
 const WorkoutScreensAppBar = (
-  props: WorkoutScreensAppBarProps & PassedInProps
+  props: WorkoutScreensAppBarProps
 ): JSX.Element => {
   const classes = useStyles();
-  let appBarMessage = '';
+  const appBarMessage = 'Workouts';
 
-  switch (props.activeTab) {
-    case 0:
-      appBarMessage = 'Workouts';
-      break;
-    case 1:
-      appBarMessage = 'Routines';
-      break;
-    case 2:
-      appBarMessage = 'Preview Workout';
-      break;
-    default:
-      break;
-  }
+  // todo: setup switch based on current page
+  // switch (props.activeTab) {
+  //   case 0:
+  //     appBarMessage = 'Workouts';
+  //     break;
+  //   case 1:
+  //     appBarMessage = 'Routines';
+  //     break;
+  //   case 2:
+  //     appBarMessage = 'Preview Workout';
+  //     break;
+  //   default:
+  //     break;
+  // }
 
   return props.displayEditSet ? (
     <React.Fragment />
@@ -70,11 +71,7 @@ const WorkoutScreensAppBar = (
             ) : (
               <IconButton
                 color={'primary'}
-                onClick={
-                  props.activeTab === 0
-                    ? props.routeToDashboardClickHandler
-                    : props.clickHandler
-                }
+                onClick={props.routeToDashboardClickHandler}
                 className={classes.menuButton}
               >
                 <ArrowBackIcon fontSize={'small'} />
@@ -95,7 +92,8 @@ const WorkoutScreensAppBar = (
               variant={'text'}
               color={'primary'}
               className={clsx({
-                [classes.hide]: appBarMessage !== 'Preview Workout',
+                // todo: hide based on if current page is preview workout
+                // [classes.hide]: appBarMessage !== 'Preview Workout',
               })}
               onClick={
                 props.displayEditOptions
@@ -111,11 +109,6 @@ const WorkoutScreensAppBar = (
     </AppBar>
   );
 };
-
-interface PassedInProps {
-  activeTab: number;
-  clickHandler: () => void;
-}
 
 interface WorkoutScreensAppBarProps {
   routeToDashboardClickHandler: () => void;
