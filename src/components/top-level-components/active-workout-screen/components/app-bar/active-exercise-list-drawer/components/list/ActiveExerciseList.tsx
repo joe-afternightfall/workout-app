@@ -53,7 +53,7 @@ const ActiveExerciseList = (
     );
   } else {
     display = (
-      <List>
+      <List style={{ paddingBottom: '6vh' }}>
         {doneSegments.length > 0 && <DoneSection doneSegments={doneSegments} />}
 
         <CategoryHeader title={'Current'} />

@@ -1,8 +1,8 @@
 import React from 'react';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
+import { IconButton, Button } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import { Grid, IconButton, Button } from '@material-ui/core';
 import TopAppBar from '../../../../../../app-shell/TopAppBar';
 import { State } from '../../../../../../../configs/redux/store';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
@@ -20,13 +20,14 @@ const useStyles = makeStyles(() =>
   })
 );
 
-const EditAppBar = (props: EditAppBarProps): JSX.Element => {
+const EditAppBar = (props: EditAppBarProps & PassedInProps): JSX.Element => {
   const classes = useStyles();
-  const { displayDoneButton } = props;
+  const { displayDoneButton, hideToolbarMixin } = props;
 
   return (
     <TopAppBar
       title={'Edit'}
+      hideToolbarMixin={hideToolbarMixin}
       leftButton={
         displayDoneButton ? undefined : (
           <IconButton
@@ -40,20 +41,22 @@ const EditAppBar = (props: EditAppBarProps): JSX.Element => {
       }
       rightButton={
         displayDoneButton ? (
-          <Grid item xs={2} container justify={'flex-end'}>
-            <Button
-              variant={'text'}
-              color={'primary'}
-              onClick={props.doneClickHandler}
-            >
-              {'Done'}
-            </Button>
-          </Grid>
+          <Button
+            variant={'text'}
+            color={'primary'}
+            onClick={props.doneClickHandler}
+          >
+            {'Done'}
+          </Button>
         ) : undefined
       }
     />
   );
 };
+
+interface PassedInProps {
+  hideToolbarMixin?: boolean;
+}
 
 interface EditAppBarProps {
   displayDoneButton: boolean;

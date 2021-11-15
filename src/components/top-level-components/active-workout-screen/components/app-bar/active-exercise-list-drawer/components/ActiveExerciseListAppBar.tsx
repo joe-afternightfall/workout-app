@@ -18,6 +18,7 @@ export default function ActiveExerciseListAppBar(
     <TopAppBar
       title={'Exercise List'}
       position={'absolute'}
+      hideToolbarMixin
       leftButton={
         selectedSegment ? (
           <IconButton onClick={goBackClickHandler}>

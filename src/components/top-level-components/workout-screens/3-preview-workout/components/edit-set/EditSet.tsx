@@ -47,13 +47,14 @@ const EditSet = ({
   deleteClickHandler,
   addSetClickHandler,
   alternateSides,
-}: EditSetProps): JSX.Element => {
+  hideToolbarMixin,
+}: EditSetProps & PassedInProps): JSX.Element => {
   const classes = useStyles();
 
   const atMaxSets = segment.exercises[0].sets.length === 5;
   return (
     <>
-      <EditAppBar />
+      <EditAppBar hideToolbarMixin={hideToolbarMixin} />
 
       <Grid container>
         <Grid item xs={12}>
@@ -115,6 +116,10 @@ const EditSet = ({
     </>
   );
 };
+
+interface PassedInProps {
+  hideToolbarMixin?: boolean;
+}
 
 interface EditSetProps {
   segment: Segment;
