@@ -11,7 +11,7 @@ import { State } from '../../../configs/redux/store';
 import { buildSetInfo } from '../../../utils/set-info-builder';
 import ActiveWorkout, { ActiveWorkoutProps } from './ActiveWorkout';
 import { saveWorkoutForUser } from '../../../services/user-profile';
-import { WORKOUT_DONE_PATH } from '../../../configs/constants/app';
+import { WORKOUT_DONE_PATH } from '../../../configs/constants/app-routing';
 import { markCurrentSetAsDone } from '../../../creators/workout/active-workout';
 
 const mapStateToProps = (state: State): ActiveWorkoutProps => {
