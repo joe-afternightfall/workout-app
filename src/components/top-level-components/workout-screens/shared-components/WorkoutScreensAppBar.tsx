@@ -1,40 +1,31 @@
 import clsx from 'clsx';
 import React from 'react';
-import {
-  Grid,
-  AppBar,
-  Button,
-  Toolbar,
-  IconButton,
-  Typography,
-} from '@material-ui/core';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import DiscardDialog from './DiscardDialog';
+import {
+  ROUTINES_SCREEN_ID,
+  ApplicationRouteProp,
+  PREVIEW_ROUTINE_SCREEN_ID,
+  ALL_WORKOUTS_SCREEN_ID,
+  DASHBOARD_SCREEN_PATH,
+  ROUTINES_SCREEN_PATH,
+  ALL_WORKOUTS_SCREEN_PATH,
+} from '../../../../configs/constants/app-routing';
+import TopAppBar from '../../../app-shell/TopAppBar';
+import { Button, IconButton } from '@material-ui/core';
 import { routerActions } from 'connected-react-router';
 import { State } from '../../../../configs/redux/store';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import {
-  ApplicationRouteProp,
-  PREVIEW_ROUTINE_SCREEN_ID,
-  ROUTINES_SCREEN_ID,
-} from '../../../../configs/constants/app-routing';
 import { openEditPreviewOptions } from '../../../../creators/workout/workout-selections';
 import { saveEditedVersionOfRoutine } from '../../../../creators/workout/preview-workout';
 
 const useStyles = makeStyles(() =>
   createStyles({
-    toolbar: {
-      padding: '0 12px',
-      height: '8vh',
-    },
     menuButton: {
       paddingTop: 8,
       paddingBottom: 8,
-    },
-    gridWrapper: {
-      height: '100%',
     },
     hide: {
       display: 'none',
@@ -47,14 +38,20 @@ const WorkoutScreensAppBar = (
 ): JSX.Element => {
   const classes = useStyles();
   let appBarMessage = 'Workouts';
+  let goBackRoute = '';
   const { activePage, displayEditOptions, displayEditSet } = props;
 
   if (activePage) {
     switch (activePage.id) {
+      case ALL_WORKOUTS_SCREEN_ID:
+        goBackRoute = DASHBOARD_SCREEN_PATH;
+        break;
       case ROUTINES_SCREEN_ID:
+        goBackRoute = ALL_WORKOUTS_SCREEN_PATH;
         appBarMessage = 'Routines';
         break;
       case PREVIEW_ROUTINE_SCREEN_ID:
+        goBackRoute = ROUTINES_SCREEN_PATH;
         appBarMessage = 'Preview Workout';
         break;
       default:
@@ -65,51 +62,42 @@ const WorkoutScreensAppBar = (
   return displayEditSet ? (
     <React.Fragment />
   ) : (
-    <AppBar position={'absolute'} color={'transparent'} elevation={0}>
-      <Toolbar className={classes.toolbar}>
-        <Grid container className={classes.gridWrapper} alignItems={'flex-end'}>
-          <Grid item xs={2}>
-            {displayEditOptions ? (
-              <DiscardDialog />
-            ) : (
-              <IconButton
-                color={'primary'}
-                onClick={props.goBackHandler}
-                className={classes.menuButton}
-              >
-                <ArrowBackIcon fontSize={'small'} />
-              </IconButton>
-            )}
-          </Grid>
-
-          <Grid item xs={8} container justify={'center'} alignItems={'center'}>
-            <Grid item>
-              <Typography variant={'overline'}>
-                {displayEditOptions ? '' : appBarMessage}
-              </Typography>
-            </Grid>
-          </Grid>
-
-          <Grid item xs={2} container justify={'flex-end'}>
-            <Button
-              variant={'text'}
-              color={'primary'}
-              className={clsx({
-                [classes.hide]:
-                  activePage && activePage.id !== PREVIEW_ROUTINE_SCREEN_ID,
-              })}
-              onClick={
-                displayEditOptions
-                  ? props.saveEditedVersionOfRoutine
-                  : props.editClickHandler
-              }
-            >
-              {displayEditOptions ? 'Save' : 'Edit'}
-            </Button>
-          </Grid>
-        </Grid>
-      </Toolbar>
-    </AppBar>
+    <TopAppBar
+      color={'transparent'}
+      title={displayEditOptions ? '' : appBarMessage}
+      leftButton={
+        displayEditOptions ? (
+          <DiscardDialog />
+        ) : (
+          <IconButton
+            color={'primary'}
+            onClick={() => {
+              props.goBackHandler(goBackRoute);
+            }}
+            className={classes.menuButton}
+          >
+            <ArrowBackIcon fontSize={'small'} />
+          </IconButton>
+        )
+      }
+      rightButton={
+        <Button
+          variant={'text'}
+          color={'primary'}
+          className={clsx({
+            [classes.hide]:
+              activePage && activePage.id !== PREVIEW_ROUTINE_SCREEN_ID,
+          })}
+          onClick={
+            displayEditOptions
+              ? props.saveEditedVersionOfRoutine
+              : props.editClickHandler
+          }
+        >
+          {displayEditOptions ? 'Save' : 'Edit'}
+        </Button>
+      }
+    />
   );
 };
 
@@ -117,7 +105,7 @@ interface WorkoutScreensAppBarProps {
   displayEditOptions: boolean;
   displayEditSet: boolean;
   activePage: ApplicationRouteProp | undefined;
-  goBackHandler: () => void;
+  goBackHandler: (goBackRoute: string) => void;
   editClickHandler: () => void;
   saveEditedVersionOfRoutine: () => void;
 }
@@ -132,8 +120,8 @@ const mapStateToProps = (state: State): WorkoutScreensAppBarProps => {
 
 const mapDispatchToProps = (dispatch: Dispatch): WorkoutScreensAppBarProps =>
   ({
-    goBackHandler: () => {
-      dispatch(routerActions.goBack());
+    goBackHandler: (goBackRoute: string) => {
+      dispatch(routerActions.push(goBackRoute));
     },
     editClickHandler: () => {
       dispatch(openEditPreviewOptions());
