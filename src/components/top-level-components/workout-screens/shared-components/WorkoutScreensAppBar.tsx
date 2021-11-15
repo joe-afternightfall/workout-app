@@ -64,6 +64,8 @@ const WorkoutScreensAppBar = (
   ) : (
     <TopAppBar
       color={'transparent'}
+      disableGutters
+      position={displayEditOptions ? 'absolute' : 'fixed'}
       title={displayEditOptions ? '' : appBarMessage}
       leftButton={
         displayEditOptions ? (

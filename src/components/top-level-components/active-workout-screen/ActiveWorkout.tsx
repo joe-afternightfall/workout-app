@@ -7,15 +7,6 @@ import ActiveSuperset from './2-active-set/ActiveSuperset';
 import ActiveExercise from './1-active-exercise/ActiveExercise';
 import ActiveStraightSet from './2-active-set/ActiveStraightSet';
 import { scroller, animateScroll as scroll } from 'react-scroll';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
-
-const useStyles = makeStyles(() =>
-  createStyles({
-    toolbarMixin: {
-      height: '7vh',
-    },
-  })
-);
 
 export default function ActiveWorkout({
   superset,
@@ -27,8 +18,6 @@ export default function ActiveWorkout({
   lastExerciseOfWorkout,
   crushedItClickHandler,
 }: ActiveWorkoutProps): JSX.Element {
-  const classes = useStyles();
-
   const scrollToSection = (setNumber: number) => {
     scroller.scrollTo(`active-set-${setNumber}`, {
       duration: 800,
@@ -61,8 +50,6 @@ export default function ActiveWorkout({
     <Slide mountOnEnter unmountOnExit in={true} direction={'up'}>
       <div>
         <ActiveWorkoutAppBar />
-
-        <div className={classes.toolbarMixin} />
 
         <Grid container style={{ height: '87vh' }}>
           <Grid item xs={12}>

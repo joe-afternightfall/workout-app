@@ -1,19 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import ExitDialog from './exit-dialog/ExitDialog';
-import { State } from '../../../../../configs/redux/store';
-import { Grid, AppBar, Toolbar, Typography } from '@material-ui/core';
-import ExerciseListDrawer from './active-exercise-list-drawer/ActiveExerciseListDrawer';
-import { Variant } from '@material-ui/core/styles/createTypography';
+import { Grid, Typography } from '@material-ui/core';
 import { getPhaseName } from 'workout-app-common-core';
-
-const endSection = (element: JSX.Element) => {
-  return (
-    <Grid item xs={2} container justify={'center'} alignItems={'center'}>
-      {element}
-    </Grid>
-  );
-};
+import TopAppBar from '../../../../app-shell/TopAppBar';
+import { State } from '../../../../../configs/redux/store';
+import { Variant } from '@material-ui/core/styles/createTypography';
+import ExerciseListDrawer from './active-exercise-list-drawer/ActiveExerciseListDrawer';
 
 const headerTitle = (text: string, variant: Variant) => {
   return (
@@ -27,18 +20,19 @@ const ActiveWorkoutAppBar = (props: ActiveWorkoutAppBarProps): JSX.Element => {
   const { phaseName, currentSegmentCount } = props;
 
   return (
-    <AppBar position={'absolute'} color={'transparent'} elevation={0}>
-      <Toolbar disableGutters>
-        <Grid container>
-          {endSection(<ExitDialog />)}
-          <Grid item xs={8}>
-            {headerTitle(phaseName, 'overline')}
-            {headerTitle(currentSegmentCount, 'subtitle1')}
-          </Grid>
-          {endSection(<ExerciseListDrawer />)}
-        </Grid>
-      </Toolbar>
-    </AppBar>
+    <TopAppBar
+      title={
+        <>
+          {headerTitle(phaseName, 'overline')}
+          {headerTitle(currentSegmentCount, 'subtitle1')}
+        </>
+      }
+      disableGutters
+      position={'absolute'}
+      color={'transparent'}
+      leftButton={<ExitDialog />}
+      rightButton={<ExerciseListDrawer />}
+    />
   );
 };
 
