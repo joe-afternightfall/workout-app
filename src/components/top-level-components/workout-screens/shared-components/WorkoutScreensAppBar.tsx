@@ -48,7 +48,7 @@ const WorkoutScreensAppBar = (
 ): JSX.Element => {
   const classes = useStyles();
   let appBarMessage = 'Workouts';
-  const { activePage } = props;
+  const { activePage, displayEditOptions, displayEditSet } = props;
 
   // todo: setup switch based on current page
   if (activePage) {
@@ -64,19 +64,19 @@ const WorkoutScreensAppBar = (
     }
   }
 
-  return props.displayEditSet ? (
+  return displayEditSet ? (
     <React.Fragment />
   ) : (
     <AppBar position={'absolute'} color={'transparent'} elevation={0}>
       <Toolbar className={classes.toolbar}>
         <Grid container className={classes.gridWrapper} alignItems={'flex-end'}>
           <Grid item xs={2}>
-            {props.displayEditOptions ? (
+            {displayEditOptions ? (
               <DiscardDialog />
             ) : (
               <IconButton
                 color={'primary'}
-                onClick={props.routeToDashboardClickHandler}
+                onClick={props.goBackHandler}
                 className={classes.menuButton}
               >
                 <ArrowBackIcon fontSize={'small'} />
@@ -87,7 +87,7 @@ const WorkoutScreensAppBar = (
           <Grid item xs={8} container justify={'center'} alignItems={'center'}>
             <Grid item>
               <Typography variant={'overline'}>
-                {props.displayEditOptions ? '' : appBarMessage}
+                {displayEditOptions ? '' : appBarMessage}
               </Typography>
             </Grid>
           </Grid>
@@ -101,12 +101,12 @@ const WorkoutScreensAppBar = (
                   activePage && activePage.id !== PREVIEW_ROUTINE_SCREEN_ID,
               })}
               onClick={
-                props.displayEditOptions
+                displayEditOptions
                   ? props.saveEditedVersionOfRoutine
                   : props.editClickHandler
               }
             >
-              {props.displayEditOptions ? 'Save' : 'Edit'}
+              {displayEditOptions ? 'Save' : 'Edit'}
             </Button>
           </Grid>
         </Grid>
@@ -116,12 +116,12 @@ const WorkoutScreensAppBar = (
 };
 
 interface WorkoutScreensAppBarProps {
-  routeToDashboardClickHandler: () => void;
-  editClickHandler: () => void;
   displayEditOptions: boolean;
   displayEditSet: boolean;
-  saveEditedVersionOfRoutine: () => void;
   activePage: ApplicationRouteProp | undefined;
+  goBackHandler: () => void;
+  editClickHandler: () => void;
+  saveEditedVersionOfRoutine: () => void;
 }
 
 const mapStateToProps = (state: State): WorkoutScreensAppBarProps => {
@@ -134,8 +134,8 @@ const mapStateToProps = (state: State): WorkoutScreensAppBarProps => {
 
 const mapDispatchToProps = (dispatch: Dispatch): WorkoutScreensAppBarProps =>
   ({
-    routeToDashboardClickHandler: () => {
-      dispatch(routerActions.push(DASHBOARD_SCREEN_PATH));
+    goBackHandler: () => {
+      dispatch(routerActions.goBack());
     },
     editClickHandler: () => {
       dispatch(openEditPreviewOptions());
