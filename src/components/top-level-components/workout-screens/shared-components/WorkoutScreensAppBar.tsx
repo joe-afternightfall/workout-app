@@ -17,7 +17,6 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import {
   ApplicationRouteProp,
-  DASHBOARD_SCREEN_PATH,
   PREVIEW_ROUTINE_SCREEN_ID,
   ROUTINES_SCREEN_ID,
 } from '../../../../configs/constants/app-routing';
