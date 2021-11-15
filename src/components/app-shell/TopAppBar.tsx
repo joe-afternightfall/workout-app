@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { Grid, AppBar, Toolbar, Typography } from '@material-ui/core';
 
@@ -15,16 +14,16 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const TopAppBar = (props: TopAppBarProps & PassedInProps): JSX.Element => {
+export default function TopAppBar(props: TopAppBarProps): JSX.Element {
   const classes = useStyles();
   const {
     title,
-    disableGutters,
-    position,
     color,
-    hideToolbarMixin,
+    position,
     leftButton,
     rightButton,
+    disableGutters,
+    hideToolbarMixin,
   } = props;
 
   return (
@@ -76,9 +75,9 @@ const TopAppBar = (props: TopAppBarProps & PassedInProps): JSX.Element => {
       {hideToolbarMixin ? undefined : <div className={classes.toolbar} />}
     </>
   );
-};
+}
 
-interface PassedInProps {
+interface TopAppBarProps {
   title: string | JSX.Element;
   hideToolbarMixin?: boolean;
   disableGutters?: boolean;
@@ -87,13 +86,3 @@ interface PassedInProps {
   color?: 'inherit' | 'primary' | 'secondary' | 'default' | 'transparent';
   position?: 'fixed' | 'absolute' | 'sticky' | 'static' | 'relative';
 }
-
-interface TopAppBarProps {
-  blah?: string;
-}
-
-const mapStateToProps = () => {
-  return {} as unknown as TopAppBarProps;
-};
-
-export default connect(mapStateToProps)(TopAppBar);
