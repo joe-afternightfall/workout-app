@@ -12,7 +12,7 @@ import {
 import { routerActions } from 'connected-react-router';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { State } from '../../configs/redux/store';
-import { appRoutes } from '../../configs/constants/app';
+import { appRoutes } from '../../configs/constants/app-routing';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -37,18 +37,17 @@ const useStyles = makeStyles(() =>
 
 const AppBottomNavigation = (props: AppBottomNavigationProps): JSX.Element => {
   const classes = useStyles();
-  let shouldDisplay = true;
-
-  if (props.selectedNavTestId === 'workout-nav') {
-    shouldDisplay = false;
-  }
 
   return (
-    <Slide mountOnEnter unmountOnExit direction={'up'} in={shouldDisplay}>
+    <Slide mountOnEnter unmountOnExit direction={'up'} in={true}>
       <AppBar
         position={'fixed'}
         className={clsx(classes.root, {
-          [classes.hide]: props.selectedNavTestId === 'workout-nav',
+          [classes.hide]:
+            props.selectedNavTestId === 'all-workouts-nav' ||
+            props.selectedNavTestId === 'routines' ||
+            props.selectedNavTestId === 'preview-routine' ||
+            props.selectedNavTestId === 'active-workout',
         })}
       >
         <Toolbar className={classes.toolbar}>
@@ -59,15 +58,18 @@ const AppBottomNavigation = (props: AppBottomNavigationProps): JSX.Element => {
             {Object.keys(appRoutes).map((route: string, index: number) => {
               const currentRoute = appRoutes[route];
               return (
-                <BottomNavigationAction
-                  key={index}
-                  value={currentRoute.testId}
-                  label={currentRoute.headerTitle}
-                  icon={React.createElement(currentRoute.icon)}
-                  onClick={() => {
-                    props.routeClickHandler(currentRoute.path);
-                  }}
-                />
+                currentRoute.icon &&
+                currentRoute.bottomNav && (
+                  <BottomNavigationAction
+                    key={index}
+                    value={currentRoute.id}
+                    label={currentRoute.title}
+                    icon={React.createElement(currentRoute.icon)}
+                    onClick={() => {
+                      props.routeClickHandler(currentRoute.path);
+                    }}
+                  />
+                )
               );
             })}
           </BottomNavigation>
