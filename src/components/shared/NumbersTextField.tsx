@@ -1,6 +1,6 @@
 import React, { ChangeEvent } from 'react';
 import { TextField } from '@material-ui/core';
-import { NUMBERS_ONLY_REGEX } from '../../configs/constants/app';
+import { NUMBERS_ONLY_REGEX } from '../../configs/constants/app-routing';
 
 export default function NumbersTextField(
   props: NumbersTextFieldProps
