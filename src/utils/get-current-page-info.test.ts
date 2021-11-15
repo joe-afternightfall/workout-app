@@ -1,5 +1,5 @@
 import { getPageInfo } from './get-current-page-info';
-import { appRoutes } from '../configs/constants/app';
+import { appRoutes } from '../configs/constants/app-routing';
 
 describe('Get Current Page Info util', () => {
   it('should return route prop object for dashboard', () => {
