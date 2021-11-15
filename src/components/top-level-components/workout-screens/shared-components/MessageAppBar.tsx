@@ -13,11 +13,11 @@ import { connect } from 'react-redux';
 import { routerActions } from 'connected-react-router';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { openEditPreviewOptions } from '../../../../../creators/workout/workout-selections';
-import { State } from '../../../../../configs/redux/store';
+import { openEditPreviewOptions } from '../../../../creators/workout/workout-selections';
+import { State } from '../../../../configs/redux/store';
 import DiscardDialog from './DiscardDialog';
-import { saveEditedVersionOfRoutine } from '../../../../../creators/workout/preview-workout';
-import { DASHBOARD_SCREEN_PATH } from '../../../../../configs/constants/app';
+import { saveEditedVersionOfRoutine } from '../../../../creators/workout/preview-workout';
+import { DASHBOARD_SCREEN_PATH } from '../../../../configs/constants/app-routing';
 
 const useStyles = makeStyles(() =>
   createStyles({
