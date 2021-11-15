@@ -14,6 +14,7 @@ const useStyles = makeStyles(() =>
       position: 'fixed',
       bottom: 0,
       left: 0,
+      background: '#313131',
     },
     rightWrapper: {
       height: '100%',
