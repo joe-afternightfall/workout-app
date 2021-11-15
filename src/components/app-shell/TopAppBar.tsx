@@ -17,17 +17,25 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const TopAppBar = (props: TopAppBarProps & PassedInProps): JSX.Element => {
   const classes = useStyles();
-  const { title, hideToolbarMixin, leftButton, rightButton } = props;
+  const {
+    title,
+    disableGutters,
+    position,
+    color,
+    hideToolbarMixin,
+    leftButton,
+    rightButton,
+  } = props;
 
   return (
     <>
       <AppBar
         elevation={0}
-        position={'fixed'}
-        color={'inherit'}
+        position={position ? position : 'fixed'}
+        color={color ? color : 'inherit'}
         className={classes.appBar}
       >
-        <Toolbar>
+        <Toolbar disableGutters={disableGutters}>
           <Grid container alignItems={'center'}>
             <Grid
               item
@@ -46,7 +54,11 @@ const TopAppBar = (props: TopAppBarProps & PassedInProps): JSX.Element => {
               justify={'center'}
               alignItems={'center'}
             >
-              <Typography>{title}</Typography>
+              {React.isValidElement(title) ? (
+                title
+              ) : (
+                <Typography>{title}</Typography>
+              )}
             </Grid>
 
             <Grid
@@ -67,10 +79,13 @@ const TopAppBar = (props: TopAppBarProps & PassedInProps): JSX.Element => {
 };
 
 interface PassedInProps {
-  title: string;
+  title: string | JSX.Element;
   hideToolbarMixin?: boolean;
+  disableGutters?: boolean;
   leftButton?: JSX.Element;
   rightButton?: JSX.Element;
+  color?: 'inherit' | 'primary' | 'secondary' | 'default' | 'transparent';
+  position?: 'fixed' | 'absolute' | 'sticky' | 'static' | 'relative';
 }
 
 interface TopAppBarProps {
