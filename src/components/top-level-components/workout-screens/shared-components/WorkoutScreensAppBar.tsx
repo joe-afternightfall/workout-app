@@ -15,7 +15,12 @@ import { routerActions } from 'connected-react-router';
 import { State } from '../../../../configs/redux/store';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { DASHBOARD_SCREEN_PATH } from '../../../../configs/constants/app-routing';
+import {
+  ApplicationRouteProp,
+  DASHBOARD_SCREEN_PATH,
+  PREVIEW_ROUTINE_SCREEN_ID,
+  ROUTINES_SCREEN_ID,
+} from '../../../../configs/constants/app-routing';
 import { openEditPreviewOptions } from '../../../../creators/workout/workout-selections';
 import { saveEditedVersionOfRoutine } from '../../../../creators/workout/preview-workout';
 
@@ -42,22 +47,22 @@ const WorkoutScreensAppBar = (
   props: WorkoutScreensAppBarProps
 ): JSX.Element => {
   const classes = useStyles();
-  const appBarMessage = 'Workouts';
+  let appBarMessage = 'Workouts';
+  const { activePage } = props;
 
   // todo: setup switch based on current page
-  // switch (props.activeTab) {
-  //   case 0:
-  //     appBarMessage = 'Workouts';
-  //     break;
-  //   case 1:
-  //     appBarMessage = 'Routines';
-  //     break;
-  //   case 2:
-  //     appBarMessage = 'Preview Workout';
-  //     break;
-  //   default:
-  //     break;
-  // }
+  if (activePage) {
+    switch (activePage.id) {
+      case ROUTINES_SCREEN_ID:
+        appBarMessage = 'Routines';
+        break;
+      case PREVIEW_ROUTINE_SCREEN_ID:
+        appBarMessage = 'Preview Workout';
+        break;
+      default:
+        break;
+    }
+  }
 
   return props.displayEditSet ? (
     <React.Fragment />
@@ -92,8 +97,8 @@ const WorkoutScreensAppBar = (
               variant={'text'}
               color={'primary'}
               className={clsx({
-                // todo: hide based on if current page is preview workout
-                // [classes.hide]: appBarMessage !== 'Preview Workout',
+                [classes.hide]:
+                  activePage && activePage.id !== PREVIEW_ROUTINE_SCREEN_ID,
               })}
               onClick={
                 props.displayEditOptions
@@ -116,12 +121,14 @@ interface WorkoutScreensAppBarProps {
   displayEditOptions: boolean;
   displayEditSet: boolean;
   saveEditedVersionOfRoutine: () => void;
+  activePage: ApplicationRouteProp | undefined;
 }
 
 const mapStateToProps = (state: State): WorkoutScreensAppBarProps => {
   return {
     displayEditOptions: state.workoutState.editOptions.open,
     displayEditSet: state.workoutState.displayEditSet,
+    activePage: state.applicationState.activePage,
   } as unknown as WorkoutScreensAppBarProps;
 };
 

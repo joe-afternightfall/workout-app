@@ -43,12 +43,21 @@ export type AppRoutesMap = {
   [key: string]: ApplicationRouteProp;
 };
 
+export const DASHBOARD_SCREEN_ID = 'dashboard-nav';
+export const EXERCISES_SCREEN_ID = 'exercises-nav';
+export const ALL_WORKOUTS_SCREEN_ID = 'all-workouts-nav';
+export const ROUTINES_SCREEN_ID = 'routines';
+export const PREVIEW_ROUTINE_SCREEN_ID = 'preview-routine';
+export const ACTIVE_WORKOUT_SCREEN_ID = 'active-workout';
+export const WORKOUT_DONE_SCREEN_ID = 'workout-done';
+export const PROFILE_SCREEN_ID = 'profile-nav';
+
 export const appRoutes: AppRoutesMap = {
   DASHBOARD: {
     path: DASHBOARD_SCREEN_PATH,
     title: 'Dashboard',
     icon: DashboardIcon,
-    id: 'dashboard-nav',
+    id: DASHBOARD_SCREEN_ID,
     routerComponent: DashboardScreen,
     bottomNav: true,
   },
@@ -56,7 +65,7 @@ export const appRoutes: AppRoutesMap = {
     path: EXERCISES_SCREEN_PATH,
     title: 'Exercises',
     icon: AccessibilityIcon,
-    id: 'exercises-nav',
+    id: EXERCISES_SCREEN_ID,
     routerComponent: ExercisesScreen,
     bottomNav: true,
   },
@@ -64,35 +73,35 @@ export const appRoutes: AppRoutesMap = {
     path: ALL_WORKOUTS_SCREEN_PATH,
     title: 'Workout',
     icon: FitnessCenterIcon,
-    id: 'all-workouts-nav',
+    id: ALL_WORKOUTS_SCREEN_ID,
     routerComponent: AllWorkoutsScreen,
     bottomNav: true,
   },
   ROUTINES: {
     path: ROUTINES_SCREEN_PATH,
     title: 'Routines',
-    id: 'routines',
+    id: ROUTINES_SCREEN_ID,
     routerComponent: RoutinesScreen,
     bottomNav: false,
   },
   PREVIEW_WORKOUT: {
     path: PREVIEW_WORKOUT_SCREEN_PATH,
     title: 'Preview Workout',
-    id: 'preview-routine',
+    id: PREVIEW_ROUTINE_SCREEN_ID,
     routerComponent: PreviewWorkoutScreen,
     bottomNav: false,
   },
   ACTIVE_WORKOUT: {
     path: ACTIVE_WORKOUT_SCREEN_PATH,
     title: 'Active Workout',
-    id: 'active-workout',
+    id: ACTIVE_WORKOUT_SCREEN_ID,
     routerComponent: ActiveWorkout,
     bottomNav: false,
   },
   WORKOUT_DONE: {
     path: WORKOUT_DONE_PATH,
     title: 'Workout Done',
-    id: 'workout-done',
+    id: WORKOUT_DONE_SCREEN_ID,
     routerComponent: WorkoutDone,
     bottomNav: false,
   },
@@ -100,7 +109,7 @@ export const appRoutes: AppRoutesMap = {
     path: PROFILE_PATH,
     title: 'Profile',
     icon: PersonIcon,
-    id: 'profile-nav',
+    id: PROFILE_SCREEN_ID,
     routerComponent: ProfileScreen,
     bottomNav: true,
   },
