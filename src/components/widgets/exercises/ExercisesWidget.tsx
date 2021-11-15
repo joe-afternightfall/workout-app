@@ -113,8 +113,8 @@ const ExercisesWidget = (
         }}
         selectedMuscleId={selectedMuscleId}
         selectedExercise={selectedExercise}
+        hideToolbarMixin={addToSegment}
       />
-      {addToSegment ? <React.Fragment /> : <div className={classes.toolbar} />}
       <Grid container>
         {activeTab !== 2 && (
           <SearchBar
