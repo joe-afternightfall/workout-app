@@ -7,7 +7,7 @@ import { State } from '../../../../configs/redux/store';
 import { routerActions } from 'connected-react-router';
 import { WorkoutCategoryVO } from 'workout-app-common-core';
 import SelectionCard from '../shared-components/SelectionCard';
-import MessageAppBar from '../shared-components/MessageAppBar';
+import WorkoutScreensAppBar from '../shared-components/WorkoutScreensAppBar';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import EditSet from '../3-preview-workout/components/edit-set/EditSet';
 import { ROUTINES_SCREEN_PATH } from '../../../../configs/constants/app-routing';
@@ -34,7 +34,10 @@ const AllWorkoutsScreen = (props: AllWorkoutsScreenProps): JSX.Element => {
       <Grid item xs={12}>
         {!props.displayEditSet && (
           <>
-            <MessageAppBar activeTab={activeIndex} clickHandler={goBack} />
+            <WorkoutScreensAppBar
+              activeTab={activeIndex}
+              clickHandler={goBack}
+            />
             <div className={classes.toolbar} />
           </>
         )}
