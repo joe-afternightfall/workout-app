@@ -49,7 +49,6 @@ const WorkoutScreensAppBar = (
   let appBarMessage = 'Workouts';
   const { activePage, displayEditOptions, displayEditSet } = props;
 
-  // todo: setup switch based on current page
   if (activePage) {
     switch (activePage.id) {
       case ROUTINES_SCREEN_ID:
