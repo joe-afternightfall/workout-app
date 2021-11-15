@@ -1,20 +1,20 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { Grid } from '@material-ui/core';
-import { ThunkDispatch } from 'redux-thunk';
-import { AnyAction, Dispatch } from 'redux';
-import SelectionCard from '../components/SelectionCard';
-import { isOdd } from '../../../../../utils/number-util';
-import { State } from '../../../../../configs/redux/store';
 import { RoutineTemplateVO } from 'workout-app-common-core';
-import { selectedRoutine } from '../../../../../creators/workout/workout-selections';
-import { getExerciseImagesForRoutine } from '../../../../../services/exercise-images';
+import { Grid } from '@material-ui/core';
+import SelectionCard from '../shared-components/SelectionCard';
+import { isOdd } from '../../../../utils/number-util';
+import React from 'react';
+import { State } from '../../../../configs/redux/store';
+import { AnyAction, Dispatch } from 'redux';
+import { ThunkDispatch } from 'redux-thunk';
+import { getExerciseImagesForRoutine } from '../../../../services/exercise-images';
+import { selectedRoutine } from '../../../../creators/workout/workout-selections';
+import { connect } from 'react-redux';
+import { routerActions } from 'connected-react-router';
+import { PREVIEW_WORKOUT_SCREEN_PATH } from '../../../../configs/constants/app-routing';
 
-const RoutineSelectionList = (
-  props: RoutineSelectionListProps & PassedInProps
-): JSX.Element => {
+const RoutinesScreen = (props: RoutinesScreenProps): JSX.Element => {
   return (
-    <>
+    <Grid container justify={'center'}>
       {props.routinesForCategory.map(
         (routine: RoutineTemplateVO, index: number) => {
           return (
@@ -24,7 +24,6 @@ const RoutineSelectionList = (
                 addTopMargin={index > 0}
                 clickHandler={() => {
                   props.selectRoutineHandler(routine);
-                  props.goForwardHandler();
                 }}
                 justify={isOdd(index) ? 'flex-end' : 'flex-start'}
               />
@@ -32,20 +31,16 @@ const RoutineSelectionList = (
           );
         }
       )}
-    </>
+    </Grid>
   );
 };
 
-interface PassedInProps {
-  goForwardHandler: () => void;
-}
-
-interface RoutineSelectionListProps {
+interface RoutinesScreenProps {
   routinesForCategory: RoutineTemplateVO[];
   selectRoutineHandler: (routine: RoutineTemplateVO) => void;
 }
 
-const mapStateToProps = (state: State): RoutineSelectionListProps => {
+const mapStateToProps = (state: State): RoutinesScreenProps => {
   const selectedWorkoutCategory = state.workoutState.selectedWorkoutCategory;
 
   const routinesForCategory: RoutineTemplateVO[] =
@@ -55,20 +50,18 @@ const mapStateToProps = (state: State): RoutineSelectionListProps => {
     );
   return {
     routinesForCategory: routinesForCategory,
-  } as unknown as RoutineSelectionListProps;
+  } as unknown as RoutinesScreenProps;
 };
 
-const mapDispatchToProps = (dispatch: Dispatch): RoutineSelectionListProps =>
+const mapDispatchToProps = (dispatch: Dispatch): RoutinesScreenProps =>
   ({
     selectRoutineHandler: (routine: RoutineTemplateVO) => {
       (dispatch as ThunkDispatch<State, void, AnyAction>)(
         getExerciseImagesForRoutine(routine)
       );
       dispatch(selectedRoutine(routine));
+      dispatch(routerActions.push(PREVIEW_WORKOUT_SCREEN_PATH));
     },
-  } as unknown as RoutineSelectionListProps);
+  } as unknown as RoutinesScreenProps);
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(RoutineSelectionList);
+export default connect(mapStateToProps, mapDispatchToProps)(RoutinesScreen);
