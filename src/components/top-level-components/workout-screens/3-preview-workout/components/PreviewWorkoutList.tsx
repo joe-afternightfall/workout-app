@@ -18,7 +18,7 @@ import {
   checkIfPhaseSelectionRequired,
   toggleExerciseWidgetOnRoutinePreviewPage,
 } from '../../../../../creators/workout/workout-selections';
-import BottomActionButtons from './components/edit-set/components/BottomActionButtons';
+import BottomActionButtons from './edit-set/components/BottomActionButtons';
 import { Container, DropResult } from 'react-smooth-dnd';
 import { updateSegmentOrder } from '../../../../../creators/workout/update-workout';
 import { getPhaseName } from 'workout-app-common-core';
@@ -87,6 +87,7 @@ const PreviewWorkoutList = (props: PreviewWorkoutListProps): JSX.Element => {
 
   if (!displayEditSet) {
     if (displayExerciseWidget) {
+      // todo: rip out exercises widget and pass in props
       display = (
         <ExercisesWidget
           addToSegment

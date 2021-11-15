@@ -6,7 +6,7 @@ import AddIcon from '@material-ui/icons/Add';
 import EditAppBar from './components/EditAppBar';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ActionButton from './components/ActionButton';
-import { buildSetInfo } from '../../../../../../../utils/set-info-builder';
+import { buildSetInfo } from '../../../../../../utils/set-info-builder';
 import {
   ActiveSetInfo,
   BuiltSets,
@@ -18,15 +18,15 @@ import {
 } from 'workout-app-common-core';
 import RestBetweenOptions from './components/RestBetweenOptions';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { State } from '../../../../../../../configs/redux/store';
+import { State } from '../../../../../../configs/redux/store';
 import {
   addSetToRoutineCopy,
   deleteSetFromRoutineCopy,
-} from '../../../../../../../creators/workout/preview-workout';
-import StraightSetRow from '../../../../../../shared/set-rows/StraightSetRow';
-import EditSupersetRow from '../../../../../../shared/set-rows/EditSupersetRow';
-import { buildSetFieldInfo } from '../../../../../../../utils/info-builder';
-import ActiveExercise from '../../../../../active-workout-screen/1-active-exercise/ActiveExercise';
+} from '../../../../../../creators/workout/preview-workout';
+import StraightSetRow from '../../../../../shared/set-rows/StraightSetRow';
+import EditSupersetRow from '../../../../../shared/set-rows/EditSupersetRow';
+import { buildSetFieldInfo } from '../../../../../../utils/info-builder';
+import ActiveExercise from '../../../../active-workout-screen/1-active-exercise/ActiveExercise';
 
 const useStyles = makeStyles(() =>
   createStyles({

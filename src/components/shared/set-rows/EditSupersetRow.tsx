@@ -6,7 +6,7 @@ import BaseSet from '../set-fields/BaseSet';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { ActiveSetInfo, BuiltSets } from 'workout-app-common-core';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import ActionButton from '../../top-level-components/workout-routines-screen/views/3-preview-list/components/edit-set/components/ActionButton';
+import ActionButton from '../../top-level-components/workout-screens/3-preview-workout/components/edit-set/components/ActionButton';
 import { deleteSetFromRoutineCopy } from '../../../creators/workout/preview-workout';
 import { buildSetFieldInfo } from '../../../utils/info-builder';
 

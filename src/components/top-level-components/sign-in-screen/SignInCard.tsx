@@ -13,11 +13,18 @@ import { createStyles, makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(() =>
   createStyles({
+    root: {
+      background: '#333333',
+    },
     icon: {
       height: 48,
     },
     iconWrapper: {
       textAlign: 'center',
+    },
+    textField: {
+      background: '#282d34',
+      color: '#F6F6F6',
     },
   })
 );
@@ -26,7 +33,7 @@ export default function SignInCard(props: SignInFormProps): JSX.Element {
   const classes = useStyles();
 
   return (
-    <Card>
+    <Card className={classes.root}>
       <CardHeader
         title={
           <Grid container justify={'center'}>
@@ -58,6 +65,9 @@ export default function SignInCard(props: SignInFormProps): JSX.Element {
               type={'password'}
               onChange={props.changeHandler}
               name={'password'}
+              InputProps={{
+                className: classes.textField,
+              }}
             />
           </Grid>
 

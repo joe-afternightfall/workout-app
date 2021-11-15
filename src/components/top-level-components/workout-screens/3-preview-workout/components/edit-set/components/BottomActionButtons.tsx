@@ -3,11 +3,11 @@ import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { routerActions } from 'connected-react-router';
 import { Button, Grid, Slide } from '@material-ui/core';
-import { State } from '../../../../../../../../configs/redux/store';
+import { State } from '../../../../../../../configs/redux/store';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import { startWorkout } from '../../../../../../../../creators/workout/workout-selections';
-import { ACTIVE_WORKOUT_SCREEN_PATH } from '../../../../../../../../configs/constants/app';
-import NewSegmentBottomActionButtons from '../../../../../../../shared/action-buttons/new-segment-bottom-action-buttons/NewSegmentBottomActionButtons';
+import { startWorkout } from '../../../../../../../creators/workout/workout-selections';
+import { ACTIVE_WORKOUT_SCREEN_PATH } from '../../../../../../../configs/constants/app-routing';
+import NewSegmentBottomActionButtons from '../../../../../../shared/action-buttons/new-segment-bottom-action-buttons/NewSegmentBottomActionButtons';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

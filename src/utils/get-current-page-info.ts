@@ -1,4 +1,7 @@
-import { ApplicationRouteProp, appRoutes } from '../configs/constants/app';
+import {
+  ApplicationRouteProp,
+  appRoutes,
+} from '../configs/constants/app-routing';
 
 export const getPageInfo = (
   location: string

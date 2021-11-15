@@ -6,8 +6,8 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import ReorderIcon from '@material-ui/icons/Reorder';
 import { IconButton, Slide } from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import { toggleDeleteExerciseDrawer } from '../../../../../../../../creators/workout/delete-exercise-drawer';
-import { PhaseTypeEditingSegment } from '../../../../../../../../configs/types';
+import { toggleDeleteExerciseDrawer } from '../../../../../../../creators/workout/delete-exercise-drawer';
+import { PhaseTypeEditingSegment } from '../../../../../../../configs/types';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

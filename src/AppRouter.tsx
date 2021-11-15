@@ -3,14 +3,8 @@ import React from 'react';
 import { Route } from 'react-router';
 import { connect } from 'react-redux';
 import { State } from './configs/redux/store';
-import {
-  appRoutes,
-  ACTIVE_WORKOUT_SCREEN_PATH,
-  WORKOUT_DONE_PATH,
-} from './configs/constants/app';
+import { appRoutes } from './configs/constants/app-routing';
 import SignInScreen from './components/top-level-components/sign-in-screen/SignInScreen';
-import ActiveWorkout from './components/top-level-components/active-workout-screen/ActiveWorkoutConnector';
-import WorkoutDone from './components/top-level-components/active-workout-screen/4-workout-done/WorkoutDone';
 
 const AppRouter = (props: AppRouterProps): JSX.Element => {
   return props.isValidated ? (
@@ -26,13 +20,6 @@ const AppRouter = (props: AppRouterProps): JSX.Element => {
             />
           );
         })}
-
-        <Route
-          exact
-          path={ACTIVE_WORKOUT_SCREEN_PATH}
-          component={ActiveWorkout}
-        />
-        <Route exact path={WORKOUT_DONE_PATH} component={WorkoutDone} />
       </div>
     </App>
   ) : (

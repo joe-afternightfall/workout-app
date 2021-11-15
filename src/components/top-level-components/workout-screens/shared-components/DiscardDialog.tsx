@@ -12,7 +12,7 @@ import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { TransitionProps } from '@material-ui/core/transitions';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { toggleEditOptionButtons } from '../../../../../creators/workout/workout-selections';
+import { toggleEditOptionButtons } from '../../../../creators/workout/workout-selections';
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & { children?: React.ReactElement },
