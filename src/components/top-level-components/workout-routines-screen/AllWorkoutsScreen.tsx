@@ -17,9 +17,7 @@ const useStyles = makeStyles(() =>
   })
 );
 
-const WorkoutRoutinesScreen = (
-  props: WorkoutRoutinesScreenProps
-): JSX.Element => {
+const AllWorkoutsScreen = (props: AllWorkoutsScreenProps): JSX.Element => {
   const classes = useStyles();
   const [activeIndex, setActiveIndex] = React.useState<number>(0);
 
@@ -57,14 +55,14 @@ const WorkoutRoutinesScreen = (
   );
 };
 
-interface WorkoutRoutinesScreenProps {
+interface AllWorkoutsScreenProps {
   displayEditSet: boolean;
 }
 
-const mapStateToProps = (state: State): WorkoutRoutinesScreenProps => {
+const mapStateToProps = (state: State): AllWorkoutsScreenProps => {
   return {
     displayEditSet: state.workoutState.displayEditSet,
-  } as unknown as WorkoutRoutinesScreenProps;
+  } as unknown as AllWorkoutsScreenProps;
 };
 
-export default connect(mapStateToProps)(WorkoutRoutinesScreen);
+export default connect(mapStateToProps)(AllWorkoutsScreen);
