@@ -33,7 +33,7 @@ export default {
         const activePage = getPageInfo(newState.currentLocation);
         newState.activePage = activePage;
         if (activePage) {
-          newState.selectedNavTestId = activePage.id;
+          newState.activePageId = activePage.id;
         }
         break;
       }
@@ -133,7 +133,7 @@ export interface ApplicationState {
   setupNewUser: boolean;
   userProfile: UserProfileVO | null;
   openUserProfileDialog: boolean;
-  selectedNavTestId: string;
+  activePageId: string;
   exerciseSearchValue: string;
   equipmentIdFilterList: string[];
   workoutConfigurations: {

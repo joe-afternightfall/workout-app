@@ -47,7 +47,7 @@ export const DASHBOARD_SCREEN_ID = 'dashboard-nav';
 export const EXERCISES_SCREEN_ID = 'exercises-nav';
 export const ALL_WORKOUTS_SCREEN_ID = 'all-workouts-nav';
 export const ROUTINES_SCREEN_ID = 'routines';
-export const PREVIEW_ROUTINE_SCREEN_ID = 'preview-routine';
+export const PREVIEW_WORKOUT_SCREEN_ID = 'preview-routine';
 export const ACTIVE_WORKOUT_SCREEN_ID = 'active-workout';
 export const WORKOUT_DONE_SCREEN_ID = 'workout-done';
 export const PROFILE_SCREEN_ID = 'profile-nav';
@@ -71,7 +71,7 @@ export const appRoutes: AppRoutesMap = {
   },
   ALL_WORKOUTS: {
     path: ALL_WORKOUTS_SCREEN_PATH,
-    title: 'Workout',
+    title: 'Workouts',
     icon: FitnessCenterIcon,
     id: ALL_WORKOUTS_SCREEN_ID,
     routerComponent: AllWorkoutsScreen,
@@ -87,7 +87,7 @@ export const appRoutes: AppRoutesMap = {
   PREVIEW_WORKOUT: {
     path: PREVIEW_WORKOUT_SCREEN_PATH,
     title: 'Preview Workout',
-    id: PREVIEW_ROUTINE_SCREEN_ID,
+    id: PREVIEW_WORKOUT_SCREEN_ID,
     routerComponent: PreviewWorkoutScreen,
     bottomNav: false,
   },

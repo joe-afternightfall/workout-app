@@ -18,22 +18,27 @@ const styles: Styles<Theme, StyledComponentProps> = () => ({
   root: {
     padding: '24px 12px 12px 12px',
   },
+  bottomPaddingRoot: {
+    padding: '24px 12px 10vh 12px',
+  },
 });
 
 class App extends Component<AppProps> {
   render(): JSX.Element {
-    const { classes } = this.props;
+    const { classes, bottomPadding, children } = this.props;
 
     return (
       <MuiThemeProvider theme={getTheme()}>
-        <div className={classes.root}>
+        <div
+          className={bottomPadding ? classes.bottomPaddingRoot : classes.root}
+        >
           <CssBaseline />
           <ProfileDialog />
           <WhichPhaseDialog />
           <DeleteExerciseDrawer />
 
           <main>
-            <div>{this.props.children}</div>
+            <div>{children}</div>
           </main>
 
           <BottomAppBar />
@@ -45,6 +50,7 @@ class App extends Component<AppProps> {
 
 export interface AppProps extends WithStyles<typeof styles> {
   children: JSX.Element;
+  bottomPadding: boolean;
 }
 
 export default withStyles(styles, { withTheme: true })(App);

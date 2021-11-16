@@ -6,7 +6,7 @@ import DiscardDialog from './DiscardDialog';
 import {
   ROUTINES_SCREEN_ID,
   ApplicationRouteProp,
-  PREVIEW_ROUTINE_SCREEN_ID,
+  PREVIEW_WORKOUT_SCREEN_ID,
   ALL_WORKOUTS_SCREEN_ID,
   DASHBOARD_SCREEN_PATH,
   ROUTINES_SCREEN_PATH,
@@ -50,7 +50,7 @@ const WorkoutScreensAppBar = (
         goBackRoute = ALL_WORKOUTS_SCREEN_PATH;
         appBarMessage = 'Routines';
         break;
-      case PREVIEW_ROUTINE_SCREEN_ID:
+      case PREVIEW_WORKOUT_SCREEN_ID:
         goBackRoute = ROUTINES_SCREEN_PATH;
         appBarMessage = 'Preview Workout';
         break;
@@ -63,7 +63,6 @@ const WorkoutScreensAppBar = (
     <React.Fragment />
   ) : (
     <TopAppBar
-      color={'transparent'}
       disableGutters={!displayEditOptions}
       position={displayEditOptions ? 'absolute' : 'fixed'}
       title={displayEditOptions ? '' : appBarMessage}
@@ -88,7 +87,7 @@ const WorkoutScreensAppBar = (
           color={'primary'}
           className={clsx({
             [classes.hide]:
-              activePage && activePage.id !== PREVIEW_ROUTINE_SCREEN_ID,
+              activePage && activePage.id !== PREVIEW_WORKOUT_SCREEN_ID,
           })}
           onClick={
             displayEditOptions
