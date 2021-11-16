@@ -27,16 +27,13 @@ const useStyles = makeStyles(() =>
   })
 );
 
-const SetTextField = ({
-  value,
-  setType,
-  activeSet,
-  fullLength,
-  markedDone,
-  alternateSides,
-  onChangeHandler,
-}: SetTextFieldProps & PassedInProps): JSX.Element => {
+const SetTextField = (
+  props: SetTextFieldProps & PassedInProps
+): JSX.Element => {
   const classes = useStyles();
+  const { value, setType, activeSet, fullLength, markedDone, alternateSides } =
+    props;
+
   const theme = useTheme<AppTheme>();
   let fontColor = theme.palette.custom.colors.idle;
 
@@ -45,11 +42,11 @@ const SetTextField = ({
     const name = event.target.name as unknown as SetTextFieldTypes;
     if (name === 'reps' || name === 'duration') {
       if (validateForOnlyNumbers(trimmedValue)) {
-        return onChangeHandler(trimmedValue);
+        return props.onChangeHandler(trimmedValue);
       }
     } else if (name === 'weight') {
       if (validateWeight(trimmedValue)) {
-        return onChangeHandler(trimmedValue);
+        return props.onChangeHandler(trimmedValue);
       }
     }
   };
@@ -68,6 +65,7 @@ const SetTextField = ({
         value={value}
         name={setType}
         inputProps={{
+          inputMode: 'numeric',
           style: {
             textAlign: fullLength ? 'center' : undefined,
             color: fontColor,

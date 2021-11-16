@@ -37,6 +37,7 @@ const useStyles = makeStyles(() =>
 
 const BottomAppBar = (props: BottomAppBarProps): JSX.Element => {
   const classes = useStyles();
+  const { activePageId } = props;
 
   return (
     <Slide mountOnEnter unmountOnExit direction={'up'} in={true}>
@@ -44,17 +45,13 @@ const BottomAppBar = (props: BottomAppBarProps): JSX.Element => {
         position={'fixed'}
         className={clsx(classes.root, {
           [classes.hide]:
-            props.selectedNavTestId === 'all-workouts-nav' ||
-            props.selectedNavTestId === 'routines' ||
-            props.selectedNavTestId === 'preview-routine' ||
-            props.selectedNavTestId === 'active-workout',
+            activePageId === 'routines' ||
+            activePageId === 'preview-routine' ||
+            activePageId === 'active-workout',
         })}
       >
         <Toolbar className={classes.toolbar}>
-          <BottomNavigation
-            className={classes.navRoot}
-            value={props.selectedNavTestId}
-          >
+          <BottomNavigation className={classes.navRoot} value={activePageId}>
             {Object.keys(appRoutes).map((route: string, index: number) => {
               const currentRoute = appRoutes[route];
               return (
@@ -81,12 +78,12 @@ const BottomAppBar = (props: BottomAppBarProps): JSX.Element => {
 
 interface BottomAppBarProps {
   routeClickHandler: (path: string) => void;
-  selectedNavTestId: string;
+  activePageId: string;
 }
 
 const mapStateToProps = (state: State): BottomAppBarProps => {
   return {
-    selectedNavTestId: state.applicationState.selectedNavTestId,
+    activePageId: state.applicationState.activePageId,
   } as unknown as BottomAppBarProps;
 };
 

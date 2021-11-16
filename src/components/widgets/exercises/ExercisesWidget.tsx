@@ -22,13 +22,9 @@ const useStyles = makeStyles(() =>
     swipeableViews: {
       width: '100%',
       height: '82vh',
-      marginBottom: '8vh',
     },
     expandedMargin: {
       marginTop: '8vh',
-    },
-    toolbar: {
-      height: '7vh',
     },
   })
 );
