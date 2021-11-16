@@ -227,6 +227,73 @@ describe('workout reducer', () => {
     ).toEqual(weightValue);
   });
 
+  it('should return UPDATE_REST_BETWEEN sets action', () => {
+    const copyOfRoutineTemplate = buildMockRoutineTemplateVO(1, 4);
+    const segmentId = copyOfRoutineTemplate.phases[0].segments[0].id;
+
+    const state = workout.reducer(
+      {
+        copyOfRoutineTemplate: copyOfRoutineTemplate,
+      } as unknown as WorkoutState,
+      {
+        type: WorkoutActionTypes.UPDATE_REST_BETWEEN,
+        segmentId: segmentId,
+        restType: 'set',
+        value: '30',
+      }
+    );
+
+    expect(
+      state.copyOfRoutineTemplate.phases[0].segments[0].secondsRestBetweenSets
+    ).toEqual(30);
+  });
+
+  it('should return UPDATE_REST_BETWEEN segment action', () => {
+    const copyOfRoutineTemplate = buildMockRoutineTemplateVO(1, 4);
+    const segmentId = copyOfRoutineTemplate.phases[0].segments[0].id;
+
+    const state = workout.reducer(
+      {
+        copyOfRoutineTemplate: copyOfRoutineTemplate,
+      } as unknown as WorkoutState,
+      {
+        type: WorkoutActionTypes.UPDATE_REST_BETWEEN,
+        segmentId: segmentId,
+        restType: 'segment',
+        value: '60',
+      }
+    );
+
+    expect(
+      state.copyOfRoutineTemplate.phases[0].segments[0]
+        .secondsRestBetweenNextSegment
+    ).toEqual(60);
+  });
+
+  it('should return START_WORKOUT action', () => {
+    const mockTemplate = buildMockRoutineTemplateVO(2, 4);
+    const state = workout.reducer(
+      {
+        selectedRoutineTemplate: mockTemplate,
+      } as unknown as WorkoutState,
+      {
+        type: WorkoutActionTypes.START_WORKOUT,
+      }
+    );
+
+    expect(state.activeWorkout.endTime).toEqual('0');
+    expect(state.activeWorkout.routine.id).toEqual(mockTemplate.id);
+    expect(state.activeWorkout.routine.name).toEqual(mockTemplate.name);
+    expect(state.activeWorkout.routine.workoutCategoryId).toEqual(
+      mockTemplate.workoutCategoryId
+    );
+    expect(state.activeWorkout.routine.phases).toEqual(mockTemplate.phases);
+    expect(state.currentPhase).toEqual(mockTemplate.phases[0]);
+    expect(state.currentSegmentIndex).toEqual(1);
+    expect(state.currentSetIndex).toEqual(1);
+    expect(state.workoutStarted).toEqual(true);
+  });
+
   it('should return WORKOUT_DONE action', () => {
     const workoutDate = '-1';
     const activeWorkout = buildMockWorkout(2, 5, workoutDate);
