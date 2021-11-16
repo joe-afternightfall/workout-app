@@ -60,12 +60,12 @@ const SetTextField = (
   return (
     <Grid item className={fullLength ? classes.fullLength : classes.halfLength}>
       <TextField
-        type={'number'}
         fullWidth
         variant={'outlined'}
         value={value}
         name={setType}
         inputProps={{
+          inputMode: 'numeric',
           style: {
             textAlign: fullLength ? 'center' : undefined,
             color: fontColor,
