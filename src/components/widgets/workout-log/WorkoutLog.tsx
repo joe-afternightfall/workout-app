@@ -4,13 +4,14 @@ import React, { useState } from 'react';
 import { Workout } from 'workout-app-common-core';
 import TopAppBar from '../../app-shell/TopAppBar';
 import SwipeableViews from 'react-swipeable-views';
-import LogList from './components/log-list/LogList';
+import ThreeLatestWorkouts from './components/ThreeLatestWorkouts';
 import { State } from '../../../configs/redux/store';
 import ArrowBack from '@material-ui/icons/ArrowBackIos';
 import AllPastWorkouts from './components/AllPastWorkouts';
 import { Button, Grid, IconButton } from '@material-ui/core';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { groupWorkoutsByMonth } from '../../../utils/group-workouts';
+import WorkoutOverview from './components/workout-overview/WorkoutOverview';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -28,6 +29,7 @@ const WorkoutLog = (props: WorkoutLogProps): JSX.Element => {
   const classes = useStyles();
   const { pastWorkouts } = props;
   const [activeTab, setActiveTab] = useState(0);
+  const [selectedWorkout, setSelectedWorkout] = useState<Workout | undefined>();
   const lastThreeWorkouts = pastWorkouts && pastWorkouts.slice(0, 3);
 
   const forwardClickHandler = () => {
@@ -40,6 +42,11 @@ const WorkoutLog = (props: WorkoutLogProps): JSX.Element => {
 
   const handleViewChange = (index: number) => {
     setActiveTab(index);
+  };
+
+  const selectWorkoutHandler = (workout: Workout) => {
+    setSelectedWorkout(workout);
+    setActiveTab(2);
   };
 
   let title = '';
@@ -80,15 +87,24 @@ const WorkoutLog = (props: WorkoutLogProps): JSX.Element => {
         containerStyle={{ height: '100%' }}
       >
         <Grid item xs={12}>
-          {pastWorkouts && <LogList workouts={lastThreeWorkouts} />}
+          {pastWorkouts && (
+            <ThreeLatestWorkouts
+              workouts={lastThreeWorkouts}
+              selectWorkoutHandler={selectWorkoutHandler}
+            />
+          )}
         </Grid>
         <Grid item xs={12}>
           {pastWorkouts && (
             <AllPastWorkouts
               goBackHandler={backClickHandler}
               workouts={pastWorkouts}
+              selectWorkoutHandler={selectWorkoutHandler}
             />
           )}
+        </Grid>
+        <Grid item xs={12}>
+          <WorkoutOverview workout={selectedWorkout} />
         </Grid>
       </SwipeableViews>
     </Grid>
