@@ -199,6 +199,13 @@ export const buildMockExerciseSet = (): Set => {
     setNumber: chance.integer({ min: 1, max: 5 }),
     weight: chance.integer({ min: 150, max: 250 }),
     reps: chance.integer({ min: 1, max: 5 }),
+    distance: {
+      unit: 'miles',
+      value: chance.integer({ min: 150, max: 250 }),
+    },
+    duration: {
+      seconds: chance.integer({ min: 150, max: 250 }),
+    },
     markedDone: chance.bool(),
   };
 };
