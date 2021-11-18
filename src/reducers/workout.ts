@@ -1,78 +1,29 @@
 import * as ramda from 'ramda';
 import {
-  Phase,
-  RoutineTemplateVO,
   Set,
-  STRAIGHT_SET_ID,
-  SUPER_SET_ID,
+  Phase,
   Workout,
-  WorkoutCategoryVO,
+  SUPER_SET_ID,
   WorkoutExercise,
+  STRAIGHT_SET_ID,
+  RoutineTemplateVO,
+  WorkoutCategoryVO,
 } from 'workout-app-common-core';
+import {
+  PhaseTypeEditingSegment,
+  DeleteExerciseDrawerActionProps,
+} from '../configs/types';
 import {
   WorkoutActions,
   WorkoutActionTypes,
 } from '../creators/actions-workout';
 import { v4 as uuidv4 } from 'uuid';
-import { arrayMoveImmutable as arrayMove } from 'array-move';
 import {
-  DeleteExerciseDrawerActionProps,
-  PhaseTypeEditingSegment,
-  SetTextFieldTypes,
-} from '../configs/types';
-import { deleteSegmentFromPhase } from '../utils/edit-object-util';
-
-function updateSet(
-  phase: Phase | undefined,
-  setId: string,
-  value: number,
-  name: SetTextFieldTypes
-) {
-  phase &&
-    phase.segments.map((segment) => {
-      segment.exercises.map((exercise) => {
-        exercise.sets.map((set) => {
-          if (set.id === setId) {
-            if (name === 'duration') {
-              if (set.duration) {
-                set.duration.seconds = value;
-              } else {
-                set.duration = {
-                  seconds: value,
-                };
-              }
-            } else if (name === 'distance') {
-              if (set.distance) {
-                set.distance.value = value;
-                // todo: come back and start to pass in or retrieve distance unit
-                // todo: get this value from ExerciseVO itself, start to ask for unit type in admin center
-                set.distance.unit = 'miles';
-              }
-            } else {
-              set[name] = value;
-            }
-          }
-        });
-      });
-    });
-}
-
-function buildBaseSets(amount: number): Set[] {
-  let i = 0;
-  const baseSets: Set[] = [];
-
-  while (amount > i) {
-    i++;
-    baseSets.push({
-      id: uuidv4(),
-      setNumber: i,
-      weight: 0,
-      reps: 0,
-      markedDone: false,
-    });
-  }
-  return baseSets;
-}
+  updateSet,
+  buildBaseSets,
+  deleteSegmentFromPhase,
+} from '../utils/edit-object-util';
+import { arrayMoveImmutable as arrayMove } from 'array-move';
 
 export default {
   reducer: (
@@ -294,15 +245,15 @@ export default {
           }
 
           if (action.lastSet && action.lastSegment) {
-            const foundPhase = newState.activeWorkout.routine.phases.find(
+            const nextPhase = newState.activeWorkout.routine.phases.find(
               (phase: Phase) => phase.order === newState.currentPhase.order + 1
             );
-            if (foundPhase) {
+            if (nextPhase) {
               return {
                 ...newState,
                 currentSetIndex: 1,
                 currentSegmentIndex: 1,
-                currentPhase: foundPhase,
+                currentPhase: nextPhase,
                 activeWorkout: {
                   ...newState.activeWorkout,
                   routine: {

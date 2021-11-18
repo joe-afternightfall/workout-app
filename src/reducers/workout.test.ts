@@ -353,6 +353,44 @@ describe('workout reducer', () => {
     expect(state.workoutStarted).toEqual(true);
   });
 
+  it('should return MARK_CURRENT_SET_AS_DONE action', () => {
+    const mockPhase = buildMockPhase(3);
+    const state = workout.reducer(
+      {
+        currentPhase: mockPhase,
+        activeWorkout: buildMockWorkout(2, 4),
+        currentSetIndex: 1,
+      } as unknown as WorkoutState,
+      {
+        type: WorkoutActionTypes.MARK_CURRENT_SET_AS_DONE,
+        segmentId: mockPhase.segments[0].id,
+        setNumber: 1,
+        lastSet: false,
+        lastSegment: false,
+      }
+    );
+    expect(state.currentSetIndex).toEqual(2);
+  });
+
+  it('should return MARK_CURRENT_SET_AS_DONE action when last set', () => {
+    const mockPhase = buildMockPhase(3);
+    const state = workout.reducer(
+      {
+        currentPhase: mockPhase,
+        activeWorkout: buildMockWorkout(2, 4),
+        currentSetIndex: 1,
+      } as unknown as WorkoutState,
+      {
+        type: WorkoutActionTypes.MARK_CURRENT_SET_AS_DONE,
+        segmentId: mockPhase.segments[0].id,
+        setNumber: 1,
+        lastSet: true,
+        lastSegment: false,
+      }
+    );
+    expect(state.currentSetIndex).toEqual(1);
+  });
+
   it('should return WORKOUT_DONE action', () => {
     const workoutDate = '-1';
     const activeWorkout = buildMockWorkout(2, 5, workoutDate);
