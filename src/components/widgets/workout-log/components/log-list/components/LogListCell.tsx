@@ -1,12 +1,8 @@
 import React from 'react';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { Grid, Typography } from '@material-ui/core';
 import { GridJustification } from '@material-ui/core/Grid/Grid';
 
-const useStyles = makeStyles(() => createStyles({}));
-
 export default function LogListCell(props: LogListCellProps): JSX.Element {
-  const classes = useStyles();
   const { icon, title, justify } = props;
 
   return (

@@ -1,7 +1,5 @@
 import React from 'react';
-import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
 import EventIcon from '@material-ui/icons/Event';
 import { Divider, Grid, ListItem, Typography } from '@material-ui/core';
 import TimerIcon from '@material-ui/icons/Timer';
@@ -13,10 +11,7 @@ import LogListCell from './LogListCell';
 import { getMinutesBetweenDates } from '../../../../../../utils/number-util';
 import { State } from '../../../../../../configs/redux/store';
 
-const useStyles = makeStyles(() => createStyles({}));
-
 const LogListItem = (props: LogListItemProps & PassedInProps): JSX.Element => {
-  const classes = useStyles();
   const { workout, categoryName, selectWorkoutHandler } = props;
 
   return (
@@ -111,7 +106,7 @@ const mapStateToProps = (
   } as unknown as LogListItemProps;
 };
 
-const mapDispatchToProps = (dispatch: Dispatch): LogListItemProps =>
+const mapDispatchToProps = (): LogListItemProps =>
   ({} as unknown as LogListItemProps);
 
 export default connect(mapStateToProps, mapDispatchToProps)(LogListItem);

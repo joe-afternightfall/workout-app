@@ -1,4 +1,3 @@
-import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import React, { useState } from 'react';
 import { Workout } from 'workout-app-common-core';
@@ -125,7 +124,7 @@ const mapStateToProps = (state: State): WorkoutLogProps => {
   } as unknown as WorkoutLogProps;
 };
 
-const mapDispatchToProps = (dispatch: Dispatch): WorkoutLogProps =>
+const mapDispatchToProps = (): WorkoutLogProps =>
   ({} as unknown as WorkoutLogProps);
 
 export default connect(mapStateToProps, mapDispatchToProps)(WorkoutLog);
