@@ -18,7 +18,7 @@ export default function AllPastWorkouts(
   props: AllPastWorkoutsProps
 ): JSX.Element {
   const classes = useStyles();
-  const { workouts, goBackHandler } = props;
+  const { workouts, selectWorkoutHandler } = props;
   const groupedWorkouts = groupWorkoutsByMonth(workouts);
 
   return (
@@ -33,7 +33,13 @@ export default function AllPastWorkouts(
                 </Typography>
               </ListSubheader>
               {groupedWorkouts[year][month].map((workout, index) => {
-                return <LogListItem key={index} workout={workout} />;
+                return (
+                  <LogListItem
+                    selectWorkoutHandler={selectWorkoutHandler}
+                    key={index}
+                    workout={workout}
+                  />
+                );
               })}
             </List>
           );
@@ -46,4 +52,5 @@ export default function AllPastWorkouts(
 interface AllPastWorkoutsProps {
   workouts: Workout[];
   goBackHandler: () => void;
+  selectWorkoutHandler: (workout: Workout) => void;
 }
