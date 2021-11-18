@@ -25,7 +25,7 @@ import {
 } from '../../../../../../creators/workout/preview-workout';
 import StraightSetRow from '../../../../../shared/set-rows/StraightSetRow';
 import EditSupersetRow from '../../../../../shared/set-rows/EditSupersetRow';
-import { buildSetTextFieldInfo } from '../../../../../../utils/info-builder';
+import { buildSetTextFieldInfo } from '../../../../../../utils/set-info-builder';
 import ActiveExercise from '../../../../active-workout-screen/1-active-exercise/ActiveExercise';
 
 const useStyles = makeStyles(() =>
