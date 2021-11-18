@@ -17,11 +17,16 @@ const useStyles = makeStyles(() => createStyles({}));
 
 const LogListItem = (props: LogListItemProps & PassedInProps): JSX.Element => {
   const classes = useStyles();
-  const { workout, categoryName } = props;
+  const { workout, categoryName, selectWorkoutHandler } = props;
 
   return (
     <>
-      <ListItem>
+      <ListItem
+        button
+        onClick={() => {
+          selectWorkoutHandler(workout);
+        }}
+      >
         <Grid item xs={12} container>
           <Grid item xs={12} container alignItems={'center'}>
             <LogListCell
@@ -89,6 +94,7 @@ interface LogListItemProps {
 
 interface PassedInProps {
   workout: Workout;
+  selectWorkoutHandler: (workout: Workout) => void;
 }
 
 const mapStateToProps = (

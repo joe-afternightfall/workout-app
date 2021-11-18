@@ -36,10 +36,6 @@ export const updateSet = (
             if (name === 'duration') {
               if (set.duration) {
                 set.duration.seconds = value;
-              } else {
-                set.duration = {
-                  seconds: value,
-                };
               }
             } else if (name === 'distance') {
               if (set.distance) {
@@ -68,6 +64,13 @@ export const buildBaseSets = (amount: number): Set[] => {
       setNumber: i,
       weight: 0,
       reps: 0,
+      distance: {
+        unit: 'miles',
+        value: 0,
+      },
+      duration: {
+        seconds: 0,
+      },
       markedDone: false,
     });
   }
