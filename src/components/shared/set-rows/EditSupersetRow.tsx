@@ -8,7 +8,7 @@ import { ActiveSetInfo, BuiltSets } from 'workout-app-common-core';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import ActionButton from '../../top-level-components/workout-screens/3-preview-workout/components/edit-set/components/ActionButton';
 import { deleteSetFromRoutineCopy } from '../../../creators/workout/preview-workout';
-import { buildSetFieldInfo } from '../../../utils/info-builder';
+import { buildSetTextFieldInfo } from '../../../utils/info-builder';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -63,7 +63,7 @@ const EditSupersetRow = (
                       ? classes.topRow
                       : classes.bottomRow
                   }
-                  info={buildSetFieldInfo(
+                  info={buildSetTextFieldInfo(
                     info,
                     info.exercise.parameterTypeId,
                     info.exercise.alternateSides,

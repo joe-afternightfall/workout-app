@@ -1,7 +1,7 @@
 import { ActiveSetInfo } from 'workout-app-common-core';
 import { SetTextFieldInfoProps } from '../configs/types';
 
-export const buildSetFieldInfo = (
+export const buildSetTextFieldInfo = (
   setInfo: ActiveSetInfo,
   parameterTypeId: string,
   alternateSides: boolean,

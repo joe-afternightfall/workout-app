@@ -8,7 +8,7 @@ import {
   ActiveSetInfo,
 } from 'workout-app-common-core';
 import BaseSet from '../../../shared/set-fields/BaseSet';
-import { buildSetFieldInfo } from '../../../../utils/info-builder';
+import { buildSetTextFieldInfo } from '../../../../utils/info-builder';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -69,7 +69,7 @@ export default function ActiveSuperset({
                       extraStyles={
                         index === 0 ? classes.topRow : classes.bottomRow
                       }
-                      info={buildSetFieldInfo(
+                      info={buildSetTextFieldInfo(
                         info,
                         info.exercise.parameterTypeId,
                         info.exercise.alternateSides,
