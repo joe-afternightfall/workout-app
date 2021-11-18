@@ -95,8 +95,13 @@ export default {
                   setNumber: numberOfSets + 1,
                   weight: lastSet ? lastSet.weight : 0,
                   reps: lastSet ? lastSet.reps : 0,
-                  duration: lastSet && lastSet.duration,
-                  distance: lastSet && lastSet.distance,
+                  duration: {
+                    seconds: lastSet ? lastSet.duration.seconds : 0,
+                  },
+                  distance: {
+                    unit: lastSet ? lastSet.distance.unit : 'miles',
+                    value: lastSet ? lastSet.distance.value : 0,
+                  },
                   markedDone: false,
                 });
               }
