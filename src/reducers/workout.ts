@@ -488,8 +488,6 @@ export default {
         newState.phaseIdToAddNewSegment = action.phaseId;
         newState.displayWhichPhaseDialog = false;
         break;
-      default:
-        break;
     }
 
     return newState;
