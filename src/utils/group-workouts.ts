@@ -1,5 +1,4 @@
 import { Workout } from 'workout-app-common-core';
-import { format, getMonth, getYear, subDays } from 'date-fns';
 
 export interface GroupedWorkouts {
   [key: string]: {
