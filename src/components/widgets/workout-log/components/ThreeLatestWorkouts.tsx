@@ -1,33 +1,37 @@
 import React from 'react';
-import { Dispatch } from 'redux';
-import { connect } from 'react-redux';
+import { List } from '@material-ui/core';
+import { Workout } from 'workout-app-common-core';
+import LogListItem from './log-list/components/LogListItem';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { State } from '../../../../configs/redux/store';
 
-const useStyles = makeStyles(() => createStyles({}));
+const useStyles = makeStyles(() =>
+  createStyles({
+    root: {
+      width: '100%',
+    },
+  })
+);
 
-const ThreeLatestWorkouts = (props: ThreeLatestWorkoutsProps): JSX.Element => {
+export default function ThreeLatestWorkouts(
+  props: ThreeLatestWorkoutsProps
+): JSX.Element {
   const classes = useStyles();
+  const { workouts, selectWorkoutHandler } = props;
 
   return (
-    <div>
-      <p>Functional Connected Component</p>
-    </div>
+    <List className={classes.root}>
+      {workouts.map((workout, index) => (
+        <LogListItem
+          key={index}
+          workout={workout}
+          selectWorkoutHandler={selectWorkoutHandler}
+        />
+      ))}
+    </List>
   );
-};
-
-interface ThreeLatestWorkoutsProps {
-  DELETE_ME?: string;
 }
 
-const mapStateToProps = (state: State): ThreeLatestWorkoutsProps => {
-  return {} as unknown as ThreeLatestWorkoutsProps;
-};
-
-const mapDispatchToProps = (dispatch: Dispatch): ThreeLatestWorkoutsProps =>
-  ({} as unknown as ThreeLatestWorkoutsProps);
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ThreeLatestWorkouts);
+interface ThreeLatestWorkoutsProps {
+  workouts: Workout[];
+  selectWorkoutHandler: (workout: Workout) => void;
+}
