@@ -1,4 +1,6 @@
 import React from 'react';
+import { Dispatch } from 'redux';
+import { connect } from 'react-redux';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import EventIcon from '@material-ui/icons/Event';
 import { Divider, Grid, ListItem, Typography } from '@material-ui/core';
@@ -6,18 +8,20 @@ import TimerIcon from '@material-ui/icons/Timer';
 import FitnessCenterIcon from '@material-ui/icons/FitnessCenter';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import WorkoutListDivider from '../../../../../shared/exercise-list/WorkoutListDivider';
-import { Workout } from 'workout-app-common-core';
+import { Workout, getWorkoutCategoryName } from 'workout-app-common-core';
 import LogListCell from './LogListCell';
 import { getMinutesBetweenDates } from '../../../../../../utils/number-util';
+import { State } from '../../../../../../configs/redux/store';
 
 const useStyles = makeStyles(() => createStyles({}));
 
-export default function LogListItem(props: LogListItemProps): JSX.Element {
+const LogListItem = (props: LogListItemProps & PassedInProps): JSX.Element => {
   const classes = useStyles();
-  const { workout } = props;
+  const { workout, categoryName } = props;
+
   return (
     <>
-      <ListItem disableGutters>
+      <ListItem>
         <Grid item xs={12} container>
           <Grid item xs={12} container alignItems={'center'}>
             <LogListCell
@@ -65,15 +69,43 @@ export default function LogListItem(props: LogListItemProps): JSX.Element {
             </Grid>
           </Grid>
           <Grid item xs={12} container alignItems={'flex-start'}>
-            {workout.routine.name}
+            <Grid item xs={12}>
+              <Typography variant={'h6'}>{workout.routine.name}</Typography>
+            </Grid>
+            <Grid item xs={12}>
+              <Typography variant={'overline'}>{categoryName}</Typography>
+            </Grid>
           </Grid>
         </Grid>
       </ListItem>
       <WorkoutListDivider />
     </>
   );
-}
+};
 
 interface LogListItemProps {
+  categoryName: string;
+}
+
+interface PassedInProps {
   workout: Workout;
 }
+
+const mapStateToProps = (
+  state: State,
+  ownProps: PassedInProps
+): LogListItemProps => {
+  const workoutCategories =
+    state.applicationState.workoutConfigurations.workoutCategories;
+  return {
+    categoryName: getWorkoutCategoryName(
+      workoutCategories,
+      ownProps.workout.routine.workoutCategoryId
+    ),
+  } as unknown as LogListItemProps;
+};
+
+const mapDispatchToProps = (dispatch: Dispatch): LogListItemProps =>
+  ({} as unknown as LogListItemProps);
+
+export default connect(mapStateToProps, mapDispatchToProps)(LogListItem);

@@ -17,6 +17,9 @@ const useStyles = makeStyles(() =>
     swipeableViews: {
       width: '100%',
       height: '82vh',
+      marginTop: '5vh',
+      marginLeft: '-12px',
+      position: 'absolute',
     },
   })
 );
@@ -59,6 +62,7 @@ const WorkoutLog = (props: WorkoutLogProps): JSX.Element => {
   return (
     <Grid item xs={12}>
       <TopAppBar
+        hideToolbarMixin
         title={title}
         leftButton={
           activeTab !== 0 ? (

@@ -1,5 +1,11 @@
 import { Workout } from 'workout-app-common-core';
 
+// export interface GroupedWorkouts {
+//   [key: string]: {
+//     [key: string]: Workout[];
+//   };
+// }
+
 export interface GroupedWorkouts {
   [key: string]: {
     [key: string]: Workout[];
@@ -8,25 +14,24 @@ export interface GroupedWorkouts {
 
 export const groupWorkoutsByMonth = (workouts: Workout[]): GroupedWorkouts => {
   const monthNames = [
-    'January',
-    'February',
-    'March',
-    'April',
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
     'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sept',
+    'Oct',
+    'Nov',
+    'Dec',
   ];
 
   const groupedWorkouts: GroupedWorkouts = {};
   workouts &&
     workouts.map((workout) => {
       const month = monthNames[new Date(workout.date).getMonth()];
-      console.log('month: ' + month);
       const year = new Date(workout.date).getFullYear();
       if (year in groupedWorkouts) {
         if (groupedWorkouts[year][month]) {
