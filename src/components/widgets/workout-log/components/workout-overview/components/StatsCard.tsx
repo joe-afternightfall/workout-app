@@ -27,7 +27,7 @@ const useStyles = makeStyles(() =>
   })
 );
 
-export default function OverviewCard(props: OverviewCardProps): JSX.Element {
+export default function StatsCard(props: StatsCardProps): JSX.Element {
   const classes = useStyles();
   const { set, totalSets } = props;
 
@@ -87,7 +87,7 @@ export default function OverviewCard(props: OverviewCardProps): JSX.Element {
   );
 }
 
-interface OverviewCardProps {
+interface StatsCardProps {
   set: Set;
   totalSets: number;
 }
