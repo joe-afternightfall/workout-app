@@ -77,7 +77,11 @@ const WorkoutLog = (props: WorkoutLogProps): JSX.Element => {
             </IconButton>
           ) : undefined
         }
-        rightButton={<Button onClick={forwardClickHandler}>{'More'}</Button>}
+        rightButton={
+          activeTab === 0 ? (
+            <Button onClick={forwardClickHandler}>{'More'}</Button>
+          ) : undefined
+        }
       />
       <SwipeableViews
         index={activeTab}
