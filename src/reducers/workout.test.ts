@@ -3,6 +3,7 @@ import {
   buildMockWorkout,
   buildMockRoutineTemplateVO,
   buildMockWorkoutCategoryVO,
+  buildMockPhase,
 } from '../configs/test-utils/test-vo-builder';
 import workout, { WorkoutState } from './workout';
 import { WorkoutActionTypes } from '../creators/actions-workout';
@@ -158,6 +159,64 @@ describe('workout reducer', () => {
     });
   });
 
+  it('should return ADD_SET_TO_ROUTINE_COPY action', () => {
+    const copyOfRoutineTemplate = buildMockRoutineTemplateVO(3, 4);
+    const templateExercise =
+      copyOfRoutineTemplate.phases[0].segments[0].exercises[0];
+    const segmentExerciseId = templateExercise.id;
+    const state = workout.reducer(
+      {
+        editOptions: { open: true, onlyDisplayDelete: false },
+        copyOfRoutineTemplate: copyOfRoutineTemplate,
+      } as unknown as WorkoutState,
+      {
+        type: WorkoutActionTypes.ADD_SET_TO_ROUTINE_COPY,
+        segmentExerciseId: segmentExerciseId,
+      }
+    );
+
+    const workoutExercise =
+      state.copyOfRoutineTemplate.phases[0].segments[0].exercises[0];
+
+    expect(workoutExercise.sets.length).toEqual(5);
+    expect(workoutExercise.sets[4].weight).toEqual(
+      templateExercise.sets[3].weight
+    );
+    expect(workoutExercise.sets[4].reps).toEqual(templateExercise.sets[3].reps);
+    expect(workoutExercise.sets[4].duration).toEqual(
+      templateExercise.sets[3].duration
+    );
+    expect(workoutExercise.sets[4].distance).toEqual(
+      templateExercise.sets[3].distance
+    );
+    expect(workoutExercise.sets[4].markedDone).toEqual(false);
+  });
+
+  it('should return DELETE_SET_FROM_ROUTINE_COPY action', () => {
+    const copyOfRoutineTemplate = buildMockRoutineTemplateVO(3, 4);
+    const setId =
+      copyOfRoutineTemplate.phases[0].segments[0].exercises[0].sets[0].id;
+    // const segmentExerciseId = templateExercise.id;
+    const state = workout.reducer(
+      {
+        editOptions: { open: true, onlyDisplayDelete: false },
+        copyOfRoutineTemplate: copyOfRoutineTemplate,
+      } as unknown as WorkoutState,
+      {
+        type: WorkoutActionTypes.DELETE_SET_FROM_ROUTINE_COPY,
+        setId: setId,
+      }
+    );
+
+    const workoutSets =
+      state.copyOfRoutineTemplate.phases[0].segments[0].exercises[0].sets;
+
+    expect(workoutSets.length).toEqual(3);
+    expect(workoutSets[0].setNumber).toEqual(1);
+    expect(workoutSets[1].setNumber).toEqual(2);
+    expect(workoutSets[2].setNumber).toEqual(3);
+  });
+
   it('should return SAVE_EDITED_VERSION_OF_ROUTINE action', () => {
     const copyOfRoutineTemplate = buildMockRoutineTemplateVO(3, 4);
 
@@ -294,6 +353,44 @@ describe('workout reducer', () => {
     expect(state.workoutStarted).toEqual(true);
   });
 
+  it('should return MARK_CURRENT_SET_AS_DONE action', () => {
+    const mockPhase = buildMockPhase(3);
+    const state = workout.reducer(
+      {
+        currentPhase: mockPhase,
+        activeWorkout: buildMockWorkout(2, 4),
+        currentSetIndex: 1,
+      } as unknown as WorkoutState,
+      {
+        type: WorkoutActionTypes.MARK_CURRENT_SET_AS_DONE,
+        segmentId: mockPhase.segments[0].id,
+        setNumber: 1,
+        lastSet: false,
+        lastSegment: false,
+      }
+    );
+    expect(state.currentSetIndex).toEqual(2);
+  });
+
+  it('should return MARK_CURRENT_SET_AS_DONE action when last set', () => {
+    const mockPhase = buildMockPhase(3);
+    const state = workout.reducer(
+      {
+        currentPhase: mockPhase,
+        activeWorkout: buildMockWorkout(2, 4),
+        currentSetIndex: 1,
+      } as unknown as WorkoutState,
+      {
+        type: WorkoutActionTypes.MARK_CURRENT_SET_AS_DONE,
+        segmentId: mockPhase.segments[0].id,
+        setNumber: 1,
+        lastSet: true,
+        lastSegment: false,
+      }
+    );
+    expect(state.currentSetIndex).toEqual(1);
+  });
+
   it('should return WORKOUT_DONE action', () => {
     const workoutDate = '-1';
     const activeWorkout = buildMockWorkout(2, 5, workoutDate);
@@ -307,6 +404,22 @@ describe('workout reducer', () => {
     );
 
     expect(state.activeWorkout.endTime).not.toEqual(workoutDate);
+  });
+
+  it('should return START_SELECTED_SEGMENT action', () => {
+    const mockPhase = buildMockPhase(4);
+    const state = workout.reducer(
+      {
+        currentSegmentIndex: 1,
+        currentPhase: mockPhase,
+      } as unknown as WorkoutState,
+      {
+        type: WorkoutActionTypes.START_SELECTED_SEGMENT,
+        segmentId: mockPhase.segments[0].id,
+      }
+    );
+
+    expect(state.currentPhase).toEqual(mockPhase);
   });
 
   it('should return CLEAR_ACTIVE_WORKOUT action', () => {

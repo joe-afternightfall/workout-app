@@ -34,13 +34,16 @@ export interface WorkoutSnapshot {
 }
 
 export const mapWorkoutSnapshotToVO = (snap: WorkoutSnapshot): Workout[] => {
-  return Object.keys(snap).map((key: string) => {
-    return {
-      id: snap[key].id,
-      date: snap[key].date,
-      startTime: snap[key].startTime,
-      endTime: snap[key].endTime,
-      routine: snap[key].routine,
-    };
-  });
+  return (
+    snap &&
+    Object.keys(snap).map((key: string) => {
+      return {
+        id: snap[key].id,
+        date: snap[key].date,
+        startTime: snap[key].startTime,
+        endTime: snap[key].endTime,
+        routine: snap[key].routine,
+      };
+    })
+  );
 };

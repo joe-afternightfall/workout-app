@@ -6,9 +6,9 @@ import BaseSet from '../set-fields/BaseSet';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { ActiveSetInfo, BuiltSets } from 'workout-app-common-core';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import ActionButton from '../../top-level-components/workout-screens/3-preview-workout/components/edit-set/components/ActionButton';
+import { buildSetTextFieldInfo } from '../../../utils/set-info-builder';
 import { deleteSetFromRoutineCopy } from '../../../creators/workout/preview-workout';
-import { buildSetFieldInfo } from '../../../utils/info-builder';
+import ActionButton from '../../top-level-components/workout-screens/3-preview-workout/components/edit-set/components/ActionButton';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -63,7 +63,7 @@ const EditSupersetRow = (
                       ? classes.topRow
                       : classes.bottomRow
                   }
-                  info={buildSetFieldInfo(
+                  info={buildSetTextFieldInfo(
                     info,
                     info.exercise.parameterTypeId,
                     info.exercise.alternateSides,

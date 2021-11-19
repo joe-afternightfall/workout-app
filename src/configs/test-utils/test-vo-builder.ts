@@ -146,15 +146,15 @@ export const buildMultipleMockSegments = (n: number): Segment[] => {
   const segments: Segment[] = [];
   while (n > i) {
     i++;
-    segments.push(buildMockSegment());
+    segments.push(buildMockSegment(i));
   }
   return segments;
 };
 
-export const buildMockSegment = (): Segment => {
+export const buildMockSegment = (order: number): Segment => {
   return {
     id: chance.string(),
-    order: chance.integer({ min: 1, max: 10 }),
+    order: order,
     trainingSetTypeId: chance.string(),
     secondsRestBetweenSets: chance.integer({ min: 15, max: 120 }),
     secondsRestBetweenNextSegment: chance.integer({ min: 60, max: 240 }),
@@ -199,6 +199,13 @@ export const buildMockExerciseSet = (): Set => {
     setNumber: chance.integer({ min: 1, max: 5 }),
     weight: chance.integer({ min: 150, max: 250 }),
     reps: chance.integer({ min: 1, max: 5 }),
+    distance: {
+      unit: 'miles',
+      value: chance.integer({ min: 150, max: 250 }),
+    },
+    duration: {
+      seconds: chance.integer({ min: 150, max: 250 }),
+    },
     markedDone: chance.bool(),
   };
 };

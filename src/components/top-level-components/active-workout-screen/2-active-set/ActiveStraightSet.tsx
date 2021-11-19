@@ -7,7 +7,7 @@ import {
 import { Grid } from '@material-ui/core';
 import CrushedItButton from './components/CrushedItButton';
 import StraightSetRow from '../../../shared/set-rows/StraightSetRow';
-import { buildSetFieldInfo } from '../../../../utils/info-builder';
+import { buildSetTextFieldInfo } from '../../../../utils/set-info-builder';
 
 export default function ActiveStraightSet(
   props: ActiveStraightSetProps
@@ -43,7 +43,7 @@ export default function ActiveStraightSet(
                     setNumber={info.setNumber}
                     markedDone={markedDone}
                     activeSet={activeSet}
-                    info={buildSetFieldInfo(
+                    info={buildSetTextFieldInfo(
                       info,
                       info.exercise.parameterTypeId,
                       info.exercise.alternateSides,
