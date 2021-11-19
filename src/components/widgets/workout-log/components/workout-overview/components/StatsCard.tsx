@@ -1,11 +1,15 @@
 import clsx from 'clsx';
 import React from 'react';
 import { Set } from 'workout-app-common-core';
-import { Card, CardContent, Grid, Typography } from '@material-ui/core';
+import { Card, Grid, Typography } from '@material-ui/core';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(() =>
   createStyles({
+    baseCard: {
+      height: 56,
+      textAlign: 'center',
+    },
     firstCard: {
       borderTopRightRadius: 0,
       borderBottomRightRadius: 0,
@@ -66,23 +70,25 @@ export default function StatsCard(props: StatsCardProps): JSX.Element {
     <Card
       elevation={0}
       style={{ width: widthSize }}
-      className={clsx({
+      className={clsx(classes.baseCard, {
         [classes.onlyOneCard]: onlyCard,
         [classes.firstCard]: firstCard,
         [classes.lastCard]: lastCard,
         [classes.middleCard]: !firstCard && !lastCard,
       })}
     >
-      <CardContent>
-        <Grid container>
-          <Grid item xs={12} style={{ textAlign: 'center' }}>
-            <Typography variant={'subtitle1'}>{`${set.weight} lbs`}</Typography>
-          </Grid>
-          <Grid item xs={12} style={{ textAlign: 'center' }}>
-            <Typography variant={'subtitle1'}>{`${set.reps} reps`}</Typography>
-          </Grid>
+      <Grid container>
+        <Grid item xs={12}>
+          <Typography variant={'subtitle1'} color={'textSecondary'}>
+            {`${set.weight} lbs`}
+          </Typography>
         </Grid>
-      </CardContent>
+        <Grid item xs={12}>
+          <Typography variant={'subtitle1'} color={'textSecondary'}>
+            {`${set.reps} reps`}
+          </Typography>
+        </Grid>
+      </Grid>
     </Card>
   );
 }

@@ -1,34 +1,30 @@
 import React from 'react';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import OverviewCard from './OverviewCard';
-import { ExerciseVO, getExerciseName, Segment } from 'workout-app-common-core';
-import { Grid, ListItem, Typography } from '@material-ui/core';
+import { Grid, ListItem } from '@material-ui/core';
+import OverviewExerciseItem from './OverviewExerciseItem';
 import { State } from '../../../../../../configs/redux/store';
+import OverviewSupersetDivider from './OverviewSupersetDivider';
+import { ExerciseVO, isSuperset, Segment } from 'workout-app-common-core';
 
 const OverviewListItem = (
   props: OverviewListItemProps & PassedInProps
 ): JSX.Element => {
-  const { segment, exercises } = props;
-
-  const firstExerciseName = getExerciseName(
-    exercises,
-    segment.exercises[0].exerciseId
-  );
+  const { segment } = props;
 
   return (
     <ListItem>
-      <Grid container>
-        <Grid item xs={12}>
-          <Typography>{firstExerciseName}</Typography>
-        </Grid>
-        <Grid item xs={12} container>
-          {segment.exercises[0].sets.map((set, index) => {
-            const totalSets = segment.exercises[0].sets.length;
+      <Grid item xs={12} container>
+        <OverviewExerciseItem exercise={segment.exercises[0]} />
+        {isSuperset(segment.trainingSetTypeId) && (
+          <>
+            <OverviewSupersetDivider />
 
-            return <OverviewCard key={index} set={set} totalSets={totalSets} />;
-          })}
-        </Grid>
+            <Grid item xs={12} container>
+              <OverviewExerciseItem exercise={segment.exercises[1]} />
+            </Grid>
+          </>
+        )}
       </Grid>
     </ListItem>
   );
