@@ -1,5 +1,4 @@
 import React from 'react';
-import { Dispatch } from 'redux';
 import StatsCard from './StatsCard';
 import { connect } from 'react-redux';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
@@ -68,7 +67,7 @@ const mapStateToProps = (
   } as unknown as OverviewExerciseItemProps;
 };
 
-const mapDispatchToProps = (dispatch: Dispatch): OverviewExerciseItemProps =>
+const mapDispatchToProps = (): OverviewExerciseItemProps =>
   ({} as unknown as OverviewExerciseItemProps);
 
 export default connect(

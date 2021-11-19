@@ -1,5 +1,4 @@
 import React from 'react';
-import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { Grid, ListItem } from '@material-ui/core';
 import OverviewExerciseItem from './OverviewExerciseItem';
@@ -44,7 +43,7 @@ const mapStateToProps = (state: State): OverviewListItemProps => {
   } as unknown as OverviewListItemProps;
 };
 
-const mapDispatchToProps = (dispatch: Dispatch): OverviewListItemProps =>
+const mapDispatchToProps = (): OverviewListItemProps =>
   ({} as unknown as OverviewListItemProps);
 
 export default connect(mapStateToProps, mapDispatchToProps)(OverviewListItem);
