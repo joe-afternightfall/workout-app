@@ -55,10 +55,6 @@ export class Initializer {
 
     const refArray = [
       {
-        ref: firebase.database().ref(FIREBASE_DB_EXERCISES_ROUTE),
-        updateMethod: () => updateExercises(this.store),
-      },
-      {
         ref: firebase.database().ref(FIREBASE_DB_ROUTINE_TEMPLATES_ROUTE),
         updateMethod: () => updateRoutineTemplates(this.store),
       },
