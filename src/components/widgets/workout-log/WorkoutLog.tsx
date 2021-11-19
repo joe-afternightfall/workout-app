@@ -56,9 +56,17 @@ const WorkoutLog = (props: WorkoutLogProps): JSX.Element => {
     case 1:
       title = 'All Workouts';
       break;
-    case 2:
-      title = '';
+    case 2: {
+      if (selectedWorkout) {
+        title = new Date(selectedWorkout.date).toLocaleDateString(undefined, {
+          weekday: 'long',
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+        });
+      }
       break;
+    }
     default:
       break;
   }
@@ -69,6 +77,7 @@ const WorkoutLog = (props: WorkoutLogProps): JSX.Element => {
     <Grid item xs={12}>
       <TopAppBar
         hideToolbarMixin
+        disableGutters
         title={title}
         leftButton={
           activeTab !== 0 ? (
