@@ -20,19 +20,20 @@ const MuscleGroupList = (
   const { selectMuscleHandler, manikinMuscleGroups } = props;
   return (
     <List className={classes.root}>
-      {manikinMuscleGroups.map((group, index) => {
-        return (
-          <ListItem
-            key={index}
-            button
-            onClick={() => {
-              selectMuscleHandler(group.id);
-            }}
-          >
-            <ListItemText primary={group.name} />
-          </ListItem>
-        );
-      })}
+      {manikinMuscleGroups &&
+        manikinMuscleGroups.map((group, index) => {
+          return (
+            <ListItem
+              key={index}
+              button
+              onClick={() => {
+                selectMuscleHandler(group.id);
+              }}
+            >
+              <ListItemText primary={group.name} />
+            </ListItem>
+          );
+        })}
     </List>
   );
 };
