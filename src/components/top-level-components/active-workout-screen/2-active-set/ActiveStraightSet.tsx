@@ -23,7 +23,7 @@ export default function ActiveStraightSet(
     let lastSet = false;
 
     straightSets.push(
-      <div key={index}>
+      <div key={index} style={{ width: '100%' }}>
         {setInfo.map((info: ActiveSetInfo) => {
           segmentId = info.segmentId;
           setNumber = info.setNumber;

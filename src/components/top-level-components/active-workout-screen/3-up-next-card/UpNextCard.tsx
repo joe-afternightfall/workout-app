@@ -1,4 +1,3 @@
-import clsx from 'clsx';
 import React from 'react';
 import {
   Grid,
@@ -29,14 +28,12 @@ const useStyles = makeStyles((theme: AppTheme) =>
   createStyles({
     root: {
       width: '100%',
+      marginBottom: 12,
     },
     list: {
       width: '100%',
       paddingTop: 0,
       paddingBottom: 0,
-    },
-    bottomMargin: {
-      marginBottom: 12,
     },
     highlight: {
       color: theme.palette.custom.colors.active,
@@ -64,20 +61,7 @@ const UpNextCard = (props: UpNextCardProps & PassedInProps): JSX.Element => {
     nextSegment && isStraightSet(nextSegment.trainingSetTypeId);
   const circuitSet = nextSegment && isCircuitSet(nextSegment.trainingSetTypeId);
 
-  if (props.lastSegment && props.lastExerciseOfWorkout) {
-    display = (
-      <ListItem>
-        <ListItemIcon className={classes.itemIconWrapper}>
-          <img src={confettiEmoji} alt={'confetti'} />
-        </ListItemIcon>
-        <ListItemText
-          className={classes.listItemText}
-          primary={'Done with Workout'}
-          secondary={'time to celebrate'}
-        />
-      </ListItem>
-    );
-  } else if (props.lastSegment) {
+  if (props.lastSegment && !props.lastExerciseOfWorkout) {
     display = (
       <ListItem>
         <ListItemIcon className={classes.itemIconWrapper} />
@@ -110,11 +94,7 @@ const UpNextCard = (props: UpNextCardProps & PassedInProps): JSX.Element => {
   }
 
   return (
-    <Card
-      className={clsx(classes.root, {
-        [classes.bottomMargin]: props.bottomMargin,
-      })}
-    >
+    <Card className={classes.root}>
       <Grid item xs={12} container>
         <List className={classes.list}>{display}</List>
       </Grid>
@@ -123,7 +103,6 @@ const UpNextCard = (props: UpNextCardProps & PassedInProps): JSX.Element => {
 };
 
 interface PassedInProps {
-  bottomMargin?: boolean;
   lastSegment: boolean;
   lastExerciseOfWorkout: boolean;
 }

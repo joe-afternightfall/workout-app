@@ -77,7 +77,6 @@ export default function ActiveWorkout({
 
           <Grid item xs={12} container alignItems={'flex-end'}>
             <UpNextCard
-              bottomMargin={superset}
               lastSegment={lastSegment}
               lastExerciseOfWorkout={lastExerciseOfWorkout}
             />
