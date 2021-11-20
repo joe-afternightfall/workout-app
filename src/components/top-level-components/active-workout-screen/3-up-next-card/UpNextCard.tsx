@@ -22,7 +22,6 @@ import { AppTheme } from '../../../../configs/theme/app-theme';
 import SuperSetItem from '../../../shared/exercise-list/SuperSetItem';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import SingleSetItem from '../../../shared/exercise-list/SingleSetItem';
-import confettiEmoji from '../../../../configs/icons/confetti-emoji.png';
 
 const useStyles = makeStyles((theme: AppTheme) =>
   createStyles({
