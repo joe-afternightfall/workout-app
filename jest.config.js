@@ -28,6 +28,9 @@ module.exports = {
     '\\.ts$': 'ts-jest',
     '\\.tsx$': 'ts-jest',
     '^.+\\.svg$': 'jest-svg-transformer',
+    '^.+\\.js$': 'babel-jest',
+    '.+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$':
+      'jest-transform-stub',
   },
   verbose: false,
   testPathIgnorePatterns: ['<rootDir>/cypress/'],

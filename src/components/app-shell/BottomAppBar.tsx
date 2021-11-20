@@ -59,6 +59,7 @@ const BottomAppBar = (props: BottomAppBarProps): JSX.Element => {
                 currentRoute.bottomNav && (
                   <BottomNavigationAction
                     key={index}
+                    data-testid={currentRoute.id}
                     value={currentRoute.id}
                     label={currentRoute.title}
                     icon={React.createElement(currentRoute.icon)}

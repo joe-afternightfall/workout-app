@@ -101,20 +101,6 @@ describe('find latest util', () => {
       );
       const firstExerciseId = chance.string();
       const secondExerciseId = chance.string();
-      // const mockWorkoutExercise: WorkoutExercise = [
-      //   {
-      //     id: chance.string(),
-      //     order: 1,
-      //     exerciseId: firstExerciseId,
-      //     sets: [],
-      //   },
-      //   {
-      //     id: chance.string(),
-      //     order: 2,
-      //     exerciseId: secondExerciseId,
-      //     sets: [],
-      //   },
-      // ];
       const mockWorkoutExercise: WorkoutExercise = {
         id: chance.string(),
         order: 1,
@@ -123,30 +109,51 @@ describe('find latest util', () => {
       };
 
       const exerciseToFind = {
-        id: chance.string(),
+        id: 'id-1',
         order: 1,
         exerciseId: firstExerciseId,
         sets: [
           {
-            id: chance.string(),
+            id: 'id-1',
             setNumber: 1,
             weight: 50,
             reps: 12,
             markedDone: true,
+            duration: {
+              seconds: 35,
+            },
+            distance: {
+              unit: 'miles',
+              value: 2.45,
+            },
           },
           {
-            id: chance.string(),
+            id: 'id-2',
             setNumber: 2,
             weight: 55,
             reps: 12,
             markedDone: true,
+            duration: {
+              seconds: 60,
+            },
+            distance: {
+              unit: 'miles',
+              value: 3,
+            },
           },
           {
-            id: chance.string(),
+            id: 'id-3',
             setNumber: 3,
             weight: 60,
             reps: 12,
             markedDone: true,
+            duration: {
+              seconds: 60,
+            },
+            distance: {
+              unit: 'miles',
+              value: 5,
+            },
           },
         ],
       };
@@ -176,9 +183,57 @@ describe('find latest util', () => {
                     max: 240,
                   }),
                   exercises: [
-                    exerciseToFind,
                     {
-                      id: chance.string(),
+                      id: 'id-1',
+                      order: 1,
+                      exerciseId: firstExerciseId,
+                      sets: [
+                        {
+                          id: 'id-1',
+                          setNumber: 1,
+                          weight: 50,
+                          reps: 12,
+                          markedDone: true,
+                          duration: {
+                            seconds: 35,
+                          },
+                          distance: {
+                            unit: 'miles',
+                            value: 2.45,
+                          },
+                        },
+                        {
+                          id: 'id-2',
+                          setNumber: 2,
+                          weight: 55,
+                          reps: 12,
+                          markedDone: true,
+                          duration: {
+                            seconds: 60,
+                          },
+                          distance: {
+                            unit: 'miles',
+                            value: 3,
+                          },
+                        },
+                        {
+                          id: 'id-3',
+                          setNumber: 3,
+                          weight: 60,
+                          reps: 12,
+                          markedDone: true,
+                          duration: {
+                            seconds: 60,
+                          },
+                          distance: {
+                            unit: 'miles',
+                            value: 5,
+                          },
+                        },
+                      ],
+                    },
+                    {
+                      id: 'id-4',
                       order: 2,
                       exerciseId: secondExerciseId,
                       sets: [
@@ -188,6 +243,13 @@ describe('find latest util', () => {
                           weight: 15,
                           reps: 12,
                           markedDone: true,
+                          duration: {
+                            seconds: 60,
+                          },
+                          distance: {
+                            unit: 'miles',
+                            value: 3,
+                          },
                         },
                         {
                           id: chance.string(),
@@ -195,6 +257,13 @@ describe('find latest util', () => {
                           weight: 20,
                           reps: 12,
                           markedDone: true,
+                          duration: {
+                            seconds: chance.integer(),
+                          },
+                          distance: {
+                            unit: 'miles',
+                            value: chance.integer(),
+                          },
                         },
                         {
                           id: chance.string(),
@@ -202,6 +271,13 @@ describe('find latest util', () => {
                           weight: 25,
                           reps: 12,
                           markedDone: true,
+                          duration: {
+                            seconds: chance.integer(),
+                          },
+                          distance: {
+                            unit: 'miles',
+                            value: chance.integer(),
+                          },
                         },
                       ],
                     },
