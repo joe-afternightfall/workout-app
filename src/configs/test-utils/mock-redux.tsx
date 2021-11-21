@@ -55,6 +55,12 @@ export function getStore(state: State): MockStore {
   });
 }
 
+export function getWorkoutStore(state: State): MockStore {
+  return createStore(middleware)({
+    workoutState: { ...state },
+  });
+}
+
 export function getRealStore(): Store {
   const history: History = createHashHistory();
   return createRealStore(history);
