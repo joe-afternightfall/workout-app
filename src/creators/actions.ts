@@ -1,6 +1,5 @@
 import { LocationChangeAction } from 'connected-react-router';
 import {
-  ClearUserInfoAction,
   LoadUserInfoAction,
   SetupNewUserAction,
   ToggleUserProfileDialogAction,
@@ -29,7 +28,6 @@ import {
 export enum ActionTypes {
   // Application Actions
   INITIALIZE = 'INITIALIZE',
-  CLEAR_USER_INFO = 'CLEAR_USER_INFO',
 
   TOGGLE_USER_PROFILE_DIALOG = 'TOGGLE_USER_PROFILE_DIALOG',
   LOAD_USER_INFO = 'LOAD_USER_INFO',
@@ -55,7 +53,6 @@ export enum ActionTypes {
 
 export type ApplicationActions =
   | LocationChangeAction
-  | ClearUserInfoAction
   | ToggleUserProfileDialogAction
   | LoadUserInfoAction
   | ValidatedUserAction
