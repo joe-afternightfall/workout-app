@@ -78,6 +78,7 @@ const WorkoutLog = (props: WorkoutLogProps): JSX.Element => {
       <TopAppBar
         hideToolbarMixin
         disableGutters
+        position={'relative'}
         title={title}
         leftButton={
           activeTab !== 0 ? (
