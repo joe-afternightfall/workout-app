@@ -12,7 +12,10 @@ import { buildSetInfo } from '../../../utils/set-info-builder';
 import ActiveWorkout, { ActiveWorkoutProps } from './ActiveWorkout';
 import { saveWorkoutForUser } from '../../../services/user-profile';
 import { WORKOUT_DONE_PATH } from '../../../configs/constants/app-routing';
-import { markCurrentSetAsDone } from '../../../creators/workout/active-workout';
+import {
+  markCurrentSetAsDone,
+  openCountdownTimerFor,
+} from '../../../creators/workout/active-workout';
 
 const mapStateToProps = (state: State): ActiveWorkoutProps => {
   const allExercises = state.applicationState.workoutConfigurations.exercises;
@@ -63,6 +66,12 @@ const mapDispatchToProps = (dispatch: Dispatch): ActiveWorkoutProps =>
         (dispatch as ThunkDispatch<State, void, AnyAction>)(
           saveWorkoutForUser(WORKOUT_DONE_PATH)
         );
+      } else {
+        if (lastSet) {
+          dispatch(openCountdownTimerFor('segment', segmentId, setNumber));
+        } else {
+          dispatch(openCountdownTimerFor('set', segmentId, setNumber));
+        }
       }
     },
   } as unknown as ActiveWorkoutProps);
