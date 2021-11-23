@@ -315,9 +315,6 @@ export default {
             };
           }
         }
-        console.log(
-          'newState.countdownTimer: ' + JSON.stringify(newState.countdownTimer)
-        );
         break;
       }
       case WorkoutActionTypes.CLOSE_COUNTDOWN_TIMER:
