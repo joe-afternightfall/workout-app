@@ -32,11 +32,17 @@ export default function BaseActionButton(
   const { icon, buttonTitle, clickHandler } = props;
 
   const iconElement = React.createElement(icon, {
+    id: `${buttonTitle}-icon`,
     style: { height: '2.75vh', marginTop: -12 },
   });
 
   return (
-    <Button fullWidth className={classes.button} onClick={clickHandler}>
+    <Button
+      fullWidth
+      className={classes.button}
+      onClick={clickHandler}
+      data-testid={`${buttonTitle}-button`}
+    >
       <Grid container>
         <Grid item xs={12}>
           {iconElement}
