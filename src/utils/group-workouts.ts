@@ -1,11 +1,5 @@
 import { Workout } from 'workout-app-common-core';
 
-// export interface GroupedWorkouts {
-//   [key: string]: {
-//     [key: string]: Workout[];
-//   };
-// }
-
 export interface GroupedWorkouts {
   [key: string]: {
     [key: string]: Workout[];
