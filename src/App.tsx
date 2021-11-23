@@ -13,6 +13,7 @@ import BottomAppBar from './components/app-shell/BottomAppBar';
 import ProfileDialog from './components/top-level-components/profile-screen/ProfileDialog';
 import WhichPhaseDialog from './components/app-shell/WhichPhaseDialog';
 import DeleteExerciseDrawer from './components/app-shell/DeleteExerciseDrawer';
+import CountdownTimer from './components/widgets/countdown-timer/CountdownTimer';
 
 const styles: Styles<Theme, StyledComponentProps> = () => ({
   root: {
@@ -36,6 +37,7 @@ class App extends Component<AppProps> {
           <ProfileDialog />
           <WhichPhaseDialog />
           <DeleteExerciseDrawer />
+          <CountdownTimer />
 
           <main>
             <div>{children}</div>

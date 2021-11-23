@@ -14,7 +14,9 @@ import {
 } from './workout/workout-selections';
 import {
   ClearActiveWorkoutAction,
+  CloseCountdownTimerAction,
   MarkCurrentSetAsDoneAction,
+  OpenCountdownTimerForAction,
   StartSelectedSegmentAction,
   WorkoutDoneAction,
 } from './workout/active-workout';
@@ -42,6 +44,8 @@ export enum WorkoutActionTypes {
   SELECTED_ROUTINE = 'SELECTED_ROUTINE',
   START_WORKOUT = 'START_WORKOUT',
   MARK_CURRENT_SET_AS_DONE = 'MARK_CURRENT_SET_AS_DONE',
+  OPEN_COUNTDOWN_TIMER_FOR = 'OPEN_COUNTDOWN_TIMER_FOR',
+  CLOSE_COUNTDOWN_TIMER = 'CLOSE_COUNTDOWN_TIMER',
   TOGGLE_EDIT_OPTION_BUTTONS = 'TOGGLE_EDIT_OPTION_BUTTONS',
   OPEN_EDIT_PREVIEW_OPTIONS = 'OPEN_EDIT_PREVIEW_OPTIONS',
   OPEN_EDIT_SET = 'OPEN_EDIT_SET',
@@ -91,4 +95,6 @@ export type WorkoutActions =
   | CheckIfPhaseSelectionRequiredAction
   | CloseUpdatePhaseIdToAddNewSegmentAction
   | DeleteSelectedSegmentFromRoutineAction
-  | ToggleDeleteExerciseDrawerAction;
+  | ToggleDeleteExerciseDrawerAction
+  | OpenCountdownTimerForAction
+  | CloseCountdownTimerAction;

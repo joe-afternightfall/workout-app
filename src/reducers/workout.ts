@@ -1,17 +1,17 @@
 import * as ramda from 'ramda';
 import {
-  Set,
   Phase,
-  Workout,
-  SUPER_SET_ID,
-  WorkoutExercise,
-  STRAIGHT_SET_ID,
   RoutineTemplateVO,
+  Set,
+  STRAIGHT_SET_ID,
+  SUPER_SET_ID,
+  Workout,
   WorkoutCategoryVO,
+  WorkoutExercise,
 } from 'workout-app-common-core';
 import {
-  PhaseTypeEditingSegment,
   DeleteExerciseDrawerActionProps,
+  PhaseTypeEditingSegment,
 } from '../configs/types';
 import {
   WorkoutActions,
@@ -19,9 +19,9 @@ import {
 } from '../creators/actions-workout';
 import { v4 as uuidv4 } from 'uuid';
 import {
-  updateSet,
   buildBaseSets,
   deleteSegmentFromPhase,
+  updateSet,
 } from '../utils/edit-object-util';
 import { arrayMoveImmutable as arrayMove } from 'array-move';
 
@@ -296,6 +296,33 @@ export default {
           }
         }
         break;
+      case WorkoutActionTypes.OPEN_COUNTDOWN_TIMER_FOR: {
+        const segments = newState.currentPhase.segments;
+        const foundSegment = segments.find(
+          (segment) => segment.id === action.segmentId
+        );
+
+        if (foundSegment) {
+          if (action.timerType === 'segment') {
+            newState.countdownTimer = {
+              display: true,
+              seconds: foundSegment.secondsRestBetweenNextSegment,
+            };
+          } else {
+            newState.countdownTimer = {
+              display: true,
+              seconds: foundSegment.secondsRestBetweenSets,
+            };
+          }
+        }
+        break;
+      }
+      case WorkoutActionTypes.CLOSE_COUNTDOWN_TIMER:
+        newState.countdownTimer = {
+          display: false,
+          seconds: 0,
+        };
+        break;
       case WorkoutActionTypes.WORKOUT_DONE:
         newState.activeWorkout.endTime = Date.now().toString();
         newState.workoutStarted = false;
@@ -453,6 +480,10 @@ export default {
 export interface WorkoutState {
   currentLocation: string;
   workoutStarted: boolean;
+  countdownTimer: {
+    display: boolean;
+    seconds: number;
+  };
   selectedWorkoutCategory: WorkoutCategoryVO;
   selectedRoutineTemplate: RoutineTemplateVO;
   copyOfRoutineTemplate: RoutineTemplateVO;

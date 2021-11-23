@@ -58,6 +58,10 @@ export const createStore = (history: History): Store => {
     } as unknown as ApplicationState,
     workoutState: {
       workoutStarted: false,
+      countdownTimer: {
+        display: false,
+        seconds: 0,
+      },
       editOptions: {
         open: false,
         onlyDisplayDelete: false,

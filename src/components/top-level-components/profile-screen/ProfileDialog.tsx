@@ -28,7 +28,7 @@ import React, { ChangeEvent } from 'react';
 import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction, Dispatch } from 'redux';
 import { State } from '../../../configs/redux/store';
-import NumbersTextField from '../../shared/NumbersTextField';
+import NumbersTextField from './NumbersTextField';
 import { findLatestWeight } from '../../../utils/find-latest';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { UserProfileVO } from 'workout-app-common-core';

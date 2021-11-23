@@ -56,7 +56,9 @@ export default function TopAppBar(props: TopAppBarProps): JSX.Element {
               {React.isValidElement(title) ? (
                 title
               ) : (
-                <Typography>{title}</Typography>
+                <Typography data-testid={'top-app-bar-title'}>
+                  {title}
+                </Typography>
               )}
             </Grid>
 

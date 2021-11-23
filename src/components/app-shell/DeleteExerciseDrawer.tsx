@@ -74,6 +74,7 @@ const DeleteExerciseDrawer = (
                 props.deleteSegmentHandler(segmentId);
                 props.closeHandler();
               }}
+              data-testid={'delete-exercise-button'}
             >
               {'Remove Exercise'}
             </Button>
@@ -86,6 +87,7 @@ const DeleteExerciseDrawer = (
               variant={'contained'}
               onClick={props.closeHandler}
               className={classes.cancelButton}
+              data-testid={'delete-exercise-cancel-button'}
             >
               {'Cancel'}
             </Button>

@@ -53,10 +53,6 @@ export default {
       case ActionTypes.TOGGLE_USER_PROFILE_DIALOG:
         newState.openUserProfileDialog = action.shouldOpen;
         break;
-      case ActionTypes.CLEAR_USER_INFO:
-        newState.userProfile = action.userProfile;
-        newState.userIsValidated = false;
-        break;
       case ActionTypes.LOAD_EXERCISES:
         newState.workoutConfigurations.exercises = action.exercises;
         break;

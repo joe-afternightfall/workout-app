@@ -8,19 +8,10 @@ import {
   WorkoutCategoryVO,
   WorkoutEquipmentVO,
   UserWeight,
+  ExerciseVO,
+  MuscleInfo,
 } from 'workout-app-common-core';
 import { chance } from 'jest-chance';
-
-// export const buildUserProfile = (): UserProfileVO => {
-//   return {
-//     firebaseId: uuidv4(),
-//     id: uuidv4(),
-//     email: 'test-email@gmail.com',
-//     profileIcon: uuidv4(),
-//     displayName: 'test-display',
-//     height:
-//   };
-// };
 
 export const buildMultipleMockUserWeights = (n: number): UserWeight[] => {
   let i = 0;
@@ -207,5 +198,42 @@ export const buildMockExerciseSet = (): Set => {
       seconds: chance.integer({ min: 150, max: 250 }),
     },
     markedDone: chance.bool(),
+  };
+};
+
+export const buildMockExercise = (): ExerciseVO => {
+  return {
+    firebaseId: chance.string(),
+    id: chance.string(),
+    name: chance.string(),
+    description: chance.string(),
+    extraInfo: [
+      {
+        id: chance.string(),
+        title: chance.string(),
+        paragraph: chance.string(),
+      },
+    ],
+    workoutEquipmentIds: [chance.string(), chance.string()],
+    manikinMuscleGroupIds: [chance.string(), chance.string()],
+    musclesWorked: {
+      primary: [buildMuscleInfo()],
+      secondary: [buildMuscleInfo()],
+    },
+    iconId: chance.string(),
+    gripTypeId: chance.string(),
+    gripWidthId: chance.string(),
+    parameterTypeId: chance.string(),
+    alternateSides: chance.bool(),
+    active: chance.bool(),
+  };
+};
+
+export const buildMuscleInfo = (): MuscleInfo => {
+  return {
+    id: chance.string(),
+    order: chance.integer(),
+    muscleId: chance.string(),
+    muscleTargetTypeId: chance.string(),
   };
 };
