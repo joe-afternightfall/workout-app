@@ -12,7 +12,11 @@ export default function RepsAndSetsTitle(
   return (
     <Grid item xs={12} container alignItems={'center'}>
       <Grid item xs={12}>
-        <Typography variant={'body2'} color={'textSecondary'}>
+        <Typography
+          variant={'body2'}
+          color={'textSecondary'}
+          data-testid={'reps-and-sets-title'}
+        >
           {repsAndSets}
         </Typography>
       </Grid>
