@@ -3,7 +3,6 @@ import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { State } from '../../../configs/redux/store';
-import { NightfallCountdownTimer } from 'workout-app-common-core';
 import { Button, Dialog, Grid, Typography } from '@material-ui/core';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 import { closeCountdownTimer } from '../../../creators/workout/active-workout';

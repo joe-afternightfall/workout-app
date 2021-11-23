@@ -9,6 +9,7 @@ import {
   WorkoutEquipmentVO,
   UserWeight,
   ExerciseVO,
+  MuscleInfo,
 } from 'workout-app-common-core';
 import { chance } from 'jest-chance';
 
@@ -228,7 +229,7 @@ export const buildMockExercise = (): ExerciseVO => {
   };
 };
 
-export const buildMuscleInfo = () => {
+export const buildMuscleInfo = (): MuscleInfo => {
   return {
     id: chance.string(),
     order: chance.integer(),

@@ -6,7 +6,7 @@ import {
 } from './user-info';
 import { chance } from 'jest-chance';
 import { ActionTypes } from './actions';
-import { UserProfileVO, Workout } from 'workout-app-common-core';
+import { UserProfileVO } from 'workout-app-common-core';
 
 describe('user info creator', () => {
   it('should return toggleUserProfileDialog action', () => {
