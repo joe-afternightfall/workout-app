@@ -23,7 +23,6 @@ const useStyles = makeStyles(() =>
 const CountdownTimer = (props: CountdownTimerProps): JSX.Element => {
   const classes = useStyles();
   const { open, duration } = props;
-  console.log('duration: ' + duration);
 
   return (
     <div>
