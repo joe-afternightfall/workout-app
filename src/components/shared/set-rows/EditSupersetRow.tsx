@@ -2,7 +2,7 @@ import React from 'react';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { Grid } from '@material-ui/core';
-import BaseSet from '../set-fields/BaseSet';
+import BaseSet from '../set-fields/base-sets/BaseSet';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { ActiveSetInfo, BuiltSets } from 'workout-app-common-core';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
