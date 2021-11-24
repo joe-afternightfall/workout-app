@@ -41,14 +41,7 @@ export default function BaseSet({
   scrollToSetNumber,
 }: BaseSetProps): JSX.Element {
   const classes = useStyles();
-  let baseClass = '';
   let display = <div />;
-
-  if (superset) {
-    baseClass = classes.supersetRowWrapper;
-  } else {
-    baseClass = classes.straightSetRowWrapper;
-  }
 
   const baseProps = {
     info: info,
@@ -77,10 +70,13 @@ export default function BaseSet({
       alignItems={'center'}
       id={`active-set-${scrollToSetNumber}`}
       className={clsx(
-        baseClass,
         extraStyles,
         activeSet ? classes.active : classes.baseColor,
-        markedDone ? classes.done : undefined
+        {
+          [classes.done]: markedDone,
+          [classes.supersetRowWrapper]: superset,
+          [classes.straightSetRowWrapper]: !superset,
+        }
       )}
     >
       {display}
