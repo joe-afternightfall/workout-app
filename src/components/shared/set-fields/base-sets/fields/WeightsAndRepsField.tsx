@@ -1,15 +1,11 @@
 import React from 'react';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
 import BaseSetField from '../components/BaseSetField';
 import SetDivider from '../../SetDivider';
 import { SetTextFieldInfoProps } from '../../../../../configs/types';
 
-const useStyles = makeStyles(() => createStyles({}));
-
 export default function WeightsAndRepsField(
   props: WeightsAndRepsFieldProps
 ): JSX.Element {
-  const classes = useStyles();
   const { baseProps } = props;
 
   return (

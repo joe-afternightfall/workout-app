@@ -1,15 +1,11 @@
 import React from 'react';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
 import SetTextField from '../../SetTextField';
 import {
   SetTextFieldInfoProps,
   SetTextFieldTypes,
 } from '../../../../../configs/types';
 
-const useStyles = makeStyles(() => createStyles({}));
-
 export default function BaseSetField(props: BaseSetFieldProps): JSX.Element {
-  const classes = useStyles();
   const { type, fullLength } = props;
   const { info, activeSet, markedDone } = props.baseProps;
 
