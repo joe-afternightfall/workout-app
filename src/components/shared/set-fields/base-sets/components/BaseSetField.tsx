@@ -1,5 +1,5 @@
 import React from 'react';
-import SetTextField from '../../SetTextField';
+import SetTextField from './SetTextField';
 import {
   SetTextFieldInfoProps,
   SetTextFieldTypes,

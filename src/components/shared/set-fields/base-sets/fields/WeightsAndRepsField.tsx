@@ -1,6 +1,6 @@
 import React from 'react';
 import BaseSetField from '../components/BaseSetField';
-import SetDivider from '../../SetDivider';
+import SetDivider from '../components/SetDivider';
 import { SetTextFieldInfoProps } from '../../../../../configs/types';
 
 export default function WeightsAndRepsField(
