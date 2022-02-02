@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import React from 'react';
 import { Divider, Grid } from '@material-ui/core';
-import { AppTheme } from '../../../configs/theme/app-theme';
+import { AppTheme } from '../../../../../configs/theme/app-theme';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme: AppTheme) =>

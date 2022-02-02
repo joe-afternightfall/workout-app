@@ -36,13 +36,19 @@ const SuperSetDivider = (props: SuperSetDividerProps): JSX.Element => {
   const { shrink } = props;
 
   return (
-    <ListItem className={classes.root}>
+    <ListItem className={classes.root} data-testid={'super-set-divider'}>
       <ListItemIcon className={classes.itemIcon} />
       <ListItemText
         disableTypography
         className={classes.dividerWrapper}
         primary={
-          <Grid item xs={shrink ? 8 : 12} container alignItems={'center'}>
+          <Grid
+            item
+            xs={shrink ? 8 : 12}
+            container
+            alignItems={'center'}
+            data-testid={'super-set-wrapper'}
+          >
             <Grid item xs={10}>
               <Divider variant={'fullWidth'} />
             </Grid>

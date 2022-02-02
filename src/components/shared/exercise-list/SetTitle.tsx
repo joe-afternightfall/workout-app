@@ -23,6 +23,7 @@ export default function SetTitle(props: SetTitleProps): JSX.Element {
   const { upNextCard, displayUpNextTitle, bottomListItem, exerciseName } =
     props;
 
+  const bottomAndUpNext = bottomListItem && upNextCard;
   return displayUpNextTitle ? (
     <Grid item xs={12} container alignItems={'center'}>
       <Grid item xs={12}>
@@ -30,6 +31,7 @@ export default function SetTitle(props: SetTitleProps): JSX.Element {
           variant={'body1'}
           color={'textPrimary'}
           className={classes.upNextHighlight}
+          data-testid={'up-next-title'}
         >
           {'Up Next'}
         </Typography>
@@ -39,6 +41,7 @@ export default function SetTitle(props: SetTitleProps): JSX.Element {
           variant={'body1'}
           color={'textPrimary'}
           className={classes.upNextTitle}
+          data-testid={'up-next-exercise-title'}
         >
           {exerciseName}
         </Typography>
@@ -48,9 +51,8 @@ export default function SetTitle(props: SetTitleProps): JSX.Element {
     <Typography
       variant={'body1'}
       color={'textPrimary'}
-      className={
-        bottomListItem && upNextCard ? classes.upNextTitle : classes.title
-      }
+      className={bottomAndUpNext ? classes.upNextTitle : classes.title}
+      data-testid={bottomAndUpNext ? 'up-next-title' : 'regular-title'}
     >
       {exerciseName}
     </Typography>

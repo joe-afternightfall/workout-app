@@ -12,7 +12,13 @@ import {
 import { routerActions } from 'connected-react-router';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { State } from '../../configs/redux/store';
-import { appRoutes } from '../../configs/constants/app-routing';
+import {
+  ACTIVE_WORKOUT_SCREEN_ID,
+  appRoutes,
+  PREVIEW_WORKOUT_SCREEN_ID,
+  ROUTINES_SCREEN_ID,
+  WORKOUT_DONE_SCREEN_ID,
+} from '../../configs/constants/app-routing';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -45,9 +51,10 @@ const BottomAppBar = (props: BottomAppBarProps): JSX.Element => {
         position={'fixed'}
         className={clsx(classes.root, {
           [classes.hide]:
-            activePageId === 'routines' ||
-            activePageId === 'preview-routine' ||
-            activePageId === 'active-workout',
+            activePageId === ROUTINES_SCREEN_ID ||
+            activePageId === PREVIEW_WORKOUT_SCREEN_ID ||
+            activePageId === ACTIVE_WORKOUT_SCREEN_ID ||
+            activePageId === WORKOUT_DONE_SCREEN_ID,
         })}
       >
         <Toolbar className={classes.toolbar}>

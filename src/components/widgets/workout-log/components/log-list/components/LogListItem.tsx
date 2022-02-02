@@ -1,15 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import EventIcon from '@material-ui/icons/Event';
-import { Divider, Grid, ListItem, Typography } from '@material-ui/core';
-import TimerIcon from '@material-ui/icons/Timer';
-import FitnessCenterIcon from '@material-ui/icons/FitnessCenter';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import WorkoutListDivider from '../../../../../shared/exercise-list/WorkoutListDivider';
-import { Workout, getWorkoutCategoryName } from 'workout-app-common-core';
 import LogListCell from './LogListCell';
-import { getMinutesBetweenDates } from '../../../../../../utils/number-util';
+import EventIcon from '@material-ui/icons/Event';
+import TimerIcon from '@material-ui/icons/Timer';
 import { State } from '../../../../../../configs/redux/store';
+import SlantedOrangeDivider from '../../SlantedOrangeDivider';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import FitnessCenterIcon from '@material-ui/icons/FitnessCenter';
+import { Divider, Grid, ListItem, Typography } from '@material-ui/core';
+import { Workout, getWorkoutCategoryName } from 'workout-app-common-core';
+import { getMinutesBetweenDates } from '../../../../../../utils/number-util';
 
 const LogListItem = (props: LogListItemProps & PassedInProps): JSX.Element => {
   const { workout, categoryName, selectWorkoutHandler } = props;
@@ -52,11 +52,7 @@ const LogListItem = (props: LogListItemProps & PassedInProps): JSX.Element => {
           </Grid>
           <Grid item xs={12} container alignItems={'center'}>
             <Grid item xs={11}>
-              <Divider
-                orientation={'horizontal'}
-                variant={'fullWidth'}
-                // className={classes.divider}
-              />
+              <Divider orientation={'horizontal'} variant={'fullWidth'} />
             </Grid>
             <Grid
               item
@@ -78,7 +74,7 @@ const LogListItem = (props: LogListItemProps & PassedInProps): JSX.Element => {
           </Grid>
         </Grid>
       </ListItem>
-      <WorkoutListDivider />
+      <SlantedOrangeDivider />
     </>
   );
 };

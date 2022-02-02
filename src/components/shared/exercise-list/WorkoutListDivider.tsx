@@ -14,5 +14,7 @@ const useStyles = makeStyles(() =>
 
 export default function WorkoutListDivider(): JSX.Element {
   const classes = useStyles();
-  return <ListItem className={classes.root} />;
+  return (
+    <ListItem className={classes.root} data-testid={'workout-list-divider'} />
+  );
 }

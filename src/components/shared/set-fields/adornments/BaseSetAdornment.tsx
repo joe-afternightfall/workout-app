@@ -13,13 +13,25 @@ export default function BaseSetAdornment({
   // todo: come back and handle distance
   // todo: make this switch statement handing back title
   if (setType === 'weight') {
-    display = <Typography style={{ color: fontColor }}>{'lb'}</Typography>;
+    display = (
+      <Typography data-testid={'adornment-title'} style={{ color: fontColor }}>
+        {'lb'}
+      </Typography>
+    );
   } else if (alternateSides) {
     display = <PerSideAdornment setType={setType} fontColor={fontColor} />;
   } else if (setType === 'duration') {
-    display = <Typography style={{ color: fontColor }}>{'sec'}</Typography>;
+    display = (
+      <Typography data-testid={'adornment-title'} style={{ color: fontColor }}>
+        {'sec'}
+      </Typography>
+    );
   } else {
-    display = <Typography style={{ color: fontColor }}>{'reps'}</Typography>;
+    display = (
+      <Typography data-testid={'adornment-title'} style={{ color: fontColor }}>
+        {'reps'}
+      </Typography>
+    );
   }
 
   return <InputAdornment position={'end'}>{display}</InputAdornment>;

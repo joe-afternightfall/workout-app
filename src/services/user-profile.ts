@@ -6,7 +6,7 @@ import {
   toggleUserProfileDialog,
 } from '../creators/user-info';
 import { v4 as uuidv4 } from 'uuid';
-import { ThunkAction } from 'redux-thunk';
+import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { AnyAction, Dispatch } from 'redux';
 import { State } from '../configs/redux/store';
 import { userProfileSnapToVO } from '../utils/vo-builder';
@@ -57,6 +57,7 @@ export const saveWorkoutForUser =
     dispatch(workoutDone());
     const userProfile = getState().applicationState.userProfile;
     const profileFirebaseId = userProfile ? userProfile.firebaseId : '';
+    const email = userProfile ? userProfile.email : '';
     const activeWorkout = getState().workoutState.activeWorkout;
     const profileRef = firebase
       .database()
@@ -69,6 +70,9 @@ export const saveWorkoutForUser =
         return Promise.reject();
       } else {
         console.log('***** SAVED_WORKOUT_SUCCESS *****');
+        (dispatch as ThunkDispatch<State, void, AnyAction>)(
+          getUserProfile(email)
+        );
         dispatch(routerActions.push(successRouterAction));
         dispatch(clearActiveWorkout());
       }

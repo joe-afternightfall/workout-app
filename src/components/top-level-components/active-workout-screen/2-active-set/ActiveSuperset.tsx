@@ -7,7 +7,7 @@ import {
   BuiltSets,
   ActiveSetInfo,
 } from 'workout-app-common-core';
-import BaseSet from '../../../shared/set-fields/BaseSet';
+import BaseSet from '../../../shared/set-fields/base-sets/BaseSet';
 import { buildSetTextFieldInfo } from '../../../../utils/set-info-builder';
 
 const useStyles = makeStyles(() =>

@@ -1,7 +1,6 @@
 import React from 'react';
 import TopAppBar from './TopAppBar';
 import { render } from '@testing-library/react';
-import '@testing-library/jest-dom/extend-expect';
 import { chance } from 'jest-chance';
 
 describe('Top App Bar', () => {

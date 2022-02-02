@@ -2,13 +2,16 @@ import React from 'react';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { Grid, TextField } from '@material-ui/core';
-import BaseSetAdornment from './adornments/BaseSetAdornment';
-import { AppTheme } from '../../../configs/theme/app-theme';
-import { validateWeight, trimLeadingZeros } from '../../../utils/number-util';
+import BaseSetAdornment from '../../adornments/BaseSetAdornment';
+import { AppTheme } from '../../../../../configs/theme/app-theme';
+import {
+  validateWeight,
+  trimLeadingZeros,
+} from '../../../../../utils/number-util';
 import { createStyles, makeStyles, useTheme } from '@material-ui/core/styles';
-import { updateSetTextField } from '../../../creators/workout/update-workout';
+import { updateSetTextField } from '../../../../../creators/workout/update-workout';
 import { validateForOnlyNumbers } from 'workout-app-common-core';
-import { SetTextFieldTypes } from '../../../configs/types';
+import { SetTextFieldTypes } from '../../../../../configs/types';
 
 const useStyles = makeStyles(() =>
   createStyles({
