@@ -3,11 +3,34 @@ import {
   clearActiveWorkout,
   markCurrentSetAsDone,
   startSelectedSegment,
+  openCountdownTimerFor,
+  closeCountdownTimer,
 } from './active-workout';
 import { chance } from 'jest-chance';
 import { WorkoutActionTypes } from '../actions-workout';
 
 describe('active workout creator', () => {
+  it('should return OPEN_COUNTDOWN_TIMER_FOR action', () => {
+    const segmentId = chance.string();
+    const setNumber = chance.integer();
+    const response = openCountdownTimerFor('segment', segmentId, setNumber);
+
+    expect(response).toEqual({
+      type: WorkoutActionTypes.OPEN_COUNTDOWN_TIMER_FOR,
+      timerType: 'segment',
+      segmentId: segmentId,
+      setNumber: setNumber,
+    });
+  });
+
+  it('should return CLOSE_COUNTDOWN_TIMER action', () => {
+    const response = closeCountdownTimer();
+
+    expect(response).toEqual({
+      type: WorkoutActionTypes.CLOSE_COUNTDOWN_TIMER,
+    });
+  });
+
   it('should return mark current set as done action', () => {
     const segmentId = chance.string();
     const setNumber = chance.integer();
